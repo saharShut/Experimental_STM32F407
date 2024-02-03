@@ -1,0 +1,1307 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_event.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/misc/lv_event.c"
+  20              		.section	.text._lv_event_push,"ax",%progbits
+  21              		.align	1
+  22              		.global	_lv_event_push
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	_lv_event_push:
+  28              	.LVL0:
+  29              	.LFB234:
+   1:Lib/lvgl/src/misc/lv_event.c **** /**
+   2:Lib/lvgl/src/misc/lv_event.c ****  * @file lv_event.c
+   3:Lib/lvgl/src/misc/lv_event.c ****  *
+   4:Lib/lvgl/src/misc/lv_event.c ****  */
+   5:Lib/lvgl/src/misc/lv_event.c **** 
+   6:Lib/lvgl/src/misc/lv_event.c **** /*********************
+   7:Lib/lvgl/src/misc/lv_event.c ****  *      INCLUDES
+   8:Lib/lvgl/src/misc/lv_event.c ****  *********************/
+   9:Lib/lvgl/src/misc/lv_event.c **** #include "lv_event.h"
+  10:Lib/lvgl/src/misc/lv_event.c **** #include "../core/lv_global.h"
+  11:Lib/lvgl/src/misc/lv_event.c **** #include "../stdlib/lv_mem.h"
+  12:Lib/lvgl/src/misc/lv_event.c **** #include "lv_assert.h"
+  13:Lib/lvgl/src/misc/lv_event.c **** #include <stddef.h>
+  14:Lib/lvgl/src/misc/lv_event.c **** 
+  15:Lib/lvgl/src/misc/lv_event.c **** /*********************
+  16:Lib/lvgl/src/misc/lv_event.c ****  *      DEFINES
+  17:Lib/lvgl/src/misc/lv_event.c ****  *********************/
+  18:Lib/lvgl/src/misc/lv_event.c **** 
+  19:Lib/lvgl/src/misc/lv_event.c **** #define event_head LV_GLOBAL_DEFAULT()->event_header
+  20:Lib/lvgl/src/misc/lv_event.c **** #define event_last_id LV_GLOBAL_DEFAULT()->event_last_register_id
+  21:Lib/lvgl/src/misc/lv_event.c **** 
+  22:Lib/lvgl/src/misc/lv_event.c **** /**********************
+  23:Lib/lvgl/src/misc/lv_event.c ****  *      TYPEDEFS
+  24:Lib/lvgl/src/misc/lv_event.c ****  **********************/
+  25:Lib/lvgl/src/misc/lv_event.c **** 
+  26:Lib/lvgl/src/misc/lv_event.c **** /**********************
+  27:Lib/lvgl/src/misc/lv_event.c ****  *  STATIC PROTOTYPES
+  28:Lib/lvgl/src/misc/lv_event.c ****  **********************/
+  29:Lib/lvgl/src/misc/lv_event.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 2
+
+
+  30:Lib/lvgl/src/misc/lv_event.c **** /**********************
+  31:Lib/lvgl/src/misc/lv_event.c ****  *  STATIC VARIABLES
+  32:Lib/lvgl/src/misc/lv_event.c ****  **********************/
+  33:Lib/lvgl/src/misc/lv_event.c **** 
+  34:Lib/lvgl/src/misc/lv_event.c **** /**********************
+  35:Lib/lvgl/src/misc/lv_event.c ****  *      MACROS
+  36:Lib/lvgl/src/misc/lv_event.c ****  **********************/
+  37:Lib/lvgl/src/misc/lv_event.c **** 
+  38:Lib/lvgl/src/misc/lv_event.c **** #if LV_USE_LOG && LV_LOG_TRACE_EVENT
+  39:Lib/lvgl/src/misc/lv_event.c ****     #define LV_TRACE_EVENT(...) LV_LOG_TRACE(__VA_ARGS__)
+  40:Lib/lvgl/src/misc/lv_event.c **** #else
+  41:Lib/lvgl/src/misc/lv_event.c ****     #define LV_TRACE_EVENT(...)
+  42:Lib/lvgl/src/misc/lv_event.c **** #endif
+  43:Lib/lvgl/src/misc/lv_event.c **** 
+  44:Lib/lvgl/src/misc/lv_event.c **** /**********************
+  45:Lib/lvgl/src/misc/lv_event.c ****  *   GLOBAL FUNCTIONS
+  46:Lib/lvgl/src/misc/lv_event.c ****  **********************/
+  47:Lib/lvgl/src/misc/lv_event.c **** 
+  48:Lib/lvgl/src/misc/lv_event.c **** void _lv_event_push(lv_event_t * e)
+  49:Lib/lvgl/src/misc/lv_event.c **** {
+  30              		.loc 1 49 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  50:Lib/lvgl/src/misc/lv_event.c ****     /*Build a simple linked list from the objects used in the events
+  51:Lib/lvgl/src/misc/lv_event.c ****      *It's important to know if this object was deleted by a nested event
+  52:Lib/lvgl/src/misc/lv_event.c ****      *called from this `event_cb`.*/
+  53:Lib/lvgl/src/misc/lv_event.c ****     e->prev = event_head;
+  35              		.loc 1 53 5 view .LVU1
+  36              		.loc 1 53 15 is_stmt 0 view .LVU2
+  37 0000 024B     		ldr	r3, .L2
+  38 0002 9A6F     		ldr	r2, [r3, #120]
+  39              		.loc 1 53 13 view .LVU3
+  40 0004 4261     		str	r2, [r0, #20]
+  54:Lib/lvgl/src/misc/lv_event.c ****     event_head = e;
+  41              		.loc 1 54 5 is_stmt 1 view .LVU4
+  42              		.loc 1 54 16 is_stmt 0 view .LVU5
+  43 0006 9867     		str	r0, [r3, #120]
+  55:Lib/lvgl/src/misc/lv_event.c **** 
+  56:Lib/lvgl/src/misc/lv_event.c **** }
+  44              		.loc 1 56 1 view .LVU6
+  45 0008 7047     		bx	lr
+  46              	.L3:
+  47 000a 00BF     		.align	2
+  48              	.L2:
+  49 000c 00000000 		.word	lv_global
+  50              		.cfi_endproc
+  51              	.LFE234:
+  53              		.section	.text._lv_event_pop,"ax",%progbits
+  54              		.align	1
+  55              		.global	_lv_event_pop
+  56              		.syntax unified
+  57              		.thumb
+  58              		.thumb_func
+  60              	_lv_event_pop:
+  61              	.LVL1:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 3
+
+
+  62              	.LFB235:
+  57:Lib/lvgl/src/misc/lv_event.c **** 
+  58:Lib/lvgl/src/misc/lv_event.c **** void _lv_event_pop(lv_event_t * e)
+  59:Lib/lvgl/src/misc/lv_event.c **** {
+  63              		.loc 1 59 1 is_stmt 1 view -0
+  64              		.cfi_startproc
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  60:Lib/lvgl/src/misc/lv_event.c ****     event_head = e->prev;
+  68              		.loc 1 60 5 view .LVU8
+  69              		.loc 1 60 19 is_stmt 0 view .LVU9
+  70 0000 4269     		ldr	r2, [r0, #20]
+  71              		.loc 1 60 16 view .LVU10
+  72 0002 014B     		ldr	r3, .L5
+  73 0004 9A67     		str	r2, [r3, #120]
+  61:Lib/lvgl/src/misc/lv_event.c **** }
+  74              		.loc 1 61 1 view .LVU11
+  75 0006 7047     		bx	lr
+  76              	.L6:
+  77              		.align	2
+  78              	.L5:
+  79 0008 00000000 		.word	lv_global
+  80              		.cfi_endproc
+  81              	.LFE235:
+  83              		.section	.text.lv_event_send,"ax",%progbits
+  84              		.align	1
+  85              		.global	lv_event_send
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  90              	lv_event_send:
+  91              	.LVL2:
+  92              	.LFB236:
+  62:Lib/lvgl/src/misc/lv_event.c **** 
+  63:Lib/lvgl/src/misc/lv_event.c **** lv_result_t lv_event_send(lv_event_list_t * list, lv_event_t * e, bool preprocess)
+  64:Lib/lvgl/src/misc/lv_event.c **** {
+  93              		.loc 1 64 1 is_stmt 1 view -0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  65:Lib/lvgl/src/misc/lv_event.c ****     if(list == NULL) return LV_RESULT_OK;
+  97              		.loc 1 65 5 view .LVU13
+  98              		.loc 1 65 7 is_stmt 0 view .LVU14
+  99 0000 98B3     		cbz	r0, .L13
+  64:Lib/lvgl/src/misc/lv_event.c ****     if(list == NULL) return LV_RESULT_OK;
+ 100              		.loc 1 64 1 view .LVU15
+ 101 0002 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 102              	.LCFI0:
+ 103              		.cfi_def_cfa_offset 32
+ 104              		.cfi_offset 3, -32
+ 105              		.cfi_offset 4, -28
+ 106              		.cfi_offset 5, -24
+ 107              		.cfi_offset 6, -20
+ 108              		.cfi_offset 7, -16
+ 109              		.cfi_offset 8, -12
+ 110              		.cfi_offset 9, -8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 4
+
+
+ 111              		.cfi_offset 14, -4
+ 112 0006 0F46     		mov	r7, r1
+ 113 0008 9146     		mov	r9, r2
+ 114 000a 8046     		mov	r8, r0
+  66:Lib/lvgl/src/misc/lv_event.c **** 
+  67:Lib/lvgl/src/misc/lv_event.c ****     uint32_t i = 0;
+ 115              		.loc 1 67 5 is_stmt 1 view .LVU16
+ 116              	.LVL3:
+  68:Lib/lvgl/src/misc/lv_event.c ****     lv_event_dsc_t * dsc = lv_array_at(list, 0);
+ 117              		.loc 1 68 5 view .LVU17
+ 118              		.loc 1 68 28 is_stmt 0 view .LVU18
+ 119 000c 0021     		movs	r1, #0
+ 120              	.LVL4:
+ 121              		.loc 1 68 28 view .LVU19
+ 122 000e FFF7FEFF 		bl	lv_array_at
+ 123              	.LVL5:
+ 124              		.loc 1 68 28 view .LVU20
+ 125 0012 0646     		mov	r6, r0
+ 126              	.LVL6:
+  69:Lib/lvgl/src/misc/lv_event.c ****     for(i = 0; i < lv_array_size(list); i++) {
+ 127              		.loc 1 69 5 is_stmt 1 view .LVU21
+ 128              		.loc 1 69 11 is_stmt 0 view .LVU22
+ 129 0014 0024     		movs	r4, #0
+ 130              		.loc 1 69 5 view .LVU23
+ 131 0016 0CE0     		b	.L9
+ 132              	.LVL7:
+ 133              	.L11:
+ 134              	.LBB9:
+  70:Lib/lvgl/src/misc/lv_event.c ****         if(dsc[i].cb == NULL) continue;
+  71:Lib/lvgl/src/misc/lv_event.c ****         bool is_preprocessed = (dsc[i].filter & LV_EVENT_PREPROCESS) != 0;
+  72:Lib/lvgl/src/misc/lv_event.c ****         if(is_preprocessed != preprocess) continue;
+  73:Lib/lvgl/src/misc/lv_event.c ****         lv_event_code_t filter = dsc[i].filter & ~LV_EVENT_PREPROCESS;
+  74:Lib/lvgl/src/misc/lv_event.c ****         if(filter == LV_EVENT_ALL || filter == e->code) {
+  75:Lib/lvgl/src/misc/lv_event.c ****             e->user_data = dsc[i].user_data;
+ 135              		.loc 1 75 13 is_stmt 1 view .LVU24
+ 136              		.loc 1 75 34 is_stmt 0 view .LVU25
+ 137 0018 5B68     		ldr	r3, [r3, #4]
+ 138              	.LVL8:
+ 139              		.loc 1 75 26 view .LVU26
+ 140 001a FB60     		str	r3, [r7, #12]
+ 141              	.LVL9:
+  76:Lib/lvgl/src/misc/lv_event.c ****             dsc[i].cb(e);
+ 142              		.loc 1 76 13 is_stmt 1 view .LVU27
+ 143              		.loc 1 76 19 is_stmt 0 view .LVU28
+ 144 001c B358     		ldr	r3, [r6, r2]
+ 145              		.loc 1 76 13 view .LVU29
+ 146 001e 3846     		mov	r0, r7
+ 147 0020 9847     		blx	r3
+ 148              	.LVL10:
+  77:Lib/lvgl/src/misc/lv_event.c ****             if(e->stop_processing) return LV_RESULT_OK;
+ 149              		.loc 1 77 13 is_stmt 1 view .LVU30
+ 150              		.loc 1 77 16 is_stmt 0 view .LVU31
+ 151 0022 3B7E     		ldrb	r3, [r7, #24]	@ zero_extendqisi2
+ 152              		.loc 1 77 15 view .LVU32
+ 153 0024 13F00200 		ands	r0, r3, #2
+ 154 0028 21D1     		bne	.L14
+  78:Lib/lvgl/src/misc/lv_event.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 5
+
+
+  79:Lib/lvgl/src/misc/lv_event.c ****             /*Stop if the object is deleted*/
+  80:Lib/lvgl/src/misc/lv_event.c ****             if(e->deleted) return LV_RESULT_INVALID;
+ 155              		.loc 1 80 13 is_stmt 1 view .LVU33
+ 156              		.loc 1 80 15 is_stmt 0 view .LVU34
+ 157 002a 13F0010F 		tst	r3, #1
+ 158 002e 1AD1     		bne	.L8
+ 159              	.LVL11:
+ 160              	.L10:
+ 161              		.loc 1 80 15 view .LVU35
+ 162              	.LBE9:
+  69:Lib/lvgl/src/misc/lv_event.c ****         if(dsc[i].cb == NULL) continue;
+ 163              		.loc 1 69 42 is_stmt 1 discriminator 2 view .LVU36
+ 164 0030 0134     		adds	r4, r4, #1
+ 165              	.LVL12:
+ 166              	.L9:
+  69:Lib/lvgl/src/misc/lv_event.c ****         if(dsc[i].cb == NULL) continue;
+ 167              		.loc 1 69 18 discriminator 1 view .LVU37
+ 168              	.LBB10:
+ 169              	.LBI10:
+ 170              		.file 2 "Lib/lvgl/src/misc/lv_array.h"
+   1:Lib/lvgl/src/misc/lv_array.h **** /**
+   2:Lib/lvgl/src/misc/lv_array.h ****  * @file lv_array.h
+   3:Lib/lvgl/src/misc/lv_array.h ****  * Array. The elements are dynamically allocated by the 'lv_mem' module.
+   4:Lib/lvgl/src/misc/lv_array.h ****  */
+   5:Lib/lvgl/src/misc/lv_array.h **** 
+   6:Lib/lvgl/src/misc/lv_array.h **** #ifndef LV_ARRAY_H
+   7:Lib/lvgl/src/misc/lv_array.h **** #define LV_ARRAY_H
+   8:Lib/lvgl/src/misc/lv_array.h **** 
+   9:Lib/lvgl/src/misc/lv_array.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/misc/lv_array.h **** extern "C" {
+  11:Lib/lvgl/src/misc/lv_array.h **** #endif
+  12:Lib/lvgl/src/misc/lv_array.h **** 
+  13:Lib/lvgl/src/misc/lv_array.h **** /*********************
+  14:Lib/lvgl/src/misc/lv_array.h ****  *      INCLUDES
+  15:Lib/lvgl/src/misc/lv_array.h ****  *********************/
+  16:Lib/lvgl/src/misc/lv_array.h **** #include <stdint.h>
+  17:Lib/lvgl/src/misc/lv_array.h **** #include <stddef.h>
+  18:Lib/lvgl/src/misc/lv_array.h **** #include <stdbool.h>
+  19:Lib/lvgl/src/misc/lv_array.h **** 
+  20:Lib/lvgl/src/misc/lv_array.h **** #include "lv_types.h"
+  21:Lib/lvgl/src/misc/lv_array.h **** 
+  22:Lib/lvgl/src/misc/lv_array.h **** /*********************
+  23:Lib/lvgl/src/misc/lv_array.h ****  *      DEFINES
+  24:Lib/lvgl/src/misc/lv_array.h ****  *********************/
+  25:Lib/lvgl/src/misc/lv_array.h **** #define LV_ARRAY_DEFAULT_CAPACITY 8
+  26:Lib/lvgl/src/misc/lv_array.h **** 
+  27:Lib/lvgl/src/misc/lv_array.h **** /**********************
+  28:Lib/lvgl/src/misc/lv_array.h ****  *      TYPEDEFS
+  29:Lib/lvgl/src/misc/lv_array.h ****  **********************/
+  30:Lib/lvgl/src/misc/lv_array.h **** 
+  31:Lib/lvgl/src/misc/lv_array.h **** /** Description of a array*/
+  32:Lib/lvgl/src/misc/lv_array.h **** typedef struct {
+  33:Lib/lvgl/src/misc/lv_array.h ****     uint8_t * data;
+  34:Lib/lvgl/src/misc/lv_array.h ****     uint32_t size;
+  35:Lib/lvgl/src/misc/lv_array.h ****     uint32_t capacity;
+  36:Lib/lvgl/src/misc/lv_array.h ****     uint32_t element_size;
+  37:Lib/lvgl/src/misc/lv_array.h **** } lv_array_t;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 6
+
+
+  38:Lib/lvgl/src/misc/lv_array.h **** 
+  39:Lib/lvgl/src/misc/lv_array.h **** /**********************
+  40:Lib/lvgl/src/misc/lv_array.h ****  * GLOBAL PROTOTYPES
+  41:Lib/lvgl/src/misc/lv_array.h ****  **********************/
+  42:Lib/lvgl/src/misc/lv_array.h **** 
+  43:Lib/lvgl/src/misc/lv_array.h **** /**
+  44:Lib/lvgl/src/misc/lv_array.h ****  * Init an array.
+  45:Lib/lvgl/src/misc/lv_array.h ****  * @param array pointer to an `lv_array_t` variable to initialize
+  46:Lib/lvgl/src/misc/lv_array.h ****  * @param capacity the initial capacity of the array
+  47:Lib/lvgl/src/misc/lv_array.h ****  * @param element_size the size of an element in bytes
+  48:Lib/lvgl/src/misc/lv_array.h ****  */
+  49:Lib/lvgl/src/misc/lv_array.h **** void lv_array_init(lv_array_t * array, uint32_t capacity, uint32_t element_size);
+  50:Lib/lvgl/src/misc/lv_array.h **** 
+  51:Lib/lvgl/src/misc/lv_array.h **** /**
+  52:Lib/lvgl/src/misc/lv_array.h ****  * Resize the array to the given capacity.
+  53:Lib/lvgl/src/misc/lv_array.h ****  * @note if the new capacity is smaller than the current size, the array will be truncated.
+  54:Lib/lvgl/src/misc/lv_array.h ****  * @param array pointer to an `lv_array_t` variable
+  55:Lib/lvgl/src/misc/lv_array.h ****  * @param new_capacity the new capacity of the array
+  56:Lib/lvgl/src/misc/lv_array.h ****  */
+  57:Lib/lvgl/src/misc/lv_array.h **** void lv_array_resize(lv_array_t * array, uint32_t new_capacity);
+  58:Lib/lvgl/src/misc/lv_array.h **** 
+  59:Lib/lvgl/src/misc/lv_array.h **** /**
+  60:Lib/lvgl/src/misc/lv_array.h ****  * Deinit the array, and free the allocated memory
+  61:Lib/lvgl/src/misc/lv_array.h ****  * @param array pointer to an `lv_array_t` variable to deinitialize
+  62:Lib/lvgl/src/misc/lv_array.h ****  */
+  63:Lib/lvgl/src/misc/lv_array.h **** void lv_array_deinit(lv_array_t * array);
+  64:Lib/lvgl/src/misc/lv_array.h **** 
+  65:Lib/lvgl/src/misc/lv_array.h **** /**
+  66:Lib/lvgl/src/misc/lv_array.h ****  * Return how many elements are stored in the array.
+  67:Lib/lvgl/src/misc/lv_array.h ****  * @param array pointer to an `lv_array_t` variable
+  68:Lib/lvgl/src/misc/lv_array.h ****  * @return the number of elements stored in the array
+  69:Lib/lvgl/src/misc/lv_array.h ****  */
+  70:Lib/lvgl/src/misc/lv_array.h **** static inline uint32_t lv_array_size(const lv_array_t * array)
+ 171              		.loc 2 70 24 discriminator 1 view .LVU38
+ 172              	.LBB11:
+  71:Lib/lvgl/src/misc/lv_array.h **** {
+  72:Lib/lvgl/src/misc/lv_array.h ****     return array->size;
+ 173              		.loc 2 72 5 discriminator 1 view .LVU39
+ 174              		.loc 2 72 17 is_stmt 0 discriminator 1 view .LVU40
+ 175 0032 D8F80430 		ldr	r3, [r8, #4]
+ 176              	.LVL13:
+ 177              		.loc 2 72 17 discriminator 1 view .LVU41
+ 178              	.LBE11:
+ 179              	.LBE10:
+  69:Lib/lvgl/src/misc/lv_event.c ****         if(dsc[i].cb == NULL) continue;
+ 180              		.loc 1 69 18 discriminator 1 view .LVU42
+ 181 0036 9C42     		cmp	r4, r3
+ 182 0038 14D2     		bcs	.L19
+ 183              	.LBB12:
+  70:Lib/lvgl/src/misc/lv_event.c ****         bool is_preprocessed = (dsc[i].filter & LV_EVENT_PREPROCESS) != 0;
+ 184              		.loc 1 70 9 is_stmt 1 view .LVU43
+  70:Lib/lvgl/src/misc/lv_event.c ****         bool is_preprocessed = (dsc[i].filter & LV_EVENT_PREPROCESS) != 0;
+ 185              		.loc 1 70 15 is_stmt 0 view .LVU44
+ 186 003a 04EB4403 		add	r3, r4, r4, lsl #1
+ 187 003e 9A00     		lsls	r2, r3, #2
+ 188 0040 06EB8303 		add	r3, r6, r3, lsl #2
+  70:Lib/lvgl/src/misc/lv_event.c ****         bool is_preprocessed = (dsc[i].filter & LV_EVENT_PREPROCESS) != 0;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 7
+
+
+ 189              		.loc 1 70 18 view .LVU45
+ 190 0044 B158     		ldr	r1, [r6, r2]
+  70:Lib/lvgl/src/misc/lv_event.c ****         bool is_preprocessed = (dsc[i].filter & LV_EVENT_PREPROCESS) != 0;
+ 191              		.loc 1 70 11 view .LVU46
+ 192 0046 0029     		cmp	r1, #0
+ 193 0048 F2D0     		beq	.L10
+  71:Lib/lvgl/src/misc/lv_event.c ****         if(is_preprocessed != preprocess) continue;
+ 194              		.loc 1 71 9 is_stmt 1 view .LVU47
+  71:Lib/lvgl/src/misc/lv_event.c ****         if(is_preprocessed != preprocess) continue;
+ 195              		.loc 1 71 39 is_stmt 0 view .LVU48
+ 196 004a 9D68     		ldr	r5, [r3, #8]
+  71:Lib/lvgl/src/misc/lv_event.c ****         if(is_preprocessed != preprocess) continue;
+ 197              		.loc 1 71 14 view .LVU49
+ 198 004c C5F3C031 		ubfx	r1, r5, #15, #1
+ 199              	.LVL14:
+  72:Lib/lvgl/src/misc/lv_event.c ****         lv_event_code_t filter = dsc[i].filter & ~LV_EVENT_PREPROCESS;
+ 200              		.loc 1 72 9 is_stmt 1 view .LVU50
+  72:Lib/lvgl/src/misc/lv_event.c ****         lv_event_code_t filter = dsc[i].filter & ~LV_EVENT_PREPROCESS;
+ 201              		.loc 1 72 11 is_stmt 0 view .LVU51
+ 202 0050 4945     		cmp	r1, r9
+ 203 0052 EDD1     		bne	.L10
+  73:Lib/lvgl/src/misc/lv_event.c ****         if(filter == LV_EVENT_ALL || filter == e->code) {
+ 204              		.loc 1 73 9 is_stmt 1 view .LVU52
+  73:Lib/lvgl/src/misc/lv_event.c ****         if(filter == LV_EVENT_ALL || filter == e->code) {
+ 205              		.loc 1 73 25 is_stmt 0 view .LVU53
+ 206 0054 C5F30E05 		ubfx	r5, r5, #0, #15
+ 207              	.LVL15:
+  74:Lib/lvgl/src/misc/lv_event.c ****             e->user_data = dsc[i].user_data;
+ 208              		.loc 1 74 9 is_stmt 1 view .LVU54
+  74:Lib/lvgl/src/misc/lv_event.c ****             e->user_data = dsc[i].user_data;
+ 209              		.loc 1 74 11 is_stmt 0 view .LVU55
+ 210 0058 002D     		cmp	r5, #0
+ 211 005a DDD0     		beq	.L11
+  74:Lib/lvgl/src/misc/lv_event.c ****             e->user_data = dsc[i].user_data;
+ 212              		.loc 1 74 49 discriminator 1 view .LVU56
+ 213 005c 3989     		ldrh	r1, [r7, #8]
+ 214              	.LVL16:
+  74:Lib/lvgl/src/misc/lv_event.c ****             e->user_data = dsc[i].user_data;
+ 215              		.loc 1 74 35 discriminator 1 view .LVU57
+ 216 005e A942     		cmp	r1, r5
+ 217 0060 E6D1     		bne	.L10
+ 218 0062 D9E7     		b	.L11
+ 219              	.LVL17:
+ 220              	.L19:
+  74:Lib/lvgl/src/misc/lv_event.c ****             e->user_data = dsc[i].user_data;
+ 221              		.loc 1 74 35 discriminator 1 view .LVU58
+ 222              	.LBE12:
+  81:Lib/lvgl/src/misc/lv_event.c **** 
+  82:Lib/lvgl/src/misc/lv_event.c ****         }
+  83:Lib/lvgl/src/misc/lv_event.c ****     }
+  84:Lib/lvgl/src/misc/lv_event.c ****     return LV_RESULT_OK;
+ 223              		.loc 1 84 12 view .LVU59
+ 224 0064 0120     		movs	r0, #1
+ 225              	.L8:
+  85:Lib/lvgl/src/misc/lv_event.c **** }
+ 226              		.loc 1 85 1 view .LVU60
+ 227 0066 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 8
+
+
+ 228              	.LVL18:
+ 229              	.L13:
+ 230              	.LCFI1:
+ 231              		.cfi_def_cfa_offset 0
+ 232              		.cfi_restore 3
+ 233              		.cfi_restore 4
+ 234              		.cfi_restore 5
+ 235              		.cfi_restore 6
+ 236              		.cfi_restore 7
+ 237              		.cfi_restore 8
+ 238              		.cfi_restore 9
+ 239              		.cfi_restore 14
+  65:Lib/lvgl/src/misc/lv_event.c **** 
+ 240              		.loc 1 65 29 view .LVU61
+ 241 006a 0120     		movs	r0, #1
+ 242              	.LVL19:
+ 243              		.loc 1 85 1 view .LVU62
+ 244 006c 7047     		bx	lr
+ 245              	.LVL20:
+ 246              	.L14:
+ 247              	.LCFI2:
+ 248              		.cfi_def_cfa_offset 32
+ 249              		.cfi_offset 3, -32
+ 250              		.cfi_offset 4, -28
+ 251              		.cfi_offset 5, -24
+ 252              		.cfi_offset 6, -20
+ 253              		.cfi_offset 7, -16
+ 254              		.cfi_offset 8, -12
+ 255              		.cfi_offset 9, -8
+ 256              		.cfi_offset 14, -4
+ 257              	.LBB13:
+  77:Lib/lvgl/src/misc/lv_event.c **** 
+ 258              		.loc 1 77 43 view .LVU63
+ 259 006e 0120     		movs	r0, #1
+ 260 0070 F9E7     		b	.L8
+ 261              	.LBE13:
+ 262              		.cfi_endproc
+ 263              	.LFE236:
+ 265              		.section	.text.lv_event_add,"ax",%progbits
+ 266              		.align	1
+ 267              		.global	lv_event_add
+ 268              		.syntax unified
+ 269              		.thumb
+ 270              		.thumb_func
+ 272              	lv_event_add:
+ 273              	.LVL21:
+ 274              	.LFB237:
+  86:Lib/lvgl/src/misc/lv_event.c **** 
+  87:Lib/lvgl/src/misc/lv_event.c **** void lv_event_add(lv_event_list_t * list, lv_event_cb_t cb, lv_event_code_t filter,
+  88:Lib/lvgl/src/misc/lv_event.c ****                   void * user_data)
+  89:Lib/lvgl/src/misc/lv_event.c **** {
+ 275              		.loc 1 89 1 is_stmt 1 view -0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 16
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279              		.loc 1 89 1 is_stmt 0 view .LVU65
+ 280 0000 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 9
+
+
+ 281              	.LCFI3:
+ 282              		.cfi_def_cfa_offset 8
+ 283              		.cfi_offset 4, -8
+ 284              		.cfi_offset 14, -4
+ 285 0002 84B0     		sub	sp, sp, #16
+ 286              	.LCFI4:
+ 287              		.cfi_def_cfa_offset 24
+ 288 0004 0446     		mov	r4, r0
+  90:Lib/lvgl/src/misc/lv_event.c ****     lv_event_dsc_t dsc = { 0 };
+ 289              		.loc 1 90 5 is_stmt 1 view .LVU66
+ 290              		.loc 1 90 20 is_stmt 0 view .LVU67
+ 291 0006 0020     		movs	r0, #0
+ 292              	.LVL22:
+ 293              		.loc 1 90 20 view .LVU68
+ 294 0008 0190     		str	r0, [sp, #4]
+ 295 000a 0290     		str	r0, [sp, #8]
+ 296 000c 0390     		str	r0, [sp, #12]
+  91:Lib/lvgl/src/misc/lv_event.c ****     dsc.cb = cb;
+ 297              		.loc 1 91 5 is_stmt 1 view .LVU69
+ 298              		.loc 1 91 12 is_stmt 0 view .LVU70
+ 299 000e 0191     		str	r1, [sp, #4]
+  92:Lib/lvgl/src/misc/lv_event.c ****     dsc.filter = filter;
+ 300              		.loc 1 92 5 is_stmt 1 view .LVU71
+ 301              		.loc 1 92 16 is_stmt 0 view .LVU72
+ 302 0010 0392     		str	r2, [sp, #12]
+  93:Lib/lvgl/src/misc/lv_event.c ****     dsc.user_data = user_data;
+ 303              		.loc 1 93 5 is_stmt 1 view .LVU73
+ 304              		.loc 1 93 19 is_stmt 0 view .LVU74
+ 305 0012 0293     		str	r3, [sp, #8]
+  94:Lib/lvgl/src/misc/lv_event.c **** 
+  95:Lib/lvgl/src/misc/lv_event.c ****     if(lv_array_size(list) == 0) {
+ 306              		.loc 1 95 5 is_stmt 1 view .LVU75
+ 307              	.LVL23:
+ 308              	.LBB14:
+ 309              	.LBI14:
+  70:Lib/lvgl/src/misc/lv_array.h **** {
+ 310              		.loc 2 70 24 view .LVU76
+ 311              	.LBB15:
+ 312              		.loc 2 72 5 view .LVU77
+ 313              		.loc 2 72 17 is_stmt 0 view .LVU78
+ 314 0014 6368     		ldr	r3, [r4, #4]
+ 315              	.LVL24:
+ 316              		.loc 2 72 17 view .LVU79
+ 317              	.LBE15:
+ 318              	.LBE14:
+ 319              		.loc 1 95 7 view .LVU80
+ 320 0016 2BB1     		cbz	r3, .L23
+ 321              	.LVL25:
+ 322              	.L21:
+  96:Lib/lvgl/src/misc/lv_event.c ****         /*event list hasn't been initialized.*/
+  97:Lib/lvgl/src/misc/lv_event.c ****         lv_array_init(list, 1, sizeof(lv_event_dsc_t));
+  98:Lib/lvgl/src/misc/lv_event.c ****     }
+  99:Lib/lvgl/src/misc/lv_event.c **** 
+ 100:Lib/lvgl/src/misc/lv_event.c ****     lv_array_push_back(list, &dsc);
+ 323              		.loc 1 100 5 is_stmt 1 view .LVU81
+ 324 0018 01A9     		add	r1, sp, #4
+ 325 001a 2046     		mov	r0, r4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 10
+
+
+ 326 001c FFF7FEFF 		bl	lv_array_push_back
+ 327              	.LVL26:
+ 101:Lib/lvgl/src/misc/lv_event.c **** }
+ 328              		.loc 1 101 1 is_stmt 0 view .LVU82
+ 329 0020 04B0     		add	sp, sp, #16
+ 330              	.LCFI5:
+ 331              		.cfi_remember_state
+ 332              		.cfi_def_cfa_offset 8
+ 333              		@ sp needed
+ 334 0022 10BD     		pop	{r4, pc}
+ 335              	.LVL27:
+ 336              	.L23:
+ 337              	.LCFI6:
+ 338              		.cfi_restore_state
+  97:Lib/lvgl/src/misc/lv_event.c ****     }
+ 339              		.loc 1 97 9 is_stmt 1 view .LVU83
+ 340 0024 0C22     		movs	r2, #12
+ 341              	.LVL28:
+  97:Lib/lvgl/src/misc/lv_event.c ****     }
+ 342              		.loc 1 97 9 is_stmt 0 view .LVU84
+ 343 0026 0121     		movs	r1, #1
+ 344              	.LVL29:
+  97:Lib/lvgl/src/misc/lv_event.c ****     }
+ 345              		.loc 1 97 9 view .LVU85
+ 346 0028 2046     		mov	r0, r4
+ 347 002a FFF7FEFF 		bl	lv_array_init
+ 348              	.LVL30:
+  97:Lib/lvgl/src/misc/lv_event.c ****     }
+ 349              		.loc 1 97 9 view .LVU86
+ 350 002e F3E7     		b	.L21
+ 351              		.cfi_endproc
+ 352              	.LFE237:
+ 354              		.section	.text.lv_event_get_count,"ax",%progbits
+ 355              		.align	1
+ 356              		.global	lv_event_get_count
+ 357              		.syntax unified
+ 358              		.thumb
+ 359              		.thumb_func
+ 361              	lv_event_get_count:
+ 362              	.LVL31:
+ 363              	.LFB238:
+ 102:Lib/lvgl/src/misc/lv_event.c **** 
+ 103:Lib/lvgl/src/misc/lv_event.c **** uint32_t lv_event_get_count(lv_event_list_t * list)
+ 104:Lib/lvgl/src/misc/lv_event.c **** {
+ 364              		.loc 1 104 1 is_stmt 1 view -0
+ 365              		.cfi_startproc
+ 366              		@ args = 0, pretend = 0, frame = 0
+ 367              		@ frame_needed = 0, uses_anonymous_args = 0
+ 368              		@ link register save eliminated.
+ 105:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(list);
+ 369              		.loc 1 105 5 view .LVU88
+ 370              		.loc 1 105 5 view .LVU89
+ 371 0000 08B1     		cbz	r0, .L26
+ 372              		.loc 1 105 5 view .LVU90
+ 373              		.loc 1 105 25 view .LVU91
+ 106:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_size(list);
+ 374              		.loc 1 106 5 view .LVU92
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 11
+
+
+ 375              	.LVL32:
+ 376              	.LBB16:
+ 377              	.LBI16:
+  70:Lib/lvgl/src/misc/lv_array.h **** {
+ 378              		.loc 2 70 24 view .LVU93
+ 379              	.LBB17:
+ 380              		.loc 2 72 5 view .LVU94
+ 381              		.loc 2 72 5 is_stmt 0 view .LVU95
+ 382              	.LBE17:
+ 383              	.LBE16:
+ 107:Lib/lvgl/src/misc/lv_event.c **** }
+ 384              		.loc 1 107 1 view .LVU96
+ 385 0002 4068     		ldr	r0, [r0, #4]
+ 386              	.LVL33:
+ 387              		.loc 1 107 1 view .LVU97
+ 388 0004 7047     		bx	lr
+ 389              	.LVL34:
+ 390              	.L26:
+ 105:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_size(list);
+ 391              		.loc 1 105 5 is_stmt 1 discriminator 1 view .LVU98
+ 105:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_size(list);
+ 392              		.loc 1 105 5 discriminator 1 view .LVU99
+ 105:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_size(list);
+ 393              		.loc 1 105 5 discriminator 1 view .LVU100
+ 105:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_size(list);
+ 394              		.loc 1 105 5 discriminator 1 view .LVU101
+ 105:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_size(list);
+ 395              		.loc 1 105 5 discriminator 1 view .LVU102
+ 396 0006 FEE7     		b	.L26
+ 397              		.cfi_endproc
+ 398              	.LFE238:
+ 400              		.section	.text.lv_event_get_dsc,"ax",%progbits
+ 401              		.align	1
+ 402              		.global	lv_event_get_dsc
+ 403              		.syntax unified
+ 404              		.thumb
+ 405              		.thumb_func
+ 407              	lv_event_get_dsc:
+ 408              	.LVL35:
+ 409              	.LFB239:
+ 108:Lib/lvgl/src/misc/lv_event.c **** 
+ 109:Lib/lvgl/src/misc/lv_event.c **** lv_event_dsc_t * lv_event_get_dsc(lv_event_list_t * list, uint32_t index)
+ 110:Lib/lvgl/src/misc/lv_event.c **** {
+ 410              		.loc 1 110 1 view -0
+ 411              		.cfi_startproc
+ 412              		@ args = 0, pretend = 0, frame = 0
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(list);
+ 414              		.loc 1 111 5 view .LVU104
+ 415              		.loc 1 111 5 view .LVU105
+ 416 0000 18B1     		cbz	r0, .L29
+ 110:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(list);
+ 417              		.loc 1 110 1 is_stmt 0 discriminator 2 view .LVU106
+ 418 0002 08B5     		push	{r3, lr}
+ 419              	.LCFI7:
+ 420              		.cfi_def_cfa_offset 8
+ 421              		.cfi_offset 3, -8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 12
+
+
+ 422              		.cfi_offset 14, -4
+ 423              		.loc 1 111 5 is_stmt 1 discriminator 2 view .LVU107
+ 424              		.loc 1 111 25 discriminator 2 view .LVU108
+ 112:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_at(list, index);
+ 425              		.loc 1 112 5 discriminator 2 view .LVU109
+ 426              		.loc 1 112 12 is_stmt 0 discriminator 2 view .LVU110
+ 427 0004 FFF7FEFF 		bl	lv_array_at
+ 428              	.LVL36:
+ 113:Lib/lvgl/src/misc/lv_event.c **** }
+ 429              		.loc 1 113 1 discriminator 2 view .LVU111
+ 430 0008 08BD     		pop	{r3, pc}
+ 431              	.LVL37:
+ 432              	.L29:
+ 433              	.LCFI8:
+ 434              		.cfi_def_cfa_offset 0
+ 435              		.cfi_restore 3
+ 436              		.cfi_restore 14
+ 111:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_at(list, index);
+ 437              		.loc 1 111 5 is_stmt 1 discriminator 1 view .LVU112
+ 111:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_at(list, index);
+ 438              		.loc 1 111 5 discriminator 1 view .LVU113
+ 111:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_at(list, index);
+ 439              		.loc 1 111 5 discriminator 1 view .LVU114
+ 111:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_at(list, index);
+ 440              		.loc 1 111 5 discriminator 1 view .LVU115
+ 111:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_at(list, index);
+ 441              		.loc 1 111 5 discriminator 1 view .LVU116
+ 442 000a FEE7     		b	.L29
+ 443              		.cfi_endproc
+ 444              	.LFE239:
+ 446              		.section	.text.lv_event_dsc_get_cb,"ax",%progbits
+ 447              		.align	1
+ 448              		.global	lv_event_dsc_get_cb
+ 449              		.syntax unified
+ 450              		.thumb
+ 451              		.thumb_func
+ 453              	lv_event_dsc_get_cb:
+ 454              	.LVL38:
+ 455              	.LFB240:
+ 114:Lib/lvgl/src/misc/lv_event.c **** 
+ 115:Lib/lvgl/src/misc/lv_event.c **** lv_event_cb_t lv_event_dsc_get_cb(lv_event_dsc_t * dsc)
+ 116:Lib/lvgl/src/misc/lv_event.c **** {
+ 456              		.loc 1 116 1 view -0
+ 457              		.cfi_startproc
+ 458              		@ args = 0, pretend = 0, frame = 0
+ 459              		@ frame_needed = 0, uses_anonymous_args = 0
+ 460              		@ link register save eliminated.
+ 117:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(dsc);
+ 461              		.loc 1 117 5 view .LVU118
+ 462              		.loc 1 117 5 view .LVU119
+ 463 0000 08B1     		cbz	r0, .L34
+ 464              		.loc 1 117 5 discriminator 2 view .LVU120
+ 465              		.loc 1 117 24 discriminator 2 view .LVU121
+ 118:Lib/lvgl/src/misc/lv_event.c ****     return dsc->cb;
+ 466              		.loc 1 118 5 discriminator 2 view .LVU122
+ 119:Lib/lvgl/src/misc/lv_event.c **** }
+ 467              		.loc 1 119 1 is_stmt 0 discriminator 2 view .LVU123
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 13
+
+
+ 468 0002 0068     		ldr	r0, [r0]
+ 469              	.LVL39:
+ 470              		.loc 1 119 1 discriminator 2 view .LVU124
+ 471 0004 7047     		bx	lr
+ 472              	.LVL40:
+ 473              	.L34:
+ 117:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(dsc);
+ 474              		.loc 1 117 5 is_stmt 1 discriminator 1 view .LVU125
+ 117:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(dsc);
+ 475              		.loc 1 117 5 discriminator 1 view .LVU126
+ 117:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(dsc);
+ 476              		.loc 1 117 5 discriminator 1 view .LVU127
+ 117:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(dsc);
+ 477              		.loc 1 117 5 discriminator 1 view .LVU128
+ 117:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(dsc);
+ 478              		.loc 1 117 5 discriminator 1 view .LVU129
+ 479 0006 FEE7     		b	.L34
+ 480              		.cfi_endproc
+ 481              	.LFE240:
+ 483              		.section	.text.lv_event_dsc_get_user_data,"ax",%progbits
+ 484              		.align	1
+ 485              		.global	lv_event_dsc_get_user_data
+ 486              		.syntax unified
+ 487              		.thumb
+ 488              		.thumb_func
+ 490              	lv_event_dsc_get_user_data:
+ 491              	.LVL41:
+ 492              	.LFB241:
+ 120:Lib/lvgl/src/misc/lv_event.c **** 
+ 121:Lib/lvgl/src/misc/lv_event.c **** void * lv_event_dsc_get_user_data(lv_event_dsc_t * dsc)
+ 122:Lib/lvgl/src/misc/lv_event.c **** {
+ 493              		.loc 1 122 1 view -0
+ 494              		.cfi_startproc
+ 495              		@ args = 0, pretend = 0, frame = 0
+ 496              		@ frame_needed = 0, uses_anonymous_args = 0
+ 497              		@ link register save eliminated.
+ 123:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(dsc);
+ 498              		.loc 1 123 5 view .LVU131
+ 499              		.loc 1 123 5 view .LVU132
+ 500 0000 08B1     		cbz	r0, .L37
+ 501              		.loc 1 123 5 discriminator 2 view .LVU133
+ 502              		.loc 1 123 24 discriminator 2 view .LVU134
+ 124:Lib/lvgl/src/misc/lv_event.c ****     return dsc->user_data;
+ 503              		.loc 1 124 5 discriminator 2 view .LVU135
+ 125:Lib/lvgl/src/misc/lv_event.c **** 
+ 126:Lib/lvgl/src/misc/lv_event.c **** }
+ 504              		.loc 1 126 1 is_stmt 0 discriminator 2 view .LVU136
+ 505 0002 4068     		ldr	r0, [r0, #4]
+ 506              	.LVL42:
+ 507              		.loc 1 126 1 discriminator 2 view .LVU137
+ 508 0004 7047     		bx	lr
+ 509              	.LVL43:
+ 510              	.L37:
+ 123:Lib/lvgl/src/misc/lv_event.c ****     return dsc->user_data;
+ 511              		.loc 1 123 5 is_stmt 1 discriminator 1 view .LVU138
+ 123:Lib/lvgl/src/misc/lv_event.c ****     return dsc->user_data;
+ 512              		.loc 1 123 5 discriminator 1 view .LVU139
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 14
+
+
+ 123:Lib/lvgl/src/misc/lv_event.c ****     return dsc->user_data;
+ 513              		.loc 1 123 5 discriminator 1 view .LVU140
+ 123:Lib/lvgl/src/misc/lv_event.c ****     return dsc->user_data;
+ 514              		.loc 1 123 5 discriminator 1 view .LVU141
+ 123:Lib/lvgl/src/misc/lv_event.c ****     return dsc->user_data;
+ 515              		.loc 1 123 5 discriminator 1 view .LVU142
+ 516 0006 FEE7     		b	.L37
+ 517              		.cfi_endproc
+ 518              	.LFE241:
+ 520              		.section	.text.lv_event_remove,"ax",%progbits
+ 521              		.align	1
+ 522              		.global	lv_event_remove
+ 523              		.syntax unified
+ 524              		.thumb
+ 525              		.thumb_func
+ 527              	lv_event_remove:
+ 528              	.LVL44:
+ 529              	.LFB242:
+ 127:Lib/lvgl/src/misc/lv_event.c **** 
+ 128:Lib/lvgl/src/misc/lv_event.c **** bool lv_event_remove(lv_event_list_t * list, uint32_t index)
+ 129:Lib/lvgl/src/misc/lv_event.c **** {
+ 530              		.loc 1 129 1 view -0
+ 531              		.cfi_startproc
+ 532              		@ args = 0, pretend = 0, frame = 0
+ 533              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(list);
+ 534              		.loc 1 130 5 view .LVU144
+ 535              		.loc 1 130 5 view .LVU145
+ 536 0000 30B1     		cbz	r0, .L40
+ 129:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(list);
+ 537              		.loc 1 129 1 is_stmt 0 discriminator 2 view .LVU146
+ 538 0002 08B5     		push	{r3, lr}
+ 539              	.LCFI9:
+ 540              		.cfi_def_cfa_offset 8
+ 541              		.cfi_offset 3, -8
+ 542              		.cfi_offset 14, -4
+ 543              		.loc 1 130 5 is_stmt 1 discriminator 2 view .LVU147
+ 544              		.loc 1 130 25 discriminator 2 view .LVU148
+ 131:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_remove(list, index);
+ 545              		.loc 1 131 5 discriminator 2 view .LVU149
+ 546              		.loc 1 131 12 is_stmt 0 discriminator 2 view .LVU150
+ 547 0004 FFF7FEFF 		bl	lv_array_remove
+ 548              	.LVL45:
+ 132:Lib/lvgl/src/misc/lv_event.c **** }
+ 549              		.loc 1 132 1 discriminator 2 view .LVU151
+ 550 0008 0038     		subs	r0, r0, #0
+ 551 000a 18BF     		it	ne
+ 552 000c 0120     		movne	r0, #1
+ 553 000e 08BD     		pop	{r3, pc}
+ 554              	.LVL46:
+ 555              	.L40:
+ 556              	.LCFI10:
+ 557              		.cfi_def_cfa_offset 0
+ 558              		.cfi_restore 3
+ 559              		.cfi_restore 14
+ 130:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_remove(list, index);
+ 560              		.loc 1 130 5 is_stmt 1 discriminator 1 view .LVU152
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 15
+
+
+ 130:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_remove(list, index);
+ 561              		.loc 1 130 5 discriminator 1 view .LVU153
+ 130:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_remove(list, index);
+ 562              		.loc 1 130 5 discriminator 1 view .LVU154
+ 130:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_remove(list, index);
+ 563              		.loc 1 130 5 discriminator 1 view .LVU155
+ 130:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_remove(list, index);
+ 564              		.loc 1 130 5 discriminator 1 view .LVU156
+ 565 0010 FEE7     		b	.L40
+ 566              		.cfi_endproc
+ 567              	.LFE242:
+ 569              		.section	.text.lv_event_remove_all,"ax",%progbits
+ 570              		.align	1
+ 571              		.global	lv_event_remove_all
+ 572              		.syntax unified
+ 573              		.thumb
+ 574              		.thumb_func
+ 576              	lv_event_remove_all:
+ 577              	.LVL47:
+ 578              	.LFB243:
+ 133:Lib/lvgl/src/misc/lv_event.c **** 
+ 134:Lib/lvgl/src/misc/lv_event.c **** void lv_event_remove_all(lv_event_list_t * list)
+ 135:Lib/lvgl/src/misc/lv_event.c **** {
+ 579              		.loc 1 135 1 view -0
+ 580              		.cfi_startproc
+ 581              		@ args = 0, pretend = 0, frame = 0
+ 582              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(list);
+ 583              		.loc 1 136 5 view .LVU158
+ 584              		.loc 1 136 5 view .LVU159
+ 585 0000 18B1     		cbz	r0, .L45
+ 135:Lib/lvgl/src/misc/lv_event.c ****     LV_ASSERT_NULL(list);
+ 586              		.loc 1 135 1 is_stmt 0 discriminator 2 view .LVU160
+ 587 0002 08B5     		push	{r3, lr}
+ 588              	.LCFI11:
+ 589              		.cfi_def_cfa_offset 8
+ 590              		.cfi_offset 3, -8
+ 591              		.cfi_offset 14, -4
+ 592              		.loc 1 136 5 is_stmt 1 discriminator 2 view .LVU161
+ 593              		.loc 1 136 25 discriminator 2 view .LVU162
+ 137:Lib/lvgl/src/misc/lv_event.c ****     lv_array_deinit(list);
+ 594              		.loc 1 137 5 discriminator 2 view .LVU163
+ 595 0004 FFF7FEFF 		bl	lv_array_deinit
+ 596              	.LVL48:
+ 138:Lib/lvgl/src/misc/lv_event.c **** }
+ 597              		.loc 1 138 1 is_stmt 0 discriminator 2 view .LVU164
+ 598 0008 08BD     		pop	{r3, pc}
+ 599              	.LVL49:
+ 600              	.L45:
+ 601              	.LCFI12:
+ 602              		.cfi_def_cfa_offset 0
+ 603              		.cfi_restore 3
+ 604              		.cfi_restore 14
+ 136:Lib/lvgl/src/misc/lv_event.c ****     lv_array_deinit(list);
+ 605              		.loc 1 136 5 is_stmt 1 discriminator 1 view .LVU165
+ 136:Lib/lvgl/src/misc/lv_event.c ****     lv_array_deinit(list);
+ 606              		.loc 1 136 5 discriminator 1 view .LVU166
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 16
+
+
+ 136:Lib/lvgl/src/misc/lv_event.c ****     lv_array_deinit(list);
+ 607              		.loc 1 136 5 discriminator 1 view .LVU167
+ 136:Lib/lvgl/src/misc/lv_event.c ****     lv_array_deinit(list);
+ 608              		.loc 1 136 5 discriminator 1 view .LVU168
+ 136:Lib/lvgl/src/misc/lv_event.c ****     lv_array_deinit(list);
+ 609              		.loc 1 136 5 discriminator 1 view .LVU169
+ 610 000a FEE7     		b	.L45
+ 611              		.cfi_endproc
+ 612              	.LFE243:
+ 614              		.section	.text.lv_event_get_current_target,"ax",%progbits
+ 615              		.align	1
+ 616              		.global	lv_event_get_current_target
+ 617              		.syntax unified
+ 618              		.thumb
+ 619              		.thumb_func
+ 621              	lv_event_get_current_target:
+ 622              	.LVL50:
+ 623              	.LFB244:
+ 139:Lib/lvgl/src/misc/lv_event.c **** 
+ 140:Lib/lvgl/src/misc/lv_event.c **** void * lv_event_get_current_target(lv_event_t * e)
+ 141:Lib/lvgl/src/misc/lv_event.c **** {
+ 624              		.loc 1 141 1 view -0
+ 625              		.cfi_startproc
+ 626              		@ args = 0, pretend = 0, frame = 0
+ 627              		@ frame_needed = 0, uses_anonymous_args = 0
+ 628              		@ link register save eliminated.
+ 142:Lib/lvgl/src/misc/lv_event.c ****     return e->current_target;
+ 629              		.loc 1 142 5 view .LVU171
+ 143:Lib/lvgl/src/misc/lv_event.c **** }
+ 630              		.loc 1 143 1 is_stmt 0 view .LVU172
+ 631 0000 0068     		ldr	r0, [r0]
+ 632              	.LVL51:
+ 633              		.loc 1 143 1 view .LVU173
+ 634 0002 7047     		bx	lr
+ 635              		.cfi_endproc
+ 636              	.LFE244:
+ 638              		.section	.text.lv_event_get_target,"ax",%progbits
+ 639              		.align	1
+ 640              		.global	lv_event_get_target
+ 641              		.syntax unified
+ 642              		.thumb
+ 643              		.thumb_func
+ 645              	lv_event_get_target:
+ 646              	.LVL52:
+ 647              	.LFB245:
+ 144:Lib/lvgl/src/misc/lv_event.c **** 
+ 145:Lib/lvgl/src/misc/lv_event.c **** void * lv_event_get_target(lv_event_t * e)
+ 146:Lib/lvgl/src/misc/lv_event.c **** {
+ 648              		.loc 1 146 1 is_stmt 1 view -0
+ 649              		.cfi_startproc
+ 650              		@ args = 0, pretend = 0, frame = 0
+ 651              		@ frame_needed = 0, uses_anonymous_args = 0
+ 652              		@ link register save eliminated.
+ 147:Lib/lvgl/src/misc/lv_event.c ****     return e->original_target;
+ 653              		.loc 1 147 5 view .LVU175
+ 148:Lib/lvgl/src/misc/lv_event.c **** }
+ 654              		.loc 1 148 1 is_stmt 0 view .LVU176
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 17
+
+
+ 655 0000 4068     		ldr	r0, [r0, #4]
+ 656              	.LVL53:
+ 657              		.loc 1 148 1 view .LVU177
+ 658 0002 7047     		bx	lr
+ 659              		.cfi_endproc
+ 660              	.LFE245:
+ 662              		.section	.text.lv_event_get_code,"ax",%progbits
+ 663              		.align	1
+ 664              		.global	lv_event_get_code
+ 665              		.syntax unified
+ 666              		.thumb
+ 667              		.thumb_func
+ 669              	lv_event_get_code:
+ 670              	.LVL54:
+ 671              	.LFB246:
+ 149:Lib/lvgl/src/misc/lv_event.c **** 
+ 150:Lib/lvgl/src/misc/lv_event.c **** lv_event_code_t lv_event_get_code(lv_event_t * e)
+ 151:Lib/lvgl/src/misc/lv_event.c **** {
+ 672              		.loc 1 151 1 is_stmt 1 view -0
+ 673              		.cfi_startproc
+ 674              		@ args = 0, pretend = 0, frame = 0
+ 675              		@ frame_needed = 0, uses_anonymous_args = 0
+ 676              		@ link register save eliminated.
+ 152:Lib/lvgl/src/misc/lv_event.c ****     return e->code & ~LV_EVENT_PREPROCESS;
+ 677              		.loc 1 152 5 view .LVU179
+ 678              		.loc 1 152 13 is_stmt 0 view .LVU180
+ 679 0000 0089     		ldrh	r0, [r0, #8]
+ 680              	.LVL55:
+ 153:Lib/lvgl/src/misc/lv_event.c **** }
+ 681              		.loc 1 153 1 view .LVU181
+ 682 0002 C0F30E00 		ubfx	r0, r0, #0, #15
+ 683 0006 7047     		bx	lr
+ 684              		.cfi_endproc
+ 685              	.LFE246:
+ 687              		.section	.text.lv_event_get_param,"ax",%progbits
+ 688              		.align	1
+ 689              		.global	lv_event_get_param
+ 690              		.syntax unified
+ 691              		.thumb
+ 692              		.thumb_func
+ 694              	lv_event_get_param:
+ 695              	.LVL56:
+ 696              	.LFB247:
+ 154:Lib/lvgl/src/misc/lv_event.c **** 
+ 155:Lib/lvgl/src/misc/lv_event.c **** void * lv_event_get_param(lv_event_t * e)
+ 156:Lib/lvgl/src/misc/lv_event.c **** {
+ 697              		.loc 1 156 1 is_stmt 1 view -0
+ 698              		.cfi_startproc
+ 699              		@ args = 0, pretend = 0, frame = 0
+ 700              		@ frame_needed = 0, uses_anonymous_args = 0
+ 701              		@ link register save eliminated.
+ 157:Lib/lvgl/src/misc/lv_event.c ****     return e->param;
+ 702              		.loc 1 157 5 view .LVU183
+ 158:Lib/lvgl/src/misc/lv_event.c **** }
+ 703              		.loc 1 158 1 is_stmt 0 view .LVU184
+ 704 0000 0069     		ldr	r0, [r0, #16]
+ 705              	.LVL57:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 18
+
+
+ 706              		.loc 1 158 1 view .LVU185
+ 707 0002 7047     		bx	lr
+ 708              		.cfi_endproc
+ 709              	.LFE247:
+ 711              		.section	.text.lv_event_get_user_data,"ax",%progbits
+ 712              		.align	1
+ 713              		.global	lv_event_get_user_data
+ 714              		.syntax unified
+ 715              		.thumb
+ 716              		.thumb_func
+ 718              	lv_event_get_user_data:
+ 719              	.LVL58:
+ 720              	.LFB248:
+ 159:Lib/lvgl/src/misc/lv_event.c **** 
+ 160:Lib/lvgl/src/misc/lv_event.c **** void * lv_event_get_user_data(lv_event_t * e)
+ 161:Lib/lvgl/src/misc/lv_event.c **** {
+ 721              		.loc 1 161 1 is_stmt 1 view -0
+ 722              		.cfi_startproc
+ 723              		@ args = 0, pretend = 0, frame = 0
+ 724              		@ frame_needed = 0, uses_anonymous_args = 0
+ 725              		@ link register save eliminated.
+ 162:Lib/lvgl/src/misc/lv_event.c ****     return e->user_data;
+ 726              		.loc 1 162 5 view .LVU187
+ 163:Lib/lvgl/src/misc/lv_event.c **** }
+ 727              		.loc 1 163 1 is_stmt 0 view .LVU188
+ 728 0000 C068     		ldr	r0, [r0, #12]
+ 729              	.LVL59:
+ 730              		.loc 1 163 1 view .LVU189
+ 731 0002 7047     		bx	lr
+ 732              		.cfi_endproc
+ 733              	.LFE248:
+ 735              		.section	.text.lv_event_stop_bubbling,"ax",%progbits
+ 736              		.align	1
+ 737              		.global	lv_event_stop_bubbling
+ 738              		.syntax unified
+ 739              		.thumb
+ 740              		.thumb_func
+ 742              	lv_event_stop_bubbling:
+ 743              	.LVL60:
+ 744              	.LFB249:
+ 164:Lib/lvgl/src/misc/lv_event.c **** 
+ 165:Lib/lvgl/src/misc/lv_event.c **** void lv_event_stop_bubbling(lv_event_t * e)
+ 166:Lib/lvgl/src/misc/lv_event.c **** {
+ 745              		.loc 1 166 1 is_stmt 1 view -0
+ 746              		.cfi_startproc
+ 747              		@ args = 0, pretend = 0, frame = 0
+ 748              		@ frame_needed = 0, uses_anonymous_args = 0
+ 749              		@ link register save eliminated.
+ 167:Lib/lvgl/src/misc/lv_event.c ****     e->stop_bubbling = 1;
+ 750              		.loc 1 167 5 view .LVU191
+ 751              		.loc 1 167 22 is_stmt 0 view .LVU192
+ 752 0000 037E     		ldrb	r3, [r0, #24]	@ zero_extendqisi2
+ 753 0002 43F00403 		orr	r3, r3, #4
+ 754 0006 0376     		strb	r3, [r0, #24]
+ 168:Lib/lvgl/src/misc/lv_event.c **** }
+ 755              		.loc 1 168 1 view .LVU193
+ 756 0008 7047     		bx	lr
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 19
+
+
+ 757              		.cfi_endproc
+ 758              	.LFE249:
+ 760              		.section	.text.lv_event_stop_processing,"ax",%progbits
+ 761              		.align	1
+ 762              		.global	lv_event_stop_processing
+ 763              		.syntax unified
+ 764              		.thumb
+ 765              		.thumb_func
+ 767              	lv_event_stop_processing:
+ 768              	.LVL61:
+ 769              	.LFB250:
+ 169:Lib/lvgl/src/misc/lv_event.c **** 
+ 170:Lib/lvgl/src/misc/lv_event.c **** void lv_event_stop_processing(lv_event_t * e)
+ 171:Lib/lvgl/src/misc/lv_event.c **** {
+ 770              		.loc 1 171 1 is_stmt 1 view -0
+ 771              		.cfi_startproc
+ 772              		@ args = 0, pretend = 0, frame = 0
+ 773              		@ frame_needed = 0, uses_anonymous_args = 0
+ 774              		@ link register save eliminated.
+ 172:Lib/lvgl/src/misc/lv_event.c ****     e->stop_processing = 1;
+ 775              		.loc 1 172 5 view .LVU195
+ 776              		.loc 1 172 24 is_stmt 0 view .LVU196
+ 777 0000 037E     		ldrb	r3, [r0, #24]	@ zero_extendqisi2
+ 778 0002 43F00203 		orr	r3, r3, #2
+ 779 0006 0376     		strb	r3, [r0, #24]
+ 173:Lib/lvgl/src/misc/lv_event.c **** }
+ 780              		.loc 1 173 1 view .LVU197
+ 781 0008 7047     		bx	lr
+ 782              		.cfi_endproc
+ 783              	.LFE250:
+ 785              		.section	.text.lv_event_register_id,"ax",%progbits
+ 786              		.align	1
+ 787              		.global	lv_event_register_id
+ 788              		.syntax unified
+ 789              		.thumb
+ 790              		.thumb_func
+ 792              	lv_event_register_id:
+ 793              	.LFB251:
+ 174:Lib/lvgl/src/misc/lv_event.c **** 
+ 175:Lib/lvgl/src/misc/lv_event.c **** uint32_t lv_event_register_id(void)
+ 176:Lib/lvgl/src/misc/lv_event.c **** {
+ 794              		.loc 1 176 1 is_stmt 1 view -0
+ 795              		.cfi_startproc
+ 796              		@ args = 0, pretend = 0, frame = 0
+ 797              		@ frame_needed = 0, uses_anonymous_args = 0
+ 798              		@ link register save eliminated.
+ 177:Lib/lvgl/src/misc/lv_event.c ****     event_last_id ++;
+ 799              		.loc 1 177 5 view .LVU199
+ 800 0000 024B     		ldr	r3, .L56
+ 801 0002 D86F     		ldr	r0, [r3, #124]
+ 802              		.loc 1 177 19 is_stmt 0 view .LVU200
+ 803 0004 0130     		adds	r0, r0, #1
+ 804 0006 D867     		str	r0, [r3, #124]
+ 178:Lib/lvgl/src/misc/lv_event.c ****     return event_last_id;
+ 805              		.loc 1 178 5 is_stmt 1 view .LVU201
+ 179:Lib/lvgl/src/misc/lv_event.c **** }
+ 806              		.loc 1 179 1 is_stmt 0 view .LVU202
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 20
+
+
+ 807 0008 7047     		bx	lr
+ 808              	.L57:
+ 809 000a 00BF     		.align	2
+ 810              	.L56:
+ 811 000c 00000000 		.word	lv_global
+ 812              		.cfi_endproc
+ 813              	.LFE251:
+ 815              		.section	.text._lv_event_mark_deleted,"ax",%progbits
+ 816              		.align	1
+ 817              		.global	_lv_event_mark_deleted
+ 818              		.syntax unified
+ 819              		.thumb
+ 820              		.thumb_func
+ 822              	_lv_event_mark_deleted:
+ 823              	.LVL62:
+ 824              	.LFB252:
+ 180:Lib/lvgl/src/misc/lv_event.c **** 
+ 181:Lib/lvgl/src/misc/lv_event.c **** void _lv_event_mark_deleted(void * target)
+ 182:Lib/lvgl/src/misc/lv_event.c **** {
+ 825              		.loc 1 182 1 is_stmt 1 view -0
+ 826              		.cfi_startproc
+ 827              		@ args = 0, pretend = 0, frame = 0
+ 828              		@ frame_needed = 0, uses_anonymous_args = 0
+ 829              		@ link register save eliminated.
+ 183:Lib/lvgl/src/misc/lv_event.c ****     lv_event_t * e = event_head;
+ 830              		.loc 1 183 5 view .LVU204
+ 831              		.loc 1 183 18 is_stmt 0 view .LVU205
+ 832 0000 084B     		ldr	r3, .L64
+ 833 0002 9B6F     		ldr	r3, [r3, #120]
+ 834              	.LVL63:
+ 184:Lib/lvgl/src/misc/lv_event.c **** 
+ 185:Lib/lvgl/src/misc/lv_event.c ****     while(e) {
+ 835              		.loc 1 185 5 is_stmt 1 view .LVU206
+ 836              		.loc 1 185 10 is_stmt 0 view .LVU207
+ 837 0004 04E0     		b	.L59
+ 838              	.L60:
+ 186:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
+ 839              		.loc 1 186 73 is_stmt 1 discriminator 3 view .LVU208
+ 840              		.loc 1 186 84 is_stmt 0 discriminator 3 view .LVU209
+ 841 0006 1A7E     		ldrb	r2, [r3, #24]	@ zero_extendqisi2
+ 842 0008 42F00102 		orr	r2, r2, #1
+ 843 000c 1A76     		strb	r2, [r3, #24]
+ 844              	.L61:
+ 187:Lib/lvgl/src/misc/lv_event.c ****         e = e->prev;
+ 845              		.loc 1 187 9 is_stmt 1 view .LVU210
+ 846              		.loc 1 187 11 is_stmt 0 view .LVU211
+ 847 000e 5B69     		ldr	r3, [r3, #20]
+ 848              	.LVL64:
+ 849              	.L59:
+ 185:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
+ 850              		.loc 1 185 11 is_stmt 1 view .LVU212
+ 851 0010 33B1     		cbz	r3, .L63
+ 186:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
+ 852              		.loc 1 186 9 view .LVU213
+ 186:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
+ 853              		.loc 1 186 13 is_stmt 0 view .LVU214
+ 854 0012 5A68     		ldr	r2, [r3, #4]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 21
+
+
+ 186:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
+ 855              		.loc 1 186 11 view .LVU215
+ 856 0014 8242     		cmp	r2, r0
+ 857 0016 F6D0     		beq	.L60
+ 186:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
+ 858              		.loc 1 186 45 discriminator 2 view .LVU216
+ 859 0018 1A68     		ldr	r2, [r3]
+ 186:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
+ 860              		.loc 1 186 41 discriminator 2 view .LVU217
+ 861 001a 8242     		cmp	r2, r0
+ 862 001c F7D1     		bne	.L61
+ 863 001e F2E7     		b	.L60
+ 864              	.L63:
+ 188:Lib/lvgl/src/misc/lv_event.c ****     }
+ 189:Lib/lvgl/src/misc/lv_event.c **** }
+ 865              		.loc 1 189 1 view .LVU218
+ 866 0020 7047     		bx	lr
+ 867              	.L65:
+ 868 0022 00BF     		.align	2
+ 869              	.L64:
+ 870 0024 00000000 		.word	lv_global
+ 871              		.cfi_endproc
+ 872              	.LFE252:
+ 874              		.text
+ 875              	.Letext0:
+ 876              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 877              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 878              		.file 5 "Lib/lvgl/src/misc/lv_types.h"
+ 879              		.file 6 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj.h"
+ 880              		.file 7 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_class.h"
+ 881              		.file 8 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 882              		.file 9 "Lib/lvgl/src/misc/../core/../draw/lv_draw.h"
+ 883              		.file 10 "Lib/lvgl/src/misc/lv_event.h"
+ 884              		.file 11 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_timer.h"
+ 885              		.file 12 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64
+ 886              		.file 13 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 887              		.file 14 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+ 888              		.file 15 "Lib/lvgl/src/misc/../core/../draw/../misc/../font/../draw/lv_image_buf.h"
+ 889              		.file 16 "Lib/lvgl/src/misc/../core/../draw/../misc/../font/../draw/lv_draw_buf.h"
+ 890              		.file 17 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\osal\\lv_os_none.h"
+ 891              		.file 18 "Lib/lvgl/src/misc/../core/../draw/../misc/../tick/lv_tick.h"
+ 892              		.file 19 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_ll.h"
+ 893              		.file 20 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_anim.h"
+ 894              		.file 21 "Lib/lvgl/src/misc/../core/../draw/../misc/../layouts/lv_layout.h"
+ 895              		.file 22 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_style.h"
+ 896              		.file 23 "Lib/lvgl/src/misc/../core/../draw/sw/blend/../lv_draw_sw_mask.h"
+ 897              		.file 24 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
+ 898              		.file 25 "Lib/lvgl/src/misc/../core/../stdlib/builtin/lv_tlsf.h"
+ 899              		.file 26 "Lib/lvgl/src/misc/../core/lv_global.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_event.c
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:21     .text._lv_event_push:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:27     .text._lv_event_push:00000000 _lv_event_push
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:49     .text._lv_event_push:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:54     .text._lv_event_pop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:60     .text._lv_event_pop:00000000 _lv_event_pop
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:79     .text._lv_event_pop:00000008 $d
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:84     .text.lv_event_send:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:90     .text.lv_event_send:00000000 lv_event_send
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:266    .text.lv_event_add:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:272    .text.lv_event_add:00000000 lv_event_add
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:355    .text.lv_event_get_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:361    .text.lv_event_get_count:00000000 lv_event_get_count
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:401    .text.lv_event_get_dsc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:407    .text.lv_event_get_dsc:00000000 lv_event_get_dsc
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:447    .text.lv_event_dsc_get_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:453    .text.lv_event_dsc_get_cb:00000000 lv_event_dsc_get_cb
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:484    .text.lv_event_dsc_get_user_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:490    .text.lv_event_dsc_get_user_data:00000000 lv_event_dsc_get_user_data
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:521    .text.lv_event_remove:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:527    .text.lv_event_remove:00000000 lv_event_remove
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:570    .text.lv_event_remove_all:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:576    .text.lv_event_remove_all:00000000 lv_event_remove_all
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:615    .text.lv_event_get_current_target:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:621    .text.lv_event_get_current_target:00000000 lv_event_get_current_target
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:639    .text.lv_event_get_target:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:645    .text.lv_event_get_target:00000000 lv_event_get_target
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:663    .text.lv_event_get_code:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:669    .text.lv_event_get_code:00000000 lv_event_get_code
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:688    .text.lv_event_get_param:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:694    .text.lv_event_get_param:00000000 lv_event_get_param
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:712    .text.lv_event_get_user_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:718    .text.lv_event_get_user_data:00000000 lv_event_get_user_data
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:736    .text.lv_event_stop_bubbling:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:742    .text.lv_event_stop_bubbling:00000000 lv_event_stop_bubbling
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:761    .text.lv_event_stop_processing:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:767    .text.lv_event_stop_processing:00000000 lv_event_stop_processing
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:786    .text.lv_event_register_id:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:792    .text.lv_event_register_id:00000000 lv_event_register_id
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:811    .text.lv_event_register_id:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:816    .text._lv_event_mark_deleted:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:822    .text._lv_event_mark_deleted:00000000 _lv_event_mark_deleted
+C:\Users\Alex\AppData\Local\Temp\ccC3VYM1.s:870    .text._lv_event_mark_deleted:00000024 $d
+
+UNDEFINED SYMBOLS
+lv_global
+lv_array_at
+lv_array_push_back
+lv_array_init
+lv_array_remove
+lv_array_deinit

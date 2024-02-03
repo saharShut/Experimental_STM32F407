@@ -1,0 +1,838 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_theme.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/themes/lv_theme.c"
+  20              		.section	.text.apply_theme,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	apply_theme:
+  27              	.LVL0:
+  28              	.LFB265:
+   1:Lib/lvgl/src/themes/lv_theme.c **** /**
+   2:Lib/lvgl/src/themes/lv_theme.c ****  * @file lv_theme.c
+   3:Lib/lvgl/src/themes/lv_theme.c ****  *
+   4:Lib/lvgl/src/themes/lv_theme.c ****  */
+   5:Lib/lvgl/src/themes/lv_theme.c **** 
+   6:Lib/lvgl/src/themes/lv_theme.c **** /*********************
+   7:Lib/lvgl/src/themes/lv_theme.c ****  *      INCLUDES
+   8:Lib/lvgl/src/themes/lv_theme.c ****  *********************/
+   9:Lib/lvgl/src/themes/lv_theme.c **** #include "../../lvgl.h"
+  10:Lib/lvgl/src/themes/lv_theme.c **** 
+  11:Lib/lvgl/src/themes/lv_theme.c **** /*********************
+  12:Lib/lvgl/src/themes/lv_theme.c ****  *      DEFINES
+  13:Lib/lvgl/src/themes/lv_theme.c ****  *********************/
+  14:Lib/lvgl/src/themes/lv_theme.c **** 
+  15:Lib/lvgl/src/themes/lv_theme.c **** /**********************
+  16:Lib/lvgl/src/themes/lv_theme.c ****  *      TYPEDEFS
+  17:Lib/lvgl/src/themes/lv_theme.c ****  **********************/
+  18:Lib/lvgl/src/themes/lv_theme.c **** 
+  19:Lib/lvgl/src/themes/lv_theme.c **** /**********************
+  20:Lib/lvgl/src/themes/lv_theme.c ****  *  STATIC PROTOTYPES
+  21:Lib/lvgl/src/themes/lv_theme.c ****  **********************/
+  22:Lib/lvgl/src/themes/lv_theme.c **** static void apply_theme(lv_theme_t * th, lv_obj_t * obj);
+  23:Lib/lvgl/src/themes/lv_theme.c **** static void apply_theme_recursion(lv_theme_t * th, lv_obj_t * obj);
+  24:Lib/lvgl/src/themes/lv_theme.c **** 
+  25:Lib/lvgl/src/themes/lv_theme.c **** /**********************
+  26:Lib/lvgl/src/themes/lv_theme.c ****  *  STATIC VARIABLES
+  27:Lib/lvgl/src/themes/lv_theme.c ****  **********************/
+  28:Lib/lvgl/src/themes/lv_theme.c **** 
+  29:Lib/lvgl/src/themes/lv_theme.c **** /**********************
+  30:Lib/lvgl/src/themes/lv_theme.c ****  *      MACROS
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 2
+
+
+  31:Lib/lvgl/src/themes/lv_theme.c ****  **********************/
+  32:Lib/lvgl/src/themes/lv_theme.c **** 
+  33:Lib/lvgl/src/themes/lv_theme.c **** /**********************
+  34:Lib/lvgl/src/themes/lv_theme.c ****  *   GLOBAL FUNCTIONS
+  35:Lib/lvgl/src/themes/lv_theme.c ****  **********************/
+  36:Lib/lvgl/src/themes/lv_theme.c **** 
+  37:Lib/lvgl/src/themes/lv_theme.c **** lv_theme_t  * lv_theme_get_from_obj(lv_obj_t * obj)
+  38:Lib/lvgl/src/themes/lv_theme.c **** {
+  39:Lib/lvgl/src/themes/lv_theme.c ****     lv_display_t * disp = obj ? lv_obj_get_display(obj) : lv_display_get_default();
+  40:Lib/lvgl/src/themes/lv_theme.c ****     return lv_display_get_theme(disp);
+  41:Lib/lvgl/src/themes/lv_theme.c **** }
+  42:Lib/lvgl/src/themes/lv_theme.c **** 
+  43:Lib/lvgl/src/themes/lv_theme.c **** void lv_theme_apply(lv_obj_t * obj)
+  44:Lib/lvgl/src/themes/lv_theme.c **** {
+  45:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+  46:Lib/lvgl/src/themes/lv_theme.c ****     if(th == NULL) return;
+  47:Lib/lvgl/src/themes/lv_theme.c **** 
+  48:Lib/lvgl/src/themes/lv_theme.c ****     lv_obj_remove_style_all(obj);
+  49:Lib/lvgl/src/themes/lv_theme.c **** 
+  50:Lib/lvgl/src/themes/lv_theme.c ****     apply_theme_recursion(th, obj);    /*Apply the theme including the base theme(s)*/
+  51:Lib/lvgl/src/themes/lv_theme.c **** }
+  52:Lib/lvgl/src/themes/lv_theme.c **** 
+  53:Lib/lvgl/src/themes/lv_theme.c **** void lv_theme_set_parent(lv_theme_t * new_theme, lv_theme_t * base)
+  54:Lib/lvgl/src/themes/lv_theme.c **** {
+  55:Lib/lvgl/src/themes/lv_theme.c ****     new_theme->parent = base;
+  56:Lib/lvgl/src/themes/lv_theme.c **** }
+  57:Lib/lvgl/src/themes/lv_theme.c **** 
+  58:Lib/lvgl/src/themes/lv_theme.c **** void lv_theme_set_apply_cb(lv_theme_t * theme, lv_theme_apply_cb_t apply_cb)
+  59:Lib/lvgl/src/themes/lv_theme.c **** {
+  60:Lib/lvgl/src/themes/lv_theme.c ****     theme->apply_cb = apply_cb;
+  61:Lib/lvgl/src/themes/lv_theme.c **** }
+  62:Lib/lvgl/src/themes/lv_theme.c **** 
+  63:Lib/lvgl/src/themes/lv_theme.c **** const lv_font_t * lv_theme_get_font_small(lv_obj_t * obj)
+  64:Lib/lvgl/src/themes/lv_theme.c **** {
+  65:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+  66:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_small : LV_FONT_DEFAULT;
+  67:Lib/lvgl/src/themes/lv_theme.c **** }
+  68:Lib/lvgl/src/themes/lv_theme.c **** 
+  69:Lib/lvgl/src/themes/lv_theme.c **** const lv_font_t * lv_theme_get_font_normal(lv_obj_t * obj)
+  70:Lib/lvgl/src/themes/lv_theme.c **** {
+  71:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+  72:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_normal : LV_FONT_DEFAULT;
+  73:Lib/lvgl/src/themes/lv_theme.c **** }
+  74:Lib/lvgl/src/themes/lv_theme.c **** 
+  75:Lib/lvgl/src/themes/lv_theme.c **** const lv_font_t * lv_theme_get_font_large(lv_obj_t * obj)
+  76:Lib/lvgl/src/themes/lv_theme.c **** {
+  77:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+  78:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_large : LV_FONT_DEFAULT;
+  79:Lib/lvgl/src/themes/lv_theme.c **** }
+  80:Lib/lvgl/src/themes/lv_theme.c **** 
+  81:Lib/lvgl/src/themes/lv_theme.c **** lv_color_t lv_theme_get_color_primary(lv_obj_t * obj)
+  82:Lib/lvgl/src/themes/lv_theme.c **** {
+  83:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+  84:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->color_primary : lv_palette_main(LV_PALETTE_BLUE_GREY);
+  85:Lib/lvgl/src/themes/lv_theme.c **** }
+  86:Lib/lvgl/src/themes/lv_theme.c **** 
+  87:Lib/lvgl/src/themes/lv_theme.c **** lv_color_t lv_theme_get_color_secondary(lv_obj_t * obj)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 3
+
+
+  88:Lib/lvgl/src/themes/lv_theme.c **** {
+  89:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+  90:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->color_secondary : lv_palette_main(LV_PALETTE_BLUE);
+  91:Lib/lvgl/src/themes/lv_theme.c **** }
+  92:Lib/lvgl/src/themes/lv_theme.c **** 
+  93:Lib/lvgl/src/themes/lv_theme.c **** /**********************
+  94:Lib/lvgl/src/themes/lv_theme.c ****  *   STATIC FUNCTIONS
+  95:Lib/lvgl/src/themes/lv_theme.c ****  **********************/
+  96:Lib/lvgl/src/themes/lv_theme.c **** 
+  97:Lib/lvgl/src/themes/lv_theme.c **** static void apply_theme(lv_theme_t * th, lv_obj_t * obj)
+  98:Lib/lvgl/src/themes/lv_theme.c **** {
+  29              		.loc 1 98 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 98 1 is_stmt 0 view .LVU1
+  34 0000 38B5     		push	{r3, r4, r5, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 3, -16
+  38              		.cfi_offset 4, -12
+  39              		.cfi_offset 5, -8
+  40              		.cfi_offset 14, -4
+  41 0002 0446     		mov	r4, r0
+  42 0004 0D46     		mov	r5, r1
+  99:Lib/lvgl/src/themes/lv_theme.c ****     if(th->parent) apply_theme(th->parent, obj);
+  43              		.loc 1 99 5 is_stmt 1 view .LVU2
+  44              		.loc 1 99 10 is_stmt 0 view .LVU3
+  45 0006 4068     		ldr	r0, [r0, #4]
+  46              	.LVL1:
+  47              		.loc 1 99 7 view .LVU4
+  48 0008 08B1     		cbz	r0, .L2
+  49              		.loc 1 99 20 is_stmt 1 discriminator 1 view .LVU5
+  50 000a FFF7F9FF 		bl	apply_theme
+  51              	.LVL2:
+  52              	.L2:
+ 100:Lib/lvgl/src/themes/lv_theme.c ****     if(th->apply_cb) th->apply_cb(th, obj);
+  53              		.loc 1 100 5 view .LVU6
+  54              		.loc 1 100 10 is_stmt 0 view .LVU7
+  55 000e 2368     		ldr	r3, [r4]
+  56              		.loc 1 100 7 view .LVU8
+  57 0010 13B1     		cbz	r3, .L1
+  58              		.loc 1 100 22 is_stmt 1 discriminator 1 view .LVU9
+  59 0012 2946     		mov	r1, r5
+  60 0014 2046     		mov	r0, r4
+  61 0016 9847     		blx	r3
+  62              	.LVL3:
+  63              	.L1:
+ 101:Lib/lvgl/src/themes/lv_theme.c **** }
+  64              		.loc 1 101 1 is_stmt 0 view .LVU10
+  65 0018 38BD     		pop	{r3, r4, r5, pc}
+  66              		.loc 1 101 1 view .LVU11
+  67              		.cfi_endproc
+  68              	.LFE265:
+  70              		.section	.text.apply_theme_recursion,"ax",%progbits
+  71              		.align	1
+  72              		.syntax unified
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 4
+
+
+  73              		.thumb
+  74              		.thumb_func
+  76              	apply_theme_recursion:
+  77              	.LVL4:
+  78              	.LFB266:
+ 102:Lib/lvgl/src/themes/lv_theme.c **** 
+ 103:Lib/lvgl/src/themes/lv_theme.c **** static void apply_theme_recursion(lv_theme_t * th, lv_obj_t * obj)
+ 104:Lib/lvgl/src/themes/lv_theme.c **** {
+  79              		.loc 1 104 1 is_stmt 1 view -0
+  80              		.cfi_startproc
+  81              		@ args = 0, pretend = 0, frame = 0
+  82              		@ frame_needed = 0, uses_anonymous_args = 0
+  83              		.loc 1 104 1 is_stmt 0 view .LVU13
+  84 0000 70B5     		push	{r4, r5, r6, lr}
+  85              	.LCFI1:
+  86              		.cfi_def_cfa_offset 16
+  87              		.cfi_offset 4, -16
+  88              		.cfi_offset 5, -12
+  89              		.cfi_offset 6, -8
+  90              		.cfi_offset 14, -4
+  91 0002 0546     		mov	r5, r0
+  92 0004 0C46     		mov	r4, r1
+ 105:Lib/lvgl/src/themes/lv_theme.c ****     const lv_obj_class_t * original_class_p = obj->class_p;
+  93              		.loc 1 105 5 is_stmt 1 view .LVU14
+  94              		.loc 1 105 28 is_stmt 0 view .LVU15
+  95 0006 0E68     		ldr	r6, [r1]
+  96              	.LVL5:
+ 106:Lib/lvgl/src/themes/lv_theme.c **** 
+ 107:Lib/lvgl/src/themes/lv_theme.c ****     if(obj->class_p->base_class && obj->class_p->theme_inheritable == LV_OBJ_CLASS_THEME_INHERITABL
+  97              		.loc 1 107 5 is_stmt 1 view .LVU16
+  98              		.loc 1 107 20 is_stmt 0 view .LVU17
+  99 0008 3368     		ldr	r3, [r6]
+ 100              		.loc 1 107 7 view .LVU18
+ 101 000a 23B1     		cbz	r3, .L6
+ 102              		.loc 1 107 68 discriminator 1 view .LVU19
+ 103 000c 96F82220 		ldrb	r2, [r6, #34]	@ zero_extendqisi2
+ 104              		.loc 1 107 33 discriminator 1 view .LVU20
+ 105 0010 12F0100F 		tst	r2, #16
+ 106 0014 05D1     		bne	.L8
+ 107              	.LVL6:
+ 108              	.L6:
+ 108:Lib/lvgl/src/themes/lv_theme.c ****         /*Apply the base class theme in obj*/
+ 109:Lib/lvgl/src/themes/lv_theme.c ****         obj->class_p = obj->class_p->base_class;
+ 110:Lib/lvgl/src/themes/lv_theme.c **** 
+ 111:Lib/lvgl/src/themes/lv_theme.c ****         /*apply the base first*/
+ 112:Lib/lvgl/src/themes/lv_theme.c ****         apply_theme_recursion(th, obj);
+ 113:Lib/lvgl/src/themes/lv_theme.c ****     }
+ 114:Lib/lvgl/src/themes/lv_theme.c **** 
+ 115:Lib/lvgl/src/themes/lv_theme.c ****     /*Restore the original class*/
+ 116:Lib/lvgl/src/themes/lv_theme.c ****     obj->class_p = original_class_p;
+ 109              		.loc 1 116 5 is_stmt 1 view .LVU21
+ 110              		.loc 1 116 18 is_stmt 0 view .LVU22
+ 111 0016 2660     		str	r6, [r4]
+ 117:Lib/lvgl/src/themes/lv_theme.c **** 
+ 118:Lib/lvgl/src/themes/lv_theme.c ****     apply_theme(th, obj);
+ 112              		.loc 1 118 5 is_stmt 1 view .LVU23
+ 113 0018 2146     		mov	r1, r4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 5
+
+
+ 114 001a 2846     		mov	r0, r5
+ 115 001c FFF7FEFF 		bl	apply_theme
+ 116              	.LVL7:
+ 119:Lib/lvgl/src/themes/lv_theme.c **** }
+ 117              		.loc 1 119 1 is_stmt 0 view .LVU24
+ 118 0020 70BD     		pop	{r4, r5, r6, pc}
+ 119              	.LVL8:
+ 120              	.L8:
+ 109:Lib/lvgl/src/themes/lv_theme.c **** 
+ 121              		.loc 1 109 9 is_stmt 1 view .LVU25
+ 109:Lib/lvgl/src/themes/lv_theme.c **** 
+ 122              		.loc 1 109 22 is_stmt 0 view .LVU26
+ 123 0022 0B60     		str	r3, [r1]
+ 112:Lib/lvgl/src/themes/lv_theme.c ****     }
+ 124              		.loc 1 112 9 is_stmt 1 view .LVU27
+ 125 0024 FFF7ECFF 		bl	apply_theme_recursion
+ 126              	.LVL9:
+ 112:Lib/lvgl/src/themes/lv_theme.c ****     }
+ 127              		.loc 1 112 9 is_stmt 0 view .LVU28
+ 128 0028 F5E7     		b	.L6
+ 129              		.cfi_endproc
+ 130              	.LFE266:
+ 132              		.section	.text.lv_theme_get_from_obj,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	lv_theme_get_from_obj
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 139              	lv_theme_get_from_obj:
+ 140              	.LVL10:
+ 141              	.LFB256:
+  38:Lib/lvgl/src/themes/lv_theme.c ****     lv_display_t * disp = obj ? lv_obj_get_display(obj) : lv_display_get_default();
+ 142              		.loc 1 38 1 is_stmt 1 view -0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+  38:Lib/lvgl/src/themes/lv_theme.c ****     lv_display_t * disp = obj ? lv_obj_get_display(obj) : lv_display_get_default();
+ 146              		.loc 1 38 1 is_stmt 0 view .LVU30
+ 147 0000 08B5     		push	{r3, lr}
+ 148              	.LCFI2:
+ 149              		.cfi_def_cfa_offset 8
+ 150              		.cfi_offset 3, -8
+ 151              		.cfi_offset 14, -4
+  39:Lib/lvgl/src/themes/lv_theme.c ****     return lv_display_get_theme(disp);
+ 152              		.loc 1 39 5 is_stmt 1 view .LVU31
+  39:Lib/lvgl/src/themes/lv_theme.c ****     return lv_display_get_theme(disp);
+ 153              		.loc 1 39 57 is_stmt 0 view .LVU32
+ 154 0002 20B1     		cbz	r0, .L10
+  39:Lib/lvgl/src/themes/lv_theme.c ****     return lv_display_get_theme(disp);
+ 155              		.loc 1 39 33 discriminator 1 view .LVU33
+ 156 0004 FFF7FEFF 		bl	lv_obj_get_display
+ 157              	.LVL11:
+ 158              	.L11:
+  40:Lib/lvgl/src/themes/lv_theme.c **** }
+ 159              		.loc 1 40 5 is_stmt 1 discriminator 4 view .LVU34
+  40:Lib/lvgl/src/themes/lv_theme.c **** }
+ 160              		.loc 1 40 12 is_stmt 0 discriminator 4 view .LVU35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 6
+
+
+ 161 0008 FFF7FEFF 		bl	lv_display_get_theme
+ 162              	.LVL12:
+  41:Lib/lvgl/src/themes/lv_theme.c **** 
+ 163              		.loc 1 41 1 discriminator 4 view .LVU36
+ 164 000c 08BD     		pop	{r3, pc}
+ 165              	.LVL13:
+ 166              	.L10:
+  39:Lib/lvgl/src/themes/lv_theme.c ****     return lv_display_get_theme(disp);
+ 167              		.loc 1 39 59 discriminator 2 view .LVU37
+ 168 000e FFF7FEFF 		bl	lv_display_get_default
+ 169              	.LVL14:
+  39:Lib/lvgl/src/themes/lv_theme.c ****     return lv_display_get_theme(disp);
+ 170              		.loc 1 39 59 discriminator 2 view .LVU38
+ 171 0012 F9E7     		b	.L11
+ 172              		.cfi_endproc
+ 173              	.LFE256:
+ 175              		.section	.text.lv_theme_apply,"ax",%progbits
+ 176              		.align	1
+ 177              		.global	lv_theme_apply
+ 178              		.syntax unified
+ 179              		.thumb
+ 180              		.thumb_func
+ 182              	lv_theme_apply:
+ 183              	.LVL15:
+ 184              	.LFB257:
+  44:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 185              		.loc 1 44 1 is_stmt 1 view -0
+ 186              		.cfi_startproc
+ 187              		@ args = 0, pretend = 0, frame = 0
+ 188              		@ frame_needed = 0, uses_anonymous_args = 0
+  44:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 189              		.loc 1 44 1 is_stmt 0 view .LVU40
+ 190 0000 38B5     		push	{r3, r4, r5, lr}
+ 191              	.LCFI3:
+ 192              		.cfi_def_cfa_offset 16
+ 193              		.cfi_offset 3, -16
+ 194              		.cfi_offset 4, -12
+ 195              		.cfi_offset 5, -8
+ 196              		.cfi_offset 14, -4
+ 197 0002 0446     		mov	r4, r0
+  45:Lib/lvgl/src/themes/lv_theme.c ****     if(th == NULL) return;
+ 198              		.loc 1 45 5 is_stmt 1 view .LVU41
+  45:Lib/lvgl/src/themes/lv_theme.c ****     if(th == NULL) return;
+ 199              		.loc 1 45 23 is_stmt 0 view .LVU42
+ 200 0004 FFF7FEFF 		bl	lv_theme_get_from_obj
+ 201              	.LVL16:
+  46:Lib/lvgl/src/themes/lv_theme.c **** 
+ 202              		.loc 1 46 5 is_stmt 1 view .LVU43
+  46:Lib/lvgl/src/themes/lv_theme.c **** 
+ 203              		.loc 1 46 7 is_stmt 0 view .LVU44
+ 204 0008 38B1     		cbz	r0, .L13
+ 205 000a 0546     		mov	r5, r0
+  48:Lib/lvgl/src/themes/lv_theme.c **** 
+ 206              		.loc 1 48 5 is_stmt 1 view .LVU45
+ 207 000c 2046     		mov	r0, r4
+ 208              	.LVL17:
+  48:Lib/lvgl/src/themes/lv_theme.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 7
+
+
+ 209              		.loc 1 48 5 is_stmt 0 view .LVU46
+ 210 000e FFF7FEFF 		bl	lv_obj_remove_style_all
+ 211              	.LVL18:
+  50:Lib/lvgl/src/themes/lv_theme.c **** }
+ 212              		.loc 1 50 5 is_stmt 1 view .LVU47
+ 213 0012 2146     		mov	r1, r4
+ 214 0014 2846     		mov	r0, r5
+ 215 0016 FFF7FEFF 		bl	apply_theme_recursion
+ 216              	.LVL19:
+ 217              	.L13:
+  51:Lib/lvgl/src/themes/lv_theme.c **** 
+ 218              		.loc 1 51 1 is_stmt 0 view .LVU48
+ 219 001a 38BD     		pop	{r3, r4, r5, pc}
+  51:Lib/lvgl/src/themes/lv_theme.c **** 
+ 220              		.loc 1 51 1 view .LVU49
+ 221              		.cfi_endproc
+ 222              	.LFE257:
+ 224              		.section	.text.lv_theme_set_parent,"ax",%progbits
+ 225              		.align	1
+ 226              		.global	lv_theme_set_parent
+ 227              		.syntax unified
+ 228              		.thumb
+ 229              		.thumb_func
+ 231              	lv_theme_set_parent:
+ 232              	.LVL20:
+ 233              	.LFB258:
+  54:Lib/lvgl/src/themes/lv_theme.c ****     new_theme->parent = base;
+ 234              		.loc 1 54 1 is_stmt 1 view -0
+ 235              		.cfi_startproc
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238              		@ link register save eliminated.
+  55:Lib/lvgl/src/themes/lv_theme.c **** }
+ 239              		.loc 1 55 5 view .LVU51
+  55:Lib/lvgl/src/themes/lv_theme.c **** }
+ 240              		.loc 1 55 23 is_stmt 0 view .LVU52
+ 241 0000 4160     		str	r1, [r0, #4]
+  56:Lib/lvgl/src/themes/lv_theme.c **** 
+ 242              		.loc 1 56 1 view .LVU53
+ 243 0002 7047     		bx	lr
+ 244              		.cfi_endproc
+ 245              	.LFE258:
+ 247              		.section	.text.lv_theme_set_apply_cb,"ax",%progbits
+ 248              		.align	1
+ 249              		.global	lv_theme_set_apply_cb
+ 250              		.syntax unified
+ 251              		.thumb
+ 252              		.thumb_func
+ 254              	lv_theme_set_apply_cb:
+ 255              	.LVL21:
+ 256              	.LFB259:
+  59:Lib/lvgl/src/themes/lv_theme.c ****     theme->apply_cb = apply_cb;
+ 257              		.loc 1 59 1 is_stmt 1 view -0
+ 258              		.cfi_startproc
+ 259              		@ args = 0, pretend = 0, frame = 0
+ 260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 261              		@ link register save eliminated.
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 8
+
+
+  60:Lib/lvgl/src/themes/lv_theme.c **** }
+ 262              		.loc 1 60 5 view .LVU55
+  60:Lib/lvgl/src/themes/lv_theme.c **** }
+ 263              		.loc 1 60 21 is_stmt 0 view .LVU56
+ 264 0000 0160     		str	r1, [r0]
+  61:Lib/lvgl/src/themes/lv_theme.c **** 
+ 265              		.loc 1 61 1 view .LVU57
+ 266 0002 7047     		bx	lr
+ 267              		.cfi_endproc
+ 268              	.LFE259:
+ 270              		.section	.text.lv_theme_get_font_small,"ax",%progbits
+ 271              		.align	1
+ 272              		.global	lv_theme_get_font_small
+ 273              		.syntax unified
+ 274              		.thumb
+ 275              		.thumb_func
+ 277              	lv_theme_get_font_small:
+ 278              	.LVL22:
+ 279              	.LFB260:
+  64:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 280              		.loc 1 64 1 is_stmt 1 view -0
+ 281              		.cfi_startproc
+ 282              		@ args = 0, pretend = 0, frame = 0
+ 283              		@ frame_needed = 0, uses_anonymous_args = 0
+  64:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 284              		.loc 1 64 1 is_stmt 0 view .LVU59
+ 285 0000 08B5     		push	{r3, lr}
+ 286              	.LCFI4:
+ 287              		.cfi_def_cfa_offset 8
+ 288              		.cfi_offset 3, -8
+ 289              		.cfi_offset 14, -4
+  65:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_small : LV_FONT_DEFAULT;
+ 290              		.loc 1 65 5 is_stmt 1 view .LVU60
+  65:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_small : LV_FONT_DEFAULT;
+ 291              		.loc 1 65 23 is_stmt 0 view .LVU61
+ 292 0002 FFF7FEFF 		bl	lv_theme_get_from_obj
+ 293              	.LVL23:
+  66:Lib/lvgl/src/themes/lv_theme.c **** }
+ 294              		.loc 1 66 5 is_stmt 1 view .LVU62
+  66:Lib/lvgl/src/themes/lv_theme.c **** }
+ 295              		.loc 1 66 32 is_stmt 0 view .LVU63
+ 296 0006 08B1     		cbz	r0, .L20
+  66:Lib/lvgl/src/themes/lv_theme.c **** }
+ 297              		.loc 1 66 32 discriminator 1 view .LVU64
+ 298 0008 8069     		ldr	r0, [r0, #24]
+ 299              	.LVL24:
+ 300              	.L18:
+  67:Lib/lvgl/src/themes/lv_theme.c **** 
+ 301              		.loc 1 67 1 view .LVU65
+ 302 000a 08BD     		pop	{r3, pc}
+ 303              	.LVL25:
+ 304              	.L20:
+  66:Lib/lvgl/src/themes/lv_theme.c **** }
+ 305              		.loc 1 66 32 view .LVU66
+ 306 000c 0048     		ldr	r0, .L22
+ 307              	.LVL26:
+  66:Lib/lvgl/src/themes/lv_theme.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 9
+
+
+ 308              		.loc 1 66 32 view .LVU67
+ 309 000e FCE7     		b	.L18
+ 310              	.L23:
+ 311              		.align	2
+ 312              	.L22:
+ 313 0010 00000000 		.word	lv_font_montserrat_14
+ 314              		.cfi_endproc
+ 315              	.LFE260:
+ 317              		.section	.text.lv_theme_get_font_normal,"ax",%progbits
+ 318              		.align	1
+ 319              		.global	lv_theme_get_font_normal
+ 320              		.syntax unified
+ 321              		.thumb
+ 322              		.thumb_func
+ 324              	lv_theme_get_font_normal:
+ 325              	.LVL27:
+ 326              	.LFB261:
+  70:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 327              		.loc 1 70 1 is_stmt 1 view -0
+ 328              		.cfi_startproc
+ 329              		@ args = 0, pretend = 0, frame = 0
+ 330              		@ frame_needed = 0, uses_anonymous_args = 0
+  70:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 331              		.loc 1 70 1 is_stmt 0 view .LVU69
+ 332 0000 08B5     		push	{r3, lr}
+ 333              	.LCFI5:
+ 334              		.cfi_def_cfa_offset 8
+ 335              		.cfi_offset 3, -8
+ 336              		.cfi_offset 14, -4
+  71:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_normal : LV_FONT_DEFAULT;
+ 337              		.loc 1 71 5 is_stmt 1 view .LVU70
+  71:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_normal : LV_FONT_DEFAULT;
+ 338              		.loc 1 71 23 is_stmt 0 view .LVU71
+ 339 0002 FFF7FEFF 		bl	lv_theme_get_from_obj
+ 340              	.LVL28:
+  72:Lib/lvgl/src/themes/lv_theme.c **** }
+ 341              		.loc 1 72 5 is_stmt 1 view .LVU72
+  72:Lib/lvgl/src/themes/lv_theme.c **** }
+ 342              		.loc 1 72 33 is_stmt 0 view .LVU73
+ 343 0006 08B1     		cbz	r0, .L26
+  72:Lib/lvgl/src/themes/lv_theme.c **** }
+ 344              		.loc 1 72 33 discriminator 1 view .LVU74
+ 345 0008 C069     		ldr	r0, [r0, #28]
+ 346              	.LVL29:
+ 347              	.L24:
+  73:Lib/lvgl/src/themes/lv_theme.c **** 
+ 348              		.loc 1 73 1 view .LVU75
+ 349 000a 08BD     		pop	{r3, pc}
+ 350              	.LVL30:
+ 351              	.L26:
+  72:Lib/lvgl/src/themes/lv_theme.c **** }
+ 352              		.loc 1 72 33 view .LVU76
+ 353 000c 0048     		ldr	r0, .L28
+ 354              	.LVL31:
+  72:Lib/lvgl/src/themes/lv_theme.c **** }
+ 355              		.loc 1 72 33 view .LVU77
+ 356 000e FCE7     		b	.L24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 10
+
+
+ 357              	.L29:
+ 358              		.align	2
+ 359              	.L28:
+ 360 0010 00000000 		.word	lv_font_montserrat_14
+ 361              		.cfi_endproc
+ 362              	.LFE261:
+ 364              		.section	.text.lv_theme_get_font_large,"ax",%progbits
+ 365              		.align	1
+ 366              		.global	lv_theme_get_font_large
+ 367              		.syntax unified
+ 368              		.thumb
+ 369              		.thumb_func
+ 371              	lv_theme_get_font_large:
+ 372              	.LVL32:
+ 373              	.LFB262:
+  76:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 374              		.loc 1 76 1 is_stmt 1 view -0
+ 375              		.cfi_startproc
+ 376              		@ args = 0, pretend = 0, frame = 0
+ 377              		@ frame_needed = 0, uses_anonymous_args = 0
+  76:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 378              		.loc 1 76 1 is_stmt 0 view .LVU79
+ 379 0000 08B5     		push	{r3, lr}
+ 380              	.LCFI6:
+ 381              		.cfi_def_cfa_offset 8
+ 382              		.cfi_offset 3, -8
+ 383              		.cfi_offset 14, -4
+  77:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_large : LV_FONT_DEFAULT;
+ 384              		.loc 1 77 5 is_stmt 1 view .LVU80
+  77:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->font_large : LV_FONT_DEFAULT;
+ 385              		.loc 1 77 23 is_stmt 0 view .LVU81
+ 386 0002 FFF7FEFF 		bl	lv_theme_get_from_obj
+ 387              	.LVL33:
+  78:Lib/lvgl/src/themes/lv_theme.c **** }
+ 388              		.loc 1 78 5 is_stmt 1 view .LVU82
+  78:Lib/lvgl/src/themes/lv_theme.c **** }
+ 389              		.loc 1 78 32 is_stmt 0 view .LVU83
+ 390 0006 08B1     		cbz	r0, .L32
+  78:Lib/lvgl/src/themes/lv_theme.c **** }
+ 391              		.loc 1 78 32 discriminator 1 view .LVU84
+ 392 0008 006A     		ldr	r0, [r0, #32]
+ 393              	.LVL34:
+ 394              	.L30:
+  79:Lib/lvgl/src/themes/lv_theme.c **** 
+ 395              		.loc 1 79 1 view .LVU85
+ 396 000a 08BD     		pop	{r3, pc}
+ 397              	.LVL35:
+ 398              	.L32:
+  78:Lib/lvgl/src/themes/lv_theme.c **** }
+ 399              		.loc 1 78 32 view .LVU86
+ 400 000c 0048     		ldr	r0, .L34
+ 401              	.LVL36:
+  78:Lib/lvgl/src/themes/lv_theme.c **** }
+ 402              		.loc 1 78 32 view .LVU87
+ 403 000e FCE7     		b	.L30
+ 404              	.L35:
+ 405              		.align	2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 11
+
+
+ 406              	.L34:
+ 407 0010 00000000 		.word	lv_font_montserrat_14
+ 408              		.cfi_endproc
+ 409              	.LFE262:
+ 411              		.section	.text.lv_theme_get_color_primary,"ax",%progbits
+ 412              		.align	1
+ 413              		.global	lv_theme_get_color_primary
+ 414              		.syntax unified
+ 415              		.thumb
+ 416              		.thumb_func
+ 418              	lv_theme_get_color_primary:
+ 419              	.LVL37:
+ 420              	.LFB263:
+  82:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 421              		.loc 1 82 1 is_stmt 1 view -0
+ 422              		.cfi_startproc
+ 423              		@ args = 0, pretend = 0, frame = 8
+ 424              		@ frame_needed = 0, uses_anonymous_args = 0
+  82:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 425              		.loc 1 82 1 is_stmt 0 view .LVU89
+ 426 0000 00B5     		push	{lr}
+ 427              	.LCFI7:
+ 428              		.cfi_def_cfa_offset 4
+ 429              		.cfi_offset 14, -4
+ 430 0002 83B0     		sub	sp, sp, #12
+ 431              	.LCFI8:
+ 432              		.cfi_def_cfa_offset 16
+  83:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->color_primary : lv_palette_main(LV_PALETTE_BLUE_GREY);
+ 433              		.loc 1 83 5 is_stmt 1 view .LVU90
+  83:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->color_primary : lv_palette_main(LV_PALETTE_BLUE_GREY);
+ 434              		.loc 1 83 23 is_stmt 0 view .LVU91
+ 435 0004 FFF7FEFF 		bl	lv_theme_get_from_obj
+ 436              	.LVL38:
+  84:Lib/lvgl/src/themes/lv_theme.c **** }
+ 437              		.loc 1 84 5 is_stmt 1 view .LVU92
+  84:Lib/lvgl/src/themes/lv_theme.c **** }
+ 438              		.loc 1 84 35 is_stmt 0 view .LVU93
+ 439 0008 A8B1     		cbz	r0, .L37
+  84:Lib/lvgl/src/themes/lv_theme.c **** }
+ 440              		.loc 1 84 35 discriminator 1 view .LVU94
+ 441 000a 0369     		ldr	r3, [r0, #16]
+ 442 000c ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 443 0010 1B0C     		lsrs	r3, r3, #16
+ 444 0012 8DF80630 		strb	r3, [sp, #6]
+ 445              	.LVL39:
+ 446              	.L38:
+  84:Lib/lvgl/src/themes/lv_theme.c **** }
+ 447              		.loc 1 84 35 view .LVU95
+ 448 0016 0020     		movs	r0, #0
+ 449 0018 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 450 001c 63F30700 		bfi	r0, r3, #0, #8
+ 451 0020 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+ 452 0024 63F30F20 		bfi	r0, r3, #8, #8
+ 453 0028 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 454 002c 63F31740 		bfi	r0, r3, #16, #8
+  85:Lib/lvgl/src/themes/lv_theme.c **** 
+ 455              		.loc 1 85 1 view .LVU96
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 12
+
+
+ 456 0030 03B0     		add	sp, sp, #12
+ 457              	.LCFI9:
+ 458              		.cfi_remember_state
+ 459              		.cfi_def_cfa_offset 4
+ 460              		@ sp needed
+ 461 0032 5DF804FB 		ldr	pc, [sp], #4
+ 462              	.LVL40:
+ 463              	.L37:
+ 464              	.LCFI10:
+ 465              		.cfi_restore_state
+  84:Lib/lvgl/src/themes/lv_theme.c **** }
+ 466              		.loc 1 84 37 discriminator 2 view .LVU97
+ 467 0036 1120     		movs	r0, #17
+ 468              	.LVL41:
+  84:Lib/lvgl/src/themes/lv_theme.c **** }
+ 469              		.loc 1 84 37 discriminator 2 view .LVU98
+ 470 0038 FFF7FEFF 		bl	lv_palette_main
+ 471              	.LVL42:
+ 472 003c 8DF80400 		strb	r0, [sp, #4]
+ 473 0040 C0F30723 		ubfx	r3, r0, #8, #8
+ 474 0044 8DF80530 		strb	r3, [sp, #5]
+ 475 0048 C0F30740 		ubfx	r0, r0, #16, #8
+ 476 004c 8DF80600 		strb	r0, [sp, #6]
+ 477 0050 E1E7     		b	.L38
+ 478              		.cfi_endproc
+ 479              	.LFE263:
+ 481              		.section	.text.lv_theme_get_color_secondary,"ax",%progbits
+ 482              		.align	1
+ 483              		.global	lv_theme_get_color_secondary
+ 484              		.syntax unified
+ 485              		.thumb
+ 486              		.thumb_func
+ 488              	lv_theme_get_color_secondary:
+ 489              	.LVL43:
+ 490              	.LFB264:
+  88:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 491              		.loc 1 88 1 is_stmt 1 view -0
+ 492              		.cfi_startproc
+ 493              		@ args = 0, pretend = 0, frame = 8
+ 494              		@ frame_needed = 0, uses_anonymous_args = 0
+  88:Lib/lvgl/src/themes/lv_theme.c ****     lv_theme_t * th = lv_theme_get_from_obj(obj);
+ 495              		.loc 1 88 1 is_stmt 0 view .LVU100
+ 496 0000 00B5     		push	{lr}
+ 497              	.LCFI11:
+ 498              		.cfi_def_cfa_offset 4
+ 499              		.cfi_offset 14, -4
+ 500 0002 83B0     		sub	sp, sp, #12
+ 501              	.LCFI12:
+ 502              		.cfi_def_cfa_offset 16
+  89:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->color_secondary : lv_palette_main(LV_PALETTE_BLUE);
+ 503              		.loc 1 89 5 is_stmt 1 view .LVU101
+  89:Lib/lvgl/src/themes/lv_theme.c ****     return th ? th->color_secondary : lv_palette_main(LV_PALETTE_BLUE);
+ 504              		.loc 1 89 23 is_stmt 0 view .LVU102
+ 505 0004 FFF7FEFF 		bl	lv_theme_get_from_obj
+ 506              	.LVL44:
+  90:Lib/lvgl/src/themes/lv_theme.c **** }
+ 507              		.loc 1 90 5 is_stmt 1 view .LVU103
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 13
+
+
+  90:Lib/lvgl/src/themes/lv_theme.c **** }
+ 508              		.loc 1 90 37 is_stmt 0 view .LVU104
+ 509 0008 B0B1     		cbz	r0, .L41
+  90:Lib/lvgl/src/themes/lv_theme.c **** }
+ 510              		.loc 1 90 37 discriminator 1 view .LVU105
+ 511 000a B0F81320 		ldrh	r2, [r0, #19]	@ unaligned
+ 512 000e 437D     		ldrb	r3, [r0, #21]	@ zero_extendqisi2
+ 513 0010 ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 514 0014 8DF80630 		strb	r3, [sp, #6]
+ 515              	.LVL45:
+ 516              	.L42:
+  90:Lib/lvgl/src/themes/lv_theme.c **** }
+ 517              		.loc 1 90 37 view .LVU106
+ 518 0018 0020     		movs	r0, #0
+ 519 001a 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 520 001e 63F30700 		bfi	r0, r3, #0, #8
+ 521 0022 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+ 522 0026 63F30F20 		bfi	r0, r3, #8, #8
+ 523 002a 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 524 002e 63F31740 		bfi	r0, r3, #16, #8
+  91:Lib/lvgl/src/themes/lv_theme.c **** 
+ 525              		.loc 1 91 1 view .LVU107
+ 526 0032 03B0     		add	sp, sp, #12
+ 527              	.LCFI13:
+ 528              		.cfi_remember_state
+ 529              		.cfi_def_cfa_offset 4
+ 530              		@ sp needed
+ 531 0034 5DF804FB 		ldr	pc, [sp], #4
+ 532              	.LVL46:
+ 533              	.L41:
+ 534              	.LCFI14:
+ 535              		.cfi_restore_state
+  90:Lib/lvgl/src/themes/lv_theme.c **** }
+ 536              		.loc 1 90 39 discriminator 2 view .LVU108
+ 537 0038 0520     		movs	r0, #5
+ 538              	.LVL47:
+  90:Lib/lvgl/src/themes/lv_theme.c **** }
+ 539              		.loc 1 90 39 discriminator 2 view .LVU109
+ 540 003a FFF7FEFF 		bl	lv_palette_main
+ 541              	.LVL48:
+ 542 003e 8DF80400 		strb	r0, [sp, #4]
+ 543 0042 C0F30723 		ubfx	r3, r0, #8, #8
+ 544 0046 8DF80530 		strb	r3, [sp, #5]
+ 545 004a C0F30740 		ubfx	r0, r0, #16, #8
+ 546 004e 8DF80600 		strb	r0, [sp, #6]
+ 547 0052 E1E7     		b	.L42
+ 548              		.cfi_endproc
+ 549              	.LFE264:
+ 551              		.text
+ 552              	.Letext0:
+ 553              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 554              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 555              		.file 4 "Lib/lvgl/src/themes/../../src/stdlib/../misc/lv_types.h"
+ 556              		.file 5 "Lib/lvgl/src/themes/../../src/core/lv_obj.h"
+ 557              		.file 6 "Lib/lvgl/src/themes/../../src/core/lv_obj_class.h"
+ 558              		.file 7 "Lib/lvgl/src/themes/../../src/core/../indev/../core/lv_group.h"
+ 559              		.file 8 "Lib/lvgl/src/themes/../../src/display/lv_display_private.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 14
+
+
+ 560              		.file 9 "Lib/lvgl/src/themes/../../src/core/../display/../draw/lv_draw.h"
+ 561              		.file 10 "Lib/lvgl/src/themes/../../src/core/../display/../misc/lv_event.h"
+ 562              		.file 11 "Lib/lvgl/src/themes/../../src/misc/lv_timer.h"
+ 563              		.file 12 "Lib/lvgl/src/themes/../../src/themes/lv_theme.h"
+ 564              		.file 13 "Lib/lvgl/src/themes/../../src/core/../misc/../font/lv_font.h"
+ 565              		.file 14 "Lib/lvgl/src/themes/../../src/misc/lv_ll.h"
+ 566              		.file 15 "Lib/lvgl/src/themes/../../src/misc/lv_array.h"
+ 567              		.file 16 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 568              		.file 17 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+ 569              		.file 18 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_palette.h"
+ 570              		.file 19 "Lib/lvgl/src/themes/../../src/core/../misc/../font/../draw/lv_image_buf.h"
+ 571              		.file 20 "Lib/lvgl/src/themes/../../src/core/../misc/../font/../draw/lv_draw_buf.h"
+ 572              		.file 21 "Lib/lvgl/src/themes/../../src/core/../misc/../font/../misc/cache/lv_cache_private.h"
+ 573              		.file 22 "Lib/lvgl/src/themes/../../src/core/../misc/lv_style.h"
+ 574              		.file 23 "Lib/lvgl/src/themes/../../src/core/../display/lv_display.h"
+ 575              		.file 24 "Lib/lvgl/src/themes/../../src/core/lv_obj_style.h"
+ 576              		.file 25 "Lib/lvgl/src/themes/../../src/core/lv_obj_tree.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_theme.c
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:21     .text.apply_theme:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:26     .text.apply_theme:00000000 apply_theme
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:71     .text.apply_theme_recursion:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:76     .text.apply_theme_recursion:00000000 apply_theme_recursion
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:133    .text.lv_theme_get_from_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:139    .text.lv_theme_get_from_obj:00000000 lv_theme_get_from_obj
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:176    .text.lv_theme_apply:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:182    .text.lv_theme_apply:00000000 lv_theme_apply
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:225    .text.lv_theme_set_parent:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:231    .text.lv_theme_set_parent:00000000 lv_theme_set_parent
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:248    .text.lv_theme_set_apply_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:254    .text.lv_theme_set_apply_cb:00000000 lv_theme_set_apply_cb
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:271    .text.lv_theme_get_font_small:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:277    .text.lv_theme_get_font_small:00000000 lv_theme_get_font_small
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:313    .text.lv_theme_get_font_small:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:318    .text.lv_theme_get_font_normal:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:324    .text.lv_theme_get_font_normal:00000000 lv_theme_get_font_normal
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:360    .text.lv_theme_get_font_normal:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:365    .text.lv_theme_get_font_large:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:371    .text.lv_theme_get_font_large:00000000 lv_theme_get_font_large
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:407    .text.lv_theme_get_font_large:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:412    .text.lv_theme_get_color_primary:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:418    .text.lv_theme_get_color_primary:00000000 lv_theme_get_color_primary
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:482    .text.lv_theme_get_color_secondary:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:488    .text.lv_theme_get_color_secondary:00000000 lv_theme_get_color_secondary
+
+UNDEFINED SYMBOLS
+lv_obj_get_display
+lv_display_get_theme
+lv_display_get_default
+lv_obj_remove_style_all
+lv_font_montserrat_14
+lv_palette_main

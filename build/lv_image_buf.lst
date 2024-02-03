@@ -1,0 +1,489 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_image_buf.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/lv_image_buf.c"
+  20              		.section	.text.lv_image_buf_set_palette,"ax",%progbits
+  21              		.align	1
+  22              		.global	lv_image_buf_set_palette
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	lv_image_buf_set_palette:
+  28              	.LVL0:
+  29              	.LFB82:
+   1:Lib/lvgl/src/draw/lv_image_buf.c **** /**
+   2:Lib/lvgl/src/draw/lv_image_buf.c ****  * @file lv_image_buf.c
+   3:Lib/lvgl/src/draw/lv_image_buf.c ****  *
+   4:Lib/lvgl/src/draw/lv_image_buf.c ****  */
+   5:Lib/lvgl/src/draw/lv_image_buf.c **** 
+   6:Lib/lvgl/src/draw/lv_image_buf.c **** /*********************
+   7:Lib/lvgl/src/draw/lv_image_buf.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/lv_image_buf.c ****  *********************/
+   9:Lib/lvgl/src/draw/lv_image_buf.c **** #include <stddef.h>
+  10:Lib/lvgl/src/draw/lv_image_buf.c **** #include <string.h>
+  11:Lib/lvgl/src/draw/lv_image_buf.c **** #include "lv_image_buf.h"
+  12:Lib/lvgl/src/draw/lv_image_buf.c **** #include "lv_draw_image.h"
+  13:Lib/lvgl/src/draw/lv_image_buf.c **** #include "../misc/lv_math.h"
+  14:Lib/lvgl/src/draw/lv_image_buf.c **** #include "../misc/lv_log.h"
+  15:Lib/lvgl/src/draw/lv_image_buf.c **** #include "../stdlib/lv_mem.h"
+  16:Lib/lvgl/src/draw/lv_image_buf.c **** #include "../stdlib/lv_string.h"
+  17:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  18:Lib/lvgl/src/draw/lv_image_buf.c **** /*********************
+  19:Lib/lvgl/src/draw/lv_image_buf.c ****  *      DEFINES
+  20:Lib/lvgl/src/draw/lv_image_buf.c ****  *********************/
+  21:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  22:Lib/lvgl/src/draw/lv_image_buf.c **** /**********************
+  23:Lib/lvgl/src/draw/lv_image_buf.c ****  *      TYPEDEFS
+  24:Lib/lvgl/src/draw/lv_image_buf.c ****  **********************/
+  25:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  26:Lib/lvgl/src/draw/lv_image_buf.c **** /**********************
+  27:Lib/lvgl/src/draw/lv_image_buf.c ****  *  STATIC PROTOTYPES
+  28:Lib/lvgl/src/draw/lv_image_buf.c ****  **********************/
+  29:Lib/lvgl/src/draw/lv_image_buf.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 2
+
+
+  30:Lib/lvgl/src/draw/lv_image_buf.c **** /**********************
+  31:Lib/lvgl/src/draw/lv_image_buf.c ****  *  STATIC VARIABLES
+  32:Lib/lvgl/src/draw/lv_image_buf.c ****  **********************/
+  33:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  34:Lib/lvgl/src/draw/lv_image_buf.c **** /**********************
+  35:Lib/lvgl/src/draw/lv_image_buf.c ****  *      MACROS
+  36:Lib/lvgl/src/draw/lv_image_buf.c ****  **********************/
+  37:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  38:Lib/lvgl/src/draw/lv_image_buf.c **** /**********************
+  39:Lib/lvgl/src/draw/lv_image_buf.c ****  *   GLOBAL FUNCTIONS
+  40:Lib/lvgl/src/draw/lv_image_buf.c ****  **********************/
+  41:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  42:Lib/lvgl/src/draw/lv_image_buf.c **** void lv_image_buf_set_palette(lv_image_dsc_t * dsc, uint8_t id, lv_color32_t c)
+  43:Lib/lvgl/src/draw/lv_image_buf.c **** {
+  30              		.loc 1 43 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 43 1 is_stmt 0 view .LVU1
+  35 0000 00B5     		push	{lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 4
+  38              		.cfi_offset 14, -4
+  39 0002 83B0     		sub	sp, sp, #12
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 16
+  42 0004 0192     		str	r2, [sp, #4]
+  44:Lib/lvgl/src/draw/lv_image_buf.c ****     if(dsc->header.cf < LV_COLOR_FORMAT_I1  || dsc->header.cf > LV_COLOR_FORMAT_I8) {
+  43              		.loc 1 44 5 is_stmt 1 view .LVU2
+  44              		.loc 1 44 19 is_stmt 0 view .LVU3
+  45 0006 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+  46              		.loc 1 44 45 view .LVU4
+  47 0008 073B     		subs	r3, r3, #7
+  48 000a DBB2     		uxtb	r3, r3
+  49              		.loc 1 44 7 view .LVU5
+  50 000c 032B     		cmp	r3, #3
+  51 000e 02D9     		bls	.L4
+  52              	.LVL1:
+  53              	.L1:
+  45:Lib/lvgl/src/draw/lv_image_buf.c ****         LV_LOG_WARN("Not indexed color format");
+  46:Lib/lvgl/src/draw/lv_image_buf.c ****         return;
+  47:Lib/lvgl/src/draw/lv_image_buf.c ****     }
+  48:Lib/lvgl/src/draw/lv_image_buf.c ****     uint8_t * buf = (uint8_t *)dsc->data;
+  49:Lib/lvgl/src/draw/lv_image_buf.c ****     lv_memcpy(&buf[id * sizeof(c)], &c, sizeof(c));
+  50:Lib/lvgl/src/draw/lv_image_buf.c **** }
+  54              		.loc 1 50 1 view .LVU6
+  55 0010 03B0     		add	sp, sp, #12
+  56              	.LCFI2:
+  57              		.cfi_remember_state
+  58              		.cfi_def_cfa_offset 4
+  59              		@ sp needed
+  60 0012 5DF804FB 		ldr	pc, [sp], #4
+  61              	.LVL2:
+  62              	.L4:
+  63              	.LCFI3:
+  64              		.cfi_restore_state
+  65              		.loc 1 50 1 view .LVU7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 3
+
+
+  66 0016 8C46     		mov	ip, r1
+  48:Lib/lvgl/src/draw/lv_image_buf.c ****     lv_memcpy(&buf[id * sizeof(c)], &c, sizeof(c));
+  67              		.loc 1 48 5 is_stmt 1 view .LVU8
+  48:Lib/lvgl/src/draw/lv_image_buf.c ****     lv_memcpy(&buf[id * sizeof(c)], &c, sizeof(c));
+  68              		.loc 1 48 15 is_stmt 0 view .LVU9
+  69 0018 0069     		ldr	r0, [r0, #16]
+  70              	.LVL3:
+  49:Lib/lvgl/src/draw/lv_image_buf.c **** }
+  71              		.loc 1 49 5 is_stmt 1 view .LVU10
+  72 001a 0422     		movs	r2, #4
+  73 001c 0DEB0201 		add	r1, sp, r2
+  74              	.LVL4:
+  49:Lib/lvgl/src/draw/lv_image_buf.c **** }
+  75              		.loc 1 49 5 is_stmt 0 view .LVU11
+  76 0020 00EB8C00 		add	r0, r0, ip, lsl #2
+  77              	.LVL5:
+  49:Lib/lvgl/src/draw/lv_image_buf.c **** }
+  78              		.loc 1 49 5 view .LVU12
+  79 0024 FFF7FEFF 		bl	lv_memcpy
+  80              	.LVL6:
+  49:Lib/lvgl/src/draw/lv_image_buf.c **** }
+  81              		.loc 1 49 5 view .LVU13
+  82 0028 F2E7     		b	.L1
+  83              		.cfi_endproc
+  84              	.LFE82:
+  86              		.section	.text.lv_image_buf_free,"ax",%progbits
+  87              		.align	1
+  88              		.global	lv_image_buf_free
+  89              		.syntax unified
+  90              		.thumb
+  91              		.thumb_func
+  93              	lv_image_buf_free:
+  94              	.LVL7:
+  95              	.LFB83:
+  51:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  52:Lib/lvgl/src/draw/lv_image_buf.c **** void lv_image_buf_free(lv_image_dsc_t * dsc)
+  53:Lib/lvgl/src/draw/lv_image_buf.c **** {
+  96              		.loc 1 53 1 is_stmt 1 view -0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+  54:Lib/lvgl/src/draw/lv_image_buf.c ****     if(dsc != NULL) {
+ 100              		.loc 1 54 5 view .LVU15
+ 101              		.loc 1 54 7 is_stmt 0 view .LVU16
+ 102 0000 48B1     		cbz	r0, .L9
+  53:Lib/lvgl/src/draw/lv_image_buf.c ****     if(dsc != NULL) {
+ 103              		.loc 1 53 1 view .LVU17
+ 104 0002 10B5     		push	{r4, lr}
+ 105              	.LCFI4:
+ 106              		.cfi_def_cfa_offset 8
+ 107              		.cfi_offset 4, -8
+ 108              		.cfi_offset 14, -4
+ 109 0004 0446     		mov	r4, r0
+  55:Lib/lvgl/src/draw/lv_image_buf.c ****         if(dsc->data != NULL)
+ 110              		.loc 1 55 9 is_stmt 1 view .LVU18
+ 111              		.loc 1 55 15 is_stmt 0 view .LVU19
+ 112 0006 0069     		ldr	r0, [r0, #16]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 4
+
+
+ 113              	.LVL8:
+ 114              		.loc 1 55 11 view .LVU20
+ 115 0008 08B1     		cbz	r0, .L7
+  56:Lib/lvgl/src/draw/lv_image_buf.c ****             lv_free((void *)dsc->data);
+ 116              		.loc 1 56 13 is_stmt 1 view .LVU21
+ 117 000a FFF7FEFF 		bl	lv_free
+ 118              	.LVL9:
+ 119              	.L7:
+  57:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  58:Lib/lvgl/src/draw/lv_image_buf.c ****         lv_free(dsc);
+ 120              		.loc 1 58 9 view .LVU22
+ 121 000e 2046     		mov	r0, r4
+ 122 0010 FFF7FEFF 		bl	lv_free
+ 123              	.LVL10:
+  59:Lib/lvgl/src/draw/lv_image_buf.c ****     }
+  60:Lib/lvgl/src/draw/lv_image_buf.c **** }
+ 124              		.loc 1 60 1 is_stmt 0 view .LVU23
+ 125 0014 10BD     		pop	{r4, pc}
+ 126              	.LVL11:
+ 127              	.L9:
+ 128              	.LCFI5:
+ 129              		.cfi_def_cfa_offset 0
+ 130              		.cfi_restore 4
+ 131              		.cfi_restore 14
+ 132              		.loc 1 60 1 view .LVU24
+ 133 0016 7047     		bx	lr
+ 134              		.cfi_endproc
+ 135              	.LFE83:
+ 137              		.section	.text._lv_image_buf_get_transformed_area,"ax",%progbits
+ 138              		.align	1
+ 139              		.global	_lv_image_buf_get_transformed_area
+ 140              		.syntax unified
+ 141              		.thumb
+ 142              		.thumb_func
+ 144              	_lv_image_buf_get_transformed_area:
+ 145              	.LVL12:
+ 146              	.LFB84:
+  61:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  62:Lib/lvgl/src/draw/lv_image_buf.c **** void _lv_image_buf_get_transformed_area(lv_area_t * res, int32_t w, int32_t h, int32_t angle, uint1
+  63:Lib/lvgl/src/draw/lv_image_buf.c ****                                         uint16_t scale_y,
+  64:Lib/lvgl/src/draw/lv_image_buf.c ****                                         const lv_point_t * pivot)
+  65:Lib/lvgl/src/draw/lv_image_buf.c **** {
+ 147              		.loc 1 65 1 is_stmt 1 view -0
+ 148              		.cfi_startproc
+ 149              		@ args = 12, pretend = 0, frame = 32
+ 150              		@ frame_needed = 0, uses_anonymous_args = 0
+ 151              		.loc 1 65 1 is_stmt 0 view .LVU26
+ 152 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+ 153              	.LCFI6:
+ 154              		.cfi_def_cfa_offset 28
+ 155              		.cfi_offset 4, -28
+ 156              		.cfi_offset 5, -24
+ 157              		.cfi_offset 6, -20
+ 158              		.cfi_offset 7, -16
+ 159              		.cfi_offset 8, -12
+ 160              		.cfi_offset 9, -8
+ 161              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 5
+
+
+ 162 0004 8BB0     		sub	sp, sp, #44
+ 163              	.LCFI7:
+ 164              		.cfi_def_cfa_offset 72
+ 165 0006 0446     		mov	r4, r0
+ 166 0008 BDF84850 		ldrh	r5, [sp, #72]
+ 167 000c BDF84C60 		ldrh	r6, [sp, #76]
+ 168 0010 DDF85080 		ldr	r8, [sp, #80]
+  66:Lib/lvgl/src/draw/lv_image_buf.c ****     if(angle == 0 && scale_x == LV_SCALE_NONE && scale_y == LV_SCALE_NONE) {
+ 169              		.loc 1 66 5 is_stmt 1 view .LVU27
+ 170              		.loc 1 66 7 is_stmt 0 view .LVU28
+ 171 0014 1F46     		mov	r7, r3
+ 172 0016 13B9     		cbnz	r3, .L13
+ 173              		.loc 1 66 19 discriminator 1 view .LVU29
+ 174 0018 B5F5807F 		cmp	r5, #256
+ 175 001c 6BD0     		beq	.L16
+ 176              	.L13:
+  67:Lib/lvgl/src/draw/lv_image_buf.c ****         res->x1 = 0;
+  68:Lib/lvgl/src/draw/lv_image_buf.c ****         res->y1 = 0;
+  69:Lib/lvgl/src/draw/lv_image_buf.c ****         res->x2 = w - 1;
+  70:Lib/lvgl/src/draw/lv_image_buf.c ****         res->y2 = h - 1;
+  71:Lib/lvgl/src/draw/lv_image_buf.c ****         return;
+  72:Lib/lvgl/src/draw/lv_image_buf.c ****     }
+  73:Lib/lvgl/src/draw/lv_image_buf.c **** 
+  74:Lib/lvgl/src/draw/lv_image_buf.c ****     lv_point_t p[4] = {
+ 177              		.loc 1 74 5 is_stmt 1 view .LVU30
+ 178              		.loc 1 74 16 is_stmt 0 view .LVU31
+ 179 001e 0023     		movs	r3, #0
+ 180              	.LVL13:
+ 181              		.loc 1 74 16 view .LVU32
+ 182 0020 0293     		str	r3, [sp, #8]
+ 183 0022 0393     		str	r3, [sp, #12]
+ 184 0024 0491     		str	r1, [sp, #16]
+ 185 0026 0593     		str	r3, [sp, #20]
+ 186 0028 0693     		str	r3, [sp, #24]
+ 187 002a 0792     		str	r2, [sp, #28]
+ 188 002c 0891     		str	r1, [sp, #32]
+ 189 002e 0992     		str	r2, [sp, #36]
+  75:Lib/lvgl/src/draw/lv_image_buf.c ****         {0, 0},
+  76:Lib/lvgl/src/draw/lv_image_buf.c ****         {w, 0},
+  77:Lib/lvgl/src/draw/lv_image_buf.c ****         {0, h},
+  78:Lib/lvgl/src/draw/lv_image_buf.c ****         {w, h},
+  79:Lib/lvgl/src/draw/lv_image_buf.c ****     };
+  80:Lib/lvgl/src/draw/lv_image_buf.c ****     lv_point_transform(&p[0], angle, scale_x, scale_y, pivot, true);
+ 190              		.loc 1 80 5 is_stmt 1 view .LVU33
+ 191 0030 4FF00109 		mov	r9, #1
+ 192 0034 CDF80490 		str	r9, [sp, #4]
+ 193 0038 CDF80080 		str	r8, [sp]
+ 194 003c 3346     		mov	r3, r6
+ 195 003e 2A46     		mov	r2, r5
+ 196              	.LVL14:
+ 197              		.loc 1 80 5 is_stmt 0 view .LVU34
+ 198 0040 3946     		mov	r1, r7
+ 199              	.LVL15:
+ 200              		.loc 1 80 5 view .LVU35
+ 201 0042 02A8     		add	r0, sp, #8
+ 202              	.LVL16:
+ 203              		.loc 1 80 5 view .LVU36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 6
+
+
+ 204 0044 FFF7FEFF 		bl	lv_point_transform
+ 205              	.LVL17:
+  81:Lib/lvgl/src/draw/lv_image_buf.c ****     lv_point_transform(&p[1], angle, scale_x, scale_y, pivot, true);
+ 206              		.loc 1 81 5 is_stmt 1 view .LVU37
+ 207 0048 CDF80490 		str	r9, [sp, #4]
+ 208 004c CDF80080 		str	r8, [sp]
+ 209 0050 3346     		mov	r3, r6
+ 210 0052 2A46     		mov	r2, r5
+ 211 0054 3946     		mov	r1, r7
+ 212 0056 04A8     		add	r0, sp, #16
+ 213 0058 FFF7FEFF 		bl	lv_point_transform
+ 214              	.LVL18:
+  82:Lib/lvgl/src/draw/lv_image_buf.c ****     lv_point_transform(&p[2], angle, scale_x, scale_y, pivot, true);
+ 215              		.loc 1 82 5 view .LVU38
+ 216 005c CDF80490 		str	r9, [sp, #4]
+ 217 0060 CDF80080 		str	r8, [sp]
+ 218 0064 3346     		mov	r3, r6
+ 219 0066 2A46     		mov	r2, r5
+ 220 0068 3946     		mov	r1, r7
+ 221 006a 06A8     		add	r0, sp, #24
+ 222 006c FFF7FEFF 		bl	lv_point_transform
+ 223              	.LVL19:
+  83:Lib/lvgl/src/draw/lv_image_buf.c ****     lv_point_transform(&p[3], angle, scale_x, scale_y, pivot, true);
+ 224              		.loc 1 83 5 view .LVU39
+ 225 0070 CDF80490 		str	r9, [sp, #4]
+ 226 0074 CDF80080 		str	r8, [sp]
+ 227 0078 3346     		mov	r3, r6
+ 228 007a 2A46     		mov	r2, r5
+ 229 007c 3946     		mov	r1, r7
+ 230 007e 08A8     		add	r0, sp, #32
+ 231 0080 FFF7FEFF 		bl	lv_point_transform
+ 232              	.LVL20:
+  84:Lib/lvgl/src/draw/lv_image_buf.c ****     res->x1 = LV_MIN4(p[0].x, p[1].x, p[2].x, p[3].x);
+ 233              		.loc 1 84 5 view .LVU40
+ 234              		.loc 1 84 15 is_stmt 0 view .LVU41
+ 235 0084 089B     		ldr	r3, [sp, #32]
+ 236 0086 069D     		ldr	r5, [sp, #24]
+ 237 0088 1946     		mov	r1, r3
+ 238 008a AB42     		cmp	r3, r5
+ 239 008c A8BF     		it	ge
+ 240 008e 2946     		movge	r1, r5
+ 241 0090 049A     		ldr	r2, [sp, #16]
+ 242 0092 0298     		ldr	r0, [sp, #8]
+ 243 0094 1646     		mov	r6, r2
+ 244 0096 8242     		cmp	r2, r0
+ 245 0098 A8BF     		it	ge
+ 246 009a 0646     		movge	r6, r0
+ 247 009c B142     		cmp	r1, r6
+ 248 009e A8BF     		it	ge
+ 249 00a0 3146     		movge	r1, r6
+ 250              		.loc 1 84 13 view .LVU42
+ 251 00a2 2160     		str	r1, [r4]
+  85:Lib/lvgl/src/draw/lv_image_buf.c ****     res->x2 = LV_MAX4(p[0].x, p[1].x, p[2].x, p[3].x) - 1;
+ 252              		.loc 1 85 5 is_stmt 1 view .LVU43
+ 253              		.loc 1 85 15 is_stmt 0 view .LVU44
+ 254 00a4 AB42     		cmp	r3, r5
+ 255 00a6 B8BF     		it	lt
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 7
+
+
+ 256 00a8 2B46     		movlt	r3, r5
+ 257 00aa 8242     		cmp	r2, r0
+ 258 00ac B8BF     		it	lt
+ 259 00ae 0246     		movlt	r2, r0
+ 260 00b0 9342     		cmp	r3, r2
+ 261 00b2 B8BF     		it	lt
+ 262 00b4 1346     		movlt	r3, r2
+ 263              		.loc 1 85 55 view .LVU45
+ 264 00b6 013B     		subs	r3, r3, #1
+ 265              		.loc 1 85 13 view .LVU46
+ 266 00b8 A360     		str	r3, [r4, #8]
+  86:Lib/lvgl/src/draw/lv_image_buf.c ****     res->y1 = LV_MIN4(p[0].y, p[1].y, p[2].y, p[3].y);
+ 267              		.loc 1 86 5 is_stmt 1 view .LVU47
+ 268              		.loc 1 86 15 is_stmt 0 view .LVU48
+ 269 00ba 099B     		ldr	r3, [sp, #36]
+ 270 00bc 079D     		ldr	r5, [sp, #28]
+ 271 00be 1946     		mov	r1, r3
+ 272 00c0 AB42     		cmp	r3, r5
+ 273 00c2 A8BF     		it	ge
+ 274 00c4 2946     		movge	r1, r5
+ 275 00c6 059A     		ldr	r2, [sp, #20]
+ 276 00c8 0398     		ldr	r0, [sp, #12]
+ 277 00ca 1646     		mov	r6, r2
+ 278 00cc 8242     		cmp	r2, r0
+ 279 00ce A8BF     		it	ge
+ 280 00d0 0646     		movge	r6, r0
+ 281 00d2 B142     		cmp	r1, r6
+ 282 00d4 A8BF     		it	ge
+ 283 00d6 3146     		movge	r1, r6
+ 284              		.loc 1 86 13 view .LVU49
+ 285 00d8 6160     		str	r1, [r4, #4]
+  87:Lib/lvgl/src/draw/lv_image_buf.c ****     res->y2 = LV_MAX4(p[0].y, p[1].y, p[2].y, p[3].y) - 1;
+ 286              		.loc 1 87 5 is_stmt 1 view .LVU50
+ 287              		.loc 1 87 15 is_stmt 0 view .LVU51
+ 288 00da AB42     		cmp	r3, r5
+ 289 00dc B8BF     		it	lt
+ 290 00de 2B46     		movlt	r3, r5
+ 291 00e0 8242     		cmp	r2, r0
+ 292 00e2 B8BF     		it	lt
+ 293 00e4 0246     		movlt	r2, r0
+ 294 00e6 9342     		cmp	r3, r2
+ 295 00e8 B8BF     		it	lt
+ 296 00ea 1346     		movlt	r3, r2
+ 297              		.loc 1 87 55 view .LVU52
+ 298 00ec 013B     		subs	r3, r3, #1
+ 299              		.loc 1 87 13 view .LVU53
+ 300 00ee E360     		str	r3, [r4, #12]
+ 301              	.L12:
+  88:Lib/lvgl/src/draw/lv_image_buf.c **** }
+ 302              		.loc 1 88 1 view .LVU54
+ 303 00f0 0BB0     		add	sp, sp, #44
+ 304              	.LCFI8:
+ 305              		.cfi_remember_state
+ 306              		.cfi_def_cfa_offset 28
+ 307              		@ sp needed
+ 308 00f2 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 309              	.LVL21:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 8
+
+
+ 310              	.L16:
+ 311              	.LCFI9:
+ 312              		.cfi_restore_state
+  66:Lib/lvgl/src/draw/lv_image_buf.c ****         res->x1 = 0;
+ 313              		.loc 1 66 47 discriminator 2 view .LVU55
+ 314 00f6 B6F5807F 		cmp	r6, #256
+ 315 00fa 90D1     		bne	.L13
+  67:Lib/lvgl/src/draw/lv_image_buf.c ****         res->y1 = 0;
+ 316              		.loc 1 67 9 is_stmt 1 view .LVU56
+  67:Lib/lvgl/src/draw/lv_image_buf.c ****         res->y1 = 0;
+ 317              		.loc 1 67 17 is_stmt 0 view .LVU57
+ 318 00fc 0360     		str	r3, [r0]
+  68:Lib/lvgl/src/draw/lv_image_buf.c ****         res->x2 = w - 1;
+ 319              		.loc 1 68 9 is_stmt 1 view .LVU58
+  68:Lib/lvgl/src/draw/lv_image_buf.c ****         res->x2 = w - 1;
+ 320              		.loc 1 68 17 is_stmt 0 view .LVU59
+ 321 00fe 4360     		str	r3, [r0, #4]
+  69:Lib/lvgl/src/draw/lv_image_buf.c ****         res->y2 = h - 1;
+ 322              		.loc 1 69 9 is_stmt 1 view .LVU60
+  69:Lib/lvgl/src/draw/lv_image_buf.c ****         res->y2 = h - 1;
+ 323              		.loc 1 69 21 is_stmt 0 view .LVU61
+ 324 0100 0139     		subs	r1, r1, #1
+ 325              	.LVL22:
+  69:Lib/lvgl/src/draw/lv_image_buf.c ****         res->y2 = h - 1;
+ 326              		.loc 1 69 17 view .LVU62
+ 327 0102 8160     		str	r1, [r0, #8]
+  70:Lib/lvgl/src/draw/lv_image_buf.c ****         return;
+ 328              		.loc 1 70 9 is_stmt 1 view .LVU63
+  70:Lib/lvgl/src/draw/lv_image_buf.c ****         return;
+ 329              		.loc 1 70 21 is_stmt 0 view .LVU64
+ 330 0104 013A     		subs	r2, r2, #1
+ 331              	.LVL23:
+  70:Lib/lvgl/src/draw/lv_image_buf.c ****         return;
+ 332              		.loc 1 70 17 view .LVU65
+ 333 0106 C260     		str	r2, [r0, #12]
+  71:Lib/lvgl/src/draw/lv_image_buf.c ****     }
+ 334              		.loc 1 71 9 is_stmt 1 view .LVU66
+ 335 0108 F2E7     		b	.L12
+ 336              		.cfi_endproc
+ 337              	.LFE84:
+ 339              		.text
+ 340              	.Letext0:
+ 341              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 342              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 343              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 344              		.file 5 "Lib/lvgl/src/draw/../misc/lv_color.h"
+ 345              		.file 6 "Lib/lvgl/src/draw/../misc/lv_area.h"
+ 346              		.file 7 "Lib/lvgl/src/draw/lv_image_buf.h"
+ 347              		.file 8 "Lib/lvgl/src/draw/../misc/../stdlib/lv_mem.h"
+ 348              		.file 9 "Lib/lvgl/src/draw/../stdlib/lv_string.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_image_buf.c
+C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s:21     .text.lv_image_buf_set_palette:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s:27     .text.lv_image_buf_set_palette:00000000 lv_image_buf_set_palette
+C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s:87     .text.lv_image_buf_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s:93     .text.lv_image_buf_free:00000000 lv_image_buf_free
+C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s:138    .text._lv_image_buf_get_transformed_area:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccT4xkEK.s:144    .text._lv_image_buf_get_transformed_area:00000000 _lv_image_buf_get_transformed_area
+
+UNDEFINED SYMBOLS
+lv_memcpy
+lv_free
+lv_point_transform

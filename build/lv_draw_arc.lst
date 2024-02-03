@@ -1,0 +1,2126 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_draw_arc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/lv_draw_arc.c"
+  20              		.section	.text.lv_draw_arc_dsc_init,"ax",%progbits
+  21              		.align	1
+  22              		.global	lv_draw_arc_dsc_init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	lv_draw_arc_dsc_init:
+  28              	.LVL0:
+  29              	.LFB233:
+   1:Lib/lvgl/src/draw/lv_draw_arc.c **** /**
+   2:Lib/lvgl/src/draw/lv_draw_arc.c ****  * @file lv_draw_arc.c
+   3:Lib/lvgl/src/draw/lv_draw_arc.c ****  *
+   4:Lib/lvgl/src/draw/lv_draw_arc.c ****  */
+   5:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+   6:Lib/lvgl/src/draw/lv_draw_arc.c **** /*********************
+   7:Lib/lvgl/src/draw/lv_draw_arc.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/lv_draw_arc.c ****  *********************/
+   9:Lib/lvgl/src/draw/lv_draw_arc.c **** #include "../core/lv_obj.h"
+  10:Lib/lvgl/src/draw/lv_draw_arc.c **** #include "lv_draw_arc.h"
+  11:Lib/lvgl/src/draw/lv_draw_arc.c **** #include "../core/lv_obj_event.h"
+  12:Lib/lvgl/src/draw/lv_draw_arc.c **** #include "../stdlib/lv_string.h"
+  13:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  14:Lib/lvgl/src/draw/lv_draw_arc.c **** /*********************
+  15:Lib/lvgl/src/draw/lv_draw_arc.c ****  *      DEFINES
+  16:Lib/lvgl/src/draw/lv_draw_arc.c ****  *********************/
+  17:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  18:Lib/lvgl/src/draw/lv_draw_arc.c **** /**********************
+  19:Lib/lvgl/src/draw/lv_draw_arc.c ****  *      TYPEDEFS
+  20:Lib/lvgl/src/draw/lv_draw_arc.c ****  **********************/
+  21:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  22:Lib/lvgl/src/draw/lv_draw_arc.c **** /**********************
+  23:Lib/lvgl/src/draw/lv_draw_arc.c ****  *  STATIC PROTOTYPES
+  24:Lib/lvgl/src/draw/lv_draw_arc.c ****  **********************/
+  25:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  26:Lib/lvgl/src/draw/lv_draw_arc.c **** /**********************
+  27:Lib/lvgl/src/draw/lv_draw_arc.c ****  *  STATIC VARIABLES
+  28:Lib/lvgl/src/draw/lv_draw_arc.c ****  **********************/
+  29:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 2
+
+
+  30:Lib/lvgl/src/draw/lv_draw_arc.c **** /**********************
+  31:Lib/lvgl/src/draw/lv_draw_arc.c ****  *      MACROS
+  32:Lib/lvgl/src/draw/lv_draw_arc.c ****  **********************/
+  33:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  34:Lib/lvgl/src/draw/lv_draw_arc.c **** /**********************
+  35:Lib/lvgl/src/draw/lv_draw_arc.c ****  *   GLOBAL FUNCTIONS
+  36:Lib/lvgl/src/draw/lv_draw_arc.c ****  **********************/
+  37:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  38:Lib/lvgl/src/draw/lv_draw_arc.c **** void lv_draw_arc_dsc_init(lv_draw_arc_dsc_t * dsc)
+  39:Lib/lvgl/src/draw/lv_draw_arc.c **** {
+  30              		.loc 1 39 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 16
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 39 1 is_stmt 0 view .LVU1
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40 0002 84B0     		sub	sp, sp, #16
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 24
+  43 0004 0446     		mov	r4, r0
+  40:Lib/lvgl/src/draw/lv_draw_arc.c ****     lv_memzero(dsc, sizeof(lv_draw_arc_dsc_t));
+  44              		.loc 1 40 5 is_stmt 1 view .LVU2
+  45              	.LVL1:
+  46              	.LBB10:
+  47              	.LBI10:
+  48              		.file 2 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h"
+   1:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+   2:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @file lv_stringn.h
+   3:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *
+   4:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+   5:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+   6:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #ifndef LV_STRING_H
+   7:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #define LV_STRING_H
+   8:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+   9:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** extern "C" {
+  11:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #endif
+  12:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  13:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /*********************
+  14:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
+  16:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #include <stdint.h>
+  18:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #include <stddef.h>
+  19:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  20:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /*********************
+  21:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *      DEFINES
+  22:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
+  23:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  24:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**********************
+  25:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  **********************/
+  27:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 3
+
+
+  28:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**********************
+  29:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * GLOBAL PROTOTYPES
+  30:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  **********************/
+  31:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  32:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  33:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Copies a block of memory from a source address to a destination address.
+  34:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  35:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  36:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy.
+  37:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  38:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @note The function does not check for any overlapping of the source and destination memory block
+  39:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  40:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** void * lv_memcpy(void * dst, const void * src, size_t len);
+  41:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  42:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  43:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Fills a block of memory with a specified value.
+  44:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array to fill with the specified value.
+  45:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param v Value to be set. The value is passed as an int, but the function fills
+  46:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
+  47:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to be set to the value.
+  48:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  49:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** void lv_memset(void * dst, uint8_t v, size_t len);
+  50:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  51:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  52:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Move a block of memory from source to destination
+  53:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  54:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  55:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy
+  56:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  57:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  58:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** void * lv_memmove(void * dst, const void * src, size_t len);
+  59:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  60:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  61:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * Same as `memset(dst, 0x00, len)`.
+  62:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst pointer to the destination buffer
+  63:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len number of byte to set
+  64:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  65:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** static inline void lv_memzero(void * dst, size_t len)
+  49              		.loc 2 65 20 view .LVU3
+  50              	.LBB11:
+  66:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** {
+  67:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****     lv_memset(dst, 0x00, len);
+  51              		.loc 2 67 5 view .LVU4
+  52 0006 4022     		movs	r2, #64
+  53 0008 0021     		movs	r1, #0
+  54 000a FFF7FEFF 		bl	lv_memset
+  55              	.LVL2:
+  56              		.loc 2 67 5 is_stmt 0 view .LVU5
+  57              	.LBE11:
+  58              	.LBE10:
+  41:Lib/lvgl/src/draw/lv_draw_arc.c ****     dsc->width = 1;
+  59              		.loc 1 41 5 is_stmt 1 view .LVU6
+  60              		.loc 1 41 16 is_stmt 0 view .LVU7
+  61 000e 0123     		movs	r3, #1
+  62 0010 2362     		str	r3, [r4, #32]
+  42:Lib/lvgl/src/draw/lv_draw_arc.c ****     dsc->opa = LV_OPA_COVER;
+  63              		.loc 1 42 5 is_stmt 1 view .LVU8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 4
+
+
+  64              		.loc 1 42 14 is_stmt 0 view .LVU9
+  65 0012 FF23     		movs	r3, #255
+  66 0014 84F83C30 		strb	r3, [r4, #60]
+  43:Lib/lvgl/src/draw/lv_draw_arc.c ****     dsc->color = lv_color_black();
+  67              		.loc 1 43 5 is_stmt 1 view .LVU10
+  68              	.LBB12:
+  69              	.LBI12:
+  70              		.file 3 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h"
+   1:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+   2:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @file lv_color.h
+   3:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *
+   4:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+   5:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+   6:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #ifndef LV_COLOR_H
+   7:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_H
+   8:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+   9:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** extern "C" {
+  11:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif
+  12:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  13:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /*********************
+  14:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *********************/
+  16:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include "lv_assert.h"
+  18:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include "lv_math.h"
+  19:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include "lv_types.h"
+  20:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include <stdint.h>
+  21:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include <stdbool.h>
+  22:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  23:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /*********************
+  24:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *      DEFINES
+  25:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *********************/
+  26:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** LV_EXPORT_CONST_INT(LV_COLOR_DEPTH);
+  27:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  28:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #if LV_COLOR_DEPTH == 8
+  29:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 2
+  30:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 16
+  31:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 3
+  32:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 24
+  33:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  34:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 32
+  35:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  36:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif
+  37:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  38:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+  39:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Opacity percentages.
+  40:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+  41:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  42:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** enum _lv_opa_t {
+  43:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_TRANSP = 0,
+  44:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_0      = 0,
+  45:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_10     = 25,
+  46:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_20     = 51,
+  47:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_30     = 76,
+  48:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_40     = 102,
+  49:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_50     = 127,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 5
+
+
+  50:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_60     = 153,
+  51:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_70     = 178,
+  52:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_80     = 204,
+  53:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_90     = 229,
+  54:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_100    = 255,
+  55:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_COVER  = 255,
+  56:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** };
+  57:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  58:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #ifdef DOXYGEN
+  59:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef _lv_opa_t lv_opa_t;
+  60:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #else
+  61:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef uint8_t lv_opa_t;
+  62:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif /*DOXYGEN*/
+  63:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  64:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_OPA_MIN 2    /*Opacities below this will be transparent*/
+  65:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_OPA_MAX 253  /*Opacities above this will fully cover*/
+  66:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  67:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_FORMAT_GET_BPP(cf) (       \
+  68:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I1 ? 1 :        \
+  69:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A1 ? 1 :        \
+  70:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I2 ? 2 :        \
+  71:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A2 ? 2 :        \
+  72:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I4 ? 4 :        \
+  73:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A4 ? 4 :        \
+  74:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_L8 ? 8 :        \
+  75:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A8 ? 8 :        \
+  76:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I8 ? 8 :        \
+  77:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565 ? 16 :   \
+  78:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565A8 ? 24 : \
+  79:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB888 ? 24 :   \
+  80:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_ARGB8888 ? 32 : \
+  81:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_XRGB8888 ? 32 : \
+  82:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             0                                       \
+  83:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                     )
+  84:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  85:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**********************
+  86:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *      TYPEDEFS
+  87:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  **********************/
+  88:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  89:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef struct {
+  90:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t blue;
+  91:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t green;
+  92:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t red;
+  93:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** } lv_color_t;
+  94:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  95:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef struct {
+  96:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t blue : 5;
+  97:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t green : 6;
+  98:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t red : 5;
+  99:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** } lv_color16_t;
+ 100:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 101:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef struct {
+ 102:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t blue;
+ 103:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t green;
+ 104:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t red;
+ 105:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t alpha;
+ 106:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** } lv_color32_t;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 6
+
+
+ 107:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 108:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef struct {
+ 109:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t h;
+ 110:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t s;
+ 111:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t v;
+ 112:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** } lv_color_hsv_t;
+ 113:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 114:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** enum _lv_color_format_t {
+ 115:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_UNKNOWN           = 0,
+ 116:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 117:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RAW               = 0x01,
+ 118:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RAW_ALPHA         = 0x02,
+ 119:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 120:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*<=1 byte (+alpha) formats*/
+ 121:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_L8                = 0x06,
+ 122:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I1                = 0x07,
+ 123:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I2                = 0x08,
+ 124:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I4                = 0x09,
+ 125:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I8                = 0x0A,
+ 126:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_A8                = 0x0E,
+ 127:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 128:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*2 byte (+alpha) formats*/
+ 129:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB565            = 0x12,
+ 130:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB565A8          = 0x14    /**< Color array followed by Alpha array*/,
+ 131:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 132:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*3 byte (+alpha) formats*/
+ 133:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB888            = 0x0F,
+ 134:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_ARGB8888          = 0x10,
+ 135:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_XRGB8888          = 0x11,
+ 136:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 137:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*Formats not supported by software renderer but kept here so GPU can use it*/
+ 138:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_A1                = 0x0B,
+ 139:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_A2                = 0x0C,
+ 140:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_A4                = 0x0D,
+ 141:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 142:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /* reference to https://wiki.videolan.org/YUV/ */
+ 143:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*YUV planar formats*/
+ 144:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_YUV_START         = 0x20,
+ 145:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I420              = LV_COLOR_FORMAT_YUV_START,  /*YUV420 planar(3 plane)*/
+ 146:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I422              = 0x21,  /*YUV422 planar(3 plane)*/
+ 147:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I444              = 0x22,  /*YUV444 planar(3 plane)*/
+ 148:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I400              = 0x23,  /*YUV400 no chroma channel*/
+ 149:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NV21              = 0x24,  /*YUV420 planar(2 plane), UV plane in 'V, U, V, U'*/
+ 150:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NV12              = 0x25,  /*YUV420 planar(2 plane), UV plane in 'U, V, U, V'*/
+ 151:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 152:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*YUV packed formats*/
+ 153:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_YUY2              = 0x26,  /*YUV422 packed like 'Y U Y V'*/
+ 154:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_UYVY              = 0x27,  /*YUV422 packed like 'U Y V Y'*/
+ 155:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 156:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_YUV_END           = LV_COLOR_FORMAT_UYVY,
+ 157:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 158:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*Color formats in which LVGL can render*/
+ 159:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #if LV_COLOR_DEPTH == 8
+ 160:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_L8,
+ 161:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 16
+ 162:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB565,
+ 163:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_RGB565A8,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 7
+
+
+ 164:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 24
+ 165:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB888,
+ 166:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 167:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 32
+ 168:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_XRGB8888,
+ 169:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 170:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif
+ 171:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** };
+ 172:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 173:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #ifdef DOXYGEN
+ 174:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef _lv_color_format_t lv_color_format_t;
+ 175:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #else
+ 176:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef uint8_t lv_color_format_t;
+ 177:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif /*DOXYGEN*/
+ 178:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 179:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_ALPHA_ONLY(cf) ((cf) >= LV_COLOR_FORMAT_A1 && (cf) <= LV_COLOR_FORMAT_A8
+ 180:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_INDEXED(cf) ((cf) >= LV_COLOR_FORMAT_I1 && (cf) <= LV_COLOR_FORMAT_I8)
+ 181:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_YUV(cf)  ((cf) >= LV_COLOR_FORMAT_YUV_START && (cf) <= LV_COLOR_FORMAT_Y
+ 182:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_INDEXED_PALETTE_SIZE(cf) ((cf) == LV_COLOR_FORMAT_I1 ? 2 :\
+ 183:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I2 ? 4 :\
+ 184:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I4 ? 16 :\
+ 185:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I8 ? 256 : 0)
+ 186:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 187:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**********************
+ 188:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * MACROS
+ 189:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  **********************/
+ 190:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 191:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_MAKE(r8, g8, b8) {b8, g8, r8}
+ 192:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 193:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_OPA_MIX2(a1, a2) (((int32_t)(a1) * (a2)) >> 8)
+ 194:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_OPA_MIX3(a1, a2, a3) (((int32_t)(a1) * (a2) * (a3)) >> 16)
+ 195:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 196:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**********************
+ 197:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * GLOBAL PROTOTYPES
+ 198:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  **********************/
+ 199:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 200:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 201:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Get the pixel size of a color format in bits, bpp
+ 202:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 203:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          the pixel size in bits
+ 204:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 205:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** uint8_t lv_color_format_get_bpp(lv_color_format_t cf);
+ 206:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 207:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 208:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Get the pixel size of a color format in bytes
+ 209:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 210:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          the pixel size in bytes
+ 211:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 212:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline uint8_t lv_color_format_get_size(lv_color_format_t cf)
+ 213:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 214:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return (lv_color_format_get_bpp(cf) + 7) >> 3;
+ 215:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 216:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 217:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 218:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Check if a color format has alpha channel or not
+ 219:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 220:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          true: has alpha channel; false: doesn't have alpha channel
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 8
+
+
+ 221:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 222:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** bool lv_color_format_has_alpha(lv_color_format_t src_cf);
+ 223:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 224:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 225:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create an ARGB8888 color from RGB888 + alpha
+ 226:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param color     an RGB888 color
+ 227:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param opa       the alpha value
+ 228:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          the ARGB8888 color
+ 229:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 230:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color32_t lv_color_to_32(lv_color_t color, lv_opa_t opa);
+ 231:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 232:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 233:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert an RGB888 color to an integer
+ 234:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     an RGB888 color
+ 235:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      `c` as an integer
+ 236:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 237:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline uint32_t lv_color_to_int(lv_color_t c)
+ 238:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 239:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t * tmp = (uint8_t *) &c;
+ 240:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return tmp[0] + (tmp[1] << 8) + (tmp[2] << 16);
+ 241:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 242:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 243:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 244:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Check if two RGB888 color are equal
+ 245:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c1    the first color
+ 246:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c2    the second color
+ 247:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      true: equal
+ 248:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 249:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline bool lv_color_eq(lv_color_t c1, lv_color_t c2)
+ 250:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 251:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return lv_color_to_int(c1) == lv_color_to_int(c2);
+ 252:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 253:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 254:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 255:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Check if two ARGB8888 color are equal
+ 256:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c1    the first color
+ 257:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c2    the second color
+ 258:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      true: equal
+ 259:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 260:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline bool lv_color32_eq(lv_color32_t c1, lv_color32_t c2)
+ 261:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 262:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return *((uint32_t *)&c1) == *((uint32_t *)&c2);
+ 263:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 264:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 265:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 266:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create a color from 0x000000..0xffffff input
+ 267:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     the hex input
+ 268:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the color
+ 269:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 270:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_hex(uint32_t c)
+ 271:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 272:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     lv_color_t ret;
+ 273:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.red = (c >> 16) & 0xff;
+ 274:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = (c >> 8) & 0xff;
+ 275:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = (c >> 0) & 0xff;
+ 276:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ 277:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 9
+
+
+ 278:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 279:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 280:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create an RGB888 color
+ 281:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param r     the red channel (0..255)
+ 282:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param g     the green channel (0..255)
+ 283:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param b     the blue channel (0..255)
+ 284:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the color
+ 285:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 286:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_make(uint8_t r, uint8_t g, uint8_t b)
+ 287:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 288:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     lv_color_t ret;
+ 289:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.red = r;
+ 290:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = g;
+ 291:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = b;
+ 292:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ 293:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 294:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 295:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 296:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create an ARGB8888 color
+ 297:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param r     the red channel (0..255)
+ 298:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param g     the green channel (0..255)
+ 299:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param b     the blue channel (0..255)
+ 300:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param a     the alpha channel (0..255)
+ 301:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the color
+ 302:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 303:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color32_t lv_color32_make(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+ 304:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 305:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     lv_color32_t ret;
+ 306:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.red = r;
+ 307:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = g;
+ 308:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = b;
+ 309:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.alpha = a;
+ 310:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ 311:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 312:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 313:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 314:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create a color from 0x000..0xfff input
+ 315:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     the hex input (e.g. 0x123 will be 0x112233)
+ 316:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the color
+ 317:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 318:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_hex3(uint32_t c)
+ 319:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 320:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return lv_color_make((uint8_t)(((c >> 4) & 0xF0) | ((c >> 8) & 0xF)), (uint8_t)((c & 0xF0) | ((
+ 321:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                          (uint8_t)((c & 0xF) | ((c & 0xF) << 4)));
+ 322:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 323:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 324:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 325:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert am RGB888 color to RGB565 stored in `uint16_t`
+ 326:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param color     and RGB888 color
+ 327:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          `color` as RGB565 on `uin16_t`
+ 328:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 329:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** uint16_t lv_color_to_u16(lv_color_t color);
+ 330:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 331:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 332:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert am RGB888 color to XRGB8888 stored in `uint32_t`
+ 333:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param color     and RGB888 color
+ 334:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          `color` as XRGB8888 on `uin32_t` (the alpha channel is always set to 0xFF)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 10
+
+
+ 335:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 336:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** uint32_t lv_color_to_u32(lv_color_t color);
+ 337:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 338:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 339:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Mix two RGB565 colors
+ 340:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c1        the first color (typically the foreground color)
+ 341:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c2        the second color  (typically the background color)
+ 342:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param mix       0..255, or LV_OPA_0/10/20...
+ 343:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          mix == 0: c2
+ 344:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *                  mix == 255: c1
+ 345:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *                  mix == 128: 0.5 x c1 + 0.5 x c2
+ 346:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 347:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** LV_ATTRIBUTE_FAST_MEM static inline uint16_t lv_color_16_16_mix(uint16_t c1, uint16_t c2, uint8_t m
+ 348:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 349:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     if(mix == 255) return c1;
+ 350:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     if(mix == 0) return c2;
+ 351:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 352:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t ret;
+ 353:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 354:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /* Source: https://stackoverflow.com/a/50012418/1999969*/
+ 355:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     mix = (uint32_t)((uint32_t)mix + 4) >> 3;
+ 356:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 357:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*0x7E0F81F = 0b00000111111000001111100000011111*/
+ 358:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint32_t bg = (uint32_t)(c2 | ((uint32_t)c2 << 16)) & 0x7E0F81F;
+ 359:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint32_t fg = (uint32_t)(c1 | ((uint32_t)c1 << 16)) & 0x7E0F81F;
+ 360:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint32_t result = ((((fg - bg) * mix) >> 5) + bg) & 0x7E0F81F;
+ 361:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret = (uint16_t)(result >> 16) | result;
+ 362:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 363:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ 364:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 365:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 366:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 367:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Mix white to a color
+ 368:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     the base color
+ 369:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param lvl   the intensity of white (0: no change, 255: fully white)
+ 370:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the mixed color
+ 371:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 372:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_t lv_color_lighten(lv_color_t c, lv_opa_t lvl);
+ 373:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 374:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 375:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Mix black to a color
+ 376:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     the base color
+ 377:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param lvl   the intensity of black (0: no change, 255: fully black)
+ 378:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the mixed color
+ 379:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 380:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_t lv_color_darken(lv_color_t c, lv_opa_t lvl);
+ 381:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 382:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 383:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert a HSV color to RGB
+ 384:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param h hue [0..359]
+ 385:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param s saturation [0..100]
+ 386:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param v value [0..100]
+ 387:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return the given RGB color in RGB (with LV_COLOR_DEPTH depth)
+ 388:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 389:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_t lv_color_hsv_to_rgb(uint16_t h, uint8_t s, uint8_t v);
+ 390:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 391:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 11
+
+
+ 392:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert a 32-bit RGB color to HSV
+ 393:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param r8 8-bit red
+ 394:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param g8 8-bit green
+ 395:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param b8 8-bit blue
+ 396:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return the given RGB color in HSV
+ 397:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 398:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_hsv_t lv_color_rgb_to_hsv(uint8_t r8, uint8_t g8, uint8_t b8);
+ 399:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 400:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 401:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert a color to HSV
+ 402:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param color color
+ 403:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return the given color in HSV
+ 404:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 405:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_hsv_t lv_color_to_hsv(lv_color_t color);
+ 406:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 407:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /*Source: https://vuetifyjs.com/en/styles/colors/#material-colors*/
+ 408:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 409:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 410:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * A helper for white color
+ 411:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      a white color
+ 412:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 413:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_white(void)
+ 414:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 415:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return lv_color_make(0xff, 0xff, 0xff);
+ 416:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 417:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 418:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 419:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * A helper for black color
+ 420:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      a black color
+ 421:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 422:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_black(void)
+  71              		.loc 3 422 26 view .LVU11
+ 423:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 424:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return lv_color_make(0x00, 0x00, 0x00);
+  72              		.loc 3 424 5 view .LVU12
+  73              	.LVL3:
+  74              	.LBB13:
+  75              	.LBI13:
+ 286:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+  76              		.loc 3 286 26 view .LVU13
+  77              	.LBB14:
+ 288:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.red = r;
+  78              		.loc 3 288 5 view .LVU14
+ 289:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = g;
+  79              		.loc 3 289 5 view .LVU15
+ 289:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = g;
+  80              		.loc 3 289 13 is_stmt 0 view .LVU16
+  81 0018 0023     		movs	r3, #0
+  82 001a 8DF80230 		strb	r3, [sp, #2]
+ 290:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = b;
+  83              		.loc 3 290 5 is_stmt 1 view .LVU17
+ 290:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = b;
+  84              		.loc 3 290 15 is_stmt 0 view .LVU18
+  85 001e 8DF80130 		strb	r3, [sp, #1]
+ 291:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+  86              		.loc 3 291 5 is_stmt 1 view .LVU19
+ 291:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 12
+
+
+  87              		.loc 3 291 14 is_stmt 0 view .LVU20
+  88 0022 8DF80030 		strb	r3, [sp]
+ 292:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+  89              		.loc 3 292 5 is_stmt 1 view .LVU21
+ 292:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+  90              		.loc 3 292 12 is_stmt 0 view .LVU22
+  91 0026 009B     		ldr	r3, [sp]
+  92 0028 ADF80830 		strh	r3, [sp, #8]	@ movhi
+  93 002c 1B0C     		lsrs	r3, r3, #16
+  94 002e 8DF80A30 		strb	r3, [sp, #10]
+  95 0032 029B     		ldr	r3, [sp, #8]
+  96 0034 ADF80C30 		strh	r3, [sp, #12]	@ movhi
+  97 0038 1B0C     		lsrs	r3, r3, #16
+  98 003a 8DF80E30 		strb	r3, [sp, #14]
+  99              	.LVL4:
+ 292:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 100              		.loc 3 292 12 view .LVU23
+ 101 003e 039B     		ldr	r3, [sp, #12]
+ 102 0040 ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 103 0044 1B0C     		lsrs	r3, r3, #16
+ 104 0046 8DF80630 		strb	r3, [sp, #6]
+ 105              	.LBE14:
+ 106              	.LBE13:
+ 107              	.LBE12:
+ 108              		.loc 1 43 18 view .LVU24
+ 109 004a 019B     		ldr	r3, [sp, #4]
+ 110 004c A383     		strh	r3, [r4, #28]	@ movhi
+ 111 004e 1B0C     		lsrs	r3, r3, #16
+ 112 0050 A377     		strb	r3, [r4, #30]
+  44:Lib/lvgl/src/draw/lv_draw_arc.c **** }
+ 113              		.loc 1 44 1 view .LVU25
+ 114 0052 04B0     		add	sp, sp, #16
+ 115              	.LCFI2:
+ 116              		.cfi_def_cfa_offset 8
+ 117              		@ sp needed
+ 118 0054 10BD     		pop	{r4, pc}
+ 119              		.loc 1 44 1 view .LVU26
+ 120              		.cfi_endproc
+ 121              	.LFE233:
+ 123              		.section	.text.lv_draw_arc,"ax",%progbits
+ 124              		.align	1
+ 125              		.global	lv_draw_arc
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 130              	lv_draw_arc:
+ 131              	.LVL5:
+ 132              	.LFB234:
+  45:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  46:Lib/lvgl/src/draw/lv_draw_arc.c **** void lv_draw_arc(lv_layer_t * layer, const lv_draw_arc_dsc_t * dsc)
+  47:Lib/lvgl/src/draw/lv_draw_arc.c **** {
+ 133              		.loc 1 47 1 is_stmt 1 view -0
+ 134              		.cfi_startproc
+ 135              		@ args = 0, pretend = 0, frame = 16
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+  48:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(dsc->opa <= LV_OPA_MIN) return;
+ 137              		.loc 1 48 5 view .LVU28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 13
+
+
+ 138              		.loc 1 48 11 is_stmt 0 view .LVU29
+ 139 0000 91F83C30 		ldrb	r3, [r1, #60]	@ zero_extendqisi2
+ 140              		.loc 1 48 7 view .LVU30
+ 141 0004 022B     		cmp	r3, #2
+ 142 0006 2BD9     		bls	.L7
+  47:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(dsc->opa <= LV_OPA_MIN) return;
+ 143              		.loc 1 47 1 view .LVU31
+ 144 0008 70B5     		push	{r4, r5, r6, lr}
+ 145              	.LCFI3:
+ 146              		.cfi_def_cfa_offset 16
+ 147              		.cfi_offset 4, -16
+ 148              		.cfi_offset 5, -12
+ 149              		.cfi_offset 6, -8
+ 150              		.cfi_offset 14, -4
+ 151 000a 84B0     		sub	sp, sp, #16
+ 152              	.LCFI4:
+ 153              		.cfi_def_cfa_offset 32
+ 154 000c 0546     		mov	r5, r0
+ 155 000e 0C46     		mov	r4, r1
+  49:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(dsc->width == 0) return;
+ 156              		.loc 1 49 5 is_stmt 1 view .LVU32
+ 157              		.loc 1 49 11 is_stmt 0 view .LVU33
+ 158 0010 0B6A     		ldr	r3, [r1, #32]
+ 159              		.loc 1 49 7 view .LVU34
+ 160 0012 1BB3     		cbz	r3, .L3
+  50:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(dsc->start_angle == dsc->end_angle) return;
+ 161              		.loc 1 50 5 is_stmt 1 view .LVU35
+ 162              		.loc 1 50 11 is_stmt 0 view .LVU36
+ 163 0014 4A6A     		ldr	r2, [r1, #36]
+ 164              		.loc 1 50 31 view .LVU37
+ 165 0016 8B6A     		ldr	r3, [r1, #40]
+ 166              		.loc 1 50 7 view .LVU38
+ 167 0018 9A42     		cmp	r2, r3
+ 168 001a 1FD0     		beq	.L3
+  51:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  52:Lib/lvgl/src/draw/lv_draw_arc.c ****     LV_PROFILER_BEGIN;
+ 169              		.loc 1 52 22 is_stmt 1 view .LVU39
+  53:Lib/lvgl/src/draw/lv_draw_arc.c ****     lv_area_t a;
+ 170              		.loc 1 53 5 view .LVU40
+  54:Lib/lvgl/src/draw/lv_draw_arc.c ****     a.x1 = dsc->center.x - dsc->radius;
+ 171              		.loc 1 54 5 view .LVU41
+ 172              		.loc 1 54 23 is_stmt 0 view .LVU42
+ 173 001c CA6A     		ldr	r2, [r1, #44]
+ 174              		.loc 1 54 31 view .LVU43
+ 175 001e 8B8E     		ldrh	r3, [r1, #52]
+ 176              		.loc 1 54 26 view .LVU44
+ 177 0020 D11A     		subs	r1, r2, r3
+ 178              	.LVL6:
+ 179              		.loc 1 54 10 view .LVU45
+ 180 0022 0091     		str	r1, [sp]
+  55:Lib/lvgl/src/draw/lv_draw_arc.c ****     a.y1 = dsc->center.y - dsc->radius;
+ 181              		.loc 1 55 5 is_stmt 1 view .LVU46
+ 182              		.loc 1 55 23 is_stmt 0 view .LVU47
+ 183 0024 216B     		ldr	r1, [r4, #48]
+ 184              		.loc 1 55 26 view .LVU48
+ 185 0026 C81A     		subs	r0, r1, r3
+ 186              	.LVL7:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 14
+
+
+ 187              		.loc 1 55 10 view .LVU49
+ 188 0028 0190     		str	r0, [sp, #4]
+  56:Lib/lvgl/src/draw/lv_draw_arc.c ****     a.x2 = dsc->center.x + dsc->radius - 1;
+ 189              		.loc 1 56 5 is_stmt 1 view .LVU50
+ 190              		.loc 1 56 26 is_stmt 0 view .LVU51
+ 191 002a 1A44     		add	r2, r2, r3
+ 192              		.loc 1 56 40 view .LVU52
+ 193 002c 013A     		subs	r2, r2, #1
+ 194              		.loc 1 56 10 view .LVU53
+ 195 002e 0292     		str	r2, [sp, #8]
+  57:Lib/lvgl/src/draw/lv_draw_arc.c ****     a.y2 = dsc->center.y + dsc->radius - 1;
+ 196              		.loc 1 57 5 is_stmt 1 view .LVU54
+ 197              		.loc 1 57 26 is_stmt 0 view .LVU55
+ 198 0030 0B44     		add	r3, r3, r1
+ 199              		.loc 1 57 40 view .LVU56
+ 200 0032 013B     		subs	r3, r3, #1
+ 201              		.loc 1 57 10 view .LVU57
+ 202 0034 0393     		str	r3, [sp, #12]
+  58:Lib/lvgl/src/draw/lv_draw_arc.c ****     lv_draw_task_t * t = lv_draw_add_task(layer, &a);
+ 203              		.loc 1 58 5 is_stmt 1 view .LVU58
+ 204              		.loc 1 58 26 is_stmt 0 view .LVU59
+ 205 0036 6946     		mov	r1, sp
+ 206 0038 2846     		mov	r0, r5
+ 207 003a FFF7FEFF 		bl	lv_draw_add_task
+ 208              	.LVL8:
+ 209 003e 0646     		mov	r6, r0
+ 210              	.LVL9:
+  59:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  60:Lib/lvgl/src/draw/lv_draw_arc.c ****     t->draw_dsc = lv_malloc(sizeof(*dsc));
+ 211              		.loc 1 60 5 is_stmt 1 view .LVU60
+ 212              		.loc 1 60 19 is_stmt 0 view .LVU61
+ 213 0040 4020     		movs	r0, #64
+ 214              	.LVL10:
+ 215              		.loc 1 60 19 view .LVU62
+ 216 0042 FFF7FEFF 		bl	lv_malloc
+ 217              	.LVL11:
+ 218              		.loc 1 60 17 view .LVU63
+ 219 0046 F064     		str	r0, [r6, #76]
+  61:Lib/lvgl/src/draw/lv_draw_arc.c ****     lv_memcpy(t->draw_dsc, dsc, sizeof(*dsc));
+ 220              		.loc 1 61 5 is_stmt 1 view .LVU64
+ 221 0048 4022     		movs	r2, #64
+ 222 004a 2146     		mov	r1, r4
+ 223 004c FFF7FEFF 		bl	lv_memcpy
+ 224              	.LVL12:
+  62:Lib/lvgl/src/draw/lv_draw_arc.c ****     t->type = LV_DRAW_TASK_TYPE_ARC;
+ 225              		.loc 1 62 5 view .LVU65
+ 226              		.loc 1 62 13 is_stmt 0 view .LVU66
+ 227 0050 0723     		movs	r3, #7
+ 228 0052 3371     		strb	r3, [r6, #4]
+  63:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  64:Lib/lvgl/src/draw/lv_draw_arc.c ****     lv_draw_finalize_task_creation(layer, t);
+ 229              		.loc 1 64 5 is_stmt 1 view .LVU67
+ 230 0054 3146     		mov	r1, r6
+ 231 0056 2846     		mov	r0, r5
+ 232 0058 FFF7FEFF 		bl	lv_draw_finalize_task_creation
+ 233              	.LVL13:
+  65:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 15
+
+
+  66:Lib/lvgl/src/draw/lv_draw_arc.c ****     LV_PROFILER_END;
+ 234              		.loc 1 66 20 view .LVU68
+ 235              	.L3:
+  67:Lib/lvgl/src/draw/lv_draw_arc.c **** }
+ 236              		.loc 1 67 1 is_stmt 0 view .LVU69
+ 237 005c 04B0     		add	sp, sp, #16
+ 238              	.LCFI5:
+ 239              		.cfi_def_cfa_offset 16
+ 240              		@ sp needed
+ 241 005e 70BD     		pop	{r4, r5, r6, pc}
+ 242              	.LVL14:
+ 243              	.L7:
+ 244              	.LCFI6:
+ 245              		.cfi_def_cfa_offset 0
+ 246              		.cfi_restore 4
+ 247              		.cfi_restore 5
+ 248              		.cfi_restore 6
+ 249              		.cfi_restore 14
+ 250              		.loc 1 67 1 view .LVU70
+ 251 0060 7047     		bx	lr
+ 252              		.cfi_endproc
+ 253              	.LFE234:
+ 255              		.section	.text.lv_draw_arc_get_area,"ax",%progbits
+ 256              		.align	1
+ 257              		.global	lv_draw_arc_get_area
+ 258              		.syntax unified
+ 259              		.thumb
+ 260              		.thumb_func
+ 262              	lv_draw_arc_get_area:
+ 263              	.LVL15:
+ 264              	.LFB235:
+  68:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  69:Lib/lvgl/src/draw/lv_draw_arc.c **** void lv_draw_arc_get_area(int32_t x, int32_t y, uint16_t radius,  lv_value_precise_t start_angle,
+  70:Lib/lvgl/src/draw/lv_draw_arc.c ****                           lv_value_precise_t end_angle,
+  71:Lib/lvgl/src/draw/lv_draw_arc.c ****                           int32_t w, bool rounded, lv_area_t * area)
+  72:Lib/lvgl/src/draw/lv_draw_arc.c **** {
+ 265              		.loc 1 72 1 is_stmt 1 view -0
+ 266              		.cfi_startproc
+ 267              		@ args = 16, pretend = 0, frame = 16
+ 268              		@ frame_needed = 0, uses_anonymous_args = 0
+ 269              		.loc 1 72 1 is_stmt 0 view .LVU72
+ 270 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 271              	.LCFI7:
+ 272              		.cfi_def_cfa_offset 36
+ 273              		.cfi_offset 4, -36
+ 274              		.cfi_offset 5, -32
+ 275              		.cfi_offset 6, -28
+ 276              		.cfi_offset 7, -24
+ 277              		.cfi_offset 8, -20
+ 278              		.cfi_offset 9, -16
+ 279              		.cfi_offset 10, -12
+ 280              		.cfi_offset 11, -8
+ 281              		.cfi_offset 14, -4
+ 282 0004 85B0     		sub	sp, sp, #20
+ 283              	.LCFI8:
+ 284              		.cfi_def_cfa_offset 56
+ 285 0006 0746     		mov	r7, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 16
+
+
+ 286 0008 8946     		mov	r9, r1
+ 287 000a 1546     		mov	r5, r2
+ 288 000c 1C46     		mov	r4, r3
+ 289 000e 0E9E     		ldr	r6, [sp, #56]
+ 290 0010 0F9B     		ldr	r3, [sp, #60]
+ 291              	.LVL16:
+ 292              		.loc 1 72 1 view .LVU73
+ 293 0012 9DF84010 		ldrb	r1, [sp, #64]	@ zero_extendqisi2
+ 294              	.LVL17:
+ 295              		.loc 1 72 1 view .LVU74
+ 296 0016 DDF844A0 		ldr	r10, [sp, #68]
+  73:Lib/lvgl/src/draw/lv_draw_arc.c ****     int32_t rout = radius;
+ 297              		.loc 1 73 5 is_stmt 1 view .LVU75
+ 298              	.LVL18:
+  74:Lib/lvgl/src/draw/lv_draw_arc.c ****     int32_t start_angle_int = (int32_t) start_angle;
+ 299              		.loc 1 74 5 view .LVU76
+  75:Lib/lvgl/src/draw/lv_draw_arc.c ****     int32_t end_angle_int = (int32_t) end_angle;
+ 300              		.loc 1 75 5 view .LVU77
+  76:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  77:Lib/lvgl/src/draw/lv_draw_arc.c ****     /*Special case: full arc invalidation */
+  78:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(end_angle_int == start_angle_int + 360) {
+ 301              		.loc 1 78 5 view .LVU78
+ 302              		.loc 1 78 41 is_stmt 0 view .LVU79
+ 303 001a 04F5B472 		add	r2, r4, #360
+ 304              	.LVL19:
+ 305              		.loc 1 78 7 view .LVU80
+ 306 001e B242     		cmp	r2, r6
+ 307 0020 45D0     		beq	.L41
+  79:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x - rout;
+  80:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout;
+  81:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout;
+  82:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout;
+  83:Lib/lvgl/src/draw/lv_draw_arc.c ****         return;
+  84:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+  85:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  86:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(start_angle_int > 360) start_angle_int -= 360;
+ 308              		.loc 1 86 5 is_stmt 1 view .LVU81
+ 309              		.loc 1 86 7 is_stmt 0 view .LVU82
+ 310 0022 B4F5B47F 		cmp	r4, #360
+ 311 0026 01DD     		ble	.L13
+ 312              		.loc 1 86 31 is_stmt 1 discriminator 1 view .LVU83
+ 313              		.loc 1 86 47 is_stmt 0 discriminator 1 view .LVU84
+ 314 0028 A4F5B474 		sub	r4, r4, #360
+ 315              	.LVL20:
+ 316              	.L13:
+  87:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(end_angle_int > 360) end_angle_int -= 360;
+ 317              		.loc 1 87 5 is_stmt 1 view .LVU85
+ 318              		.loc 1 87 7 is_stmt 0 view .LVU86
+ 319 002c B6F5B47F 		cmp	r6, #360
+ 320 0030 01DD     		ble	.L14
+ 321              		.loc 1 87 29 is_stmt 1 discriminator 1 view .LVU87
+ 322              		.loc 1 87 43 is_stmt 0 discriminator 1 view .LVU88
+ 323 0032 A6F5B476 		sub	r6, r6, #360
+ 324              	.LVL21:
+ 325              	.L14:
+  88:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  89:Lib/lvgl/src/draw/lv_draw_arc.c ****     int32_t rin = radius - w;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 17
+
+
+ 326              		.loc 1 89 5 is_stmt 1 view .LVU89
+ 327              		.loc 1 89 13 is_stmt 0 view .LVU90
+ 328 0036 A5EB030B 		sub	fp, r5, r3
+ 329              	.LVL22:
+  90:Lib/lvgl/src/draw/lv_draw_arc.c ****     int32_t extra_area = rounded ? w / 2 + 1 : 0;
+ 330              		.loc 1 90 5 is_stmt 1 view .LVU91
+ 331              		.loc 1 90 46 is_stmt 0 view .LVU92
+ 332 003a 0029     		cmp	r1, #0
+ 333 003c 45D0     		beq	.L36
+ 334              		.loc 1 90 38 discriminator 1 view .LVU93
+ 335 003e 03EBD378 		add	r8, r3, r3, lsr #31
+ 336 0042 4FEA6808 		asr	r8, r8, #1
+ 337              		.loc 1 90 46 discriminator 1 view .LVU94
+ 338 0046 08F10108 		add	r8, r8, #1
+ 339              	.L15:
+ 340              	.LVL23:
+  91:Lib/lvgl/src/draw/lv_draw_arc.c ****     uint8_t start_quarter = start_angle_int / 90;
+ 341              		.loc 1 91 5 is_stmt 1 discriminator 4 view .LVU95
+ 342              		.loc 1 91 45 is_stmt 0 discriminator 4 view .LVU96
+ 343 004a C04A     		ldr	r2, .L49
+ 344              	.LVL24:
+ 345              		.loc 1 91 45 discriminator 4 view .LVU97
+ 346 004c 82FB0431 		smull	r3, r1, r2, r4
+ 347 0050 2144     		add	r1, r1, r4
+ 348 0052 E317     		asrs	r3, r4, #31
+ 349 0054 C3EBA113 		rsb	r3, r3, r1, asr #6
+ 350              		.loc 1 91 13 discriminator 4 view .LVU98
+ 351 0058 DBB2     		uxtb	r3, r3
+ 352              	.LVL25:
+  92:Lib/lvgl/src/draw/lv_draw_arc.c ****     uint8_t end_quarter = end_angle_int / 90;
+ 353              		.loc 1 92 5 is_stmt 1 discriminator 4 view .LVU99
+ 354              		.loc 1 92 41 is_stmt 0 discriminator 4 view .LVU100
+ 355 005a 82FB0612 		smull	r1, r2, r2, r6
+ 356 005e 9119     		adds	r1, r2, r6
+ 357 0060 F217     		asrs	r2, r6, #31
+ 358 0062 C2EBA112 		rsb	r2, r2, r1, asr #6
+ 359              		.loc 1 92 13 discriminator 4 view .LVU101
+ 360 0066 D2B2     		uxtb	r2, r2
+ 361              	.LVL26:
+  93:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  94:Lib/lvgl/src/draw/lv_draw_arc.c ****     /*360 deg still counts as quarter 3 (360 / 90 would be 4)*/
+  95:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(start_quarter == 4) start_quarter = 3;
+ 362              		.loc 1 95 5 is_stmt 1 discriminator 4 view .LVU102
+ 363              		.loc 1 95 7 is_stmt 0 discriminator 4 view .LVU103
+ 364 0068 042B     		cmp	r3, #4
+ 365 006a 31D0     		beq	.L42
+ 366              	.LVL27:
+ 367              	.L16:
+  96:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(end_quarter == 4) end_quarter = 3;
+ 368              		.loc 1 96 5 is_stmt 1 view .LVU104
+ 369              		.loc 1 96 7 is_stmt 0 view .LVU105
+ 370 006c 042A     		cmp	r2, #4
+ 371 006e 31D0     		beq	.L43
+ 372              	.LVL28:
+ 373              	.L17:
+  97:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+  98:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(start_quarter == end_quarter && start_angle_int <= end_angle_int) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 18
+
+
+ 374              		.loc 1 98 5 is_stmt 1 view .LVU106
+ 375              		.loc 1 98 7 is_stmt 0 view .LVU107
+ 376 0070 9342     		cmp	r3, r2
+ 377 0072 31D0     		beq	.L44
+ 378              	.L18:
+  99:Lib/lvgl/src/draw/lv_draw_arc.c ****         if(start_quarter == 0) {
+ 100:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) - extra_area;
+ 101:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_
+ 102:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 103:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 104:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) - extra_are
+ 105:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 106:Lib/lvgl/src/draw/lv_draw_arc.c ****         else if(start_quarter == 1) {
+ 107:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 108:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_a
+ 109:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 110:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) - extra_area;
+ 111:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_ar
+ 112:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 113:Lib/lvgl/src/draw/lv_draw_arc.c ****         else if(start_quarter == 2) {
+ 114:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_
+ 115:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 116:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 117:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 118:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_are
+ 119:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 120:Lib/lvgl/src/draw/lv_draw_arc.c ****         else if(start_quarter == 3) {
+ 121:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 122:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 123:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 124:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_ar
+ 125:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 126:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 127:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 128:Lib/lvgl/src/draw/lv_draw_arc.c ****     else if(start_quarter == 0 && end_quarter == 1) {
+ 379              		.loc 1 128 10 is_stmt 1 view .LVU108
+ 380              		.loc 1 128 12 is_stmt 0 view .LVU109
+ 381 0074 13B9     		cbnz	r3, .L24
+ 382              		.loc 1 128 32 discriminator 1 view .LVU110
+ 383 0076 012A     		cmp	r2, #1
+ 384 0078 00F0F280 		beq	.L45
+ 385              	.L24:
+ 129:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 130:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((LV_MIN(lv_trigo_sin(end_angle_int),
+ 131:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int))  * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 132:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_area
+ 133:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout + extra_area;
+ 134:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 135:Lib/lvgl/src/draw/lv_draw_arc.c ****     else if(start_quarter == 1 && end_quarter == 2) {
+ 386              		.loc 1 135 10 is_stmt 1 view .LVU111
+ 387              		.loc 1 135 12 is_stmt 0 view .LVU112
+ 388 007c 012B     		cmp	r3, #1
+ 389 007e 00F02981 		beq	.L46
+ 390              	.L27:
+ 136:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x - rout - extra_area;
+ 137:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((LV_MAX(lv_trigo_sin(start_angle_int + 90),
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 19
+
+
+ 139:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 140:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 141:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 142:Lib/lvgl/src/draw/lv_draw_arc.c ****     else if(start_quarter == 2 && end_quarter == 3) {
+ 391              		.loc 1 142 10 is_stmt 1 view .LVU113
+ 392              		.loc 1 142 12 is_stmt 0 view .LVU114
+ 393 0082 022B     		cmp	r3, #2
+ 394 0084 00F06481 		beq	.L47
+ 395              	.L30:
+ 143:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_area
+ 144:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout - extra_area;
+ 145:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + (LV_MAX(lv_trigo_sin(end_angle_int) * rin,
+ 147:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 148:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 149:Lib/lvgl/src/draw/lv_draw_arc.c ****     else if(start_quarter == 3 && end_quarter == 0) {
+ 396              		.loc 1 149 10 is_stmt 1 view .LVU115
+ 397              		.loc 1 149 12 is_stmt 0 view .LVU116
+ 398 0088 032B     		cmp	r3, #3
+ 399 008a 00F0A381 		beq	.L48
+ 400              	.L33:
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x + ((LV_MIN(lv_trigo_sin(end_angle_int + 90),
+ 151:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 152:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 153:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout + extra_area;
+ 154:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 155:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 156:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 157:Lib/lvgl/src/draw/lv_draw_arc.c ****     else {
+ 158:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x - rout;
+ 401              		.loc 1 158 9 is_stmt 1 view .LVU117
+ 402              		.loc 1 158 22 is_stmt 0 view .LVU118
+ 403 008e 7B1B     		subs	r3, r7, r5
+ 404              	.LVL29:
+ 405              		.loc 1 158 18 view .LVU119
+ 406 0090 CAF80030 		str	r3, [r10]
+ 159:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout;
+ 407              		.loc 1 159 9 is_stmt 1 view .LVU120
+ 408              		.loc 1 159 22 is_stmt 0 view .LVU121
+ 409 0094 A9EB0503 		sub	r3, r9, r5
+ 410              		.loc 1 159 18 view .LVU122
+ 411 0098 CAF80430 		str	r3, [r10, #4]
+ 160:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout;
+ 412              		.loc 1 160 9 is_stmt 1 view .LVU123
+ 413              		.loc 1 160 22 is_stmt 0 view .LVU124
+ 414 009c 2F44     		add	r7, r7, r5
+ 415              		.loc 1 160 18 view .LVU125
+ 416 009e CAF80870 		str	r7, [r10, #8]
+ 161:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout;
+ 417              		.loc 1 161 9 is_stmt 1 view .LVU126
+ 418              		.loc 1 161 22 is_stmt 0 view .LVU127
+ 419 00a2 4D44     		add	r5, r5, r9
+ 420              	.LVL30:
+ 421              		.loc 1 161 18 view .LVU128
+ 422 00a4 CAF80C50 		str	r5, [r10, #12]
+ 423              	.LVL31:
+ 424              	.L10:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 20
+
+
+ 162:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 163:Lib/lvgl/src/draw/lv_draw_arc.c **** }
+ 425              		.loc 1 163 1 view .LVU129
+ 426 00a8 05B0     		add	sp, sp, #20
+ 427              	.LCFI9:
+ 428              		.cfi_remember_state
+ 429              		.cfi_def_cfa_offset 36
+ 430              		@ sp needed
+ 431 00aa BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 432              	.LVL32:
+ 433              	.L41:
+ 434              	.LCFI10:
+ 435              		.cfi_restore_state
+  79:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout;
+ 436              		.loc 1 79 9 is_stmt 1 view .LVU130
+  79:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout;
+ 437              		.loc 1 79 22 is_stmt 0 view .LVU131
+ 438 00ae 431B     		subs	r3, r0, r5
+  79:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout;
+ 439              		.loc 1 79 18 view .LVU132
+ 440 00b0 CAF80030 		str	r3, [r10]
+  80:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout;
+ 441              		.loc 1 80 9 is_stmt 1 view .LVU133
+  80:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout;
+ 442              		.loc 1 80 22 is_stmt 0 view .LVU134
+ 443 00b4 A9EB0503 		sub	r3, r9, r5
+  80:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout;
+ 444              		.loc 1 80 18 view .LVU135
+ 445 00b8 CAF80430 		str	r3, [r10, #4]
+  81:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout;
+ 446              		.loc 1 81 9 is_stmt 1 view .LVU136
+  81:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout;
+ 447              		.loc 1 81 22 is_stmt 0 view .LVU137
+ 448 00bc 2F44     		add	r7, r7, r5
+  81:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout;
+ 449              		.loc 1 81 18 view .LVU138
+ 450 00be CAF80870 		str	r7, [r10, #8]
+  82:Lib/lvgl/src/draw/lv_draw_arc.c ****         return;
+ 451              		.loc 1 82 9 is_stmt 1 view .LVU139
+  82:Lib/lvgl/src/draw/lv_draw_arc.c ****         return;
+ 452              		.loc 1 82 22 is_stmt 0 view .LVU140
+ 453 00c2 4D44     		add	r5, r5, r9
+ 454              	.LVL33:
+  82:Lib/lvgl/src/draw/lv_draw_arc.c ****         return;
+ 455              		.loc 1 82 18 view .LVU141
+ 456 00c4 CAF80C50 		str	r5, [r10, #12]
+  83:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 457              		.loc 1 83 9 is_stmt 1 view .LVU142
+ 458 00c8 EEE7     		b	.L10
+ 459              	.LVL34:
+ 460              	.L36:
+  90:Lib/lvgl/src/draw/lv_draw_arc.c ****     uint8_t start_quarter = start_angle_int / 90;
+ 461              		.loc 1 90 46 is_stmt 0 view .LVU143
+ 462 00ca 4FF00008 		mov	r8, #0
+ 463 00ce BCE7     		b	.L15
+ 464              	.LVL35:
+ 465              	.L42:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 21
+
+
+  95:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(end_quarter == 4) end_quarter = 3;
+ 466              		.loc 1 95 42 view .LVU144
+ 467 00d0 0323     		movs	r3, #3
+ 468              	.LVL36:
+  95:Lib/lvgl/src/draw/lv_draw_arc.c ****     if(end_quarter == 4) end_quarter = 3;
+ 469              		.loc 1 95 42 view .LVU145
+ 470 00d2 CBE7     		b	.L16
+ 471              	.LVL37:
+ 472              	.L43:
+  96:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 473              		.loc 1 96 38 view .LVU146
+ 474 00d4 0322     		movs	r2, #3
+ 475              	.LVL38:
+  96:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 476              		.loc 1 96 38 view .LVU147
+ 477 00d6 CBE7     		b	.L17
+ 478              	.LVL39:
+ 479              	.L44:
+  98:Lib/lvgl/src/draw/lv_draw_arc.c ****         if(start_quarter == 0) {
+ 480              		.loc 1 98 37 discriminator 1 view .LVU148
+ 481 00d8 B442     		cmp	r4, r6
+ 482 00da CBDC     		bgt	.L18
+  99:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) - extra_area;
+ 483              		.loc 1 99 9 is_stmt 1 view .LVU149
+ 484 00dc 032B     		cmp	r3, #3
+ 485 00de E3D8     		bhi	.L10
+ 486 00e0 DFE803F0 		tbb	[pc, r3]
+ 487              	.LVL40:
+ 488              	.L20:
+ 489 00e4 02       		.byte	(.L23-.L20)/2
+ 490 00e5 31       		.byte	(.L22-.L20)/2
+ 491 00e6 60       		.byte	(.L21-.L20)/2
+ 492 00e7 8F       		.byte	(.L19-.L20)/2
+ 493              		.p2align 1
+ 494              	.L23:
+ 100:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_
+ 495              		.loc 1 100 13 view .LVU150
+ 100:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_
+ 496              		.loc 1 100 30 is_stmt 0 view .LVU151
+ 497 00e8 20B2     		sxth	r0, r4
+ 498              	.LVL41:
+ 100:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_
+ 499              		.loc 1 100 30 view .LVU152
+ 500 00ea FFF7FEFF 		bl	lv_trigo_sin
+ 501              	.LVL42:
+ 100:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_
+ 502              		.loc 1 100 60 view .LVU153
+ 503 00ee 0BFB00F3 		mul	r3, fp, r0
+ 100:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_
+ 504              		.loc 1 100 26 view .LVU154
+ 505 00f2 09EBE333 		add	r3, r9, r3, asr #15
+ 100:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_
+ 506              		.loc 1 100 86 view .LVU155
+ 507 00f6 A3EB0803 		sub	r3, r3, r8
+ 100:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_
+ 508              		.loc 1 100 22 view .LVU156
+ 509 00fa CAF80430 		str	r3, [r10, #4]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 22
+
+
+ 101:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 510              		.loc 1 101 13 is_stmt 1 view .LVU157
+ 101:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 511              		.loc 1 101 59 is_stmt 0 view .LVU158
+ 512 00fe 04F15A00 		add	r0, r4, #90
+ 101:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 513              		.loc 1 101 30 view .LVU159
+ 514 0102 00B2     		sxth	r0, r0
+ 515 0104 FFF7FEFF 		bl	lv_trigo_sin
+ 516              	.LVL43:
+ 101:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 517              		.loc 1 101 65 view .LVU160
+ 518 0108 05FB00F3 		mul	r3, r5, r0
+ 101:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 519              		.loc 1 101 26 view .LVU161
+ 520 010c 07EBE333 		add	r3, r7, r3, asr #15
+ 101:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 521              		.loc 1 101 92 view .LVU162
+ 522 0110 4344     		add	r3, r3, r8
+ 101:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 523              		.loc 1 101 22 view .LVU163
+ 524 0112 CAF80830 		str	r3, [r10, #8]
+ 103:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) - extra_are
+ 525              		.loc 1 103 13 is_stmt 1 view .LVU164
+ 103:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) - extra_are
+ 526              		.loc 1 103 30 is_stmt 0 view .LVU165
+ 527 0116 30B2     		sxth	r0, r6
+ 528 0118 FFF7FEFF 		bl	lv_trigo_sin
+ 529              	.LVL44:
+ 103:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) - extra_are
+ 530              		.loc 1 103 58 view .LVU166
+ 531 011c 05FB00F3 		mul	r3, r5, r0
+ 103:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) - extra_are
+ 532              		.loc 1 103 26 view .LVU167
+ 533 0120 09EBE333 		add	r3, r9, r3, asr #15
+ 103:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) - extra_are
+ 534              		.loc 1 103 85 view .LVU168
+ 535 0124 4344     		add	r3, r3, r8
+ 103:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) - extra_are
+ 536              		.loc 1 103 22 view .LVU169
+ 537 0126 CAF80C30 		str	r3, [r10, #12]
+ 104:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 538              		.loc 1 104 13 is_stmt 1 view .LVU170
+ 104:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 539              		.loc 1 104 57 is_stmt 0 view .LVU171
+ 540 012a 06F15A00 		add	r0, r6, #90
+ 104:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 541              		.loc 1 104 30 view .LVU172
+ 542 012e 00B2     		sxth	r0, r0
+ 543 0130 FFF7FEFF 		bl	lv_trigo_sin
+ 544              	.LVL45:
+ 104:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 545              		.loc 1 104 63 view .LVU173
+ 546 0134 0BFB00F3 		mul	r3, fp, r0
+ 104:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 547              		.loc 1 104 26 view .LVU174
+ 548 0138 07EBE333 		add	r3, r7, r3, asr #15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 23
+
+
+ 104:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 549              		.loc 1 104 89 view .LVU175
+ 550 013c A3EB0803 		sub	r3, r3, r8
+ 104:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 551              		.loc 1 104 22 view .LVU176
+ 552 0140 CAF80030 		str	r3, [r10]
+ 553 0144 B0E7     		b	.L10
+ 554              	.LVL46:
+ 555              	.L22:
+ 107:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_a
+ 556              		.loc 1 107 13 is_stmt 1 view .LVU177
+ 107:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_a
+ 557              		.loc 1 107 30 is_stmt 0 view .LVU178
+ 558 0146 20B2     		sxth	r0, r4
+ 559              	.LVL47:
+ 107:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_a
+ 560              		.loc 1 107 30 view .LVU179
+ 561 0148 FFF7FEFF 		bl	lv_trigo_sin
+ 562              	.LVL48:
+ 107:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_a
+ 563              		.loc 1 107 60 view .LVU180
+ 564 014c 05FB00F3 		mul	r3, r5, r0
+ 107:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_a
+ 565              		.loc 1 107 26 view .LVU181
+ 566 0150 09EBE333 		add	r3, r9, r3, asr #15
+ 107:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_a
+ 567              		.loc 1 107 87 view .LVU182
+ 568 0154 4344     		add	r3, r3, r8
+ 107:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_a
+ 569              		.loc 1 107 22 view .LVU183
+ 570 0156 CAF80C30 		str	r3, [r10, #12]
+ 108:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 571              		.loc 1 108 13 is_stmt 1 view .LVU184
+ 108:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 572              		.loc 1 108 59 is_stmt 0 view .LVU185
+ 573 015a 04F15A00 		add	r0, r4, #90
+ 108:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 574              		.loc 1 108 30 view .LVU186
+ 575 015e 00B2     		sxth	r0, r0
+ 576 0160 FFF7FEFF 		bl	lv_trigo_sin
+ 577              	.LVL49:
+ 108:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 578              		.loc 1 108 65 view .LVU187
+ 579 0164 0BFB00F3 		mul	r3, fp, r0
+ 108:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 580              		.loc 1 108 26 view .LVU188
+ 581 0168 07EBE333 		add	r3, r7, r3, asr #15
+ 108:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 582              		.loc 1 108 91 view .LVU189
+ 583 016c 4344     		add	r3, r3, r8
+ 108:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 584              		.loc 1 108 22 view .LVU190
+ 585 016e CAF80830 		str	r3, [r10, #8]
+ 110:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_ar
+ 586              		.loc 1 110 13 is_stmt 1 view .LVU191
+ 110:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_ar
+ 587              		.loc 1 110 30 is_stmt 0 view .LVU192
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 24
+
+
+ 588 0172 30B2     		sxth	r0, r6
+ 589 0174 FFF7FEFF 		bl	lv_trigo_sin
+ 590              	.LVL50:
+ 110:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_ar
+ 591              		.loc 1 110 58 view .LVU193
+ 592 0178 0BFB00F3 		mul	r3, fp, r0
+ 110:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_ar
+ 593              		.loc 1 110 26 view .LVU194
+ 594 017c 09EBE333 		add	r3, r9, r3, asr #15
+ 110:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_ar
+ 595              		.loc 1 110 84 view .LVU195
+ 596 0180 A3EB0803 		sub	r3, r3, r8
+ 110:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x1 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_ar
+ 597              		.loc 1 110 22 view .LVU196
+ 598 0184 CAF80430 		str	r3, [r10, #4]
+ 111:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 599              		.loc 1 111 13 is_stmt 1 view .LVU197
+ 111:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 600              		.loc 1 111 57 is_stmt 0 view .LVU198
+ 601 0188 06F15A00 		add	r0, r6, #90
+ 111:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 602              		.loc 1 111 30 view .LVU199
+ 603 018c 00B2     		sxth	r0, r0
+ 604 018e FFF7FEFF 		bl	lv_trigo_sin
+ 605              	.LVL51:
+ 111:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 606              		.loc 1 111 63 view .LVU200
+ 607 0192 05FB00F3 		mul	r3, r5, r0
+ 111:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 608              		.loc 1 111 26 view .LVU201
+ 609 0196 07EBE333 		add	r3, r7, r3, asr #15
+ 111:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 610              		.loc 1 111 90 view .LVU202
+ 611 019a A3EB0803 		sub	r3, r3, r8
+ 111:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 612              		.loc 1 111 22 view .LVU203
+ 613 019e CAF80030 		str	r3, [r10]
+ 614 01a2 81E7     		b	.L10
+ 615              	.LVL52:
+ 616              	.L21:
+ 114:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 617              		.loc 1 114 13 is_stmt 1 view .LVU204
+ 114:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 618              		.loc 1 114 59 is_stmt 0 view .LVU205
+ 619 01a4 04F15A00 		add	r0, r4, #90
+ 620              	.LVL53:
+ 114:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 621              		.loc 1 114 30 view .LVU206
+ 622 01a8 00B2     		sxth	r0, r0
+ 623 01aa FFF7FEFF 		bl	lv_trigo_sin
+ 624              	.LVL54:
+ 114:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 625              		.loc 1 114 65 view .LVU207
+ 626 01ae 05FB00F3 		mul	r3, r5, r0
+ 114:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 627              		.loc 1 114 26 view .LVU208
+ 628 01b2 07EBE333 		add	r3, r7, r3, asr #15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 25
+
+
+ 114:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 629              		.loc 1 114 92 view .LVU209
+ 630 01b6 A3EB0803 		sub	r3, r3, r8
+ 114:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 631              		.loc 1 114 22 view .LVU210
+ 632 01ba CAF80030 		str	r3, [r10]
+ 115:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 633              		.loc 1 115 13 is_stmt 1 view .LVU211
+ 115:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 634              		.loc 1 115 30 is_stmt 0 view .LVU212
+ 635 01be 20B2     		sxth	r0, r4
+ 636 01c0 FFF7FEFF 		bl	lv_trigo_sin
+ 637              	.LVL55:
+ 115:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 638              		.loc 1 115 60 view .LVU213
+ 639 01c4 0BFB00F3 		mul	r3, fp, r0
+ 115:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 640              		.loc 1 115 26 view .LVU214
+ 641 01c8 09EBE333 		add	r3, r9, r3, asr #15
+ 115:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 642              		.loc 1 115 86 view .LVU215
+ 643 01cc 4344     		add	r3, r3, r8
+ 115:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 644              		.loc 1 115 22 view .LVU216
+ 645 01ce CAF80C30 		str	r3, [r10, #12]
+ 117:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_are
+ 646              		.loc 1 117 13 is_stmt 1 view .LVU217
+ 117:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_are
+ 647              		.loc 1 117 30 is_stmt 0 view .LVU218
+ 648 01d2 30B2     		sxth	r0, r6
+ 649 01d4 FFF7FEFF 		bl	lv_trigo_sin
+ 650              	.LVL56:
+ 117:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_are
+ 651              		.loc 1 117 58 view .LVU219
+ 652 01d8 05FB00F3 		mul	r3, r5, r0
+ 117:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_are
+ 653              		.loc 1 117 26 view .LVU220
+ 654 01dc 09EBE333 		add	r3, r9, r3, asr #15
+ 117:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_are
+ 655              		.loc 1 117 85 view .LVU221
+ 656 01e0 A3EB0803 		sub	r3, r3, r8
+ 117:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rin) >> LV_TRIGO_SHIFT) + extra_are
+ 657              		.loc 1 117 22 view .LVU222
+ 658 01e4 CAF80430 		str	r3, [r10, #4]
+ 118:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 659              		.loc 1 118 13 is_stmt 1 view .LVU223
+ 118:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 660              		.loc 1 118 57 is_stmt 0 view .LVU224
+ 661 01e8 06F15A00 		add	r0, r6, #90
+ 118:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 662              		.loc 1 118 30 view .LVU225
+ 663 01ec 00B2     		sxth	r0, r0
+ 664 01ee FFF7FEFF 		bl	lv_trigo_sin
+ 665              	.LVL57:
+ 118:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 666              		.loc 1 118 63 view .LVU226
+ 667 01f2 0BFB00F3 		mul	r3, fp, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 26
+
+
+ 118:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 668              		.loc 1 118 26 view .LVU227
+ 669 01f6 07EBE333 		add	r3, r7, r3, asr #15
+ 118:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 670              		.loc 1 118 89 view .LVU228
+ 671 01fa 4344     		add	r3, r3, r8
+ 118:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 672              		.loc 1 118 22 view .LVU229
+ 673 01fc CAF80830 		str	r3, [r10, #8]
+ 674 0200 52E7     		b	.L10
+ 675              	.LVL58:
+ 676              	.L19:
+ 121:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 677              		.loc 1 121 13 is_stmt 1 view .LVU230
+ 121:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 678              		.loc 1 121 59 is_stmt 0 view .LVU231
+ 679 0202 04F15A00 		add	r0, r4, #90
+ 680              	.LVL59:
+ 121:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 681              		.loc 1 121 30 view .LVU232
+ 682 0206 00B2     		sxth	r0, r0
+ 683 0208 FFF7FEFF 		bl	lv_trigo_sin
+ 684              	.LVL60:
+ 121:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 685              		.loc 1 121 65 view .LVU233
+ 686 020c 0BFB00F3 		mul	r3, fp, r0
+ 121:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 687              		.loc 1 121 26 view .LVU234
+ 688 0210 07EBE333 		add	r3, r7, r3, asr #15
+ 121:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 689              		.loc 1 121 91 view .LVU235
+ 690 0214 A3EB0803 		sub	r3, r3, r8
+ 121:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 691              		.loc 1 121 22 view .LVU236
+ 692 0218 CAF80030 		str	r3, [r10]
+ 122:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 693              		.loc 1 122 13 is_stmt 1 view .LVU237
+ 122:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 694              		.loc 1 122 30 is_stmt 0 view .LVU238
+ 695 021c 20B2     		sxth	r0, r4
+ 696 021e FFF7FEFF 		bl	lv_trigo_sin
+ 697              	.LVL61:
+ 122:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 698              		.loc 1 122 60 view .LVU239
+ 699 0222 05FB00F3 		mul	r3, r5, r0
+ 122:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 700              		.loc 1 122 26 view .LVU240
+ 701 0226 09EBE333 		add	r3, r9, r3, asr #15
+ 122:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 702              		.loc 1 122 87 view .LVU241
+ 703 022a A3EB0803 		sub	r3, r3, r8
+ 122:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 704              		.loc 1 122 22 view .LVU242
+ 705 022e CAF80430 		str	r3, [r10, #4]
+ 124:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 706              		.loc 1 124 13 is_stmt 1 view .LVU243
+ 124:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 27
+
+
+ 707              		.loc 1 124 57 is_stmt 0 view .LVU244
+ 708 0232 06F15A00 		add	r0, r6, #90
+ 124:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 709              		.loc 1 124 30 view .LVU245
+ 710 0236 00B2     		sxth	r0, r0
+ 711 0238 FFF7FEFF 		bl	lv_trigo_sin
+ 712              	.LVL62:
+ 124:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 713              		.loc 1 124 63 view .LVU246
+ 714 023c 05FB00F3 		mul	r3, r5, r0
+ 124:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 715              		.loc 1 124 26 view .LVU247
+ 716 0240 07EBE333 		add	r3, r7, r3, asr #15
+ 124:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 717              		.loc 1 124 90 view .LVU248
+ 718 0244 4344     		add	r3, r3, r8
+ 124:Lib/lvgl/src/draw/lv_draw_arc.c ****             area->y2 = y + ((lv_trigo_sin(end_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area;
+ 719              		.loc 1 124 22 view .LVU249
+ 720 0246 CAF80830 		str	r3, [r10, #8]
+ 125:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 721              		.loc 1 125 13 is_stmt 1 view .LVU250
+ 125:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 722              		.loc 1 125 30 is_stmt 0 view .LVU251
+ 723 024a 30B2     		sxth	r0, r6
+ 724 024c FFF7FEFF 		bl	lv_trigo_sin
+ 725              	.LVL63:
+ 125:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 726              		.loc 1 125 58 view .LVU252
+ 727 0250 0BFB00F3 		mul	r3, fp, r0
+ 125:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 728              		.loc 1 125 26 view .LVU253
+ 729 0254 09EBE333 		add	r3, r9, r3, asr #15
+ 125:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 730              		.loc 1 125 84 view .LVU254
+ 731 0258 4344     		add	r3, r3, r8
+ 125:Lib/lvgl/src/draw/lv_draw_arc.c ****         }
+ 732              		.loc 1 125 22 view .LVU255
+ 733 025a CAF80C30 		str	r3, [r10, #12]
+ 734 025e 23E7     		b	.L10
+ 735              	.LVL64:
+ 736              	.L45:
+ 129:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((LV_MIN(lv_trigo_sin(end_angle_int),
+ 737              		.loc 1 129 9 is_stmt 1 view .LVU256
+ 129:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((LV_MIN(lv_trigo_sin(end_angle_int),
+ 738              		.loc 1 129 53 is_stmt 0 view .LVU257
+ 739 0260 06F15A00 		add	r0, r6, #90
+ 740              	.LVL65:
+ 129:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((LV_MIN(lv_trigo_sin(end_angle_int),
+ 741              		.loc 1 129 26 view .LVU258
+ 742 0264 00B2     		sxth	r0, r0
+ 743 0266 FFF7FEFF 		bl	lv_trigo_sin
+ 744              	.LVL66:
+ 129:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((LV_MIN(lv_trigo_sin(end_angle_int),
+ 745              		.loc 1 129 59 view .LVU259
+ 746 026a 05FB00F3 		mul	r3, r5, r0
+ 129:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((LV_MIN(lv_trigo_sin(end_angle_int),
+ 747              		.loc 1 129 22 view .LVU260
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 28
+
+
+ 748 026e 07EBE333 		add	r3, r7, r3, asr #15
+ 129:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((LV_MIN(lv_trigo_sin(end_angle_int),
+ 749              		.loc 1 129 86 view .LVU261
+ 750 0272 A3EB0803 		sub	r3, r3, r8
+ 129:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((LV_MIN(lv_trigo_sin(end_angle_int),
+ 751              		.loc 1 129 18 view .LVU262
+ 752 0276 CAF80030 		str	r3, [r10]
+ 130:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int))  * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 753              		.loc 1 130 9 is_stmt 1 view .LVU263
+ 130:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int))  * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 754              		.loc 1 130 26 is_stmt 0 view .LVU264
+ 755 027a 36B2     		sxth	r6, r6
+ 756              	.LVL67:
+ 130:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int))  * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 757              		.loc 1 130 26 view .LVU265
+ 758 027c 3046     		mov	r0, r6
+ 759 027e FFF7FEFF 		bl	lv_trigo_sin
+ 760              	.LVL68:
+ 761 0282 0190     		str	r0, [sp, #4]
+ 762 0284 23B2     		sxth	r3, r4
+ 763 0286 0293     		str	r3, [sp, #8]
+ 764 0288 1846     		mov	r0, r3
+ 765 028a FFF7FEFF 		bl	lv_trigo_sin
+ 766              	.LVL69:
+ 767 028e 019B     		ldr	r3, [sp, #4]
+ 768 0290 8342     		cmp	r3, r0
+ 769 0292 1BDA     		bge	.L25
+ 130:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int))  * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 770              		.loc 1 130 26 discriminator 1 view .LVU266
+ 771 0294 3046     		mov	r0, r6
+ 772 0296 FFF7FEFF 		bl	lv_trigo_sin
+ 773              	.LVL70:
+ 774              	.L26:
+ 131:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_area
+ 775              		.loc 1 131 65 view .LVU267
+ 776 029a 0BFB00F3 		mul	r3, fp, r0
+ 130:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int))  * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 777              		.loc 1 130 22 view .LVU268
+ 778 029e 09EBE333 		add	r3, r9, r3, asr #15
+ 131:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_area
+ 779              		.loc 1 131 91 view .LVU269
+ 780 02a2 A3EB0803 		sub	r3, r3, r8
+ 130:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int))  * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 781              		.loc 1 130 18 view .LVU270
+ 782 02a6 CAF80430 		str	r3, [r10, #4]
+ 132:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout + extra_area;
+ 783              		.loc 1 132 9 is_stmt 1 view .LVU271
+ 132:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout + extra_area;
+ 784              		.loc 1 132 55 is_stmt 0 view .LVU272
+ 785 02aa 04F15A00 		add	r0, r4, #90
+ 132:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout + extra_area;
+ 786              		.loc 1 132 26 view .LVU273
+ 787 02ae 00B2     		sxth	r0, r0
+ 788 02b0 FFF7FEFF 		bl	lv_trigo_sin
+ 789              	.LVL71:
+ 132:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout + extra_area;
+ 790              		.loc 1 132 61 view .LVU274
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 29
+
+
+ 791 02b4 05FB00F3 		mul	r3, r5, r0
+ 132:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout + extra_area;
+ 792              		.loc 1 132 22 view .LVU275
+ 793 02b8 07EBE333 		add	r3, r7, r3, asr #15
+ 132:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout + extra_area;
+ 794              		.loc 1 132 88 view .LVU276
+ 795 02bc 4344     		add	r3, r3, r8
+ 132:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + rout + extra_area;
+ 796              		.loc 1 132 18 view .LVU277
+ 797 02be CAF80830 		str	r3, [r10, #8]
+ 133:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 798              		.loc 1 133 9 is_stmt 1 view .LVU278
+ 133:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 799              		.loc 1 133 22 is_stmt 0 view .LVU279
+ 800 02c2 4D44     		add	r5, r5, r9
+ 801              	.LVL72:
+ 133:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 802              		.loc 1 133 29 view .LVU280
+ 803 02c4 4544     		add	r5, r5, r8
+ 133:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 804              		.loc 1 133 18 view .LVU281
+ 805 02c6 CAF80C50 		str	r5, [r10, #12]
+ 806 02ca EDE6     		b	.L10
+ 807              	.LVL73:
+ 808              	.L25:
+ 130:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int))  * rin) >> LV_TRIGO_SHIFT) - extra_a
+ 809              		.loc 1 130 26 discriminator 2 view .LVU282
+ 810 02cc 0298     		ldr	r0, [sp, #8]
+ 811 02ce FFF7FEFF 		bl	lv_trigo_sin
+ 812              	.LVL74:
+ 813 02d2 E2E7     		b	.L26
+ 814              	.LVL75:
+ 815              	.L46:
+ 135:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x - rout - extra_area;
+ 816              		.loc 1 135 32 discriminator 1 view .LVU283
+ 817 02d4 022A     		cmp	r2, #2
+ 818 02d6 7FF4D4AE 		bne	.L27
+ 136:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 819              		.loc 1 136 9 is_stmt 1 view .LVU284
+ 136:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 820              		.loc 1 136 22 is_stmt 0 view .LVU285
+ 821 02da 7B1B     		subs	r3, r7, r5
+ 822              	.LVL76:
+ 136:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 823              		.loc 1 136 29 view .LVU286
+ 824 02dc A3EB0803 		sub	r3, r3, r8
+ 136:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 825              		.loc 1 136 18 view .LVU287
+ 826 02e0 CAF80030 		str	r3, [r10]
+ 137:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((LV_MAX(lv_trigo_sin(start_angle_int + 90),
+ 827              		.loc 1 137 9 is_stmt 1 view .LVU288
+ 137:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((LV_MAX(lv_trigo_sin(start_angle_int + 90),
+ 828              		.loc 1 137 26 is_stmt 0 view .LVU289
+ 829 02e4 30B2     		sxth	r0, r6
+ 830              	.LVL77:
+ 137:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((LV_MAX(lv_trigo_sin(start_angle_int + 90),
+ 831              		.loc 1 137 26 view .LVU290
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 30
+
+
+ 832 02e6 FFF7FEFF 		bl	lv_trigo_sin
+ 833              	.LVL78:
+ 137:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((LV_MAX(lv_trigo_sin(start_angle_int + 90),
+ 834              		.loc 1 137 54 view .LVU291
+ 835 02ea 05FB00F3 		mul	r3, r5, r0
+ 137:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((LV_MAX(lv_trigo_sin(start_angle_int + 90),
+ 836              		.loc 1 137 22 view .LVU292
+ 837 02ee 09EBE333 		add	r3, r9, r3, asr #15
+ 137:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((LV_MAX(lv_trigo_sin(start_angle_int + 90),
+ 838              		.loc 1 137 81 view .LVU293
+ 839 02f2 A3EB0803 		sub	r3, r3, r8
+ 137:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((LV_MAX(lv_trigo_sin(start_angle_int + 90),
+ 840              		.loc 1 137 18 view .LVU294
+ 841 02f6 CAF80430 		str	r3, [r10, #4]
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 842              		.loc 1 138 9 is_stmt 1 view .LVU295
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 843              		.loc 1 138 26 is_stmt 0 view .LVU296
+ 844 02fa 04F15A03 		add	r3, r4, #90
+ 845 02fe 1BB2     		sxth	r3, r3
+ 846 0300 0293     		str	r3, [sp, #8]
+ 847 0302 1846     		mov	r0, r3
+ 848 0304 FFF7FEFF 		bl	lv_trigo_sin
+ 849              	.LVL79:
+ 850 0308 0190     		str	r0, [sp, #4]
+ 851 030a 5A36     		adds	r6, r6, #90
+ 852              	.LVL80:
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 853              		.loc 1 138 26 view .LVU297
+ 854 030c 36B2     		sxth	r6, r6
+ 855              	.LVL81:
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 856              		.loc 1 138 26 view .LVU298
+ 857 030e 3046     		mov	r0, r6
+ 858 0310 FFF7FEFF 		bl	lv_trigo_sin
+ 859              	.LVL82:
+ 860 0314 019A     		ldr	r2, [sp, #4]
+ 861 0316 8242     		cmp	r2, r0
+ 862 0318 14DD     		ble	.L28
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 863              		.loc 1 138 26 discriminator 1 view .LVU299
+ 864 031a 0298     		ldr	r0, [sp, #8]
+ 865 031c FFF7FEFF 		bl	lv_trigo_sin
+ 866              	.LVL83:
+ 867              	.L29:
+ 139:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 868              		.loc 1 139 67 view .LVU300
+ 869 0320 0BFB00F3 		mul	r3, fp, r0
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 870              		.loc 1 138 22 view .LVU301
+ 871 0324 07EBE333 		add	r3, r7, r3, asr #15
+ 139:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 872              		.loc 1 139 93 view .LVU302
+ 873 0328 4344     		add	r3, r3, r8
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 874              		.loc 1 138 18 view .LVU303
+ 875 032a CAF80830 		str	r3, [r10, #8]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 31
+
+
+ 140:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 876              		.loc 1 140 9 is_stmt 1 view .LVU304
+ 140:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 877              		.loc 1 140 26 is_stmt 0 view .LVU305
+ 878 032e 20B2     		sxth	r0, r4
+ 879 0330 FFF7FEFF 		bl	lv_trigo_sin
+ 880              	.LVL84:
+ 140:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 881              		.loc 1 140 56 view .LVU306
+ 882 0334 05FB00F3 		mul	r3, r5, r0
+ 140:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 883              		.loc 1 140 22 view .LVU307
+ 884 0338 09EBE333 		add	r3, r9, r3, asr #15
+ 140:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 885              		.loc 1 140 83 view .LVU308
+ 886 033c 4344     		add	r3, r3, r8
+ 140:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 887              		.loc 1 140 18 view .LVU309
+ 888 033e CAF80C30 		str	r3, [r10, #12]
+ 889 0342 B1E6     		b	.L10
+ 890              	.L28:
+ 138:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(end_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) + extra
+ 891              		.loc 1 138 26 discriminator 2 view .LVU310
+ 892 0344 3046     		mov	r0, r6
+ 893 0346 FFF7FEFF 		bl	lv_trigo_sin
+ 894              	.LVL85:
+ 895 034a E9E7     		b	.L29
+ 896              	.L50:
+ 897              		.align	2
+ 898              	.L49:
+ 899 034c B7600BB6 		.word	-1240768329
+ 900              	.LVL86:
+ 901              	.L47:
+ 142:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x + ((lv_trigo_sin(start_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) - extra_area
+ 902              		.loc 1 142 32 discriminator 1 view .LVU311
+ 903 0350 032A     		cmp	r2, #3
+ 904 0352 7FF499AE 		bne	.L30
+ 143:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout - extra_area;
+ 905              		.loc 1 143 9 is_stmt 1 view .LVU312
+ 143:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout - extra_area;
+ 906              		.loc 1 143 55 is_stmt 0 view .LVU313
+ 907 0356 04F15A00 		add	r0, r4, #90
+ 908              	.LVL87:
+ 143:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout - extra_area;
+ 909              		.loc 1 143 26 view .LVU314
+ 910 035a 00B2     		sxth	r0, r0
+ 911 035c FFF7FEFF 		bl	lv_trigo_sin
+ 912              	.LVL88:
+ 143:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout - extra_area;
+ 913              		.loc 1 143 61 view .LVU315
+ 914 0360 05FB00F3 		mul	r3, r5, r0
+ 143:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout - extra_area;
+ 915              		.loc 1 143 22 view .LVU316
+ 916 0364 07EBE333 		add	r3, r7, r3, asr #15
+ 143:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout - extra_area;
+ 917              		.loc 1 143 88 view .LVU317
+ 918 0368 A3EB0803 		sub	r3, r3, r8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 32
+
+
+ 143:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y - rout - extra_area;
+ 919              		.loc 1 143 18 view .LVU318
+ 920 036c CAF80030 		str	r3, [r10]
+ 144:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 921              		.loc 1 144 9 is_stmt 1 view .LVU319
+ 144:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 922              		.loc 1 144 22 is_stmt 0 view .LVU320
+ 923 0370 A9EB0503 		sub	r3, r9, r5
+ 144:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 924              		.loc 1 144 29 view .LVU321
+ 925 0374 A3EB0803 		sub	r3, r3, r8
+ 144:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + ((lv_trigo_sin(end_angle_int + 90) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 926              		.loc 1 144 18 view .LVU322
+ 927 0378 CAF80430 		str	r3, [r10, #4]
+ 145:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + (LV_MAX(lv_trigo_sin(end_angle_int) * rin,
+ 928              		.loc 1 145 9 is_stmt 1 view .LVU323
+ 145:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + (LV_MAX(lv_trigo_sin(end_angle_int) * rin,
+ 929              		.loc 1 145 53 is_stmt 0 view .LVU324
+ 930 037c 06F15A00 		add	r0, r6, #90
+ 145:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + (LV_MAX(lv_trigo_sin(end_angle_int) * rin,
+ 931              		.loc 1 145 26 view .LVU325
+ 932 0380 00B2     		sxth	r0, r0
+ 933 0382 FFF7FEFF 		bl	lv_trigo_sin
+ 934              	.LVL89:
+ 145:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + (LV_MAX(lv_trigo_sin(end_angle_int) * rin,
+ 935              		.loc 1 145 59 view .LVU326
+ 936 0386 05FB00F3 		mul	r3, r5, r0
+ 145:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + (LV_MAX(lv_trigo_sin(end_angle_int) * rin,
+ 937              		.loc 1 145 22 view .LVU327
+ 938 038a 07EBE333 		add	r3, r7, r3, asr #15
+ 145:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + (LV_MAX(lv_trigo_sin(end_angle_int) * rin,
+ 939              		.loc 1 145 86 view .LVU328
+ 940 038e 4344     		add	r3, r3, r8
+ 145:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + (LV_MAX(lv_trigo_sin(end_angle_int) * rin,
+ 941              		.loc 1 145 18 view .LVU329
+ 942 0390 CAF80830 		str	r3, [r10, #8]
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 943              		.loc 1 146 9 is_stmt 1 view .LVU330
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 944              		.loc 1 146 25 is_stmt 0 view .LVU331
+ 945 0394 36B2     		sxth	r6, r6
+ 946              	.LVL90:
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 947              		.loc 1 146 25 view .LVU332
+ 948 0396 3046     		mov	r0, r6
+ 949 0398 FFF7FEFF 		bl	lv_trigo_sin
+ 950              	.LVL91:
+ 951 039c 0BFB00F5 		mul	r5, fp, r0
+ 952              	.LVL92:
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 953              		.loc 1 146 25 view .LVU333
+ 954 03a0 24B2     		sxth	r4, r4
+ 955              	.LVL93:
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 956              		.loc 1 146 25 view .LVU334
+ 957 03a2 2046     		mov	r0, r4
+ 958 03a4 FFF7FEFF 		bl	lv_trigo_sin
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 33
+
+
+ 959              	.LVL94:
+ 960 03a8 0BFB00F0 		mul	r0, fp, r0
+ 147:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 961              		.loc 1 147 69 view .LVU335
+ 962 03ac 8542     		cmp	r5, r0
+ 963 03ae 0ADD     		ble	.L31
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 964              		.loc 1 146 25 discriminator 1 view .LVU336
+ 965 03b0 3046     		mov	r0, r6
+ 966 03b2 FFF7FEFF 		bl	lv_trigo_sin
+ 967              	.LVL95:
+ 968 03b6 0BFB00F3 		mul	r3, fp, r0
+ 147:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 969              		.loc 1 147 69 discriminator 1 view .LVU337
+ 970 03ba DB13     		asrs	r3, r3, #15
+ 971              	.L32:
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 972              		.loc 1 146 22 view .LVU338
+ 973 03bc 4B44     		add	r3, r3, r9
+ 147:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 974              		.loc 1 147 88 view .LVU339
+ 975 03be 4344     		add	r3, r3, r8
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 976              		.loc 1 146 18 view .LVU340
+ 977 03c0 CAF80C30 		str	r3, [r10, #12]
+ 978 03c4 70E6     		b	.L10
+ 979              	.L31:
+ 146:Lib/lvgl/src/draw/lv_draw_arc.c ****                                lv_trigo_sin(start_angle_int) * rin) >> LV_TRIGO_SHIFT) + extra_area
+ 980              		.loc 1 146 25 discriminator 2 view .LVU341
+ 981 03c6 2046     		mov	r0, r4
+ 982 03c8 FFF7FEFF 		bl	lv_trigo_sin
+ 983              	.LVL96:
+ 984 03cc 0BFB00F3 		mul	r3, fp, r0
+ 147:Lib/lvgl/src/draw/lv_draw_arc.c ****     }
+ 985              		.loc 1 147 69 discriminator 2 view .LVU342
+ 986 03d0 DB13     		asrs	r3, r3, #15
+ 987 03d2 F3E7     		b	.L32
+ 988              	.LVL97:
+ 989              	.L48:
+ 149:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x1 = x + ((LV_MIN(lv_trigo_sin(end_angle_int + 90),
+ 990              		.loc 1 149 32 discriminator 1 view .LVU343
+ 991 03d4 002A     		cmp	r2, #0
+ 992 03d6 7FF45AAE 		bne	.L33
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 993              		.loc 1 150 9 is_stmt 1 view .LVU344
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 994              		.loc 1 150 26 is_stmt 0 view .LVU345
+ 995 03da 06F15A03 		add	r3, r6, #90
+ 996              	.LVL98:
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 997              		.loc 1 150 26 view .LVU346
+ 998 03de 1BB2     		sxth	r3, r3
+ 999 03e0 0293     		str	r3, [sp, #8]
+ 1000 03e2 1846     		mov	r0, r3
+ 1001              	.LVL99:
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 1002              		.loc 1 150 26 view .LVU347
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 34
+
+
+ 1003 03e4 FFF7FEFF 		bl	lv_trigo_sin
+ 1004              	.LVL100:
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 1005              		.loc 1 150 26 view .LVU348
+ 1006 03e8 0190     		str	r0, [sp, #4]
+ 1007 03ea 04F15A03 		add	r3, r4, #90
+ 1008 03ee 19B2     		sxth	r1, r3
+ 1009 03f0 0391     		str	r1, [sp, #12]
+ 1010 03f2 0846     		mov	r0, r1
+ 1011 03f4 FFF7FEFF 		bl	lv_trigo_sin
+ 1012              	.LVL101:
+ 1013 03f8 019A     		ldr	r2, [sp, #4]
+ 1014 03fa 8242     		cmp	r2, r0
+ 1015 03fc 24DA     		bge	.L34
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 1016              		.loc 1 150 26 discriminator 1 view .LVU349
+ 1017 03fe 0298     		ldr	r0, [sp, #8]
+ 1018 0400 FFF7FEFF 		bl	lv_trigo_sin
+ 1019              	.LVL102:
+ 1020              	.L35:
+ 151:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 1021              		.loc 1 151 69 view .LVU350
+ 1022 0404 0BFB00F3 		mul	r3, fp, r0
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 1023              		.loc 1 150 22 view .LVU351
+ 1024 0408 07EBE333 		add	r3, r7, r3, asr #15
+ 151:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y1 = y + ((lv_trigo_sin(start_angle_int) * rout) >> LV_TRIGO_SHIFT) - extra_area;
+ 1025              		.loc 1 151 95 view .LVU352
+ 1026 040c A3EB0803 		sub	r3, r3, r8
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 1027              		.loc 1 150 18 view .LVU353
+ 1028 0410 CAF80030 		str	r3, [r10]
+ 152:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout + extra_area;
+ 1029              		.loc 1 152 9 is_stmt 1 view .LVU354
+ 152:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout + extra_area;
+ 1030              		.loc 1 152 26 is_stmt 0 view .LVU355
+ 1031 0414 20B2     		sxth	r0, r4
+ 1032 0416 FFF7FEFF 		bl	lv_trigo_sin
+ 1033              	.LVL103:
+ 152:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout + extra_area;
+ 1034              		.loc 1 152 56 view .LVU356
+ 1035 041a 05FB00F3 		mul	r3, r5, r0
+ 152:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout + extra_area;
+ 1036              		.loc 1 152 22 view .LVU357
+ 1037 041e 09EBE333 		add	r3, r9, r3, asr #15
+ 152:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout + extra_area;
+ 1038              		.loc 1 152 83 view .LVU358
+ 1039 0422 A3EB0803 		sub	r3, r3, r8
+ 152:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->x2 = x + rout + extra_area;
+ 1040              		.loc 1 152 18 view .LVU359
+ 1041 0426 CAF80430 		str	r3, [r10, #4]
+ 153:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 1042              		.loc 1 153 9 is_stmt 1 view .LVU360
+ 153:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 1043              		.loc 1 153 22 is_stmt 0 view .LVU361
+ 1044 042a 2F44     		add	r7, r7, r5
+ 1045              	.LVL104:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 35
+
+
+ 153:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 1046              		.loc 1 153 29 view .LVU362
+ 1047 042c 4744     		add	r7, r7, r8
+ 153:Lib/lvgl/src/draw/lv_draw_arc.c ****         area->y2 = y + ((lv_trigo_sin(end_angle_int) * rout) >> LV_TRIGO_SHIFT) + extra_area;
+ 1048              		.loc 1 153 18 view .LVU363
+ 1049 042e CAF80870 		str	r7, [r10, #8]
+ 154:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 1050              		.loc 1 154 9 is_stmt 1 view .LVU364
+ 154:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 1051              		.loc 1 154 26 is_stmt 0 view .LVU365
+ 1052 0432 30B2     		sxth	r0, r6
+ 1053 0434 FFF7FEFF 		bl	lv_trigo_sin
+ 1054              	.LVL105:
+ 154:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 1055              		.loc 1 154 54 view .LVU366
+ 1056 0438 05FB00F3 		mul	r3, r5, r0
+ 154:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 1057              		.loc 1 154 22 view .LVU367
+ 1058 043c 09EBE333 		add	r3, r9, r3, asr #15
+ 154:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 1059              		.loc 1 154 81 view .LVU368
+ 1060 0440 4344     		add	r3, r3, r8
+ 154:Lib/lvgl/src/draw/lv_draw_arc.c **** 
+ 1061              		.loc 1 154 18 view .LVU369
+ 1062 0442 CAF80C30 		str	r3, [r10, #12]
+ 1063 0446 2FE6     		b	.L10
+ 1064              	.LVL106:
+ 1065              	.L34:
+ 150:Lib/lvgl/src/draw/lv_draw_arc.c ****                                 lv_trigo_sin(start_angle_int + 90)) * rin) >> LV_TRIGO_SHIFT) - ext
+ 1066              		.loc 1 150 26 discriminator 2 view .LVU370
+ 1067 0448 0398     		ldr	r0, [sp, #12]
+ 1068 044a FFF7FEFF 		bl	lv_trigo_sin
+ 1069              	.LVL107:
+ 1070 044e D9E7     		b	.L35
+ 1071              		.cfi_endproc
+ 1072              	.LFE235:
+ 1074              		.text
+ 1075              	.Letext0:
+ 1076              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1077              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1078              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1079              		.file 7 "Lib/lvgl/src/draw/../core/../misc/lv_types.h"
+ 1080              		.file 8 "Lib/lvgl/src/draw/../core/lv_obj.h"
+ 1081              		.file 9 "Lib/lvgl/src/draw/../core/lv_obj_class.h"
+ 1082              		.file 10 "Lib/lvgl/src/draw/../core/../indev/../core/lv_group.h"
+ 1083              		.file 11 "Lib/lvgl/src/draw/../core/../display/../draw/lv_draw.h"
+ 1084              		.file 12 "Lib/lvgl/src/draw/../core/../display/../misc/lv_event.h"
+ 1085              		.file 13 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_area.h"
+ 1086              		.file 14 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/lv_image_buf.h"
+ 1087              		.file 15 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/lv_draw_buf.h"
+ 1088              		.file 16 "Lib/lvgl/src/draw/../core/../misc/lv_ll.h"
+ 1089              		.file 17 "Lib/lvgl/src/draw/../core/../misc/lv_style.h"
+ 1090              		.file 18 "Lib/lvgl/src/draw/../core/../display/../misc/lv_array.h"
+ 1091              		.file 19 "Lib/lvgl/src/draw/../core/../display/../draw/lv_draw_arc.h"
+ 1092              		.file 20 "Lib/lvgl/src/draw/../core/lv_obj_style.h"
+ 1093              		.file 21 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_math.h"
+ 1094              		.file 22 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 36
+
+
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s 			page 37
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_draw_arc.c
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:21     .text.lv_draw_arc_dsc_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:27     .text.lv_draw_arc_dsc_init:00000000 lv_draw_arc_dsc_init
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:124    .text.lv_draw_arc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:130    .text.lv_draw_arc:00000000 lv_draw_arc
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:256    .text.lv_draw_arc_get_area:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:262    .text.lv_draw_arc_get_area:00000000 lv_draw_arc_get_area
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:489    .text.lv_draw_arc_get_area:000000e4 $d
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:493    .text.lv_draw_arc_get_area:000000e8 $t
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:899    .text.lv_draw_arc_get_area:0000034c $d
+C:\Users\Alex\AppData\Local\Temp\ccciAqpL.s:903    .text.lv_draw_arc_get_area:00000350 $t
+
+UNDEFINED SYMBOLS
+lv_memset
+lv_draw_add_task
+lv_malloc
+lv_memcpy
+lv_draw_finalize_task_creation
+lv_trigo_sin

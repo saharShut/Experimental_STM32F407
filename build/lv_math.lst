@@ -1,0 +1,1835 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_math.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/misc/lv_math.c"
+  20              		.section	.text.do_cubic_bezier,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	do_cubic_bezier:
+  27              	.LVL0:
+  28              	.LFB235:
+   1:Lib/lvgl/src/misc/lv_math.c **** /**
+   2:Lib/lvgl/src/misc/lv_math.c ****  * @file lv_math.c
+   3:Lib/lvgl/src/misc/lv_math.c ****  *
+   4:Lib/lvgl/src/misc/lv_math.c ****  */
+   5:Lib/lvgl/src/misc/lv_math.c **** 
+   6:Lib/lvgl/src/misc/lv_math.c **** /*********************
+   7:Lib/lvgl/src/misc/lv_math.c ****  *      INCLUDES
+   8:Lib/lvgl/src/misc/lv_math.c ****  *********************/
+   9:Lib/lvgl/src/misc/lv_math.c **** #include "lv_math.h"
+  10:Lib/lvgl/src/misc/lv_math.c **** #include "../core/lv_global.h"
+  11:Lib/lvgl/src/misc/lv_math.c **** 
+  12:Lib/lvgl/src/misc/lv_math.c **** /*********************
+  13:Lib/lvgl/src/misc/lv_math.c ****  *      DEFINES
+  14:Lib/lvgl/src/misc/lv_math.c ****  *********************/
+  15:Lib/lvgl/src/misc/lv_math.c **** #define rand_seed LV_GLOBAL_DEFAULT()->math_rand_seed
+  16:Lib/lvgl/src/misc/lv_math.c **** 
+  17:Lib/lvgl/src/misc/lv_math.c **** /**********************
+  18:Lib/lvgl/src/misc/lv_math.c ****  *      TYPEDEFS
+  19:Lib/lvgl/src/misc/lv_math.c ****  **********************/
+  20:Lib/lvgl/src/misc/lv_math.c **** 
+  21:Lib/lvgl/src/misc/lv_math.c **** #define CUBIC_NEWTON_ITERATIONS     8
+  22:Lib/lvgl/src/misc/lv_math.c **** #define CUBIC_PRECISION_BITS        10 /* 10 or 14 bits recommended, int64_t calculation is used fo
+  23:Lib/lvgl/src/misc/lv_math.c **** 
+  24:Lib/lvgl/src/misc/lv_math.c **** #if CUBIC_PRECISION_BITS < 10 || CUBIC_PRECISION_BITS > 20
+  25:Lib/lvgl/src/misc/lv_math.c ****     #error "cubic precision bits should be in range of [10, 20] for 32bit/64bit calculations."
+  26:Lib/lvgl/src/misc/lv_math.c **** #endif
+  27:Lib/lvgl/src/misc/lv_math.c **** 
+  28:Lib/lvgl/src/misc/lv_math.c **** /**********************
+  29:Lib/lvgl/src/misc/lv_math.c ****  *  STATIC PROTOTYPES
+  30:Lib/lvgl/src/misc/lv_math.c ****  **********************/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 2
+
+
+  31:Lib/lvgl/src/misc/lv_math.c **** 
+  32:Lib/lvgl/src/misc/lv_math.c **** /**********************
+  33:Lib/lvgl/src/misc/lv_math.c ****  *  STATIC VARIABLES
+  34:Lib/lvgl/src/misc/lv_math.c ****  **********************/
+  35:Lib/lvgl/src/misc/lv_math.c **** static const uint16_t sin0_90_table[] = {
+  36:Lib/lvgl/src/misc/lv_math.c ****     0,     572,   1144,  1715,  2286,  2856,  3425,  3993,  4560,  5126,  5690,  6252,  6813,  7371
+  37:Lib/lvgl/src/misc/lv_math.c ****     9032,  9580,  10126, 10668, 11207, 11743, 12275, 12803, 13328, 13848, 14365, 14876, 15384, 1588
+  38:Lib/lvgl/src/misc/lv_math.c ****     17364, 17847, 18324, 18795, 19261, 19720, 20174, 20622, 21063, 21498, 21926, 22348, 22763, 2317
+  39:Lib/lvgl/src/misc/lv_math.c ****     24351, 24730, 25102, 25466, 25822, 26170, 26510, 26842, 27166, 27482, 27789, 28088, 28378, 2866
+  40:Lib/lvgl/src/misc/lv_math.c ****     29452, 29698, 29935, 30163, 30382, 30592, 30792, 30983, 31164, 31336, 31499, 31651, 31795, 3192
+  41:Lib/lvgl/src/misc/lv_math.c ****     32270, 32365, 32449, 32524, 32588, 32643, 32688, 32723, 32748, 32763, 32768
+  42:Lib/lvgl/src/misc/lv_math.c **** };
+  43:Lib/lvgl/src/misc/lv_math.c **** 
+  44:Lib/lvgl/src/misc/lv_math.c **** /**********************
+  45:Lib/lvgl/src/misc/lv_math.c ****  *      MACROS
+  46:Lib/lvgl/src/misc/lv_math.c ****  **********************/
+  47:Lib/lvgl/src/misc/lv_math.c **** 
+  48:Lib/lvgl/src/misc/lv_math.c **** /**********************
+  49:Lib/lvgl/src/misc/lv_math.c ****  *   GLOBAL FUNCTIONS
+  50:Lib/lvgl/src/misc/lv_math.c ****  **********************/
+  51:Lib/lvgl/src/misc/lv_math.c **** 
+  52:Lib/lvgl/src/misc/lv_math.c **** LV_ATTRIBUTE_FAST_MEM int32_t lv_trigo_sin(int16_t angle)
+  53:Lib/lvgl/src/misc/lv_math.c **** {
+  54:Lib/lvgl/src/misc/lv_math.c ****     int32_t ret = 0;
+  55:Lib/lvgl/src/misc/lv_math.c ****     while(angle < 0) angle += 360;
+  56:Lib/lvgl/src/misc/lv_math.c ****     while(angle >= 360) angle -= 360;
+  57:Lib/lvgl/src/misc/lv_math.c **** 
+  58:Lib/lvgl/src/misc/lv_math.c ****     if(angle < 90) {
+  59:Lib/lvgl/src/misc/lv_math.c ****         ret = sin0_90_table[angle];
+  60:Lib/lvgl/src/misc/lv_math.c ****     }
+  61:Lib/lvgl/src/misc/lv_math.c ****     else if(angle >= 90 && angle < 180) {
+  62:Lib/lvgl/src/misc/lv_math.c ****         angle = 180 - angle;
+  63:Lib/lvgl/src/misc/lv_math.c ****         ret   = sin0_90_table[angle];
+  64:Lib/lvgl/src/misc/lv_math.c ****     }
+  65:Lib/lvgl/src/misc/lv_math.c ****     else if(angle >= 180 && angle < 270) {
+  66:Lib/lvgl/src/misc/lv_math.c ****         angle = angle - 180;
+  67:Lib/lvgl/src/misc/lv_math.c ****         ret   = -sin0_90_table[angle];
+  68:Lib/lvgl/src/misc/lv_math.c ****     }
+  69:Lib/lvgl/src/misc/lv_math.c ****     else {   /*angle >=270*/
+  70:Lib/lvgl/src/misc/lv_math.c ****         angle = 360 - angle;
+  71:Lib/lvgl/src/misc/lv_math.c ****         ret   = -sin0_90_table[angle];
+  72:Lib/lvgl/src/misc/lv_math.c ****     }
+  73:Lib/lvgl/src/misc/lv_math.c **** 
+  74:Lib/lvgl/src/misc/lv_math.c ****     if(ret == 32767) return 32768;
+  75:Lib/lvgl/src/misc/lv_math.c ****     else if(ret == -32767) return -32768;
+  76:Lib/lvgl/src/misc/lv_math.c ****     else return ret;
+  77:Lib/lvgl/src/misc/lv_math.c **** }
+  78:Lib/lvgl/src/misc/lv_math.c **** 
+  79:Lib/lvgl/src/misc/lv_math.c **** /**
+  80:Lib/lvgl/src/misc/lv_math.c ****  * cubic-bezier Reference:
+  81:Lib/lvgl/src/misc/lv_math.c ****  *
+  82:Lib/lvgl/src/misc/lv_math.c ****  * https://github.com/gre/bezier-easing
+  83:Lib/lvgl/src/misc/lv_math.c ****  * https://opensource.apple.com/source/WebCore/WebCore-955.66/platform/graphics/UnitBezier.h
+  84:Lib/lvgl/src/misc/lv_math.c ****  *
+  85:Lib/lvgl/src/misc/lv_math.c ****  * Copyright (c) 2014 Gaëtan Renaudeau
+  86:Lib/lvgl/src/misc/lv_math.c ****  *
+  87:Lib/lvgl/src/misc/lv_math.c ****  * Permission is hereby granted, free of charge, to any person
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 3
+
+
+  88:Lib/lvgl/src/misc/lv_math.c ****  * obtaining a copy of this software and associated documentation
+  89:Lib/lvgl/src/misc/lv_math.c ****  * files (the "Software"), to deal in the Software without
+  90:Lib/lvgl/src/misc/lv_math.c ****  * restriction, including without limitation the rights to use,
+  91:Lib/lvgl/src/misc/lv_math.c ****  * copy, modify, merge, publish, distribute, sublicense, and/or sell
+  92:Lib/lvgl/src/misc/lv_math.c ****  * copies of the Software, and to permit persons to whom the
+  93:Lib/lvgl/src/misc/lv_math.c ****  * Software is furnished to do so, subject to the following
+  94:Lib/lvgl/src/misc/lv_math.c ****  * conditions:
+  95:Lib/lvgl/src/misc/lv_math.c ****  *
+  96:Lib/lvgl/src/misc/lv_math.c ****  * The above copyright notice and this permission notice shall be
+  97:Lib/lvgl/src/misc/lv_math.c ****  * included in all copies or substantial portions of the Software.
+  98:Lib/lvgl/src/misc/lv_math.c ****  *
+  99:Lib/lvgl/src/misc/lv_math.c ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ 100:Lib/lvgl/src/misc/lv_math.c ****  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ 101:Lib/lvgl/src/misc/lv_math.c ****  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ 102:Lib/lvgl/src/misc/lv_math.c ****  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ 103:Lib/lvgl/src/misc/lv_math.c ****  * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ 104:Lib/lvgl/src/misc/lv_math.c ****  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ 105:Lib/lvgl/src/misc/lv_math.c ****  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ 106:Lib/lvgl/src/misc/lv_math.c ****  * OTHER DEALINGS IN THE SOFTWARE.
+ 107:Lib/lvgl/src/misc/lv_math.c ****  *
+ 108:Lib/lvgl/src/misc/lv_math.c ****  */
+ 109:Lib/lvgl/src/misc/lv_math.c **** 
+ 110:Lib/lvgl/src/misc/lv_math.c **** static int32_t do_cubic_bezier(int32_t t, int32_t a, int32_t b, int32_t c)
+ 111:Lib/lvgl/src/misc/lv_math.c **** {
+  29              		.loc 1 111 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 112:Lib/lvgl/src/misc/lv_math.c ****     /*a * t^3 + b * t^2 + c * t*/
+ 113:Lib/lvgl/src/misc/lv_math.c **** #if CUBIC_PRECISION_BITS > 14
+ 114:Lib/lvgl/src/misc/lv_math.c ****     int64_t ret;
+ 115:Lib/lvgl/src/misc/lv_math.c **** #else
+ 116:Lib/lvgl/src/misc/lv_math.c ****     int32_t ret;
+  34              		.loc 1 116 5 view .LVU1
+ 117:Lib/lvgl/src/misc/lv_math.c **** #endif
+ 118:Lib/lvgl/src/misc/lv_math.c **** 
+ 119:Lib/lvgl/src/misc/lv_math.c ****     ret = a;
+  35              		.loc 1 119 5 view .LVU2
+ 120:Lib/lvgl/src/misc/lv_math.c ****     ret = (ret * t) >> CUBIC_PRECISION_BITS;
+  36              		.loc 1 120 5 view .LVU3
+  37              		.loc 1 120 16 is_stmt 0 view .LVU4
+  38 0000 00FB01F1 		mul	r1, r0, r1
+  39              	.LVL1:
+ 121:Lib/lvgl/src/misc/lv_math.c ****     ret = ((ret + b) * t) >> CUBIC_PRECISION_BITS;
+  40              		.loc 1 121 5 is_stmt 1 view .LVU5
+  41              		.loc 1 121 17 is_stmt 0 view .LVU6
+  42 0004 02EBA122 		add	r2, r2, r1, asr #10
+  43              	.LVL2:
+  44              		.loc 1 121 22 view .LVU7
+  45 0008 00FB02F2 		mul	r2, r0, r2
+  46              	.LVL3:
+ 122:Lib/lvgl/src/misc/lv_math.c ****     ret = ((ret + c) * t) >> CUBIC_PRECISION_BITS;
+  47              		.loc 1 122 5 is_stmt 1 view .LVU8
+  48              		.loc 1 122 17 is_stmt 0 view .LVU9
+  49 000c 03EBA223 		add	r3, r3, r2, asr #10
+  50              	.LVL4:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 4
+
+
+  51              		.loc 1 122 22 view .LVU10
+  52 0010 03FB00F0 		mul	r0, r3, r0
+  53              	.LVL5:
+ 123:Lib/lvgl/src/misc/lv_math.c ****     return ret;
+  54              		.loc 1 123 5 is_stmt 1 view .LVU11
+ 124:Lib/lvgl/src/misc/lv_math.c **** }
+  55              		.loc 1 124 1 is_stmt 0 view .LVU12
+  56 0014 8012     		asrs	r0, r0, #10
+  57              	.LVL6:
+  58              		.loc 1 124 1 view .LVU13
+  59 0016 7047     		bx	lr
+  60              		.cfi_endproc
+  61              	.LFE235:
+  63              		.section	.text.lv_trigo_sin,"ax",%progbits
+  64              		.align	1
+  65              		.global	lv_trigo_sin
+  66              		.syntax unified
+  67              		.thumb
+  68              		.thumb_func
+  70              	lv_trigo_sin:
+  71              	.LVL7:
+  72              	.LFB234:
+  53:Lib/lvgl/src/misc/lv_math.c ****     int32_t ret = 0;
+  73              		.loc 1 53 1 is_stmt 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77              		@ link register save eliminated.
+  54:Lib/lvgl/src/misc/lv_math.c ****     while(angle < 0) angle += 360;
+  78              		.loc 1 54 5 view .LVU15
+  55:Lib/lvgl/src/misc/lv_math.c ****     while(angle >= 360) angle -= 360;
+  79              		.loc 1 55 5 view .LVU16
+  55:Lib/lvgl/src/misc/lv_math.c ****     while(angle >= 360) angle -= 360;
+  80              		.loc 1 55 10 is_stmt 0 view .LVU17
+  81 0000 02E0     		b	.L3
+  82              	.L4:
+  55:Lib/lvgl/src/misc/lv_math.c ****     while(angle >= 360) angle -= 360;
+  83              		.loc 1 55 22 is_stmt 1 discriminator 2 view .LVU18
+  55:Lib/lvgl/src/misc/lv_math.c ****     while(angle >= 360) angle -= 360;
+  84              		.loc 1 55 28 is_stmt 0 discriminator 2 view .LVU19
+  85 0002 00F5B470 		add	r0, r0, #360
+  86              	.LVL8:
+  55:Lib/lvgl/src/misc/lv_math.c ****     while(angle >= 360) angle -= 360;
+  87              		.loc 1 55 28 discriminator 2 view .LVU20
+  88 0006 00B2     		sxth	r0, r0
+  89              	.LVL9:
+  90              	.L3:
+  55:Lib/lvgl/src/misc/lv_math.c ****     while(angle >= 360) angle -= 360;
+  91              		.loc 1 55 17 is_stmt 1 discriminator 1 view .LVU21
+  92 0008 0028     		cmp	r0, #0
+  93 000a FADB     		blt	.L4
+  55:Lib/lvgl/src/misc/lv_math.c ****     while(angle >= 360) angle -= 360;
+  94              		.loc 1 55 17 is_stmt 0 discriminator 1 view .LVU22
+  95 000c 02E0     		b	.L5
+  96              	.L6:
+  56:Lib/lvgl/src/misc/lv_math.c **** 
+  97              		.loc 1 56 25 is_stmt 1 discriminator 2 view .LVU23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 5
+
+
+  56:Lib/lvgl/src/misc/lv_math.c **** 
+  98              		.loc 1 56 31 is_stmt 0 discriminator 2 view .LVU24
+  99 000e A0F5B470 		sub	r0, r0, #360
+ 100              	.LVL10:
+  56:Lib/lvgl/src/misc/lv_math.c **** 
+ 101              		.loc 1 56 31 discriminator 2 view .LVU25
+ 102 0012 00B2     		sxth	r0, r0
+ 103              	.LVL11:
+ 104              	.L5:
+  56:Lib/lvgl/src/misc/lv_math.c **** 
+ 105              		.loc 1 56 17 is_stmt 1 discriminator 1 view .LVU26
+ 106 0014 B0F5B47F 		cmp	r0, #360
+ 107 0018 F9DA     		bge	.L6
+  58:Lib/lvgl/src/misc/lv_math.c ****         ret = sin0_90_table[angle];
+ 108              		.loc 1 58 5 view .LVU27
+  58:Lib/lvgl/src/misc/lv_math.c ****         ret = sin0_90_table[angle];
+ 109              		.loc 1 58 7 is_stmt 0 view .LVU28
+ 110 001a 5928     		cmp	r0, #89
+ 111 001c 0ADC     		bgt	.L7
+  59:Lib/lvgl/src/misc/lv_math.c ****     }
+ 112              		.loc 1 59 9 is_stmt 1 view .LVU29
+  59:Lib/lvgl/src/misc/lv_math.c ****     }
+ 113              		.loc 1 59 28 is_stmt 0 view .LVU30
+ 114 001e 184B     		ldr	r3, .L15
+ 115 0020 33F81000 		ldrh	r0, [r3, r0, lsl #1]
+ 116              	.LVL12:
+ 117              	.L8:
+  74:Lib/lvgl/src/misc/lv_math.c ****     else if(ret == -32767) return -32768;
+ 118              		.loc 1 74 5 is_stmt 1 view .LVU31
+  74:Lib/lvgl/src/misc/lv_math.c ****     else if(ret == -32767) return -32768;
+ 119              		.loc 1 74 7 is_stmt 0 view .LVU32
+ 120 0024 47F6FF73 		movw	r3, #32767
+ 121 0028 9842     		cmp	r0, r3
+ 122 002a 25D0     		beq	.L13
+ 123              	.L11:
+  75:Lib/lvgl/src/misc/lv_math.c ****     else return ret;
+ 124              		.loc 1 75 10 is_stmt 1 view .LVU33
+  75:Lib/lvgl/src/misc/lv_math.c ****     else return ret;
+ 125              		.loc 1 75 12 is_stmt 0 view .LVU34
+ 126 002c 154B     		ldr	r3, .L15+4
+ 127 002e 9842     		cmp	r0, r3
+ 128 0030 20D0     		beq	.L14
+ 129              	.LVL13:
+ 130              	.L2:
+  77:Lib/lvgl/src/misc/lv_math.c **** 
+ 131              		.loc 1 77 1 view .LVU35
+ 132 0032 7047     		bx	lr
+ 133              	.LVL14:
+ 134              	.L7:
+  61:Lib/lvgl/src/misc/lv_math.c ****         angle = 180 - angle;
+ 135              		.loc 1 61 10 is_stmt 1 view .LVU36
+  61:Lib/lvgl/src/misc/lv_math.c ****         angle = 180 - angle;
+ 136              		.loc 1 61 25 is_stmt 0 view .LVU37
+ 137 0034 80B2     		uxth	r0, r0
+  61:Lib/lvgl/src/misc/lv_math.c ****         angle = 180 - angle;
+ 138              		.loc 1 61 25 view .LVU38
+ 139 0036 A0F15A03 		sub	r3, r0, #90
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 6
+
+
+ 140 003a 9BB2     		uxth	r3, r3
+  61:Lib/lvgl/src/misc/lv_math.c ****         angle = 180 - angle;
+ 141              		.loc 1 61 12 view .LVU39
+ 142 003c 592B     		cmp	r3, #89
+ 143 003e 06D8     		bhi	.L9
+  62:Lib/lvgl/src/misc/lv_math.c ****         ret   = sin0_90_table[angle];
+ 144              		.loc 1 62 9 is_stmt 1 view .LVU40
+  62:Lib/lvgl/src/misc/lv_math.c ****         ret   = sin0_90_table[angle];
+ 145              		.loc 1 62 21 is_stmt 0 view .LVU41
+ 146 0040 C0F1B400 		rsb	r0, r0, #180
+ 147              	.LVL15:
+  62:Lib/lvgl/src/misc/lv_math.c ****         ret   = sin0_90_table[angle];
+ 148              		.loc 1 62 15 view .LVU42
+ 149 0044 00B2     		sxth	r0, r0
+ 150              	.LVL16:
+  63:Lib/lvgl/src/misc/lv_math.c ****     }
+ 151              		.loc 1 63 9 is_stmt 1 view .LVU43
+  63:Lib/lvgl/src/misc/lv_math.c ****     }
+ 152              		.loc 1 63 30 is_stmt 0 view .LVU44
+ 153 0046 0E4B     		ldr	r3, .L15
+ 154 0048 33F81000 		ldrh	r0, [r3, r0, lsl #1]
+ 155              	.LVL17:
+  63:Lib/lvgl/src/misc/lv_math.c ****     }
+ 156              		.loc 1 63 30 view .LVU45
+ 157 004c EAE7     		b	.L8
+ 158              	.LVL18:
+ 159              	.L9:
+  65:Lib/lvgl/src/misc/lv_math.c ****         angle = angle - 180;
+ 160              		.loc 1 65 10 is_stmt 1 view .LVU46
+  65:Lib/lvgl/src/misc/lv_math.c ****         angle = angle - 180;
+ 161              		.loc 1 65 26 is_stmt 0 view .LVU47
+ 162 004e A0F1B403 		sub	r3, r0, #180
+ 163 0052 9BB2     		uxth	r3, r3
+  65:Lib/lvgl/src/misc/lv_math.c ****         angle = angle - 180;
+ 164              		.loc 1 65 12 view .LVU48
+ 165 0054 592B     		cmp	r3, #89
+ 166 0056 05D8     		bhi	.L10
+  66:Lib/lvgl/src/misc/lv_math.c ****         ret   = -sin0_90_table[angle];
+ 167              		.loc 1 66 9 is_stmt 1 view .LVU49
+  66:Lib/lvgl/src/misc/lv_math.c ****         ret   = -sin0_90_table[angle];
+ 168              		.loc 1 66 15 is_stmt 0 view .LVU50
+ 169 0058 1BB2     		sxth	r3, r3
+ 170              	.LVL19:
+  67:Lib/lvgl/src/misc/lv_math.c ****     }
+ 171              		.loc 1 67 9 is_stmt 1 view .LVU51
+  67:Lib/lvgl/src/misc/lv_math.c ****     }
+ 172              		.loc 1 67 31 is_stmt 0 view .LVU52
+ 173 005a 094A     		ldr	r2, .L15
+ 174 005c 32F81300 		ldrh	r0, [r2, r3, lsl #1]
+  67:Lib/lvgl/src/misc/lv_math.c ****     }
+ 175              		.loc 1 67 15 view .LVU53
+ 176 0060 4042     		rsbs	r0, r0, #0
+ 177              	.LVL20:
+  74:Lib/lvgl/src/misc/lv_math.c ****     else if(ret == -32767) return -32768;
+ 178              		.loc 1 74 5 is_stmt 1 view .LVU54
+ 179 0062 E3E7     		b	.L11
+ 180              	.LVL21:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 7
+
+
+ 181              	.L10:
+  70:Lib/lvgl/src/misc/lv_math.c ****         ret   = -sin0_90_table[angle];
+ 182              		.loc 1 70 9 view .LVU55
+  70:Lib/lvgl/src/misc/lv_math.c ****         ret   = -sin0_90_table[angle];
+ 183              		.loc 1 70 21 is_stmt 0 view .LVU56
+ 184 0064 C0F5B470 		rsb	r0, r0, #360
+ 185              	.LVL22:
+  70:Lib/lvgl/src/misc/lv_math.c ****         ret   = -sin0_90_table[angle];
+ 186              		.loc 1 70 15 view .LVU57
+ 187 0068 03B2     		sxth	r3, r0
+ 188              	.LVL23:
+  71:Lib/lvgl/src/misc/lv_math.c ****     }
+ 189              		.loc 1 71 9 is_stmt 1 view .LVU58
+  71:Lib/lvgl/src/misc/lv_math.c ****     }
+ 190              		.loc 1 71 31 is_stmt 0 view .LVU59
+ 191 006a 054A     		ldr	r2, .L15
+ 192 006c 32F81300 		ldrh	r0, [r2, r3, lsl #1]
+  71:Lib/lvgl/src/misc/lv_math.c ****     }
+ 193              		.loc 1 71 15 view .LVU60
+ 194 0070 4042     		rsbs	r0, r0, #0
+ 195              	.LVL24:
+  74:Lib/lvgl/src/misc/lv_math.c ****     else if(ret == -32767) return -32768;
+ 196              		.loc 1 74 5 is_stmt 1 view .LVU61
+ 197 0072 DBE7     		b	.L11
+ 198              	.LVL25:
+ 199              	.L14:
+  75:Lib/lvgl/src/misc/lv_math.c ****     else return ret;
+ 200              		.loc 1 75 35 is_stmt 0 view .LVU62
+ 201 0074 0448     		ldr	r0, .L15+8
+ 202              	.LVL26:
+  75:Lib/lvgl/src/misc/lv_math.c ****     else return ret;
+ 203              		.loc 1 75 35 view .LVU63
+ 204 0076 7047     		bx	lr
+ 205              	.LVL27:
+ 206              	.L13:
+  74:Lib/lvgl/src/misc/lv_math.c ****     else if(ret == -32767) return -32768;
+ 207              		.loc 1 74 29 view .LVU64
+ 208 0078 4FF40040 		mov	r0, #32768
+ 209              	.LVL28:
+  74:Lib/lvgl/src/misc/lv_math.c ****     else if(ret == -32767) return -32768;
+ 210              		.loc 1 74 29 view .LVU65
+ 211 007c D9E7     		b	.L2
+ 212              	.L16:
+ 213 007e 00BF     		.align	2
+ 214              	.L15:
+ 215 0080 00000000 		.word	sin0_90_table
+ 216 0084 0180FFFF 		.word	-32767
+ 217 0088 0080FFFF 		.word	-32768
+ 218              		.cfi_endproc
+ 219              	.LFE234:
+ 221              		.global	__aeabi_ldivmod
+ 222              		.section	.text.lv_cubic_bezier,"ax",%progbits
+ 223              		.align	1
+ 224              		.global	lv_cubic_bezier
+ 225              		.syntax unified
+ 226              		.thumb
+ 227              		.thumb_func
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 8
+
+
+ 229              	lv_cubic_bezier:
+ 230              	.LVL29:
+ 231              	.LFB236:
+ 125:Lib/lvgl/src/misc/lv_math.c **** 
+ 126:Lib/lvgl/src/misc/lv_math.c **** int32_t lv_cubic_bezier(int32_t x, int32_t x1, int32_t y1, int32_t x2, int32_t y2)
+ 127:Lib/lvgl/src/misc/lv_math.c **** {
+ 232              		.loc 1 127 1 is_stmt 1 view -0
+ 233              		.cfi_startproc
+ 234              		@ args = 4, pretend = 0, frame = 8
+ 235              		@ frame_needed = 0, uses_anonymous_args = 0
+ 236              		.loc 1 127 1 is_stmt 0 view .LVU67
+ 237 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 238              	.LCFI0:
+ 239              		.cfi_def_cfa_offset 36
+ 240              		.cfi_offset 4, -36
+ 241              		.cfi_offset 5, -32
+ 242              		.cfi_offset 6, -28
+ 243              		.cfi_offset 7, -24
+ 244              		.cfi_offset 8, -20
+ 245              		.cfi_offset 9, -16
+ 246              		.cfi_offset 10, -12
+ 247              		.cfi_offset 11, -8
+ 248              		.cfi_offset 14, -4
+ 249 0004 83B0     		sub	sp, sp, #12
+ 250              	.LCFI1:
+ 251              		.cfi_def_cfa_offset 48
+ 128:Lib/lvgl/src/misc/lv_math.c ****     int32_t ax, bx, cx, ay, by, cy;
+ 252              		.loc 1 128 5 is_stmt 1 view .LVU68
+ 129:Lib/lvgl/src/misc/lv_math.c ****     int32_t tl, tr, t;  /*t in cubic-bezier function, used for bisection */
+ 253              		.loc 1 129 5 view .LVU69
+ 130:Lib/lvgl/src/misc/lv_math.c ****     int32_t xs;  /*x sampled on curve */
+ 254              		.loc 1 130 5 view .LVU70
+ 131:Lib/lvgl/src/misc/lv_math.c **** #if CUBIC_PRECISION_BITS > 14
+ 132:Lib/lvgl/src/misc/lv_math.c ****     int64_t d; /*slope value at specified t*/
+ 133:Lib/lvgl/src/misc/lv_math.c **** #else
+ 134:Lib/lvgl/src/misc/lv_math.c ****     int32_t d;
+ 255              		.loc 1 134 5 view .LVU71
+ 135:Lib/lvgl/src/misc/lv_math.c **** #endif
+ 136:Lib/lvgl/src/misc/lv_math.c **** 
+ 137:Lib/lvgl/src/misc/lv_math.c ****     if(x == 0 || x == LV_BEZIER_VAL_MAX) return x;
+ 256              		.loc 1 137 5 view .LVU72
+ 257              		.loc 1 137 7 is_stmt 0 view .LVU73
+ 258 0006 0646     		mov	r6, r0
+ 259 0008 0028     		cmp	r0, #0
+ 260 000a 6FD0     		beq	.L17
+ 261              		.loc 1 137 15 discriminator 2 view .LVU74
+ 262 000c B0F5806F 		cmp	r0, #1024
+ 263 0010 6CD0     		beq	.L17
+ 138:Lib/lvgl/src/misc/lv_math.c **** 
+ 139:Lib/lvgl/src/misc/lv_math.c ****     /* input is always LV_BEZIER_VAL_SHIFT bit precision */
+ 140:Lib/lvgl/src/misc/lv_math.c **** 
+ 141:Lib/lvgl/src/misc/lv_math.c **** #if CUBIC_PRECISION_BITS != LV_BEZIER_VAL_SHIFT
+ 142:Lib/lvgl/src/misc/lv_math.c ****     x <<= CUBIC_PRECISION_BITS - LV_BEZIER_VAL_SHIFT;
+ 143:Lib/lvgl/src/misc/lv_math.c ****     x1 <<= CUBIC_PRECISION_BITS - LV_BEZIER_VAL_SHIFT;
+ 144:Lib/lvgl/src/misc/lv_math.c ****     x2 <<= CUBIC_PRECISION_BITS - LV_BEZIER_VAL_SHIFT;
+ 145:Lib/lvgl/src/misc/lv_math.c ****     y1 <<= CUBIC_PRECISION_BITS - LV_BEZIER_VAL_SHIFT;
+ 146:Lib/lvgl/src/misc/lv_math.c ****     y2 <<= CUBIC_PRECISION_BITS - LV_BEZIER_VAL_SHIFT;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 9
+
+
+ 147:Lib/lvgl/src/misc/lv_math.c **** #endif
+ 148:Lib/lvgl/src/misc/lv_math.c **** 
+ 149:Lib/lvgl/src/misc/lv_math.c ****     cx = 3 * x1;
+ 264              		.loc 1 149 5 is_stmt 1 view .LVU75
+ 265              		.loc 1 149 8 is_stmt 0 view .LVU76
+ 266 0012 01EB4108 		add	r8, r1, r1, lsl #1
+ 267              	.LVL30:
+ 150:Lib/lvgl/src/misc/lv_math.c ****     bx = 3 * (x2 - x1) - cx;
+ 268              		.loc 1 150 5 is_stmt 1 view .LVU77
+ 269              		.loc 1 150 18 is_stmt 0 view .LVU78
+ 270 0016 5D1A     		subs	r5, r3, r1
+ 271              		.loc 1 150 12 view .LVU79
+ 272 0018 05EB4505 		add	r5, r5, r5, lsl #1
+ 273              		.loc 1 150 8 view .LVU80
+ 274 001c A5EB0809 		sub	r9, r5, r8
+ 275              	.LVL31:
+ 151:Lib/lvgl/src/misc/lv_math.c ****     ax = (1L << CUBIC_PRECISION_BITS) - cx - bx;
+ 276              		.loc 1 151 5 is_stmt 1 view .LVU81
+ 277              		.loc 1 151 8 is_stmt 0 view .LVU82
+ 278 0020 C5F58065 		rsb	r5, r5, #1024
+ 279              	.LVL32:
+ 152:Lib/lvgl/src/misc/lv_math.c **** 
+ 153:Lib/lvgl/src/misc/lv_math.c ****     cy = 3 * y1;
+ 280              		.loc 1 153 5 is_stmt 1 view .LVU83
+ 281              		.loc 1 153 8 is_stmt 0 view .LVU84
+ 282 0024 02EB420B 		add	fp, r2, r2, lsl #1
+ 283              	.LVL33:
+ 154:Lib/lvgl/src/misc/lv_math.c ****     by = 3 * (y2 - y1) - cy;
+ 284              		.loc 1 154 5 is_stmt 1 view .LVU85
+ 285              		.loc 1 154 18 is_stmt 0 view .LVU86
+ 286 0028 0C99     		ldr	r1, [sp, #48]
+ 287              	.LVL34:
+ 288              		.loc 1 154 18 view .LVU87
+ 289 002a 8A1A     		subs	r2, r1, r2
+ 290              	.LVL35:
+ 291              		.loc 1 154 12 view .LVU88
+ 292 002c 02EB4202 		add	r2, r2, r2, lsl #1
+ 293              		.loc 1 154 8 view .LVU89
+ 294 0030 A2EB0B03 		sub	r3, r2, fp
+ 295              	.LVL36:
+ 296              		.loc 1 154 8 view .LVU90
+ 297 0034 0093     		str	r3, [sp]
+ 298              	.LVL37:
+ 155:Lib/lvgl/src/misc/lv_math.c ****     ay = (1L << CUBIC_PRECISION_BITS)  - cy - by;
+ 299              		.loc 1 155 5 is_stmt 1 view .LVU91
+ 300              		.loc 1 155 8 is_stmt 0 view .LVU92
+ 301 0036 C2F58063 		rsb	r3, r2, #1024
+ 302              	.LVL38:
+ 303              		.loc 1 155 8 view .LVU93
+ 304 003a 0193     		str	r3, [sp, #4]
+ 305              	.LVL39:
+ 156:Lib/lvgl/src/misc/lv_math.c **** 
+ 157:Lib/lvgl/src/misc/lv_math.c ****     /*Try Newton's method firstly */
+ 158:Lib/lvgl/src/misc/lv_math.c ****     t = x; /*Make a guess*/
+ 306              		.loc 1 158 5 is_stmt 1 view .LVU94
+ 159:Lib/lvgl/src/misc/lv_math.c ****     for(int i = 0; i < CUBIC_NEWTON_ITERATIONS; i++) {
+ 307              		.loc 1 159 5 view .LVU95
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 10
+
+
+ 308              	.LBB2:
+ 309              		.loc 1 159 9 view .LVU96
+ 310              		.loc 1 159 9 is_stmt 0 view .LVU97
+ 311              	.LBE2:
+ 158:Lib/lvgl/src/misc/lv_math.c ****     for(int i = 0; i < CUBIC_NEWTON_ITERATIONS; i++) {
+ 312              		.loc 1 158 7 view .LVU98
+ 313 003c 0446     		mov	r4, r0
+ 314              	.LBB3:
+ 315              		.loc 1 159 13 view .LVU99
+ 316 003e 0027     		movs	r7, #0
+ 317              		.loc 1 159 5 view .LVU100
+ 318 0040 01E0     		b	.L19
+ 319              	.LVL40:
+ 320              	.L35:
+ 160:Lib/lvgl/src/misc/lv_math.c ****         /*Check if x on curve at t matches input x*/
+ 161:Lib/lvgl/src/misc/lv_math.c ****         xs = do_cubic_bezier(t, ax, bx, cx) - x;
+ 162:Lib/lvgl/src/misc/lv_math.c ****         if(LV_ABS(xs) <= 1) goto found;
+ 163:Lib/lvgl/src/misc/lv_math.c **** 
+ 164:Lib/lvgl/src/misc/lv_math.c ****         /* get slop at t, d = 3 * ax * t^2 + 2 * bx + t + cx */
+ 165:Lib/lvgl/src/misc/lv_math.c ****         d = ax; /* use 64bit operation if needed. */
+ 166:Lib/lvgl/src/misc/lv_math.c ****         d = (3 * d * t) >> CUBIC_PRECISION_BITS;
+ 167:Lib/lvgl/src/misc/lv_math.c ****         d = ((d + 2 * bx) * t) >> CUBIC_PRECISION_BITS;
+ 168:Lib/lvgl/src/misc/lv_math.c ****         d += cx;
+ 169:Lib/lvgl/src/misc/lv_math.c **** 
+ 170:Lib/lvgl/src/misc/lv_math.c ****         if(LV_ABS(d) <= 1) break;
+ 171:Lib/lvgl/src/misc/lv_math.c **** 
+ 172:Lib/lvgl/src/misc/lv_math.c ****         d = ((int64_t)xs * (1L << CUBIC_PRECISION_BITS)) / d;
+ 173:Lib/lvgl/src/misc/lv_math.c ****         if(d == 0) break;  /*Reached precision limits*/
+ 174:Lib/lvgl/src/misc/lv_math.c ****         t -= d;
+ 321              		.loc 1 174 9 is_stmt 1 discriminator 2 view .LVU101
+ 322              		.loc 1 174 11 is_stmt 0 discriminator 2 view .LVU102
+ 323 0042 241A     		subs	r4, r4, r0
+ 324              	.LVL41:
+ 159:Lib/lvgl/src/misc/lv_math.c ****         /*Check if x on curve at t matches input x*/
+ 325              		.loc 1 159 50 is_stmt 1 discriminator 2 view .LVU103
+ 326 0044 0137     		adds	r7, r7, #1
+ 327              	.LVL42:
+ 328              	.L19:
+ 159:Lib/lvgl/src/misc/lv_math.c ****         /*Check if x on curve at t matches input x*/
+ 329              		.loc 1 159 22 discriminator 1 view .LVU104
+ 330 0046 072F     		cmp	r7, #7
+ 331 0048 26DC     		bgt	.L21
+ 161:Lib/lvgl/src/misc/lv_math.c ****         if(LV_ABS(xs) <= 1) goto found;
+ 332              		.loc 1 161 9 view .LVU105
+ 161:Lib/lvgl/src/misc/lv_math.c ****         if(LV_ABS(xs) <= 1) goto found;
+ 333              		.loc 1 161 14 is_stmt 0 view .LVU106
+ 334 004a 4346     		mov	r3, r8
+ 335 004c 4A46     		mov	r2, r9
+ 336 004e 2946     		mov	r1, r5
+ 337 0050 2046     		mov	r0, r4
+ 338 0052 FFF7FEFF 		bl	do_cubic_bezier
+ 339              	.LVL43:
+ 161:Lib/lvgl/src/misc/lv_math.c ****         if(LV_ABS(xs) <= 1) goto found;
+ 340              		.loc 1 161 12 view .LVU107
+ 341 0056 A0EB060C 		sub	ip, r0, r6
+ 342              	.LVL44:
+ 162:Lib/lvgl/src/misc/lv_math.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 11
+
+
+ 343              		.loc 1 162 9 is_stmt 1 view .LVU108
+ 162:Lib/lvgl/src/misc/lv_math.c **** 
+ 344              		.loc 1 162 23 is_stmt 0 view .LVU109
+ 345 005a 0CF10103 		add	r3, ip, #1
+ 162:Lib/lvgl/src/misc/lv_math.c **** 
+ 346              		.loc 1 162 11 view .LVU110
+ 347 005e 022B     		cmp	r3, #2
+ 348 0060 3ED9     		bls	.L20
+ 165:Lib/lvgl/src/misc/lv_math.c ****         d = (3 * d * t) >> CUBIC_PRECISION_BITS;
+ 349              		.loc 1 165 9 is_stmt 1 view .LVU111
+ 350              	.LVL45:
+ 166:Lib/lvgl/src/misc/lv_math.c ****         d = ((d + 2 * bx) * t) >> CUBIC_PRECISION_BITS;
+ 351              		.loc 1 166 9 view .LVU112
+ 166:Lib/lvgl/src/misc/lv_math.c ****         d = ((d + 2 * bx) * t) >> CUBIC_PRECISION_BITS;
+ 352              		.loc 1 166 20 is_stmt 0 view .LVU113
+ 353 0062 05FB04F3 		mul	r3, r5, r4
+ 354 0066 03EB4303 		add	r3, r3, r3, lsl #1
+ 355              	.LVL46:
+ 167:Lib/lvgl/src/misc/lv_math.c ****         d += cx;
+ 356              		.loc 1 167 9 is_stmt 1 view .LVU114
+ 167:Lib/lvgl/src/misc/lv_math.c ****         d += cx;
+ 357              		.loc 1 167 21 is_stmt 0 view .LVU115
+ 358 006a 4FEA4902 		lsl	r2, r9, #1
+ 167:Lib/lvgl/src/misc/lv_math.c ****         d += cx;
+ 359              		.loc 1 167 17 view .LVU116
+ 360 006e 02EBA322 		add	r2, r2, r3, asr #10
+ 167:Lib/lvgl/src/misc/lv_math.c ****         d += cx;
+ 361              		.loc 1 167 27 view .LVU117
+ 362 0072 04FB02F2 		mul	r2, r4, r2
+ 363              	.LVL47:
+ 168:Lib/lvgl/src/misc/lv_math.c **** 
+ 364              		.loc 1 168 9 is_stmt 1 view .LVU118
+ 168:Lib/lvgl/src/misc/lv_math.c **** 
+ 365              		.loc 1 168 11 is_stmt 0 view .LVU119
+ 366 0076 08EBA222 		add	r2, r8, r2, asr #10
+ 367              	.LVL48:
+ 170:Lib/lvgl/src/misc/lv_math.c **** 
+ 368              		.loc 1 170 9 is_stmt 1 view .LVU120
+ 170:Lib/lvgl/src/misc/lv_math.c **** 
+ 369              		.loc 1 170 22 is_stmt 0 view .LVU121
+ 370 007a 531C     		adds	r3, r2, #1
+ 170:Lib/lvgl/src/misc/lv_math.c **** 
+ 371              		.loc 1 170 11 view .LVU122
+ 372 007c 022B     		cmp	r3, #2
+ 373 007e 0BD9     		bls	.L21
+ 172:Lib/lvgl/src/misc/lv_math.c ****         if(d == 0) break;  /*Reached precision limits*/
+ 374              		.loc 1 172 9 is_stmt 1 view .LVU123
+ 172:Lib/lvgl/src/misc/lv_math.c ****         if(d == 0) break;  /*Reached precision limits*/
+ 375              		.loc 1 172 14 is_stmt 0 view .LVU124
+ 376 0080 4FEAEC71 		asr	r1, ip, #31
+ 172:Lib/lvgl/src/misc/lv_math.c ****         if(d == 0) break;  /*Reached precision limits*/
+ 377              		.loc 1 172 26 view .LVU125
+ 378 0084 8902     		lsls	r1, r1, #10
+ 172:Lib/lvgl/src/misc/lv_math.c ****         if(d == 0) break;  /*Reached precision limits*/
+ 379              		.loc 1 172 58 view .LVU126
+ 380 0086 D317     		asrs	r3, r2, #31
+ 381 0088 4FEA8C20 		lsl	r0, ip, #10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 12
+
+
+ 382 008c 41EA9C51 		orr	r1, r1, ip, lsr #22
+ 383 0090 FFF7FEFF 		bl	__aeabi_ldivmod
+ 384              	.LVL49:
+ 173:Lib/lvgl/src/misc/lv_math.c ****         t -= d;
+ 385              		.loc 1 173 9 is_stmt 1 view .LVU127
+ 173:Lib/lvgl/src/misc/lv_math.c ****         t -= d;
+ 386              		.loc 1 173 11 is_stmt 0 view .LVU128
+ 387 0094 0028     		cmp	r0, #0
+ 388 0096 D4D1     		bne	.L35
+ 389              	.LVL50:
+ 390              	.L21:
+ 173:Lib/lvgl/src/misc/lv_math.c ****         t -= d;
+ 391              		.loc 1 173 11 view .LVU129
+ 392              	.LBE3:
+ 175:Lib/lvgl/src/misc/lv_math.c ****     }
+ 176:Lib/lvgl/src/misc/lv_math.c **** 
+ 177:Lib/lvgl/src/misc/lv_math.c ****     /*Fallback to bisection method for reliability*/
+ 178:Lib/lvgl/src/misc/lv_math.c ****     tl = 0, tr = 1L << CUBIC_PRECISION_BITS, t = x;
+ 393              		.loc 1 178 5 is_stmt 1 view .LVU130
+ 179:Lib/lvgl/src/misc/lv_math.c **** 
+ 180:Lib/lvgl/src/misc/lv_math.c ****     if(t < tl) {
+ 394              		.loc 1 180 5 view .LVU131
+ 395              		.loc 1 180 7 is_stmt 0 view .LVU132
+ 396 0098 002E     		cmp	r6, #0
+ 397 009a 20DB     		blt	.L28
+ 181:Lib/lvgl/src/misc/lv_math.c ****         t = tl;
+ 182:Lib/lvgl/src/misc/lv_math.c ****         goto found;
+ 183:Lib/lvgl/src/misc/lv_math.c ****     }
+ 184:Lib/lvgl/src/misc/lv_math.c **** 
+ 185:Lib/lvgl/src/misc/lv_math.c ****     if(t > tr) {
+ 398              		.loc 1 185 5 is_stmt 1 view .LVU133
+ 399              		.loc 1 185 7 is_stmt 0 view .LVU134
+ 400 009c B6F5806F 		cmp	r6, #1024
+ 401 00a0 27DC     		bgt	.L29
+ 178:Lib/lvgl/src/misc/lv_math.c **** 
+ 402              		.loc 1 178 48 view .LVU135
+ 403 00a2 3446     		mov	r4, r6
+ 178:Lib/lvgl/src/misc/lv_math.c **** 
+ 404              		.loc 1 178 16 view .LVU136
+ 405 00a4 4FF4806A 		mov	r10, #1024
+ 178:Lib/lvgl/src/misc/lv_math.c **** 
+ 406              		.loc 1 178 8 view .LVU137
+ 407 00a8 0027     		movs	r7, #0
+ 408              	.LVL51:
+ 178:Lib/lvgl/src/misc/lv_math.c **** 
+ 409              		.loc 1 178 8 view .LVU138
+ 410 00aa 08E0     		b	.L23
+ 411              	.LVL52:
+ 412              	.L30:
+ 186:Lib/lvgl/src/misc/lv_math.c ****         t = tr;
+ 187:Lib/lvgl/src/misc/lv_math.c ****         goto found;
+ 188:Lib/lvgl/src/misc/lv_math.c ****     }
+ 189:Lib/lvgl/src/misc/lv_math.c **** 
+ 190:Lib/lvgl/src/misc/lv_math.c ****     while(tl < tr) {
+ 191:Lib/lvgl/src/misc/lv_math.c ****         xs = do_cubic_bezier(t, ax, bx, cx);
+ 192:Lib/lvgl/src/misc/lv_math.c ****         if(LV_ABS(xs - x) <= 1) goto found;
+ 193:Lib/lvgl/src/misc/lv_math.c ****         x > xs ? (tl = t) : (tr = t);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 13
+
+
+ 413              		.loc 1 193 33 view .LVU139
+ 414 00ac A246     		mov	r10, r4
+ 415              	.LVL53:
+ 416              	.L24:
+ 194:Lib/lvgl/src/misc/lv_math.c ****         t = (tr - tl) / 2 + tl;
+ 417              		.loc 1 194 9 is_stmt 1 view .LVU140
+ 418              		.loc 1 194 17 is_stmt 0 view .LVU141
+ 419 00ae AAEB0704 		sub	r4, r10, r7
+ 420              	.LVL54:
+ 421              		.loc 1 194 23 view .LVU142
+ 422 00b2 04EBD474 		add	r4, r4, r4, lsr #31
+ 423              		.loc 1 194 11 view .LVU143
+ 424 00b6 07EB6404 		add	r4, r7, r4, asr #1
+ 425              	.LVL55:
+ 195:Lib/lvgl/src/misc/lv_math.c ****         if(t == tl) break;
+ 426              		.loc 1 195 9 is_stmt 1 view .LVU144
+ 427              		.loc 1 195 11 is_stmt 0 view .LVU145
+ 428 00ba A742     		cmp	r7, r4
+ 429 00bc 10D0     		beq	.L20
+ 430              	.LVL56:
+ 431              	.L23:
+ 190:Lib/lvgl/src/misc/lv_math.c ****         xs = do_cubic_bezier(t, ax, bx, cx);
+ 432              		.loc 1 190 14 is_stmt 1 view .LVU146
+ 433 00be 5745     		cmp	r7, r10
+ 434 00c0 0EDA     		bge	.L20
+ 191:Lib/lvgl/src/misc/lv_math.c ****         if(LV_ABS(xs - x) <= 1) goto found;
+ 435              		.loc 1 191 9 view .LVU147
+ 191:Lib/lvgl/src/misc/lv_math.c ****         if(LV_ABS(xs - x) <= 1) goto found;
+ 436              		.loc 1 191 14 is_stmt 0 view .LVU148
+ 437 00c2 4346     		mov	r3, r8
+ 438 00c4 4A46     		mov	r2, r9
+ 439 00c6 2946     		mov	r1, r5
+ 440 00c8 2046     		mov	r0, r4
+ 441 00ca FFF7FEFF 		bl	do_cubic_bezier
+ 442              	.LVL57:
+ 192:Lib/lvgl/src/misc/lv_math.c ****         x > xs ? (tl = t) : (tr = t);
+ 443              		.loc 1 192 9 is_stmt 1 view .LVU149
+ 192:Lib/lvgl/src/misc/lv_math.c ****         x > xs ? (tl = t) : (tr = t);
+ 444              		.loc 1 192 12 is_stmt 0 view .LVU150
+ 445 00ce 831B     		subs	r3, r0, r6
+ 192:Lib/lvgl/src/misc/lv_math.c ****         x > xs ? (tl = t) : (tr = t);
+ 446              		.loc 1 192 27 view .LVU151
+ 447 00d0 0133     		adds	r3, r3, #1
+ 192:Lib/lvgl/src/misc/lv_math.c ****         x > xs ? (tl = t) : (tr = t);
+ 448              		.loc 1 192 11 view .LVU152
+ 449 00d2 022B     		cmp	r3, #2
+ 450 00d4 04D9     		bls	.L20
+ 193:Lib/lvgl/src/misc/lv_math.c ****         t = (tr - tl) / 2 + tl;
+ 451              		.loc 1 193 9 is_stmt 1 view .LVU153
+ 193:Lib/lvgl/src/misc/lv_math.c ****         t = (tr - tl) / 2 + tl;
+ 452              		.loc 1 193 27 is_stmt 0 view .LVU154
+ 453 00d6 8642     		cmp	r6, r0
+ 454 00d8 E8DD     		ble	.L30
+ 193:Lib/lvgl/src/misc/lv_math.c ****         t = (tr - tl) / 2 + tl;
+ 455              		.loc 1 193 22 view .LVU155
+ 456 00da 2746     		mov	r7, r4
+ 457              	.LVL58:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 14
+
+
+ 193:Lib/lvgl/src/misc/lv_math.c ****         t = (tr - tl) / 2 + tl;
+ 458              		.loc 1 193 22 view .LVU156
+ 459 00dc E7E7     		b	.L24
+ 460              	.LVL59:
+ 461              	.L28:
+ 181:Lib/lvgl/src/misc/lv_math.c ****         goto found;
+ 462              		.loc 1 181 11 view .LVU157
+ 463 00de 0024     		movs	r4, #0
+ 464              	.LVL60:
+ 465              	.L20:
+ 196:Lib/lvgl/src/misc/lv_math.c ****     }
+ 197:Lib/lvgl/src/misc/lv_math.c **** 
+ 198:Lib/lvgl/src/misc/lv_math.c ****     /*Failed to find suitable t for given x, return a value anyway.*/
+ 199:Lib/lvgl/src/misc/lv_math.c **** found:
+ 200:Lib/lvgl/src/misc/lv_math.c ****     /*Return y at t*/
+ 201:Lib/lvgl/src/misc/lv_math.c **** #if CUBIC_PRECISION_BITS != LV_BEZIER_VAL_SHIFT
+ 202:Lib/lvgl/src/misc/lv_math.c ****     return do_cubic_bezier(t, ay, by, cy) >> (CUBIC_PRECISION_BITS - LV_BEZIER_VAL_SHIFT);
+ 203:Lib/lvgl/src/misc/lv_math.c **** #else
+ 204:Lib/lvgl/src/misc/lv_math.c ****     return do_cubic_bezier(t, ay, by, cy);
+ 466              		.loc 1 204 5 is_stmt 1 view .LVU158
+ 467              		.loc 1 204 12 is_stmt 0 view .LVU159
+ 468 00e0 5B46     		mov	r3, fp
+ 469 00e2 009A     		ldr	r2, [sp]
+ 470 00e4 0199     		ldr	r1, [sp, #4]
+ 471 00e6 2046     		mov	r0, r4
+ 472 00e8 FFF7FEFF 		bl	do_cubic_bezier
+ 473              	.LVL61:
+ 474              	.L17:
+ 205:Lib/lvgl/src/misc/lv_math.c **** #endif
+ 206:Lib/lvgl/src/misc/lv_math.c **** }
+ 475              		.loc 1 206 1 view .LVU160
+ 476 00ec 03B0     		add	sp, sp, #12
+ 477              	.LCFI2:
+ 478              		.cfi_remember_state
+ 479              		.cfi_def_cfa_offset 36
+ 480              		@ sp needed
+ 481 00ee BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 482              	.LVL62:
+ 483              	.L29:
+ 484              	.LCFI3:
+ 485              		.cfi_restore_state
+ 186:Lib/lvgl/src/misc/lv_math.c ****         goto found;
+ 486              		.loc 1 186 11 view .LVU161
+ 487 00f2 4FF48064 		mov	r4, #1024
+ 488 00f6 F3E7     		b	.L20
+ 489              		.cfi_endproc
+ 490              	.LFE236:
+ 492              		.section	.text.lv_sqrt,"ax",%progbits
+ 493              		.align	1
+ 494              		.global	lv_sqrt
+ 495              		.syntax unified
+ 496              		.thumb
+ 497              		.thumb_func
+ 499              	lv_sqrt:
+ 500              	.LVL63:
+ 501              	.LFB237:
+ 207:Lib/lvgl/src/misc/lv_math.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 15
+
+
+ 208:Lib/lvgl/src/misc/lv_math.c **** LV_ATTRIBUTE_FAST_MEM void lv_sqrt(uint32_t x, lv_sqrt_res_t * q, uint32_t mask)
+ 209:Lib/lvgl/src/misc/lv_math.c **** {
+ 502              		.loc 1 209 1 is_stmt 1 view -0
+ 503              		.cfi_startproc
+ 504              		@ args = 0, pretend = 0, frame = 0
+ 505              		@ frame_needed = 0, uses_anonymous_args = 0
+ 506              		.loc 1 209 1 is_stmt 0 view .LVU163
+ 507 0000 00B5     		push	{lr}
+ 508              	.LCFI4:
+ 509              		.cfi_def_cfa_offset 4
+ 510              		.cfi_offset 14, -4
+ 210:Lib/lvgl/src/misc/lv_math.c ****     x = x << 8; /*To get 4 bit precision. (sqrt(256) = 16 = 4 bit)*/
+ 511              		.loc 1 210 5 is_stmt 1 view .LVU164
+ 512              		.loc 1 210 7 is_stmt 0 view .LVU165
+ 513 0002 0002     		lsls	r0, r0, #8
+ 514              	.LVL64:
+ 211:Lib/lvgl/src/misc/lv_math.c **** 
+ 212:Lib/lvgl/src/misc/lv_math.c ****     uint32_t root = 0;
+ 515              		.loc 1 212 5 is_stmt 1 view .LVU166
+ 516              		.loc 1 212 14 is_stmt 0 view .LVU167
+ 517 0004 4FF0000C 		mov	ip, #0
+ 518 0008 01E0     		b	.L38
+ 519              	.LVL65:
+ 520              	.L37:
+ 213:Lib/lvgl/src/misc/lv_math.c ****     uint32_t trial;
+ 214:Lib/lvgl/src/misc/lv_math.c ****     /*http://ww1.microchip.com/...en/AppNotes/91040a.pdf*/
+ 215:Lib/lvgl/src/misc/lv_math.c ****     do {
+ 216:Lib/lvgl/src/misc/lv_math.c ****         trial = root + mask;
+ 217:Lib/lvgl/src/misc/lv_math.c ****         if(trial * trial <= x) root = trial;
+ 218:Lib/lvgl/src/misc/lv_math.c ****         mask = mask >> 1;
+ 521              		.loc 1 218 9 is_stmt 1 view .LVU168
+ 219:Lib/lvgl/src/misc/lv_math.c ****     } while(mask);
+ 522              		.loc 1 219 13 view .LVU169
+ 523 000a 5208     		lsrs	r2, r2, #1
+ 524              	.LVL66:
+ 525              		.loc 1 219 13 is_stmt 0 view .LVU170
+ 526 000c 07D0     		beq	.L41
+ 527              	.LVL67:
+ 528              	.L38:
+ 213:Lib/lvgl/src/misc/lv_math.c ****     uint32_t trial;
+ 529              		.loc 1 213 5 is_stmt 1 view .LVU171
+ 215:Lib/lvgl/src/misc/lv_math.c ****         trial = root + mask;
+ 530              		.loc 1 215 5 view .LVU172
+ 216:Lib/lvgl/src/misc/lv_math.c ****         if(trial * trial <= x) root = trial;
+ 531              		.loc 1 216 9 view .LVU173
+ 216:Lib/lvgl/src/misc/lv_math.c ****         if(trial * trial <= x) root = trial;
+ 532              		.loc 1 216 15 is_stmt 0 view .LVU174
+ 533 000e 02EB0C03 		add	r3, r2, ip
+ 534              	.LVL68:
+ 217:Lib/lvgl/src/misc/lv_math.c ****         mask = mask >> 1;
+ 535              		.loc 1 217 9 is_stmt 1 view .LVU175
+ 217:Lib/lvgl/src/misc/lv_math.c ****         mask = mask >> 1;
+ 536              		.loc 1 217 18 is_stmt 0 view .LVU176
+ 537 0012 03FB03FE 		mul	lr, r3, r3
+ 217:Lib/lvgl/src/misc/lv_math.c ****         mask = mask >> 1;
+ 538              		.loc 1 217 11 view .LVU177
+ 539 0016 8645     		cmp	lr, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 16
+
+
+ 540 0018 F7D8     		bhi	.L37
+ 217:Lib/lvgl/src/misc/lv_math.c ****         mask = mask >> 1;
+ 541              		.loc 1 217 37 view .LVU178
+ 542 001a 9C46     		mov	ip, r3
+ 543              	.LVL69:
+ 217:Lib/lvgl/src/misc/lv_math.c ****         mask = mask >> 1;
+ 544              		.loc 1 217 37 view .LVU179
+ 545 001c F5E7     		b	.L37
+ 546              	.LVL70:
+ 547              	.L41:
+ 220:Lib/lvgl/src/misc/lv_math.c **** 
+ 221:Lib/lvgl/src/misc/lv_math.c ****     q->i = root >> 4;
+ 548              		.loc 1 221 5 is_stmt 1 view .LVU180
+ 549              		.loc 1 221 17 is_stmt 0 view .LVU181
+ 550 001e 4FEA1C13 		lsr	r3, ip, #4
+ 551              	.LVL71:
+ 552              		.loc 1 221 10 view .LVU182
+ 553 0022 0B80     		strh	r3, [r1]	@ movhi
+ 222:Lib/lvgl/src/misc/lv_math.c ****     q->f = (root & 0xf) << 4;
+ 554              		.loc 1 222 5 is_stmt 1 view .LVU183
+ 555              		.loc 1 222 25 is_stmt 0 view .LVU184
+ 556 0024 4FEA0C1C 		lsl	ip, ip, #4
+ 557              	.LVL72:
+ 558              		.loc 1 222 25 view .LVU185
+ 559 0028 0CF0F00C 		and	ip, ip, #240
+ 560              		.loc 1 222 10 view .LVU186
+ 561 002c A1F802C0 		strh	ip, [r1, #2]	@ movhi
+ 223:Lib/lvgl/src/misc/lv_math.c **** }
+ 562              		.loc 1 223 1 view .LVU187
+ 563 0030 5DF804FB 		ldr	pc, [sp], #4
+ 564              		.cfi_endproc
+ 565              	.LFE237:
+ 567              		.section	.text.lv_atan2,"ax",%progbits
+ 568              		.align	1
+ 569              		.global	lv_atan2
+ 570              		.syntax unified
+ 571              		.thumb
+ 572              		.thumb_func
+ 574              	lv_atan2:
+ 575              	.LVL73:
+ 576              	.LFB238:
+ 224:Lib/lvgl/src/misc/lv_math.c **** 
+ 225:Lib/lvgl/src/misc/lv_math.c **** uint16_t lv_atan2(int x, int y)
+ 226:Lib/lvgl/src/misc/lv_math.c **** {
+ 577              		.loc 1 226 1 is_stmt 1 view -0
+ 578              		.cfi_startproc
+ 579              		@ args = 0, pretend = 0, frame = 0
+ 580              		@ frame_needed = 0, uses_anonymous_args = 0
+ 581              		@ link register save eliminated.
+ 227:Lib/lvgl/src/misc/lv_math.c ****     /**
+ 228:Lib/lvgl/src/misc/lv_math.c ****      * Fast XY vector to integer degree algorithm - Jan 2011 www.RomanBlack.com
+ 229:Lib/lvgl/src/misc/lv_math.c ****      * Converts any XY values including 0 to a degree value that should be
+ 230:Lib/lvgl/src/misc/lv_math.c ****      * within +/- 1 degree of the accurate value without needing
+ 231:Lib/lvgl/src/misc/lv_math.c ****      * large slow trig functions like ArcTan() or ArcCos().
+ 232:Lib/lvgl/src/misc/lv_math.c ****      * NOTE! at least one of the X or Y values must be non-zero!
+ 233:Lib/lvgl/src/misc/lv_math.c ****      * This is the full version, for all 4 quadrants and will generate
+ 234:Lib/lvgl/src/misc/lv_math.c ****      * the angle in integer degrees from 0-360.
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 17
+
+
+ 235:Lib/lvgl/src/misc/lv_math.c ****      * Any values of X and Y are usable including negative values provided
+ 236:Lib/lvgl/src/misc/lv_math.c ****      * they are between -1456 and 1456 so the 16bit multiply does not overflow.
+ 237:Lib/lvgl/src/misc/lv_math.c ****      */
+ 238:Lib/lvgl/src/misc/lv_math.c ****     unsigned char negflag;
+ 582              		.loc 1 238 5 view .LVU189
+ 239:Lib/lvgl/src/misc/lv_math.c ****     unsigned char tempdegree;
+ 583              		.loc 1 239 5 view .LVU190
+ 240:Lib/lvgl/src/misc/lv_math.c ****     unsigned char comp;
+ 584              		.loc 1 240 5 view .LVU191
+ 241:Lib/lvgl/src/misc/lv_math.c ****     unsigned int degree;     /*this will hold the result*/
+ 585              		.loc 1 241 5 view .LVU192
+ 242:Lib/lvgl/src/misc/lv_math.c ****     unsigned int ux;
+ 586              		.loc 1 242 5 view .LVU193
+ 243:Lib/lvgl/src/misc/lv_math.c ****     unsigned int uy;
+ 587              		.loc 1 243 5 view .LVU194
+ 244:Lib/lvgl/src/misc/lv_math.c **** 
+ 245:Lib/lvgl/src/misc/lv_math.c ****     /*Save the sign flags then remove signs and get XY as unsigned ints*/
+ 246:Lib/lvgl/src/misc/lv_math.c ****     negflag = 0;
+ 588              		.loc 1 246 5 view .LVU195
+ 247:Lib/lvgl/src/misc/lv_math.c ****     if(x < 0) {
+ 589              		.loc 1 247 5 view .LVU196
+ 590              		.loc 1 247 7 is_stmt 0 view .LVU197
+ 591 0000 0028     		cmp	r0, #0
+ 592              		.loc 1 247 7 view .LVU198
+ 593 0002 15DB     		blt	.L61
+ 246:Lib/lvgl/src/misc/lv_math.c ****     if(x < 0) {
+ 594              		.loc 1 246 13 view .LVU199
+ 595 0004 0023     		movs	r3, #0
+ 596              	.LVL74:
+ 597              	.L43:
+ 248:Lib/lvgl/src/misc/lv_math.c ****         negflag += 0x01;    /*x flag bit*/
+ 249:Lib/lvgl/src/misc/lv_math.c ****         x = (0 - x);        /*is now +*/
+ 250:Lib/lvgl/src/misc/lv_math.c ****     }
+ 251:Lib/lvgl/src/misc/lv_math.c ****     ux = x;                /*copy to unsigned var before multiply*/
+ 598              		.loc 1 251 5 is_stmt 1 view .LVU200
+ 252:Lib/lvgl/src/misc/lv_math.c ****     if(y < 0) {
+ 599              		.loc 1 252 5 view .LVU201
+ 600              		.loc 1 252 7 is_stmt 0 view .LVU202
+ 601 0006 0029     		cmp	r1, #0
+ 602 0008 15DB     		blt	.L62
+ 603              	.L44:
+ 253:Lib/lvgl/src/misc/lv_math.c ****         negflag += 0x02;    /*y flag bit*/
+ 254:Lib/lvgl/src/misc/lv_math.c ****         y = (0 - y);        /*is now +*/
+ 255:Lib/lvgl/src/misc/lv_math.c ****     }
+ 256:Lib/lvgl/src/misc/lv_math.c ****     uy = y;                /*copy to unsigned var before multiply*/
+ 604              		.loc 1 256 5 is_stmt 1 view .LVU203
+ 605              	.LVL75:
+ 257:Lib/lvgl/src/misc/lv_math.c **** 
+ 258:Lib/lvgl/src/misc/lv_math.c ****     /*1. Calc the scaled "degrees"*/
+ 259:Lib/lvgl/src/misc/lv_math.c ****     if(ux > uy) {
+ 606              		.loc 1 259 5 view .LVU204
+ 607              		.loc 1 259 7 is_stmt 0 view .LVU205
+ 608 000a 8842     		cmp	r0, r1
+ 609 000c 17D9     		bls	.L45
+ 260:Lib/lvgl/src/misc/lv_math.c ****         degree = (uy * 45) / ux;   /*degree result will be 0-45 range*/
+ 610              		.loc 1 260 9 is_stmt 1 view .LVU206
+ 611              		.loc 1 260 22 is_stmt 0 view .LVU207
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 18
+
+
+ 612 000e 01EB4101 		add	r1, r1, r1, lsl #1
+ 613              	.LVL76:
+ 614              		.loc 1 260 22 view .LVU208
+ 615 0012 C1EB0111 		rsb	r1, r1, r1, lsl #4
+ 616              		.loc 1 260 16 view .LVU209
+ 617 0016 B1FBF0F1 		udiv	r1, r1, r0
+ 618              	.LVL77:
+ 261:Lib/lvgl/src/misc/lv_math.c ****         negflag += 0x10;    /*octant flag bit*/
+ 619              		.loc 1 261 9 is_stmt 1 view .LVU210
+ 620              		.loc 1 261 17 is_stmt 0 view .LVU211
+ 621 001a 1033     		adds	r3, r3, #16
+ 622              	.LVL78:
+ 623              		.loc 1 261 17 view .LVU212
+ 624 001c DBB2     		uxtb	r3, r3
+ 625              	.LVL79:
+ 626              	.L46:
+ 262:Lib/lvgl/src/misc/lv_math.c ****     }
+ 263:Lib/lvgl/src/misc/lv_math.c ****     else {
+ 264:Lib/lvgl/src/misc/lv_math.c ****         degree = (ux * 45) / uy;   /*degree result will be 0-45 range*/
+ 265:Lib/lvgl/src/misc/lv_math.c ****     }
+ 266:Lib/lvgl/src/misc/lv_math.c **** 
+ 267:Lib/lvgl/src/misc/lv_math.c ****     /*2. Compensate for the 4 degree error curve*/
+ 268:Lib/lvgl/src/misc/lv_math.c ****     comp = 0;
+ 627              		.loc 1 268 5 is_stmt 1 view .LVU213
+ 269:Lib/lvgl/src/misc/lv_math.c ****     tempdegree = degree;    /*use an unsigned char for speed!*/
+ 628              		.loc 1 269 5 view .LVU214
+ 629              		.loc 1 269 16 is_stmt 0 view .LVU215
+ 630 001e CAB2     		uxtb	r2, r1
+ 631              	.LVL80:
+ 270:Lib/lvgl/src/misc/lv_math.c ****     if(tempdegree > 22) {    /*if top half of range*/
+ 632              		.loc 1 270 5 is_stmt 1 view .LVU216
+ 633              		.loc 1 270 7 is_stmt 0 view .LVU217
+ 634 0020 162A     		cmp	r2, #22
+ 635 0022 1DD9     		bls	.L47
+ 271:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree <= 44) comp++;
+ 636              		.loc 1 271 9 is_stmt 1 view .LVU218
+ 637              		.loc 1 271 11 is_stmt 0 view .LVU219
+ 638 0024 2C2A     		cmp	r2, #44
+ 639 0026 11D8     		bhi	.L55
+ 640              		.loc 1 271 30 is_stmt 1 view .LVU220
+ 641              	.LVL81:
+ 272:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree <= 41) comp++;
+ 642              		.loc 1 272 9 view .LVU221
+ 643              		.loc 1 272 11 is_stmt 0 view .LVU222
+ 644 0028 292A     		cmp	r2, #41
+ 645 002a 23D8     		bhi	.L56
+ 646              		.loc 1 272 34 view .LVU223
+ 647 002c 0220     		movs	r0, #2
+ 648 002e 0EE0     		b	.L48
+ 649              	.LVL82:
+ 650              	.L61:
+ 248:Lib/lvgl/src/misc/lv_math.c ****         x = (0 - x);        /*is now +*/
+ 651              		.loc 1 248 9 is_stmt 1 view .LVU224
+ 249:Lib/lvgl/src/misc/lv_math.c ****     }
+ 652              		.loc 1 249 9 view .LVU225
+ 249:Lib/lvgl/src/misc/lv_math.c ****     }
+ 653              		.loc 1 249 11 is_stmt 0 view .LVU226
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 19
+
+
+ 654 0030 4042     		rsbs	r0, r0, #0
+ 655              	.LVL83:
+ 248:Lib/lvgl/src/misc/lv_math.c ****         x = (0 - x);        /*is now +*/
+ 656              		.loc 1 248 17 view .LVU227
+ 657 0032 0123     		movs	r3, #1
+ 658 0034 E7E7     		b	.L43
+ 659              	.LVL84:
+ 660              	.L62:
+ 253:Lib/lvgl/src/misc/lv_math.c ****         y = (0 - y);        /*is now +*/
+ 661              		.loc 1 253 9 is_stmt 1 view .LVU228
+ 253:Lib/lvgl/src/misc/lv_math.c ****         y = (0 - y);        /*is now +*/
+ 662              		.loc 1 253 17 is_stmt 0 view .LVU229
+ 663 0036 0233     		adds	r3, r3, #2
+ 664              	.LVL85:
+ 253:Lib/lvgl/src/misc/lv_math.c ****         y = (0 - y);        /*is now +*/
+ 665              		.loc 1 253 17 view .LVU230
+ 666 0038 DBB2     		uxtb	r3, r3
+ 667              	.LVL86:
+ 254:Lib/lvgl/src/misc/lv_math.c ****     }
+ 668              		.loc 1 254 9 is_stmt 1 view .LVU231
+ 254:Lib/lvgl/src/misc/lv_math.c ****     }
+ 669              		.loc 1 254 11 is_stmt 0 view .LVU232
+ 670 003a 4942     		rsbs	r1, r1, #0
+ 671              	.LVL87:
+ 254:Lib/lvgl/src/misc/lv_math.c ****     }
+ 672              		.loc 1 254 11 view .LVU233
+ 673 003c E5E7     		b	.L44
+ 674              	.LVL88:
+ 675              	.L45:
+ 264:Lib/lvgl/src/misc/lv_math.c ****     }
+ 676              		.loc 1 264 9 is_stmt 1 view .LVU234
+ 264:Lib/lvgl/src/misc/lv_math.c ****     }
+ 677              		.loc 1 264 22 is_stmt 0 view .LVU235
+ 678 003e 00EB4000 		add	r0, r0, r0, lsl #1
+ 679              	.LVL89:
+ 264:Lib/lvgl/src/misc/lv_math.c ****     }
+ 680              		.loc 1 264 22 view .LVU236
+ 681 0042 C0EB0010 		rsb	r0, r0, r0, lsl #4
+ 264:Lib/lvgl/src/misc/lv_math.c ****     }
+ 682              		.loc 1 264 16 view .LVU237
+ 683 0046 B0FBF1F1 		udiv	r1, r0, r1
+ 684              	.LVL90:
+ 264:Lib/lvgl/src/misc/lv_math.c ****     }
+ 685              		.loc 1 264 16 view .LVU238
+ 686 004a E8E7     		b	.L46
+ 687              	.LVL91:
+ 688              	.L55:
+ 268:Lib/lvgl/src/misc/lv_math.c ****     tempdegree = degree;    /*use an unsigned char for speed!*/
+ 689              		.loc 1 268 10 view .LVU239
+ 690 004c 0020     		movs	r0, #0
+ 691              	.LVL92:
+ 692              	.L48:
+ 273:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree <= 37) comp++;
+ 693              		.loc 1 273 9 is_stmt 1 view .LVU240
+ 694              		.loc 1 273 11 is_stmt 0 view .LVU241
+ 695 004e 252A     		cmp	r2, #37
+ 696 0050 13D8     		bhi	.L49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 20
+
+
+ 697              		.loc 1 273 30 is_stmt 1 discriminator 1 view .LVU242
+ 698              		.loc 1 273 34 is_stmt 0 discriminator 1 view .LVU243
+ 699 0052 0130     		adds	r0, r0, #1
+ 700              	.LVL93:
+ 701              		.loc 1 273 34 discriminator 1 view .LVU244
+ 702 0054 C0B2     		uxtb	r0, r0
+ 703              	.LVL94:
+ 274:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree <= 32) comp++;  /*max is 4 degrees compensated*/
+ 704              		.loc 1 274 9 is_stmt 1 discriminator 1 view .LVU245
+ 705              		.loc 1 274 11 is_stmt 0 discriminator 1 view .LVU246
+ 706 0056 202A     		cmp	r2, #32
+ 707 0058 0FD8     		bhi	.L49
+ 708              		.loc 1 274 30 is_stmt 1 discriminator 1 view .LVU247
+ 709              		.loc 1 274 34 is_stmt 0 discriminator 1 view .LVU248
+ 710 005a 0130     		adds	r0, r0, #1
+ 711              	.LVL95:
+ 712              		.loc 1 274 34 discriminator 1 view .LVU249
+ 713 005c C0B2     		uxtb	r0, r0
+ 714              	.LVL96:
+ 715              		.loc 1 274 34 discriminator 1 view .LVU250
+ 716 005e 0CE0     		b	.L49
+ 717              	.LVL97:
+ 718              	.L47:
+ 275:Lib/lvgl/src/misc/lv_math.c ****     }
+ 276:Lib/lvgl/src/misc/lv_math.c ****     else {   /*else is lower half of range*/
+ 277:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree >= 2) comp++;
+ 719              		.loc 1 277 9 is_stmt 1 view .LVU251
+ 720              		.loc 1 277 11 is_stmt 0 view .LVU252
+ 721 0060 012A     		cmp	r2, #1
+ 722 0062 09D9     		bls	.L57
+ 723              		.loc 1 277 29 is_stmt 1 view .LVU253
+ 724              	.LVL98:
+ 278:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree >= 6) comp++;
+ 725              		.loc 1 278 9 view .LVU254
+ 726              		.loc 1 278 11 is_stmt 0 view .LVU255
+ 727 0064 052A     		cmp	r2, #5
+ 728 0066 17D9     		bls	.L58
+ 729              		.loc 1 278 29 is_stmt 1 discriminator 1 view .LVU256
+ 730              	.LVL99:
+ 279:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree >= 10) comp++;
+ 731              		.loc 1 279 9 discriminator 1 view .LVU257
+ 732              		.loc 1 279 11 is_stmt 0 discriminator 1 view .LVU258
+ 733 0068 092A     		cmp	r2, #9
+ 734 006a 17D9     		bls	.L59
+ 735              		.loc 1 279 30 is_stmt 1 discriminator 1 view .LVU259
+ 736              	.LVL100:
+ 280:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree >= 15) comp++;  /*max is 4 degrees compensated*/
+ 737              		.loc 1 280 9 discriminator 1 view .LVU260
+ 738              		.loc 1 280 11 is_stmt 0 discriminator 1 view .LVU261
+ 739 006c 0E2A     		cmp	r2, #14
+ 740 006e 17D8     		bhi	.L60
+ 279:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree >= 10) comp++;
+ 741              		.loc 1 279 34 view .LVU262
+ 742 0070 0320     		movs	r0, #3
+ 743 0072 02E0     		b	.L49
+ 744              	.LVL101:
+ 745              	.L56:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 21
+
+
+ 271:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree <= 41) comp++;
+ 746              		.loc 1 271 34 view .LVU263
+ 747 0074 0120     		movs	r0, #1
+ 748 0076 00E0     		b	.L49
+ 749              	.LVL102:
+ 750              	.L57:
+ 268:Lib/lvgl/src/misc/lv_math.c ****     tempdegree = degree;    /*use an unsigned char for speed!*/
+ 751              		.loc 1 268 10 view .LVU264
+ 752 0078 0020     		movs	r0, #0
+ 753              	.LVL103:
+ 754              	.L49:
+ 281:Lib/lvgl/src/misc/lv_math.c ****     }
+ 282:Lib/lvgl/src/misc/lv_math.c ****     degree += comp;   /*degree is now accurate to +/- 1 degree!*/
+ 755              		.loc 1 282 5 is_stmt 1 view .LVU265
+ 756              		.loc 1 282 12 is_stmt 0 view .LVU266
+ 757 007a 0844     		add	r0, r0, r1
+ 758              	.LVL104:
+ 283:Lib/lvgl/src/misc/lv_math.c **** 
+ 284:Lib/lvgl/src/misc/lv_math.c ****     /*Invert degree if it was X>Y octant, makes 0-45 into 90-45*/
+ 285:Lib/lvgl/src/misc/lv_math.c ****     if(negflag & 0x10) degree = (90 - degree);
+ 759              		.loc 1 285 5 is_stmt 1 view .LVU267
+ 760              		.loc 1 285 7 is_stmt 0 view .LVU268
+ 761 007c 13F0100F 		tst	r3, #16
+ 762 0080 01D0     		beq	.L50
+ 763              		.loc 1 285 24 is_stmt 1 discriminator 1 view .LVU269
+ 764              		.loc 1 285 31 is_stmt 0 discriminator 1 view .LVU270
+ 765 0082 C0F15A00 		rsb	r0, r0, #90
+ 766              	.LVL105:
+ 767              	.L50:
+ 286:Lib/lvgl/src/misc/lv_math.c **** 
+ 287:Lib/lvgl/src/misc/lv_math.c ****     /*3. Degree is now 0-90 range for this quadrant,*/
+ 288:Lib/lvgl/src/misc/lv_math.c ****     /*need to invert it for whichever quadrant it was in*/
+ 289:Lib/lvgl/src/misc/lv_math.c ****     if(negflag & 0x02) { /*if -Y*/
+ 768              		.loc 1 289 5 is_stmt 1 view .LVU271
+ 769              		.loc 1 289 7 is_stmt 0 view .LVU272
+ 770 0086 13F0020F 		tst	r3, #2
+ 771 008a 0ED0     		beq	.L51
+ 290:Lib/lvgl/src/misc/lv_math.c ****         if(negflag & 0x01)   /*if -Y -X*/
+ 772              		.loc 1 290 9 is_stmt 1 view .LVU273
+ 773              		.loc 1 290 11 is_stmt 0 view .LVU274
+ 774 008c 13F0010F 		tst	r3, #1
+ 775 0090 08D0     		beq	.L52
+ 291:Lib/lvgl/src/misc/lv_math.c ****             degree = (180 + degree);
+ 776              		.loc 1 291 13 is_stmt 1 view .LVU275
+ 777              		.loc 1 291 20 is_stmt 0 view .LVU276
+ 778 0092 B430     		adds	r0, r0, #180
+ 779              	.LVL106:
+ 780              	.L53:
+ 292:Lib/lvgl/src/misc/lv_math.c ****         else        /*else is -Y +X*/
+ 293:Lib/lvgl/src/misc/lv_math.c ****             degree = (180 - degree);
+ 294:Lib/lvgl/src/misc/lv_math.c ****     }
+ 295:Lib/lvgl/src/misc/lv_math.c ****     else {   /*else is +Y*/
+ 296:Lib/lvgl/src/misc/lv_math.c ****         if(negflag & 0x01)   /*if +Y -X*/
+ 297:Lib/lvgl/src/misc/lv_math.c ****             degree = (360 - degree);
+ 298:Lib/lvgl/src/misc/lv_math.c ****     }
+ 299:Lib/lvgl/src/misc/lv_math.c ****     return degree;
+ 781              		.loc 1 299 5 is_stmt 1 view .LVU277
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 22
+
+
+ 300:Lib/lvgl/src/misc/lv_math.c **** }
+ 782              		.loc 1 300 1 is_stmt 0 view .LVU278
+ 783 0094 80B2     		uxth	r0, r0
+ 784              	.LVL107:
+ 785              		.loc 1 300 1 view .LVU279
+ 786 0096 7047     		bx	lr
+ 787              	.LVL108:
+ 788              	.L58:
+ 277:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree >= 6) comp++;
+ 789              		.loc 1 277 33 view .LVU280
+ 790 0098 0120     		movs	r0, #1
+ 791 009a EEE7     		b	.L49
+ 792              	.LVL109:
+ 793              	.L59:
+ 278:Lib/lvgl/src/misc/lv_math.c ****         if(tempdegree >= 10) comp++;
+ 794              		.loc 1 278 33 view .LVU281
+ 795 009c 0220     		movs	r0, #2
+ 796 009e ECE7     		b	.L49
+ 797              	.LVL110:
+ 798              	.L60:
+ 280:Lib/lvgl/src/misc/lv_math.c ****     }
+ 799              		.loc 1 280 34 view .LVU282
+ 800 00a0 0420     		movs	r0, #4
+ 801 00a2 EAE7     		b	.L49
+ 802              	.LVL111:
+ 803              	.L52:
+ 293:Lib/lvgl/src/misc/lv_math.c ****     }
+ 804              		.loc 1 293 13 is_stmt 1 view .LVU283
+ 293:Lib/lvgl/src/misc/lv_math.c ****     }
+ 805              		.loc 1 293 20 is_stmt 0 view .LVU284
+ 806 00a4 C0F1B400 		rsb	r0, r0, #180
+ 807              	.LVL112:
+ 293:Lib/lvgl/src/misc/lv_math.c ****     }
+ 808              		.loc 1 293 20 view .LVU285
+ 809 00a8 F4E7     		b	.L53
+ 810              	.L51:
+ 296:Lib/lvgl/src/misc/lv_math.c ****             degree = (360 - degree);
+ 811              		.loc 1 296 9 is_stmt 1 view .LVU286
+ 296:Lib/lvgl/src/misc/lv_math.c ****             degree = (360 - degree);
+ 812              		.loc 1 296 11 is_stmt 0 view .LVU287
+ 813 00aa 13F0010F 		tst	r3, #1
+ 814 00ae F1D0     		beq	.L53
+ 297:Lib/lvgl/src/misc/lv_math.c ****     }
+ 815              		.loc 1 297 13 is_stmt 1 view .LVU288
+ 297:Lib/lvgl/src/misc/lv_math.c ****     }
+ 816              		.loc 1 297 20 is_stmt 0 view .LVU289
+ 817 00b0 C0F5B470 		rsb	r0, r0, #360
+ 818              	.LVL113:
+ 297:Lib/lvgl/src/misc/lv_math.c ****     }
+ 819              		.loc 1 297 20 view .LVU290
+ 820 00b4 EEE7     		b	.L53
+ 821              		.cfi_endproc
+ 822              	.LFE238:
+ 824              		.section	.text.lv_pow,"ax",%progbits
+ 825              		.align	1
+ 826              		.global	lv_pow
+ 827              		.syntax unified
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 23
+
+
+ 828              		.thumb
+ 829              		.thumb_func
+ 831              	lv_pow:
+ 832              	.LVL114:
+ 833              	.LFB239:
+ 301:Lib/lvgl/src/misc/lv_math.c **** 
+ 302:Lib/lvgl/src/misc/lv_math.c **** int64_t lv_pow(int64_t base, int8_t exp)
+ 303:Lib/lvgl/src/misc/lv_math.c **** {
+ 834              		.loc 1 303 1 is_stmt 1 view -0
+ 835              		.cfi_startproc
+ 836              		@ args = 0, pretend = 0, frame = 0
+ 837              		@ frame_needed = 0, uses_anonymous_args = 0
+ 838              		.loc 1 303 1 is_stmt 0 view .LVU292
+ 839 0000 0346     		mov	r3, r0
+ 840 0002 8C46     		mov	ip, r1
+ 304:Lib/lvgl/src/misc/lv_math.c ****     int64_t result = 1;
+ 841              		.loc 1 304 5 is_stmt 1 view .LVU293
+ 842              	.LVL115:
+ 305:Lib/lvgl/src/misc/lv_math.c ****     while(exp) {
+ 843              		.loc 1 305 5 view .LVU294
+ 304:Lib/lvgl/src/misc/lv_math.c ****     int64_t result = 1;
+ 844              		.loc 1 304 13 is_stmt 0 view .LVU295
+ 845 0004 0120     		movs	r0, #1
+ 846              	.LVL116:
+ 304:Lib/lvgl/src/misc/lv_math.c ****     int64_t result = 1;
+ 847              		.loc 1 304 13 view .LVU296
+ 848 0006 0021     		movs	r1, #0
+ 849              	.LVL117:
+ 850              		.loc 1 305 11 is_stmt 1 view .LVU297
+ 851 0008 B2B1     		cbz	r2, .L71
+ 303:Lib/lvgl/src/misc/lv_math.c ****     int64_t result = 1;
+ 852              		.loc 1 303 1 is_stmt 0 view .LVU298
+ 853 000a 00B5     		push	{lr}
+ 854              	.LCFI5:
+ 855              		.cfi_def_cfa_offset 4
+ 856              		.cfi_offset 14, -4
+ 857 000c 07E0     		b	.L66
+ 858              	.LVL118:
+ 859              	.L65:
+ 306:Lib/lvgl/src/misc/lv_math.c ****         if(exp & 1)
+ 307:Lib/lvgl/src/misc/lv_math.c ****             result *= base;
+ 308:Lib/lvgl/src/misc/lv_math.c ****         exp >>= 1;
+ 860              		.loc 1 308 9 is_stmt 1 view .LVU299
+ 861              		.loc 1 308 13 is_stmt 0 view .LVU300
+ 862 000e 5210     		asrs	r2, r2, #1
+ 863              	.LVL119:
+ 309:Lib/lvgl/src/misc/lv_math.c ****         base *= base;
+ 864              		.loc 1 309 9 is_stmt 1 view .LVU301
+ 865              		.loc 1 309 14 is_stmt 0 view .LVU302
+ 866 0010 03FB0CFE 		mul	lr, r3, ip
+ 867 0014 A3FB033C 		umull	r3, ip, r3, r3
+ 868 0018 0CEB4E0C 		add	ip, ip, lr, lsl #1
+ 869              	.LVL120:
+ 305:Lib/lvgl/src/misc/lv_math.c ****         if(exp & 1)
+ 870              		.loc 1 305 11 is_stmt 1 view .LVU303
+ 871 001c 52B1     		cbz	r2, .L72
+ 872              	.LVL121:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 24
+
+
+ 873              	.L66:
+ 306:Lib/lvgl/src/misc/lv_math.c ****         if(exp & 1)
+ 874              		.loc 1 306 9 view .LVU304
+ 306:Lib/lvgl/src/misc/lv_math.c ****         if(exp & 1)
+ 875              		.loc 1 306 11 is_stmt 0 view .LVU305
+ 876 001e 12F0010F 		tst	r2, #1
+ 877 0022 F4D0     		beq	.L65
+ 307:Lib/lvgl/src/misc/lv_math.c ****         exp >>= 1;
+ 878              		.loc 1 307 13 is_stmt 1 view .LVU306
+ 307:Lib/lvgl/src/misc/lv_math.c ****         exp >>= 1;
+ 879              		.loc 1 307 20 is_stmt 0 view .LVU307
+ 880 0024 00FB0CFE 		mul	lr, r0, ip
+ 881 0028 03FB01EE 		mla	lr, r3, r1, lr
+ 882 002c A0FB0301 		umull	r0, r1, r0, r3
+ 883 0030 7144     		add	r1, r1, lr
+ 884              	.LVL122:
+ 307:Lib/lvgl/src/misc/lv_math.c ****         exp >>= 1;
+ 885              		.loc 1 307 20 view .LVU308
+ 886 0032 ECE7     		b	.L65
+ 887              	.LVL123:
+ 888              	.L72:
+ 310:Lib/lvgl/src/misc/lv_math.c ****     }
+ 311:Lib/lvgl/src/misc/lv_math.c **** 
+ 312:Lib/lvgl/src/misc/lv_math.c ****     return result;
+ 889              		.loc 1 312 5 is_stmt 1 view .LVU309
+ 313:Lib/lvgl/src/misc/lv_math.c **** }
+ 890              		.loc 1 313 1 is_stmt 0 view .LVU310
+ 891 0034 5DF804FB 		ldr	pc, [sp], #4
+ 892              	.L71:
+ 893              	.LCFI6:
+ 894              		.cfi_def_cfa_offset 0
+ 895              		.cfi_restore 14
+ 896              		.loc 1 313 1 view .LVU311
+ 897 0038 7047     		bx	lr
+ 898              		.cfi_endproc
+ 899              	.LFE239:
+ 901              		.section	.text.lv_map,"ax",%progbits
+ 902              		.align	1
+ 903              		.global	lv_map
+ 904              		.syntax unified
+ 905              		.thumb
+ 906              		.thumb_func
+ 908              	lv_map:
+ 909              	.LVL124:
+ 910              	.LFB240:
+ 314:Lib/lvgl/src/misc/lv_math.c **** 
+ 315:Lib/lvgl/src/misc/lv_math.c **** int32_t lv_map(int32_t x, int32_t min_in, int32_t max_in, int32_t min_out, int32_t max_out)
+ 316:Lib/lvgl/src/misc/lv_math.c **** {
+ 911              		.loc 1 316 1 is_stmt 1 view -0
+ 912              		.cfi_startproc
+ 913              		@ args = 4, pretend = 0, frame = 0
+ 914              		@ frame_needed = 0, uses_anonymous_args = 0
+ 915              		@ link register save eliminated.
+ 916              		.loc 1 316 1 is_stmt 0 view .LVU313
+ 917 0000 10B4     		push	{r4}
+ 918              	.LCFI7:
+ 919              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 25
+
+
+ 920              		.cfi_offset 4, -4
+ 317:Lib/lvgl/src/misc/lv_math.c ****     if(max_in >= min_in && x >= max_in) return max_out;
+ 921              		.loc 1 317 5 is_stmt 1 view .LVU314
+ 922              		.loc 1 317 7 is_stmt 0 view .LVU315
+ 923 0002 8A42     		cmp	r2, r1
+ 924 0004 01DB     		blt	.L74
+ 925              		.loc 1 317 25 discriminator 1 view .LVU316
+ 926 0006 8242     		cmp	r2, r0
+ 927 0008 18DD     		ble	.L79
+ 928              	.L74:
+ 318:Lib/lvgl/src/misc/lv_math.c ****     if(max_in >= min_in && x <= min_in) return min_out;
+ 929              		.loc 1 318 5 is_stmt 1 view .LVU317
+ 930              		.loc 1 318 7 is_stmt 0 view .LVU318
+ 931 000a 8A42     		cmp	r2, r1
+ 932 000c 01DB     		blt	.L76
+ 933              		.loc 1 318 25 discriminator 1 view .LVU319
+ 934 000e 8142     		cmp	r1, r0
+ 935 0010 16DA     		bge	.L80
+ 936              	.L76:
+ 319:Lib/lvgl/src/misc/lv_math.c **** 
+ 320:Lib/lvgl/src/misc/lv_math.c ****     if(max_in <= min_in && x <= max_in) return max_out;
+ 937              		.loc 1 320 5 is_stmt 1 view .LVU320
+ 938              		.loc 1 320 7 is_stmt 0 view .LVU321
+ 939 0012 8A42     		cmp	r2, r1
+ 940 0014 01DC     		bgt	.L77
+ 941              		.loc 1 320 25 discriminator 1 view .LVU322
+ 942 0016 8242     		cmp	r2, r0
+ 943 0018 14DA     		bge	.L81
+ 944              	.L77:
+ 321:Lib/lvgl/src/misc/lv_math.c ****     if(max_in <= min_in && x >= min_in) return min_out;
+ 945              		.loc 1 321 5 is_stmt 1 view .LVU323
+ 946              		.loc 1 321 7 is_stmt 0 view .LVU324
+ 947 001a 8A42     		cmp	r2, r1
+ 948 001c 01DC     		bgt	.L78
+ 949              		.loc 1 321 25 discriminator 1 view .LVU325
+ 950 001e 8142     		cmp	r1, r0
+ 951 0020 12DD     		ble	.L82
+ 952              	.L78:
+ 322:Lib/lvgl/src/misc/lv_math.c **** 
+ 323:Lib/lvgl/src/misc/lv_math.c ****     /**
+ 324:Lib/lvgl/src/misc/lv_math.c ****      * The equation should be:
+ 325:Lib/lvgl/src/misc/lv_math.c ****      *   ((x - min_in) * delta_out) / delta in) + min_out
+ 326:Lib/lvgl/src/misc/lv_math.c ****      * To avoid rounding error reorder the operations:
+ 327:Lib/lvgl/src/misc/lv_math.c ****      *   (x - min_in) * (delta_out / delta_min) + min_out
+ 328:Lib/lvgl/src/misc/lv_math.c ****      */
+ 329:Lib/lvgl/src/misc/lv_math.c **** 
+ 330:Lib/lvgl/src/misc/lv_math.c ****     int32_t delta_in = max_in - min_in;
+ 953              		.loc 1 330 5 is_stmt 1 view .LVU326
+ 954              		.loc 1 330 13 is_stmt 0 view .LVU327
+ 955 0022 521A     		subs	r2, r2, r1
+ 956              	.LVL125:
+ 331:Lib/lvgl/src/misc/lv_math.c ****     int32_t delta_out = max_out - min_out;
+ 957              		.loc 1 331 5 is_stmt 1 view .LVU328
+ 958              		.loc 1 331 13 is_stmt 0 view .LVU329
+ 959 0024 019C     		ldr	r4, [sp, #4]
+ 960 0026 A4EB030C 		sub	ip, r4, r3
+ 961              	.LVL126:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 26
+
+
+ 332:Lib/lvgl/src/misc/lv_math.c **** 
+ 333:Lib/lvgl/src/misc/lv_math.c ****     return ((x - min_in) * delta_out) / delta_in + min_out;
+ 962              		.loc 1 333 5 is_stmt 1 view .LVU330
+ 963              		.loc 1 333 16 is_stmt 0 view .LVU331
+ 964 002a 411A     		subs	r1, r0, r1
+ 965              	.LVL127:
+ 966              		.loc 1 333 26 view .LVU332
+ 967 002c 0CFB01F1 		mul	r1, ip, r1
+ 968              		.loc 1 333 39 view .LVU333
+ 969 0030 91FBF2F2 		sdiv	r2, r1, r2
+ 970              	.LVL128:
+ 971              		.loc 1 333 50 view .LVU334
+ 972 0034 D018     		adds	r0, r2, r3
+ 973              	.LVL129:
+ 974              	.L73:
+ 334:Lib/lvgl/src/misc/lv_math.c **** }
+ 975              		.loc 1 334 1 view .LVU335
+ 976 0036 5DF8044B 		ldr	r4, [sp], #4
+ 977              	.LCFI8:
+ 978              		.cfi_remember_state
+ 979              		.cfi_restore 4
+ 980              		.cfi_def_cfa_offset 0
+ 981              	.LVL130:
+ 982              		.loc 1 334 1 view .LVU336
+ 983 003a 7047     		bx	lr
+ 984              	.LVL131:
+ 985              	.L79:
+ 986              	.LCFI9:
+ 987              		.cfi_restore_state
+ 317:Lib/lvgl/src/misc/lv_math.c ****     if(max_in >= min_in && x <= min_in) return min_out;
+ 988              		.loc 1 317 48 view .LVU337
+ 989 003c 0198     		ldr	r0, [sp, #4]
+ 990              	.LVL132:
+ 317:Lib/lvgl/src/misc/lv_math.c ****     if(max_in >= min_in && x <= min_in) return min_out;
+ 991              		.loc 1 317 48 view .LVU338
+ 992 003e FAE7     		b	.L73
+ 993              	.LVL133:
+ 994              	.L80:
+ 318:Lib/lvgl/src/misc/lv_math.c **** 
+ 995              		.loc 1 318 48 view .LVU339
+ 996 0040 1846     		mov	r0, r3
+ 997              	.LVL134:
+ 318:Lib/lvgl/src/misc/lv_math.c **** 
+ 998              		.loc 1 318 48 view .LVU340
+ 999 0042 F8E7     		b	.L73
+ 1000              	.LVL135:
+ 1001              	.L81:
+ 320:Lib/lvgl/src/misc/lv_math.c ****     if(max_in <= min_in && x >= min_in) return min_out;
+ 1002              		.loc 1 320 48 view .LVU341
+ 1003 0044 0198     		ldr	r0, [sp, #4]
+ 1004              	.LVL136:
+ 320:Lib/lvgl/src/misc/lv_math.c ****     if(max_in <= min_in && x >= min_in) return min_out;
+ 1005              		.loc 1 320 48 view .LVU342
+ 1006 0046 F6E7     		b	.L73
+ 1007              	.LVL137:
+ 1008              	.L82:
+ 321:Lib/lvgl/src/misc/lv_math.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 27
+
+
+ 1009              		.loc 1 321 48 view .LVU343
+ 1010 0048 1846     		mov	r0, r3
+ 1011              	.LVL138:
+ 321:Lib/lvgl/src/misc/lv_math.c **** 
+ 1012              		.loc 1 321 48 view .LVU344
+ 1013 004a F4E7     		b	.L73
+ 1014              		.cfi_endproc
+ 1015              	.LFE240:
+ 1017              		.section	.text.lv_rand_set_seed,"ax",%progbits
+ 1018              		.align	1
+ 1019              		.global	lv_rand_set_seed
+ 1020              		.syntax unified
+ 1021              		.thumb
+ 1022              		.thumb_func
+ 1024              	lv_rand_set_seed:
+ 1025              	.LVL139:
+ 1026              	.LFB241:
+ 335:Lib/lvgl/src/misc/lv_math.c **** 
+ 336:Lib/lvgl/src/misc/lv_math.c **** void lv_rand_set_seed(uint32_t seed)
+ 337:Lib/lvgl/src/misc/lv_math.c **** {
+ 1027              		.loc 1 337 1 is_stmt 1 view -0
+ 1028              		.cfi_startproc
+ 1029              		@ args = 0, pretend = 0, frame = 0
+ 1030              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1031              		@ link register save eliminated.
+ 338:Lib/lvgl/src/misc/lv_math.c ****     rand_seed = seed;
+ 1032              		.loc 1 338 5 view .LVU346
+ 1033              		.loc 1 338 15 is_stmt 0 view .LVU347
+ 1034 0000 014B     		ldr	r3, .L85
+ 1035 0002 9866     		str	r0, [r3, #104]
+ 339:Lib/lvgl/src/misc/lv_math.c **** }
+ 1036              		.loc 1 339 1 view .LVU348
+ 1037 0004 7047     		bx	lr
+ 1038              	.L86:
+ 1039 0006 00BF     		.align	2
+ 1040              	.L85:
+ 1041 0008 00000000 		.word	lv_global
+ 1042              		.cfi_endproc
+ 1043              	.LFE241:
+ 1045              		.section	.text.lv_rand,"ax",%progbits
+ 1046              		.align	1
+ 1047              		.global	lv_rand
+ 1048              		.syntax unified
+ 1049              		.thumb
+ 1050              		.thumb_func
+ 1052              	lv_rand:
+ 1053              	.LVL140:
+ 1054              	.LFB242:
+ 340:Lib/lvgl/src/misc/lv_math.c **** 
+ 341:Lib/lvgl/src/misc/lv_math.c **** uint32_t lv_rand(uint32_t min, uint32_t max)
+ 342:Lib/lvgl/src/misc/lv_math.c **** {
+ 1055              		.loc 1 342 1 is_stmt 1 view -0
+ 1056              		.cfi_startproc
+ 1057              		@ args = 0, pretend = 0, frame = 0
+ 1058              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1059              		@ link register save eliminated.
+ 343:Lib/lvgl/src/misc/lv_math.c ****     /*Algorithm "xor" from p. 4 of Marsaglia, "Xorshift RNGs"*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 28
+
+
+ 344:Lib/lvgl/src/misc/lv_math.c ****     uint32_t x = rand_seed;
+ 1060              		.loc 1 344 5 view .LVU350
+ 1061              		.loc 1 344 14 is_stmt 0 view .LVU351
+ 1062 0000 084A     		ldr	r2, .L88
+ 1063 0002 936E     		ldr	r3, [r2, #104]
+ 1064              	.LVL141:
+ 345:Lib/lvgl/src/misc/lv_math.c ****     x ^= x << 13;
+ 1065              		.loc 1 345 5 is_stmt 1 view .LVU352
+ 1066              		.loc 1 345 7 is_stmt 0 view .LVU353
+ 1067 0004 83EA4333 		eor	r3, r3, r3, lsl #13
+ 1068              	.LVL142:
+ 346:Lib/lvgl/src/misc/lv_math.c ****     x ^= x >> 17;
+ 1069              		.loc 1 346 5 is_stmt 1 view .LVU354
+ 1070              		.loc 1 346 7 is_stmt 0 view .LVU355
+ 1071 0008 83EA5343 		eor	r3, r3, r3, lsr #17
+ 1072              	.LVL143:
+ 347:Lib/lvgl/src/misc/lv_math.c ****     x ^= x << 5;
+ 1073              		.loc 1 347 5 is_stmt 1 view .LVU356
+ 1074              		.loc 1 347 7 is_stmt 0 view .LVU357
+ 1075 000c 83EA4313 		eor	r3, r3, r3, lsl #5
+ 1076              	.LVL144:
+ 348:Lib/lvgl/src/misc/lv_math.c ****     rand_seed = x;
+ 1077              		.loc 1 348 5 is_stmt 1 view .LVU358
+ 1078              		.loc 1 348 15 is_stmt 0 view .LVU359
+ 1079 0010 9366     		str	r3, [r2, #104]
+ 349:Lib/lvgl/src/misc/lv_math.c **** 
+ 350:Lib/lvgl/src/misc/lv_math.c ****     return (rand_seed % (max - min + 1)) + min;
+ 1080              		.loc 1 350 5 is_stmt 1 view .LVU360
+ 1081              		.loc 1 350 30 is_stmt 0 view .LVU361
+ 1082 0012 091A     		subs	r1, r1, r0
+ 1083              	.LVL145:
+ 1084              		.loc 1 350 36 view .LVU362
+ 1085 0014 0131     		adds	r1, r1, #1
+ 1086              		.loc 1 350 23 view .LVU363
+ 1087 0016 B3FBF1F2 		udiv	r2, r3, r1
+ 1088 001a 01FB1233 		mls	r3, r1, r2, r3
+ 1089              	.LVL146:
+ 351:Lib/lvgl/src/misc/lv_math.c **** }
+ 1090              		.loc 1 351 1 view .LVU364
+ 1091 001e 1844     		add	r0, r0, r3
+ 1092              	.LVL147:
+ 1093              		.loc 1 351 1 view .LVU365
+ 1094 0020 7047     		bx	lr
+ 1095              	.L89:
+ 1096 0022 00BF     		.align	2
+ 1097              	.L88:
+ 1098 0024 00000000 		.word	lv_global
+ 1099              		.cfi_endproc
+ 1100              	.LFE242:
+ 1102              		.section	.rodata.sin0_90_table,"a"
+ 1103              		.align	2
+ 1106              	sin0_90_table:
+ 1107 0000 0000     		.short	0
+ 1108 0002 3C02     		.short	572
+ 1109 0004 7804     		.short	1144
+ 1110 0006 B306     		.short	1715
+ 1111 0008 EE08     		.short	2286
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 29
+
+
+ 1112 000a 280B     		.short	2856
+ 1113 000c 610D     		.short	3425
+ 1114 000e 990F     		.short	3993
+ 1115 0010 D011     		.short	4560
+ 1116 0012 0614     		.short	5126
+ 1117 0014 3A16     		.short	5690
+ 1118 0016 6C18     		.short	6252
+ 1119 0018 9D1A     		.short	6813
+ 1120 001a CB1C     		.short	7371
+ 1121 001c F71E     		.short	7927
+ 1122 001e 2121     		.short	8481
+ 1123 0020 4823     		.short	9032
+ 1124 0022 6C25     		.short	9580
+ 1125 0024 8E27     		.short	10126
+ 1126 0026 AC29     		.short	10668
+ 1127 0028 C72B     		.short	11207
+ 1128 002a DF2D     		.short	11743
+ 1129 002c F32F     		.short	12275
+ 1130 002e 0332     		.short	12803
+ 1131 0030 1034     		.short	13328
+ 1132 0032 1836     		.short	13848
+ 1133 0034 1D38     		.short	14365
+ 1134 0036 1C3A     		.short	14876
+ 1135 0038 183C     		.short	15384
+ 1136 003a 0E3E     		.short	15886
+ 1137 003c 0040     		.short	16384
+ 1138 003e ED41     		.short	16877
+ 1139 0040 D443     		.short	17364
+ 1140 0042 B745     		.short	17847
+ 1141 0044 9447     		.short	18324
+ 1142 0046 6B49     		.short	18795
+ 1143 0048 3D4B     		.short	19261
+ 1144 004a 084D     		.short	19720
+ 1145 004c CE4E     		.short	20174
+ 1146 004e 8E50     		.short	20622
+ 1147 0050 4752     		.short	21063
+ 1148 0052 FA53     		.short	21498
+ 1149 0054 A655     		.short	21926
+ 1150 0056 4C57     		.short	22348
+ 1151 0058 EB58     		.short	22763
+ 1152 005a 825A     		.short	23170
+ 1153 005c 135C     		.short	23571
+ 1154 005e 9D5D     		.short	23965
+ 1155 0060 1F5F     		.short	24351
+ 1156 0062 9A60     		.short	24730
+ 1157 0064 0E62     		.short	25102
+ 1158 0066 7A63     		.short	25466
+ 1159 0068 DE64     		.short	25822
+ 1160 006a 3A66     		.short	26170
+ 1161 006c 8E67     		.short	26510
+ 1162 006e DA68     		.short	26842
+ 1163 0070 1E6A     		.short	27166
+ 1164 0072 5A6B     		.short	27482
+ 1165 0074 8D6C     		.short	27789
+ 1166 0076 B86D     		.short	28088
+ 1167 0078 DA6E     		.short	28378
+ 1168 007a F46F     		.short	28660
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 30
+
+
+ 1169 007c 0471     		.short	28932
+ 1170 007e 0D72     		.short	29197
+ 1171 0080 0C73     		.short	29452
+ 1172 0082 0274     		.short	29698
+ 1173 0084 EF74     		.short	29935
+ 1174 0086 D375     		.short	30163
+ 1175 0088 AE76     		.short	30382
+ 1176 008a 8077     		.short	30592
+ 1177 008c 4878     		.short	30792
+ 1178 008e 0779     		.short	30983
+ 1179 0090 BC79     		.short	31164
+ 1180 0092 687A     		.short	31336
+ 1181 0094 0B7B     		.short	31499
+ 1182 0096 A37B     		.short	31651
+ 1183 0098 337C     		.short	31795
+ 1184 009a B87C     		.short	31928
+ 1185 009c 347D     		.short	32052
+ 1186 009e A67D     		.short	32166
+ 1187 00a0 0E7E     		.short	32270
+ 1188 00a2 6D7E     		.short	32365
+ 1189 00a4 C17E     		.short	32449
+ 1190 00a6 0C7F     		.short	32524
+ 1191 00a8 4C7F     		.short	32588
+ 1192 00aa 837F     		.short	32643
+ 1193 00ac B07F     		.short	32688
+ 1194 00ae D37F     		.short	32723
+ 1195 00b0 EC7F     		.short	32748
+ 1196 00b2 FB7F     		.short	32763
+ 1197 00b4 0080     		.short	-32768
+ 1198              		.text
+ 1199              	.Letext0:
+ 1200              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1201              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1202              		.file 4 "Lib/lvgl/src/misc/lv_types.h"
+ 1203              		.file 5 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj.h"
+ 1204              		.file 6 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_class.h"
+ 1205              		.file 7 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 1206              		.file 8 "Lib/lvgl/src/misc/../core/../draw/lv_draw.h"
+ 1207              		.file 9 "Lib/lvgl/src/misc/../core/../draw/sw/../../display/../misc/lv_event.h"
+ 1208              		.file 10 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_timer.h"
+ 1209              		.file 11 "Lib/lvgl/src/misc/lv_math.h"
+ 1210              		.file 12 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64
+ 1211              		.file 13 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 1212              		.file 14 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+ 1213              		.file 15 "Lib/lvgl/src/misc/../core/../draw/../misc/../font/../draw/lv_image_buf.h"
+ 1214              		.file 16 "Lib/lvgl/src/misc/../core/../draw/../misc/../font/../draw/lv_draw_buf.h"
+ 1215              		.file 17 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\osal\\lv_os_none.h"
+ 1216              		.file 18 "Lib/lvgl/src/misc/../core/../draw/../misc/../tick/lv_tick.h"
+ 1217              		.file 19 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_ll.h"
+ 1218              		.file 20 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_anim.h"
+ 1219              		.file 21 "Lib/lvgl/src/misc/../core/../draw/../misc/../layouts/lv_layout.h"
+ 1220              		.file 22 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_style.h"
+ 1221              		.file 23 "Lib/lvgl/src/misc/../core/../draw/sw/../../display/../misc/lv_array.h"
+ 1222              		.file 24 "Lib/lvgl/src/misc/../core/../draw/sw/blend/../lv_draw_sw_mask.h"
+ 1223              		.file 25 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
+ 1224              		.file 26 "Lib/lvgl/src/misc/../core/../stdlib/builtin/lv_tlsf.h"
+ 1225              		.file 27 "Lib/lvgl/src/misc/../core/lv_global.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 31
+
+
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s 			page 32
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_math.c
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:21     .text.do_cubic_bezier:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:26     .text.do_cubic_bezier:00000000 do_cubic_bezier
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:64     .text.lv_trigo_sin:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:70     .text.lv_trigo_sin:00000000 lv_trigo_sin
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:215    .text.lv_trigo_sin:00000080 $d
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:1106   .rodata.sin0_90_table:00000000 sin0_90_table
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:223    .text.lv_cubic_bezier:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:229    .text.lv_cubic_bezier:00000000 lv_cubic_bezier
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:493    .text.lv_sqrt:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:499    .text.lv_sqrt:00000000 lv_sqrt
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:568    .text.lv_atan2:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:574    .text.lv_atan2:00000000 lv_atan2
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:825    .text.lv_pow:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:831    .text.lv_pow:00000000 lv_pow
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:902    .text.lv_map:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:908    .text.lv_map:00000000 lv_map
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:1018   .text.lv_rand_set_seed:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:1024   .text.lv_rand_set_seed:00000000 lv_rand_set_seed
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:1041   .text.lv_rand_set_seed:00000008 $d
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:1046   .text.lv_rand:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:1052   .text.lv_rand:00000000 lv_rand
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:1098   .text.lv_rand:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\ccOSOXI0.s:1103   .rodata.sin0_90_table:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_ldivmod
+lv_global

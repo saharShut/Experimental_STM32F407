@@ -1,0 +1,1803 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_draw_sw_triangle.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c"
+  20              		.section	.text.lv_point_swap,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_point_swap:
+  27              	.LVL0:
+  28              	.LFB7:
+  29              		.file 2 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h"
+   1:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+   2:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @file lv_area.h
+   3:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *
+   4:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+   5:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+   6:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifndef LV_AREA_H
+   7:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #define LV_AREA_H
+   8:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+   9:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** extern "C" {
+  11:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #endif
+  12:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  13:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /*********************
+  14:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *********************/
+  16:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include "lv_types.h"
+  18:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include <stdbool.h>
+  19:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include <stdint.h>
+  20:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  21:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /*********************
+  22:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *      DEFINES
+  23:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *********************/
+  24:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  25:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**********************
+  26:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *      TYPEDEFS
+  27:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  **********************/
+  28:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  29:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 2
+
+
+  30:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Represents a point on the screen.
+  31:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+  32:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  33:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t x;
+  34:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t y;
+  35:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_point_t;
+  36:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  37:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  38:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     lv_value_precise_t x;
+  39:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     lv_value_precise_t y;
+  40:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_point_precise_t;
+  41:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  42:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /** Represents an area of the screen.*/
+  43:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  44:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t x1;
+  45:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t y1;
+  46:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t x2;
+  47:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t y2;
+  48:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_area_t;
+  49:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  50:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /** Alignments*/
+  51:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  52:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** enum _lv_align_t {
+  53:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_DEFAULT = 0,
+  54:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_LEFT,
+  55:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_MID,
+  56:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_RIGHT,
+  57:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_LEFT,
+  58:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_MID,
+  59:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_RIGHT,
+  60:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_LEFT_MID,
+  61:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_RIGHT_MID,
+  62:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_CENTER,
+  63:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  64:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_LEFT,
+  65:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_MID,
+  66:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_RIGHT,
+  67:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_LEFT,
+  68:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_MID,
+  69:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_RIGHT,
+  70:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_TOP,
+  71:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_MID,
+  72:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_BOTTOM,
+  73:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_TOP,
+  74:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_MID,
+  75:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_BOTTOM,
+  76:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** };
+  77:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  78:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifdef DOXYGEN
+  79:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef _lv_align_t lv_align_t;
+  80:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #else
+  81:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef uint8_t lv_align_t;
+  82:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #endif /*DOXYGEN*/
+  83:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  84:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** enum _lv_dir_t {
+  85:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_NONE     = 0x00,
+  86:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_LEFT     = (1 << 0),
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 3
+
+
+  87:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_RIGHT    = (1 << 1),
+  88:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_TOP      = (1 << 2),
+  89:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_BOTTOM   = (1 << 3),
+  90:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_HOR      = LV_DIR_LEFT | LV_DIR_RIGHT,
+  91:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_VER      = LV_DIR_TOP | LV_DIR_BOTTOM,
+  92:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_ALL      = LV_DIR_HOR | LV_DIR_VER,
+  93:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** };
+  94:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  95:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifdef DOXYGEN
+  96:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef _lv_dir_t lv_dir_t;
+  97:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #else
+  98:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef uint8_t lv_dir_t;
+  99:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #endif /*DOXYGEN*/
+ 100:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 101:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct  {
+ 102:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t angle_prev;
+ 103:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t sinma;
+ 104:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t cosma;
+ 105:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_area_transform_cache_t;
+ 106:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 107:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**********************
+ 108:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * GLOBAL PROTOTYPES
+ 109:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  **********************/
+ 110:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 111:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 112:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Initialize an area
+ 113:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 114:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param x1 left coordinate of the area
+ 115:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param y1 top coordinate of the area
+ 116:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param x2 right coordinate of the area
+ 117:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param y2 bottom coordinate of the area
+ 118:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 119:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_area_set(lv_area_t * area_p, int32_t x1, int32_t y1, int32_t x2, int32_t y2);
+ 120:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 121:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 122:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Copy an area
+ 123:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param dest pointer to the destination area
+ 124:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param src pointer to the source area
+ 125:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 126:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** inline static void lv_area_copy(lv_area_t * dest, const lv_area_t * src)
+ 127:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 128:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->x1 = src->x1;
+ 129:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->y1 = src->y1;
+ 130:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->x2 = src->x2;
+ 131:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->y2 = src->y2;
+ 132:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 133:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 134:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 135:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Get the width of an area
+ 136:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 137:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return the width of the area (if x1 == x2 -> width = 1)
+ 138:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 139:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** static inline int32_t lv_area_get_width(const lv_area_t * area_p)
+ 140:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     return (int32_t)(area_p->x2 - area_p->x1 + 1);
+ 142:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 143:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 4
+
+
+ 144:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 145:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Get the height of an area
+ 146:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 147:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return the height of the area (if y1 == y2 -> height = 1)
+ 148:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 149:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** static inline int32_t lv_area_get_height(const lv_area_t * area_p)
+ 150:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 151:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     return (int32_t)(area_p->y2 - area_p->y1 + 1);
+ 152:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 153:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 154:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 155:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Set the width of an area
+ 156:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 157:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param w the new width of the area (w == 1 makes x1 == x2)
+ 158:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 159:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_area_set_width(lv_area_t * area_p, int32_t w);
+ 160:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 161:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 162:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Set the height of an area
+ 163:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 164:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param h the new height of the area (h == 1 makes y1 == y2)
+ 165:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 166:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_area_set_height(lv_area_t * area_p, int32_t h);
+ 167:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 168:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 169:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Set the position of an area (width and height will be kept)
+ 170:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 171:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param x the new x coordinate of the area
+ 172:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param y the new y coordinate of the area
+ 173:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 174:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void _lv_area_set_pos(lv_area_t * area_p, int32_t x, int32_t y);
+ 175:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 176:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 177:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Return with area of an area (x * y)
+ 178:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 179:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return size of area
+ 180:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 181:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** uint32_t lv_area_get_size(const lv_area_t * area_p);
+ 182:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 183:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_area_increase(lv_area_t * area, int32_t w_extra, int32_t h_extra);
+ 184:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 185:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_area_move(lv_area_t * area, int32_t x_ofs, int32_t y_ofs);
+ 186:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 187:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 188:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Get the common parts of two areas
+ 189:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param res_p pointer to an area, the result will be stored her
+ 190:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a1_p pointer to the first area
+ 191:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a2_p pointer to the second area
+ 192:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return false: the two area has NO common parts, res_p is invalid
+ 193:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 194:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** bool _lv_area_intersect(lv_area_t * res_p, const lv_area_t * a1_p, const lv_area_t * a2_p);
+ 195:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 196:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 197:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Get resulting sub areas after removing the common parts of two areas from the first area
+ 198:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param res_p pointer to an array of areas with a count of 4, the resulting areas will be stored 
+ 199:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a1_p pointer to the first area
+ 200:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a2_p pointer to the second area
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 5
+
+
+ 201:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return number of results (max 4) or -1 if no intersect
+ 202:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 203:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** int8_t _lv_area_diff(lv_area_t res_p[], const lv_area_t * a1_p, const lv_area_t * a2_p);
+ 204:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 205:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 206:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Join two areas into a third which involves the other two
+ 207:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a_res_p pointer to an area, the result will be stored here
+ 208:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a1_p pointer to the first area
+ 209:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a2_p pointer to the second area
+ 210:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 211:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void _lv_area_join(lv_area_t * a_res_p, const lv_area_t * a1_p, const lv_area_t * a2_p);
+ 212:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 213:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 214:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Check if a point is on an area
+ 215:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a_p pointer to an area
+ 216:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param p_p pointer to a point
+ 217:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param radius radius of area (e.g. for rounded rectangle)
+ 218:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return false:the point is out of the area
+ 219:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 220:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** bool _lv_area_is_point_on(const lv_area_t * a_p, const lv_point_t * p_p, int32_t radius);
+ 221:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 222:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 223:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Check if two area has common parts
+ 224:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a1_p pointer to an area.
+ 225:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a2_p pointer to an other area
+ 226:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return false: a1_p and a2_p has no common parts
+ 227:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 228:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** bool _lv_area_is_on(const lv_area_t * a1_p, const lv_area_t * a2_p);
+ 229:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 230:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 231:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Check if an area is fully on an other
+ 232:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param ain_p pointer to an area which could be in 'aholder_p'
+ 233:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param aholder_p pointer to an area which could involve 'ain_p'
+ 234:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param radius radius of `aholder_p` (e.g. for rounded rectangle)
+ 235:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return true: `ain_p` is fully inside `aholder_p`
+ 236:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 237:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** bool _lv_area_is_in(const lv_area_t * ain_p, const lv_area_t * aholder_p, int32_t radius);
+ 238:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 239:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 240:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Check if an area is fully out of an other
+ 241:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param aout_p pointer to an area which could be in 'aholder_p'
+ 242:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param aholder_p pointer to an area which could involve 'ain_p'
+ 243:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param radius radius of `aholder_p` (e.g. for rounded rectangle)
+ 244:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return true: `aout_p` is fully outside `aholder_p`
+ 245:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 246:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** bool _lv_area_is_out(const lv_area_t * aout_p, const lv_area_t * aholder_p, int32_t radius);
+ 247:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 248:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 249:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Check if 2 area is the same
+ 250:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param a pointer to an area
+ 251:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param b pointer to another area
+ 252:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 253:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** bool _lv_area_is_equal(const lv_area_t * a, const lv_area_t * b);
+ 254:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 255:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 256:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Align an area to an other
+ 257:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param base an area where the other will be aligned
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 6
+
+
+ 258:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param to_align the area to align
+ 259:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param align `LV_ALIGN_...`
+ 260:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param ofs_x X offset
+ 261:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param ofs_y Y offset
+ 262:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 263:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_area_align(const lv_area_t * base, lv_area_t * to_align, lv_align_t align, int32_t ofs_x, i
+ 264:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 265:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_point_transform(lv_point_t * p, int32_t angle, int32_t scale_x, int32_t scale_y, const lv_p
+ 266:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****                         bool zoom_first);
+ 267:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** static inline lv_point_t lv_point_from_precise(const lv_point_precise_t * p)
+ 269:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     lv_point_t point = {
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 272:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 273:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     return point;
+ 275:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 276:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 277:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** static inline lv_point_precise_t lv_point_to_precise(const lv_point_t * p)
+ 278:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 279:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     lv_point_precise_t point = {
+ 280:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (lv_value_precise_t)p->x, (lv_value_precise_t)p->y
+ 281:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 282:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 283:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     return point;
+ 284:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 285:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 286:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** static inline void lv_point_set(lv_point_t * p, int32_t x, int32_t y)
+ 287:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 288:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     p->x = x;
+ 289:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     p->y = y;
+ 290:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 291:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 292:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** static inline void lv_point_precise_set(lv_point_precise_t * p, lv_value_precise_t x, lv_value_prec
+ 293:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 294:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     p->x = x;
+ 295:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     p->y = y;
+ 296:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 297:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 298:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** static inline void lv_point_swap(lv_point_t * p1, lv_point_t * p2)
+ 299:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+  30              		.loc 2 299 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              		.loc 2 299 1 is_stmt 0 view .LVU1
+  36 0000 82B0     		sub	sp, sp, #8
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39 0002 0246     		mov	r2, r0
+  40 0004 0B46     		mov	r3, r1
+ 300:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     lv_point_t tmp = *p1;
+  41              		.loc 2 300 5 is_stmt 1 view .LVU2
+  42              		.loc 2 300 16 is_stmt 0 view .LVU3
+  43 0006 EC46     		mov	ip, sp
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 7
+
+
+  44 0008 D0E90001 		ldrd	r0, r1, [r0]
+  45              	.LVL1:
+  46              		.loc 2 300 16 view .LVU4
+  47 000c 8CE80300 		stm	ip, {r0, r1}
+ 301:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     *p1 = *p2;
+  48              		.loc 2 301 5 is_stmt 1 view .LVU5
+  49              		.loc 2 301 9 is_stmt 0 view .LVU6
+  50 0010 93E80300 		ldm	r3, {r0, r1}
+  51 0014 82E80300 		stm	r2, {r0, r1}
+ 302:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     *p2 = tmp;
+  52              		.loc 2 302 5 is_stmt 1 view .LVU7
+  53              		.loc 2 302 9 is_stmt 0 view .LVU8
+  54 0018 9CE80300 		ldm	ip, {r0, r1}
+  55 001c 83E80300 		stm	r3, {r0, r1}
+ 303:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+  56              		.loc 2 303 1 view .LVU9
+  57 0020 02B0     		add	sp, sp, #8
+  58              	.LCFI1:
+  59              		.cfi_def_cfa_offset 0
+  60              		@ sp needed
+  61 0022 7047     		bx	lr
+  62              		.cfi_endproc
+  63              	.LFE7:
+  65              		.section	.text.lv_draw_sw_triangle,"ax",%progbits
+  66              		.align	1
+  67              		.global	lv_draw_sw_triangle
+  68              		.syntax unified
+  69              		.thumb
+  70              		.thumb_func
+  72              	lv_draw_sw_triangle:
+  73              	.LVL2:
+  74              	.LFB95:
+   1:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** /**
+   2:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  * @file lv_draw_sw_triangle.c
+   3:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *
+   4:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  */
+   5:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+   6:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** /*********************
+   7:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *********************/
+   9:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #include "lv_draw_sw.h"
+  10:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #if LV_USE_DRAW_SW
+  11:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  12:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #include "../../misc/lv_math.h"
+  13:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #include "../../stdlib/lv_mem.h"
+  14:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #include "../../misc/lv_area.h"
+  15:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #include "../../misc/lv_color.h"
+  16:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #include "../../stdlib/lv_string.h"
+  17:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #include "../lv_draw_triangle.h"
+  18:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #include "lv_draw_sw_gradient.h"
+  19:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  20:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** /*********************
+  21:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *      DEFINES
+  22:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *********************/
+  23:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  24:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** /**********************
+  25:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *      TYPEDEFS
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 8
+
+
+  26:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  **********************/
+  27:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  28:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** /**********************
+  29:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *  STATIC PROTOTYPES
+  30:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  **********************/
+  31:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  32:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** /**********************
+  33:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *  STATIC VARIABLES
+  34:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  **********************/
+  35:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  36:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** /**********************
+  37:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *      MACROS
+  38:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  **********************/
+  39:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  40:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** /**********************
+  41:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  *   GLOBAL FUNCTIONS
+  42:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****  **********************/
+  43:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  44:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** void lv_draw_sw_triangle(lv_draw_unit_t * draw_unit, const lv_draw_triangle_dsc_t * dsc)
+  45:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** {
+  75              		.loc 1 45 1 is_stmt 1 view -0
+  76              		.cfi_startproc
+  77              		@ args = 0, pretend = 0, frame = 408
+  78              		@ frame_needed = 0, uses_anonymous_args = 0
+  79              		.loc 1 45 1 is_stmt 0 view .LVU11
+  80 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  81              	.LCFI2:
+  82              		.cfi_def_cfa_offset 36
+  83              		.cfi_offset 4, -36
+  84              		.cfi_offset 5, -32
+  85              		.cfi_offset 6, -28
+  86              		.cfi_offset 7, -24
+  87              		.cfi_offset 8, -20
+  88              		.cfi_offset 9, -16
+  89              		.cfi_offset 10, -12
+  90              		.cfi_offset 11, -8
+  91              		.cfi_offset 14, -4
+  92 0004 E9B0     		sub	sp, sp, #420
+  93              	.LCFI3:
+  94              		.cfi_def_cfa_offset 456
+  95 0006 8146     		mov	r9, r0
+  96 0008 0D46     		mov	r5, r1
+  46:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #if LV_DRAW_SW_COMPLEX
+  47:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_area_t tri_area;
+  97              		.loc 1 47 5 is_stmt 1 view .LVU12
+  48:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     tri_area.x1 = (int32_t)LV_MIN3(dsc->p[0].x, dsc->p[1].x, dsc->p[2].x);
+  98              		.loc 1 48 5 view .LVU13
+  99              		.loc 1 48 28 is_stmt 0 view .LVU14
+ 100 000a CE6B     		ldr	r6, [r1, #60]
+ 101 000c 4A6B     		ldr	r2, [r1, #52]
+ 102 000e CF6A     		ldr	r7, [r1, #44]
+ 103 0010 1346     		mov	r3, r2
+ 104 0012 BA42     		cmp	r2, r7
+ 105 0014 A8BF     		it	ge
+ 106 0016 3B46     		movge	r3, r7
+ 107              		.loc 1 48 19 view .LVU15
+ 108 0018 B342     		cmp	r3, r6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 9
+
+
+ 109 001a A8BF     		it	ge
+ 110 001c 3346     		movge	r3, r6
+ 111              		.loc 1 48 17 view .LVU16
+ 112 001e 4C93     		str	r3, [sp, #304]
+  49:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     tri_area.y1 = (int32_t)LV_MIN3(dsc->p[0].y, dsc->p[1].y, dsc->p[2].y);
+ 113              		.loc 1 49 5 is_stmt 1 view .LVU17
+ 114              		.loc 1 49 28 is_stmt 0 view .LVU18
+ 115 0020 086C     		ldr	r0, [r1, #64]
+ 116              	.LVL3:
+ 117              		.loc 1 49 28 view .LVU19
+ 118 0022 8B6B     		ldr	r3, [r1, #56]
+ 119 0024 0C6B     		ldr	r4, [r1, #48]
+ 120 0026 1946     		mov	r1, r3
+ 121              	.LVL4:
+ 122              		.loc 1 49 28 view .LVU20
+ 123 0028 A342     		cmp	r3, r4
+ 124 002a A8BF     		it	ge
+ 125 002c 2146     		movge	r1, r4
+ 126              		.loc 1 49 19 view .LVU21
+ 127 002e 8142     		cmp	r1, r0
+ 128 0030 A8BF     		it	ge
+ 129 0032 0146     		movge	r1, r0
+ 130              		.loc 1 49 17 view .LVU22
+ 131 0034 4D91     		str	r1, [sp, #308]
+  50:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     tri_area.x2 = (int32_t)LV_MAX3(dsc->p[0].x, dsc->p[1].x, dsc->p[2].x);
+ 132              		.loc 1 50 5 is_stmt 1 view .LVU23
+ 133              		.loc 1 50 28 is_stmt 0 view .LVU24
+ 134 0036 BA42     		cmp	r2, r7
+ 135 0038 B8BF     		it	lt
+ 136 003a 3A46     		movlt	r2, r7
+ 137              		.loc 1 50 19 view .LVU25
+ 138 003c B242     		cmp	r2, r6
+ 139 003e B8BF     		it	lt
+ 140 0040 3246     		movlt	r2, r6
+ 141              		.loc 1 50 17 view .LVU26
+ 142 0042 4E92     		str	r2, [sp, #312]
+  51:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     tri_area.y2 = (int32_t)LV_MAX3(dsc->p[0].y, dsc->p[1].y, dsc->p[2].y);
+ 143              		.loc 1 51 5 is_stmt 1 view .LVU27
+ 144              		.loc 1 51 28 is_stmt 0 view .LVU28
+ 145 0044 A342     		cmp	r3, r4
+ 146 0046 B8BF     		it	lt
+ 147 0048 2346     		movlt	r3, r4
+ 148              		.loc 1 51 19 view .LVU29
+ 149 004a 8342     		cmp	r3, r0
+ 150 004c B8BF     		it	lt
+ 151 004e 0346     		movlt	r3, r0
+ 152              		.loc 1 51 17 view .LVU30
+ 153 0050 4F93     		str	r3, [sp, #316]
+  52:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  53:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     bool is_common;
+ 154              		.loc 1 53 5 is_stmt 1 view .LVU31
+  54:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_area_t draw_area;
+ 155              		.loc 1 54 5 view .LVU32
+  55:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     is_common = _lv_area_intersect(&draw_area, &tri_area, draw_unit->clip_area);
+ 156              		.loc 1 55 5 view .LVU33
+ 157              		.loc 1 55 17 is_stmt 0 view .LVU34
+ 158 0052 D9F80820 		ldr	r2, [r9, #8]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 10
+
+
+ 159 0056 4CA9     		add	r1, sp, #304
+ 160 0058 48A8     		add	r0, sp, #288
+ 161 005a FFF7FEFF 		bl	_lv_area_intersect
+ 162              	.LVL5:
+  56:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     if(!is_common) return;
+ 163              		.loc 1 56 5 is_stmt 1 view .LVU35
+ 164              		.loc 1 56 7 is_stmt 0 view .LVU36
+ 165 005e 0028     		cmp	r0, #0
+ 166 0060 00F0B181 		beq	.L3
+  57:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  58:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_point_t p[3];
+ 167              		.loc 1 58 5 is_stmt 1 view .LVU37
+  59:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     /*If there is a vertical side use it as p[0] and p[1]*/
+  60:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     if(dsc->p[0].x == dsc->p[1].x) {
+ 168              		.loc 1 60 5 view .LVU38
+ 169              		.loc 1 60 17 is_stmt 0 view .LVU39
+ 170 0064 EA6A     		ldr	r2, [r5, #44]
+ 171              		.loc 1 60 32 view .LVU40
+ 172 0066 6C6B     		ldr	r4, [r5, #52]
+ 173              		.loc 1 60 7 view .LVU41
+ 174 0068 A242     		cmp	r2, r4
+ 175 006a 3BD0     		beq	.L30
+  61:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[0] = lv_point_from_precise(&dsc->p[0]);
+  62:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[1]);
+  63:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[2]);
+  64:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+  65:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     else if(dsc->p[0].x == dsc->p[2].x) {
+ 176              		.loc 1 65 10 is_stmt 1 view .LVU42
+ 177              		.loc 1 65 37 is_stmt 0 view .LVU43
+ 178 006c EE6B     		ldr	r6, [r5, #60]
+ 179              		.loc 1 65 12 view .LVU44
+ 180 006e B242     		cmp	r2, r6
+ 181 0070 00F0CF80 		beq	.L31
+  66:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[0] = lv_point_from_precise(&dsc->p[0]);
+  67:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[2]);
+  68:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[1]);
+  69:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+  70:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     else if(dsc->p[1].x == dsc->p[2].x) {
+ 182              		.loc 1 70 10 is_stmt 1 view .LVU45
+ 183              		.loc 1 70 12 is_stmt 0 view .LVU46
+ 184 0074 B442     		cmp	r4, r6
+ 185 0076 00F0EF80 		beq	.L32
+  71:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[0] = lv_point_from_precise(&dsc->p[1]);
+  72:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[2]);
+  73:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[0]);
+  74:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+  75:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     else {
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[0] = lv_point_from_precise(&dsc->p[0]);
+ 186              		.loc 1 76 9 is_stmt 1 view .LVU47
+ 187              	.LVL6:
+ 188              	.LBB33:
+ 189              	.LBI33:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 190              		.loc 2 268 26 view .LVU48
+ 191              	.LBB34:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 192              		.loc 2 270 5 view .LVU49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 11
+
+
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 193              		.loc 2 270 16 is_stmt 0 view .LVU50
+ 194 007a 03AB     		add	r3, sp, #12
+ 195 007c 0392     		str	r2, [sp, #12]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 196              		.loc 2 271 34 view .LVU51
+ 197 007e 2F6B     		ldr	r7, [r5, #48]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 198              		.loc 2 270 16 view .LVU52
+ 199 0080 0497     		str	r7, [sp, #16]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 200              		.loc 2 274 5 is_stmt 1 view .LVU53
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 201              		.loc 2 274 12 is_stmt 0 view .LVU54
+ 202 0082 66AA     		add	r2, sp, #408
+ 203 0084 93E80300 		ldm	r3, {r0, r1}
+ 204              	.LVL7:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 205              		.loc 2 274 12 view .LVU55
+ 206 0088 82E80300 		stm	r2, {r0, r1}
+ 207              	.LVL8:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 208              		.loc 2 274 12 view .LVU56
+ 209              	.LBE34:
+ 210              	.LBE33:
+ 211              		.loc 1 76 16 view .LVU57
+ 212 008c 0DF5847C 		add	ip, sp, #264
+ 213 0090 8CE80300 		stm	ip, {r0, r1}
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[1]);
+ 214              		.loc 1 77 9 is_stmt 1 view .LVU58
+ 215              	.LVL9:
+ 216              	.LBB35:
+ 217              	.LBI35:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 218              		.loc 2 268 26 view .LVU59
+ 219              	.LBB36:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 220              		.loc 2 270 5 view .LVU60
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 221              		.loc 2 270 16 is_stmt 0 view .LVU61
+ 222 0094 1C60     		str	r4, [r3]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 223              		.loc 2 271 34 view .LVU62
+ 224 0096 AC6B     		ldr	r4, [r5, #56]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 225              		.loc 2 270 16 view .LVU63
+ 226 0098 5C60     		str	r4, [r3, #4]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 227              		.loc 2 274 5 is_stmt 1 view .LVU64
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 228              		.loc 2 274 12 is_stmt 0 view .LVU65
+ 229 009a 64AA     		add	r2, sp, #400
+ 230 009c 93E80300 		ldm	r3, {r0, r1}
+ 231 00a0 82E80300 		stm	r2, {r0, r1}
+ 232              	.LVL10:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 233              		.loc 2 274 12 view .LVU66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 12
+
+
+ 234              	.LBE36:
+ 235              	.LBE35:
+ 236              		.loc 1 77 16 view .LVU67
+ 237 00a4 0DF5887C 		add	ip, sp, #272
+ 238 00a8 8CE80300 		stm	ip, {r0, r1}
+  78:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[2]);
+ 239              		.loc 1 78 9 is_stmt 1 view .LVU68
+ 240              	.LVL11:
+ 241              	.LBB37:
+ 242              	.LBI37:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 243              		.loc 2 268 26 view .LVU69
+ 244              	.LBB38:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 245              		.loc 2 270 5 view .LVU70
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 246              		.loc 2 270 16 is_stmt 0 view .LVU71
+ 247 00ac 1E60     		str	r6, [r3]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 248              		.loc 2 271 34 view .LVU72
+ 249 00ae 2A6C     		ldr	r2, [r5, #64]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 250              		.loc 2 270 16 view .LVU73
+ 251 00b0 5A60     		str	r2, [r3, #4]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 252              		.loc 2 274 5 is_stmt 1 view .LVU74
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 253              		.loc 2 274 12 is_stmt 0 view .LVU75
+ 254 00b2 62AA     		add	r2, sp, #392
+ 255 00b4 93E80300 		ldm	r3, {r0, r1}
+ 256 00b8 82E80300 		stm	r2, {r0, r1}
+ 257              	.LVL12:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 258              		.loc 2 274 12 view .LVU76
+ 259              	.LBE38:
+ 260              	.LBE37:
+ 261              		.loc 1 78 16 view .LVU77
+ 262 00bc 46AB     		add	r3, sp, #280
+ 263 00be 83E80300 		stm	r3, {r0, r1}
+  79:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  80:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         /*Set the smallest y as p[0]*/
+  81:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         if(p[0].y > p[1].y) lv_point_swap(&p[0], &p[1]);
+ 264              		.loc 1 81 9 is_stmt 1 view .LVU78
+ 265              		.loc 1 81 11 is_stmt 0 view .LVU79
+ 266 00c2 BC42     		cmp	r4, r7
+ 267 00c4 C0F2EB80 		blt	.L33
+ 268              	.L10:
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         if(p[0].y > p[2].y) lv_point_swap(&p[0], &p[2]);
+ 269              		.loc 1 82 9 is_stmt 1 view .LVU80
+ 270              		.loc 1 82 11 is_stmt 0 view .LVU81
+ 271 00c8 439A     		ldr	r2, [sp, #268]
+ 272 00ca 479B     		ldr	r3, [sp, #284]
+ 273 00cc 9A42     		cmp	r2, r3
+ 274 00ce 00F3EB80 		bgt	.L34
+ 275              	.L11:
+  83:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  84:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         /*Set the greatest y as p[1]*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 13
+
+
+  85:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         if(p[1].y < p[2].y) lv_point_swap(&p[1], &p[2]);
+ 276              		.loc 1 85 9 is_stmt 1 view .LVU82
+ 277              		.loc 1 85 11 is_stmt 0 view .LVU83
+ 278 00d2 459A     		ldr	r2, [sp, #276]
+ 279 00d4 479B     		ldr	r3, [sp, #284]
+ 280 00d6 9A42     		cmp	r2, r3
+ 281 00d8 27DA     		bge	.L7
+ 282              		.loc 1 85 29 is_stmt 1 discriminator 1 view .LVU84
+ 283 00da 46A9     		add	r1, sp, #280
+ 284 00dc 44A8     		add	r0, sp, #272
+ 285 00de FFF7FEFF 		bl	lv_point_swap
+ 286              	.LVL13:
+ 287 00e2 22E0     		b	.L7
+ 288              	.LVL14:
+ 289              	.L30:
+  61:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[1]);
+ 290              		.loc 1 61 9 view .LVU85
+ 291              	.LBB39:
+ 292              	.LBI39:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 293              		.loc 2 268 26 view .LVU86
+ 294              	.LBB40:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 295              		.loc 2 270 5 view .LVU87
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 296              		.loc 2 270 16 is_stmt 0 view .LVU88
+ 297 00e4 03AB     		add	r3, sp, #12
+ 298 00e6 0392     		str	r2, [sp, #12]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 299              		.loc 2 271 34 view .LVU89
+ 300 00e8 2A6B     		ldr	r2, [r5, #48]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 301              		.loc 2 270 16 view .LVU90
+ 302 00ea 0492     		str	r2, [sp, #16]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 303              		.loc 2 274 5 is_stmt 1 view .LVU91
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 304              		.loc 2 274 12 is_stmt 0 view .LVU92
+ 305 00ec 54AA     		add	r2, sp, #336
+ 306 00ee 93E80300 		ldm	r3, {r0, r1}
+ 307              	.LVL15:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 308              		.loc 2 274 12 view .LVU93
+ 309 00f2 82E80300 		stm	r2, {r0, r1}
+ 310              	.LVL16:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 311              		.loc 2 274 12 view .LVU94
+ 312              	.LBE40:
+ 313              	.LBE39:
+  61:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[1]);
+ 314              		.loc 1 61 16 view .LVU95
+ 315 00f6 42AE     		add	r6, sp, #264
+ 316 00f8 86E80300 		stm	r6, {r0, r1}
+  62:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[2]);
+ 317              		.loc 1 62 9 is_stmt 1 view .LVU96
+ 318              	.LVL17:
+ 319              	.LBB41:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 14
+
+
+ 320              	.LBI41:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 321              		.loc 2 268 26 view .LVU97
+ 322              	.LBB42:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 323              		.loc 2 270 5 view .LVU98
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 324              		.loc 2 270 16 is_stmt 0 view .LVU99
+ 325 00fc 1C60     		str	r4, [r3]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 326              		.loc 2 271 34 view .LVU100
+ 327 00fe AA6B     		ldr	r2, [r5, #56]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 328              		.loc 2 270 16 view .LVU101
+ 329 0100 5A60     		str	r2, [r3, #4]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 330              		.loc 2 274 5 is_stmt 1 view .LVU102
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 331              		.loc 2 274 12 is_stmt 0 view .LVU103
+ 332 0102 52AA     		add	r2, sp, #328
+ 333 0104 93E80300 		ldm	r3, {r0, r1}
+ 334 0108 82E80300 		stm	r2, {r0, r1}
+ 335              	.LVL18:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 336              		.loc 2 274 12 view .LVU104
+ 337              	.LBE42:
+ 338              	.LBE41:
+  62:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[2]);
+ 339              		.loc 1 62 16 view .LVU105
+ 340 010c 44AC     		add	r4, sp, #272
+ 341 010e 84E80300 		stm	r4, {r0, r1}
+  63:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 342              		.loc 1 63 9 is_stmt 1 view .LVU106
+ 343              	.LVL19:
+ 344              	.LBB43:
+ 345              	.LBI43:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 346              		.loc 2 268 26 view .LVU107
+ 347              	.LBB44:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 348              		.loc 2 270 5 view .LVU108
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 349              		.loc 2 271 19 is_stmt 0 view .LVU109
+ 350 0112 EA6B     		ldr	r2, [r5, #60]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 351              		.loc 2 270 16 view .LVU110
+ 352 0114 1A60     		str	r2, [r3]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 353              		.loc 2 271 34 view .LVU111
+ 354 0116 2A6C     		ldr	r2, [r5, #64]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 355              		.loc 2 270 16 view .LVU112
+ 356 0118 5A60     		str	r2, [r3, #4]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 357              		.loc 2 274 5 is_stmt 1 view .LVU113
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 358              		.loc 2 274 12 is_stmt 0 view .LVU114
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 15
+
+
+ 359 011a 50AA     		add	r2, sp, #320
+ 360 011c 93E80300 		ldm	r3, {r0, r1}
+ 361 0120 82E80300 		stm	r2, {r0, r1}
+ 362              	.LVL20:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 363              		.loc 2 274 12 view .LVU115
+ 364              	.LBE44:
+ 365              	.LBE43:
+  63:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 366              		.loc 1 63 16 view .LVU116
+ 367 0124 46AB     		add	r3, sp, #280
+ 368 0126 83E80300 		stm	r3, {r0, r1}
+ 369              	.L7:
+  86:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+  87:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  88:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     /*Be sure p[0] is on the top*/
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     if(p[0].y > p[1].y) lv_point_swap(&p[0], &p[1]);
+ 370              		.loc 1 89 5 is_stmt 1 view .LVU117
+ 371              		.loc 1 89 7 is_stmt 0 view .LVU118
+ 372 012a 439A     		ldr	r2, [sp, #268]
+ 373 012c 459B     		ldr	r3, [sp, #276]
+ 374 012e 9A42     		cmp	r2, r3
+ 375 0130 00F3BF80 		bgt	.L35
+ 376              	.L12:
+  90:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     /*If right == true p[2] is on the right side of the p[0] p[1] line*/
+  92:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     bool right = ((p[1].x - p[0].x) * (p[2].y - p[0].y) - (p[1].y - p[0].y) * (p[2].x - p[0].x)) < 
+ 377              		.loc 1 92 5 is_stmt 1 view .LVU119
+ 378              		.loc 1 92 24 is_stmt 0 view .LVU120
+ 379 0134 449B     		ldr	r3, [sp, #272]
+ 380              		.loc 1 92 33 view .LVU121
+ 381 0136 4299     		ldr	r1, [sp, #264]
+ 382              		.loc 1 92 27 view .LVU122
+ 383 0138 5C1A     		subs	r4, r3, r1
+ 384              		.loc 1 92 53 view .LVU123
+ 385 013a 439A     		ldr	r2, [sp, #268]
+ 386              		.loc 1 92 47 view .LVU124
+ 387 013c 4798     		ldr	r0, [sp, #284]
+ 388 013e 801A     		subs	r0, r0, r2
+ 389              		.loc 1 92 37 view .LVU125
+ 390 0140 00FB04F4 		mul	r4, r0, r4
+ 391              		.loc 1 92 64 view .LVU126
+ 392 0144 459E     		ldr	r6, [sp, #276]
+ 393              		.loc 1 92 67 view .LVU127
+ 394 0146 B71A     		subs	r7, r6, r2
+ 395              		.loc 1 92 84 view .LVU128
+ 396 0148 4698     		ldr	r0, [sp, #280]
+ 397              		.loc 1 92 87 view .LVU129
+ 398 014a 401A     		subs	r0, r0, r1
+ 399              		.loc 1 92 57 view .LVU130
+ 400 014c 00FB1744 		mls	r4, r0, r7, r4
+ 401              		.loc 1 92 10 view .LVU131
+ 402 0150 E70F     		lsrs	r7, r4, #31
+ 403              	.LVL21:
+  93:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  94:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     void * masks[4] = {0};
+ 404              		.loc 1 94 5 is_stmt 1 view .LVU132
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 16
+
+
+ 405              		.loc 1 94 12 is_stmt 0 view .LVU133
+ 406 0152 0020     		movs	r0, #0
+ 407 0154 3E90     		str	r0, [sp, #248]
+ 408 0156 3F90     		str	r0, [sp, #252]
+ 409 0158 4090     		str	r0, [sp, #256]
+ 410 015a 4190     		str	r0, [sp, #260]
+  95:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_mask_line_param_t mask_left;
+ 411              		.loc 1 95 5 is_stmt 1 view .LVU134
+  96:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_mask_line_param_t mask_right;
+ 412              		.loc 1 96 5 view .LVU135
+  97:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_mask_line_param_t mask_bottom;
+ 413              		.loc 1 97 5 view .LVU136
+  98:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+  99:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_mask_line_points_init(&mask_left, p[0].x, p[0].y,
+ 414              		.loc 1 99 5 view .LVU137
+ 415 015c 0197     		str	r7, [sp, #4]
+ 416 015e 0096     		str	r6, [sp]
+ 417 0160 30A8     		add	r0, sp, #192
+ 418 0162 FFF7FEFF 		bl	lv_draw_sw_mask_line_points_init
+ 419              	.LVL22:
+ 100:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                      p[1].x, p[1].y,
+ 101:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                      right ? LV_DRAW_SW_MASK_LINE_SIDE_RIGHT : LV_DRAW_SW_MASK_LINE
+ 102:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 103:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_mask_line_points_init(&mask_right, p[0].x, p[0].y,
+ 420              		.loc 1 103 5 view .LVU138
+ 104:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                      p[2].x, p[2].y,
+ 105:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                      right ? LV_DRAW_SW_MASK_LINE_SIDE_LEFT : LV_DRAW_SW_MASK_LINE_
+ 421              		.loc 1 105 77 is_stmt 0 view .LVU139
+ 422 0166 E443     		mvns	r4, r4
+ 423 0168 E40F     		lsrs	r4, r4, #31
+ 103:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                      p[2].x, p[2].y,
+ 424              		.loc 1 103 5 view .LVU140
+ 425 016a 0194     		str	r4, [sp, #4]
+ 426 016c 479B     		ldr	r3, [sp, #284]
+ 427 016e 0093     		str	r3, [sp]
+ 428 0170 469B     		ldr	r3, [sp, #280]
+ 429 0172 439A     		ldr	r2, [sp, #268]
+ 430 0174 4299     		ldr	r1, [sp, #264]
+ 431 0176 22A8     		add	r0, sp, #136
+ 432 0178 FFF7FEFF 		bl	lv_draw_sw_mask_line_points_init
+ 433              	.LVL23:
+ 106:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 107:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     if(p[1].y == p[2].y) {
+ 434              		.loc 1 107 5 is_stmt 1 view .LVU141
+ 435              		.loc 1 107 12 is_stmt 0 view .LVU142
+ 436 017c 459A     		ldr	r2, [sp, #276]
+ 437              		.loc 1 107 22 view .LVU143
+ 438 017e 479B     		ldr	r3, [sp, #284]
+ 439              		.loc 1 107 7 view .LVU144
+ 440 0180 9A42     		cmp	r2, r3
+ 441 0182 00F09B80 		beq	.L36
+ 108:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         lv_draw_sw_mask_line_points_init(&mask_bottom, p[1].x, p[1].y,
+ 109:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                          p[2].x, p[2].y, LV_DRAW_SW_MASK_LINE_SIDE_TOP);
+ 110:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 111:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     else {
+ 112:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         lv_draw_sw_mask_line_points_init(&mask_bottom, p[1].x, p[1].y,
+ 442              		.loc 1 112 9 is_stmt 1 view .LVU145
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 17
+
+
+ 443 0186 0194     		str	r4, [sp, #4]
+ 444 0188 0093     		str	r3, [sp]
+ 445 018a 469B     		ldr	r3, [sp, #280]
+ 446 018c 4499     		ldr	r1, [sp, #272]
+ 447 018e 14A8     		add	r0, sp, #80
+ 448 0190 FFF7FEFF 		bl	lv_draw_sw_mask_line_points_init
+ 449              	.LVL24:
+ 450              	.L14:
+ 113:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                          p[2].x, p[2].y,
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                          right ? LV_DRAW_SW_MASK_LINE_SIDE_LEFT  : LV_DRAW_SW_MASK_
+ 115:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 116:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 117:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     masks[0] = &mask_left;
+ 451              		.loc 1 117 5 view .LVU146
+ 452              		.loc 1 117 14 is_stmt 0 view .LVU147
+ 453 0194 30AB     		add	r3, sp, #192
+ 454 0196 3E93     		str	r3, [sp, #248]
+ 118:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     masks[1] = &mask_right;
+ 455              		.loc 1 118 5 is_stmt 1 view .LVU148
+ 456              		.loc 1 118 14 is_stmt 0 view .LVU149
+ 457 0198 22AB     		add	r3, sp, #136
+ 458 019a 3F93     		str	r3, [sp, #252]
+ 119:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     masks[2] = &mask_bottom;
+ 459              		.loc 1 119 5 is_stmt 1 view .LVU150
+ 460              		.loc 1 119 14 is_stmt 0 view .LVU151
+ 461 019c 14AB     		add	r3, sp, #80
+ 462 019e 4093     		str	r3, [sp, #256]
+ 120:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     int32_t area_w = lv_area_get_width(&draw_area);
+ 463              		.loc 1 120 5 is_stmt 1 view .LVU152
+ 464              	.LVL25:
+ 465              	.LBB45:
+ 466              	.LBI45:
+ 139:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 467              		.loc 2 139 23 view .LVU153
+ 468              	.LBB46:
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 469              		.loc 2 141 5 view .LVU154
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 470              		.loc 2 141 33 is_stmt 0 view .LVU155
+ 471 01a0 4A9E     		ldr	r6, [sp, #296]
+ 472 01a2 489B     		ldr	r3, [sp, #288]
+ 473 01a4 F61A     		subs	r6, r6, r3
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 474              		.loc 2 141 12 view .LVU156
+ 475 01a6 0136     		adds	r6, r6, #1
+ 476              	.LVL26:
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 477              		.loc 2 141 12 view .LVU157
+ 478              	.LBE46:
+ 479              	.LBE45:
+ 121:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_opa_t * mask_buf = lv_malloc(area_w);
+ 480              		.loc 1 121 5 is_stmt 1 view .LVU158
+ 481              		.loc 1 121 27 is_stmt 0 view .LVU159
+ 482 01a8 3046     		mov	r0, r6
+ 483 01aa FFF7FEFF 		bl	lv_malloc
+ 484              	.LVL27:
+ 485 01ae 0746     		mov	r7, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 18
+
+
+ 486              	.LVL28:
+ 122:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 123:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_area_t blend_area = draw_area;
+ 487              		.loc 1 123 5 is_stmt 1 view .LVU160
+ 488              		.loc 1 123 15 is_stmt 0 view .LVU161
+ 489 01b0 10AC     		add	r4, sp, #64
+ 490 01b2 48AB     		add	r3, sp, #288
+ 491 01b4 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 492              	.LVL29:
+ 493              		.loc 1 123 15 view .LVU162
+ 494 01b6 84E80F00 		stm	r4, {r0, r1, r2, r3}
+ 124:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     blend_area.y2 = blend_area.y1;
+ 495              		.loc 1 124 5 is_stmt 1 view .LVU163
+ 496              		.loc 1 124 19 is_stmt 0 view .LVU164
+ 497 01ba E160     		str	r1, [r4, #12]
+ 125:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_blend_dsc_t blend_dsc;
+ 498              		.loc 1 125 5 is_stmt 1 view .LVU165
+ 126:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     blend_dsc.color = dsc->bg_color;
+ 499              		.loc 1 126 5 view .LVU166
+ 500              		.loc 1 126 21 is_stmt 0 view .LVU167
+ 501 01bc B5F81D20 		ldrh	r2, [r5, #29]	@ unaligned
+ 502 01c0 EB7F     		ldrb	r3, [r5, #31]	@ zero_extendqisi2
+ 503 01c2 ADF82920 		strh	r2, [sp, #41]	@ unaligned
+ 504 01c6 8DF82B30 		strb	r3, [sp, #43]
+ 127:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     blend_dsc.opa = dsc->bg_opa;
+ 505              		.loc 1 127 5 is_stmt 1 view .LVU168
+ 506              		.loc 1 127 24 is_stmt 0 view .LVU169
+ 507 01ca 2B7F     		ldrb	r3, [r5, #28]	@ zero_extendqisi2
+ 508              		.loc 1 127 19 view .LVU170
+ 509 01cc 8DF82830 		strb	r3, [sp, #40]
+ 128:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     blend_dsc.mask_buf = mask_buf;
+ 510              		.loc 1 128 5 is_stmt 1 view .LVU171
+ 511              		.loc 1 128 24 is_stmt 0 view .LVU172
+ 512 01d0 0B97     		str	r7, [sp, #44]
+ 129:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     blend_dsc.blend_area = &blend_area;
+ 513              		.loc 1 129 5 is_stmt 1 view .LVU173
+ 514              		.loc 1 129 26 is_stmt 0 view .LVU174
+ 515 01d2 0594     		str	r4, [sp, #20]
+ 130:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     blend_dsc.mask_area = &blend_area;
+ 516              		.loc 1 130 5 is_stmt 1 view .LVU175
+ 517              		.loc 1 130 25 is_stmt 0 view .LVU176
+ 518 01d4 0D94     		str	r4, [sp, #52]
+ 131:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     blend_dsc.blend_mode = LV_BLEND_MODE_NORMAL;
+ 519              		.loc 1 131 5 is_stmt 1 view .LVU177
+ 520              		.loc 1 131 26 is_stmt 0 view .LVU178
+ 521 01d6 0023     		movs	r3, #0
+ 522 01d8 8DF83C30 		strb	r3, [sp, #60]
+ 132:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     blend_dsc.src_buf = NULL;
+ 523              		.loc 1 132 5 is_stmt 1 view .LVU179
+ 524              		.loc 1 132 23 is_stmt 0 view .LVU180
+ 525 01dc 0693     		str	r3, [sp, #24]
+ 133:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 134:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_grad_dir_t grad_dir = dsc->bg_grad.dir;
+ 526              		.loc 1 134 5 is_stmt 1 view .LVU181
+ 527              		.loc 1 134 42 is_stmt 0 view .LVU182
+ 528 01de 95F82B80 		ldrb	r8, [r5, #43]	@ zero_extendqisi2
+ 529 01e2 08F00708 		and	r8, r8, #7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 19
+
+
+ 530              	.LVL30:
+ 135:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 136:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_grad_t * grad = lv_gradient_get(&dsc->bg_grad, lv_area_get_width(&tri_area), lv_area_get_hei
+ 531              		.loc 1 136 5 is_stmt 1 view .LVU183
+ 532              	.LBB47:
+ 533              	.LBI47:
+ 139:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 534              		.loc 2 139 23 view .LVU184
+ 535              	.LBB48:
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 536              		.loc 2 141 5 view .LVU185
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 537              		.loc 2 141 33 is_stmt 0 view .LVU186
+ 538 01e6 4E99     		ldr	r1, [sp, #312]
+ 539 01e8 4C9B     		ldr	r3, [sp, #304]
+ 540 01ea C91A     		subs	r1, r1, r3
+ 541              	.LVL31:
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 542              		.loc 2 141 33 view .LVU187
+ 543              	.LBE48:
+ 544              	.LBE47:
+ 545              	.LBB49:
+ 546              	.LBI49:
+ 149:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 547              		.loc 2 149 23 is_stmt 1 view .LVU188
+ 548              	.LBB50:
+ 151:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 549              		.loc 2 151 5 view .LVU189
+ 151:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 550              		.loc 2 151 33 is_stmt 0 view .LVU190
+ 551 01ec 4F9A     		ldr	r2, [sp, #316]
+ 552 01ee 4D9B     		ldr	r3, [sp, #308]
+ 553 01f0 D21A     		subs	r2, r2, r3
+ 554              	.LVL32:
+ 151:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 555              		.loc 2 151 33 view .LVU191
+ 556              	.LBE50:
+ 557              	.LBE49:
+ 558              		.loc 1 136 24 view .LVU192
+ 559 01f2 0132     		adds	r2, r2, #1
+ 560 01f4 0131     		adds	r1, r1, #1
+ 561 01f6 05F12000 		add	r0, r5, #32
+ 562 01fa FFF7FEFF 		bl	lv_gradient_get
+ 563              	.LVL33:
+ 137:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_opa_t * grad_opa_map = NULL;
+ 564              		.loc 1 137 5 is_stmt 1 view .LVU193
+ 138:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     if(grad && grad_dir == LV_GRAD_DIR_HOR) {
+ 565              		.loc 1 138 5 view .LVU194
+ 566              		.loc 1 138 7 is_stmt 0 view .LVU195
+ 567 01fe 8246     		mov	r10, r0
+ 568 0200 0028     		cmp	r0, #0
+ 569 0202 74D0     		beq	.L27
+ 570              		.loc 1 138 13 discriminator 1 view .LVU196
+ 571 0204 B8F1020F 		cmp	r8, #2
+ 572 0208 61D0     		beq	.L37
+ 137:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_opa_t * grad_opa_map = NULL;
+ 573              		.loc 1 137 16 view .LVU197
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 20
+
+
+ 574 020a 4FF0000B 		mov	fp, #0
+ 575              	.LVL34:
+ 576              	.L15:
+ 139:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.src_area = &blend_area;
+ 140:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.src_buf = grad->color_map + draw_area.x1 - tri_area.x1;
+ 141:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         grad_opa_map = grad->opa_map + draw_area.x1 - tri_area.x1;
+ 142:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.src_color_format = LV_COLOR_FORMAT_RGB888;
+ 143:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 144:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 145:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     int32_t y;
+ 577              		.loc 1 145 5 is_stmt 1 view .LVU198
+ 146:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     for(y = draw_area.y1; y <= draw_area.y2; y++) {
+ 578              		.loc 1 146 5 view .LVU199
+ 579              		.loc 1 146 11 is_stmt 0 view .LVU200
+ 580 020e 499C     		ldr	r4, [sp, #292]
+ 581              	.LVL35:
+ 582              		.loc 1 146 5 view .LVU201
+ 583 0210 8EE0     		b	.L16
+ 584              	.LVL36:
+ 585              	.L31:
+  66:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[2]);
+ 586              		.loc 1 66 9 is_stmt 1 view .LVU202
+ 587              	.LBB51:
+ 588              	.LBI51:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 589              		.loc 2 268 26 view .LVU203
+ 590              	.LBB52:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 591              		.loc 2 270 5 view .LVU204
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 592              		.loc 2 270 16 is_stmt 0 view .LVU205
+ 593 0212 03AB     		add	r3, sp, #12
+ 594 0214 0392     		str	r2, [sp, #12]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 595              		.loc 2 271 34 view .LVU206
+ 596 0216 2A6B     		ldr	r2, [r5, #48]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 597              		.loc 2 270 16 view .LVU207
+ 598 0218 0492     		str	r2, [sp, #16]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 599              		.loc 2 274 5 is_stmt 1 view .LVU208
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 600              		.loc 2 274 12 is_stmt 0 view .LVU209
+ 601 021a 5AAA     		add	r2, sp, #360
+ 602 021c 93E80300 		ldm	r3, {r0, r1}
+ 603              	.LVL37:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 604              		.loc 2 274 12 view .LVU210
+ 605 0220 82E80300 		stm	r2, {r0, r1}
+ 606              	.LVL38:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 607              		.loc 2 274 12 view .LVU211
+ 608              	.LBE52:
+ 609              	.LBE51:
+  66:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[2]);
+ 610              		.loc 1 66 16 view .LVU212
+ 611 0224 42AF     		add	r7, sp, #264
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 21
+
+
+ 612 0226 87E80300 		stm	r7, {r0, r1}
+  67:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[1]);
+ 613              		.loc 1 67 9 is_stmt 1 view .LVU213
+ 614              	.LVL39:
+ 615              	.LBB53:
+ 616              	.LBI53:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 617              		.loc 2 268 26 view .LVU214
+ 618              	.LBB54:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 619              		.loc 2 270 5 view .LVU215
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 620              		.loc 2 270 16 is_stmt 0 view .LVU216
+ 621 022a 1E60     		str	r6, [r3]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 622              		.loc 2 271 34 view .LVU217
+ 623 022c 2A6C     		ldr	r2, [r5, #64]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 624              		.loc 2 270 16 view .LVU218
+ 625 022e 5A60     		str	r2, [r3, #4]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 626              		.loc 2 274 5 is_stmt 1 view .LVU219
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 627              		.loc 2 274 12 is_stmt 0 view .LVU220
+ 628 0230 58AA     		add	r2, sp, #352
+ 629 0232 93E80300 		ldm	r3, {r0, r1}
+ 630 0236 82E80300 		stm	r2, {r0, r1}
+ 631              	.LVL40:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 632              		.loc 2 274 12 view .LVU221
+ 633              	.LBE54:
+ 634              	.LBE53:
+  67:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[1]);
+ 635              		.loc 1 67 16 view .LVU222
+ 636 023a 44AE     		add	r6, sp, #272
+ 637 023c 86E80300 		stm	r6, {r0, r1}
+  68:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 638              		.loc 1 68 9 is_stmt 1 view .LVU223
+ 639              	.LVL41:
+ 640              	.LBB55:
+ 641              	.LBI55:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 642              		.loc 2 268 26 view .LVU224
+ 643              	.LBB56:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 644              		.loc 2 270 5 view .LVU225
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 645              		.loc 2 270 16 is_stmt 0 view .LVU226
+ 646 0240 1C60     		str	r4, [r3]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 647              		.loc 2 271 34 view .LVU227
+ 648 0242 AA6B     		ldr	r2, [r5, #56]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 649              		.loc 2 270 16 view .LVU228
+ 650 0244 5A60     		str	r2, [r3, #4]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 651              		.loc 2 274 5 is_stmt 1 view .LVU229
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 22
+
+
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 652              		.loc 2 274 12 is_stmt 0 view .LVU230
+ 653 0246 56AA     		add	r2, sp, #344
+ 654 0248 93E80300 		ldm	r3, {r0, r1}
+ 655 024c 82E80300 		stm	r2, {r0, r1}
+ 656              	.LVL42:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 657              		.loc 2 274 12 view .LVU231
+ 658              	.LBE56:
+ 659              	.LBE55:
+  68:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 660              		.loc 1 68 16 view .LVU232
+ 661 0250 46AB     		add	r3, sp, #280
+ 662 0252 83E80300 		stm	r3, {r0, r1}
+ 663 0256 68E7     		b	.L7
+ 664              	.LVL43:
+ 665              	.L32:
+  71:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[2]);
+ 666              		.loc 1 71 9 is_stmt 1 view .LVU233
+ 667              	.LBB57:
+ 668              	.LBI57:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 669              		.loc 2 268 26 view .LVU234
+ 670              	.LBB58:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 671              		.loc 2 270 5 view .LVU235
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 672              		.loc 2 270 16 is_stmt 0 view .LVU236
+ 673 0258 03AB     		add	r3, sp, #12
+ 674 025a 0394     		str	r4, [sp, #12]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 675              		.loc 2 271 34 view .LVU237
+ 676 025c A96B     		ldr	r1, [r5, #56]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 677              		.loc 2 270 16 view .LVU238
+ 678 025e 0491     		str	r1, [sp, #16]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 679              		.loc 2 274 5 is_stmt 1 view .LVU239
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 680              		.loc 2 274 12 is_stmt 0 view .LVU240
+ 681 0260 60AC     		add	r4, sp, #384
+ 682 0262 93E80300 		ldm	r3, {r0, r1}
+ 683              	.LVL44:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 684              		.loc 2 274 12 view .LVU241
+ 685 0266 84E80300 		stm	r4, {r0, r1}
+ 686              	.LVL45:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 687              		.loc 2 274 12 view .LVU242
+ 688              	.LBE58:
+ 689              	.LBE57:
+  71:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[1] = lv_point_from_precise(&dsc->p[2]);
+ 690              		.loc 1 71 16 view .LVU243
+ 691 026a 42AF     		add	r7, sp, #264
+ 692 026c 87E80300 		stm	r7, {r0, r1}
+  72:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[0]);
+ 693              		.loc 1 72 9 is_stmt 1 view .LVU244
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 23
+
+
+ 694              	.LVL46:
+ 695              	.LBB59:
+ 696              	.LBI59:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 697              		.loc 2 268 26 view .LVU245
+ 698              	.LBB60:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 699              		.loc 2 270 5 view .LVU246
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 700              		.loc 2 270 16 is_stmt 0 view .LVU247
+ 701 0270 1E60     		str	r6, [r3]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 702              		.loc 2 271 34 view .LVU248
+ 703 0272 296C     		ldr	r1, [r5, #64]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 704              		.loc 2 270 16 view .LVU249
+ 705 0274 5960     		str	r1, [r3, #4]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 706              		.loc 2 274 5 is_stmt 1 view .LVU250
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 707              		.loc 2 274 12 is_stmt 0 view .LVU251
+ 708 0276 5EAC     		add	r4, sp, #376
+ 709 0278 93E80300 		ldm	r3, {r0, r1}
+ 710 027c 84E80300 		stm	r4, {r0, r1}
+ 711              	.LVL47:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 712              		.loc 2 274 12 view .LVU252
+ 713              	.LBE60:
+ 714              	.LBE59:
+  72:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         p[2] = lv_point_from_precise(&dsc->p[0]);
+ 715              		.loc 1 72 16 view .LVU253
+ 716 0280 44AE     		add	r6, sp, #272
+ 717 0282 86E80300 		stm	r6, {r0, r1}
+  73:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 718              		.loc 1 73 9 is_stmt 1 view .LVU254
+ 719              	.LVL48:
+ 720              	.LBB61:
+ 721              	.LBI61:
+ 268:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 722              		.loc 2 268 26 view .LVU255
+ 723              	.LBB62:
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 724              		.loc 2 270 5 view .LVU256
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 725              		.loc 2 270 16 is_stmt 0 view .LVU257
+ 726 0286 1A60     		str	r2, [r3]
+ 271:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     };
+ 727              		.loc 2 271 34 view .LVU258
+ 728 0288 2A6B     		ldr	r2, [r5, #48]
+ 270:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****         (int32_t)p->x, (int32_t)p->y
+ 729              		.loc 2 270 16 view .LVU259
+ 730 028a 5A60     		str	r2, [r3, #4]
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 731              		.loc 2 274 5 is_stmt 1 view .LVU260
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 732              		.loc 2 274 12 is_stmt 0 view .LVU261
+ 733 028c 5CAA     		add	r2, sp, #368
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 24
+
+
+ 734 028e 93E80300 		ldm	r3, {r0, r1}
+ 735 0292 82E80300 		stm	r2, {r0, r1}
+ 736              	.LVL49:
+ 274:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 737              		.loc 2 274 12 view .LVU262
+ 738              	.LBE62:
+ 739              	.LBE61:
+  73:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 740              		.loc 1 73 16 view .LVU263
+ 741 0296 46AB     		add	r3, sp, #280
+ 742 0298 83E80300 		stm	r3, {r0, r1}
+ 743 029c 45E7     		b	.L7
+ 744              	.L33:
+  81:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         if(p[0].y > p[2].y) lv_point_swap(&p[0], &p[2]);
+ 745              		.loc 1 81 29 is_stmt 1 discriminator 1 view .LVU264
+ 746 029e 6146     		mov	r1, ip
+ 747 02a0 42A8     		add	r0, sp, #264
+ 748 02a2 FFF7FEFF 		bl	lv_point_swap
+ 749              	.LVL50:
+ 750 02a6 0FE7     		b	.L10
+ 751              	.L34:
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 752              		.loc 1 82 29 discriminator 1 view .LVU265
+ 753 02a8 46A9     		add	r1, sp, #280
+ 754 02aa 42A8     		add	r0, sp, #264
+ 755 02ac FFF7FEFF 		bl	lv_point_swap
+ 756              	.LVL51:
+ 757 02b0 0FE7     		b	.L11
+ 758              	.L35:
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 759              		.loc 1 89 25 discriminator 1 view .LVU266
+ 760 02b2 44A9     		add	r1, sp, #272
+ 761 02b4 42A8     		add	r0, sp, #264
+ 762 02b6 FFF7FEFF 		bl	lv_point_swap
+ 763              	.LVL52:
+ 764 02ba 3BE7     		b	.L12
+ 765              	.LVL53:
+ 766              	.L36:
+ 108:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                                          p[2].x, p[2].y, LV_DRAW_SW_MASK_LINE_SIDE_TOP);
+ 767              		.loc 1 108 9 view .LVU267
+ 768 02bc 0221     		movs	r1, #2
+ 769 02be 0191     		str	r1, [sp, #4]
+ 770 02c0 0093     		str	r3, [sp]
+ 771 02c2 469B     		ldr	r3, [sp, #280]
+ 772 02c4 4499     		ldr	r1, [sp, #272]
+ 773 02c6 14A8     		add	r0, sp, #80
+ 774 02c8 FFF7FEFF 		bl	lv_draw_sw_mask_line_points_init
+ 775              	.LVL54:
+ 776 02cc 62E7     		b	.L14
+ 777              	.LVL55:
+ 778              	.L37:
+ 139:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.src_buf = grad->color_map + draw_area.x1 - tri_area.x1;
+ 779              		.loc 1 139 9 view .LVU268
+ 139:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.src_buf = grad->color_map + draw_area.x1 - tri_area.x1;
+ 780              		.loc 1 139 28 is_stmt 0 view .LVU269
+ 781 02ce 0994     		str	r4, [sp, #36]
+ 140:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         grad_opa_map = grad->opa_map + draw_area.x1 - tri_area.x1;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 25
+
+
+ 782              		.loc 1 140 9 is_stmt 1 view .LVU270
+ 140:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         grad_opa_map = grad->opa_map + draw_area.x1 - tri_area.x1;
+ 783              		.loc 1 140 33 is_stmt 0 view .LVU271
+ 784 02d0 0268     		ldr	r2, [r0]
+ 140:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         grad_opa_map = grad->opa_map + draw_area.x1 - tri_area.x1;
+ 785              		.loc 1 140 60 view .LVU272
+ 786 02d2 489B     		ldr	r3, [sp, #288]
+ 787 02d4 4C99     		ldr	r1, [sp, #304]
+ 788 02d6 5B1A     		subs	r3, r3, r1
+ 789 02d8 03EB4301 		add	r1, r3, r3, lsl #1
+ 790 02dc 0A44     		add	r2, r2, r1
+ 140:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         grad_opa_map = grad->opa_map + draw_area.x1 - tri_area.x1;
+ 791              		.loc 1 140 27 view .LVU273
+ 792 02de 0692     		str	r2, [sp, #24]
+ 141:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.src_color_format = LV_COLOR_FORMAT_RGB888;
+ 793              		.loc 1 141 9 is_stmt 1 view .LVU274
+ 141:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.src_color_format = LV_COLOR_FORMAT_RGB888;
+ 794              		.loc 1 141 28 is_stmt 0 view .LVU275
+ 795 02e0 4268     		ldr	r2, [r0, #4]
+ 141:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.src_color_format = LV_COLOR_FORMAT_RGB888;
+ 796              		.loc 1 141 22 view .LVU276
+ 797 02e2 02EB030B 		add	fp, r2, r3
+ 798              	.LVL56:
+ 142:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 799              		.loc 1 142 9 is_stmt 1 view .LVU277
+ 142:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 800              		.loc 1 142 36 is_stmt 0 view .LVU278
+ 801 02e6 0F23     		movs	r3, #15
+ 802 02e8 8DF82030 		strb	r3, [sp, #32]
+ 803 02ec 8FE7     		b	.L15
+ 804              	.LVL57:
+ 805              	.L27:
+ 137:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     if(grad && grad_dir == LV_GRAD_DIR_HOR) {
+ 806              		.loc 1 137 16 view .LVU279
+ 807 02ee 8346     		mov	fp, r0
+ 808 02f0 8DE7     		b	.L15
+ 809              	.LVL58:
+ 810              	.L39:
+ 147:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_area.y1 = y;
+ 148:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_area.y2 = y;
+ 149:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         lv_memset(mask_buf, 0xff, area_w);
+ 150:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.mask_res = lv_draw_sw_mask_apply(masks, mask_buf, draw_area.x1, y, area_w);
+ 151:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         if(grad_dir == LV_GRAD_DIR_VER) {
+ 152:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             blend_dsc.color = grad->color_map[y - tri_area.y1];
+ 811              		.loc 1 152 13 is_stmt 1 view .LVU280
+ 812              		.loc 1 152 35 is_stmt 0 view .LVU281
+ 813 02f2 DAF80010 		ldr	r1, [r10]
+ 814              		.loc 1 152 59 view .LVU282
+ 815 02f6 4D9B     		ldr	r3, [sp, #308]
+ 816              		.loc 1 152 49 view .LVU283
+ 817 02f8 E31A     		subs	r3, r4, r3
+ 818              		.loc 1 152 46 view .LVU284
+ 819 02fa 03EB4302 		add	r2, r3, r3, lsl #1
+ 820 02fe 8818     		adds	r0, r1, r2
+ 821              		.loc 1 152 29 view .LVU285
+ 822 0300 895A     		ldrh	r1, [r1, r2]	@ unaligned
+ 823 0302 8278     		ldrb	r2, [r0, #2]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 26
+
+
+ 824 0304 ADF82910 		strh	r1, [sp, #41]	@ unaligned
+ 825 0308 8DF82B20 		strb	r2, [sp, #43]
+ 153:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             blend_dsc.opa = grad->opa_map[y - tri_area.y1];
+ 826              		.loc 1 153 13 is_stmt 1 view .LVU286
+ 827              		.loc 1 153 33 is_stmt 0 view .LVU287
+ 828 030c DAF80420 		ldr	r2, [r10, #4]
+ 829              		.loc 1 153 42 view .LVU288
+ 830 0310 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 831              		.loc 1 153 27 view .LVU289
+ 832 0312 8DF82830 		strb	r3, [sp, #40]
+ 154:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             if(dsc->bg_opa < LV_OPA_MAX) blend_dsc.opa = LV_OPA_MIX2(blend_dsc.opa, dsc->bg_opa);
+ 833              		.loc 1 154 13 is_stmt 1 view .LVU290
+ 834              		.loc 1 154 19 is_stmt 0 view .LVU291
+ 835 0316 2A7F     		ldrb	r2, [r5, #28]	@ zero_extendqisi2
+ 836              		.loc 1 154 15 view .LVU292
+ 837 0318 FC2A     		cmp	r2, #252
+ 838 031a 04D8     		bhi	.L18
+ 839              		.loc 1 154 42 is_stmt 1 discriminator 1 view .LVU293
+ 840              		.loc 1 154 58 is_stmt 0 discriminator 1 view .LVU294
+ 841 031c 02FB03F3 		mul	r3, r2, r3
+ 842 0320 1B12     		asrs	r3, r3, #8
+ 843              		.loc 1 154 56 discriminator 1 view .LVU295
+ 844 0322 8DF82830 		strb	r3, [sp, #40]
+ 845              	.L18:
+ 155:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         }
+ 156:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         else if(grad_dir == LV_GRAD_DIR_HOR) {
+ 157:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             if(grad_opa_map) {
+ 158:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 int32_t i;
+ 159:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 if(blend_dsc.mask_res == LV_DRAW_SW_MASK_RES_CHANGED) {
+ 160:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_buf = mask_buf;
+ 161:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     for(i = 0; i < area_w; i++) {
+ 162:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                         if(grad_opa_map[i] < LV_OPA_MAX) mask_buf[i] = LV_OPA_MIX2(mask_buf[i], gra
+ 163:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     }
+ 164:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 }
+ 165:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 else if(blend_dsc.mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) {
+ 166:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_buf = grad_opa_map;
+ 167:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
+ 168:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 }
+ 169:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 else if(blend_dsc.mask_res == LV_DRAW_SW_MASK_RES_TRANSP) {
+ 170:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     continue;
+ 171:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 }
+ 172:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             }
+ 173:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         }
+ 174:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         lv_draw_sw_blend(draw_unit, &blend_dsc);
+ 846              		.loc 1 174 9 is_stmt 1 view .LVU296
+ 847 0326 05A9     		add	r1, sp, #20
+ 848 0328 4846     		mov	r0, r9
+ 849 032a FFF7FEFF 		bl	lv_draw_sw_blend
+ 850              	.LVL59:
+ 851              	.L24:
+ 146:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_area.y1 = y;
+ 852              		.loc 1 146 47 discriminator 2 view .LVU297
+ 853 032e 0134     		adds	r4, r4, #1
+ 854              	.LVL60:
+ 855              	.L16:
+ 146:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_area.y1 = y;
+ 856              		.loc 1 146 29 discriminator 1 view .LVU298
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 27
+
+
+ 146:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_area.y1 = y;
+ 857              		.loc 1 146 41 is_stmt 0 discriminator 1 view .LVU299
+ 858 0330 4B9B     		ldr	r3, [sp, #300]
+ 146:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_area.y1 = y;
+ 859              		.loc 1 146 29 discriminator 1 view .LVU300
+ 860 0332 A342     		cmp	r3, r4
+ 861 0334 35DB     		blt	.L38
+ 147:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_area.y2 = y;
+ 862              		.loc 1 147 9 is_stmt 1 view .LVU301
+ 147:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_area.y2 = y;
+ 863              		.loc 1 147 23 is_stmt 0 view .LVU302
+ 864 0336 1194     		str	r4, [sp, #68]
+ 148:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         lv_memset(mask_buf, 0xff, area_w);
+ 865              		.loc 1 148 9 is_stmt 1 view .LVU303
+ 148:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         lv_memset(mask_buf, 0xff, area_w);
+ 866              		.loc 1 148 23 is_stmt 0 view .LVU304
+ 867 0338 1394     		str	r4, [sp, #76]
+ 149:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         blend_dsc.mask_res = lv_draw_sw_mask_apply(masks, mask_buf, draw_area.x1, y, area_w);
+ 868              		.loc 1 149 9 is_stmt 1 view .LVU305
+ 869 033a 3246     		mov	r2, r6
+ 870 033c FF21     		movs	r1, #255
+ 871 033e 3846     		mov	r0, r7
+ 872 0340 FFF7FEFF 		bl	lv_memset
+ 873              	.LVL61:
+ 150:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         if(grad_dir == LV_GRAD_DIR_VER) {
+ 874              		.loc 1 150 9 view .LVU306
+ 150:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         if(grad_dir == LV_GRAD_DIR_VER) {
+ 875              		.loc 1 150 30 is_stmt 0 view .LVU307
+ 876 0344 0096     		str	r6, [sp]
+ 877 0346 2346     		mov	r3, r4
+ 878 0348 489A     		ldr	r2, [sp, #288]
+ 879 034a 3946     		mov	r1, r7
+ 880 034c 3EA8     		add	r0, sp, #248
+ 881 034e FFF7FEFF 		bl	lv_draw_sw_mask_apply
+ 882              	.LVL62:
+ 150:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         if(grad_dir == LV_GRAD_DIR_VER) {
+ 883              		.loc 1 150 28 view .LVU308
+ 884 0352 8DF83000 		strb	r0, [sp, #48]
+ 151:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             blend_dsc.color = grad->color_map[y - tri_area.y1];
+ 885              		.loc 1 151 9 is_stmt 1 view .LVU309
+ 151:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             blend_dsc.color = grad->color_map[y - tri_area.y1];
+ 886              		.loc 1 151 11 is_stmt 0 view .LVU310
+ 887 0356 B8F1010F 		cmp	r8, #1
+ 888 035a CAD0     		beq	.L39
+ 156:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             if(grad_opa_map) {
+ 889              		.loc 1 156 14 is_stmt 1 view .LVU311
+ 156:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****             if(grad_opa_map) {
+ 890              		.loc 1 156 16 is_stmt 0 view .LVU312
+ 891 035c B8F1020F 		cmp	r8, #2
+ 892 0360 E1D1     		bne	.L18
+ 157:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 int32_t i;
+ 893              		.loc 1 157 13 is_stmt 1 view .LVU313
+ 157:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 int32_t i;
+ 894              		.loc 1 157 15 is_stmt 0 view .LVU314
+ 895 0362 BBF1000F 		cmp	fp, #0
+ 896 0366 DED0     		beq	.L18
+ 897              	.LBB63:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 28
+
+
+ 158:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 if(blend_dsc.mask_res == LV_DRAW_SW_MASK_RES_CHANGED) {
+ 898              		.loc 1 158 17 is_stmt 1 view .LVU315
+ 159:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_buf = mask_buf;
+ 899              		.loc 1 159 17 view .LVU316
+ 159:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_buf = mask_buf;
+ 900              		.loc 1 159 19 is_stmt 0 view .LVU317
+ 901 0368 0228     		cmp	r0, #2
+ 902 036a 04D0     		beq	.L40
+ 165:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_buf = grad_opa_map;
+ 903              		.loc 1 165 22 is_stmt 1 view .LVU318
+ 165:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_buf = grad_opa_map;
+ 904              		.loc 1 165 24 is_stmt 0 view .LVU319
+ 905 036c 0128     		cmp	r0, #1
+ 906 036e 12D0     		beq	.L41
+ 169:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     continue;
+ 907              		.loc 1 169 22 is_stmt 1 view .LVU320
+ 169:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     continue;
+ 908              		.loc 1 169 24 is_stmt 0 view .LVU321
+ 909 0370 0028     		cmp	r0, #0
+ 910 0372 D8D1     		bne	.L18
+ 911 0374 DBE7     		b	.L24
+ 912              	.L40:
+ 160:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     for(i = 0; i < area_w; i++) {
+ 913              		.loc 1 160 21 is_stmt 1 view .LVU322
+ 160:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     for(i = 0; i < area_w; i++) {
+ 914              		.loc 1 160 40 is_stmt 0 view .LVU323
+ 915 0376 0B97     		str	r7, [sp, #44]
+ 161:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                         if(grad_opa_map[i] < LV_OPA_MAX) mask_buf[i] = LV_OPA_MIX2(mask_buf[i], gra
+ 916              		.loc 1 161 21 is_stmt 1 view .LVU324
+ 917              	.LVL63:
+ 161:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                         if(grad_opa_map[i] < LV_OPA_MAX) mask_buf[i] = LV_OPA_MIX2(mask_buf[i], gra
+ 918              		.loc 1 161 27 is_stmt 0 view .LVU325
+ 919 0378 0023     		movs	r3, #0
+ 161:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                         if(grad_opa_map[i] < LV_OPA_MAX) mask_buf[i] = LV_OPA_MIX2(mask_buf[i], gra
+ 920              		.loc 1 161 21 view .LVU326
+ 921 037a 00E0     		b	.L20
+ 922              	.LVL64:
+ 923              	.L21:
+ 161:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                         if(grad_opa_map[i] < LV_OPA_MAX) mask_buf[i] = LV_OPA_MIX2(mask_buf[i], gra
+ 924              		.loc 1 161 45 is_stmt 1 discriminator 2 view .LVU327
+ 925 037c 0133     		adds	r3, r3, #1
+ 926              	.LVL65:
+ 927              	.L20:
+ 161:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                         if(grad_opa_map[i] < LV_OPA_MAX) mask_buf[i] = LV_OPA_MIX2(mask_buf[i], gra
+ 928              		.loc 1 161 34 discriminator 1 view .LVU328
+ 929 037e B342     		cmp	r3, r6
+ 930 0380 D1DA     		bge	.L18
+ 162:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     }
+ 931              		.loc 1 162 25 view .LVU329
+ 162:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     }
+ 932              		.loc 1 162 40 is_stmt 0 view .LVU330
+ 933 0382 1BF80310 		ldrb	r1, [fp, r3]	@ zero_extendqisi2
+ 162:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     }
+ 934              		.loc 1 162 27 view .LVU331
+ 935 0386 FC29     		cmp	r1, #252
+ 936 0388 F8D8     		bhi	.L21
+ 162:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 29
+
+
+ 937              		.loc 1 162 58 is_stmt 1 discriminator 1 view .LVU332
+ 162:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     }
+ 938              		.loc 1 162 72 is_stmt 0 discriminator 1 view .LVU333
+ 939 038a FA5C     		ldrb	r2, [r7, r3]	@ zero_extendqisi2
+ 940 038c 01FB02F2 		mul	r2, r1, r2
+ 941 0390 1212     		asrs	r2, r2, #8
+ 162:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     }
+ 942              		.loc 1 162 70 discriminator 1 view .LVU334
+ 943 0392 FA54     		strb	r2, [r7, r3]
+ 944 0394 F2E7     		b	.L21
+ 945              	.LVL66:
+ 946              	.L41:
+ 166:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
+ 947              		.loc 1 166 21 is_stmt 1 view .LVU335
+ 166:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                     blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
+ 948              		.loc 1 166 40 is_stmt 0 view .LVU336
+ 949 0396 CDF82CB0 		str	fp, [sp, #44]
+ 167:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 }
+ 950              		.loc 1 167 21 is_stmt 1 view .LVU337
+ 167:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 }
+ 951              		.loc 1 167 40 is_stmt 0 view .LVU338
+ 952 039a 0223     		movs	r3, #2
+ 953 039c 8DF83030 		strb	r3, [sp, #48]
+ 954 03a0 C1E7     		b	.L18
+ 955              	.L38:
+ 167:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****                 }
+ 956              		.loc 1 167 40 view .LVU339
+ 957              	.LBE63:
+ 175:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 176:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 177:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_free(mask_buf);
+ 958              		.loc 1 177 5 is_stmt 1 view .LVU340
+ 959 03a2 3846     		mov	r0, r7
+ 960 03a4 FFF7FEFF 		bl	lv_free
+ 961              	.LVL67:
+ 178:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_mask_free_param(&mask_bottom);
+ 962              		.loc 1 178 5 view .LVU341
+ 963 03a8 14A8     		add	r0, sp, #80
+ 964 03aa FFF7FEFF 		bl	lv_draw_sw_mask_free_param
+ 965              	.LVL68:
+ 179:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_mask_free_param(&mask_left);
+ 966              		.loc 1 179 5 view .LVU342
+ 967 03ae 30A8     		add	r0, sp, #192
+ 968 03b0 FFF7FEFF 		bl	lv_draw_sw_mask_free_param
+ 969              	.LVL69:
+ 180:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     lv_draw_sw_mask_free_param(&mask_right);
+ 970              		.loc 1 180 5 view .LVU343
+ 971 03b4 22A8     		add	r0, sp, #136
+ 972 03b6 FFF7FEFF 		bl	lv_draw_sw_mask_free_param
+ 973              	.LVL70:
+ 181:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 182:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     if(grad) {
+ 974              		.loc 1 182 5 view .LVU344
+ 975              		.loc 1 182 7 is_stmt 0 view .LVU345
+ 976 03ba BAF1000F 		cmp	r10, #0
+ 977 03be 02D0     		beq	.L3
+ 183:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****         lv_gradient_cleanup(grad);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 30
+
+
+ 978              		.loc 1 183 9 is_stmt 1 view .LVU346
+ 979 03c0 5046     		mov	r0, r10
+ 980 03c2 FFF7FEFF 		bl	lv_gradient_cleanup
+ 981              	.LVL71:
+ 982              	.L3:
+ 184:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     }
+ 185:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** 
+ 186:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #else
+ 187:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     LV_UNUSED(draw_unit);
+ 188:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     LV_UNUSED(dsc);
+ 189:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c ****     LV_LOG_WARN("Can't draw triangles with LV_DRAW_SW_COMPLEX == 0");
+ 190:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** #endif /*LV_DRAW_SW_COMPLEX*/
+ 191:Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c **** }
+ 983              		.loc 1 191 1 is_stmt 0 view .LVU347
+ 984 03c6 69B0     		add	sp, sp, #420
+ 985              	.LCFI4:
+ 986              		.cfi_def_cfa_offset 36
+ 987              		@ sp needed
+ 988 03c8 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 989              		.loc 1 191 1 view .LVU348
+ 990              		.cfi_endproc
+ 991              	.LFE95:
+ 993              		.text
+ 994              	.Letext0:
+ 995              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 996              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 997              		.file 5 "Lib/lvgl/src/draw/sw/../../misc/lv_types.h"
+ 998              		.file 6 "Lib/lvgl/src/draw/sw/../lv_draw.h"
+ 999              		.file 7 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1000              		.file 8 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_color.h"
+ 1001              		.file 9 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/lv_image_buf.h"
+ 1002              		.file 10 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/lv_draw_buf.h"
+ 1003              		.file 11 "Lib/lvgl/src/draw/sw/../../misc/lv_style.h"
+ 1004              		.file 12 "Lib/lvgl/src/draw/sw/../sw/lv_draw_sw_gradient.h"
+ 1005              		.file 13 "Lib/lvgl/src/draw/sw/../lv_draw_triangle.h"
+ 1006              		.file 14 "Lib/lvgl/src/draw/sw/blend/../lv_draw_sw_mask.h"
+ 1007              		.file 15 "Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h"
+ 1008              		.file 16 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
+ 1009              		.file 17 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s 			page 31
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_draw_sw_triangle.c
+C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s:21     .text.lv_point_swap:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s:26     .text.lv_point_swap:00000000 lv_point_swap
+C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s:66     .text.lv_draw_sw_triangle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc65eKFl.s:72     .text.lv_draw_sw_triangle:00000000 lv_draw_sw_triangle
+
+UNDEFINED SYMBOLS
+_lv_area_intersect
+lv_draw_sw_mask_line_points_init
+lv_malloc
+lv_gradient_get
+lv_draw_sw_blend
+lv_memset
+lv_draw_sw_mask_apply
+lv_free
+lv_draw_sw_mask_free_param
+lv_gradient_cleanup

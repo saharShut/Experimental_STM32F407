@@ -1,0 +1,2731 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_style.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/misc/lv_style.c"
+  20              		.section	.text.lv_style_get_prop_inlined,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_style_get_prop_inlined:
+  27              	.LVL0:
+  28              	.LFB73:
+  29              		.file 2 "Lib/lvgl/src/misc/lv_style.h"
+   1:Lib/lvgl/src/misc/lv_style.h **** /**
+   2:Lib/lvgl/src/misc/lv_style.h ****  * @file lv_style.h
+   3:Lib/lvgl/src/misc/lv_style.h ****  *
+   4:Lib/lvgl/src/misc/lv_style.h ****  */
+   5:Lib/lvgl/src/misc/lv_style.h **** 
+   6:Lib/lvgl/src/misc/lv_style.h **** #ifndef LV_STYLE_H
+   7:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_H
+   8:Lib/lvgl/src/misc/lv_style.h **** 
+   9:Lib/lvgl/src/misc/lv_style.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/misc/lv_style.h **** extern "C" {
+  11:Lib/lvgl/src/misc/lv_style.h **** #endif
+  12:Lib/lvgl/src/misc/lv_style.h **** 
+  13:Lib/lvgl/src/misc/lv_style.h **** /*********************
+  14:Lib/lvgl/src/misc/lv_style.h ****  *      INCLUDES
+  15:Lib/lvgl/src/misc/lv_style.h ****  *********************/
+  16:Lib/lvgl/src/misc/lv_style.h **** #include <stdbool.h>
+  17:Lib/lvgl/src/misc/lv_style.h **** #include <stdint.h>
+  18:Lib/lvgl/src/misc/lv_style.h **** #include "../font/lv_font.h"
+  19:Lib/lvgl/src/misc/lv_style.h **** #include "lv_color.h"
+  20:Lib/lvgl/src/misc/lv_style.h **** #include "lv_area.h"
+  21:Lib/lvgl/src/misc/lv_style.h **** #include "lv_anim.h"
+  22:Lib/lvgl/src/misc/lv_style.h **** #include "lv_text.h"
+  23:Lib/lvgl/src/misc/lv_style.h **** #include "lv_types.h"
+  24:Lib/lvgl/src/misc/lv_style.h **** #include "lv_assert.h"
+  25:Lib/lvgl/src/misc/lv_style.h **** #include "lv_bidi.h"
+  26:Lib/lvgl/src/misc/lv_style.h **** #include "../layouts/lv_layout.h"
+  27:Lib/lvgl/src/misc/lv_style.h **** 
+  28:Lib/lvgl/src/misc/lv_style.h **** /*********************
+  29:Lib/lvgl/src/misc/lv_style.h ****  *      DEFINES
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 2
+
+
+  30:Lib/lvgl/src/misc/lv_style.h ****  *********************/
+  31:Lib/lvgl/src/misc/lv_style.h **** 
+  32:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_SENTINEL_VALUE     0xAABBCCDD
+  33:Lib/lvgl/src/misc/lv_style.h **** 
+  34:Lib/lvgl/src/misc/lv_style.h **** /**
+  35:Lib/lvgl/src/misc/lv_style.h ****  * Flags for style behavior
+  36:Lib/lvgl/src/misc/lv_style.h ****  *
+  37:Lib/lvgl/src/misc/lv_style.h ****  * The rest of the flags will have _FLAG added to their name in v9.
+  38:Lib/lvgl/src/misc/lv_style.h ****  */
+  39:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_PROP_FLAG_NONE                     (0)
+  40:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_PROP_FLAG_INHERITABLE              (1 << 0)  /*Inherited*/
+  41:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE          (1 << 1)  /*Requires ext. draw size update when
+  42:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_PROP_FLAG_LAYOUT_UPDATE            (1 << 2)  /*Requires layout update when changed
+  43:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_PROP_FLAG_PARENT_LAYOUT_UPDATE     (1 << 3)  /*Requires layout update on parent wh
+  44:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_PROP_FLAG_LAYER_UPDATE             (1 << 4)  /*Affects layer handling*/
+  45:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_PROP_FLAG_TRANSFORM                (1 << 5)  /*Affects the object's transformation
+  46:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_PROP_FLAG_ALL                      (0x3F)    /*Indicating all flags*/
+  47:Lib/lvgl/src/misc/lv_style.h **** 
+  48:Lib/lvgl/src/misc/lv_style.h **** /**
+  49:Lib/lvgl/src/misc/lv_style.h ****  * Other constants
+  50:Lib/lvgl/src/misc/lv_style.h ****  */
+  51:Lib/lvgl/src/misc/lv_style.h **** #define LV_SCALE_NONE            256        /*Value for not zooming the image*/
+  52:Lib/lvgl/src/misc/lv_style.h **** LV_EXPORT_CONST_INT(LV_SCALE_NONE);
+  53:Lib/lvgl/src/misc/lv_style.h **** 
+  54:Lib/lvgl/src/misc/lv_style.h **** // *INDENT-OFF*
+  55:Lib/lvgl/src/misc/lv_style.h **** #if LV_USE_ASSERT_STYLE
+  56:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_CONST_INIT(var_name, prop_array)                       \
+  57:Lib/lvgl/src/misc/lv_style.h ****     const lv_style_t var_name = {                                       \
+  58:Lib/lvgl/src/misc/lv_style.h ****         .sentinel = LV_STYLE_SENTINEL_VALUE,                            \
+  59:Lib/lvgl/src/misc/lv_style.h ****         .values_and_props = (void*)prop_array,                                      \
+  60:Lib/lvgl/src/misc/lv_style.h ****         .has_group = 0xFFFFFFFF,                                        \
+  61:Lib/lvgl/src/misc/lv_style.h ****         .prop_cnt = 255                                               \
+  62:Lib/lvgl/src/misc/lv_style.h ****     }
+  63:Lib/lvgl/src/misc/lv_style.h **** #else
+  64:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_CONST_INIT(var_name, prop_array)                       \
+  65:Lib/lvgl/src/misc/lv_style.h ****     const lv_style_t var_name = {                                       \
+  66:Lib/lvgl/src/misc/lv_style.h ****         .values_and_props = prop_array,                                      \
+  67:Lib/lvgl/src/misc/lv_style.h ****         .has_group = 0xFFFFFFFF,                                        \
+  68:Lib/lvgl/src/misc/lv_style.h ****         .prop_cnt = 255,                                               \
+  69:Lib/lvgl/src/misc/lv_style.h ****     }
+  70:Lib/lvgl/src/misc/lv_style.h **** #endif
+  71:Lib/lvgl/src/misc/lv_style.h **** // *INDENT-ON*
+  72:Lib/lvgl/src/misc/lv_style.h **** 
+  73:Lib/lvgl/src/misc/lv_style.h **** #define LV_STYLE_CONST_PROPS_END { .prop_ptr = NULL, .value = { .num = 0 } }
+  74:Lib/lvgl/src/misc/lv_style.h **** 
+  75:Lib/lvgl/src/misc/lv_style.h **** /**********************
+  76:Lib/lvgl/src/misc/lv_style.h ****  *      TYPEDEFS
+  77:Lib/lvgl/src/misc/lv_style.h ****  **********************/
+  78:Lib/lvgl/src/misc/lv_style.h **** 
+  79:Lib/lvgl/src/misc/lv_style.h **** /**
+  80:Lib/lvgl/src/misc/lv_style.h ****  * Possible options how to blend opaque drawings
+  81:Lib/lvgl/src/misc/lv_style.h ****  */
+  82:Lib/lvgl/src/misc/lv_style.h **** enum _lv_blend_mode_t {
+  83:Lib/lvgl/src/misc/lv_style.h ****     LV_BLEND_MODE_NORMAL,     /**< Simply mix according to the opacity value*/
+  84:Lib/lvgl/src/misc/lv_style.h ****     LV_BLEND_MODE_ADDITIVE,   /**< Add the respective color channels*/
+  85:Lib/lvgl/src/misc/lv_style.h ****     LV_BLEND_MODE_SUBTRACTIVE,/**< Subtract the foreground from the background*/
+  86:Lib/lvgl/src/misc/lv_style.h ****     LV_BLEND_MODE_MULTIPLY,   /**< Multiply the foreground and background*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 3
+
+
+  87:Lib/lvgl/src/misc/lv_style.h **** };
+  88:Lib/lvgl/src/misc/lv_style.h **** 
+  89:Lib/lvgl/src/misc/lv_style.h **** #ifdef DOXYGEN
+  90:Lib/lvgl/src/misc/lv_style.h **** typedef _lv_blend_mode_t lv_blend_mode_t;
+  91:Lib/lvgl/src/misc/lv_style.h **** #else
+  92:Lib/lvgl/src/misc/lv_style.h **** typedef uint8_t lv_blend_mode_t;
+  93:Lib/lvgl/src/misc/lv_style.h **** #endif /*DOXYGEN*/
+  94:Lib/lvgl/src/misc/lv_style.h **** 
+  95:Lib/lvgl/src/misc/lv_style.h **** /**
+  96:Lib/lvgl/src/misc/lv_style.h ****  * Some options to apply decorations on texts.
+  97:Lib/lvgl/src/misc/lv_style.h ****  * 'OR'ed values can be used.
+  98:Lib/lvgl/src/misc/lv_style.h ****  */
+  99:Lib/lvgl/src/misc/lv_style.h **** enum _lv_text_decor_t {
+ 100:Lib/lvgl/src/misc/lv_style.h ****     LV_TEXT_DECOR_NONE          = 0x00,
+ 101:Lib/lvgl/src/misc/lv_style.h ****     LV_TEXT_DECOR_UNDERLINE     = 0x01,
+ 102:Lib/lvgl/src/misc/lv_style.h ****     LV_TEXT_DECOR_STRIKETHROUGH = 0x02,
+ 103:Lib/lvgl/src/misc/lv_style.h **** };
+ 104:Lib/lvgl/src/misc/lv_style.h **** 
+ 105:Lib/lvgl/src/misc/lv_style.h **** #ifdef DOXYGEN
+ 106:Lib/lvgl/src/misc/lv_style.h **** typedef _lv_text_decor_t lv_text_decor_t;
+ 107:Lib/lvgl/src/misc/lv_style.h **** #else
+ 108:Lib/lvgl/src/misc/lv_style.h **** typedef uint8_t lv_text_decor_t;
+ 109:Lib/lvgl/src/misc/lv_style.h **** #endif /*DOXYGEN*/
+ 110:Lib/lvgl/src/misc/lv_style.h **** 
+ 111:Lib/lvgl/src/misc/lv_style.h **** /**
+ 112:Lib/lvgl/src/misc/lv_style.h ****  * Selects on which sides border should be drawn
+ 113:Lib/lvgl/src/misc/lv_style.h ****  * 'OR'ed values can be used.
+ 114:Lib/lvgl/src/misc/lv_style.h ****  */
+ 115:Lib/lvgl/src/misc/lv_style.h **** enum _lv_border_side_t {
+ 116:Lib/lvgl/src/misc/lv_style.h ****     LV_BORDER_SIDE_NONE     = 0x00,
+ 117:Lib/lvgl/src/misc/lv_style.h ****     LV_BORDER_SIDE_BOTTOM   = 0x01,
+ 118:Lib/lvgl/src/misc/lv_style.h ****     LV_BORDER_SIDE_TOP      = 0x02,
+ 119:Lib/lvgl/src/misc/lv_style.h ****     LV_BORDER_SIDE_LEFT     = 0x04,
+ 120:Lib/lvgl/src/misc/lv_style.h ****     LV_BORDER_SIDE_RIGHT    = 0x08,
+ 121:Lib/lvgl/src/misc/lv_style.h ****     LV_BORDER_SIDE_FULL     = 0x0F,
+ 122:Lib/lvgl/src/misc/lv_style.h ****     LV_BORDER_SIDE_INTERNAL = 0x10, /**< FOR matrix-like objects (e.g. Button matrix)*/
+ 123:Lib/lvgl/src/misc/lv_style.h **** };
+ 124:Lib/lvgl/src/misc/lv_style.h **** 
+ 125:Lib/lvgl/src/misc/lv_style.h **** #ifdef DOXYGEN
+ 126:Lib/lvgl/src/misc/lv_style.h **** typedef _lv_border_side_t lv_border_side_t;
+ 127:Lib/lvgl/src/misc/lv_style.h **** #else
+ 128:Lib/lvgl/src/misc/lv_style.h **** typedef uint8_t lv_border_side_t;
+ 129:Lib/lvgl/src/misc/lv_style.h **** #endif /*DOXYGEN*/
+ 130:Lib/lvgl/src/misc/lv_style.h **** 
+ 131:Lib/lvgl/src/misc/lv_style.h **** /**
+ 132:Lib/lvgl/src/misc/lv_style.h ****  * The direction of the gradient.
+ 133:Lib/lvgl/src/misc/lv_style.h ****  */
+ 134:Lib/lvgl/src/misc/lv_style.h **** enum _lv_grad_dir_t {
+ 135:Lib/lvgl/src/misc/lv_style.h ****     LV_GRAD_DIR_NONE, /**< No gradient (the `grad_color` property is ignored)*/
+ 136:Lib/lvgl/src/misc/lv_style.h ****     LV_GRAD_DIR_VER,  /**< Vertical (top to bottom) gradient*/
+ 137:Lib/lvgl/src/misc/lv_style.h ****     LV_GRAD_DIR_HOR,  /**< Horizontal (left to right) gradient*/
+ 138:Lib/lvgl/src/misc/lv_style.h **** };
+ 139:Lib/lvgl/src/misc/lv_style.h **** 
+ 140:Lib/lvgl/src/misc/lv_style.h **** #ifdef DOXYGEN
+ 141:Lib/lvgl/src/misc/lv_style.h **** typedef _lv_grad_dir_t lv_grad_dir_t;
+ 142:Lib/lvgl/src/misc/lv_style.h **** #else
+ 143:Lib/lvgl/src/misc/lv_style.h **** typedef uint8_t lv_grad_dir_t;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 4
+
+
+ 144:Lib/lvgl/src/misc/lv_style.h **** #endif /*DOXYGEN*/
+ 145:Lib/lvgl/src/misc/lv_style.h **** 
+ 146:Lib/lvgl/src/misc/lv_style.h **** /** A gradient stop definition.
+ 147:Lib/lvgl/src/misc/lv_style.h ****  *  This matches a color and a position in a virtual 0-255 scale.
+ 148:Lib/lvgl/src/misc/lv_style.h ****  */
+ 149:Lib/lvgl/src/misc/lv_style.h **** typedef struct {
+ 150:Lib/lvgl/src/misc/lv_style.h ****     lv_color_t color;   /**< The stop color */
+ 151:Lib/lvgl/src/misc/lv_style.h ****     lv_opa_t   opa;     /**< The opacity of the color*/
+ 152:Lib/lvgl/src/misc/lv_style.h ****     uint8_t    frac;    /**< The stop position in 1/255 unit */
+ 153:Lib/lvgl/src/misc/lv_style.h **** } lv_gradient_stop_t;
+ 154:Lib/lvgl/src/misc/lv_style.h **** 
+ 155:Lib/lvgl/src/misc/lv_style.h **** /** A descriptor of a gradient. */
+ 156:Lib/lvgl/src/misc/lv_style.h **** typedef struct {
+ 157:Lib/lvgl/src/misc/lv_style.h ****     lv_gradient_stop_t   stops[LV_GRADIENT_MAX_STOPS]; /**< A gradient stop array */
+ 158:Lib/lvgl/src/misc/lv_style.h ****     uint8_t              stops_count;                  /**< The number of used stops in the array *
+ 159:Lib/lvgl/src/misc/lv_style.h ****     lv_grad_dir_t        dir : 3;                      /**< The gradient direction.
+ 160:Lib/lvgl/src/misc/lv_style.h ****                                                         * Any of LV_GRAD_DIR_HOR, LV_GRAD_DIR_VER, 
+ 161:Lib/lvgl/src/misc/lv_style.h **** } lv_grad_dsc_t;
+ 162:Lib/lvgl/src/misc/lv_style.h **** 
+ 163:Lib/lvgl/src/misc/lv_style.h **** /**
+ 164:Lib/lvgl/src/misc/lv_style.h ****  * A common type to handle all the property types in the same way.
+ 165:Lib/lvgl/src/misc/lv_style.h ****  */
+ 166:Lib/lvgl/src/misc/lv_style.h **** typedef union {
+ 167:Lib/lvgl/src/misc/lv_style.h ****     int32_t num;         /**< Number integer number (opacity, enums, booleans or "normal" numbers)*
+ 168:Lib/lvgl/src/misc/lv_style.h ****     const void * ptr;    /**< Constant pointers  (font, cone text, etc)*/
+ 169:Lib/lvgl/src/misc/lv_style.h ****     lv_color_t color;    /**< Colors*/
+ 170:Lib/lvgl/src/misc/lv_style.h **** } lv_style_value_t;
+ 171:Lib/lvgl/src/misc/lv_style.h **** 
+ 172:Lib/lvgl/src/misc/lv_style.h **** /**
+ 173:Lib/lvgl/src/misc/lv_style.h ****  * Enumeration of all built in style properties
+ 174:Lib/lvgl/src/misc/lv_style.h ****  *
+ 175:Lib/lvgl/src/misc/lv_style.h ****  * Props are split into groups of 16. When adding a new prop to a group, ensure it does not overflo
+ 176:Lib/lvgl/src/misc/lv_style.h ****  */
+ 177:Lib/lvgl/src/misc/lv_style.h **** enum _lv_style_prop_t {
+ 178:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_PROP_INV               = 0,
+ 179:Lib/lvgl/src/misc/lv_style.h **** 
+ 180:Lib/lvgl/src/misc/lv_style.h ****     /*Group 0*/
+ 181:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_WIDTH                  = 1,
+ 182:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_HEIGHT                 = 2,
+ 183:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_LENGTH                 = 3,
+ 184:Lib/lvgl/src/misc/lv_style.h **** 
+ 185:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_MIN_WIDTH              = 4,
+ 186:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_MAX_WIDTH              = 5,
+ 187:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_MIN_HEIGHT             = 6,
+ 188:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_MAX_HEIGHT             = 7,
+ 189:Lib/lvgl/src/misc/lv_style.h **** 
+ 190:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_X                      = 8,
+ 191:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_Y                      = 9,
+ 192:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_ALIGN                  = 10,
+ 193:Lib/lvgl/src/misc/lv_style.h **** 
+ 194:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_RADIUS                 = 12,
+ 195:Lib/lvgl/src/misc/lv_style.h **** 
+ 196:Lib/lvgl/src/misc/lv_style.h ****     /*Group 1*/
+ 197:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_PAD_TOP                = 16,
+ 198:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_PAD_BOTTOM             = 17,
+ 199:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_PAD_LEFT               = 18,
+ 200:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_PAD_RIGHT              = 19,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 5
+
+
+ 201:Lib/lvgl/src/misc/lv_style.h **** 
+ 202:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_PAD_ROW                = 20,
+ 203:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_PAD_COLUMN             = 21,
+ 204:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_LAYOUT                 = 22,
+ 205:Lib/lvgl/src/misc/lv_style.h **** 
+ 206:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_MARGIN_TOP             = 24,
+ 207:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_MARGIN_BOTTOM          = 25,
+ 208:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_MARGIN_LEFT            = 26,
+ 209:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_MARGIN_RIGHT           = 27,
+ 210:Lib/lvgl/src/misc/lv_style.h **** 
+ 211:Lib/lvgl/src/misc/lv_style.h ****     /*Group 2*/
+ 212:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_COLOR               = 28,
+ 213:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_OPA                 = 29,
+ 214:Lib/lvgl/src/misc/lv_style.h **** 
+ 215:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_GRAD_DIR            = 32,
+ 216:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_MAIN_STOP           = 33,
+ 217:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_GRAD_STOP           = 34,
+ 218:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_GRAD_COLOR          = 35,
+ 219:Lib/lvgl/src/misc/lv_style.h **** 
+ 220:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_MAIN_OPA            = 36,
+ 221:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_GRAD_OPA            = 37,
+ 222:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_GRAD                = 38,
+ 223:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BASE_DIR               = 39,
+ 224:Lib/lvgl/src/misc/lv_style.h **** 
+ 225:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_IMAGE_SRC             = 40,
+ 226:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_IMAGE_OPA             = 41,
+ 227:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_IMAGE_RECOLOR         = 42,
+ 228:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_IMAGE_RECOLOR_OPA     = 43,
+ 229:Lib/lvgl/src/misc/lv_style.h **** 
+ 230:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BG_IMAGE_TILED           = 44,
+ 231:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_CLIP_CORNER            = 45,
+ 232:Lib/lvgl/src/misc/lv_style.h **** 
+ 233:Lib/lvgl/src/misc/lv_style.h ****     /*Group 3*/
+ 234:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BORDER_WIDTH           = 48,
+ 235:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BORDER_COLOR           = 49,
+ 236:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BORDER_OPA             = 50,
+ 237:Lib/lvgl/src/misc/lv_style.h **** 
+ 238:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BORDER_SIDE            = 52,
+ 239:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BORDER_POST            = 53,
+ 240:Lib/lvgl/src/misc/lv_style.h **** 
+ 241:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_OUTLINE_WIDTH          = 56,
+ 242:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_OUTLINE_COLOR          = 57,
+ 243:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_OUTLINE_OPA            = 58,
+ 244:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_OUTLINE_PAD            = 59,
+ 245:Lib/lvgl/src/misc/lv_style.h **** 
+ 246:Lib/lvgl/src/misc/lv_style.h ****     /*Group 4*/
+ 247:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_SHADOW_WIDTH           = 60,
+ 248:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_SHADOW_COLOR           = 61,
+ 249:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_SHADOW_OPA             = 62,
+ 250:Lib/lvgl/src/misc/lv_style.h **** 
+ 251:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_SHADOW_OFFSET_X        = 64,
+ 252:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_SHADOW_OFFSET_Y        = 65,
+ 253:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_SHADOW_SPREAD          = 66,
+ 254:Lib/lvgl/src/misc/lv_style.h **** 
+ 255:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_IMAGE_OPA                = 68,
+ 256:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_IMAGE_RECOLOR            = 69,
+ 257:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_IMAGE_RECOLOR_OPA        = 70,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 6
+
+
+ 258:Lib/lvgl/src/misc/lv_style.h **** 
+ 259:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_LINE_WIDTH             = 72,
+ 260:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_LINE_DASH_WIDTH        = 73,
+ 261:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_LINE_DASH_GAP          = 74,
+ 262:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_LINE_ROUNDED           = 75,
+ 263:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_LINE_COLOR             = 76,
+ 264:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_LINE_OPA               = 77,
+ 265:Lib/lvgl/src/misc/lv_style.h **** 
+ 266:Lib/lvgl/src/misc/lv_style.h ****     /*Group 5*/
+ 267:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_ARC_WIDTH              = 80,
+ 268:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_ARC_ROUNDED            = 81,
+ 269:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_ARC_COLOR              = 82,
+ 270:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_ARC_OPA                = 83,
+ 271:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_ARC_IMAGE_SRC            = 84,
+ 272:Lib/lvgl/src/misc/lv_style.h **** 
+ 273:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TEXT_COLOR             = 88,
+ 274:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TEXT_OPA               = 89,
+ 275:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TEXT_FONT              = 90,
+ 276:Lib/lvgl/src/misc/lv_style.h **** 
+ 277:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TEXT_LETTER_SPACE      = 91,
+ 278:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TEXT_LINE_SPACE        = 92,
+ 279:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TEXT_DECOR             = 93,
+ 280:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TEXT_ALIGN             = 94,
+ 281:Lib/lvgl/src/misc/lv_style.h **** 
+ 282:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_OPA                    = 95,
+ 283:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_OPA_LAYERED            = 96,
+ 284:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_COLOR_FILTER_DSC       = 97,
+ 285:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_COLOR_FILTER_OPA       = 98,
+ 286:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_ANIM                   = 99,
+ 287:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_ANIM_DURATION          = 100,
+ 288:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSITION             = 102,
+ 289:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_BLEND_MODE             = 103,
+ 290:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_WIDTH        = 104,
+ 291:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_HEIGHT       = 105,
+ 292:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSLATE_X            = 106,
+ 293:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSLATE_Y            = 107,
+ 294:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_SCALE_X      = 108,
+ 295:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_SCALE_Y      = 109,
+ 296:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_ROTATION     = 110,
+ 297:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_PIVOT_X      = 111,
+ 298:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_PIVOT_Y      = 112,
+ 299:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_SKEW_X       = 113,
+ 300:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_TRANSFORM_SKEW_Y       = 114,
+ 301:Lib/lvgl/src/misc/lv_style.h **** 
+ 302:Lib/lvgl/src/misc/lv_style.h **** #if LV_USE_FLEX
+ 303:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_FLEX_FLOW              = 115,
+ 304:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_FLEX_MAIN_PLACE        = 116,
+ 305:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_FLEX_CROSS_PLACE       = 117,
+ 306:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_FLEX_TRACK_PLACE       = 118,
+ 307:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_FLEX_GROW              = 119,
+ 308:Lib/lvgl/src/misc/lv_style.h **** #endif
+ 309:Lib/lvgl/src/misc/lv_style.h **** 
+ 310:Lib/lvgl/src/misc/lv_style.h **** #if LV_USE_GRID
+ 311:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_COLUMN_ALIGN      = 120,
+ 312:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_ROW_ALIGN         = 121,
+ 313:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_ROW_DSC_ARRAY     = 122,
+ 314:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_COLUMN_DSC_ARRAY  = 123,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 7
+
+
+ 315:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_CELL_COLUMN_POS   = 124,
+ 316:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_CELL_COLUMN_SPAN  = 125,
+ 317:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_CELL_X_ALIGN      = 126,
+ 318:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_CELL_ROW_POS      = 127,
+ 319:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_CELL_ROW_SPAN     = 128,
+ 320:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_GRID_CELL_Y_ALIGN      = 129,
+ 321:Lib/lvgl/src/misc/lv_style.h **** #endif
+ 322:Lib/lvgl/src/misc/lv_style.h **** 
+ 323:Lib/lvgl/src/misc/lv_style.h ****     _LV_STYLE_LAST_BUILT_IN_PROP     = 130,
+ 324:Lib/lvgl/src/misc/lv_style.h **** 
+ 325:Lib/lvgl/src/misc/lv_style.h ****     _LV_STYLE_NUM_BUILT_IN_PROPS     = _LV_STYLE_LAST_BUILT_IN_PROP + 1,
+ 326:Lib/lvgl/src/misc/lv_style.h **** 
+ 327:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_PROP_ANY                = 0xFF,
+ 328:Lib/lvgl/src/misc/lv_style.h ****     _LV_STYLE_PROP_CONST             = 0xFF /* magic value for const styles */
+ 329:Lib/lvgl/src/misc/lv_style.h **** };
+ 330:Lib/lvgl/src/misc/lv_style.h **** 
+ 331:Lib/lvgl/src/misc/lv_style.h **** #ifdef DOXYGEN
+ 332:Lib/lvgl/src/misc/lv_style.h **** typedef _lv_style_prop_t lv_style_prop_t;
+ 333:Lib/lvgl/src/misc/lv_style.h **** #else
+ 334:Lib/lvgl/src/misc/lv_style.h **** typedef uint8_t lv_style_prop_t;
+ 335:Lib/lvgl/src/misc/lv_style.h **** #endif /*DOXYGEN*/
+ 336:Lib/lvgl/src/misc/lv_style.h **** 
+ 337:Lib/lvgl/src/misc/lv_style.h **** enum _lv_style_res_t {
+ 338:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_RES_NOT_FOUND,
+ 339:Lib/lvgl/src/misc/lv_style.h ****     LV_STYLE_RES_FOUND,
+ 340:Lib/lvgl/src/misc/lv_style.h **** };
+ 341:Lib/lvgl/src/misc/lv_style.h **** 
+ 342:Lib/lvgl/src/misc/lv_style.h **** #ifdef DOXYGEN
+ 343:Lib/lvgl/src/misc/lv_style.h **** typedef _lv_style_res_t lv_style_res_t;
+ 344:Lib/lvgl/src/misc/lv_style.h **** #else
+ 345:Lib/lvgl/src/misc/lv_style.h **** typedef uint8_t lv_style_res_t;
+ 346:Lib/lvgl/src/misc/lv_style.h **** #endif /*DOXYGEN*/
+ 347:Lib/lvgl/src/misc/lv_style.h **** 
+ 348:Lib/lvgl/src/misc/lv_style.h **** /**
+ 349:Lib/lvgl/src/misc/lv_style.h ****  * Descriptor for style transitions
+ 350:Lib/lvgl/src/misc/lv_style.h ****  */
+ 351:Lib/lvgl/src/misc/lv_style.h **** typedef struct {
+ 352:Lib/lvgl/src/misc/lv_style.h ****     const lv_style_prop_t * props; /**< An array with the properties to animate.*/
+ 353:Lib/lvgl/src/misc/lv_style.h ****     void * user_data;              /**< A custom user data that will be passed to the animation's u
+ 354:Lib/lvgl/src/misc/lv_style.h ****     lv_anim_path_cb_t path_xcb;     /**< A path for the animation.*/
+ 355:Lib/lvgl/src/misc/lv_style.h ****     uint32_t time;                 /**< Duration of the transition in [ms]*/
+ 356:Lib/lvgl/src/misc/lv_style.h ****     uint32_t delay;                /**< Delay before the transition in [ms]*/
+ 357:Lib/lvgl/src/misc/lv_style.h **** } lv_style_transition_dsc_t;
+ 358:Lib/lvgl/src/misc/lv_style.h **** 
+ 359:Lib/lvgl/src/misc/lv_style.h **** /**
+ 360:Lib/lvgl/src/misc/lv_style.h ****  * Descriptor of a constant style property.
+ 361:Lib/lvgl/src/misc/lv_style.h ****  */
+ 362:Lib/lvgl/src/misc/lv_style.h **** typedef struct {
+ 363:Lib/lvgl/src/misc/lv_style.h ****     const lv_style_prop_t * prop_ptr;
+ 364:Lib/lvgl/src/misc/lv_style.h ****     lv_style_value_t value;
+ 365:Lib/lvgl/src/misc/lv_style.h **** } lv_style_const_prop_t;
+ 366:Lib/lvgl/src/misc/lv_style.h **** 
+ 367:Lib/lvgl/src/misc/lv_style.h **** /**
+ 368:Lib/lvgl/src/misc/lv_style.h ****  * Descriptor of a style (a collection of properties and values).
+ 369:Lib/lvgl/src/misc/lv_style.h ****  */
+ 370:Lib/lvgl/src/misc/lv_style.h **** typedef struct {
+ 371:Lib/lvgl/src/misc/lv_style.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 8
+
+
+ 372:Lib/lvgl/src/misc/lv_style.h **** #if LV_USE_ASSERT_STYLE
+ 373:Lib/lvgl/src/misc/lv_style.h ****     uint32_t sentinel;
+ 374:Lib/lvgl/src/misc/lv_style.h **** #endif
+ 375:Lib/lvgl/src/misc/lv_style.h **** 
+ 376:Lib/lvgl/src/misc/lv_style.h ****     void * values_and_props;
+ 377:Lib/lvgl/src/misc/lv_style.h **** 
+ 378:Lib/lvgl/src/misc/lv_style.h ****     uint32_t has_group;
+ 379:Lib/lvgl/src/misc/lv_style.h ****     uint8_t prop_cnt;   /**< 255 means it's a constant style*/
+ 380:Lib/lvgl/src/misc/lv_style.h **** } lv_style_t;
+ 381:Lib/lvgl/src/misc/lv_style.h **** 
+ 382:Lib/lvgl/src/misc/lv_style.h **** /**********************
+ 383:Lib/lvgl/src/misc/lv_style.h ****  * GLOBAL PROTOTYPES
+ 384:Lib/lvgl/src/misc/lv_style.h ****  **********************/
+ 385:Lib/lvgl/src/misc/lv_style.h **** 
+ 386:Lib/lvgl/src/misc/lv_style.h **** /**
+ 387:Lib/lvgl/src/misc/lv_style.h ****  * Initialize a style
+ 388:Lib/lvgl/src/misc/lv_style.h ****  * @param style pointer to a style to initialize
+ 389:Lib/lvgl/src/misc/lv_style.h ****  * @note Do not call `lv_style_init` on styles that already have some properties
+ 390:Lib/lvgl/src/misc/lv_style.h ****  *       because this function won't free the used memory, just sets a default state for the style.
+ 391:Lib/lvgl/src/misc/lv_style.h ****  *       In other words be sure to initialize styles only once!
+ 392:Lib/lvgl/src/misc/lv_style.h ****  */
+ 393:Lib/lvgl/src/misc/lv_style.h **** void lv_style_init(lv_style_t * style);
+ 394:Lib/lvgl/src/misc/lv_style.h **** 
+ 395:Lib/lvgl/src/misc/lv_style.h **** /**
+ 396:Lib/lvgl/src/misc/lv_style.h ****  * Clear all properties from a style and free all allocated memories.
+ 397:Lib/lvgl/src/misc/lv_style.h ****  * @param style pointer to a style
+ 398:Lib/lvgl/src/misc/lv_style.h ****  */
+ 399:Lib/lvgl/src/misc/lv_style.h **** void lv_style_reset(lv_style_t * style);
+ 400:Lib/lvgl/src/misc/lv_style.h **** 
+ 401:Lib/lvgl/src/misc/lv_style.h **** /**
+ 402:Lib/lvgl/src/misc/lv_style.h ****  * Check if a style is constant
+ 403:Lib/lvgl/src/misc/lv_style.h ****  * @param style     pointer to a style
+ 404:Lib/lvgl/src/misc/lv_style.h ****  * @return          true: the style is constant
+ 405:Lib/lvgl/src/misc/lv_style.h ****  */
+ 406:Lib/lvgl/src/misc/lv_style.h **** static inline bool lv_style_is_const(const lv_style_t * style)
+ 407:Lib/lvgl/src/misc/lv_style.h **** {
+ 408:Lib/lvgl/src/misc/lv_style.h ****     if(style->prop_cnt == 255) return true;
+ 409:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 410:Lib/lvgl/src/misc/lv_style.h **** }
+ 411:Lib/lvgl/src/misc/lv_style.h **** 
+ 412:Lib/lvgl/src/misc/lv_style.h **** /**
+ 413:Lib/lvgl/src/misc/lv_style.h ****  * Register a new style property for custom usage
+ 414:Lib/lvgl/src/misc/lv_style.h ****  * @return a new property ID, or LV_STYLE_PROP_INV if there are no more available.
+ 415:Lib/lvgl/src/misc/lv_style.h ****  * @example
+ 416:Lib/lvgl/src/misc/lv_style.h ****  * lv_style_prop_t MY_PROP;
+ 417:Lib/lvgl/src/misc/lv_style.h ****  * static inline void lv_style_set_my_prop(lv_style_t * style, lv_color_t value) {
+ 418:Lib/lvgl/src/misc/lv_style.h ****  * lv_style_value_t v = {.color = value}; lv_style_set_prop(style, MY_PROP, v); }
+ 419:Lib/lvgl/src/misc/lv_style.h ****  *
+ 420:Lib/lvgl/src/misc/lv_style.h ****  * ...
+ 421:Lib/lvgl/src/misc/lv_style.h ****  * MY_PROP = lv_style_register_prop();
+ 422:Lib/lvgl/src/misc/lv_style.h ****  * ...
+ 423:Lib/lvgl/src/misc/lv_style.h ****  * lv_style_set_my_prop(&style1, lv_palette_main(LV_PALETTE_RED));
+ 424:Lib/lvgl/src/misc/lv_style.h ****  */
+ 425:Lib/lvgl/src/misc/lv_style.h **** lv_style_prop_t lv_style_register_prop(uint8_t flag);
+ 426:Lib/lvgl/src/misc/lv_style.h **** 
+ 427:Lib/lvgl/src/misc/lv_style.h **** /**
+ 428:Lib/lvgl/src/misc/lv_style.h ****  * Get the number of custom properties that have been registered thus far.
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 9
+
+
+ 429:Lib/lvgl/src/misc/lv_style.h ****  */
+ 430:Lib/lvgl/src/misc/lv_style.h **** lv_style_prop_t lv_style_get_num_custom_props(void);
+ 431:Lib/lvgl/src/misc/lv_style.h **** 
+ 432:Lib/lvgl/src/misc/lv_style.h **** /**
+ 433:Lib/lvgl/src/misc/lv_style.h ****  * Remove a property from a style
+ 434:Lib/lvgl/src/misc/lv_style.h ****  * @param style pointer to a style
+ 435:Lib/lvgl/src/misc/lv_style.h ****  * @param prop  a style property ORed with a state.
+ 436:Lib/lvgl/src/misc/lv_style.h ****  * @return true: the property was found and removed; false: the property wasn't found
+ 437:Lib/lvgl/src/misc/lv_style.h ****  */
+ 438:Lib/lvgl/src/misc/lv_style.h **** bool lv_style_remove_prop(lv_style_t * style, lv_style_prop_t prop);
+ 439:Lib/lvgl/src/misc/lv_style.h **** 
+ 440:Lib/lvgl/src/misc/lv_style.h **** /**
+ 441:Lib/lvgl/src/misc/lv_style.h ****  * Set the value of property in a style.
+ 442:Lib/lvgl/src/misc/lv_style.h ****  * This function shouldn't be used directly by the user.
+ 443:Lib/lvgl/src/misc/lv_style.h ****  * Instead use `lv_style_set_<prop_name>()`. E.g. `lv_style_set_bg_color()`
+ 444:Lib/lvgl/src/misc/lv_style.h ****  * @param style pointer to style
+ 445:Lib/lvgl/src/misc/lv_style.h ****  * @param prop the ID of a property (e.g. `LV_STYLE_BG_COLOR`)
+ 446:Lib/lvgl/src/misc/lv_style.h ****  * @param value `lv_style_value_t` variable in which a field is set according to the type of `prop`
+ 447:Lib/lvgl/src/misc/lv_style.h ****  */
+ 448:Lib/lvgl/src/misc/lv_style.h **** void lv_style_set_prop(lv_style_t * style, lv_style_prop_t prop, lv_style_value_t value);
+ 449:Lib/lvgl/src/misc/lv_style.h **** 
+ 450:Lib/lvgl/src/misc/lv_style.h **** /**
+ 451:Lib/lvgl/src/misc/lv_style.h ****  * Get the value of a property
+ 452:Lib/lvgl/src/misc/lv_style.h ****  * @param style pointer to a style
+ 453:Lib/lvgl/src/misc/lv_style.h ****  * @param prop  the ID of a property
+ 454:Lib/lvgl/src/misc/lv_style.h ****  * @param value pointer to a `lv_style_value_t` variable to store the value
+ 455:Lib/lvgl/src/misc/lv_style.h ****  * @return LV_RESULT_INVALID: the property wasn't found in the style (`value` is unchanged)
+ 456:Lib/lvgl/src/misc/lv_style.h ****  *         LV_RESULT_OK: the property was fond, and `value` is set accordingly
+ 457:Lib/lvgl/src/misc/lv_style.h ****  * @note For performance reasons there are no sanity check on `style`
+ 458:Lib/lvgl/src/misc/lv_style.h ****  */
+ 459:Lib/lvgl/src/misc/lv_style.h **** lv_style_res_t lv_style_get_prop(const lv_style_t * style, lv_style_prop_t prop, lv_style_value_t *
+ 460:Lib/lvgl/src/misc/lv_style.h **** 
+ 461:Lib/lvgl/src/misc/lv_style.h **** /**
+ 462:Lib/lvgl/src/misc/lv_style.h ****  * Initialize a transition descriptor.
+ 463:Lib/lvgl/src/misc/lv_style.h ****  * @param tr        pointer to a transition descriptor to initialize
+ 464:Lib/lvgl/src/misc/lv_style.h ****  * @param props     an array with the properties to transition. The last element must be zero.
+ 465:Lib/lvgl/src/misc/lv_style.h ****  * @param path_cb   an animation path (ease) callback. If `NULL` liner path will be used.
+ 466:Lib/lvgl/src/misc/lv_style.h ****  * @param time      duration of the transition in [ms]
+ 467:Lib/lvgl/src/misc/lv_style.h ****  * @param delay     delay before the transition in [ms]
+ 468:Lib/lvgl/src/misc/lv_style.h ****  * @param user_data any custom data that will be saved in the transition animation and will be avai
+ 469:Lib/lvgl/src/misc/lv_style.h ****  * @example
+ 470:Lib/lvgl/src/misc/lv_style.h ****  * const static lv_style_prop_t trans_props[] = { LV_STYLE_BG_OPA, LV_STYLE_BG_COLOR, 0 };
+ 471:Lib/lvgl/src/misc/lv_style.h ****  *  static lv_style_transition_dsc_t trans1;
+ 472:Lib/lvgl/src/misc/lv_style.h ****  *  lv_style_transition_dsc_init(&trans1, trans_props, NULL, 300, 0, NULL);
+ 473:Lib/lvgl/src/misc/lv_style.h ****  */
+ 474:Lib/lvgl/src/misc/lv_style.h **** void lv_style_transition_dsc_init(lv_style_transition_dsc_t * tr, const lv_style_prop_t props[],
+ 475:Lib/lvgl/src/misc/lv_style.h ****                                   lv_anim_path_cb_t path_cb, uint32_t time, uint32_t delay, void * 
+ 476:Lib/lvgl/src/misc/lv_style.h **** 
+ 477:Lib/lvgl/src/misc/lv_style.h **** /**
+ 478:Lib/lvgl/src/misc/lv_style.h ****  * Get the default value of a property
+ 479:Lib/lvgl/src/misc/lv_style.h ****  * @param prop the ID of a property
+ 480:Lib/lvgl/src/misc/lv_style.h ****  * @return the default value
+ 481:Lib/lvgl/src/misc/lv_style.h ****  */
+ 482:Lib/lvgl/src/misc/lv_style.h **** lv_style_value_t lv_style_prop_get_default(lv_style_prop_t prop);
+ 483:Lib/lvgl/src/misc/lv_style.h **** 
+ 484:Lib/lvgl/src/misc/lv_style.h **** /**
+ 485:Lib/lvgl/src/misc/lv_style.h ****  * Get the value of a property
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 10
+
+
+ 486:Lib/lvgl/src/misc/lv_style.h ****  * @param style pointer to a style
+ 487:Lib/lvgl/src/misc/lv_style.h ****  * @param prop  the ID of a property
+ 488:Lib/lvgl/src/misc/lv_style.h ****  * @param value pointer to a `lv_style_value_t` variable to store the value
+ 489:Lib/lvgl/src/misc/lv_style.h ****  * @return LV_RESULT_INVALID: the property wasn't found in the style (`value` is unchanged)
+ 490:Lib/lvgl/src/misc/lv_style.h ****  *         LV_RESULT_OK: the property was fond, and `value` is set accordingly
+ 491:Lib/lvgl/src/misc/lv_style.h ****  * @note For performance reasons there are no sanity check on `style`
+ 492:Lib/lvgl/src/misc/lv_style.h ****  * @note This function is the same as ::lv_style_get_prop but inlined. Use it only on performance c
+ 493:Lib/lvgl/src/misc/lv_style.h ****  */
+ 494:Lib/lvgl/src/misc/lv_style.h **** static inline lv_style_res_t lv_style_get_prop_inlined(const lv_style_t * style, lv_style_prop_t pr
+ 495:Lib/lvgl/src/misc/lv_style.h ****                                                        lv_style_value_t * value)
+ 496:Lib/lvgl/src/misc/lv_style.h **** {
+  30              		.loc 2 496 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 2 496 1 is_stmt 0 view .LVU1
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+ 497:Lib/lvgl/src/misc/lv_style.h ****     if(lv_style_is_const(style)) {
+  40              		.loc 2 497 5 is_stmt 1 view .LVU2
+  41              	.LVL1:
+  42              	.LBB21:
+  43              	.LBI21:
+ 406:Lib/lvgl/src/misc/lv_style.h **** {
+  44              		.loc 2 406 20 view .LVU3
+  45              	.LBB22:
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+  46              		.loc 2 408 5 view .LVU4
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+  47              		.loc 2 408 13 is_stmt 0 view .LVU5
+  48 0002 90F808C0 		ldrb	ip, [r0, #8]	@ zero_extendqisi2
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+  49              		.loc 2 408 7 view .LVU6
+  50 0006 BCF1FF0F 		cmp	ip, #255
+  51 000a 0CD0     		beq	.L2
+  52              	.LVL2:
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+  53              		.loc 2 408 7 view .LVU7
+  54              	.LBE22:
+  55              	.LBE21:
+  56              	.LBB24:
+ 498:Lib/lvgl/src/misc/lv_style.h ****         lv_style_const_prop_t * props = (lv_style_const_prop_t *)style->values_and_props;
+ 499:Lib/lvgl/src/misc/lv_style.h ****         uint32_t i;
+ 500:Lib/lvgl/src/misc/lv_style.h ****         for(i = 0; props[i].prop_ptr; i++) {
+ 501:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 502:Lib/lvgl/src/misc/lv_style.h ****                 *value = props[i].value;
+ 503:Lib/lvgl/src/misc/lv_style.h ****                 return LV_STYLE_RES_FOUND;
+ 504:Lib/lvgl/src/misc/lv_style.h ****             }
+ 505:Lib/lvgl/src/misc/lv_style.h ****         }
+ 506:Lib/lvgl/src/misc/lv_style.h ****     }
+ 507:Lib/lvgl/src/misc/lv_style.h ****     else {
+ 508:Lib/lvgl/src/misc/lv_style.h ****         lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * si
+  57              		.loc 2 508 9 is_stmt 1 view .LVU8
+  58              		.loc 2 508 59 is_stmt 0 view .LVU9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 11
+
+
+  59 000c 0468     		ldr	r4, [r0]
+  60              		.loc 2 508 96 view .LVU10
+  61 000e 4FEA8C0E 		lsl	lr, ip, #2
+  62              	.LVL3:
+ 509:Lib/lvgl/src/misc/lv_style.h ****         uint32_t i;
+  63              		.loc 2 509 9 is_stmt 1 view .LVU11
+ 510:Lib/lvgl/src/misc/lv_style.h ****         for(i = 0; i < style->prop_cnt; i++) {
+  64              		.loc 2 510 9 view .LVU12
+  65              		.loc 2 510 15 is_stmt 0 view .LVU13
+  66 0012 0023     		movs	r3, #0
+  67              	.LVL4:
+  68              	.L3:
+  69              		.loc 2 510 22 is_stmt 1 discriminator 1 view .LVU14
+  70 0014 9C45     		cmp	ip, r3
+  71 0016 1CD9     		bls	.L11
+ 511:Lib/lvgl/src/misc/lv_style.h ****             if(props[i] == prop) {
+  72              		.loc 2 511 13 view .LVU15
+  73              		.loc 2 511 21 is_stmt 0 view .LVU16
+  74 0018 04EB0E00 		add	r0, r4, lr
+  75 001c C05C     		ldrb	r0, [r0, r3]	@ zero_extendqisi2
+  76              		.loc 2 511 15 view .LVU17
+  77 001e 8842     		cmp	r0, r1
+  78 0020 12D0     		beq	.L12
+ 510:Lib/lvgl/src/misc/lv_style.h ****         for(i = 0; i < style->prop_cnt; i++) {
+  79              		.loc 2 510 42 is_stmt 1 discriminator 2 view .LVU18
+  80 0022 0133     		adds	r3, r3, #1
+  81              	.LVL5:
+ 510:Lib/lvgl/src/misc/lv_style.h ****         for(i = 0; i < style->prop_cnt; i++) {
+  82              		.loc 2 510 42 is_stmt 0 discriminator 2 view .LVU19
+  83 0024 F6E7     		b	.L3
+  84              	.LVL6:
+  85              	.L2:
+ 510:Lib/lvgl/src/misc/lv_style.h ****         for(i = 0; i < style->prop_cnt; i++) {
+  86              		.loc 2 510 42 discriminator 2 view .LVU20
+  87              	.LBE24:
+  88              	.LBB26:
+  89              	.LBB23:
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+  90              		.loc 2 408 32 is_stmt 1 view .LVU21
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+  91              		.loc 2 408 32 is_stmt 0 view .LVU22
+  92              	.LBE23:
+  93              	.LBE26:
+  94              	.LBB27:
+ 498:Lib/lvgl/src/misc/lv_style.h ****         uint32_t i;
+  95              		.loc 2 498 9 is_stmt 1 view .LVU23
+ 498:Lib/lvgl/src/misc/lv_style.h ****         uint32_t i;
+  96              		.loc 2 498 33 is_stmt 0 view .LVU24
+  97 0026 0468     		ldr	r4, [r0]
+  98              	.LVL7:
+ 499:Lib/lvgl/src/misc/lv_style.h ****         for(i = 0; props[i].prop_ptr; i++) {
+  99              		.loc 2 499 9 is_stmt 1 view .LVU25
+ 500:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 100              		.loc 2 500 9 view .LVU26
+ 500:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 101              		.loc 2 500 15 is_stmt 0 view .LVU27
+ 102 0028 0023     		movs	r3, #0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 12
+
+
+ 103              	.LVL8:
+ 104              	.L4:
+ 500:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 105              		.loc 2 500 20 is_stmt 1 discriminator 1 view .LVU28
+ 500:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 106              		.loc 2 500 25 is_stmt 0 discriminator 1 view .LVU29
+ 107 002a 04EBC30C 		add	ip, r4, r3, lsl #3
+ 500:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 108              		.loc 2 500 28 discriminator 1 view .LVU30
+ 109 002e 54F83300 		ldr	r0, [r4, r3, lsl #3]
+ 500:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 110              		.loc 2 500 20 discriminator 1 view .LVU31
+ 111 0032 78B1     		cbz	r0, .L6
+ 501:Lib/lvgl/src/misc/lv_style.h ****                 *value = props[i].value;
+ 112              		.loc 2 501 13 is_stmt 1 view .LVU32
+ 501:Lib/lvgl/src/misc/lv_style.h ****                 *value = props[i].value;
+ 113              		.loc 2 501 16 is_stmt 0 view .LVU33
+ 114 0034 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 501:Lib/lvgl/src/misc/lv_style.h ****                 *value = props[i].value;
+ 115              		.loc 2 501 15 view .LVU34
+ 116 0036 8842     		cmp	r0, r1
+ 117 0038 01D0     		beq	.L13
+ 500:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 118              		.loc 2 500 40 is_stmt 1 discriminator 2 view .LVU35
+ 119 003a 0133     		adds	r3, r3, #1
+ 120              	.LVL9:
+ 500:Lib/lvgl/src/misc/lv_style.h ****             if(*props[i].prop_ptr == prop) {
+ 121              		.loc 2 500 40 is_stmt 0 discriminator 2 view .LVU36
+ 122 003c F5E7     		b	.L4
+ 123              	.L13:
+ 502:Lib/lvgl/src/misc/lv_style.h ****                 return LV_STYLE_RES_FOUND;
+ 124              		.loc 2 502 17 is_stmt 1 view .LVU37
+ 502:Lib/lvgl/src/misc/lv_style.h ****                 return LV_STYLE_RES_FOUND;
+ 125              		.loc 2 502 24 is_stmt 0 view .LVU38
+ 126 003e DCF80430 		ldr	r3, [ip, #4]
+ 127              	.LVL10:
+ 502:Lib/lvgl/src/misc/lv_style.h ****                 return LV_STYLE_RES_FOUND;
+ 128              		.loc 2 502 24 view .LVU39
+ 129 0042 1360     		str	r3, [r2]
+ 503:Lib/lvgl/src/misc/lv_style.h ****             }
+ 130              		.loc 2 503 17 is_stmt 1 view .LVU40
+ 503:Lib/lvgl/src/misc/lv_style.h ****             }
+ 131              		.loc 2 503 24 is_stmt 0 view .LVU41
+ 132 0044 0120     		movs	r0, #1
+ 133 0046 05E0     		b	.L6
+ 134              	.LVL11:
+ 135              	.L12:
+ 503:Lib/lvgl/src/misc/lv_style.h ****             }
+ 136              		.loc 2 503 24 view .LVU42
+ 137              	.LBE27:
+ 138              	.LBB28:
+ 139              	.LBB25:
+ 512:Lib/lvgl/src/misc/lv_style.h ****                 lv_style_value_t * values = (lv_style_value_t *)style->values_and_props;
+ 140              		.loc 2 512 17 is_stmt 1 view .LVU43
+ 513:Lib/lvgl/src/misc/lv_style.h ****                 *value = values[i];
+ 141              		.loc 2 513 17 view .LVU44
+ 142              		.loc 2 513 24 is_stmt 0 view .LVU45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 13
+
+
+ 143 0048 54F82330 		ldr	r3, [r4, r3, lsl #2]
+ 144              	.LVL12:
+ 145              		.loc 2 513 24 view .LVU46
+ 146 004c 1360     		str	r3, [r2]
+ 514:Lib/lvgl/src/misc/lv_style.h ****                 return LV_STYLE_RES_FOUND;
+ 147              		.loc 2 514 17 is_stmt 1 view .LVU47
+ 148              		.loc 2 514 24 is_stmt 0 view .LVU48
+ 149 004e 0120     		movs	r0, #1
+ 150 0050 00E0     		b	.L6
+ 151              	.LVL13:
+ 152              	.L11:
+ 153              		.loc 2 514 24 view .LVU49
+ 154              	.LBE25:
+ 155              	.LBE28:
+ 515:Lib/lvgl/src/misc/lv_style.h ****             }
+ 516:Lib/lvgl/src/misc/lv_style.h ****         }
+ 517:Lib/lvgl/src/misc/lv_style.h ****     }
+ 518:Lib/lvgl/src/misc/lv_style.h ****     return LV_STYLE_RES_NOT_FOUND;
+ 156              		.loc 2 518 12 view .LVU50
+ 157 0052 0020     		movs	r0, #0
+ 158              	.LVL14:
+ 159              	.L6:
+ 519:Lib/lvgl/src/misc/lv_style.h **** }
+ 160              		.loc 2 519 1 view .LVU51
+ 161 0054 10BD     		pop	{r4, pc}
+ 162              		.cfi_endproc
+ 163              	.LFE73:
+ 165              		.section	.text.lv_style_init,"ax",%progbits
+ 166              		.align	1
+ 167              		.global	lv_style_init
+ 168              		.syntax unified
+ 169              		.thumb
+ 170              		.thumb_func
+ 172              	lv_style_init:
+ 173              	.LVL15:
+ 174              	.LFB234:
+   1:Lib/lvgl/src/misc/lv_style.c **** /**
+   2:Lib/lvgl/src/misc/lv_style.c ****  * @file lv_style.c
+   3:Lib/lvgl/src/misc/lv_style.c ****  *
+   4:Lib/lvgl/src/misc/lv_style.c ****  */
+   5:Lib/lvgl/src/misc/lv_style.c **** 
+   6:Lib/lvgl/src/misc/lv_style.c **** /*********************
+   7:Lib/lvgl/src/misc/lv_style.c ****  *      INCLUDES
+   8:Lib/lvgl/src/misc/lv_style.c ****  *********************/
+   9:Lib/lvgl/src/misc/lv_style.c **** #include "lv_style.h"
+  10:Lib/lvgl/src/misc/lv_style.c **** #include "../core/lv_global.h"
+  11:Lib/lvgl/src/misc/lv_style.c **** #include "../stdlib/lv_mem.h"
+  12:Lib/lvgl/src/misc/lv_style.c **** #include "../stdlib/lv_string.h"
+  13:Lib/lvgl/src/misc/lv_style.c **** #include "lv_assert.h"
+  14:Lib/lvgl/src/misc/lv_style.c **** #include "lv_types.h"
+  15:Lib/lvgl/src/misc/lv_style.c **** 
+  16:Lib/lvgl/src/misc/lv_style.c **** /*********************
+  17:Lib/lvgl/src/misc/lv_style.c ****  *      DEFINES
+  18:Lib/lvgl/src/misc/lv_style.c ****  *********************/
+  19:Lib/lvgl/src/misc/lv_style.c **** #define _lv_style_custom_prop_flag_lookup_table_size LV_GLOBAL_DEFAULT()->style_custom_table_size
+  20:Lib/lvgl/src/misc/lv_style.c **** #define _lv_style_custom_prop_flag_lookup_table LV_GLOBAL_DEFAULT()->style_custom_prop_flag_lookup_
+  21:Lib/lvgl/src/misc/lv_style.c **** #define last_custom_prop_id LV_GLOBAL_DEFAULT()->style_last_custom_prop_id
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 14
+
+
+  22:Lib/lvgl/src/misc/lv_style.c **** 
+  23:Lib/lvgl/src/misc/lv_style.c **** /**********************
+  24:Lib/lvgl/src/misc/lv_style.c ****  *      TYPEDEFS
+  25:Lib/lvgl/src/misc/lv_style.c ****  **********************/
+  26:Lib/lvgl/src/misc/lv_style.c **** 
+  27:Lib/lvgl/src/misc/lv_style.c **** /**********************
+  28:Lib/lvgl/src/misc/lv_style.c ****  *  STATIC PROTOTYPES
+  29:Lib/lvgl/src/misc/lv_style.c ****  **********************/
+  30:Lib/lvgl/src/misc/lv_style.c **** 
+  31:Lib/lvgl/src/misc/lv_style.c **** /**********************
+  32:Lib/lvgl/src/misc/lv_style.c ****  *  GLOBAL VARIABLES
+  33:Lib/lvgl/src/misc/lv_style.c ****  **********************/
+  34:Lib/lvgl/src/misc/lv_style.c **** 
+  35:Lib/lvgl/src/misc/lv_style.c **** const lv_style_prop_t lv_style_const_prop_id_inv = LV_STYLE_PROP_INV;
+  36:Lib/lvgl/src/misc/lv_style.c **** 
+  37:Lib/lvgl/src/misc/lv_style.c **** const uint8_t _lv_style_builtin_prop_flag_lookup_table[_LV_STYLE_NUM_BUILT_IN_PROPS] = {
+  38:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_WIDTH] =                    LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  39:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_MIN_WIDTH] =                LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  40:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_MAX_WIDTH] =                LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  41:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_HEIGHT] =                   LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  42:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_MIN_HEIGHT] =               LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  43:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_MAX_HEIGHT] =               LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  44:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_LENGTH] =                   LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+  45:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_X] =                        LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  46:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_Y] =                        LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  47:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_ALIGN] =                    LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  48:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSFORM_WIDTH] =           LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  49:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSFORM_HEIGHT] =          LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  50:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSLATE_X] =               LV_STYLE_PROP_FLAG_LAYOUT_UPDATE | LV_STYLE_PROP_FLAG_PA
+  51:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSLATE_Y] =               LV_STYLE_PROP_FLAG_LAYOUT_UPDATE | LV_STYLE_PROP_FLAG_PA
+  52:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSFORM_SCALE_X] =           LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLA
+  53:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSFORM_SCALE_Y] =           LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLA
+  54:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSFORM_SKEW_X] =          LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  55:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSFORM_SKEW_Y] =          LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  56:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSFORM_ROTATION] =        LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  57:Lib/lvgl/src/misc/lv_style.c **** 
+  58:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_PAD_TOP] =                   LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  59:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_PAD_BOTTOM] =                LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  60:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_PAD_LEFT] =                  LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  61:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_PAD_RIGHT] =                 LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  62:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_PAD_ROW] =                   LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  63:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_PAD_COLUMN] =                LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  64:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_MARGIN_TOP] =                LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  65:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_MARGIN_BOTTOM] =             LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  66:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_MARGIN_LEFT] =               LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  67:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_MARGIN_RIGHT] =              LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE | LV_STYLE_PROP_FLAG_
+  68:Lib/lvgl/src/misc/lv_style.c **** 
+  69:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_COLOR] = 0,
+  70:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_OPA] = 0,
+  71:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_GRAD_COLOR] = 0,
+  72:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_GRAD_DIR] = 0,
+  73:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_MAIN_STOP] = 0,
+  74:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_GRAD_STOP] = 0,
+  75:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_MAIN_OPA] = 0,
+  76:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_GRAD_OPA] = 0,
+  77:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_GRAD] = 0,
+  78:Lib/lvgl/src/misc/lv_style.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 15
+
+
+  79:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_IMAGE_SRC] =                LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+  80:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_IMAGE_OPA] = 0,
+  81:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_IMAGE_RECOLOR] = 0,
+  82:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_IMAGE_RECOLOR_OPA] = 0,
+  83:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BG_IMAGE_TILED] = 0,
+  84:Lib/lvgl/src/misc/lv_style.c **** 
+  85:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BORDER_COLOR] = 0,
+  86:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BORDER_OPA] = 0,
+  87:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BORDER_WIDTH] =              LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+  88:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BORDER_SIDE] = 0,
+  89:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BORDER_POST] = 0,
+  90:Lib/lvgl/src/misc/lv_style.c **** 
+  91:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_OUTLINE_WIDTH] =             LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+  92:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_OUTLINE_COLOR] = 0,
+  93:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_OUTLINE_OPA] =               LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+  94:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_OUTLINE_PAD] =               LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+  95:Lib/lvgl/src/misc/lv_style.c **** 
+  96:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_SHADOW_WIDTH] =              LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+  97:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_SHADOW_OFFSET_X] =           LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+  98:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_SHADOW_OFFSET_Y] =           LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+  99:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_SHADOW_SPREAD] =             LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+ 100:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_SHADOW_COLOR] = 0,
+ 101:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_SHADOW_OPA] =                LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+ 102:Lib/lvgl/src/misc/lv_style.c **** 
+ 103:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_IMAGE_OPA] = 0,
+ 104:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_IMAGE_RECOLOR] = 0,
+ 105:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_IMAGE_RECOLOR_OPA] = 0,
+ 106:Lib/lvgl/src/misc/lv_style.c **** 
+ 107:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_LINE_WIDTH] =                LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+ 108:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_LINE_DASH_WIDTH] = 0,
+ 109:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_LINE_DASH_GAP] = 0,
+ 110:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_LINE_ROUNDED] = 0,
+ 111:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_LINE_COLOR] = 0,
+ 112:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_LINE_OPA] = 0,
+ 113:Lib/lvgl/src/misc/lv_style.c **** 
+ 114:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_ARC_WIDTH] =                 LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE,
+ 115:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_ARC_ROUNDED] = 0,
+ 116:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_ARC_COLOR] = 0,
+ 117:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_ARC_OPA] = 0,
+ 118:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_ARC_IMAGE_SRC] = 0,
+ 119:Lib/lvgl/src/misc/lv_style.c **** 
+ 120:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TEXT_COLOR] =                LV_STYLE_PROP_FLAG_INHERITABLE,
+ 121:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TEXT_OPA] =                  LV_STYLE_PROP_FLAG_INHERITABLE,
+ 122:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TEXT_FONT] =                 LV_STYLE_PROP_FLAG_INHERITABLE | LV_STYLE_PROP_FLAG_LAYO
+ 123:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TEXT_LETTER_SPACE] =         LV_STYLE_PROP_FLAG_INHERITABLE | LV_STYLE_PROP_FLAG_LAYO
+ 124:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TEXT_LINE_SPACE] =           LV_STYLE_PROP_FLAG_INHERITABLE | LV_STYLE_PROP_FLAG_LAYO
+ 125:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TEXT_DECOR] =                LV_STYLE_PROP_FLAG_INHERITABLE,
+ 126:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TEXT_ALIGN] =                LV_STYLE_PROP_FLAG_INHERITABLE | LV_STYLE_PROP_FLAG_LAYO
+ 127:Lib/lvgl/src/misc/lv_style.c **** 
+ 128:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_RADIUS] = 0,
+ 129:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_CLIP_CORNER] = 0,
+ 130:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_OPA] = 0,
+ 131:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_OPA_LAYERED] =               LV_STYLE_PROP_FLAG_LAYER_UPDATE,
+ 132:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_COLOR_FILTER_DSC] =          LV_STYLE_PROP_FLAG_INHERITABLE,
+ 133:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_COLOR_FILTER_OPA] =          LV_STYLE_PROP_FLAG_INHERITABLE,
+ 134:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_ANIM_DURATION] = 0,
+ 135:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_TRANSITION] = 0,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 16
+
+
+ 136:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BLEND_MODE] =                LV_STYLE_PROP_FLAG_LAYER_UPDATE,
+ 137:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_LAYOUT] =                    LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 138:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_BASE_DIR] =                  LV_STYLE_PROP_FLAG_INHERITABLE | LV_STYLE_PROP_FLAG_LAYO
+ 139:Lib/lvgl/src/misc/lv_style.c **** 
+ 140:Lib/lvgl/src/misc/lv_style.c **** #if LV_USE_FLEX
+ 141:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_FLEX_FLOW] =                    LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 142:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_FLEX_MAIN_PLACE] =              LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 143:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_FLEX_CROSS_PLACE] =             LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 144:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_FLEX_TRACK_PLACE] =             LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 145:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_FLEX_GROW] =                    LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 146:Lib/lvgl/src/misc/lv_style.c **** #endif
+ 147:Lib/lvgl/src/misc/lv_style.c **** 
+ 148:Lib/lvgl/src/misc/lv_style.c **** #if LV_USE_GRID
+ 149:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_COLUMN_DSC_ARRAY] =      LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 150:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_ROW_DSC_ARRAY] =         LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 151:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_COLUMN_ALIGN] =          LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 152:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_ROW_ALIGN] =             LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 153:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_CELL_ROW_SPAN] =         LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 154:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_CELL_ROW_POS] =          LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 155:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_CELL_COLUMN_SPAN] =      LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 156:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_CELL_COLUMN_POS] =       LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 157:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_CELL_X_ALIGN] =          LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 158:Lib/lvgl/src/misc/lv_style.c ****     [LV_STYLE_GRID_CELL_Y_ALIGN] =          LV_STYLE_PROP_FLAG_LAYOUT_UPDATE,
+ 159:Lib/lvgl/src/misc/lv_style.c **** #endif
+ 160:Lib/lvgl/src/misc/lv_style.c **** 
+ 161:Lib/lvgl/src/misc/lv_style.c **** };
+ 162:Lib/lvgl/src/misc/lv_style.c **** 
+ 163:Lib/lvgl/src/misc/lv_style.c **** /**********************
+ 164:Lib/lvgl/src/misc/lv_style.c ****  *  STATIC VARIABLES
+ 165:Lib/lvgl/src/misc/lv_style.c ****  **********************/
+ 166:Lib/lvgl/src/misc/lv_style.c **** 
+ 167:Lib/lvgl/src/misc/lv_style.c **** /**********************
+ 168:Lib/lvgl/src/misc/lv_style.c ****  *      MACROS
+ 169:Lib/lvgl/src/misc/lv_style.c ****  **********************/
+ 170:Lib/lvgl/src/misc/lv_style.c **** 
+ 171:Lib/lvgl/src/misc/lv_style.c **** /**********************
+ 172:Lib/lvgl/src/misc/lv_style.c ****  *   GLOBAL FUNCTIONS
+ 173:Lib/lvgl/src/misc/lv_style.c ****  **********************/
+ 174:Lib/lvgl/src/misc/lv_style.c **** 
+ 175:Lib/lvgl/src/misc/lv_style.c **** void lv_style_init(lv_style_t * style)
+ 176:Lib/lvgl/src/misc/lv_style.c **** {
+ 175              		.loc 1 176 1 is_stmt 1 view -0
+ 176              		.cfi_startproc
+ 177              		@ args = 0, pretend = 0, frame = 0
+ 178              		@ frame_needed = 0, uses_anonymous_args = 0
+ 179              		.loc 1 176 1 is_stmt 0 view .LVU53
+ 180 0000 08B5     		push	{r3, lr}
+ 181              	.LCFI1:
+ 182              		.cfi_def_cfa_offset 8
+ 183              		.cfi_offset 3, -8
+ 184              		.cfi_offset 14, -4
+ 177:Lib/lvgl/src/misc/lv_style.c **** #if LV_USE_ASSERT_STYLE
+ 178:Lib/lvgl/src/misc/lv_style.c ****     if(style->sentinel == LV_STYLE_SENTINEL_VALUE && style->prop_cnt > 1) {
+ 179:Lib/lvgl/src/misc/lv_style.c ****         LV_LOG_WARN("Style might be already inited. (Potential memory leak)");
+ 180:Lib/lvgl/src/misc/lv_style.c ****     }
+ 181:Lib/lvgl/src/misc/lv_style.c **** #endif
+ 182:Lib/lvgl/src/misc/lv_style.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 17
+
+
+ 183:Lib/lvgl/src/misc/lv_style.c ****     lv_memzero(style, sizeof(lv_style_t));
+ 185              		.loc 1 183 5 is_stmt 1 view .LVU54
+ 186              	.LVL16:
+ 187              	.LBB29:
+ 188              	.LBI29:
+ 189              		.file 3 "Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h"
+   1:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /**
+   2:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @file lv_stringn.h
+   3:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  *
+   4:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  */
+   5:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+   6:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** #ifndef LV_STRING_H
+   7:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** #define LV_STRING_H
+   8:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+   9:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** extern "C" {
+  11:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** #endif
+  12:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+  13:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /*********************
+  14:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  *      INCLUDES
+  15:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
+  16:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** #include <stdint.h>
+  18:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** #include <stddef.h>
+  19:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+  20:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /*********************
+  21:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  *      DEFINES
+  22:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
+  23:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+  24:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /**********************
+  25:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  **********************/
+  27:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+  28:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /**********************
+  29:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * GLOBAL PROTOTYPES
+  30:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  **********************/
+  31:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+  32:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /**
+  33:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Copies a block of memory from a source address to a destination address.
+  34:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  35:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  36:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy.
+  37:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  38:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @note The function does not check for any overlapping of the source and destination memory block
+  39:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  */
+  40:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** void * lv_memcpy(void * dst, const void * src, size_t len);
+  41:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+  42:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /**
+  43:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Fills a block of memory with a specified value.
+  44:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array to fill with the specified value.
+  45:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param v Value to be set. The value is passed as an int, but the function fills
+  46:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
+  47:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to be set to the value.
+  48:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  */
+  49:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** void lv_memset(void * dst, uint8_t v, size_t len);
+  50:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+  51:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /**
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 18
+
+
+  52:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Move a block of memory from source to destination
+  53:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  54:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  55:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy
+  56:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  57:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  */
+  58:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** void * lv_memmove(void * dst, const void * src, size_t len);
+  59:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** 
+  60:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** /**
+  61:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * Same as `memset(dst, 0x00, len)`.
+  62:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst pointer to the destination buffer
+  63:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  * @param len number of byte to set
+  64:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****  */
+  65:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** static inline void lv_memzero(void * dst, size_t len)
+ 190              		.loc 3 65 20 view .LVU55
+ 191              	.LBB30:
+  66:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** {
+  67:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h ****     lv_memset(dst, 0x00, len);
+ 192              		.loc 3 67 5 view .LVU56
+ 193 0002 0C22     		movs	r2, #12
+ 194 0004 0021     		movs	r1, #0
+ 195 0006 FFF7FEFF 		bl	lv_memset
+ 196              	.LVL17:
+ 197              		.loc 3 67 5 is_stmt 0 view .LVU57
+ 198              	.LBE30:
+ 199              	.LBE29:
+ 184:Lib/lvgl/src/misc/lv_style.c **** #if LV_USE_ASSERT_STYLE
+ 185:Lib/lvgl/src/misc/lv_style.c ****     style->sentinel = LV_STYLE_SENTINEL_VALUE;
+ 186:Lib/lvgl/src/misc/lv_style.c **** #endif
+ 187:Lib/lvgl/src/misc/lv_style.c **** }
+ 200              		.loc 1 187 1 view .LVU58
+ 201 000a 08BD     		pop	{r3, pc}
+ 202              		.cfi_endproc
+ 203              	.LFE234:
+ 205              		.section	.text.lv_style_reset,"ax",%progbits
+ 206              		.align	1
+ 207              		.global	lv_style_reset
+ 208              		.syntax unified
+ 209              		.thumb
+ 210              		.thumb_func
+ 212              	lv_style_reset:
+ 213              	.LVL18:
+ 214              	.LFB235:
+ 188:Lib/lvgl/src/misc/lv_style.c **** 
+ 189:Lib/lvgl/src/misc/lv_style.c **** void lv_style_reset(lv_style_t * style)
+ 190:Lib/lvgl/src/misc/lv_style.c **** {
+ 215              		.loc 1 190 1 is_stmt 1 view -0
+ 216              		.cfi_startproc
+ 217              		@ args = 0, pretend = 0, frame = 0
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219              		.loc 1 190 1 is_stmt 0 view .LVU60
+ 220 0000 10B5     		push	{r4, lr}
+ 221              	.LCFI2:
+ 222              		.cfi_def_cfa_offset 8
+ 223              		.cfi_offset 4, -8
+ 224              		.cfi_offset 14, -4
+ 225 0002 0446     		mov	r4, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 19
+
+
+ 191:Lib/lvgl/src/misc/lv_style.c ****     LV_ASSERT_STYLE(style);
+ 226              		.loc 1 191 5 is_stmt 1 view .LVU61
+ 227              		.loc 1 191 5 view .LVU62
+ 228              		.loc 1 191 5 view .LVU63
+ 192:Lib/lvgl/src/misc/lv_style.c **** 
+ 193:Lib/lvgl/src/misc/lv_style.c ****     if(style->prop_cnt != 255) lv_free(style->values_and_props);
+ 229              		.loc 1 193 5 view .LVU64
+ 230              		.loc 1 193 13 is_stmt 0 view .LVU65
+ 231 0004 037A     		ldrb	r3, [r0, #8]	@ zero_extendqisi2
+ 232              		.loc 1 193 7 view .LVU66
+ 233 0006 FF2B     		cmp	r3, #255
+ 234 0008 05D1     		bne	.L19
+ 235              	.LVL19:
+ 236              	.L17:
+ 194:Lib/lvgl/src/misc/lv_style.c ****     lv_memzero(style, sizeof(lv_style_t));
+ 237              		.loc 1 194 5 is_stmt 1 view .LVU67
+ 238              	.LBB31:
+ 239              	.LBI31:
+  65:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** {
+ 240              		.loc 3 65 20 view .LVU68
+ 241              	.LBB32:
+ 242              		.loc 3 67 5 view .LVU69
+ 243 000a 0C22     		movs	r2, #12
+ 244 000c 0021     		movs	r1, #0
+ 245 000e 2046     		mov	r0, r4
+ 246 0010 FFF7FEFF 		bl	lv_memset
+ 247              	.LVL20:
+ 248              		.loc 3 67 5 is_stmt 0 view .LVU70
+ 249              	.LBE32:
+ 250              	.LBE31:
+ 195:Lib/lvgl/src/misc/lv_style.c **** #if LV_USE_ASSERT_STYLE
+ 196:Lib/lvgl/src/misc/lv_style.c ****     style->sentinel = LV_STYLE_SENTINEL_VALUE;
+ 197:Lib/lvgl/src/misc/lv_style.c **** #endif
+ 198:Lib/lvgl/src/misc/lv_style.c **** }
+ 251              		.loc 1 198 1 view .LVU71
+ 252 0014 10BD     		pop	{r4, pc}
+ 253              	.LVL21:
+ 254              	.L19:
+ 193:Lib/lvgl/src/misc/lv_style.c ****     lv_memzero(style, sizeof(lv_style_t));
+ 255              		.loc 1 193 32 is_stmt 1 discriminator 1 view .LVU72
+ 256 0016 0068     		ldr	r0, [r0]
+ 257              	.LVL22:
+ 193:Lib/lvgl/src/misc/lv_style.c ****     lv_memzero(style, sizeof(lv_style_t));
+ 258              		.loc 1 193 32 is_stmt 0 discriminator 1 view .LVU73
+ 259 0018 FFF7FEFF 		bl	lv_free
+ 260              	.LVL23:
+ 261 001c F5E7     		b	.L17
+ 262              		.cfi_endproc
+ 263              	.LFE235:
+ 265              		.section	.text.lv_style_register_prop,"ax",%progbits
+ 266              		.align	1
+ 267              		.global	lv_style_register_prop
+ 268              		.syntax unified
+ 269              		.thumb
+ 270              		.thumb_func
+ 272              	lv_style_register_prop:
+ 273              	.LVL24:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 20
+
+
+ 274              	.LFB236:
+ 199:Lib/lvgl/src/misc/lv_style.c **** 
+ 200:Lib/lvgl/src/misc/lv_style.c **** lv_style_prop_t lv_style_register_prop(uint8_t flag)
+ 201:Lib/lvgl/src/misc/lv_style.c **** {
+ 275              		.loc 1 201 1 is_stmt 1 view -0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279              		.loc 1 201 1 is_stmt 0 view .LVU75
+ 280 0000 38B5     		push	{r3, r4, r5, lr}
+ 281              	.LCFI3:
+ 282              		.cfi_def_cfa_offset 16
+ 283              		.cfi_offset 3, -16
+ 284              		.cfi_offset 4, -12
+ 285              		.cfi_offset 5, -8
+ 286              		.cfi_offset 14, -4
+ 287 0002 0546     		mov	r5, r0
+ 202:Lib/lvgl/src/misc/lv_style.c ****     if(_lv_style_custom_prop_flag_lookup_table == NULL) {
+ 288              		.loc 1 202 5 is_stmt 1 view .LVU76
+ 289              		.loc 1 202 8 is_stmt 0 view .LVU77
+ 290 0004 144B     		ldr	r3, .L31
+ 291 0006 186B     		ldr	r0, [r3, #48]
+ 292              	.LVL25:
+ 293              		.loc 1 202 7 view .LVU78
+ 294 0008 58B1     		cbz	r0, .L30
+ 295              	.L21:
+ 203:Lib/lvgl/src/misc/lv_style.c ****         _lv_style_custom_prop_flag_lookup_table_size = 0;
+ 204:Lib/lvgl/src/misc/lv_style.c ****         last_custom_prop_id = (uint16_t)_LV_STYLE_LAST_BUILT_IN_PROP;
+ 205:Lib/lvgl/src/misc/lv_style.c ****     }
+ 206:Lib/lvgl/src/misc/lv_style.c **** 
+ 207:Lib/lvgl/src/misc/lv_style.c ****     //    if((last_custom_prop_id + 1) != 0) {
+ 208:Lib/lvgl/src/misc/lv_style.c ****     //        LV_LOG_ERROR("No more custom property IDs available");
+ 209:Lib/lvgl/src/misc/lv_style.c ****     //        return LV_STYLE_PROP_INV;
+ 210:Lib/lvgl/src/misc/lv_style.c ****     //    }
+ 211:Lib/lvgl/src/misc/lv_style.c **** 
+ 212:Lib/lvgl/src/misc/lv_style.c ****     /*
+ 213:Lib/lvgl/src/misc/lv_style.c ****      * Allocate the lookup table if it's not yet available.
+ 214:Lib/lvgl/src/misc/lv_style.c ****      */
+ 215:Lib/lvgl/src/misc/lv_style.c ****     size_t required_size = (last_custom_prop_id + 1 - _LV_STYLE_LAST_BUILT_IN_PROP);
+ 296              		.loc 1 215 5 is_stmt 1 view .LVU79
+ 297              		.loc 1 215 29 is_stmt 0 view .LVU80
+ 298 000a 134A     		ldr	r2, .L31
+ 299 000c D36A     		ldr	r3, [r2, #44]
+ 300              		.loc 1 215 12 view .LVU81
+ 301 000e A3F18101 		sub	r1, r3, #129
+ 302              	.LVL26:
+ 216:Lib/lvgl/src/misc/lv_style.c ****     if(_lv_style_custom_prop_flag_lookup_table_size < required_size) {
+ 303              		.loc 1 216 5 is_stmt 1 view .LVU82
+ 304              		.loc 1 216 8 is_stmt 0 view .LVU83
+ 305 0012 926A     		ldr	r2, [r2, #40]
+ 306              		.loc 1 216 7 view .LVU84
+ 307 0014 8A42     		cmp	r2, r1
+ 308 0016 10D2     		bcs	.L22
+ 309              	.LBB33:
+ 217:Lib/lvgl/src/misc/lv_style.c ****         /* Round required_size up to the nearest 32-byte value */
+ 218:Lib/lvgl/src/misc/lv_style.c ****         required_size = (required_size + 31) & ~31;
+ 310              		.loc 1 218 9 is_stmt 1 view .LVU85
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 21
+
+
+ 311              		.loc 1 218 40 is_stmt 0 view .LVU86
+ 312 0018 623B     		subs	r3, r3, #98
+ 313              	.LVL27:
+ 219:Lib/lvgl/src/misc/lv_style.c ****         LV_ASSERT_MSG(required_size > 0, "required size has become 0?");
+ 314              		.loc 1 219 9 is_stmt 1 view .LVU87
+ 315              		.loc 1 219 9 view .LVU88
+ 316 001a 33F01F04 		bics	r4, r3, #31
+ 317              	.LVL28:
+ 318              		.loc 1 219 9 is_stmt 0 view .LVU89
+ 319 001e 05D1     		bne	.L23
+ 320              	.L24:
+ 321              		.loc 1 219 9 is_stmt 1 discriminator 1 view .LVU90
+ 322              		.loc 1 219 9 discriminator 1 view .LVU91
+ 323              		.loc 1 219 9 discriminator 1 view .LVU92
+ 324              		.loc 1 219 9 discriminator 1 view .LVU93
+ 325              		.loc 1 219 9 discriminator 1 view .LVU94
+ 326 0020 FEE7     		b	.L24
+ 327              	.LVL29:
+ 328              	.L30:
+ 329              		.loc 1 219 9 is_stmt 0 discriminator 1 view .LVU95
+ 330              	.LBE33:
+ 203:Lib/lvgl/src/misc/lv_style.c ****         last_custom_prop_id = (uint16_t)_LV_STYLE_LAST_BUILT_IN_PROP;
+ 331              		.loc 1 203 9 is_stmt 1 view .LVU96
+ 203:Lib/lvgl/src/misc/lv_style.c ****         last_custom_prop_id = (uint16_t)_LV_STYLE_LAST_BUILT_IN_PROP;
+ 332              		.loc 1 203 54 is_stmt 0 view .LVU97
+ 333 0022 0022     		movs	r2, #0
+ 334 0024 9A62     		str	r2, [r3, #40]
+ 204:Lib/lvgl/src/misc/lv_style.c ****     }
+ 335              		.loc 1 204 9 is_stmt 1 view .LVU98
+ 204:Lib/lvgl/src/misc/lv_style.c ****     }
+ 336              		.loc 1 204 29 is_stmt 0 view .LVU99
+ 337 0026 8222     		movs	r2, #130
+ 338 0028 DA62     		str	r2, [r3, #44]
+ 339 002a EEE7     		b	.L21
+ 340              	.LVL30:
+ 341              	.L23:
+ 342              	.LBB34:
+ 343              		.loc 1 219 9 is_stmt 1 discriminator 2 view .LVU100
+ 220:Lib/lvgl/src/misc/lv_style.c ****         uint8_t * old_p = _lv_style_custom_prop_flag_lookup_table;
+ 344              		.loc 1 220 9 discriminator 2 view .LVU101
+ 221:Lib/lvgl/src/misc/lv_style.c ****         uint8_t * new_p = lv_realloc(old_p, required_size * sizeof(uint8_t));
+ 345              		.loc 1 221 9 discriminator 2 view .LVU102
+ 346              		.loc 1 221 27 is_stmt 0 discriminator 2 view .LVU103
+ 347 002c 2146     		mov	r1, r4
+ 348 002e FFF7FEFF 		bl	lv_realloc
+ 349              	.LVL31:
+ 222:Lib/lvgl/src/misc/lv_style.c ****         if(new_p == NULL) {
+ 350              		.loc 1 222 9 is_stmt 1 discriminator 2 view .LVU104
+ 351              		.loc 1 222 11 is_stmt 0 discriminator 2 view .LVU105
+ 352 0032 78B1     		cbz	r0, .L28
+ 223:Lib/lvgl/src/misc/lv_style.c ****             LV_LOG_ERROR("Unable to allocate space for custom property lookup table");
+ 224:Lib/lvgl/src/misc/lv_style.c ****             return LV_STYLE_PROP_INV;
+ 225:Lib/lvgl/src/misc/lv_style.c ****         }
+ 226:Lib/lvgl/src/misc/lv_style.c ****         _lv_style_custom_prop_flag_lookup_table = new_p;
+ 353              		.loc 1 226 9 is_stmt 1 view .LVU106
+ 354              		.loc 1 226 49 is_stmt 0 view .LVU107
+ 355 0034 084B     		ldr	r3, .L31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 22
+
+
+ 356 0036 1863     		str	r0, [r3, #48]
+ 227:Lib/lvgl/src/misc/lv_style.c ****         _lv_style_custom_prop_flag_lookup_table_size = required_size;
+ 357              		.loc 1 227 9 is_stmt 1 view .LVU108
+ 358              		.loc 1 227 54 is_stmt 0 view .LVU109
+ 359 0038 9C62     		str	r4, [r3, #40]
+ 360              	.LVL32:
+ 361              	.L22:
+ 362              		.loc 1 227 54 view .LVU110
+ 363              	.LBE34:
+ 228:Lib/lvgl/src/misc/lv_style.c ****     }
+ 229:Lib/lvgl/src/misc/lv_style.c ****     last_custom_prop_id++;
+ 364              		.loc 1 229 5 is_stmt 1 view .LVU111
+ 365 003a 074A     		ldr	r2, .L31
+ 366 003c D36A     		ldr	r3, [r2, #44]
+ 367              		.loc 1 229 24 is_stmt 0 view .LVU112
+ 368 003e 591C     		adds	r1, r3, #1
+ 369 0040 D162     		str	r1, [r2, #44]
+ 230:Lib/lvgl/src/misc/lv_style.c ****     /* This should never happen - we should bail out above */
+ 231:Lib/lvgl/src/misc/lv_style.c ****     LV_ASSERT_NULL(_lv_style_custom_prop_flag_lookup_table);
+ 370              		.loc 1 231 5 is_stmt 1 view .LVU113
+ 371              		.loc 1 231 5 view .LVU114
+ 372 0042 126B     		ldr	r2, [r2, #48]
+ 373 0044 2AB1     		cbz	r2, .L27
+ 374              		.loc 1 231 5 discriminator 2 view .LVU115
+ 375              		.loc 1 231 60 discriminator 2 view .LVU116
+ 232:Lib/lvgl/src/misc/lv_style.c ****     _lv_style_custom_prop_flag_lookup_table[last_custom_prop_id - _LV_STYLE_NUM_BUILT_IN_PROPS] = f
+ 376              		.loc 1 232 5 discriminator 2 view .LVU117
+ 377              		.loc 1 232 44 is_stmt 0 discriminator 2 view .LVU118
+ 378 0046 823B     		subs	r3, r3, #130
+ 379              		.loc 1 232 97 discriminator 2 view .LVU119
+ 380 0048 D554     		strb	r5, [r2, r3]
+ 233:Lib/lvgl/src/misc/lv_style.c ****     return last_custom_prop_id;
+ 381              		.loc 1 233 5 is_stmt 1 discriminator 2 view .LVU120
+ 382              		.loc 1 233 12 is_stmt 0 discriminator 2 view .LVU121
+ 383 004a 034B     		ldr	r3, .L31
+ 384 004c 93F82C00 		ldrb	r0, [r3, #44]	@ zero_extendqisi2
+ 385              	.L25:
+ 234:Lib/lvgl/src/misc/lv_style.c **** }
+ 386              		.loc 1 234 1 view .LVU122
+ 387 0050 38BD     		pop	{r3, r4, r5, pc}
+ 388              	.L27:
+ 231:Lib/lvgl/src/misc/lv_style.c ****     _lv_style_custom_prop_flag_lookup_table[last_custom_prop_id - _LV_STYLE_NUM_BUILT_IN_PROPS] = f
+ 389              		.loc 1 231 5 is_stmt 1 discriminator 2 view .LVU123
+ 231:Lib/lvgl/src/misc/lv_style.c ****     _lv_style_custom_prop_flag_lookup_table[last_custom_prop_id - _LV_STYLE_NUM_BUILT_IN_PROPS] = f
+ 390              		.loc 1 231 5 discriminator 2 view .LVU124
+ 231:Lib/lvgl/src/misc/lv_style.c ****     _lv_style_custom_prop_flag_lookup_table[last_custom_prop_id - _LV_STYLE_NUM_BUILT_IN_PROPS] = f
+ 391              		.loc 1 231 5 discriminator 2 view .LVU125
+ 231:Lib/lvgl/src/misc/lv_style.c ****     _lv_style_custom_prop_flag_lookup_table[last_custom_prop_id - _LV_STYLE_NUM_BUILT_IN_PROPS] = f
+ 392              		.loc 1 231 5 discriminator 2 view .LVU126
+ 231:Lib/lvgl/src/misc/lv_style.c ****     _lv_style_custom_prop_flag_lookup_table[last_custom_prop_id - _LV_STYLE_NUM_BUILT_IN_PROPS] = f
+ 393              		.loc 1 231 5 discriminator 2 view .LVU127
+ 394 0052 FEE7     		b	.L27
+ 395              	.LVL33:
+ 396              	.L28:
+ 397              	.LBB35:
+ 224:Lib/lvgl/src/misc/lv_style.c ****         }
+ 398              		.loc 1 224 20 is_stmt 0 view .LVU128
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 23
+
+
+ 399 0054 0020     		movs	r0, #0
+ 400              	.LVL34:
+ 224:Lib/lvgl/src/misc/lv_style.c ****         }
+ 401              		.loc 1 224 20 view .LVU129
+ 402 0056 FBE7     		b	.L25
+ 403              	.L32:
+ 404              		.align	2
+ 405              	.L31:
+ 406 0058 00000000 		.word	lv_global
+ 407              	.LBE35:
+ 408              		.cfi_endproc
+ 409              	.LFE236:
+ 411              		.section	.text.lv_style_get_num_custom_props,"ax",%progbits
+ 412              		.align	1
+ 413              		.global	lv_style_get_num_custom_props
+ 414              		.syntax unified
+ 415              		.thumb
+ 416              		.thumb_func
+ 418              	lv_style_get_num_custom_props:
+ 419              	.LFB237:
+ 235:Lib/lvgl/src/misc/lv_style.c **** 
+ 236:Lib/lvgl/src/misc/lv_style.c **** lv_style_prop_t lv_style_get_num_custom_props(void)
+ 237:Lib/lvgl/src/misc/lv_style.c **** {
+ 420              		.loc 1 237 1 is_stmt 1 view -0
+ 421              		.cfi_startproc
+ 422              		@ args = 0, pretend = 0, frame = 0
+ 423              		@ frame_needed = 0, uses_anonymous_args = 0
+ 424              		@ link register save eliminated.
+ 238:Lib/lvgl/src/misc/lv_style.c ****     return last_custom_prop_id - _LV_STYLE_LAST_BUILT_IN_PROP;
+ 425              		.loc 1 238 5 view .LVU131
+ 426              		.loc 1 238 12 is_stmt 0 view .LVU132
+ 427 0000 024B     		ldr	r3, .L34
+ 428 0002 D86A     		ldr	r0, [r3, #44]
+ 429              		.loc 1 238 32 view .LVU133
+ 430 0004 7E30     		adds	r0, r0, #126
+ 239:Lib/lvgl/src/misc/lv_style.c **** }
+ 431              		.loc 1 239 1 view .LVU134
+ 432 0006 C0B2     		uxtb	r0, r0
+ 433 0008 7047     		bx	lr
+ 434              	.L35:
+ 435 000a 00BF     		.align	2
+ 436              	.L34:
+ 437 000c 00000000 		.word	lv_global
+ 438              		.cfi_endproc
+ 439              	.LFE237:
+ 441              		.section	.text.lv_style_remove_prop,"ax",%progbits
+ 442              		.align	1
+ 443              		.global	lv_style_remove_prop
+ 444              		.syntax unified
+ 445              		.thumb
+ 446              		.thumb_func
+ 448              	lv_style_remove_prop:
+ 449              	.LVL35:
+ 450              	.LFB238:
+ 240:Lib/lvgl/src/misc/lv_style.c **** 
+ 241:Lib/lvgl/src/misc/lv_style.c **** bool lv_style_remove_prop(lv_style_t * style, lv_style_prop_t prop)
+ 242:Lib/lvgl/src/misc/lv_style.c **** {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 24
+
+
+ 451              		.loc 1 242 1 is_stmt 1 view -0
+ 452              		.cfi_startproc
+ 453              		@ args = 0, pretend = 0, frame = 0
+ 454              		@ frame_needed = 0, uses_anonymous_args = 0
+ 455              		.loc 1 242 1 is_stmt 0 view .LVU136
+ 456 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 457              	.LCFI4:
+ 458              		.cfi_def_cfa_offset 24
+ 459              		.cfi_offset 4, -24
+ 460              		.cfi_offset 5, -20
+ 461              		.cfi_offset 6, -16
+ 462              		.cfi_offset 7, -12
+ 463              		.cfi_offset 8, -8
+ 464              		.cfi_offset 14, -4
+ 465 0004 0746     		mov	r7, r0
+ 243:Lib/lvgl/src/misc/lv_style.c ****     LV_ASSERT_STYLE(style);
+ 466              		.loc 1 243 5 is_stmt 1 view .LVU137
+ 467              		.loc 1 243 5 view .LVU138
+ 468              		.loc 1 243 5 view .LVU139
+ 244:Lib/lvgl/src/misc/lv_style.c **** 
+ 245:Lib/lvgl/src/misc/lv_style.c ****     if(lv_style_is_const(style)) {
+ 469              		.loc 1 245 5 view .LVU140
+ 470              	.LVL36:
+ 471              	.LBB36:
+ 472              	.LBI36:
+ 406:Lib/lvgl/src/misc/lv_style.h **** {
+ 473              		.loc 2 406 20 view .LVU141
+ 474              	.LBB37:
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 475              		.loc 2 408 5 view .LVU142
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 476              		.loc 2 408 13 is_stmt 0 view .LVU143
+ 477 0006 007A     		ldrb	r0, [r0, #8]	@ zero_extendqisi2
+ 478              	.LVL37:
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 479              		.loc 2 408 7 view .LVU144
+ 480 0008 FF28     		cmp	r0, #255
+ 481 000a 36D0     		beq	.L44
+ 482 000c 0D46     		mov	r5, r1
+ 483              	.LVL38:
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 484              		.loc 2 408 7 view .LVU145
+ 485              	.LBE37:
+ 486              	.LBE36:
+ 246:Lib/lvgl/src/misc/lv_style.c ****         LV_LOG_ERROR("Cannot remove prop from const style");
+ 247:Lib/lvgl/src/misc/lv_style.c ****         return false;
+ 248:Lib/lvgl/src/misc/lv_style.c ****     }
+ 249:Lib/lvgl/src/misc/lv_style.c **** 
+ 250:Lib/lvgl/src/misc/lv_style.c ****     if(style->prop_cnt == 0)  return false;
+ 487              		.loc 1 250 5 is_stmt 1 view .LVU146
+ 488              		.loc 1 250 7 is_stmt 0 view .LVU147
+ 489 000e B0B3     		cbz	r0, .L45
+ 251:Lib/lvgl/src/misc/lv_style.c **** 
+ 252:Lib/lvgl/src/misc/lv_style.c ****     uint8_t * tmp = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_
+ 490              		.loc 1 252 5 is_stmt 1 view .LVU148
+ 491              		.loc 1 252 45 is_stmt 0 view .LVU149
+ 492 0010 D7F80080 		ldr	r8, [r7]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 25
+
+
+ 493              		.loc 1 252 15 view .LVU150
+ 494 0014 08EB8006 		add	r6, r8, r0, lsl #2
+ 495              	.LVL39:
+ 253:Lib/lvgl/src/misc/lv_style.c ****     uint8_t * old_props = (uint8_t *)tmp;
+ 496              		.loc 1 253 5 is_stmt 1 view .LVU151
+ 254:Lib/lvgl/src/misc/lv_style.c ****     uint32_t i;
+ 497              		.loc 1 254 5 view .LVU152
+ 255:Lib/lvgl/src/misc/lv_style.c ****     for(i = 0; i < style->prop_cnt; i++) {
+ 498              		.loc 1 255 5 view .LVU153
+ 499              		.loc 1 255 11 is_stmt 0 view .LVU154
+ 500 0018 0023     		movs	r3, #0
+ 501              	.LVL40:
+ 502              	.L38:
+ 503              		.loc 1 255 18 is_stmt 1 discriminator 1 view .LVU155
+ 504 001a 9842     		cmp	r0, r3
+ 505 001c 2BD9     		bls	.L48
+ 256:Lib/lvgl/src/misc/lv_style.c ****         if(old_props[i] == prop) {
+ 506              		.loc 1 256 9 view .LVU156
+ 507              		.loc 1 256 21 is_stmt 0 view .LVU157
+ 508 001e F25C     		ldrb	r2, [r6, r3]	@ zero_extendqisi2
+ 509              		.loc 1 256 11 view .LVU158
+ 510 0020 AA42     		cmp	r2, r5
+ 511 0022 01D0     		beq	.L49
+ 255:Lib/lvgl/src/misc/lv_style.c ****     for(i = 0; i < style->prop_cnt; i++) {
+ 512              		.loc 1 255 38 is_stmt 1 discriminator 2 view .LVU159
+ 513 0024 0133     		adds	r3, r3, #1
+ 514              	.LVL41:
+ 255:Lib/lvgl/src/misc/lv_style.c ****     for(i = 0; i < style->prop_cnt; i++) {
+ 515              		.loc 1 255 38 is_stmt 0 discriminator 2 view .LVU160
+ 516 0026 F8E7     		b	.L38
+ 517              	.L49:
+ 518              	.LBB38:
+ 257:Lib/lvgl/src/misc/lv_style.c ****             lv_style_value_t * old_values = (lv_style_value_t *)style->values_and_props;
+ 519              		.loc 1 257 13 is_stmt 1 view .LVU161
+ 520              	.LVL42:
+ 258:Lib/lvgl/src/misc/lv_style.c **** 
+ 259:Lib/lvgl/src/misc/lv_style.c ****             size_t size = (style->prop_cnt - 1) * (sizeof(lv_style_value_t) + sizeof(lv_style_prop_
+ 521              		.loc 1 259 13 view .LVU162
+ 522              		.loc 1 259 44 is_stmt 0 view .LVU163
+ 523 0028 0138     		subs	r0, r0, #1
+ 524              	.LVL43:
+ 260:Lib/lvgl/src/misc/lv_style.c ****             uint8_t * new_values_and_props = lv_malloc(size);
+ 525              		.loc 1 260 13 is_stmt 1 view .LVU164
+ 526              		.loc 1 260 46 is_stmt 0 view .LVU165
+ 527 002a 00EB8000 		add	r0, r0, r0, lsl #2
+ 528              	.LVL44:
+ 529              		.loc 1 260 46 view .LVU166
+ 530 002e FFF7FEFF 		bl	lv_malloc
+ 531              	.LVL45:
+ 261:Lib/lvgl/src/misc/lv_style.c ****             if(new_values_and_props == NULL) return false;
+ 532              		.loc 1 261 13 is_stmt 1 view .LVU167
+ 533              		.loc 1 261 15 is_stmt 0 view .LVU168
+ 534 0032 0446     		mov	r4, r0
+ 535 0034 30B3     		cbz	r0, .L46
+ 262:Lib/lvgl/src/misc/lv_style.c ****             style->values_and_props = new_values_and_props;
+ 536              		.loc 1 262 13 is_stmt 1 view .LVU169
+ 537              		.loc 1 262 37 is_stmt 0 view .LVU170
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 26
+
+
+ 538 0036 3860     		str	r0, [r7]
+ 263:Lib/lvgl/src/misc/lv_style.c ****             style->prop_cnt--;
+ 539              		.loc 1 263 13 is_stmt 1 view .LVU171
+ 540              		.loc 1 263 18 is_stmt 0 view .LVU172
+ 541 0038 387A     		ldrb	r0, [r7, #8]	@ zero_extendqisi2
+ 542              	.LVL46:
+ 543              		.loc 1 263 28 view .LVU173
+ 544 003a 0138     		subs	r0, r0, #1
+ 545 003c C0B2     		uxtb	r0, r0
+ 546 003e 3872     		strb	r0, [r7, #8]
+ 264:Lib/lvgl/src/misc/lv_style.c **** 
+ 265:Lib/lvgl/src/misc/lv_style.c ****             tmp = new_values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
+ 547              		.loc 1 265 13 is_stmt 1 view .LVU174
+ 548              		.loc 1 265 58 is_stmt 0 view .LVU175
+ 549 0040 8000     		lsls	r0, r0, #2
+ 550              	.LVL47:
+ 266:Lib/lvgl/src/misc/lv_style.c ****             uint8_t * new_props = (uint8_t *)tmp;
+ 551              		.loc 1 266 13 is_stmt 1 view .LVU176
+ 267:Lib/lvgl/src/misc/lv_style.c ****             lv_style_value_t * new_values = (lv_style_value_t *)new_values_and_props;
+ 552              		.loc 1 267 13 view .LVU177
+ 268:Lib/lvgl/src/misc/lv_style.c **** 
+ 269:Lib/lvgl/src/misc/lv_style.c ****             uint32_t j;
+ 553              		.loc 1 269 13 view .LVU178
+ 270:Lib/lvgl/src/misc/lv_style.c ****             for(i = j = 0; j <= style->prop_cnt;
+ 554              		.loc 1 270 13 view .LVU179
+ 555              		.loc 1 270 23 is_stmt 0 view .LVU180
+ 556 0042 0023     		movs	r3, #0
+ 557              		.loc 1 270 19 view .LVU181
+ 558 0044 1A46     		mov	r2, r3
+ 559              		.loc 1 270 13 view .LVU182
+ 560 0046 00E0     		b	.L40
+ 561              	.LVL48:
+ 562              	.L41:
+ 271:Lib/lvgl/src/misc/lv_style.c ****                 j++) { /*<=: because prop_cnt already reduced but all the old props. needs to be ch
+ 563              		.loc 1 271 18 is_stmt 1 view .LVU183
+ 564 0048 0133     		adds	r3, r3, #1
+ 565              	.LVL49:
+ 566              	.L40:
+ 270:Lib/lvgl/src/misc/lv_style.c ****             for(i = j = 0; j <= style->prop_cnt;
+ 567              		.loc 1 270 30 discriminator 1 view .LVU184
+ 270:Lib/lvgl/src/misc/lv_style.c ****             for(i = j = 0; j <= style->prop_cnt;
+ 568              		.loc 1 270 38 is_stmt 0 discriminator 1 view .LVU185
+ 569 004a 397A     		ldrb	r1, [r7, #8]	@ zero_extendqisi2
+ 270:Lib/lvgl/src/misc/lv_style.c ****             for(i = j = 0; j <= style->prop_cnt;
+ 570              		.loc 1 270 30 discriminator 1 view .LVU186
+ 571 004c 9942     		cmp	r1, r3
+ 572 004e 0DD3     		bcc	.L50
+ 272:Lib/lvgl/src/misc/lv_style.c ****                 if(old_props[j] != prop) {
+ 573              		.loc 1 272 17 is_stmt 1 view .LVU187
+ 574              		.loc 1 272 29 is_stmt 0 view .LVU188
+ 575 0050 F15C     		ldrb	r1, [r6, r3]	@ zero_extendqisi2
+ 576              		.loc 1 272 19 view .LVU189
+ 577 0052 A942     		cmp	r1, r5
+ 578 0054 F8D0     		beq	.L41
+ 273:Lib/lvgl/src/misc/lv_style.c ****                     new_values[i] = old_values[j];
+ 579              		.loc 1 273 21 is_stmt 1 view .LVU190
+ 580              		.loc 1 273 35 is_stmt 0 view .LVU191
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 27
+
+
+ 581 0056 58F82310 		ldr	r1, [r8, r3, lsl #2]
+ 582 005a 44F82210 		str	r1, [r4, r2, lsl #2]
+ 274:Lib/lvgl/src/misc/lv_style.c ****                     new_props[i++] = old_props[j];
+ 583              		.loc 1 274 21 is_stmt 1 view .LVU192
+ 584              	.LVL50:
+ 585              		.loc 1 274 30 is_stmt 0 view .LVU193
+ 586 005e 8118     		adds	r1, r0, r2
+ 587              		.loc 1 274 47 view .LVU194
+ 588 0060 16F803C0 		ldrb	ip, [r6, r3]	@ zero_extendqisi2
+ 589              		.loc 1 274 36 view .LVU195
+ 590 0064 04F801C0 		strb	ip, [r4, r1]
+ 591              		.loc 1 274 32 view .LVU196
+ 592 0068 0132     		adds	r2, r2, #1
+ 593              	.LVL51:
+ 594              		.loc 1 274 32 view .LVU197
+ 595 006a EDE7     		b	.L41
+ 596              	.L50:
+ 275:Lib/lvgl/src/misc/lv_style.c ****                 }
+ 276:Lib/lvgl/src/misc/lv_style.c ****             }
+ 277:Lib/lvgl/src/misc/lv_style.c **** 
+ 278:Lib/lvgl/src/misc/lv_style.c ****             lv_free(old_values);
+ 597              		.loc 1 278 13 is_stmt 1 view .LVU198
+ 598 006c 4046     		mov	r0, r8
+ 599              	.LVL52:
+ 600              		.loc 1 278 13 is_stmt 0 view .LVU199
+ 601 006e FFF7FEFF 		bl	lv_free
+ 602              	.LVL53:
+ 279:Lib/lvgl/src/misc/lv_style.c ****             return true;
+ 603              		.loc 1 279 13 is_stmt 1 view .LVU200
+ 604              		.loc 1 279 20 is_stmt 0 view .LVU201
+ 605 0072 0120     		movs	r0, #1
+ 606 0074 04E0     		b	.L37
+ 607              	.LVL54:
+ 608              	.L48:
+ 609              		.loc 1 279 20 view .LVU202
+ 610              	.LBE38:
+ 280:Lib/lvgl/src/misc/lv_style.c ****         }
+ 281:Lib/lvgl/src/misc/lv_style.c ****     }
+ 282:Lib/lvgl/src/misc/lv_style.c **** 
+ 283:Lib/lvgl/src/misc/lv_style.c ****     return false;
+ 611              		.loc 1 283 12 view .LVU203
+ 612 0076 0020     		movs	r0, #0
+ 613 0078 02E0     		b	.L37
+ 614              	.LVL55:
+ 615              	.L44:
+ 247:Lib/lvgl/src/misc/lv_style.c ****     }
+ 616              		.loc 1 247 16 view .LVU204
+ 617 007a 0020     		movs	r0, #0
+ 618 007c 00E0     		b	.L37
+ 619              	.LVL56:
+ 620              	.L45:
+ 250:Lib/lvgl/src/misc/lv_style.c **** 
+ 621              		.loc 1 250 38 view .LVU205
+ 622 007e 0020     		movs	r0, #0
+ 623              	.LVL57:
+ 624              	.L37:
+ 284:Lib/lvgl/src/misc/lv_style.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 28
+
+
+ 625              		.loc 1 284 1 view .LVU206
+ 626 0080 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 627              	.LVL58:
+ 628              	.L46:
+ 629              	.LBB39:
+ 261:Lib/lvgl/src/misc/lv_style.c ****             style->values_and_props = new_values_and_props;
+ 630              		.loc 1 261 53 view .LVU207
+ 631 0084 0020     		movs	r0, #0
+ 632              	.LVL59:
+ 261:Lib/lvgl/src/misc/lv_style.c ****             style->values_and_props = new_values_and_props;
+ 633              		.loc 1 261 53 view .LVU208
+ 634 0086 FBE7     		b	.L37
+ 635              	.LBE39:
+ 636              		.cfi_endproc
+ 637              	.LFE238:
+ 639              		.section	.text.lv_style_set_prop,"ax",%progbits
+ 640              		.align	1
+ 641              		.global	lv_style_set_prop
+ 642              		.syntax unified
+ 643              		.thumb
+ 644              		.thumb_func
+ 646              	lv_style_set_prop:
+ 647              	.LVL60:
+ 648              	.LFB239:
+ 285:Lib/lvgl/src/misc/lv_style.c **** 
+ 286:Lib/lvgl/src/misc/lv_style.c **** void lv_style_set_prop(lv_style_t * style, lv_style_prop_t prop, lv_style_value_t value)
+ 287:Lib/lvgl/src/misc/lv_style.c **** {
+ 649              		.loc 1 287 1 is_stmt 1 view -0
+ 650              		.cfi_startproc
+ 651              		@ args = 0, pretend = 0, frame = 8
+ 652              		@ frame_needed = 0, uses_anonymous_args = 0
+ 653              		.loc 1 287 1 is_stmt 0 view .LVU210
+ 654 0000 70B5     		push	{r4, r5, r6, lr}
+ 655              	.LCFI5:
+ 656              		.cfi_def_cfa_offset 16
+ 657              		.cfi_offset 4, -16
+ 658              		.cfi_offset 5, -12
+ 659              		.cfi_offset 6, -8
+ 660              		.cfi_offset 14, -4
+ 661 0002 82B0     		sub	sp, sp, #8
+ 662              	.LCFI6:
+ 663              		.cfi_def_cfa_offset 24
+ 664 0004 0C46     		mov	r4, r1
+ 665 0006 0192     		str	r2, [sp, #4]
+ 288:Lib/lvgl/src/misc/lv_style.c ****     LV_ASSERT_STYLE(style);
+ 666              		.loc 1 288 5 is_stmt 1 view .LVU211
+ 667              		.loc 1 288 5 view .LVU212
+ 668              		.loc 1 288 5 view .LVU213
+ 289:Lib/lvgl/src/misc/lv_style.c **** 
+ 290:Lib/lvgl/src/misc/lv_style.c ****     if(lv_style_is_const(style)) {
+ 669              		.loc 1 290 5 view .LVU214
+ 670              	.LVL61:
+ 671              	.LBB40:
+ 672              	.LBI40:
+ 406:Lib/lvgl/src/misc/lv_style.h **** {
+ 673              		.loc 2 406 20 view .LVU215
+ 674              	.LBB41:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 29
+
+
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 675              		.loc 2 408 5 view .LVU216
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 676              		.loc 2 408 13 is_stmt 0 view .LVU217
+ 677 0008 017A     		ldrb	r1, [r0, #8]	@ zero_extendqisi2
+ 678              	.LVL62:
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 679              		.loc 2 408 7 view .LVU218
+ 680 000a FF29     		cmp	r1, #255
+ 681 000c 3ED0     		beq	.L51
+ 682 000e 0546     		mov	r5, r0
+ 683              	.LVL63:
+ 408:Lib/lvgl/src/misc/lv_style.h ****     return false;
+ 684              		.loc 2 408 7 view .LVU219
+ 685              	.LBE41:
+ 686              	.LBE40:
+ 291:Lib/lvgl/src/misc/lv_style.c ****         LV_LOG_ERROR("Cannot set property of constant style");
+ 292:Lib/lvgl/src/misc/lv_style.c ****         return;
+ 293:Lib/lvgl/src/misc/lv_style.c ****     }
+ 294:Lib/lvgl/src/misc/lv_style.c **** 
+ 295:Lib/lvgl/src/misc/lv_style.c ****     LV_ASSERT(prop != LV_STYLE_PROP_INV);
+ 687              		.loc 1 295 5 is_stmt 1 view .LVU220
+ 688              		.loc 1 295 5 view .LVU221
+ 689 0010 04B9     		cbnz	r4, .L53
+ 690              	.L54:
+ 691              		.loc 1 295 5 discriminator 1 view .LVU222
+ 692              		.loc 1 295 5 discriminator 1 view .LVU223
+ 693              		.loc 1 295 5 discriminator 1 view .LVU224
+ 694              		.loc 1 295 5 discriminator 1 view .LVU225
+ 695              		.loc 1 295 5 discriminator 1 view .LVU226
+ 696 0012 FEE7     		b	.L54
+ 697              	.L53:
+ 698              		.loc 1 295 5 discriminator 2 view .LVU227
+ 296:Lib/lvgl/src/misc/lv_style.c **** 
+ 297:Lib/lvgl/src/misc/lv_style.c ****     lv_style_prop_t * props;
+ 699              		.loc 1 297 5 discriminator 2 view .LVU228
+ 298:Lib/lvgl/src/misc/lv_style.c ****     int32_t i;
+ 700              		.loc 1 298 5 discriminator 2 view .LVU229
+ 299:Lib/lvgl/src/misc/lv_style.c **** 
+ 300:Lib/lvgl/src/misc/lv_style.c ****     if(style->values_and_props) {
+ 701              		.loc 1 300 5 discriminator 2 view .LVU230
+ 702              		.loc 1 300 13 is_stmt 0 discriminator 2 view .LVU231
+ 703 0014 0068     		ldr	r0, [r0]
+ 704              	.LVL64:
+ 705              		.loc 1 300 7 discriminator 2 view .LVU232
+ 706 0016 78B1     		cbz	r0, .L55
+ 301:Lib/lvgl/src/misc/lv_style.c ****         props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_valu
+ 707              		.loc 1 301 9 is_stmt 1 view .LVU233
+ 708              		.loc 1 301 78 is_stmt 0 view .LVU234
+ 709 0018 4FEA810C 		lsl	ip, r1, #2
+ 710              	.LVL65:
+ 302:Lib/lvgl/src/misc/lv_style.c ****         for(i = style->prop_cnt - 1; i >= 0; i--) {
+ 711              		.loc 1 302 9 is_stmt 1 view .LVU235
+ 712              		.loc 1 302 15 is_stmt 0 view .LVU236
+ 713 001c 4B1E     		subs	r3, r1, #1
+ 714              	.LVL66:
+ 715              	.L56:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 30
+
+
+ 716              		.loc 1 302 40 is_stmt 1 discriminator 1 view .LVU237
+ 717 001e 002B     		cmp	r3, #0
+ 718 0020 0ADB     		blt	.L55
+ 303:Lib/lvgl/src/misc/lv_style.c ****             if(props[i] == prop) {
+ 719              		.loc 1 303 13 view .LVU238
+ 720              		.loc 1 303 21 is_stmt 0 view .LVU239
+ 721 0022 00EB0C02 		add	r2, r0, ip
+ 722 0026 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 723              		.loc 1 303 15 view .LVU240
+ 724 0028 A242     		cmp	r2, r4
+ 725 002a 01D0     		beq	.L64
+ 302:Lib/lvgl/src/misc/lv_style.c ****         for(i = style->prop_cnt - 1; i >= 0; i--) {
+ 726              		.loc 1 302 47 is_stmt 1 discriminator 2 view .LVU241
+ 727 002c 013B     		subs	r3, r3, #1
+ 728              	.LVL67:
+ 302:Lib/lvgl/src/misc/lv_style.c ****         for(i = style->prop_cnt - 1; i >= 0; i--) {
+ 729              		.loc 1 302 47 is_stmt 0 discriminator 2 view .LVU242
+ 730 002e F6E7     		b	.L56
+ 731              	.L64:
+ 732              	.LBB42:
+ 304:Lib/lvgl/src/misc/lv_style.c ****                 lv_style_value_t * values = (lv_style_value_t *)style->values_and_props;
+ 733              		.loc 1 304 17 is_stmt 1 view .LVU243
+ 734              	.LVL68:
+ 305:Lib/lvgl/src/misc/lv_style.c ****                 values[i] = value;
+ 735              		.loc 1 305 17 view .LVU244
+ 736              		.loc 1 305 27 is_stmt 0 view .LVU245
+ 737 0030 019A     		ldr	r2, [sp, #4]
+ 738 0032 40F82320 		str	r2, [r0, r3, lsl #2]
+ 306:Lib/lvgl/src/misc/lv_style.c ****                 return;
+ 739              		.loc 1 306 17 is_stmt 1 view .LVU246
+ 740 0036 29E0     		b	.L51
+ 741              	.LVL69:
+ 742              	.L55:
+ 743              		.loc 1 306 17 is_stmt 0 view .LVU247
+ 744              	.LBE42:
+ 307:Lib/lvgl/src/misc/lv_style.c ****             }
+ 308:Lib/lvgl/src/misc/lv_style.c ****         }
+ 309:Lib/lvgl/src/misc/lv_style.c ****     }
+ 310:Lib/lvgl/src/misc/lv_style.c **** 
+ 311:Lib/lvgl/src/misc/lv_style.c ****     size_t size = (style->prop_cnt + 1) * (sizeof(lv_style_value_t) + sizeof(lv_style_prop_t));
+ 745              		.loc 1 311 5 is_stmt 1 view .LVU248
+ 746              		.loc 1 311 36 is_stmt 0 view .LVU249
+ 747 0038 0131     		adds	r1, r1, #1
+ 748              	.LVL70:
+ 312:Lib/lvgl/src/misc/lv_style.c ****     uint8_t * values_and_props = lv_realloc(style->values_and_props, size);
+ 749              		.loc 1 312 5 is_stmt 1 view .LVU250
+ 750              		.loc 1 312 34 is_stmt 0 view .LVU251
+ 751 003a 01EB8101 		add	r1, r1, r1, lsl #2
+ 752              	.LVL71:
+ 753              		.loc 1 312 34 view .LVU252
+ 754 003e FFF7FEFF 		bl	lv_realloc
+ 755              	.LVL72:
+ 313:Lib/lvgl/src/misc/lv_style.c ****     if(values_and_props == NULL) return;
+ 756              		.loc 1 313 5 is_stmt 1 view .LVU253
+ 757              		.loc 1 313 7 is_stmt 0 view .LVU254
+ 758 0042 0646     		mov	r6, r0
+ 759 0044 10B3     		cbz	r0, .L51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 31
+
+
+ 314:Lib/lvgl/src/misc/lv_style.c ****     style->values_and_props = values_and_props;
+ 760              		.loc 1 314 5 is_stmt 1 view .LVU255
+ 761              		.loc 1 314 29 is_stmt 0 view .LVU256
+ 762 0046 2860     		str	r0, [r5]
+ 315:Lib/lvgl/src/misc/lv_style.c **** 
+ 316:Lib/lvgl/src/misc/lv_style.c ****     props = values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
+ 763              		.loc 1 316 5 is_stmt 1 view .LVU257
+ 764              		.loc 1 316 37 is_stmt 0 view .LVU258
+ 765 0048 2B7A     		ldrb	r3, [r5, #8]	@ zero_extendqisi2
+ 766              		.loc 1 316 11 view .LVU259
+ 767 004a 00EB8302 		add	r2, r0, r3, lsl #2
+ 768              	.LVL73:
+ 317:Lib/lvgl/src/misc/lv_style.c ****     /*Shift all props to make place for the value before them*/
+ 318:Lib/lvgl/src/misc/lv_style.c ****     for(i = style->prop_cnt - 1; i >= 0; i--) {
+ 769              		.loc 1 318 5 is_stmt 1 view .LVU260
+ 770              		.loc 1 318 11 is_stmt 0 view .LVU261
+ 771 004e 013B     		subs	r3, r3, #1
+ 772              	.LVL74:
+ 773              		.loc 1 318 5 view .LVU262
+ 774 0050 03E0     		b	.L59
+ 775              	.LVL75:
+ 776              	.L60:
+ 319:Lib/lvgl/src/misc/lv_style.c ****         props[i + sizeof(lv_style_value_t) / sizeof(lv_style_prop_t)] = props[i];
+ 777              		.loc 1 319 9 is_stmt 1 discriminator 3 view .LVU263
+ 778              		.loc 1 319 14 is_stmt 0 discriminator 3 view .LVU264
+ 779 0052 191D     		adds	r1, r3, #4
+ 780              		.loc 1 319 78 discriminator 3 view .LVU265
+ 781 0054 D05C     		ldrb	r0, [r2, r3]	@ zero_extendqisi2
+ 782              		.loc 1 319 71 discriminator 3 view .LVU266
+ 783 0056 5054     		strb	r0, [r2, r1]
+ 318:Lib/lvgl/src/misc/lv_style.c ****         props[i + sizeof(lv_style_value_t) / sizeof(lv_style_prop_t)] = props[i];
+ 784              		.loc 1 318 43 is_stmt 1 discriminator 3 view .LVU267
+ 785 0058 013B     		subs	r3, r3, #1
+ 786              	.LVL76:
+ 787              	.L59:
+ 318:Lib/lvgl/src/misc/lv_style.c ****         props[i + sizeof(lv_style_value_t) / sizeof(lv_style_prop_t)] = props[i];
+ 788              		.loc 1 318 36 discriminator 1 view .LVU268
+ 789 005a 002B     		cmp	r3, #0
+ 790 005c F9DA     		bge	.L60
+ 320:Lib/lvgl/src/misc/lv_style.c ****     }
+ 321:Lib/lvgl/src/misc/lv_style.c ****     style->prop_cnt++;
+ 791              		.loc 1 321 5 view .LVU269
+ 792              		.loc 1 321 10 is_stmt 0 view .LVU270
+ 793 005e 2B7A     		ldrb	r3, [r5, #8]	@ zero_extendqisi2
+ 794              	.LVL77:
+ 795              		.loc 1 321 20 view .LVU271
+ 796 0060 0133     		adds	r3, r3, #1
+ 797 0062 DBB2     		uxtb	r3, r3
+ 798 0064 2B72     		strb	r3, [r5, #8]
+ 322:Lib/lvgl/src/misc/lv_style.c **** 
+ 323:Lib/lvgl/src/misc/lv_style.c ****     /*Go to the new position with the props*/
+ 324:Lib/lvgl/src/misc/lv_style.c ****     props = values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
+ 799              		.loc 1 324 5 is_stmt 1 view .LVU272
+ 800              	.LVL78:
+ 325:Lib/lvgl/src/misc/lv_style.c ****     lv_style_value_t * values = (lv_style_value_t *)values_and_props;
+ 801              		.loc 1 325 5 view .LVU273
+ 326:Lib/lvgl/src/misc/lv_style.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 32
+
+
+ 327:Lib/lvgl/src/misc/lv_style.c ****     /*Set the new property and value*/
+ 328:Lib/lvgl/src/misc/lv_style.c ****     props[style->prop_cnt - 1] = prop;
+ 802              		.loc 1 328 5 view .LVU274
+ 803              		.loc 1 328 10 is_stmt 0 view .LVU275
+ 804 0066 5A1E     		subs	r2, r3, #1
+ 805 0068 02EB8303 		add	r3, r2, r3, lsl #2
+ 806              	.LVL79:
+ 807              		.loc 1 328 32 view .LVU276
+ 808 006c F454     		strb	r4, [r6, r3]
+ 329:Lib/lvgl/src/misc/lv_style.c ****     values[style->prop_cnt - 1] = value;
+ 809              		.loc 1 329 5 is_stmt 1 view .LVU277
+ 810              		.loc 1 329 17 is_stmt 0 view .LVU278
+ 811 006e 2B7A     		ldrb	r3, [r5, #8]	@ zero_extendqisi2
+ 812              		.loc 1 329 11 view .LVU279
+ 813 0070 03F18043 		add	r3, r3, #1073741824
+ 814 0074 013B     		subs	r3, r3, #1
+ 815              		.loc 1 329 33 view .LVU280
+ 816 0076 019A     		ldr	r2, [sp, #4]
+ 817              	.LVL80:
+ 818              		.loc 1 329 33 view .LVU281
+ 819 0078 46F82320 		str	r2, [r6, r3, lsl #2]
+ 330:Lib/lvgl/src/misc/lv_style.c **** 
+ 331:Lib/lvgl/src/misc/lv_style.c ****     uint32_t group = _lv_style_get_prop_group(prop);
+ 820              		.loc 1 331 5 is_stmt 1 view .LVU282
+ 821              	.LVL81:
+ 822              	.LBB43:
+ 823              	.LBI43:
+ 520:Lib/lvgl/src/misc/lv_style.h **** 
+ 521:Lib/lvgl/src/misc/lv_style.h **** /**
+ 522:Lib/lvgl/src/misc/lv_style.h ****  * Checks if a style is empty (has no properties)
+ 523:Lib/lvgl/src/misc/lv_style.h ****  * @param style pointer to a style
+ 524:Lib/lvgl/src/misc/lv_style.h ****  * @return true if the style is empty
+ 525:Lib/lvgl/src/misc/lv_style.h ****  */
+ 526:Lib/lvgl/src/misc/lv_style.h **** bool lv_style_is_empty(const lv_style_t * style);
+ 527:Lib/lvgl/src/misc/lv_style.h **** 
+ 528:Lib/lvgl/src/misc/lv_style.h **** /**
+ 529:Lib/lvgl/src/misc/lv_style.h ****  * Tell the group of a property. If the a property from a group is set in a style the (1 << group) 
+ 530:Lib/lvgl/src/misc/lv_style.h ****  * It allows early skipping the style if the property is not exists in the style at all.
+ 531:Lib/lvgl/src/misc/lv_style.h ****  * @param prop a style property
+ 532:Lib/lvgl/src/misc/lv_style.h ****  * @return the group [0..30] 30 means all the custom properties with index > 120
+ 533:Lib/lvgl/src/misc/lv_style.h ****  */
+ 534:Lib/lvgl/src/misc/lv_style.h **** static inline uint32_t _lv_style_get_prop_group(lv_style_prop_t prop)
+ 824              		.loc 2 534 24 view .LVU283
+ 825              	.LBB44:
+ 535:Lib/lvgl/src/misc/lv_style.h **** {
+ 536:Lib/lvgl/src/misc/lv_style.h ****     uint32_t group = prop >> 2;
+ 826              		.loc 2 536 5 view .LVU284
+ 827              		.loc 2 536 27 is_stmt 0 view .LVU285
+ 828 007c A108     		lsrs	r1, r4, #2
+ 829              	.LVL82:
+ 537:Lib/lvgl/src/misc/lv_style.h ****     if(group > 30) group = 31;    /*The MSB marks all the custom properties*/
+ 830              		.loc 2 537 5 is_stmt 1 view .LVU286
+ 831              		.loc 2 537 7 is_stmt 0 view .LVU287
+ 832 007e 7B2C     		cmp	r4, #123
+ 833 0080 06D8     		bhi	.L65
+ 834              	.LVL83:
+ 835              	.L61:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 33
+
+
+ 538:Lib/lvgl/src/misc/lv_style.h ****     return group;
+ 836              		.loc 2 538 5 is_stmt 1 view .LVU288
+ 837              		.loc 2 538 5 is_stmt 0 view .LVU289
+ 838              	.LBE44:
+ 839              	.LBE43:
+ 332:Lib/lvgl/src/misc/lv_style.c ****     style->has_group |= (uint32_t)1 << group;
+ 840              		.loc 1 332 5 is_stmt 1 view .LVU290
+ 841              		.loc 1 332 10 is_stmt 0 view .LVU291
+ 842 0082 6B68     		ldr	r3, [r5, #4]
+ 843              		.loc 1 332 37 view .LVU292
+ 844 0084 0122     		movs	r2, #1
+ 845 0086 8A40     		lsls	r2, r2, r1
+ 846              		.loc 1 332 22 view .LVU293
+ 847 0088 1343     		orrs	r3, r3, r2
+ 848 008a 6B60     		str	r3, [r5, #4]
+ 849              	.LVL84:
+ 850              	.L51:
+ 333:Lib/lvgl/src/misc/lv_style.c **** }
+ 851              		.loc 1 333 1 view .LVU294
+ 852 008c 02B0     		add	sp, sp, #8
+ 853              	.LCFI7:
+ 854              		.cfi_remember_state
+ 855              		.cfi_def_cfa_offset 16
+ 856              		@ sp needed
+ 857 008e 70BD     		pop	{r4, r5, r6, pc}
+ 858              	.LVL85:
+ 859              	.L65:
+ 860              	.LCFI8:
+ 861              		.cfi_restore_state
+ 862              	.LBB46:
+ 863              	.LBB45:
+ 537:Lib/lvgl/src/misc/lv_style.h ****     return group;
+ 864              		.loc 2 537 26 view .LVU295
+ 865 0090 1F21     		movs	r1, #31
+ 866              	.LVL86:
+ 537:Lib/lvgl/src/misc/lv_style.h ****     return group;
+ 867              		.loc 2 537 26 view .LVU296
+ 868 0092 F6E7     		b	.L61
+ 869              	.LBE45:
+ 870              	.LBE46:
+ 871              		.cfi_endproc
+ 872              	.LFE239:
+ 874              		.section	.text.lv_style_get_prop,"ax",%progbits
+ 875              		.align	1
+ 876              		.global	lv_style_get_prop
+ 877              		.syntax unified
+ 878              		.thumb
+ 879              		.thumb_func
+ 881              	lv_style_get_prop:
+ 882              	.LVL87:
+ 883              	.LFB240:
+ 334:Lib/lvgl/src/misc/lv_style.c **** 
+ 335:Lib/lvgl/src/misc/lv_style.c **** lv_style_res_t lv_style_get_prop(const lv_style_t * style, lv_style_prop_t prop, lv_style_value_t *
+ 336:Lib/lvgl/src/misc/lv_style.c **** {
+ 884              		.loc 1 336 1 is_stmt 1 view -0
+ 885              		.cfi_startproc
+ 886              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 34
+
+
+ 887              		@ frame_needed = 0, uses_anonymous_args = 0
+ 888              		.loc 1 336 1 is_stmt 0 view .LVU298
+ 889 0000 08B5     		push	{r3, lr}
+ 890              	.LCFI9:
+ 891              		.cfi_def_cfa_offset 8
+ 892              		.cfi_offset 3, -8
+ 893              		.cfi_offset 14, -4
+ 337:Lib/lvgl/src/misc/lv_style.c ****     return lv_style_get_prop_inlined(style, prop, value);
+ 894              		.loc 1 337 5 is_stmt 1 view .LVU299
+ 895              		.loc 1 337 12 is_stmt 0 view .LVU300
+ 896 0002 FFF7FEFF 		bl	lv_style_get_prop_inlined
+ 897              	.LVL88:
+ 338:Lib/lvgl/src/misc/lv_style.c **** }
+ 898              		.loc 1 338 1 view .LVU301
+ 899 0006 08BD     		pop	{r3, pc}
+ 900              		.cfi_endproc
+ 901              	.LFE240:
+ 903              		.section	.text.lv_style_transition_dsc_init,"ax",%progbits
+ 904              		.align	1
+ 905              		.global	lv_style_transition_dsc_init
+ 906              		.syntax unified
+ 907              		.thumb
+ 908              		.thumb_func
+ 910              	lv_style_transition_dsc_init:
+ 911              	.LVL89:
+ 912              	.LFB241:
+ 339:Lib/lvgl/src/misc/lv_style.c **** 
+ 340:Lib/lvgl/src/misc/lv_style.c **** void lv_style_transition_dsc_init(lv_style_transition_dsc_t * tr, const lv_style_prop_t props[],
+ 341:Lib/lvgl/src/misc/lv_style.c ****                                   lv_anim_path_cb_t path_cb, uint32_t time, uint32_t delay, void * 
+ 342:Lib/lvgl/src/misc/lv_style.c **** {
+ 913              		.loc 1 342 1 is_stmt 1 view -0
+ 914              		.cfi_startproc
+ 915              		@ args = 8, pretend = 0, frame = 0
+ 916              		@ frame_needed = 0, uses_anonymous_args = 0
+ 917              		.loc 1 342 1 is_stmt 0 view .LVU303
+ 918 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 919              	.LCFI10:
+ 920              		.cfi_def_cfa_offset 24
+ 921              		.cfi_offset 3, -24
+ 922              		.cfi_offset 4, -20
+ 923              		.cfi_offset 5, -16
+ 924              		.cfi_offset 6, -12
+ 925              		.cfi_offset 7, -8
+ 926              		.cfi_offset 14, -4
+ 927 0002 0446     		mov	r4, r0
+ 928 0004 0F46     		mov	r7, r1
+ 929 0006 1546     		mov	r5, r2
+ 930 0008 1E46     		mov	r6, r3
+ 343:Lib/lvgl/src/misc/lv_style.c ****     lv_memzero(tr, sizeof(lv_style_transition_dsc_t));
+ 931              		.loc 1 343 5 is_stmt 1 view .LVU304
+ 932              	.LVL90:
+ 933              	.LBB47:
+ 934              	.LBI47:
+  65:Lib/lvgl/src/misc/../font/../draw/../stdlib/lv_string.h **** {
+ 935              		.loc 3 65 20 view .LVU305
+ 936              	.LBB48:
+ 937              		.loc 3 67 5 view .LVU306
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 35
+
+
+ 938 000a 1422     		movs	r2, #20
+ 939              	.LVL91:
+ 940              		.loc 3 67 5 is_stmt 0 view .LVU307
+ 941 000c 0021     		movs	r1, #0
+ 942              	.LVL92:
+ 943              		.loc 3 67 5 view .LVU308
+ 944 000e FFF7FEFF 		bl	lv_memset
+ 945              	.LVL93:
+ 946              		.loc 3 67 5 view .LVU309
+ 947              	.LBE48:
+ 948              	.LBE47:
+ 344:Lib/lvgl/src/misc/lv_style.c ****     tr->props = props;
+ 949              		.loc 1 344 5 is_stmt 1 view .LVU310
+ 950              		.loc 1 344 15 is_stmt 0 view .LVU311
+ 951 0012 2760     		str	r7, [r4]
+ 345:Lib/lvgl/src/misc/lv_style.c ****     tr->path_xcb = path_cb == NULL ? lv_anim_path_linear : path_cb;
+ 952              		.loc 1 345 5 is_stmt 1 view .LVU312
+ 953              		.loc 1 345 58 is_stmt 0 view .LVU313
+ 954 0014 35B1     		cbz	r5, .L72
+ 955              	.LVL94:
+ 956              	.L69:
+ 957              		.loc 1 345 18 discriminator 4 view .LVU314
+ 958 0016 A560     		str	r5, [r4, #8]
+ 346:Lib/lvgl/src/misc/lv_style.c ****     tr->time = time;
+ 959              		.loc 1 346 5 is_stmt 1 discriminator 4 view .LVU315
+ 960              		.loc 1 346 14 is_stmt 0 discriminator 4 view .LVU316
+ 961 0018 E660     		str	r6, [r4, #12]
+ 347:Lib/lvgl/src/misc/lv_style.c ****     tr->delay = delay;
+ 962              		.loc 1 347 5 is_stmt 1 discriminator 4 view .LVU317
+ 963              		.loc 1 347 15 is_stmt 0 discriminator 4 view .LVU318
+ 964 001a 069B     		ldr	r3, [sp, #24]
+ 965 001c 2361     		str	r3, [r4, #16]
+ 348:Lib/lvgl/src/misc/lv_style.c ****     tr->user_data = user_data;
+ 966              		.loc 1 348 5 is_stmt 1 discriminator 4 view .LVU319
+ 967              		.loc 1 348 19 is_stmt 0 discriminator 4 view .LVU320
+ 968 001e 079B     		ldr	r3, [sp, #28]
+ 969 0020 6360     		str	r3, [r4, #4]
+ 349:Lib/lvgl/src/misc/lv_style.c **** }
+ 970              		.loc 1 349 1 discriminator 4 view .LVU321
+ 971 0022 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 972              	.LVL95:
+ 973              	.L72:
+ 345:Lib/lvgl/src/misc/lv_style.c ****     tr->time = time;
+ 974              		.loc 1 345 58 view .LVU322
+ 975 0024 004D     		ldr	r5, .L73
+ 976              	.LVL96:
+ 345:Lib/lvgl/src/misc/lv_style.c ****     tr->time = time;
+ 977              		.loc 1 345 58 view .LVU323
+ 978 0026 F6E7     		b	.L69
+ 979              	.L74:
+ 980              		.align	2
+ 981              	.L73:
+ 982 0028 00000000 		.word	lv_anim_path_linear
+ 983              		.cfi_endproc
+ 984              	.LFE241:
+ 986              		.section	.text.lv_style_prop_get_default,"ax",%progbits
+ 987              		.align	1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 36
+
+
+ 988              		.global	lv_style_prop_get_default
+ 989              		.syntax unified
+ 990              		.thumb
+ 991              		.thumb_func
+ 993              	lv_style_prop_get_default:
+ 994              	.LVL97:
+ 995              	.LFB242:
+ 350:Lib/lvgl/src/misc/lv_style.c **** 
+ 351:Lib/lvgl/src/misc/lv_style.c **** lv_style_value_t lv_style_prop_get_default(lv_style_prop_t prop)
+ 352:Lib/lvgl/src/misc/lv_style.c **** {
+ 996              		.loc 1 352 1 is_stmt 1 view -0
+ 997              		.cfi_startproc
+ 998              		@ args = 0, pretend = 0, frame = 8
+ 999              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1000              		@ link register save eliminated.
+ 1001              		.loc 1 352 1 is_stmt 0 view .LVU325
+ 1002 0000 82B0     		sub	sp, sp, #8
+ 1003              	.LCFI11:
+ 1004              		.cfi_def_cfa_offset 8
+ 353:Lib/lvgl/src/misc/lv_style.c ****     const lv_color_t black = LV_COLOR_MAKE(0x00, 0x00, 0x00);
+ 1005              		.loc 1 353 5 is_stmt 1 view .LVU326
+ 1006              		.loc 1 353 22 is_stmt 0 view .LVU327
+ 1007 0002 0023     		movs	r3, #0
+ 1008 0004 8DF80030 		strb	r3, [sp]
+ 1009 0008 8DF80130 		strb	r3, [sp, #1]
+ 1010 000c 8DF80230 		strb	r3, [sp, #2]
+ 354:Lib/lvgl/src/misc/lv_style.c ****     const lv_color_t white = LV_COLOR_MAKE(0xff, 0xff, 0xff);
+ 1011              		.loc 1 354 5 is_stmt 1 view .LVU328
+ 355:Lib/lvgl/src/misc/lv_style.c ****     switch(prop) {
+ 1012              		.loc 1 355 5 view .LVU329
+ 1013 0010 3928     		cmp	r0, #57
+ 1014 0012 3DD8     		bhi	.L76
+ 1015 0014 2328     		cmp	r0, #35
+ 1016 0016 2AD2     		bcs	.L77
+ 1017 0018 2228     		cmp	r0, #34
+ 1018 001a 51D8     		bhi	.L78
+ 1019 001c 0528     		cmp	r0, #5
+ 1020 001e 4FD3     		bcc	.L78
+ 1021 0020 0538     		subs	r0, r0, #5
+ 1022              	.LVL98:
+ 1023              		.loc 1 355 5 is_stmt 0 view .LVU330
+ 1024 0022 1D28     		cmp	r0, #29
+ 1025 0024 4CD8     		bhi	.L78
+ 1026 0026 DFE800F0 		tbb	[pc, r0]
+ 1027              	.L87:
+ 1028 002a 67       		.byte	(.L89-.L87)/2
+ 1029 002b 4B       		.byte	(.L78-.L87)/2
+ 1030 002c 67       		.byte	(.L89-.L87)/2
+ 1031 002d 4B       		.byte	(.L78-.L87)/2
+ 1032 002e 4B       		.byte	(.L78-.L87)/2
+ 1033 002f 4B       		.byte	(.L78-.L87)/2
+ 1034 0030 4B       		.byte	(.L78-.L87)/2
+ 1035 0031 4B       		.byte	(.L78-.L87)/2
+ 1036 0032 4B       		.byte	(.L78-.L87)/2
+ 1037 0033 4B       		.byte	(.L78-.L87)/2
+ 1038 0034 4B       		.byte	(.L78-.L87)/2
+ 1039 0035 4B       		.byte	(.L78-.L87)/2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 37
+
+
+ 1040 0036 4B       		.byte	(.L78-.L87)/2
+ 1041 0037 4B       		.byte	(.L78-.L87)/2
+ 1042 0038 4B       		.byte	(.L78-.L87)/2
+ 1043 0039 4B       		.byte	(.L78-.L87)/2
+ 1044 003a 4B       		.byte	(.L78-.L87)/2
+ 1045 003b 4B       		.byte	(.L78-.L87)/2
+ 1046 003c 4B       		.byte	(.L78-.L87)/2
+ 1047 003d 4B       		.byte	(.L78-.L87)/2
+ 1048 003e 4B       		.byte	(.L78-.L87)/2
+ 1049 003f 4B       		.byte	(.L78-.L87)/2
+ 1050 0040 4B       		.byte	(.L78-.L87)/2
+ 1051 0041 54       		.byte	(.L88-.L87)/2
+ 1052 0042 4B       		.byte	(.L78-.L87)/2
+ 1053 0043 4B       		.byte	(.L78-.L87)/2
+ 1054 0044 4B       		.byte	(.L78-.L87)/2
+ 1055 0045 4B       		.byte	(.L78-.L87)/2
+ 1056 0046 4B       		.byte	(.L78-.L87)/2
+ 1057 0047 61       		.byte	(.L86-.L87)/2
+ 1058              	.LVL99:
+ 1059              		.p2align 1
+ 1060              	.L99:
+ 1061              		.loc 1 355 5 view .LVU331
+ 1062 0048 3A38     		subs	r0, r0, #58
+ 1063              	.LVL100:
+ 1064              		.loc 1 355 5 view .LVU332
+ 1065 004a C0B2     		uxtb	r0, r0
+ 1066 004c 0123     		movs	r3, #1
+ 1067 004e 8340     		lsls	r3, r3, r0
+ 1068 0050 2B4A     		ldr	r2, .L100
+ 1069 0052 1342     		tst	r3, r2
+ 1070 0054 47D1     		bne	.L82
+ 1071 0056 2B4A     		ldr	r2, .L100+4
+ 1072 0058 1A40     		ands	r2, r2, r3
+ 1073 005a 8AB3     		cbz	r2, .L78
+ 1074              	.L84:
+ 1075              	.LBB49:
+ 356:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_TRANSFORM_SCALE_X:
+ 357:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_TRANSFORM_SCALE_Y:
+ 358:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 359:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_SCALE_NONE
+ 360:Lib/lvgl/src/misc/lv_style.c ****             };
+ 361:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BG_COLOR:
+ 362:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 363:Lib/lvgl/src/misc/lv_style.c ****                 .color = white
+ 364:Lib/lvgl/src/misc/lv_style.c ****             };
+ 365:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BG_GRAD_COLOR:
+ 366:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BORDER_COLOR:
+ 367:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_SHADOW_COLOR:
+ 368:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_OUTLINE_COLOR:
+ 369:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_ARC_COLOR:
+ 370:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_LINE_COLOR:
+ 371:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_TEXT_COLOR:
+ 372:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_IMAGE_RECOLOR:
+ 373:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 1076              		.loc 1 373 13 is_stmt 1 view .LVU333
+ 1077              		.loc 1 373 20 is_stmt 0 view .LVU334
+ 1078 005c 0023     		movs	r3, #0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 38
+
+
+ 1079 005e 0193     		str	r3, [sp, #4]
+ 1080 0060 009B     		ldr	r3, [sp]
+ 1081 0062 ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 1082 0066 1B0C     		lsrs	r3, r3, #16
+ 1083 0068 8DF80630 		strb	r3, [sp, #6]
+ 1084 006c 2EE0     		b	.L93
+ 1085              	.LVL101:
+ 1086              	.L77:
+ 1087              		.loc 1 373 20 view .LVU335
+ 1088              	.LBE49:
+ 355:Lib/lvgl/src/misc/lv_style.c ****     switch(prop) {
+ 1089              		.loc 1 355 5 view .LVU336
+ 1090 006e 2338     		subs	r0, r0, #35
+ 1091              	.LVL102:
+ 355:Lib/lvgl/src/misc/lv_style.c ****     switch(prop) {
+ 1092              		.loc 1 355 5 view .LVU337
+ 1093 0070 C0B2     		uxtb	r0, r0
+ 1094 0072 0123     		movs	r3, #1
+ 1095 0074 8340     		lsls	r3, r3, r0
+ 1096 0076 48F24602 		movw	r2, #32838
+ 1097 007a 1342     		tst	r3, r2
+ 1098 007c 33D1     		bne	.L82
+ 1099 007e 224A     		ldr	r2, .L100+8
+ 1100 0080 1342     		tst	r3, r2
+ 1101 0082 EBD1     		bne	.L84
+ 1102 0084 13F4003F 		tst	r3, #131072
+ 1103 0088 1AD0     		beq	.L78
+ 1104              	.LBB50:
+ 374:Lib/lvgl/src/misc/lv_style.c ****                 .color = black
+ 375:Lib/lvgl/src/misc/lv_style.c ****             };
+ 376:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_OPA:
+ 377:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_OPA_LAYERED:
+ 378:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BORDER_OPA:
+ 379:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_TEXT_OPA:
+ 380:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_IMAGE_OPA:
+ 381:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BG_GRAD_OPA:
+ 382:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BG_MAIN_OPA:
+ 383:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BG_IMAGE_OPA:
+ 384:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_OUTLINE_OPA:
+ 385:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_SHADOW_OPA:
+ 386:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_LINE_OPA:
+ 387:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_ARC_OPA:
+ 388:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 389:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_OPA_COVER
+ 390:Lib/lvgl/src/misc/lv_style.c ****             };
+ 391:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BG_GRAD_STOP:
+ 392:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 393:Lib/lvgl/src/misc/lv_style.c ****                 .num = 255
+ 394:Lib/lvgl/src/misc/lv_style.c ****             };
+ 395:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_BORDER_SIDE:
+ 396:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 1105              		.loc 1 396 13 is_stmt 1 view .LVU338
+ 1106              		.loc 1 396 20 is_stmt 0 view .LVU339
+ 1107 008a 0F23     		movs	r3, #15
+ 1108 008c 0193     		str	r3, [sp, #4]
+ 1109 008e 1DE0     		b	.L93
+ 1110              	.LVL103:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 39
+
+
+ 1111              	.L76:
+ 1112              		.loc 1 396 20 view .LVU340
+ 1113              	.LBE50:
+ 355:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_TRANSFORM_SCALE_X:
+ 1114              		.loc 1 355 5 view .LVU341
+ 1115 0090 5828     		cmp	r0, #88
+ 1116 0092 13D9     		bls	.L98
+ 1117 0094 6D28     		cmp	r0, #109
+ 1118 0096 13D8     		bhi	.L78
+ 1119 0098 5928     		cmp	r0, #89
+ 1120 009a 11D3     		bcc	.L78
+ 1121 009c 5938     		subs	r0, r0, #89
+ 1122              	.LVL104:
+ 355:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_TRANSFORM_SCALE_X:
+ 1123              		.loc 1 355 5 view .LVU342
+ 1124 009e 1428     		cmp	r0, #20
+ 1125 00a0 0ED8     		bhi	.L78
+ 1126 00a2 DFE800F0 		tbb	[pc, r0]
+ 1127              	.L81:
+ 1128 00a6 20       		.byte	(.L82-.L81)/2
+ 1129 00a7 26       		.byte	(.L83-.L81)/2
+ 1130 00a8 0D       		.byte	(.L78-.L81)/2
+ 1131 00a9 0D       		.byte	(.L78-.L81)/2
+ 1132 00aa 0D       		.byte	(.L78-.L81)/2
+ 1133 00ab 0D       		.byte	(.L78-.L81)/2
+ 1134 00ac 20       		.byte	(.L82-.L81)/2
+ 1135 00ad 20       		.byte	(.L82-.L81)/2
+ 1136 00ae 0D       		.byte	(.L78-.L81)/2
+ 1137 00af 0D       		.byte	(.L78-.L81)/2
+ 1138 00b0 0D       		.byte	(.L78-.L81)/2
+ 1139 00b1 0D       		.byte	(.L78-.L81)/2
+ 1140 00b2 0D       		.byte	(.L78-.L81)/2
+ 1141 00b3 0D       		.byte	(.L78-.L81)/2
+ 1142 00b4 0D       		.byte	(.L78-.L81)/2
+ 1143 00b5 0D       		.byte	(.L78-.L81)/2
+ 1144 00b6 0D       		.byte	(.L78-.L81)/2
+ 1145 00b7 0D       		.byte	(.L78-.L81)/2
+ 1146 00b8 0D       		.byte	(.L78-.L81)/2
+ 1147 00b9 10       		.byte	(.L80-.L81)/2
+ 1148 00ba 10       		.byte	(.L80-.L81)/2
+ 1149              	.LVL105:
+ 1150 00bb 00       		.p2align 1
+ 1151              	.L98:
+ 355:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_TRANSFORM_SCALE_X:
+ 1152              		.loc 1 355 5 view .LVU343
+ 1153 00bc 3A28     		cmp	r0, #58
+ 1154 00be C3D2     		bcs	.L99
+ 1155              	.LVL106:
+ 1156              	.L78:
+ 1157              	.LBB51:
+ 397:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_BORDER_SIDE_FULL
+ 398:Lib/lvgl/src/misc/lv_style.c ****             };
+ 399:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_TEXT_FONT:
+ 400:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 401:Lib/lvgl/src/misc/lv_style.c ****                 .ptr = LV_FONT_DEFAULT
+ 402:Lib/lvgl/src/misc/lv_style.c ****             };
+ 403:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_MAX_WIDTH:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 40
+
+
+ 404:Lib/lvgl/src/misc/lv_style.c ****         case LV_STYLE_MAX_HEIGHT:
+ 405:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 406:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_COORD_MAX
+ 407:Lib/lvgl/src/misc/lv_style.c ****             };
+ 408:Lib/lvgl/src/misc/lv_style.c ****         default:
+ 409:Lib/lvgl/src/misc/lv_style.c ****             return (lv_style_value_t) {
+ 1158              		.loc 1 409 13 is_stmt 1 view .LVU344
+ 1159              		.loc 1 409 20 is_stmt 0 view .LVU345
+ 1160 00c0 0023     		movs	r3, #0
+ 1161 00c2 0193     		str	r3, [sp, #4]
+ 1162 00c4 02E0     		b	.L93
+ 1163              	.L80:
+ 358:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_SCALE_NONE
+ 1164              		.loc 1 358 13 is_stmt 1 view .LVU346
+ 358:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_SCALE_NONE
+ 1165              		.loc 1 358 20 is_stmt 0 view .LVU347
+ 1166 00c6 4FF48073 		mov	r3, #256
+ 1167 00ca 0193     		str	r3, [sp, #4]
+ 1168              	.L93:
+ 1169              	.LBE51:
+ 410:Lib/lvgl/src/misc/lv_style.c ****                 .ptr = 0
+ 411:Lib/lvgl/src/misc/lv_style.c ****             };
+ 412:Lib/lvgl/src/misc/lv_style.c ****     }
+ 413:Lib/lvgl/src/misc/lv_style.c **** }
+ 1170              		.loc 1 413 1 view .LVU348
+ 1171 00cc 0198     		ldr	r0, [sp, #4]
+ 1172 00ce 02B0     		add	sp, sp, #8
+ 1173              	.LCFI12:
+ 1174              		.cfi_remember_state
+ 1175              		.cfi_def_cfa_offset 0
+ 1176              		@ sp needed
+ 1177 00d0 7047     		bx	lr
+ 1178              	.L88:
+ 1179              	.LCFI13:
+ 1180              		.cfi_restore_state
+ 1181              	.LBB52:
+ 362:Lib/lvgl/src/misc/lv_style.c ****                 .color = white
+ 1182              		.loc 1 362 13 is_stmt 1 view .LVU349
+ 362:Lib/lvgl/src/misc/lv_style.c ****                 .color = white
+ 1183              		.loc 1 362 20 is_stmt 0 view .LVU350
+ 1184 00d2 0023     		movs	r3, #0
+ 1185 00d4 0193     		str	r3, [sp, #4]
+ 1186 00d6 0D4B     		ldr	r3, .L100+12
+ 1187 00d8 1B68     		ldr	r3, [r3]
+ 1188 00da ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 1189 00de 1B0C     		lsrs	r3, r3, #16
+ 1190 00e0 8DF80630 		strb	r3, [sp, #6]
+ 1191 00e4 F2E7     		b	.L93
+ 1192              	.L82:
+ 388:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_OPA_COVER
+ 1193              		.loc 1 388 13 is_stmt 1 view .LVU351
+ 388:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_OPA_COVER
+ 1194              		.loc 1 388 20 is_stmt 0 view .LVU352
+ 1195 00e6 FF23     		movs	r3, #255
+ 1196 00e8 0193     		str	r3, [sp, #4]
+ 1197 00ea EFE7     		b	.L93
+ 1198              	.L86:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 41
+
+
+ 392:Lib/lvgl/src/misc/lv_style.c ****                 .num = 255
+ 1199              		.loc 1 392 13 is_stmt 1 view .LVU353
+ 392:Lib/lvgl/src/misc/lv_style.c ****                 .num = 255
+ 1200              		.loc 1 392 20 is_stmt 0 view .LVU354
+ 1201 00ec FF23     		movs	r3, #255
+ 1202 00ee 0193     		str	r3, [sp, #4]
+ 1203 00f0 ECE7     		b	.L93
+ 1204              	.L83:
+ 400:Lib/lvgl/src/misc/lv_style.c ****                 .ptr = LV_FONT_DEFAULT
+ 1205              		.loc 1 400 13 is_stmt 1 view .LVU355
+ 400:Lib/lvgl/src/misc/lv_style.c ****                 .ptr = LV_FONT_DEFAULT
+ 1206              		.loc 1 400 20 is_stmt 0 view .LVU356
+ 1207 00f2 074B     		ldr	r3, .L100+16
+ 1208 00f4 0193     		str	r3, [sp, #4]
+ 1209 00f6 E9E7     		b	.L93
+ 1210              	.L89:
+ 405:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_COORD_MAX
+ 1211              		.loc 1 405 13 is_stmt 1 view .LVU357
+ 405:Lib/lvgl/src/misc/lv_style.c ****                 .num = LV_COORD_MAX
+ 1212              		.loc 1 405 20 is_stmt 0 view .LVU358
+ 1213 00f8 6FF06043 		mvn	r3, #-536870912
+ 1214 00fc 0193     		str	r3, [sp, #4]
+ 1215 00fe E5E7     		b	.L93
+ 1216              	.L101:
+ 1217              		.align	2
+ 1218              	.L100:
+ 1219 0100 11040802 		.word	34079761
+ 1220 0104 08080441 		.word	1090783240
+ 1221 0108 01404000 		.word	4210689
+ 1222 010c 00000000 		.word	white.0
+ 1223 0110 00000000 		.word	lv_font_montserrat_14
+ 1224              	.LBE52:
+ 1225              		.cfi_endproc
+ 1226              	.LFE242:
+ 1228              		.section	.text.lv_style_is_empty,"ax",%progbits
+ 1229              		.align	1
+ 1230              		.global	lv_style_is_empty
+ 1231              		.syntax unified
+ 1232              		.thumb
+ 1233              		.thumb_func
+ 1235              	lv_style_is_empty:
+ 1236              	.LVL107:
+ 1237              	.LFB243:
+ 414:Lib/lvgl/src/misc/lv_style.c **** 
+ 415:Lib/lvgl/src/misc/lv_style.c **** bool lv_style_is_empty(const lv_style_t * style)
+ 416:Lib/lvgl/src/misc/lv_style.c **** {
+ 1238              		.loc 1 416 1 is_stmt 1 view -0
+ 1239              		.cfi_startproc
+ 1240              		@ args = 0, pretend = 0, frame = 0
+ 1241              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1242              		@ link register save eliminated.
+ 417:Lib/lvgl/src/misc/lv_style.c ****     LV_ASSERT_STYLE(style);
+ 1243              		.loc 1 417 5 view .LVU360
+ 1244              		.loc 1 417 5 view .LVU361
+ 1245              		.loc 1 417 5 view .LVU362
+ 418:Lib/lvgl/src/misc/lv_style.c **** 
+ 419:Lib/lvgl/src/misc/lv_style.c ****     return style->prop_cnt == 0;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 42
+
+
+ 1246              		.loc 1 419 5 view .LVU363
+ 1247              		.loc 1 419 17 is_stmt 0 view .LVU364
+ 1248 0000 007A     		ldrb	r0, [r0, #8]	@ zero_extendqisi2
+ 1249              	.LVL108:
+ 420:Lib/lvgl/src/misc/lv_style.c **** }
+ 1250              		.loc 1 420 1 view .LVU365
+ 1251 0002 B0FA80F0 		clz	r0, r0
+ 1252 0006 4009     		lsrs	r0, r0, #5
+ 1253 0008 7047     		bx	lr
+ 1254              		.cfi_endproc
+ 1255              	.LFE243:
+ 1257              		.section	.text._lv_style_prop_lookup_flags,"ax",%progbits
+ 1258              		.align	1
+ 1259              		.global	_lv_style_prop_lookup_flags
+ 1260              		.syntax unified
+ 1261              		.thumb
+ 1262              		.thumb_func
+ 1264              	_lv_style_prop_lookup_flags:
+ 1265              	.LVL109:
+ 1266              	.LFB244:
+ 421:Lib/lvgl/src/misc/lv_style.c **** 
+ 422:Lib/lvgl/src/misc/lv_style.c **** uint8_t _lv_style_prop_lookup_flags(lv_style_prop_t prop)
+ 423:Lib/lvgl/src/misc/lv_style.c **** {
+ 1267              		.loc 1 423 1 is_stmt 1 view -0
+ 1268              		.cfi_startproc
+ 1269              		@ args = 0, pretend = 0, frame = 0
+ 1270              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1271              		@ link register save eliminated.
+ 424:Lib/lvgl/src/misc/lv_style.c ****     if(prop == LV_STYLE_PROP_ANY) return LV_STYLE_PROP_FLAG_ALL; /*Any prop can have any flags*/
+ 1272              		.loc 1 424 5 view .LVU367
+ 1273              		.loc 1 424 7 is_stmt 0 view .LVU368
+ 1274 0000 FF28     		cmp	r0, #255
+ 1275 0002 12D0     		beq	.L106
+ 425:Lib/lvgl/src/misc/lv_style.c ****     if(prop == LV_STYLE_PROP_INV) return 0;
+ 1276              		.loc 1 425 5 is_stmt 1 view .LVU369
+ 1277              		.loc 1 425 7 is_stmt 0 view .LVU370
+ 1278 0004 58B1     		cbz	r0, .L104
+ 426:Lib/lvgl/src/misc/lv_style.c **** 
+ 427:Lib/lvgl/src/misc/lv_style.c ****     if(prop < _LV_STYLE_NUM_BUILT_IN_PROPS)
+ 1279              		.loc 1 427 5 is_stmt 1 view .LVU371
+ 1280              		.loc 1 427 7 is_stmt 0 view .LVU372
+ 1281 0006 8228     		cmp	r0, #130
+ 1282 0008 0AD9     		bls	.L110
+ 428:Lib/lvgl/src/misc/lv_style.c ****         return _lv_style_builtin_prop_flag_lookup_table[prop];
+ 429:Lib/lvgl/src/misc/lv_style.c ****     prop -= _LV_STYLE_NUM_BUILT_IN_PROPS;
+ 1283              		.loc 1 429 5 is_stmt 1 view .LVU373
+ 1284              		.loc 1 429 10 is_stmt 0 view .LVU374
+ 1285 000a 7D30     		adds	r0, r0, #125
+ 1286              	.LVL110:
+ 1287              		.loc 1 429 10 view .LVU375
+ 1288 000c C0B2     		uxtb	r0, r0
+ 1289              	.LVL111:
+ 430:Lib/lvgl/src/misc/lv_style.c ****     if(_lv_style_custom_prop_flag_lookup_table != NULL && prop < _lv_style_custom_prop_flag_lookup_
+ 1290              		.loc 1 430 5 is_stmt 1 view .LVU376
+ 1291              		.loc 1 430 8 is_stmt 0 view .LVU377
+ 1292 000e 094B     		ldr	r3, .L112
+ 1293 0010 1B6B     		ldr	r3, [r3, #48]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 43
+
+
+ 1294              		.loc 1 430 7 view .LVU378
+ 1295 0012 63B1     		cbz	r3, .L108
+ 1296              		.loc 1 430 66 discriminator 1 view .LVU379
+ 1297 0014 074A     		ldr	r2, .L112
+ 1298 0016 926A     		ldr	r2, [r2, #40]
+ 1299              		.loc 1 430 56 discriminator 1 view .LVU380
+ 1300 0018 9042     		cmp	r0, r2
+ 1301 001a 04D3     		bcc	.L111
+ 431:Lib/lvgl/src/misc/lv_style.c ****         return _lv_style_custom_prop_flag_lookup_table[prop];
+ 432:Lib/lvgl/src/misc/lv_style.c ****     return 0;
+ 1302              		.loc 1 432 12 view .LVU381
+ 1303 001c 0020     		movs	r0, #0
+ 1304              	.LVL112:
+ 1305              	.L104:
+ 433:Lib/lvgl/src/misc/lv_style.c **** }
+ 1306              		.loc 1 433 1 view .LVU382
+ 1307 001e 7047     		bx	lr
+ 1308              	.LVL113:
+ 1309              	.L110:
+ 428:Lib/lvgl/src/misc/lv_style.c ****     prop -= _LV_STYLE_NUM_BUILT_IN_PROPS;
+ 1310              		.loc 1 428 9 is_stmt 1 view .LVU383
+ 428:Lib/lvgl/src/misc/lv_style.c ****     prop -= _LV_STYLE_NUM_BUILT_IN_PROPS;
+ 1311              		.loc 1 428 56 is_stmt 0 view .LVU384
+ 1312 0020 054B     		ldr	r3, .L112+4
+ 1313 0022 185C     		ldrb	r0, [r3, r0]	@ zero_extendqisi2
+ 1314              	.LVL114:
+ 428:Lib/lvgl/src/misc/lv_style.c ****     prop -= _LV_STYLE_NUM_BUILT_IN_PROPS;
+ 1315              		.loc 1 428 56 view .LVU385
+ 1316 0024 7047     		bx	lr
+ 1317              	.LVL115:
+ 1318              	.L111:
+ 431:Lib/lvgl/src/misc/lv_style.c ****         return _lv_style_custom_prop_flag_lookup_table[prop];
+ 1319              		.loc 1 431 9 is_stmt 1 view .LVU386
+ 431:Lib/lvgl/src/misc/lv_style.c ****         return _lv_style_custom_prop_flag_lookup_table[prop];
+ 1320              		.loc 1 431 55 is_stmt 0 view .LVU387
+ 1321 0026 185C     		ldrb	r0, [r3, r0]	@ zero_extendqisi2
+ 1322              	.LVL116:
+ 431:Lib/lvgl/src/misc/lv_style.c ****         return _lv_style_custom_prop_flag_lookup_table[prop];
+ 1323              		.loc 1 431 55 view .LVU388
+ 1324 0028 7047     		bx	lr
+ 1325              	.LVL117:
+ 1326              	.L106:
+ 424:Lib/lvgl/src/misc/lv_style.c ****     if(prop == LV_STYLE_PROP_INV) return 0;
+ 1327              		.loc 1 424 42 view .LVU389
+ 1328 002a 3F20     		movs	r0, #63
+ 1329              	.LVL118:
+ 424:Lib/lvgl/src/misc/lv_style.c ****     if(prop == LV_STYLE_PROP_INV) return 0;
+ 1330              		.loc 1 424 42 view .LVU390
+ 1331 002c 7047     		bx	lr
+ 1332              	.LVL119:
+ 1333              	.L108:
+ 432:Lib/lvgl/src/misc/lv_style.c **** }
+ 1334              		.loc 1 432 12 view .LVU391
+ 1335 002e 0020     		movs	r0, #0
+ 1336              	.LVL120:
+ 432:Lib/lvgl/src/misc/lv_style.c **** }
+ 1337              		.loc 1 432 12 view .LVU392
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 44
+
+
+ 1338 0030 7047     		bx	lr
+ 1339              	.L113:
+ 1340 0032 00BF     		.align	2
+ 1341              	.L112:
+ 1342 0034 00000000 		.word	lv_global
+ 1343 0038 00000000 		.word	_lv_style_builtin_prop_flag_lookup_table
+ 1344              		.cfi_endproc
+ 1345              	.LFE244:
+ 1347              		.section	.rodata.white.0,"a"
+ 1348              		.align	2
+ 1351              	white.0:
+ 1352 0000 FF       		.byte	-1
+ 1353 0001 FF       		.byte	-1
+ 1354 0002 FF       		.byte	-1
+ 1355              		.global	_lv_style_builtin_prop_flag_lookup_table
+ 1356              		.section	.rodata._lv_style_builtin_prop_flag_lookup_table,"a"
+ 1357              		.align	2
+ 1360              	_lv_style_builtin_prop_flag_lookup_table:
+ 1361 0000 00040402 		.ascii	"\000\004\004\002\004\004\004\004\004\004\004\000\000"
+ 1361      04040404 
+ 1361      04040400 
+ 1361      00
+ 1362 000d 00000006 		.ascii	"\000\000\000\006\006\006\006\006\006\004\000\006\006"
+ 1362      06060606 
+ 1362      06040006 
+ 1362      06
+ 1363 001a 06060000 		.ascii	"\006\006\000\000\000\000\000\000\000\000\000\000\000"
+ 1363      00000000 
+ 1363      00000000 
+ 1363      00
+ 1364 0027 05020000 		.ascii	"\005\002\000\000\000\000\000\000\000\004\000\000\000"
+ 1364      00000000 
+ 1364      00040000 
+ 1364      00
+ 1365 0034 00000000 		.ascii	"\000\000\000\000\002\000\002\002\002\000\002\000\002"
+ 1365      02000202 
+ 1365      02000200 
+ 1365      02
+ 1366 0041 02020000 		.ascii	"\002\002\000\000\000\000\000\002\000\000\000\000\000"
+ 1366      00000002 
+ 1366      00000000 
+ 1366      00
+ 1367 004e 00000200 		.ascii	"\000\000\002\000\000\000\000\000\000\000\001\001\005"
+ 1367      00000000 
+ 1367      00000101 
+ 1367      05
+ 1368 005b 05050105 		.ascii	"\005\005\001\005\000\020\001\001\000\000\000\000\020"
+ 1368      00100101 
+ 1368      00000000 
+ 1368      10
+ 1369 0068 22220C0C 		.ascii	"\"\"\014\014222\000\00022\004\004\004\004\004\004\004"
+ 1369      32323200 
+ 1369      00323204 
+ 1369      04040404 
+ 1369      0404
+ 1370 007a 04040404 		.ascii	"\004\004\004\004\004\004\004\004\000"
+ 1370      04040404 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 45
+
+
+ 1370      00
+ 1371              		.global	lv_style_const_prop_id_inv
+ 1372              		.section	.rodata.lv_style_const_prop_id_inv,"a"
+ 1375              	lv_style_const_prop_id_inv:
+ 1376 0000 00       		.space	1
+ 1377              		.text
+ 1378              	.Letext0:
+ 1379              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1380              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1381              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1382              		.file 7 "Lib/lvgl/src/misc/../font/../draw/../misc/lv_types.h"
+ 1383              		.file 8 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj.h"
+ 1384              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_class.h"
+ 1385              		.file 10 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 1386              		.file 11 "Lib/lvgl/src/misc/../core/../draw/lv_draw.h"
+ 1387              		.file 12 "Lib/lvgl/src/misc/../core/../draw/sw/../../display/../misc/lv_event.h"
+ 1388              		.file 13 "Lib/lvgl/src/misc/lv_timer.h"
+ 1389              		.file 14 "Lib/lvgl/src/misc/lv_anim.h"
+ 1390              		.file 15 "Lib/lvgl/src/misc/../font/lv_font.h"
+ 1391              		.file 16 "Lib/lvgl/src/misc/../font/../draw/../misc/lv_area.h"
+ 1392              		.file 17 "Lib/lvgl/src/misc/../font/../draw/../misc/lv_color.h"
+ 1393              		.file 18 "Lib/lvgl/src/misc/../font/../draw/lv_image_buf.h"
+ 1394              		.file 19 "Lib/lvgl/src/misc/../font/../draw/lv_draw_buf.h"
+ 1395              		.file 20 "Lib/lvgl/src/misc/../font/../misc/cache/../../osal/lv_os_none.h"
+ 1396              		.file 21 "Lib/lvgl/src/misc/../font/../misc/cache/lv_cache_private.h"
+ 1397              		.file 22 "Lib/lvgl/src/misc/../tick/lv_tick.h"
+ 1398              		.file 23 "Lib/lvgl/src/misc/lv_ll.h"
+ 1399              		.file 24 "Lib/lvgl/src/misc/../layouts/lv_layout.h"
+ 1400              		.file 25 "Lib/lvgl/src/misc/../core/../draw/sw/../../display/../misc/lv_array.h"
+ 1401              		.file 26 "Lib/lvgl/src/misc/../core/../draw/sw/blend/../lv_draw_sw_mask.h"
+ 1402              		.file 27 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
+ 1403              		.file 28 "Lib/lvgl/src/misc/../core/../stdlib/builtin/lv_tlsf.h"
+ 1404              		.file 29 "Lib/lvgl/src/misc/../core/lv_global.h"
+ 1405              		.file 30 "Lib/lvgl/src/misc/../font/../draw/../misc/../stdlib/lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s 			page 46
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_style.c
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:21     .text.lv_style_get_prop_inlined:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:26     .text.lv_style_get_prop_inlined:00000000 lv_style_get_prop_inlined
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:166    .text.lv_style_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:172    .text.lv_style_init:00000000 lv_style_init
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:206    .text.lv_style_reset:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:212    .text.lv_style_reset:00000000 lv_style_reset
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:266    .text.lv_style_register_prop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:272    .text.lv_style_register_prop:00000000 lv_style_register_prop
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:406    .text.lv_style_register_prop:00000058 $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:412    .text.lv_style_get_num_custom_props:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:418    .text.lv_style_get_num_custom_props:00000000 lv_style_get_num_custom_props
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:437    .text.lv_style_get_num_custom_props:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:442    .text.lv_style_remove_prop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:448    .text.lv_style_remove_prop:00000000 lv_style_remove_prop
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:640    .text.lv_style_set_prop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:646    .text.lv_style_set_prop:00000000 lv_style_set_prop
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:875    .text.lv_style_get_prop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:881    .text.lv_style_get_prop:00000000 lv_style_get_prop
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:904    .text.lv_style_transition_dsc_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:910    .text.lv_style_transition_dsc_init:00000000 lv_style_transition_dsc_init
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:982    .text.lv_style_transition_dsc_init:00000028 $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:987    .text.lv_style_prop_get_default:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:993    .text.lv_style_prop_get_default:00000000 lv_style_prop_get_default
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1028   .text.lv_style_prop_get_default:0000002a $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1059   .text.lv_style_prop_get_default:00000048 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1128   .text.lv_style_prop_get_default:000000a6 $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1219   .text.lv_style_prop_get_default:00000100 $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1351   .rodata.white.0:00000000 white.0
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1229   .text.lv_style_is_empty:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1235   .text.lv_style_is_empty:00000000 lv_style_is_empty
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1258   .text._lv_style_prop_lookup_flags:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1264   .text._lv_style_prop_lookup_flags:00000000 _lv_style_prop_lookup_flags
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1342   .text._lv_style_prop_lookup_flags:00000034 $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1360   .rodata._lv_style_builtin_prop_flag_lookup_table:00000000 _lv_style_builtin_prop_flag_lookup_table
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1348   .rodata.white.0:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1357   .rodata._lv_style_builtin_prop_flag_lookup_table:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1375   .rodata.lv_style_const_prop_id_inv:00000000 lv_style_const_prop_id_inv
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1376   .rodata.lv_style_const_prop_id_inv:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1150   .text.lv_style_prop_get_default:000000bb $d
+C:\Users\Alex\AppData\Local\Temp\cchPoeOg.s:1150   .text.lv_style_prop_get_default:000000bc $t
+
+UNDEFINED SYMBOLS
+lv_memset
+lv_free
+lv_realloc
+lv_global
+lv_malloc
+lv_anim_path_linear
+lv_font_montserrat_14

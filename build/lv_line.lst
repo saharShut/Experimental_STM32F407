@@ -1,0 +1,1754 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_line.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/widgets/line/lv_line.c"
+  20              		.section	.text.resolve_point_coord,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	resolve_point_coord:
+  27              	.LVL0:
+  28              	.LFB238:
+   1:Lib/lvgl/src/widgets/line/lv_line.c **** /**
+   2:Lib/lvgl/src/widgets/line/lv_line.c ****  * @file lv_line.c
+   3:Lib/lvgl/src/widgets/line/lv_line.c ****  *
+   4:Lib/lvgl/src/widgets/line/lv_line.c ****  */
+   5:Lib/lvgl/src/widgets/line/lv_line.c **** 
+   6:Lib/lvgl/src/widgets/line/lv_line.c **** /*********************
+   7:Lib/lvgl/src/widgets/line/lv_line.c ****  *      INCLUDES
+   8:Lib/lvgl/src/widgets/line/lv_line.c ****  *********************/
+   9:Lib/lvgl/src/widgets/line/lv_line.c **** #include "lv_line.h"
+  10:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  11:Lib/lvgl/src/widgets/line/lv_line.c **** #if LV_USE_LINE != 0
+  12:Lib/lvgl/src/widgets/line/lv_line.c **** #include "../../misc/lv_assert.h"
+  13:Lib/lvgl/src/widgets/line/lv_line.c **** #include "../../misc/lv_math.h"
+  14:Lib/lvgl/src/widgets/line/lv_line.c **** #include "../../draw/lv_draw.h"
+  15:Lib/lvgl/src/widgets/line/lv_line.c **** #include <stdbool.h>
+  16:Lib/lvgl/src/widgets/line/lv_line.c **** #include <stdint.h>
+  17:Lib/lvgl/src/widgets/line/lv_line.c **** #include <string.h>
+  18:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  19:Lib/lvgl/src/widgets/line/lv_line.c **** /*********************
+  20:Lib/lvgl/src/widgets/line/lv_line.c ****  *      DEFINES
+  21:Lib/lvgl/src/widgets/line/lv_line.c ****  *********************/
+  22:Lib/lvgl/src/widgets/line/lv_line.c **** #define MY_CLASS &lv_line_class
+  23:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  24:Lib/lvgl/src/widgets/line/lv_line.c **** /**********************
+  25:Lib/lvgl/src/widgets/line/lv_line.c ****  *      TYPEDEFS
+  26:Lib/lvgl/src/widgets/line/lv_line.c ****  **********************/
+  27:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  28:Lib/lvgl/src/widgets/line/lv_line.c **** /**********************
+  29:Lib/lvgl/src/widgets/line/lv_line.c ****  *  STATIC PROTOTYPES
+  30:Lib/lvgl/src/widgets/line/lv_line.c ****  **********************/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 2
+
+
+  31:Lib/lvgl/src/widgets/line/lv_line.c **** static void lv_line_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
+  32:Lib/lvgl/src/widgets/line/lv_line.c **** static void lv_line_event(const lv_obj_class_t * class_p, lv_event_t * e);
+  33:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  34:Lib/lvgl/src/widgets/line/lv_line.c **** /**********************
+  35:Lib/lvgl/src/widgets/line/lv_line.c ****  *  STATIC VARIABLES
+  36:Lib/lvgl/src/widgets/line/lv_line.c ****  **********************/
+  37:Lib/lvgl/src/widgets/line/lv_line.c **** const lv_obj_class_t lv_line_class = {
+  38:Lib/lvgl/src/widgets/line/lv_line.c ****     .constructor_cb = lv_line_constructor,
+  39:Lib/lvgl/src/widgets/line/lv_line.c ****     .event_cb = lv_line_event,
+  40:Lib/lvgl/src/widgets/line/lv_line.c ****     .width_def = LV_SIZE_CONTENT,
+  41:Lib/lvgl/src/widgets/line/lv_line.c ****     .height_def = LV_SIZE_CONTENT,
+  42:Lib/lvgl/src/widgets/line/lv_line.c ****     .instance_size = sizeof(lv_line_t),
+  43:Lib/lvgl/src/widgets/line/lv_line.c ****     .base_class = &lv_obj_class,
+  44:Lib/lvgl/src/widgets/line/lv_line.c ****     .name = "line",
+  45:Lib/lvgl/src/widgets/line/lv_line.c **** };
+  46:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  47:Lib/lvgl/src/widgets/line/lv_line.c **** /**********************
+  48:Lib/lvgl/src/widgets/line/lv_line.c ****  *      MACROS
+  49:Lib/lvgl/src/widgets/line/lv_line.c ****  **********************/
+  50:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  51:Lib/lvgl/src/widgets/line/lv_line.c **** /**********************
+  52:Lib/lvgl/src/widgets/line/lv_line.c ****  *   GLOBAL FUNCTIONS
+  53:Lib/lvgl/src/widgets/line/lv_line.c ****  **********************/
+  54:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  55:Lib/lvgl/src/widgets/line/lv_line.c **** lv_obj_t * lv_line_create(lv_obj_t * parent)
+  56:Lib/lvgl/src/widgets/line/lv_line.c **** {
+  57:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_LOG_INFO("begin");
+  58:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+  59:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_class_init_obj(obj);
+  60:Lib/lvgl/src/widgets/line/lv_line.c ****     return obj;
+  61:Lib/lvgl/src/widgets/line/lv_line.c **** }
+  62:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  63:Lib/lvgl/src/widgets/line/lv_line.c **** /*=====================
+  64:Lib/lvgl/src/widgets/line/lv_line.c ****  * Setter functions
+  65:Lib/lvgl/src/widgets/line/lv_line.c ****  *====================*/
+  66:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  67:Lib/lvgl/src/widgets/line/lv_line.c **** void lv_line_set_points(lv_obj_t * obj, const lv_point_precise_t points[], uint32_t point_num)
+  68:Lib/lvgl/src/widgets/line/lv_line.c **** {
+  69:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  70:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  71:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_line_t * line = (lv_line_t *)obj;
+  72:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_array    = points;
+  73:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_num      = point_num;
+  74:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  75:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_refresh_self_size(obj);
+  76:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  77:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_invalidate(obj);
+  78:Lib/lvgl/src/widgets/line/lv_line.c **** }
+  79:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  80:Lib/lvgl/src/widgets/line/lv_line.c **** void lv_line_set_y_invert(lv_obj_t * obj, bool en)
+  81:Lib/lvgl/src/widgets/line/lv_line.c **** {
+  82:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  83:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  84:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_line_t * line = (lv_line_t *)obj;
+  85:Lib/lvgl/src/widgets/line/lv_line.c ****     if(line->y_inv == en) return;
+  86:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  87:Lib/lvgl/src/widgets/line/lv_line.c ****     line->y_inv = en ? 1U : 0U;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 3
+
+
+  88:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  89:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_invalidate(obj);
+  90:Lib/lvgl/src/widgets/line/lv_line.c **** }
+  91:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  92:Lib/lvgl/src/widgets/line/lv_line.c **** /*=====================
+  93:Lib/lvgl/src/widgets/line/lv_line.c ****  * Getter functions
+  94:Lib/lvgl/src/widgets/line/lv_line.c ****  *====================*/
+  95:Lib/lvgl/src/widgets/line/lv_line.c **** 
+  96:Lib/lvgl/src/widgets/line/lv_line.c **** bool lv_line_get_y_invert(const lv_obj_t * obj)
+  97:Lib/lvgl/src/widgets/line/lv_line.c **** {
+  98:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  99:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 100:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_line_t * line = (lv_line_t *)obj;
+ 101:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 102:Lib/lvgl/src/widgets/line/lv_line.c ****     return line->y_inv == 1U;
+ 103:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 104:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 105:Lib/lvgl/src/widgets/line/lv_line.c **** /**********************
+ 106:Lib/lvgl/src/widgets/line/lv_line.c ****  *   STATIC FUNCTIONS
+ 107:Lib/lvgl/src/widgets/line/lv_line.c ****  **********************/
+ 108:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 109:Lib/lvgl/src/widgets/line/lv_line.c **** static void lv_line_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+ 110:Lib/lvgl/src/widgets/line/lv_line.c **** {
+ 111:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_UNUSED(class_p);
+ 112:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_TRACE_OBJ_CREATE("begin");
+ 113:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 114:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_line_t * line = (lv_line_t *)obj;
+ 115:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 116:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_num   = 0;
+ 117:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_array = NULL;
+ 118:Lib/lvgl/src/widgets/line/lv_line.c ****     line->y_inv       = 0;
+ 119:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 120:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICKABLE);
+ 121:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 122:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_TRACE_OBJ_CREATE("finished");
+ 123:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 124:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 125:Lib/lvgl/src/widgets/line/lv_line.c **** static inline lv_value_precise_t resolve_point_coord(lv_value_precise_t coord, int32_t max)
+ 126:Lib/lvgl/src/widgets/line/lv_line.c **** {
+  29              		.loc 1 126 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 127:Lib/lvgl/src/widgets/line/lv_line.c ****     if(LV_COORD_IS_PCT((int32_t)coord)) {
+  34              		.loc 1 127 5 view .LVU1
+  35              		.loc 1 127 8 is_stmt 0 view .LVU2
+  36 0000 00F0C043 		and	r3, r0, #1610612736
+  37              		.loc 1 127 7 view .LVU3
+  38 0004 B3F1005F 		cmp	r3, #536870912
+  39 0008 16D1     		bne	.L2
+  40              		.loc 1 127 8 discriminator 1 view .LVU4
+  41 000a 20F0C043 		bic	r3, r0, #1610612736
+  42 000e B3F5FA6F 		cmp	r3, #2000
+  43 0012 11DC     		bgt	.L2
+ 128:Lib/lvgl/src/widgets/line/lv_line.c ****         return LV_CLAMP(0, max * LV_COORD_GET_PCT((int32_t)coord) / 100, max);
+  44              		.loc 1 128 9 is_stmt 1 view .LVU5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 4
+
+
+  45              		.loc 1 128 16 is_stmt 0 view .LVU6
+  46 0014 B3F57A7F 		cmp	r3, #1000
+  47 0018 01DD     		ble	.L3
+  48              		.loc 1 128 16 discriminator 1 view .LVU7
+  49 001a C3F57A73 		rsb	r3, r3, #1000
+  50              	.L3:
+  51              		.loc 1 128 16 discriminator 4 view .LVU8
+  52 001e 01FB03F3 		mul	r3, r1, r3
+  53 0022 064A     		ldr	r2, .L4
+  54 0024 82FB0302 		smull	r0, r2, r2, r3
+  55              	.LVL1:
+  56              		.loc 1 128 16 discriminator 4 view .LVU9
+  57 0028 DB17     		asrs	r3, r3, #31
+  58 002a C3EB6213 		rsb	r3, r3, r2, asr #5
+  59 002e 9942     		cmp	r1, r3
+  60 0030 A8BF     		it	ge
+  61 0032 1946     		movge	r1, r3
+  62              	.LVL2:
+  63              		.loc 1 128 16 discriminator 4 view .LVU10
+  64 0034 21EAE170 		bic	r0, r1, r1, asr #31
+  65              	.L2:
+ 129:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 130:Lib/lvgl/src/widgets/line/lv_line.c ****     else {
+ 131:Lib/lvgl/src/widgets/line/lv_line.c ****         return coord;
+ 132:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 133:Lib/lvgl/src/widgets/line/lv_line.c **** }
+  66              		.loc 1 133 1 view .LVU11
+  67 0038 7047     		bx	lr
+  68              	.L5:
+  69 003a 00BF     		.align	2
+  70              	.L4:
+  71 003c 1F85EB51 		.word	1374389535
+  72              		.cfi_endproc
+  73              	.LFE238:
+  75              		.section	.text.lv_line_event,"ax",%progbits
+  76              		.align	1
+  77              		.syntax unified
+  78              		.thumb
+  79              		.thumb_func
+  81              	lv_line_event:
+  82              	.LVL3:
+  83              	.LFB239:
+ 134:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 135:Lib/lvgl/src/widgets/line/lv_line.c **** static void lv_line_event(const lv_obj_class_t * class_p, lv_event_t * e)
+ 136:Lib/lvgl/src/widgets/line/lv_line.c **** {
+  84              		.loc 1 136 1 is_stmt 1 view -0
+  85              		.cfi_startproc
+  86              		@ args = 0, pretend = 0, frame = 88
+  87              		@ frame_needed = 0, uses_anonymous_args = 0
+  88              		.loc 1 136 1 is_stmt 0 view .LVU13
+  89 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  90              	.LCFI0:
+  91              		.cfi_def_cfa_offset 36
+  92              		.cfi_offset 4, -36
+  93              		.cfi_offset 5, -32
+  94              		.cfi_offset 6, -28
+  95              		.cfi_offset 7, -24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 5
+
+
+  96              		.cfi_offset 8, -20
+  97              		.cfi_offset 9, -16
+  98              		.cfi_offset 10, -12
+  99              		.cfi_offset 11, -8
+ 100              		.cfi_offset 14, -4
+ 101 0004 97B0     		sub	sp, sp, #92
+ 102              	.LCFI1:
+ 103              		.cfi_def_cfa_offset 128
+ 104 0006 0D46     		mov	r5, r1
+ 137:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_UNUSED(class_p);
+ 105              		.loc 1 137 5 is_stmt 1 view .LVU14
+ 138:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 139:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_result_t res;
+ 106              		.loc 1 139 5 view .LVU15
+ 140:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 141:Lib/lvgl/src/widgets/line/lv_line.c ****     /*Call the ancestor's event handler*/
+ 142:Lib/lvgl/src/widgets/line/lv_line.c ****     res = lv_obj_event_base(MY_CLASS, e);
+ 107              		.loc 1 142 5 view .LVU16
+ 108              		.loc 1 142 11 is_stmt 0 view .LVU17
+ 109 0008 6348     		ldr	r0, .L28
+ 110              	.LVL4:
+ 111              		.loc 1 142 11 view .LVU18
+ 112 000a FFF7FEFF 		bl	lv_obj_event_base
+ 113              	.LVL5:
+ 143:Lib/lvgl/src/widgets/line/lv_line.c ****     if(res != LV_RESULT_OK) return;
+ 114              		.loc 1 143 5 is_stmt 1 view .LVU19
+ 115              		.loc 1 143 7 is_stmt 0 view .LVU20
+ 116 000e 0128     		cmp	r0, #1
+ 117 0010 02D0     		beq	.L23
+ 118              	.LVL6:
+ 119              	.L6:
+ 144:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 145:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_event_code_t code = lv_event_get_code(e);
+ 146:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 147:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 148:Lib/lvgl/src/widgets/line/lv_line.c ****     if(code == LV_EVENT_REFR_EXT_DRAW_SIZE) {
+ 149:Lib/lvgl/src/widgets/line/lv_line.c ****         /*The corner of the skew lines is out of the intended area*/
+ 150:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t line_width = lv_obj_get_style_line_width(obj, LV_PART_MAIN);
+ 151:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t * s = lv_event_get_param(e);
+ 152:Lib/lvgl/src/widgets/line/lv_line.c ****         if(*s < line_width) *s = line_width;
+ 153:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 154:Lib/lvgl/src/widgets/line/lv_line.c ****     else if(code == LV_EVENT_GET_SELF_SIZE) {
+ 155:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_line_t * line = (lv_line_t *)obj;
+ 156:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 157:Lib/lvgl/src/widgets/line/lv_line.c ****         if(line->point_num == 0 || line->point_array == NULL) return;
+ 158:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 159:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_point_t * p = lv_event_get_param(e);
+ 160:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t w = 0;
+ 161:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t h = 0;
+ 162:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 163:Lib/lvgl/src/widgets/line/lv_line.c ****         uint32_t i;
+ 164:Lib/lvgl/src/widgets/line/lv_line.c ****         for(i = 0; i < line->point_num; i++) {
+ 165:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].x)) {
+ 166:Lib/lvgl/src/widgets/line/lv_line.c ****                 w = (int32_t)LV_MAX(line->point_array[i].x, w);
+ 167:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 168:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 169:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].y)) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 6
+
+
+ 170:Lib/lvgl/src/widgets/line/lv_line.c ****                 h = (int32_t)LV_MAX(line->point_array[i].y, h);
+ 171:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 172:Lib/lvgl/src/widgets/line/lv_line.c ****         }
+ 173:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 174:Lib/lvgl/src/widgets/line/lv_line.c ****         p->x = w;
+ 175:Lib/lvgl/src/widgets/line/lv_line.c ****         p->y = h;
+ 176:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 177:Lib/lvgl/src/widgets/line/lv_line.c ****     else if(code == LV_EVENT_DRAW_MAIN) {
+ 178:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_line_t * line = (lv_line_t *)obj;
+ 179:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_layer_t * layer = lv_event_get_layer(e);
+ 180:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 181:Lib/lvgl/src/widgets/line/lv_line.c ****         if(line->point_num == 0 || line->point_array == NULL) return;
+ 182:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 183:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_area_t area;
+ 184:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_obj_get_coords(obj, &area);
+ 185:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t x_ofs = area.x1 - lv_obj_get_scroll_x(obj);
+ 186:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t y_ofs = area.y1 - lv_obj_get_scroll_y(obj);
+ 187:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 188:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_draw_line_dsc_t line_dsc;
+ 189:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_draw_line_dsc_init(&line_dsc);
+ 190:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_obj_init_draw_line_dsc(obj, LV_PART_MAIN, &line_dsc);
+ 191:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 192:Lib/lvgl/src/widgets/line/lv_line.c ****         /*Read all points and draw the lines*/
+ 193:Lib/lvgl/src/widgets/line/lv_line.c ****         uint32_t i;
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****         for(i = 0; i < line->point_num - 1; i++) {
+ 195:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 196:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t h = lv_obj_get_height(obj);
+ 197:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 198:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.x = resolve_point_coord(line->point_array[i].x, w) + x_ofs;
+ 199:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.y = resolve_point_coord(line->point_array[i].y, h);
+ 200:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 201:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p2.x = resolve_point_coord(line->point_array[i + 1].x, w) + x_ofs;
+ 202:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p2.y = resolve_point_coord(line->point_array[i + 1].y, h);
+ 203:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 204:Lib/lvgl/src/widgets/line/lv_line.c ****             if(line->y_inv == 0) {
+ 205:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p1.y = line_dsc.p1.y + y_ofs;
+ 206:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = line_dsc.p2.y + y_ofs;
+ 207:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 208:Lib/lvgl/src/widgets/line/lv_line.c ****             else {
+ 209:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p1.y = h - line_dsc.p1.y + y_ofs;
+ 210:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = h - line_dsc.p2.y + y_ofs;
+ 211:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 212:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 213:Lib/lvgl/src/widgets/line/lv_line.c ****             lv_draw_line(layer, &line_dsc);
+ 214:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.round_start = 0;   /*Draw the rounding only on the end points after the first 
+ 215:Lib/lvgl/src/widgets/line/lv_line.c ****         }
+ 216:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 217:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 120              		.loc 1 217 1 view .LVU21
+ 121 0012 17B0     		add	sp, sp, #92
+ 122              	.LCFI2:
+ 123              		.cfi_remember_state
+ 124              		.cfi_def_cfa_offset 36
+ 125              		@ sp needed
+ 126 0014 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 127              	.LVL7:
+ 128              	.L23:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 7
+
+
+ 129              	.LCFI3:
+ 130              		.cfi_restore_state
+ 145:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 131              		.loc 1 145 5 is_stmt 1 view .LVU22
+ 145:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 132              		.loc 1 145 28 is_stmt 0 view .LVU23
+ 133 0018 2846     		mov	r0, r5
+ 134              	.LVL8:
+ 145:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 135              		.loc 1 145 28 view .LVU24
+ 136 001a FFF7FEFF 		bl	lv_event_get_code
+ 137              	.LVL9:
+ 138 001e 0646     		mov	r6, r0
+ 139              	.LVL10:
+ 146:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 140              		.loc 1 146 5 is_stmt 1 view .LVU25
+ 146:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 141              		.loc 1 146 22 is_stmt 0 view .LVU26
+ 142 0020 2846     		mov	r0, r5
+ 143 0022 FFF7FEFF 		bl	lv_event_get_current_target
+ 144              	.LVL11:
+ 145 0026 0446     		mov	r4, r0
+ 146              	.LVL12:
+ 148:Lib/lvgl/src/widgets/line/lv_line.c ****         /*The corner of the skew lines is out of the intended area*/
+ 147              		.loc 1 148 5 is_stmt 1 view .LVU27
+ 148:Lib/lvgl/src/widgets/line/lv_line.c ****         /*The corner of the skew lines is out of the intended area*/
+ 148              		.loc 1 148 7 is_stmt 0 view .LVU28
+ 149 0028 152E     		cmp	r6, #21
+ 150 002a 27D0     		beq	.L24
+ 154:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_line_t * line = (lv_line_t *)obj;
+ 151              		.loc 1 154 10 is_stmt 1 view .LVU29
+ 154:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_line_t * line = (lv_line_t *)obj;
+ 152              		.loc 1 154 12 is_stmt 0 view .LVU30
+ 153 002c 2E2E     		cmp	r6, #46
+ 154 002e 33D0     		beq	.L25
+ 177:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_line_t * line = (lv_line_t *)obj;
+ 155              		.loc 1 177 10 is_stmt 1 view .LVU31
+ 177:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_line_t * line = (lv_line_t *)obj;
+ 156              		.loc 1 177 12 is_stmt 0 view .LVU32
+ 157 0030 172E     		cmp	r6, #23
+ 158 0032 EED1     		bne	.L6
+ 159              	.LBB8:
+ 178:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_layer_t * layer = lv_event_get_layer(e);
+ 160              		.loc 1 178 9 is_stmt 1 view .LVU33
+ 161              	.LVL13:
+ 179:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 162              		.loc 1 179 9 view .LVU34
+ 179:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 163              		.loc 1 179 30 is_stmt 0 view .LVU35
+ 164 0034 2846     		mov	r0, r5
+ 165              	.LVL14:
+ 179:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 166              		.loc 1 179 30 view .LVU36
+ 167 0036 FFF7FEFF 		bl	lv_event_get_layer
+ 168              	.LVL15:
+ 169 003a 0190     		str	r0, [sp, #4]
+ 170              	.LVL16:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 8
+
+
+ 181:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 171              		.loc 1 181 9 is_stmt 1 view .LVU37
+ 181:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 172              		.loc 1 181 16 is_stmt 0 view .LVU38
+ 173 003c 236B     		ldr	r3, [r4, #48]
+ 181:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 174              		.loc 1 181 11 view .LVU39
+ 175 003e 002B     		cmp	r3, #0
+ 176 0040 E7D0     		beq	.L6
+ 181:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 177              		.loc 1 181 40 discriminator 2 view .LVU40
+ 178 0042 E36A     		ldr	r3, [r4, #44]
+ 181:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 179              		.loc 1 181 33 discriminator 2 view .LVU41
+ 180 0044 002B     		cmp	r3, #0
+ 181 0046 E4D0     		beq	.L6
+ 183:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_obj_get_coords(obj, &area);
+ 182              		.loc 1 183 9 is_stmt 1 view .LVU42
+ 184:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t x_ofs = area.x1 - lv_obj_get_scroll_x(obj);
+ 183              		.loc 1 184 9 view .LVU43
+ 184 0048 02A9     		add	r1, sp, #8
+ 185 004a 2046     		mov	r0, r4
+ 186              	.LVL17:
+ 184:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t x_ofs = area.x1 - lv_obj_get_scroll_x(obj);
+ 187              		.loc 1 184 9 is_stmt 0 view .LVU44
+ 188 004c FFF7FEFF 		bl	lv_obj_get_coords
+ 189              	.LVL18:
+ 185:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t y_ofs = area.y1 - lv_obj_get_scroll_y(obj);
+ 190              		.loc 1 185 9 is_stmt 1 view .LVU45
+ 185:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t y_ofs = area.y1 - lv_obj_get_scroll_y(obj);
+ 191              		.loc 1 185 29 is_stmt 0 view .LVU46
+ 192 0050 029D     		ldr	r5, [sp, #8]
+ 193              	.LVL19:
+ 185:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t y_ofs = area.y1 - lv_obj_get_scroll_y(obj);
+ 194              		.loc 1 185 35 view .LVU47
+ 195 0052 2046     		mov	r0, r4
+ 196 0054 FFF7FEFF 		bl	lv_obj_get_scroll_x
+ 197              	.LVL20:
+ 185:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t y_ofs = area.y1 - lv_obj_get_scroll_y(obj);
+ 198              		.loc 1 185 17 view .LVU48
+ 199 0058 A5EB000A 		sub	r10, r5, r0
+ 200              	.LVL21:
+ 186:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 201              		.loc 1 186 9 is_stmt 1 view .LVU49
+ 186:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 202              		.loc 1 186 29 is_stmt 0 view .LVU50
+ 203 005c 039D     		ldr	r5, [sp, #12]
+ 186:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 204              		.loc 1 186 35 view .LVU51
+ 205 005e 2046     		mov	r0, r4
+ 206 0060 FFF7FEFF 		bl	lv_obj_get_scroll_y
+ 207              	.LVL22:
+ 186:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 208              		.loc 1 186 17 view .LVU52
+ 209 0064 A5EB000B 		sub	fp, r5, r0
+ 210              	.LVL23:
+ 188:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_draw_line_dsc_init(&line_dsc);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 9
+
+
+ 211              		.loc 1 188 9 is_stmt 1 view .LVU53
+ 189:Lib/lvgl/src/widgets/line/lv_line.c ****         lv_obj_init_draw_line_dsc(obj, LV_PART_MAIN, &line_dsc);
+ 212              		.loc 1 189 9 view .LVU54
+ 213 0068 06A8     		add	r0, sp, #24
+ 214 006a FFF7FEFF 		bl	lv_draw_line_dsc_init
+ 215              	.LVL24:
+ 190:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 216              		.loc 1 190 9 view .LVU55
+ 217 006e 06AA     		add	r2, sp, #24
+ 218 0070 0021     		movs	r1, #0
+ 219 0072 2046     		mov	r0, r4
+ 220 0074 FFF7FEFF 		bl	lv_obj_init_draw_line_dsc
+ 221              	.LVL25:
+ 193:Lib/lvgl/src/widgets/line/lv_line.c ****         for(i = 0; i < line->point_num - 1; i++) {
+ 222              		.loc 1 193 9 view .LVU56
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 223              		.loc 1 194 9 view .LVU57
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 224              		.loc 1 194 15 is_stmt 0 view .LVU58
+ 225 0078 0027     		movs	r7, #0
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 226              		.loc 1 194 9 view .LVU59
+ 227 007a 53E0     		b	.L18
+ 228              	.LVL26:
+ 229              	.L24:
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 230              		.loc 1 194 9 view .LVU60
+ 231              	.LBE8:
+ 232              	.LBB11:
+ 150:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t * s = lv_event_get_param(e);
+ 233              		.loc 1 150 9 is_stmt 1 view .LVU61
+ 234              	.LBB12:
+ 235              	.LBI12:
+ 236              		.file 2 "Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h"
+   1:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+   2:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** /*
+   3:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****  **********************************************************************
+   4:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****  *                            DO NOT EDIT
+   5:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****  * This file is automatically generated by "style_api_gen.py"
+   6:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****  **********************************************************************
+   7:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****  */
+   8:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+   9:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** #ifndef LV_OBJ_STYLE_GEN_H
+  10:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** #define LV_OBJ_STYLE_GEN_H
+  11:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  12:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** #include "../misc/lv_area.h"
+  13:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** #include "../misc/lv_style.h"
+  14:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** #include "../core/lv_obj_style.h"
+  15:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  16:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_width(const lv_obj_t * obj, uint32_t part)
+  17:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  18:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_WIDTH);
+  19:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  20:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  21:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  22:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_min_width(const lv_obj_t * obj, uint32_t part)
+  23:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 10
+
+
+  24:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MIN_WIDTH);
+  25:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  26:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  27:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  28:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_max_width(const lv_obj_t * obj, uint32_t part)
+  29:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  30:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MAX_WIDTH);
+  31:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  32:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  33:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  34:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_height(const lv_obj_t * obj, uint32_t part)
+  35:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  36:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_HEIGHT);
+  37:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  38:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  39:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  40:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_min_height(const lv_obj_t * obj, uint32_t part)
+  41:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  42:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MIN_HEIGHT);
+  43:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  44:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  45:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  46:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_max_height(const lv_obj_t * obj, uint32_t part)
+  47:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  48:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MAX_HEIGHT);
+  49:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  50:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  51:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  52:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_length(const lv_obj_t * obj, uint32_t part)
+  53:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  54:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_LENGTH);
+  55:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  56:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  57:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  58:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_x(const lv_obj_t * obj, uint32_t part)
+  59:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  60:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_X);
+  61:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  62:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  63:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  64:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_y(const lv_obj_t * obj, uint32_t part)
+  65:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  66:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_Y);
+  67:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  68:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  69:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  70:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_align_t lv_obj_get_style_align(const lv_obj_t * obj, uint32_t part)
+  71:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  72:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_ALIGN);
+  73:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_align_t)v.num;
+  74:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  75:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  76:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_width(const lv_obj_t * obj, uint32_t part)
+  77:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  78:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_WIDTH);
+  79:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  80:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 11
+
+
+  81:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  82:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_height(const lv_obj_t * obj, uint32_t part)
+  83:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  84:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_HEIGHT);
+  85:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  86:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  87:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  88:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_translate_x(const lv_obj_t * obj, uint32_t part)
+  89:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  90:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSLATE_X);
+  91:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  92:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  93:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+  94:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_translate_y(const lv_obj_t * obj, uint32_t part)
+  95:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+  96:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSLATE_Y);
+  97:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  98:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+  99:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 100:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_scale_x(const lv_obj_t * obj, uint32_t part)
+ 101:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 102:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_SCALE_X);
+ 103:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 104:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 105:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 106:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_scale_y(const lv_obj_t * obj, uint32_t part)
+ 107:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 108:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_SCALE_Y);
+ 109:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 110:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 111:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 112:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_rotation(const lv_obj_t * obj, uint32_t part)
+ 113:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 114:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_ROTATION);
+ 115:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 116:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 117:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 118:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_pivot_x(const lv_obj_t * obj, uint32_t part)
+ 119:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 120:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_PIVOT_X);
+ 121:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 122:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 123:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 124:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_pivot_y(const lv_obj_t * obj, uint32_t part)
+ 125:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 126:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_PIVOT_Y);
+ 127:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 128:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 129:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 130:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_skew_x(const lv_obj_t * obj, uint32_t part)
+ 131:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 132:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_SKEW_X);
+ 133:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 134:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 135:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 136:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_skew_y(const lv_obj_t * obj, uint32_t part)
+ 137:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 12
+
+
+ 138:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_SKEW_Y);
+ 139:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 140:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 141:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 142:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_pad_top(const lv_obj_t * obj, uint32_t part)
+ 143:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 144:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_PAD_TOP);
+ 145:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 146:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 147:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 148:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_pad_bottom(const lv_obj_t * obj, uint32_t part)
+ 149:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 150:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_PAD_BOTTOM);
+ 151:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 152:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 153:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 154:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_pad_left(const lv_obj_t * obj, uint32_t part)
+ 155:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 156:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_PAD_LEFT);
+ 157:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 158:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 159:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 160:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_pad_right(const lv_obj_t * obj, uint32_t part)
+ 161:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 162:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_PAD_RIGHT);
+ 163:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 164:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 165:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 166:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_pad_row(const lv_obj_t * obj, uint32_t part)
+ 167:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 168:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_PAD_ROW);
+ 169:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 170:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 171:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 172:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_pad_column(const lv_obj_t * obj, uint32_t part)
+ 173:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 174:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_PAD_COLUMN);
+ 175:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 176:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 177:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 178:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_margin_top(const lv_obj_t * obj, uint32_t part)
+ 179:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 180:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MARGIN_TOP);
+ 181:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 182:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 183:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 184:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_margin_bottom(const lv_obj_t * obj, uint32_t part)
+ 185:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 186:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MARGIN_BOTTOM);
+ 187:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 188:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 189:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 190:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_margin_left(const lv_obj_t * obj, uint32_t part)
+ 191:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 192:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MARGIN_LEFT);
+ 193:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 194:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 13
+
+
+ 195:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 196:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_margin_right(const lv_obj_t * obj, uint32_t part)
+ 197:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 198:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MARGIN_RIGHT);
+ 199:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 200:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 201:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 202:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_bg_color(const lv_obj_t * obj, uint32_t part)
+ 203:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 204:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_COLOR);
+ 205:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 206:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 207:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 208:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_bg_color_filtered(const lv_obj_t * obj, uint32_t part)
+ 209:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 210:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
+ 211:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 212:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 213:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 214:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_bg_opa(const lv_obj_t * obj, uint32_t part)
+ 215:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 216:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_OPA);
+ 217:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 218:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 219:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 220:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_bg_grad_color(const lv_obj_t * obj, uint32_t part)
+ 221:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 222:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_GRAD_COLOR);
+ 223:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 224:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 225:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 226:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_bg_grad_color_filtered(const lv_obj_t * obj, uint32_t par
+ 227:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 228:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
+ 229:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****                                                                                            LV_STYLE
+ 230:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 231:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 232:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 233:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_grad_dir_t lv_obj_get_style_bg_grad_dir(const lv_obj_t * obj, uint32_t part)
+ 234:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 235:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_GRAD_DIR);
+ 236:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_grad_dir_t)v.num;
+ 237:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 238:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 239:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_bg_main_stop(const lv_obj_t * obj, uint32_t part)
+ 240:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 241:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_MAIN_STOP);
+ 242:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 243:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 244:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 245:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_bg_grad_stop(const lv_obj_t * obj, uint32_t part)
+ 246:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 247:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_GRAD_STOP);
+ 248:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 249:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 250:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 251:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_bg_main_opa(const lv_obj_t * obj, uint32_t part)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 14
+
+
+ 252:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 253:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_MAIN_OPA);
+ 254:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 255:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 256:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 257:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_bg_grad_opa(const lv_obj_t * obj, uint32_t part)
+ 258:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 259:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_GRAD_OPA);
+ 260:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 261:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 262:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 263:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline const lv_grad_dsc_t * lv_obj_get_style_bg_grad(const lv_obj_t * obj, uint32_t part)
+ 264:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 265:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_GRAD);
+ 266:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (const lv_grad_dsc_t *)v.ptr;
+ 267:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 268:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 269:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline const void * lv_obj_get_style_bg_image_src(const lv_obj_t * obj, uint32_t part)
+ 270:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 271:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_IMAGE_SRC);
+ 272:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (const void *)v.ptr;
+ 273:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 274:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 275:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_bg_image_opa(const lv_obj_t * obj, uint32_t part)
+ 276:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 277:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_IMAGE_OPA);
+ 278:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 279:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 280:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 281:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_bg_image_recolor(const lv_obj_t * obj, uint32_t part)
+ 282:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 283:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_IMAGE_RECOLOR);
+ 284:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 285:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 286:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 287:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_bg_image_recolor_filtered(const lv_obj_t * obj, uint32_t 
+ 288:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 289:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
+ 290:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****                                                                                            LV_STYLE
+ 291:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 292:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 293:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 294:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_bg_image_recolor_opa(const lv_obj_t * obj, uint32_t part)
+ 295:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 296:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_IMAGE_RECOLOR_OPA);
+ 297:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 298:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 299:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 300:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline bool lv_obj_get_style_bg_image_tiled(const lv_obj_t * obj, uint32_t part)
+ 301:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 302:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_IMAGE_TILED);
+ 303:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (bool)v.num;
+ 304:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 305:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 306:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_border_color(const lv_obj_t * obj, uint32_t part)
+ 307:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 308:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BORDER_COLOR);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 15
+
+
+ 309:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 310:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 311:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 312:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_border_color_filtered(const lv_obj_t * obj, uint32_t part
+ 313:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 314:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
+ 315:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****                                                                                            LV_STYLE
+ 316:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 317:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 318:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 319:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_border_opa(const lv_obj_t * obj, uint32_t part)
+ 320:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 321:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BORDER_OPA);
+ 322:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 323:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 324:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 325:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_border_width(const lv_obj_t * obj, uint32_t part)
+ 326:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 327:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BORDER_WIDTH);
+ 328:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 329:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 330:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 331:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_border_side_t lv_obj_get_style_border_side(const lv_obj_t * obj, uint32_t part)
+ 332:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 333:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BORDER_SIDE);
+ 334:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_border_side_t)v.num;
+ 335:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 336:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 337:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline bool lv_obj_get_style_border_post(const lv_obj_t * obj, uint32_t part)
+ 338:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 339:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BORDER_POST);
+ 340:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (bool)v.num;
+ 341:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 342:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 343:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_outline_width(const lv_obj_t * obj, uint32_t part)
+ 344:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 345:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_OUTLINE_WIDTH);
+ 346:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 347:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 348:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 349:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_outline_color(const lv_obj_t * obj, uint32_t part)
+ 350:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 351:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_OUTLINE_COLOR);
+ 352:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 353:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 354:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 355:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_outline_color_filtered(const lv_obj_t * obj, uint32_t par
+ 356:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 357:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
+ 358:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****                                                                                            LV_STYLE
+ 359:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 360:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 361:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 362:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_outline_opa(const lv_obj_t * obj, uint32_t part)
+ 363:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 364:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_OUTLINE_OPA);
+ 365:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 16
+
+
+ 366:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 367:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 368:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_outline_pad(const lv_obj_t * obj, uint32_t part)
+ 369:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 370:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_OUTLINE_PAD);
+ 371:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 372:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 373:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 374:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_shadow_width(const lv_obj_t * obj, uint32_t part)
+ 375:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 376:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_WIDTH);
+ 377:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 378:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 379:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 380:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_shadow_offset_x(const lv_obj_t * obj, uint32_t part)
+ 381:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 382:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_OFFSET_X);
+ 383:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 384:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 385:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 386:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_shadow_offset_y(const lv_obj_t * obj, uint32_t part)
+ 387:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 388:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_OFFSET_Y);
+ 389:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 390:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 391:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 392:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_shadow_spread(const lv_obj_t * obj, uint32_t part)
+ 393:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 394:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_SPREAD);
+ 395:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 396:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 397:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 398:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_shadow_color(const lv_obj_t * obj, uint32_t part)
+ 399:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 400:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_COLOR);
+ 401:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 402:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 403:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 404:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_shadow_color_filtered(const lv_obj_t * obj, uint32_t part
+ 405:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 406:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
+ 407:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****                                                                                            LV_STYLE
+ 408:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 409:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 410:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 411:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_shadow_opa(const lv_obj_t * obj, uint32_t part)
+ 412:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 413:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_OPA);
+ 414:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 415:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 416:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 417:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_image_opa(const lv_obj_t * obj, uint32_t part)
+ 418:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 419:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_IMAGE_OPA);
+ 420:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 421:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 422:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 17
+
+
+ 423:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_image_recolor(const lv_obj_t * obj, uint32_t part)
+ 424:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 425:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_IMAGE_RECOLOR);
+ 426:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 427:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 428:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 429:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_image_recolor_filtered(const lv_obj_t * obj, uint32_t par
+ 430:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 431:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
+ 432:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****                                                                                            LV_STYLE
+ 433:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return v.color;
+ 434:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 435:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 436:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_image_recolor_opa(const lv_obj_t * obj, uint32_t part)
+ 437:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 438:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_IMAGE_RECOLOR_OPA);
+ 439:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
+ 440:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** }
+ 441:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** 
+ 442:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_line_width(const lv_obj_t * obj, uint32_t part)
+ 237              		.loc 2 442 23 view .LVU62
+ 238              	.LBB13:
+ 443:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h **** {
+ 444:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_LINE_WIDTH);
+ 239              		.loc 2 444 5 view .LVU63
+ 240              		.loc 2 444 26 is_stmt 0 view .LVU64
+ 241 007c 4822     		movs	r2, #72
+ 242 007e 0021     		movs	r1, #0
+ 243 0080 FFF7FEFF 		bl	lv_obj_get_style_prop
+ 244              	.LVL27:
+ 245              		.loc 2 444 26 view .LVU65
+ 246 0084 0446     		mov	r4, r0
+ 247              	.LVL28:
+ 248              		.loc 2 444 26 view .LVU66
+ 249 0086 0690     		str	r0, [sp, #24]
+ 445:Lib/lvgl/src/widgets/line/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 250              		.loc 2 445 5 is_stmt 1 view .LVU67
+ 251              	.LVL29:
+ 252              		.loc 2 445 5 is_stmt 0 view .LVU68
+ 253              	.LBE13:
+ 254              	.LBE12:
+ 151:Lib/lvgl/src/widgets/line/lv_line.c ****         if(*s < line_width) *s = line_width;
+ 255              		.loc 1 151 9 is_stmt 1 view .LVU69
+ 151:Lib/lvgl/src/widgets/line/lv_line.c ****         if(*s < line_width) *s = line_width;
+ 256              		.loc 1 151 23 is_stmt 0 view .LVU70
+ 257 0088 2846     		mov	r0, r5
+ 258              	.LVL30:
+ 151:Lib/lvgl/src/widgets/line/lv_line.c ****         if(*s < line_width) *s = line_width;
+ 259              		.loc 1 151 23 view .LVU71
+ 260 008a FFF7FEFF 		bl	lv_event_get_param
+ 261              	.LVL31:
+ 152:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 262              		.loc 1 152 9 is_stmt 1 view .LVU72
+ 152:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 263              		.loc 1 152 12 is_stmt 0 view .LVU73
+ 264 008e 0368     		ldr	r3, [r0]
+ 152:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 18
+
+
+ 265              		.loc 1 152 11 view .LVU74
+ 266 0090 A342     		cmp	r3, r4
+ 267 0092 BEDA     		bge	.L6
+ 152:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 268              		.loc 1 152 29 is_stmt 1 discriminator 1 view .LVU75
+ 152:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 269              		.loc 1 152 32 is_stmt 0 discriminator 1 view .LVU76
+ 270 0094 0460     		str	r4, [r0]
+ 271 0096 BCE7     		b	.L6
+ 272              	.LVL32:
+ 273              	.L25:
+ 152:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 274              		.loc 1 152 32 discriminator 1 view .LVU77
+ 275              	.LBE11:
+ 276              	.LBB14:
+ 155:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 277              		.loc 1 155 9 is_stmt 1 view .LVU78
+ 157:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 278              		.loc 1 157 9 view .LVU79
+ 157:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 279              		.loc 1 157 16 is_stmt 0 view .LVU80
+ 280 0098 036B     		ldr	r3, [r0, #48]
+ 157:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 281              		.loc 1 157 11 view .LVU81
+ 282 009a 002B     		cmp	r3, #0
+ 283 009c B9D0     		beq	.L6
+ 157:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 284              		.loc 1 157 40 discriminator 2 view .LVU82
+ 285 009e C36A     		ldr	r3, [r0, #44]
+ 157:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 286              		.loc 1 157 33 discriminator 2 view .LVU83
+ 287 00a0 002B     		cmp	r3, #0
+ 288 00a2 B6D0     		beq	.L6
+ 159:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t w = 0;
+ 289              		.loc 1 159 9 is_stmt 1 view .LVU84
+ 159:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t w = 0;
+ 290              		.loc 1 159 26 is_stmt 0 view .LVU85
+ 291 00a4 2846     		mov	r0, r5
+ 292              	.LVL33:
+ 159:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t w = 0;
+ 293              		.loc 1 159 26 view .LVU86
+ 294 00a6 FFF7FEFF 		bl	lv_event_get_param
+ 295              	.LVL34:
+ 160:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t h = 0;
+ 296              		.loc 1 160 9 is_stmt 1 view .LVU87
+ 161:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 297              		.loc 1 161 9 view .LVU88
+ 163:Lib/lvgl/src/widgets/line/lv_line.c ****         for(i = 0; i < line->point_num; i++) {
+ 298              		.loc 1 163 9 view .LVU89
+ 164:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].x)) {
+ 299              		.loc 1 164 9 view .LVU90
+ 164:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].x)) {
+ 300              		.loc 1 164 15 is_stmt 0 view .LVU91
+ 301 00aa 0023     		movs	r3, #0
+ 161:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 302              		.loc 1 161 17 view .LVU92
+ 303 00ac 1E46     		mov	r6, r3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 19
+
+
+ 304              	.LVL35:
+ 160:Lib/lvgl/src/widgets/line/lv_line.c ****         int32_t h = 0;
+ 305              		.loc 1 160 17 view .LVU93
+ 306 00ae 1F46     		mov	r7, r3
+ 164:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].x)) {
+ 307              		.loc 1 164 9 view .LVU94
+ 308 00b0 09E0     		b	.L10
+ 309              	.LVL36:
+ 310              	.L27:
+ 165:Lib/lvgl/src/widgets/line/lv_line.c ****                 w = (int32_t)LV_MAX(line->point_array[i].x, w);
+ 311              		.loc 1 165 17 discriminator 1 view .LVU95
+ 312 00b2 22F0C045 		bic	r5, r2, #1610612736
+ 165:Lib/lvgl/src/widgets/line/lv_line.c ****                 w = (int32_t)LV_MAX(line->point_array[i].x, w);
+ 313              		.loc 1 165 16 discriminator 1 view .LVU96
+ 314 00b6 B5F5FA6F 		cmp	r5, #2000
+ 315 00ba 14DD     		ble	.L12
+ 316 00bc 10E0     		b	.L11
+ 317              	.L13:
+ 170:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 318              		.loc 1 170 17 is_stmt 1 view .LVU97
+ 170:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 319              		.loc 1 170 19 is_stmt 0 view .LVU98
+ 320 00be 9642     		cmp	r6, r2
+ 321 00c0 B8BF     		it	lt
+ 322 00c2 1646     		movlt	r6, r2
+ 323              	.LVL37:
+ 324              	.L14:
+ 164:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].x)) {
+ 325              		.loc 1 164 42 is_stmt 1 discriminator 2 view .LVU99
+ 326 00c4 0133     		adds	r3, r3, #1
+ 327              	.LVL38:
+ 328              	.L10:
+ 164:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].x)) {
+ 329              		.loc 1 164 22 discriminator 1 view .LVU100
+ 164:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].x)) {
+ 330              		.loc 1 164 28 is_stmt 0 discriminator 1 view .LVU101
+ 331 00c6 226B     		ldr	r2, [r4, #48]
+ 164:Lib/lvgl/src/widgets/line/lv_line.c ****             if(!LV_COORD_IS_PCT((int32_t)line->point_array[i].x)) {
+ 332              		.loc 1 164 22 discriminator 1 view .LVU102
+ 333 00c8 9A42     		cmp	r2, r3
+ 334 00ca 18D9     		bls	.L26
+ 165:Lib/lvgl/src/widgets/line/lv_line.c ****                 w = (int32_t)LV_MAX(line->point_array[i].x, w);
+ 335              		.loc 1 165 13 is_stmt 1 view .LVU103
+ 165:Lib/lvgl/src/widgets/line/lv_line.c ****                 w = (int32_t)LV_MAX(line->point_array[i].x, w);
+ 336              		.loc 1 165 17 is_stmt 0 view .LVU104
+ 337 00cc E26A     		ldr	r2, [r4, #44]
+ 338 00ce 02EBC301 		add	r1, r2, r3, lsl #3
+ 339 00d2 52F83320 		ldr	r2, [r2, r3, lsl #3]
+ 340 00d6 02F0C045 		and	r5, r2, #1610612736
+ 165:Lib/lvgl/src/widgets/line/lv_line.c ****                 w = (int32_t)LV_MAX(line->point_array[i].x, w);
+ 341              		.loc 1 165 15 view .LVU105
+ 342 00da B5F1005F 		cmp	r5, #536870912
+ 343 00de E8D0     		beq	.L27
+ 344              	.L11:
+ 166:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 345              		.loc 1 166 17 is_stmt 1 view .LVU106
+ 166:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 20
+
+
+ 346              		.loc 1 166 19 is_stmt 0 view .LVU107
+ 347 00e0 9742     		cmp	r7, r2
+ 348 00e2 B8BF     		it	lt
+ 349 00e4 1746     		movlt	r7, r2
+ 350              	.LVL39:
+ 351              	.L12:
+ 169:Lib/lvgl/src/widgets/line/lv_line.c ****                 h = (int32_t)LV_MAX(line->point_array[i].y, h);
+ 352              		.loc 1 169 13 is_stmt 1 view .LVU108
+ 169:Lib/lvgl/src/widgets/line/lv_line.c ****                 h = (int32_t)LV_MAX(line->point_array[i].y, h);
+ 353              		.loc 1 169 17 is_stmt 0 view .LVU109
+ 354 00e6 4A68     		ldr	r2, [r1, #4]
+ 355 00e8 02F0C041 		and	r1, r2, #1610612736
+ 169:Lib/lvgl/src/widgets/line/lv_line.c ****                 h = (int32_t)LV_MAX(line->point_array[i].y, h);
+ 356              		.loc 1 169 15 view .LVU110
+ 357 00ec B1F1005F 		cmp	r1, #536870912
+ 358 00f0 E5D1     		bne	.L13
+ 169:Lib/lvgl/src/widgets/line/lv_line.c ****                 h = (int32_t)LV_MAX(line->point_array[i].y, h);
+ 359              		.loc 1 169 17 discriminator 1 view .LVU111
+ 360 00f2 22F0C041 		bic	r1, r2, #1610612736
+ 169:Lib/lvgl/src/widgets/line/lv_line.c ****                 h = (int32_t)LV_MAX(line->point_array[i].y, h);
+ 361              		.loc 1 169 16 discriminator 1 view .LVU112
+ 362 00f6 B1F5FA6F 		cmp	r1, #2000
+ 363 00fa E3DD     		ble	.L14
+ 364 00fc DFE7     		b	.L13
+ 365              	.L26:
+ 174:Lib/lvgl/src/widgets/line/lv_line.c ****         p->y = h;
+ 366              		.loc 1 174 9 is_stmt 1 view .LVU113
+ 174:Lib/lvgl/src/widgets/line/lv_line.c ****         p->y = h;
+ 367              		.loc 1 174 14 is_stmt 0 view .LVU114
+ 368 00fe 0760     		str	r7, [r0]
+ 175:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 369              		.loc 1 175 9 is_stmt 1 view .LVU115
+ 175:Lib/lvgl/src/widgets/line/lv_line.c ****     }
+ 370              		.loc 1 175 14 is_stmt 0 view .LVU116
+ 371 0100 4660     		str	r6, [r0, #4]
+ 372              	.LBE14:
+ 373 0102 86E7     		b	.L6
+ 374              	.LVL40:
+ 375              	.L19:
+ 376              	.LBB15:
+ 377              	.LBB9:
+ 209:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = h - line_dsc.p2.y + y_ofs;
+ 378              		.loc 1 209 17 is_stmt 1 view .LVU117
+ 209:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = h - line_dsc.p2.y + y_ofs;
+ 379              		.loc 1 209 35 is_stmt 0 view .LVU118
+ 380 0104 AE1B     		subs	r6, r5, r6
+ 209:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = h - line_dsc.p2.y + y_ofs;
+ 381              		.loc 1 209 51 view .LVU119
+ 382 0106 5E44     		add	r6, r6, fp
+ 209:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = h - line_dsc.p2.y + y_ofs;
+ 383              		.loc 1 209 31 view .LVU120
+ 384 0108 0E96     		str	r6, [sp, #56]
+ 210:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 385              		.loc 1 210 17 is_stmt 1 view .LVU121
+ 210:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 386              		.loc 1 210 35 is_stmt 0 view .LVU122
+ 387 010a 2D1A     		subs	r5, r5, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 21
+
+
+ 388              	.LVL41:
+ 210:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 389              		.loc 1 210 51 view .LVU123
+ 390 010c 5D44     		add	r5, r5, fp
+ 210:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 391              		.loc 1 210 31 view .LVU124
+ 392 010e 1095     		str	r5, [sp, #64]
+ 393              	.L20:
+ 213:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.round_start = 0;   /*Draw the rounding only on the end points after the first 
+ 394              		.loc 1 213 13 is_stmt 1 discriminator 2 view .LVU125
+ 395 0110 06A9     		add	r1, sp, #24
+ 396 0112 0198     		ldr	r0, [sp, #4]
+ 397 0114 FFF7FEFF 		bl	lv_draw_line
+ 398              	.LVL42:
+ 214:Lib/lvgl/src/widgets/line/lv_line.c ****         }
+ 399              		.loc 1 214 13 discriminator 2 view .LVU126
+ 214:Lib/lvgl/src/widgets/line/lv_line.c ****         }
+ 400              		.loc 1 214 34 is_stmt 0 discriminator 2 view .LVU127
+ 401 0118 9DF85530 		ldrb	r3, [sp, #85]	@ zero_extendqisi2
+ 402 011c 6FF38203 		bfc	r3, #2, #1
+ 403 0120 8DF85530 		strb	r3, [sp, #85]
+ 404              	.LBE9:
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 405              		.loc 1 194 46 is_stmt 1 discriminator 2 view .LVU128
+ 406              	.LVL43:
+ 407              	.L18:
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 408              		.loc 1 194 22 discriminator 1 view .LVU129
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 409              		.loc 1 194 28 is_stmt 0 discriminator 1 view .LVU130
+ 410 0124 236B     		ldr	r3, [r4, #48]
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 411              		.loc 1 194 40 discriminator 1 view .LVU131
+ 412 0126 013B     		subs	r3, r3, #1
+ 194:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t w = lv_obj_get_width(obj);
+ 413              		.loc 1 194 22 discriminator 1 view .LVU132
+ 414 0128 BB42     		cmp	r3, r7
+ 415 012a 7FF672AF 		bls	.L6
+ 416              	.LBB10:
+ 195:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t h = lv_obj_get_height(obj);
+ 417              		.loc 1 195 13 is_stmt 1 view .LVU133
+ 195:Lib/lvgl/src/widgets/line/lv_line.c ****             int32_t h = lv_obj_get_height(obj);
+ 418              		.loc 1 195 25 is_stmt 0 view .LVU134
+ 419 012e 2046     		mov	r0, r4
+ 420 0130 FFF7FEFF 		bl	lv_obj_get_width
+ 421              	.LVL44:
+ 422 0134 8146     		mov	r9, r0
+ 423              	.LVL45:
+ 196:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 424              		.loc 1 196 13 is_stmt 1 view .LVU135
+ 196:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 425              		.loc 1 196 25 is_stmt 0 view .LVU136
+ 426 0136 2046     		mov	r0, r4
+ 427              	.LVL46:
+ 196:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 428              		.loc 1 196 25 view .LVU137
+ 429 0138 FFF7FEFF 		bl	lv_obj_get_height
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 22
+
+
+ 430              	.LVL47:
+ 431 013c 0546     		mov	r5, r0
+ 432              	.LVL48:
+ 198:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.y = resolve_point_coord(line->point_array[i].y, h);
+ 433              		.loc 1 198 13 is_stmt 1 view .LVU138
+ 198:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.y = resolve_point_coord(line->point_array[i].y, h);
+ 434              		.loc 1 198 53 is_stmt 0 view .LVU139
+ 435 013e D4F82C80 		ldr	r8, [r4, #44]
+ 198:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.y = resolve_point_coord(line->point_array[i].y, h);
+ 436              		.loc 1 198 66 view .LVU140
+ 437 0142 08EBC706 		add	r6, r8, r7, lsl #3
+ 198:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.y = resolve_point_coord(line->point_array[i].y, h);
+ 438              		.loc 1 198 29 view .LVU141
+ 439 0146 CDF80090 		str	r9, [sp]
+ 440 014a 4946     		mov	r1, r9
+ 441 014c 58F83700 		ldr	r0, [r8, r7, lsl #3]
+ 442              	.LVL49:
+ 198:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.y = resolve_point_coord(line->point_array[i].y, h);
+ 443              		.loc 1 198 29 view .LVU142
+ 444 0150 FFF7FEFF 		bl	resolve_point_coord
+ 445              	.LVL50:
+ 198:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.y = resolve_point_coord(line->point_array[i].y, h);
+ 446              		.loc 1 198 76 view .LVU143
+ 447 0154 5044     		add	r0, r0, r10
+ 198:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p1.y = resolve_point_coord(line->point_array[i].y, h);
+ 448              		.loc 1 198 27 view .LVU144
+ 449 0156 0D90     		str	r0, [sp, #52]
+ 199:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 450              		.loc 1 199 13 is_stmt 1 view .LVU145
+ 199:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 451              		.loc 1 199 29 is_stmt 0 view .LVU146
+ 452 0158 2946     		mov	r1, r5
+ 453 015a 7068     		ldr	r0, [r6, #4]
+ 454 015c FFF7FEFF 		bl	resolve_point_coord
+ 455              	.LVL51:
+ 456 0160 0646     		mov	r6, r0
+ 199:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 457              		.loc 1 199 27 view .LVU147
+ 458 0162 0E90     		str	r0, [sp, #56]
+ 201:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p2.y = resolve_point_coord(line->point_array[i + 1].y, h);
+ 459              		.loc 1 201 13 is_stmt 1 view .LVU148
+ 201:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p2.y = resolve_point_coord(line->point_array[i + 1].y, h);
+ 460              		.loc 1 201 66 is_stmt 0 view .LVU149
+ 461 0164 0137     		adds	r7, r7, #1
+ 462              	.LVL52:
+ 201:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p2.y = resolve_point_coord(line->point_array[i + 1].y, h);
+ 463              		.loc 1 201 66 view .LVU150
+ 464 0166 08EBC709 		add	r9, r8, r7, lsl #3
+ 465              	.LVL53:
+ 201:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p2.y = resolve_point_coord(line->point_array[i + 1].y, h);
+ 466              		.loc 1 201 29 view .LVU151
+ 467 016a 0099     		ldr	r1, [sp]
+ 468 016c 58F83700 		ldr	r0, [r8, r7, lsl #3]
+ 469 0170 FFF7FEFF 		bl	resolve_point_coord
+ 470              	.LVL54:
+ 201:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p2.y = resolve_point_coord(line->point_array[i + 1].y, h);
+ 471              		.loc 1 201 80 view .LVU152
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 23
+
+
+ 472 0174 5044     		add	r0, r0, r10
+ 201:Lib/lvgl/src/widgets/line/lv_line.c ****             line_dsc.p2.y = resolve_point_coord(line->point_array[i + 1].y, h);
+ 473              		.loc 1 201 27 view .LVU153
+ 474 0176 0F90     		str	r0, [sp, #60]
+ 202:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 475              		.loc 1 202 13 is_stmt 1 view .LVU154
+ 202:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 476              		.loc 1 202 29 is_stmt 0 view .LVU155
+ 477 0178 2946     		mov	r1, r5
+ 478 017a D9F80400 		ldr	r0, [r9, #4]
+ 479 017e FFF7FEFF 		bl	resolve_point_coord
+ 480              	.LVL55:
+ 202:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 481              		.loc 1 202 27 view .LVU156
+ 482 0182 1090     		str	r0, [sp, #64]
+ 204:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p1.y = line_dsc.p1.y + y_ofs;
+ 483              		.loc 1 204 13 is_stmt 1 view .LVU157
+ 204:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p1.y = line_dsc.p1.y + y_ofs;
+ 484              		.loc 1 204 28 is_stmt 0 view .LVU158
+ 485 0184 94F83430 		ldrb	r3, [r4, #52]	@ zero_extendqisi2
+ 204:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p1.y = line_dsc.p1.y + y_ofs;
+ 486              		.loc 1 204 15 view .LVU159
+ 487 0188 13F0010F 		tst	r3, #1
+ 488 018c BAD1     		bne	.L19
+ 205:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = line_dsc.p2.y + y_ofs;
+ 489              		.loc 1 205 17 is_stmt 1 view .LVU160
+ 205:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = line_dsc.p2.y + y_ofs;
+ 490              		.loc 1 205 47 is_stmt 0 view .LVU161
+ 491 018e 5E44     		add	r6, r6, fp
+ 205:Lib/lvgl/src/widgets/line/lv_line.c ****                 line_dsc.p2.y = line_dsc.p2.y + y_ofs;
+ 492              		.loc 1 205 31 view .LVU162
+ 493 0190 0E96     		str	r6, [sp, #56]
+ 206:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 494              		.loc 1 206 17 is_stmt 1 view .LVU163
+ 206:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 495              		.loc 1 206 47 is_stmt 0 view .LVU164
+ 496 0192 5844     		add	r0, r0, fp
+ 206:Lib/lvgl/src/widgets/line/lv_line.c ****             }
+ 497              		.loc 1 206 31 view .LVU165
+ 498 0194 1090     		str	r0, [sp, #64]
+ 499 0196 BBE7     		b	.L20
+ 500              	.L29:
+ 501              		.align	2
+ 502              	.L28:
+ 503 0198 00000000 		.word	lv_line_class
+ 504              	.LBE10:
+ 505              	.LBE15:
+ 506              		.cfi_endproc
+ 507              	.LFE239:
+ 509              		.section	.text.lv_line_constructor,"ax",%progbits
+ 510              		.align	1
+ 511              		.syntax unified
+ 512              		.thumb
+ 513              		.thumb_func
+ 515              	lv_line_constructor:
+ 516              	.LVL56:
+ 517              	.LFB237:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 24
+
+
+ 110:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_UNUSED(class_p);
+ 518              		.loc 1 110 1 is_stmt 1 view -0
+ 519              		.cfi_startproc
+ 520              		@ args = 0, pretend = 0, frame = 0
+ 521              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_UNUSED(class_p);
+ 522              		.loc 1 110 1 is_stmt 0 view .LVU167
+ 523 0000 08B5     		push	{r3, lr}
+ 524              	.LCFI4:
+ 525              		.cfi_def_cfa_offset 8
+ 526              		.cfi_offset 3, -8
+ 527              		.cfi_offset 14, -4
+ 528 0002 0846     		mov	r0, r1
+ 529              	.LVL57:
+ 111:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_TRACE_OBJ_CREATE("begin");
+ 530              		.loc 1 111 5 is_stmt 1 view .LVU168
+ 112:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 531              		.loc 1 112 33 view .LVU169
+ 114:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 532              		.loc 1 114 5 view .LVU170
+ 116:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_array = NULL;
+ 533              		.loc 1 116 5 view .LVU171
+ 116:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_array = NULL;
+ 534              		.loc 1 116 23 is_stmt 0 view .LVU172
+ 535 0004 0023     		movs	r3, #0
+ 536 0006 0B63     		str	r3, [r1, #48]
+ 117:Lib/lvgl/src/widgets/line/lv_line.c ****     line->y_inv       = 0;
+ 537              		.loc 1 117 5 is_stmt 1 view .LVU173
+ 117:Lib/lvgl/src/widgets/line/lv_line.c ****     line->y_inv       = 0;
+ 538              		.loc 1 117 23 is_stmt 0 view .LVU174
+ 539 0008 CB62     		str	r3, [r1, #44]
+ 118:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 540              		.loc 1 118 5 is_stmt 1 view .LVU175
+ 118:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 541              		.loc 1 118 23 is_stmt 0 view .LVU176
+ 542 000a 91F83420 		ldrb	r2, [r1, #52]	@ zero_extendqisi2
+ 543 000e 63F30002 		bfi	r2, r3, #0, #1
+ 544 0012 81F83420 		strb	r2, [r1, #52]
+ 120:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 545              		.loc 1 120 5 is_stmt 1 view .LVU177
+ 546 0016 0221     		movs	r1, #2
+ 547              	.LVL58:
+ 120:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 548              		.loc 1 120 5 is_stmt 0 view .LVU178
+ 549 0018 FFF7FEFF 		bl	lv_obj_remove_flag
+ 550              	.LVL59:
+ 122:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 551              		.loc 1 122 36 is_stmt 1 view .LVU179
+ 123:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 552              		.loc 1 123 1 is_stmt 0 view .LVU180
+ 553 001c 08BD     		pop	{r3, pc}
+ 554              		.cfi_endproc
+ 555              	.LFE237:
+ 557              		.section	.text.lv_line_create,"ax",%progbits
+ 558              		.align	1
+ 559              		.global	lv_line_create
+ 560              		.syntax unified
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 25
+
+
+ 561              		.thumb
+ 562              		.thumb_func
+ 564              	lv_line_create:
+ 565              	.LVL60:
+ 566              	.LFB233:
+  56:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_LOG_INFO("begin");
+ 567              		.loc 1 56 1 is_stmt 1 view -0
+ 568              		.cfi_startproc
+ 569              		@ args = 0, pretend = 0, frame = 0
+ 570              		@ frame_needed = 0, uses_anonymous_args = 0
+  56:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_LOG_INFO("begin");
+ 571              		.loc 1 56 1 is_stmt 0 view .LVU182
+ 572 0000 10B5     		push	{r4, lr}
+ 573              	.LCFI5:
+ 574              		.cfi_def_cfa_offset 8
+ 575              		.cfi_offset 4, -8
+ 576              		.cfi_offset 14, -4
+ 577 0002 0146     		mov	r1, r0
+  57:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 578              		.loc 1 57 5 is_stmt 1 view .LVU183
+  57:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 579              		.loc 1 57 5 view .LVU184
+  57:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 580              		.loc 1 57 5 view .LVU185
+  58:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_class_init_obj(obj);
+ 581              		.loc 1 58 5 view .LVU186
+  58:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_class_init_obj(obj);
+ 582              		.loc 1 58 22 is_stmt 0 view .LVU187
+ 583 0004 0348     		ldr	r0, .L34
+ 584              	.LVL61:
+  58:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_class_init_obj(obj);
+ 585              		.loc 1 58 22 view .LVU188
+ 586 0006 FFF7FEFF 		bl	lv_obj_class_create_obj
+ 587              	.LVL62:
+  58:Lib/lvgl/src/widgets/line/lv_line.c ****     lv_obj_class_init_obj(obj);
+ 588              		.loc 1 58 22 view .LVU189
+ 589 000a 0446     		mov	r4, r0
+ 590              	.LVL63:
+  59:Lib/lvgl/src/widgets/line/lv_line.c ****     return obj;
+ 591              		.loc 1 59 5 is_stmt 1 view .LVU190
+ 592 000c FFF7FEFF 		bl	lv_obj_class_init_obj
+ 593              	.LVL64:
+  60:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 594              		.loc 1 60 5 view .LVU191
+  61:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 595              		.loc 1 61 1 is_stmt 0 view .LVU192
+ 596 0010 2046     		mov	r0, r4
+ 597 0012 10BD     		pop	{r4, pc}
+ 598              	.LVL65:
+ 599              	.L35:
+  61:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 600              		.loc 1 61 1 view .LVU193
+ 601              		.align	2
+ 602              	.L34:
+ 603 0014 00000000 		.word	lv_line_class
+ 604              		.cfi_endproc
+ 605              	.LFE233:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 26
+
+
+ 607              		.section	.text.lv_line_set_points,"ax",%progbits
+ 608              		.align	1
+ 609              		.global	lv_line_set_points
+ 610              		.syntax unified
+ 611              		.thumb
+ 612              		.thumb_func
+ 614              	lv_line_set_points:
+ 615              	.LVL66:
+ 616              	.LFB234:
+  68:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 617              		.loc 1 68 1 is_stmt 1 view -0
+ 618              		.cfi_startproc
+ 619              		@ args = 0, pretend = 0, frame = 0
+ 620              		@ frame_needed = 0, uses_anonymous_args = 0
+  68:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 621              		.loc 1 68 1 is_stmt 0 view .LVU195
+ 622 0000 10B5     		push	{r4, lr}
+ 623              	.LCFI6:
+ 624              		.cfi_def_cfa_offset 8
+ 625              		.cfi_offset 4, -8
+ 626              		.cfi_offset 14, -4
+ 627 0002 0446     		mov	r4, r0
+  69:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 628              		.loc 1 69 5 is_stmt 1 view .LVU196
+  69:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 629              		.loc 1 69 5 view .LVU197
+  69:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 630              		.loc 1 69 5 view .LVU198
+  71:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_array    = points;
+ 631              		.loc 1 71 5 view .LVU199
+ 632              	.LVL67:
+  72:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_num      = point_num;
+ 633              		.loc 1 72 5 view .LVU200
+  72:Lib/lvgl/src/widgets/line/lv_line.c ****     line->point_num      = point_num;
+ 634              		.loc 1 72 26 is_stmt 0 view .LVU201
+ 635 0004 C162     		str	r1, [r0, #44]
+  73:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 636              		.loc 1 73 5 is_stmt 1 view .LVU202
+  73:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 637              		.loc 1 73 26 is_stmt 0 view .LVU203
+ 638 0006 0263     		str	r2, [r0, #48]
+  75:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 639              		.loc 1 75 5 is_stmt 1 view .LVU204
+ 640 0008 FFF7FEFF 		bl	lv_obj_refresh_self_size
+ 641              	.LVL68:
+  77:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 642              		.loc 1 77 5 view .LVU205
+ 643 000c 2046     		mov	r0, r4
+ 644 000e FFF7FEFF 		bl	lv_obj_invalidate
+ 645              	.LVL69:
+  78:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 646              		.loc 1 78 1 is_stmt 0 view .LVU206
+ 647 0012 10BD     		pop	{r4, pc}
+  78:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 648              		.loc 1 78 1 view .LVU207
+ 649              		.cfi_endproc
+ 650              	.LFE234:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 27
+
+
+ 652              		.section	.text.lv_line_set_y_invert,"ax",%progbits
+ 653              		.align	1
+ 654              		.global	lv_line_set_y_invert
+ 655              		.syntax unified
+ 656              		.thumb
+ 657              		.thumb_func
+ 659              	lv_line_set_y_invert:
+ 660              	.LVL70:
+ 661              	.LFB235:
+  81:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 662              		.loc 1 81 1 is_stmt 1 view -0
+ 663              		.cfi_startproc
+ 664              		@ args = 0, pretend = 0, frame = 0
+ 665              		@ frame_needed = 0, uses_anonymous_args = 0
+  81:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 666              		.loc 1 81 1 is_stmt 0 view .LVU209
+ 667 0000 08B5     		push	{r3, lr}
+ 668              	.LCFI7:
+ 669              		.cfi_def_cfa_offset 8
+ 670              		.cfi_offset 3, -8
+ 671              		.cfi_offset 14, -4
+  82:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 672              		.loc 1 82 5 is_stmt 1 view .LVU210
+  82:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 673              		.loc 1 82 5 view .LVU211
+  82:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 674              		.loc 1 82 5 view .LVU212
+  84:Lib/lvgl/src/widgets/line/lv_line.c ****     if(line->y_inv == en) return;
+ 675              		.loc 1 84 5 view .LVU213
+ 676              	.LVL71:
+  85:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 677              		.loc 1 85 5 view .LVU214
+  85:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 678              		.loc 1 85 12 is_stmt 0 view .LVU215
+ 679 0002 90F83430 		ldrb	r3, [r0, #52]	@ zero_extendqisi2
+ 680 0006 03F00103 		and	r3, r3, #1
+  85:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 681              		.loc 1 85 7 view .LVU216
+ 682 000a 8B42     		cmp	r3, r1
+ 683 000c 07D0     		beq	.L38
+  87:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 684              		.loc 1 87 5 is_stmt 1 discriminator 4 view .LVU217
+  87:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 685              		.loc 1 87 17 is_stmt 0 discriminator 4 view .LVU218
+ 686 000e 90F83430 		ldrb	r3, [r0, #52]	@ zero_extendqisi2
+ 687 0012 61F30003 		bfi	r3, r1, #0, #1
+ 688 0016 80F83430 		strb	r3, [r0, #52]
+  89:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 689              		.loc 1 89 5 is_stmt 1 discriminator 4 view .LVU219
+ 690 001a FFF7FEFF 		bl	lv_obj_invalidate
+ 691              	.LVL72:
+ 692              	.L38:
+  90:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 693              		.loc 1 90 1 is_stmt 0 view .LVU220
+ 694 001e 08BD     		pop	{r3, pc}
+ 695              		.cfi_endproc
+ 696              	.LFE235:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 28
+
+
+ 698              		.section	.text.lv_line_get_y_invert,"ax",%progbits
+ 699              		.align	1
+ 700              		.global	lv_line_get_y_invert
+ 701              		.syntax unified
+ 702              		.thumb
+ 703              		.thumb_func
+ 705              	lv_line_get_y_invert:
+ 706              	.LVL73:
+ 707              	.LFB236:
+  97:Lib/lvgl/src/widgets/line/lv_line.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 708              		.loc 1 97 1 is_stmt 1 view -0
+ 709              		.cfi_startproc
+ 710              		@ args = 0, pretend = 0, frame = 0
+ 711              		@ frame_needed = 0, uses_anonymous_args = 0
+ 712              		@ link register save eliminated.
+  98:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 713              		.loc 1 98 5 view .LVU222
+  98:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 714              		.loc 1 98 5 view .LVU223
+  98:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 715              		.loc 1 98 5 view .LVU224
+ 100:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 716              		.loc 1 100 5 view .LVU225
+ 102:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 717              		.loc 1 102 5 view .LVU226
+ 102:Lib/lvgl/src/widgets/line/lv_line.c **** }
+ 718              		.loc 1 102 24 is_stmt 0 view .LVU227
+ 719 0000 90F83400 		ldrb	r0, [r0, #52]	@ zero_extendqisi2
+ 720              	.LVL74:
+ 103:Lib/lvgl/src/widgets/line/lv_line.c **** 
+ 721              		.loc 1 103 1 view .LVU228
+ 722 0004 00F00100 		and	r0, r0, #1
+ 723 0008 7047     		bx	lr
+ 724              		.cfi_endproc
+ 725              	.LFE236:
+ 727              		.global	lv_line_class
+ 728              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 729              		.align	2
+ 730              	.LC0:
+ 731 0000 6C696E65 		.ascii	"line\000"
+ 731      00
+ 732              		.section	.rodata.lv_line_class,"a"
+ 733              		.align	2
+ 736              	lv_line_class:
+ 737 0000 00000000 		.word	lv_obj_class
+ 738 0004 00000000 		.word	lv_line_constructor
+ 739 0008 00000000 		.space	4
+ 740 000c 00000000 		.word	lv_line_event
+ 741 0010 00000000 		.space	4
+ 742 0014 00000000 		.word	.LC0
+ 743 0018 D1070020 		.word	536872913
+ 744 001c D1070020 		.word	536872913
+ 745 0020 80       		.byte	128
+ 746 0021 03       		.byte	3
+ 747 0022 00       		.byte	0
+ 748 0023 00       		.space	1
+ 749              		.text
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 29
+
+
+ 750              	.Letext0:
+ 751              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 752              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 753              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 754              		.file 6 "Lib/lvgl/src/widgets/line/../../core/../misc/lv_types.h"
+ 755              		.file 7 "Lib/lvgl/src/widgets/line/../../core/lv_obj.h"
+ 756              		.file 8 "Lib/lvgl/src/widgets/line/../../core/lv_obj_class.h"
+ 757              		.file 9 "Lib/lvgl/src/widgets/line/../../core/../indev/../core/lv_group.h"
+ 758              		.file 10 "Lib/lvgl/src/widgets/line/../../core/../display/../draw/lv_draw.h"
+ 759              		.file 11 "Lib/lvgl/src/widgets/line/../../core/../display/../misc/lv_event.h"
+ 760              		.file 12 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 761              		.file 13 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+ 762              		.file 14 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_image_buf.h"
+ 763              		.file 15 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_draw_buf.h"
+ 764              		.file 16 "Lib/lvgl/src/widgets/line/../../core/../misc/lv_ll.h"
+ 765              		.file 17 "Lib/lvgl/src/widgets/line/../../core/../misc/lv_style.h"
+ 766              		.file 18 "Lib/lvgl/src/widgets/line/../../core/../display/../misc/lv_array.h"
+ 767              		.file 19 "Lib/lvgl/src/widgets/line/../../core/../display/../draw/lv_draw_line.h"
+ 768              		.file 20 "Lib/lvgl/src/widgets/line/../../core/lv_obj_style.h"
+ 769              		.file 21 "Lib/lvgl/src/widgets/line/lv_line.h"
+ 770              		.file 22 "Lib/lvgl/src/widgets/line/../../core/lv_obj_pos.h"
+ 771              		.file 23 "Lib/lvgl/src/widgets/line/../../core/lv_obj_draw.h"
+ 772              		.file 24 "Lib/lvgl/src/widgets/line/../../core/lv_obj_scroll.h"
+ 773              		.file 25 "Lib/lvgl/src/widgets/line/../../core/lv_obj_event.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s 			page 30
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_line.c
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:21     .text.resolve_point_coord:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:26     .text.resolve_point_coord:00000000 resolve_point_coord
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:71     .text.resolve_point_coord:0000003c $d
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:76     .text.lv_line_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:81     .text.lv_line_event:00000000 lv_line_event
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:503    .text.lv_line_event:00000198 $d
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:736    .rodata.lv_line_class:00000000 lv_line_class
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:510    .text.lv_line_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:515    .text.lv_line_constructor:00000000 lv_line_constructor
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:558    .text.lv_line_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:564    .text.lv_line_create:00000000 lv_line_create
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:603    .text.lv_line_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:608    .text.lv_line_set_points:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:614    .text.lv_line_set_points:00000000 lv_line_set_points
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:653    .text.lv_line_set_y_invert:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:659    .text.lv_line_set_y_invert:00000000 lv_line_set_y_invert
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:699    .text.lv_line_get_y_invert:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:705    .text.lv_line_get_y_invert:00000000 lv_line_get_y_invert
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:729    .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cctsWtXk.s:733    .rodata.lv_line_class:00000000 $d
+
+UNDEFINED SYMBOLS
+lv_obj_event_base
+lv_event_get_code
+lv_event_get_current_target
+lv_event_get_layer
+lv_obj_get_coords
+lv_obj_get_scroll_x
+lv_obj_get_scroll_y
+lv_draw_line_dsc_init
+lv_obj_init_draw_line_dsc
+lv_obj_get_style_prop
+lv_event_get_param
+lv_draw_line
+lv_obj_get_width
+lv_obj_get_height
+lv_obj_remove_flag
+lv_obj_class_create_obj
+lv_obj_class_init_obj
+lv_obj_refresh_self_size
+lv_obj_invalidate
+lv_obj_class

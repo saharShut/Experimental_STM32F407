@@ -1,0 +1,1859 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_ll.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/misc/lv_ll.c"
+  20              		.section	.text.node_set_prev,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	node_set_prev:
+  27              	.LVL0:
+  28              	.LFB15:
+   1:Lib/lvgl/src/misc/lv_ll.c **** /**
+   2:Lib/lvgl/src/misc/lv_ll.c ****  * @file lv_ll.c
+   3:Lib/lvgl/src/misc/lv_ll.c ****  * Handle linked lists.
+   4:Lib/lvgl/src/misc/lv_ll.c ****  * The nodes are dynamically allocated by the 'lv_mem' module,
+   5:Lib/lvgl/src/misc/lv_ll.c ****  */
+   6:Lib/lvgl/src/misc/lv_ll.c **** 
+   7:Lib/lvgl/src/misc/lv_ll.c **** /*********************
+   8:Lib/lvgl/src/misc/lv_ll.c ****  *      INCLUDES
+   9:Lib/lvgl/src/misc/lv_ll.c ****  *********************/
+  10:Lib/lvgl/src/misc/lv_ll.c **** #include "lv_ll.h"
+  11:Lib/lvgl/src/misc/lv_ll.c **** #include "../stdlib/lv_mem.h"
+  12:Lib/lvgl/src/misc/lv_ll.c **** 
+  13:Lib/lvgl/src/misc/lv_ll.c **** /*********************
+  14:Lib/lvgl/src/misc/lv_ll.c ****  *      DEFINES
+  15:Lib/lvgl/src/misc/lv_ll.c ****  *********************/
+  16:Lib/lvgl/src/misc/lv_ll.c **** #define LL_NODE_META_SIZE (sizeof(lv_ll_node_t *) + sizeof(lv_ll_node_t *))
+  17:Lib/lvgl/src/misc/lv_ll.c **** #define LL_PREV_P_OFFSET(ll_p) (ll_p->n_size)
+  18:Lib/lvgl/src/misc/lv_ll.c **** #define LL_NEXT_P_OFFSET(ll_p) (ll_p->n_size + sizeof(lv_ll_node_t *))
+  19:Lib/lvgl/src/misc/lv_ll.c **** 
+  20:Lib/lvgl/src/misc/lv_ll.c **** /**********************
+  21:Lib/lvgl/src/misc/lv_ll.c ****  *      TYPEDEFS
+  22:Lib/lvgl/src/misc/lv_ll.c ****  **********************/
+  23:Lib/lvgl/src/misc/lv_ll.c **** 
+  24:Lib/lvgl/src/misc/lv_ll.c **** /**********************
+  25:Lib/lvgl/src/misc/lv_ll.c ****  *  STATIC PROTOTYPES
+  26:Lib/lvgl/src/misc/lv_ll.c ****  **********************/
+  27:Lib/lvgl/src/misc/lv_ll.c **** static void node_set_prev(lv_ll_t * ll_p, lv_ll_node_t * act, lv_ll_node_t * prev);
+  28:Lib/lvgl/src/misc/lv_ll.c **** static void node_set_next(lv_ll_t * ll_p, lv_ll_node_t * act, lv_ll_node_t * next);
+  29:Lib/lvgl/src/misc/lv_ll.c **** 
+  30:Lib/lvgl/src/misc/lv_ll.c **** /**********************
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 2
+
+
+  31:Lib/lvgl/src/misc/lv_ll.c ****  *  STATIC VARIABLES
+  32:Lib/lvgl/src/misc/lv_ll.c ****  **********************/
+  33:Lib/lvgl/src/misc/lv_ll.c **** 
+  34:Lib/lvgl/src/misc/lv_ll.c **** /**********************
+  35:Lib/lvgl/src/misc/lv_ll.c ****  *      MACROS
+  36:Lib/lvgl/src/misc/lv_ll.c ****  **********************/
+  37:Lib/lvgl/src/misc/lv_ll.c **** 
+  38:Lib/lvgl/src/misc/lv_ll.c **** /**********************
+  39:Lib/lvgl/src/misc/lv_ll.c ****  *   GLOBAL FUNCTIONS
+  40:Lib/lvgl/src/misc/lv_ll.c ****  **********************/
+  41:Lib/lvgl/src/misc/lv_ll.c **** 
+  42:Lib/lvgl/src/misc/lv_ll.c **** void _lv_ll_init(lv_ll_t * ll_p, uint32_t node_size)
+  43:Lib/lvgl/src/misc/lv_ll.c **** {
+  44:Lib/lvgl/src/misc/lv_ll.c ****     ll_p->head = NULL;
+  45:Lib/lvgl/src/misc/lv_ll.c ****     ll_p->tail = NULL;
+  46:Lib/lvgl/src/misc/lv_ll.c **** #ifdef LV_ARCH_64
+  47:Lib/lvgl/src/misc/lv_ll.c ****     /*Round the size up to 8*/
+  48:Lib/lvgl/src/misc/lv_ll.c ****     node_size = (node_size + 7) & (~0x7);
+  49:Lib/lvgl/src/misc/lv_ll.c **** #else
+  50:Lib/lvgl/src/misc/lv_ll.c ****     /*Round the size up to 4*/
+  51:Lib/lvgl/src/misc/lv_ll.c ****     node_size = (node_size + 3) & (~0x3);
+  52:Lib/lvgl/src/misc/lv_ll.c **** #endif
+  53:Lib/lvgl/src/misc/lv_ll.c **** 
+  54:Lib/lvgl/src/misc/lv_ll.c ****     ll_p->n_size = node_size;
+  55:Lib/lvgl/src/misc/lv_ll.c **** }
+  56:Lib/lvgl/src/misc/lv_ll.c **** 
+  57:Lib/lvgl/src/misc/lv_ll.c **** void * _lv_ll_ins_head(lv_ll_t * ll_p)
+  58:Lib/lvgl/src/misc/lv_ll.c **** {
+  59:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+  60:Lib/lvgl/src/misc/lv_ll.c **** 
+  61:Lib/lvgl/src/misc/lv_ll.c ****     n_new = lv_malloc(ll_p->n_size + LL_NODE_META_SIZE);
+  62:Lib/lvgl/src/misc/lv_ll.c **** 
+  63:Lib/lvgl/src/misc/lv_ll.c ****     if(n_new != NULL) {
+  64:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, NULL);       /*No prev. before the new head*/
+  65:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_new, ll_p->head); /*After new comes the old head*/
+  66:Lib/lvgl/src/misc/lv_ll.c **** 
+  67:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->head != NULL) { /*If there is old head then before it goes the new*/
+  68:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_p, ll_p->head, n_new);
+  69:Lib/lvgl/src/misc/lv_ll.c ****         }
+  70:Lib/lvgl/src/misc/lv_ll.c **** 
+  71:Lib/lvgl/src/misc/lv_ll.c ****         ll_p->head = n_new;      /*Set the new head in the dsc.*/
+  72:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail == NULL) { /*If there is no tail (1. node) set the tail too*/
+  73:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->tail = n_new;
+  74:Lib/lvgl/src/misc/lv_ll.c ****         }
+  75:Lib/lvgl/src/misc/lv_ll.c ****     }
+  76:Lib/lvgl/src/misc/lv_ll.c **** 
+  77:Lib/lvgl/src/misc/lv_ll.c ****     return n_new;
+  78:Lib/lvgl/src/misc/lv_ll.c **** }
+  79:Lib/lvgl/src/misc/lv_ll.c **** 
+  80:Lib/lvgl/src/misc/lv_ll.c **** void * _lv_ll_ins_prev(lv_ll_t * ll_p, void * n_act)
+  81:Lib/lvgl/src/misc/lv_ll.c **** {
+  82:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+  83:Lib/lvgl/src/misc/lv_ll.c **** 
+  84:Lib/lvgl/src/misc/lv_ll.c ****     if(NULL == ll_p || NULL == n_act) return NULL;
+  85:Lib/lvgl/src/misc/lv_ll.c **** 
+  86:Lib/lvgl/src/misc/lv_ll.c ****     if(_lv_ll_get_head(ll_p) == n_act) {
+  87:Lib/lvgl/src/misc/lv_ll.c ****         n_new = _lv_ll_ins_head(ll_p);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 3
+
+
+  88:Lib/lvgl/src/misc/lv_ll.c ****         if(n_new == NULL) return NULL;
+  89:Lib/lvgl/src/misc/lv_ll.c ****     }
+  90:Lib/lvgl/src/misc/lv_ll.c ****     else {
+  91:Lib/lvgl/src/misc/lv_ll.c ****         n_new = lv_malloc(ll_p->n_size + LL_NODE_META_SIZE);
+  92:Lib/lvgl/src/misc/lv_ll.c ****         if(n_new == NULL) return NULL;
+  93:Lib/lvgl/src/misc/lv_ll.c **** 
+  94:Lib/lvgl/src/misc/lv_ll.c ****         lv_ll_node_t * n_prev;
+  95:Lib/lvgl/src/misc/lv_ll.c ****         n_prev = _lv_ll_get_prev(ll_p, n_act);
+  96:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_prev, n_new);
+  97:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, n_prev);
+  98:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_act, n_new);
+  99:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_new, n_act);
+ 100:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 101:Lib/lvgl/src/misc/lv_ll.c **** 
+ 102:Lib/lvgl/src/misc/lv_ll.c ****     return n_new;
+ 103:Lib/lvgl/src/misc/lv_ll.c **** }
+ 104:Lib/lvgl/src/misc/lv_ll.c **** 
+ 105:Lib/lvgl/src/misc/lv_ll.c **** void * _lv_ll_ins_tail(lv_ll_t * ll_p)
+ 106:Lib/lvgl/src/misc/lv_ll.c **** {
+ 107:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+ 108:Lib/lvgl/src/misc/lv_ll.c **** 
+ 109:Lib/lvgl/src/misc/lv_ll.c ****     n_new = lv_malloc(ll_p->n_size + LL_NODE_META_SIZE);
+ 110:Lib/lvgl/src/misc/lv_ll.c **** 
+ 111:Lib/lvgl/src/misc/lv_ll.c ****     if(n_new != NULL) {
+ 112:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_new, NULL);       /*No next after the new tail*/
+ 113:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, ll_p->tail); /*The prev. before new is the old tail*/
+ 114:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail != NULL) {                /*If there is old tail then the new comes after it*
+ 115:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_p, ll_p->tail, n_new);
+ 116:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 117:Lib/lvgl/src/misc/lv_ll.c **** 
+ 118:Lib/lvgl/src/misc/lv_ll.c ****         ll_p->tail = n_new;      /*Set the new tail in the dsc.*/
+ 119:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->head == NULL) { /*If there is no head (1. node) set the head too*/
+ 120:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->head = n_new;
+ 121:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 122:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 123:Lib/lvgl/src/misc/lv_ll.c **** 
+ 124:Lib/lvgl/src/misc/lv_ll.c ****     return n_new;
+ 125:Lib/lvgl/src/misc/lv_ll.c **** }
+ 126:Lib/lvgl/src/misc/lv_ll.c **** 
+ 127:Lib/lvgl/src/misc/lv_ll.c **** void _lv_ll_remove(lv_ll_t * ll_p, void * node_p)
+ 128:Lib/lvgl/src/misc/lv_ll.c **** {
+ 129:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return;
+ 130:Lib/lvgl/src/misc/lv_ll.c **** 
+ 131:Lib/lvgl/src/misc/lv_ll.c ****     if(_lv_ll_get_head(ll_p) == node_p) {
+ 132:Lib/lvgl/src/misc/lv_ll.c ****         /*The new head will be the node after 'n_act'*/
+ 133:Lib/lvgl/src/misc/lv_ll.c ****         ll_p->head = _lv_ll_get_next(ll_p, node_p);
+ 134:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->head == NULL) {
+ 135:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->tail = NULL;
+ 136:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 137:Lib/lvgl/src/misc/lv_ll.c ****         else {
+ 138:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_p, ll_p->head, NULL);
+ 139:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 140:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 141:Lib/lvgl/src/misc/lv_ll.c ****     else if(_lv_ll_get_tail(ll_p) == node_p) {
+ 142:Lib/lvgl/src/misc/lv_ll.c ****         /*The new tail will be the node before 'n_act'*/
+ 143:Lib/lvgl/src/misc/lv_ll.c ****         ll_p->tail = _lv_ll_get_prev(ll_p, node_p);
+ 144:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail == NULL) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 4
+
+
+ 145:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->head = NULL;
+ 146:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 147:Lib/lvgl/src/misc/lv_ll.c ****         else {
+ 148:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_p, ll_p->tail, NULL);
+ 149:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 150:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 151:Lib/lvgl/src/misc/lv_ll.c ****     else {
+ 152:Lib/lvgl/src/misc/lv_ll.c ****         lv_ll_node_t * n_prev = _lv_ll_get_prev(ll_p, node_p);
+ 153:Lib/lvgl/src/misc/lv_ll.c ****         lv_ll_node_t * n_next = _lv_ll_get_next(ll_p, node_p);
+ 154:Lib/lvgl/src/misc/lv_ll.c **** 
+ 155:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_prev, n_next);
+ 156:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_next, n_prev);
+ 157:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 158:Lib/lvgl/src/misc/lv_ll.c **** }
+ 159:Lib/lvgl/src/misc/lv_ll.c **** 
+ 160:Lib/lvgl/src/misc/lv_ll.c **** void _lv_ll_clear_custom(lv_ll_t * ll_p, void(*cleanup)(void *))
+ 161:Lib/lvgl/src/misc/lv_ll.c **** {
+ 162:Lib/lvgl/src/misc/lv_ll.c ****     void * i;
+ 163:Lib/lvgl/src/misc/lv_ll.c ****     void * i_next;
+ 164:Lib/lvgl/src/misc/lv_ll.c **** 
+ 165:Lib/lvgl/src/misc/lv_ll.c ****     i      = _lv_ll_get_head(ll_p);
+ 166:Lib/lvgl/src/misc/lv_ll.c ****     i_next = NULL;
+ 167:Lib/lvgl/src/misc/lv_ll.c **** 
+ 168:Lib/lvgl/src/misc/lv_ll.c ****     while(i != NULL) {
+ 169:Lib/lvgl/src/misc/lv_ll.c ****         i_next = _lv_ll_get_next(ll_p, i);
+ 170:Lib/lvgl/src/misc/lv_ll.c ****         if(cleanup == NULL) {
+ 171:Lib/lvgl/src/misc/lv_ll.c ****             _lv_ll_remove(ll_p, i);
+ 172:Lib/lvgl/src/misc/lv_ll.c ****             lv_free(i);
+ 173:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 174:Lib/lvgl/src/misc/lv_ll.c ****         else {
+ 175:Lib/lvgl/src/misc/lv_ll.c ****             cleanup(i);
+ 176:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 177:Lib/lvgl/src/misc/lv_ll.c ****         i = i_next;
+ 178:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 179:Lib/lvgl/src/misc/lv_ll.c **** }
+ 180:Lib/lvgl/src/misc/lv_ll.c **** 
+ 181:Lib/lvgl/src/misc/lv_ll.c **** void _lv_ll_chg_list(lv_ll_t * ll_ori_p, lv_ll_t * ll_new_p, void * node, bool head)
+ 182:Lib/lvgl/src/misc/lv_ll.c **** {
+ 183:Lib/lvgl/src/misc/lv_ll.c ****     _lv_ll_remove(ll_ori_p, node);
+ 184:Lib/lvgl/src/misc/lv_ll.c **** 
+ 185:Lib/lvgl/src/misc/lv_ll.c ****     if(head) {
+ 186:Lib/lvgl/src/misc/lv_ll.c ****         /*Set node as head*/
+ 187:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_new_p, node, NULL);
+ 188:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_new_p, node, ll_new_p->head);
+ 189:Lib/lvgl/src/misc/lv_ll.c **** 
+ 190:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_new_p->head != NULL) { /*If there is old head then before it goes the new*/
+ 191:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_new_p, ll_new_p->head, node);
+ 192:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 193:Lib/lvgl/src/misc/lv_ll.c **** 
+ 194:Lib/lvgl/src/misc/lv_ll.c ****         ll_new_p->head = node;       /*Set the new head in the dsc.*/
+ 195:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_new_p->tail == NULL) { /*If there is no tail (first node) set the tail too*/
+ 196:Lib/lvgl/src/misc/lv_ll.c ****             ll_new_p->tail = node;
+ 197:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 198:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 199:Lib/lvgl/src/misc/lv_ll.c ****     else {
+ 200:Lib/lvgl/src/misc/lv_ll.c ****         /*Set node as tail*/
+ 201:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_new_p, node, ll_new_p->tail);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 5
+
+
+ 202:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_new_p, node, NULL);
+ 203:Lib/lvgl/src/misc/lv_ll.c **** 
+ 204:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_new_p->tail != NULL) { /*If there is old tail then after it goes the new*/
+ 205:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_new_p, ll_new_p->tail, node);
+ 206:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 207:Lib/lvgl/src/misc/lv_ll.c **** 
+ 208:Lib/lvgl/src/misc/lv_ll.c ****         ll_new_p->tail = node;       /*Set the new tail in the dsc.*/
+ 209:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_new_p->head == NULL) { /*If there is no head (first node) set the head too*/
+ 210:Lib/lvgl/src/misc/lv_ll.c ****             ll_new_p->head = node;
+ 211:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 212:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 213:Lib/lvgl/src/misc/lv_ll.c **** }
+ 214:Lib/lvgl/src/misc/lv_ll.c **** 
+ 215:Lib/lvgl/src/misc/lv_ll.c **** void * _lv_ll_get_head(const lv_ll_t * ll_p)
+ 216:Lib/lvgl/src/misc/lv_ll.c **** {
+ 217:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return NULL;
+ 218:Lib/lvgl/src/misc/lv_ll.c ****     return ll_p->head;
+ 219:Lib/lvgl/src/misc/lv_ll.c **** }
+ 220:Lib/lvgl/src/misc/lv_ll.c **** 
+ 221:Lib/lvgl/src/misc/lv_ll.c **** void * _lv_ll_get_tail(const lv_ll_t * ll_p)
+ 222:Lib/lvgl/src/misc/lv_ll.c **** {
+ 223:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return NULL;
+ 224:Lib/lvgl/src/misc/lv_ll.c ****     return ll_p->tail;
+ 225:Lib/lvgl/src/misc/lv_ll.c **** }
+ 226:Lib/lvgl/src/misc/lv_ll.c **** 
+ 227:Lib/lvgl/src/misc/lv_ll.c **** void * _lv_ll_get_next(const lv_ll_t * ll_p, const void * n_act)
+ 228:Lib/lvgl/src/misc/lv_ll.c **** {
+ 229:Lib/lvgl/src/misc/lv_ll.c ****     /*Pointer to the next node is stored in the end of this node.
+ 230:Lib/lvgl/src/misc/lv_ll.c ****      *Go there and return the address found there*/
+ 231:Lib/lvgl/src/misc/lv_ll.c ****     const lv_ll_node_t * n_act_d = n_act;
+ 232:Lib/lvgl/src/misc/lv_ll.c ****     n_act_d += LL_NEXT_P_OFFSET(ll_p);
+ 233:Lib/lvgl/src/misc/lv_ll.c ****     return *((lv_ll_node_t **)n_act_d);
+ 234:Lib/lvgl/src/misc/lv_ll.c **** }
+ 235:Lib/lvgl/src/misc/lv_ll.c **** 
+ 236:Lib/lvgl/src/misc/lv_ll.c **** void * _lv_ll_get_prev(const lv_ll_t * ll_p, const void * n_act)
+ 237:Lib/lvgl/src/misc/lv_ll.c **** {
+ 238:Lib/lvgl/src/misc/lv_ll.c ****     /*Pointer to the prev. node is stored in the end of this node.
+ 239:Lib/lvgl/src/misc/lv_ll.c ****      *Go there and return the address found there*/
+ 240:Lib/lvgl/src/misc/lv_ll.c ****     const lv_ll_node_t * n_act_d = n_act;
+ 241:Lib/lvgl/src/misc/lv_ll.c ****     n_act_d += LL_PREV_P_OFFSET(ll_p);
+ 242:Lib/lvgl/src/misc/lv_ll.c ****     return *((lv_ll_node_t **)n_act_d);
+ 243:Lib/lvgl/src/misc/lv_ll.c **** }
+ 244:Lib/lvgl/src/misc/lv_ll.c **** 
+ 245:Lib/lvgl/src/misc/lv_ll.c **** uint32_t _lv_ll_get_len(const lv_ll_t * ll_p)
+ 246:Lib/lvgl/src/misc/lv_ll.c **** {
+ 247:Lib/lvgl/src/misc/lv_ll.c ****     uint32_t len = 0;
+ 248:Lib/lvgl/src/misc/lv_ll.c ****     void * node;
+ 249:Lib/lvgl/src/misc/lv_ll.c **** 
+ 250:Lib/lvgl/src/misc/lv_ll.c ****     for(node = _lv_ll_get_head(ll_p); node != NULL; node = _lv_ll_get_next(ll_p, node)) {
+ 251:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 252:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 253:Lib/lvgl/src/misc/lv_ll.c **** 
+ 254:Lib/lvgl/src/misc/lv_ll.c ****     return len;
+ 255:Lib/lvgl/src/misc/lv_ll.c **** }
+ 256:Lib/lvgl/src/misc/lv_ll.c **** 
+ 257:Lib/lvgl/src/misc/lv_ll.c **** void _lv_ll_move_before(lv_ll_t * ll_p, void * n_act, void * n_after)
+ 258:Lib/lvgl/src/misc/lv_ll.c **** {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 6
+
+
+ 259:Lib/lvgl/src/misc/lv_ll.c ****     if(n_act == n_after) return; /*Can't move before itself*/
+ 260:Lib/lvgl/src/misc/lv_ll.c **** 
+ 261:Lib/lvgl/src/misc/lv_ll.c ****     void * n_before;
+ 262:Lib/lvgl/src/misc/lv_ll.c ****     if(n_after != NULL)
+ 263:Lib/lvgl/src/misc/lv_ll.c ****         n_before = _lv_ll_get_prev(ll_p, n_after);
+ 264:Lib/lvgl/src/misc/lv_ll.c ****     else
+ 265:Lib/lvgl/src/misc/lv_ll.c ****         n_before = _lv_ll_get_tail(ll_p); /*if `n_after` is NULL `n_act` should be the new tail*/
+ 266:Lib/lvgl/src/misc/lv_ll.c **** 
+ 267:Lib/lvgl/src/misc/lv_ll.c ****     if(n_act == n_before) return; /*Already before `n_after`*/
+ 268:Lib/lvgl/src/misc/lv_ll.c **** 
+ 269:Lib/lvgl/src/misc/lv_ll.c ****     /*It's much easier to remove from the list and add again*/
+ 270:Lib/lvgl/src/misc/lv_ll.c ****     _lv_ll_remove(ll_p, n_act);
+ 271:Lib/lvgl/src/misc/lv_ll.c **** 
+ 272:Lib/lvgl/src/misc/lv_ll.c ****     /*Add again by setting the prev. and next nodes*/
+ 273:Lib/lvgl/src/misc/lv_ll.c ****     node_set_next(ll_p, n_before, n_act);
+ 274:Lib/lvgl/src/misc/lv_ll.c ****     node_set_prev(ll_p, n_act, n_before);
+ 275:Lib/lvgl/src/misc/lv_ll.c ****     node_set_prev(ll_p, n_after, n_act);
+ 276:Lib/lvgl/src/misc/lv_ll.c ****     node_set_next(ll_p, n_act, n_after);
+ 277:Lib/lvgl/src/misc/lv_ll.c **** 
+ 278:Lib/lvgl/src/misc/lv_ll.c ****     /*If `n_act` was moved before NULL then it become the new tail*/
+ 279:Lib/lvgl/src/misc/lv_ll.c ****     if(n_after == NULL) ll_p->tail = n_act;
+ 280:Lib/lvgl/src/misc/lv_ll.c **** 
+ 281:Lib/lvgl/src/misc/lv_ll.c ****     /*If `n_act` was moved before `NULL` then it's the new head*/
+ 282:Lib/lvgl/src/misc/lv_ll.c ****     if(n_before == NULL) ll_p->head = n_act;
+ 283:Lib/lvgl/src/misc/lv_ll.c **** }
+ 284:Lib/lvgl/src/misc/lv_ll.c **** 
+ 285:Lib/lvgl/src/misc/lv_ll.c **** bool _lv_ll_is_empty(lv_ll_t * ll_p)
+ 286:Lib/lvgl/src/misc/lv_ll.c **** {
+ 287:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return true;
+ 288:Lib/lvgl/src/misc/lv_ll.c **** 
+ 289:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p->head == NULL && ll_p->tail == NULL) return true;
+ 290:Lib/lvgl/src/misc/lv_ll.c **** 
+ 291:Lib/lvgl/src/misc/lv_ll.c ****     return false;
+ 292:Lib/lvgl/src/misc/lv_ll.c **** }
+ 293:Lib/lvgl/src/misc/lv_ll.c **** 
+ 294:Lib/lvgl/src/misc/lv_ll.c **** /**********************
+ 295:Lib/lvgl/src/misc/lv_ll.c ****  *   STATIC FUNCTIONS
+ 296:Lib/lvgl/src/misc/lv_ll.c ****  **********************/
+ 297:Lib/lvgl/src/misc/lv_ll.c **** 
+ 298:Lib/lvgl/src/misc/lv_ll.c **** /**
+ 299:Lib/lvgl/src/misc/lv_ll.c ****  * Set the previous node pointer of a node
+ 300:Lib/lvgl/src/misc/lv_ll.c ****  * @param ll_p pointer to linked list
+ 301:Lib/lvgl/src/misc/lv_ll.c ****  * @param act pointer to a node which prev. node pointer should be set
+ 302:Lib/lvgl/src/misc/lv_ll.c ****  * @param prev pointer to a node which should be the previous node before 'act'
+ 303:Lib/lvgl/src/misc/lv_ll.c ****  */
+ 304:Lib/lvgl/src/misc/lv_ll.c **** static void node_set_prev(lv_ll_t * ll_p, lv_ll_node_t * act, lv_ll_node_t * prev)
+ 305:Lib/lvgl/src/misc/lv_ll.c **** {
+  29              		.loc 1 305 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 306:Lib/lvgl/src/misc/lv_ll.c ****     if(act == NULL) return; /*Can't set the prev node of `NULL`*/
+  34              		.loc 1 306 5 view .LVU1
+  35              		.loc 1 306 7 is_stmt 0 view .LVU2
+  36 0000 0B46     		mov	r3, r1
+  37 0002 09B1     		cbz	r1, .L1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 7
+
+
+ 307:Lib/lvgl/src/misc/lv_ll.c **** 
+ 308:Lib/lvgl/src/misc/lv_ll.c ****     uint8_t * act8 = (uint8_t *)act;
+  38              		.loc 1 308 5 is_stmt 1 view .LVU3
+  39              	.LVL1:
+ 309:Lib/lvgl/src/misc/lv_ll.c **** 
+ 310:Lib/lvgl/src/misc/lv_ll.c ****     act8 += LL_PREV_P_OFFSET(ll_p);
+  40              		.loc 1 310 5 view .LVU4
+  41              		.loc 1 310 13 is_stmt 0 view .LVU5
+  42 0004 0168     		ldr	r1, [r0]
+  43              	.LVL2:
+ 311:Lib/lvgl/src/misc/lv_ll.c **** 
+ 312:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t ** act_node_p = (lv_ll_node_t **) act8;
+  44              		.loc 1 312 5 is_stmt 1 view .LVU6
+ 313:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t ** prev_node_p = (lv_ll_node_t **) &prev;
+  45              		.loc 1 313 5 view .LVU7
+ 314:Lib/lvgl/src/misc/lv_ll.c **** 
+ 315:Lib/lvgl/src/misc/lv_ll.c ****     *act_node_p = *prev_node_p;
+  46              		.loc 1 315 5 view .LVU8
+  47              		.loc 1 315 17 is_stmt 0 view .LVU9
+  48 0006 5A50     		str	r2, [r3, r1]
+  49              	.LVL3:
+  50              	.L1:
+ 316:Lib/lvgl/src/misc/lv_ll.c **** }
+  51              		.loc 1 316 1 view .LVU10
+  52 0008 7047     		bx	lr
+  53              		.cfi_endproc
+  54              	.LFE15:
+  56              		.section	.text.node_set_next,"ax",%progbits
+  57              		.align	1
+  58              		.syntax unified
+  59              		.thumb
+  60              		.thumb_func
+  62              	node_set_next:
+  63              	.LVL4:
+  64              	.LFB16:
+ 317:Lib/lvgl/src/misc/lv_ll.c **** 
+ 318:Lib/lvgl/src/misc/lv_ll.c **** /**
+ 319:Lib/lvgl/src/misc/lv_ll.c ****  * Set the 'next node pointer' of a node
+ 320:Lib/lvgl/src/misc/lv_ll.c ****  * @param ll_p pointer to linked list
+ 321:Lib/lvgl/src/misc/lv_ll.c ****  * @param act pointer to a node which next node pointer should be set
+ 322:Lib/lvgl/src/misc/lv_ll.c ****  * @param next pointer to a node which should be the next node before 'act'
+ 323:Lib/lvgl/src/misc/lv_ll.c ****  */
+ 324:Lib/lvgl/src/misc/lv_ll.c **** static void node_set_next(lv_ll_t * ll_p, lv_ll_node_t * act, lv_ll_node_t * next)
+ 325:Lib/lvgl/src/misc/lv_ll.c **** {
+  65              		.loc 1 325 1 is_stmt 1 view -0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              		@ link register save eliminated.
+ 326:Lib/lvgl/src/misc/lv_ll.c ****     if(act == NULL) return; /*Can't set the next node of `NULL`*/
+  70              		.loc 1 326 5 view .LVU12
+  71              		.loc 1 326 7 is_stmt 0 view .LVU13
+  72 0000 11B1     		cbz	r1, .L3
+ 327:Lib/lvgl/src/misc/lv_ll.c ****     uint8_t * act8 = (uint8_t *)act;
+  73              		.loc 1 327 5 is_stmt 1 view .LVU14
+  74              	.LVL5:
+ 328:Lib/lvgl/src/misc/lv_ll.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 8
+
+
+ 329:Lib/lvgl/src/misc/lv_ll.c ****     act8 += LL_NEXT_P_OFFSET(ll_p);
+  75              		.loc 1 329 5 view .LVU15
+  76              		.loc 1 329 13 is_stmt 0 view .LVU16
+  77 0002 0368     		ldr	r3, [r0]
+  78              		.loc 1 329 10 view .LVU17
+  79 0004 0433     		adds	r3, r3, #4
+  80              	.LVL6:
+ 330:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t ** act_node_p = (lv_ll_node_t **) act8;
+  81              		.loc 1 330 5 is_stmt 1 view .LVU18
+ 331:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t ** next_node_p = (lv_ll_node_t **) &next;
+  82              		.loc 1 331 5 view .LVU19
+ 332:Lib/lvgl/src/misc/lv_ll.c **** 
+ 333:Lib/lvgl/src/misc/lv_ll.c ****     *act_node_p = *next_node_p;
+  83              		.loc 1 333 5 view .LVU20
+  84              		.loc 1 333 17 is_stmt 0 view .LVU21
+  85 0006 CA50     		str	r2, [r1, r3]
+  86              	.LVL7:
+  87              	.L3:
+ 334:Lib/lvgl/src/misc/lv_ll.c **** }
+  88              		.loc 1 334 1 view .LVU22
+  89 0008 7047     		bx	lr
+  90              		.cfi_endproc
+  91              	.LFE16:
+  93              		.section	.text._lv_ll_init,"ax",%progbits
+  94              		.align	1
+  95              		.global	_lv_ll_init
+  96              		.syntax unified
+  97              		.thumb
+  98              		.thumb_func
+ 100              	_lv_ll_init:
+ 101              	.LVL8:
+ 102              	.LFB1:
+  43:Lib/lvgl/src/misc/lv_ll.c ****     ll_p->head = NULL;
+ 103              		.loc 1 43 1 is_stmt 1 view -0
+ 104              		.cfi_startproc
+ 105              		@ args = 0, pretend = 0, frame = 0
+ 106              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107              		@ link register save eliminated.
+  44:Lib/lvgl/src/misc/lv_ll.c ****     ll_p->tail = NULL;
+ 108              		.loc 1 44 5 view .LVU24
+  44:Lib/lvgl/src/misc/lv_ll.c ****     ll_p->tail = NULL;
+ 109              		.loc 1 44 16 is_stmt 0 view .LVU25
+ 110 0000 0023     		movs	r3, #0
+ 111 0002 4360     		str	r3, [r0, #4]
+  45:Lib/lvgl/src/misc/lv_ll.c **** #ifdef LV_ARCH_64
+ 112              		.loc 1 45 5 is_stmt 1 view .LVU26
+  45:Lib/lvgl/src/misc/lv_ll.c **** #ifdef LV_ARCH_64
+ 113              		.loc 1 45 16 is_stmt 0 view .LVU27
+ 114 0004 8360     		str	r3, [r0, #8]
+  51:Lib/lvgl/src/misc/lv_ll.c **** #endif
+ 115              		.loc 1 51 5 is_stmt 1 view .LVU28
+  51:Lib/lvgl/src/misc/lv_ll.c **** #endif
+ 116              		.loc 1 51 28 is_stmt 0 view .LVU29
+ 117 0006 0331     		adds	r1, r1, #3
+ 118              	.LVL9:
+  51:Lib/lvgl/src/misc/lv_ll.c **** #endif
+ 119              		.loc 1 51 15 view .LVU30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 9
+
+
+ 120 0008 21F00301 		bic	r1, r1, #3
+ 121              	.LVL10:
+  54:Lib/lvgl/src/misc/lv_ll.c **** }
+ 122              		.loc 1 54 5 is_stmt 1 view .LVU31
+  54:Lib/lvgl/src/misc/lv_ll.c **** }
+ 123              		.loc 1 54 18 is_stmt 0 view .LVU32
+ 124 000c 0160     		str	r1, [r0]
+  55:Lib/lvgl/src/misc/lv_ll.c **** 
+ 125              		.loc 1 55 1 view .LVU33
+ 126 000e 7047     		bx	lr
+ 127              		.cfi_endproc
+ 128              	.LFE1:
+ 130              		.section	.text._lv_ll_ins_head,"ax",%progbits
+ 131              		.align	1
+ 132              		.global	_lv_ll_ins_head
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 137              	_lv_ll_ins_head:
+ 138              	.LVL11:
+ 139              	.LFB2:
+  58:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+ 140              		.loc 1 58 1 is_stmt 1 view -0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+  58:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+ 144              		.loc 1 58 1 is_stmt 0 view .LVU35
+ 145 0000 38B5     		push	{r3, r4, r5, lr}
+ 146              	.LCFI0:
+ 147              		.cfi_def_cfa_offset 16
+ 148              		.cfi_offset 3, -16
+ 149              		.cfi_offset 4, -12
+ 150              		.cfi_offset 5, -8
+ 151              		.cfi_offset 14, -4
+ 152 0002 0446     		mov	r4, r0
+  59:Lib/lvgl/src/misc/lv_ll.c **** 
+ 153              		.loc 1 59 5 is_stmt 1 view .LVU36
+  61:Lib/lvgl/src/misc/lv_ll.c **** 
+ 154              		.loc 1 61 5 view .LVU37
+  61:Lib/lvgl/src/misc/lv_ll.c **** 
+ 155              		.loc 1 61 27 is_stmt 0 view .LVU38
+ 156 0004 0068     		ldr	r0, [r0]
+ 157              	.LVL12:
+  61:Lib/lvgl/src/misc/lv_ll.c **** 
+ 158              		.loc 1 61 13 view .LVU39
+ 159 0006 0830     		adds	r0, r0, #8
+ 160 0008 FFF7FEFF 		bl	lv_malloc
+ 161              	.LVL13:
+  63:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, NULL);       /*No prev. before the new head*/
+ 162              		.loc 1 63 5 is_stmt 1 view .LVU40
+  63:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, NULL);       /*No prev. before the new head*/
+ 163              		.loc 1 63 7 is_stmt 0 view .LVU41
+ 164 000c 0546     		mov	r5, r0
+ 165 000e 90B1     		cbz	r0, .L6
+  64:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_new, ll_p->head); /*After new comes the old head*/
+ 166              		.loc 1 64 9 is_stmt 1 view .LVU42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 10
+
+
+ 167 0010 0022     		movs	r2, #0
+ 168 0012 0146     		mov	r1, r0
+ 169 0014 2046     		mov	r0, r4
+ 170              	.LVL14:
+  64:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_new, ll_p->head); /*After new comes the old head*/
+ 171              		.loc 1 64 9 is_stmt 0 view .LVU43
+ 172 0016 FFF7FEFF 		bl	node_set_prev
+ 173              	.LVL15:
+  65:Lib/lvgl/src/misc/lv_ll.c **** 
+ 174              		.loc 1 65 9 is_stmt 1 view .LVU44
+ 175 001a 6268     		ldr	r2, [r4, #4]
+ 176 001c 2946     		mov	r1, r5
+ 177 001e 2046     		mov	r0, r4
+ 178 0020 FFF7FEFF 		bl	node_set_next
+ 179              	.LVL16:
+  67:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_p, ll_p->head, n_new);
+ 180              		.loc 1 67 9 view .LVU45
+  67:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_p, ll_p->head, n_new);
+ 181              		.loc 1 67 16 is_stmt 0 view .LVU46
+ 182 0024 6168     		ldr	r1, [r4, #4]
+  67:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_p, ll_p->head, n_new);
+ 183              		.loc 1 67 11 view .LVU47
+ 184 0026 19B1     		cbz	r1, .L8
+  68:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 185              		.loc 1 68 13 is_stmt 1 view .LVU48
+ 186 0028 2A46     		mov	r2, r5
+ 187 002a 2046     		mov	r0, r4
+ 188 002c FFF7FEFF 		bl	node_set_prev
+ 189              	.LVL17:
+ 190              	.L8:
+  71:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail == NULL) { /*If there is no tail (1. node) set the tail too*/
+ 191              		.loc 1 71 9 view .LVU49
+  71:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail == NULL) { /*If there is no tail (1. node) set the tail too*/
+ 192              		.loc 1 71 20 is_stmt 0 view .LVU50
+ 193 0030 6560     		str	r5, [r4, #4]
+  72:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->tail = n_new;
+ 194              		.loc 1 72 9 is_stmt 1 view .LVU51
+  72:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->tail = n_new;
+ 195              		.loc 1 72 16 is_stmt 0 view .LVU52
+ 196 0032 A368     		ldr	r3, [r4, #8]
+  72:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->tail = n_new;
+ 197              		.loc 1 72 11 view .LVU53
+ 198 0034 0BB1     		cbz	r3, .L10
+ 199              	.L6:
+  78:Lib/lvgl/src/misc/lv_ll.c **** 
+ 200              		.loc 1 78 1 view .LVU54
+ 201 0036 2846     		mov	r0, r5
+ 202 0038 38BD     		pop	{r3, r4, r5, pc}
+ 203              	.LVL18:
+ 204              	.L10:
+  73:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 205              		.loc 1 73 13 is_stmt 1 view .LVU55
+  73:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 206              		.loc 1 73 24 is_stmt 0 view .LVU56
+ 207 003a A560     		str	r5, [r4, #8]
+  77:Lib/lvgl/src/misc/lv_ll.c **** }
+ 208              		.loc 1 77 5 is_stmt 1 view .LVU57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 11
+
+
+  77:Lib/lvgl/src/misc/lv_ll.c **** }
+ 209              		.loc 1 77 12 is_stmt 0 view .LVU58
+ 210 003c FBE7     		b	.L6
+ 211              		.cfi_endproc
+ 212              	.LFE2:
+ 214              		.section	.text._lv_ll_ins_tail,"ax",%progbits
+ 215              		.align	1
+ 216              		.global	_lv_ll_ins_tail
+ 217              		.syntax unified
+ 218              		.thumb
+ 219              		.thumb_func
+ 221              	_lv_ll_ins_tail:
+ 222              	.LVL19:
+ 223              	.LFB4:
+ 106:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+ 224              		.loc 1 106 1 is_stmt 1 view -0
+ 225              		.cfi_startproc
+ 226              		@ args = 0, pretend = 0, frame = 0
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+ 228              		.loc 1 106 1 is_stmt 0 view .LVU60
+ 229 0000 38B5     		push	{r3, r4, r5, lr}
+ 230              	.LCFI1:
+ 231              		.cfi_def_cfa_offset 16
+ 232              		.cfi_offset 3, -16
+ 233              		.cfi_offset 4, -12
+ 234              		.cfi_offset 5, -8
+ 235              		.cfi_offset 14, -4
+ 236 0002 0446     		mov	r4, r0
+ 107:Lib/lvgl/src/misc/lv_ll.c **** 
+ 237              		.loc 1 107 5 is_stmt 1 view .LVU61
+ 109:Lib/lvgl/src/misc/lv_ll.c **** 
+ 238              		.loc 1 109 5 view .LVU62
+ 109:Lib/lvgl/src/misc/lv_ll.c **** 
+ 239              		.loc 1 109 27 is_stmt 0 view .LVU63
+ 240 0004 0068     		ldr	r0, [r0]
+ 241              	.LVL20:
+ 109:Lib/lvgl/src/misc/lv_ll.c **** 
+ 242              		.loc 1 109 13 view .LVU64
+ 243 0006 0830     		adds	r0, r0, #8
+ 244 0008 FFF7FEFF 		bl	lv_malloc
+ 245              	.LVL21:
+ 111:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_new, NULL);       /*No next after the new tail*/
+ 246              		.loc 1 111 5 is_stmt 1 view .LVU65
+ 111:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_new, NULL);       /*No next after the new tail*/
+ 247              		.loc 1 111 7 is_stmt 0 view .LVU66
+ 248 000c 0546     		mov	r5, r0
+ 249 000e 90B1     		cbz	r0, .L11
+ 112:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, ll_p->tail); /*The prev. before new is the old tail*/
+ 250              		.loc 1 112 9 is_stmt 1 view .LVU67
+ 251 0010 0022     		movs	r2, #0
+ 252 0012 0146     		mov	r1, r0
+ 253 0014 2046     		mov	r0, r4
+ 254              	.LVL22:
+ 112:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, ll_p->tail); /*The prev. before new is the old tail*/
+ 255              		.loc 1 112 9 is_stmt 0 view .LVU68
+ 256 0016 FFF7FEFF 		bl	node_set_next
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 12
+
+
+ 257              	.LVL23:
+ 113:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail != NULL) {                /*If there is old tail then the new comes after it*
+ 258              		.loc 1 113 9 is_stmt 1 view .LVU69
+ 259 001a A268     		ldr	r2, [r4, #8]
+ 260 001c 2946     		mov	r1, r5
+ 261 001e 2046     		mov	r0, r4
+ 262 0020 FFF7FEFF 		bl	node_set_prev
+ 263              	.LVL24:
+ 114:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_p, ll_p->tail, n_new);
+ 264              		.loc 1 114 9 view .LVU70
+ 114:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_p, ll_p->tail, n_new);
+ 265              		.loc 1 114 16 is_stmt 0 view .LVU71
+ 266 0024 A168     		ldr	r1, [r4, #8]
+ 114:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_p, ll_p->tail, n_new);
+ 267              		.loc 1 114 11 view .LVU72
+ 268 0026 19B1     		cbz	r1, .L13
+ 115:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 269              		.loc 1 115 13 is_stmt 1 view .LVU73
+ 270 0028 2A46     		mov	r2, r5
+ 271 002a 2046     		mov	r0, r4
+ 272 002c FFF7FEFF 		bl	node_set_next
+ 273              	.LVL25:
+ 274              	.L13:
+ 118:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->head == NULL) { /*If there is no head (1. node) set the head too*/
+ 275              		.loc 1 118 9 view .LVU74
+ 118:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->head == NULL) { /*If there is no head (1. node) set the head too*/
+ 276              		.loc 1 118 20 is_stmt 0 view .LVU75
+ 277 0030 A560     		str	r5, [r4, #8]
+ 119:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->head = n_new;
+ 278              		.loc 1 119 9 is_stmt 1 view .LVU76
+ 119:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->head = n_new;
+ 279              		.loc 1 119 16 is_stmt 0 view .LVU77
+ 280 0032 6368     		ldr	r3, [r4, #4]
+ 119:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->head = n_new;
+ 281              		.loc 1 119 11 view .LVU78
+ 282 0034 0BB1     		cbz	r3, .L15
+ 283              	.L11:
+ 125:Lib/lvgl/src/misc/lv_ll.c **** 
+ 284              		.loc 1 125 1 view .LVU79
+ 285 0036 2846     		mov	r0, r5
+ 286 0038 38BD     		pop	{r3, r4, r5, pc}
+ 287              	.LVL26:
+ 288              	.L15:
+ 120:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 289              		.loc 1 120 13 is_stmt 1 view .LVU80
+ 120:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 290              		.loc 1 120 24 is_stmt 0 view .LVU81
+ 291 003a 6560     		str	r5, [r4, #4]
+ 124:Lib/lvgl/src/misc/lv_ll.c **** }
+ 292              		.loc 1 124 5 is_stmt 1 view .LVU82
+ 124:Lib/lvgl/src/misc/lv_ll.c **** }
+ 293              		.loc 1 124 12 is_stmt 0 view .LVU83
+ 294 003c FBE7     		b	.L11
+ 295              		.cfi_endproc
+ 296              	.LFE4:
+ 298              		.section	.text._lv_ll_get_head,"ax",%progbits
+ 299              		.align	1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 13
+
+
+ 300              		.global	_lv_ll_get_head
+ 301              		.syntax unified
+ 302              		.thumb
+ 303              		.thumb_func
+ 305              	_lv_ll_get_head:
+ 306              	.LVL27:
+ 307              	.LFB8:
+ 216:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return NULL;
+ 308              		.loc 1 216 1 is_stmt 1 view -0
+ 309              		.cfi_startproc
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		@ link register save eliminated.
+ 217:Lib/lvgl/src/misc/lv_ll.c ****     return ll_p->head;
+ 313              		.loc 1 217 5 view .LVU85
+ 217:Lib/lvgl/src/misc/lv_ll.c ****     return ll_p->head;
+ 314              		.loc 1 217 7 is_stmt 0 view .LVU86
+ 315 0000 08B1     		cbz	r0, .L18
+ 218:Lib/lvgl/src/misc/lv_ll.c **** }
+ 316              		.loc 1 218 5 is_stmt 1 view .LVU87
+ 218:Lib/lvgl/src/misc/lv_ll.c **** }
+ 317              		.loc 1 218 16 is_stmt 0 view .LVU88
+ 318 0002 4068     		ldr	r0, [r0, #4]
+ 319              	.LVL28:
+ 218:Lib/lvgl/src/misc/lv_ll.c **** }
+ 320              		.loc 1 218 16 view .LVU89
+ 321 0004 7047     		bx	lr
+ 322              	.LVL29:
+ 323              	.L18:
+ 219:Lib/lvgl/src/misc/lv_ll.c **** 
+ 324              		.loc 1 219 1 view .LVU90
+ 325 0006 7047     		bx	lr
+ 326              		.cfi_endproc
+ 327              	.LFE8:
+ 329              		.section	.text._lv_ll_get_tail,"ax",%progbits
+ 330              		.align	1
+ 331              		.global	_lv_ll_get_tail
+ 332              		.syntax unified
+ 333              		.thumb
+ 334              		.thumb_func
+ 336              	_lv_ll_get_tail:
+ 337              	.LVL30:
+ 338              	.LFB9:
+ 222:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return NULL;
+ 339              		.loc 1 222 1 is_stmt 1 view -0
+ 340              		.cfi_startproc
+ 341              		@ args = 0, pretend = 0, frame = 0
+ 342              		@ frame_needed = 0, uses_anonymous_args = 0
+ 343              		@ link register save eliminated.
+ 223:Lib/lvgl/src/misc/lv_ll.c ****     return ll_p->tail;
+ 344              		.loc 1 223 5 view .LVU92
+ 223:Lib/lvgl/src/misc/lv_ll.c ****     return ll_p->tail;
+ 345              		.loc 1 223 7 is_stmt 0 view .LVU93
+ 346 0000 08B1     		cbz	r0, .L21
+ 224:Lib/lvgl/src/misc/lv_ll.c **** }
+ 347              		.loc 1 224 5 is_stmt 1 view .LVU94
+ 224:Lib/lvgl/src/misc/lv_ll.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 14
+
+
+ 348              		.loc 1 224 16 is_stmt 0 view .LVU95
+ 349 0002 8068     		ldr	r0, [r0, #8]
+ 350              	.LVL31:
+ 224:Lib/lvgl/src/misc/lv_ll.c **** }
+ 351              		.loc 1 224 16 view .LVU96
+ 352 0004 7047     		bx	lr
+ 353              	.LVL32:
+ 354              	.L21:
+ 225:Lib/lvgl/src/misc/lv_ll.c **** 
+ 355              		.loc 1 225 1 view .LVU97
+ 356 0006 7047     		bx	lr
+ 357              		.cfi_endproc
+ 358              	.LFE9:
+ 360              		.section	.text._lv_ll_get_next,"ax",%progbits
+ 361              		.align	1
+ 362              		.global	_lv_ll_get_next
+ 363              		.syntax unified
+ 364              		.thumb
+ 365              		.thumb_func
+ 367              	_lv_ll_get_next:
+ 368              	.LVL33:
+ 369              	.LFB10:
+ 228:Lib/lvgl/src/misc/lv_ll.c ****     /*Pointer to the next node is stored in the end of this node.
+ 370              		.loc 1 228 1 is_stmt 1 view -0
+ 371              		.cfi_startproc
+ 372              		@ args = 0, pretend = 0, frame = 0
+ 373              		@ frame_needed = 0, uses_anonymous_args = 0
+ 374              		@ link register save eliminated.
+ 231:Lib/lvgl/src/misc/lv_ll.c ****     n_act_d += LL_NEXT_P_OFFSET(ll_p);
+ 375              		.loc 1 231 5 view .LVU99
+ 232:Lib/lvgl/src/misc/lv_ll.c ****     return *((lv_ll_node_t **)n_act_d);
+ 376              		.loc 1 232 5 view .LVU100
+ 232:Lib/lvgl/src/misc/lv_ll.c ****     return *((lv_ll_node_t **)n_act_d);
+ 377              		.loc 1 232 16 is_stmt 0 view .LVU101
+ 378 0000 0368     		ldr	r3, [r0]
+ 232:Lib/lvgl/src/misc/lv_ll.c ****     return *((lv_ll_node_t **)n_act_d);
+ 379              		.loc 1 232 13 view .LVU102
+ 380 0002 0433     		adds	r3, r3, #4
+ 381              	.LVL34:
+ 233:Lib/lvgl/src/misc/lv_ll.c **** }
+ 382              		.loc 1 233 5 is_stmt 1 view .LVU103
+ 234:Lib/lvgl/src/misc/lv_ll.c **** 
+ 383              		.loc 1 234 1 is_stmt 0 view .LVU104
+ 384 0004 C858     		ldr	r0, [r1, r3]
+ 385              	.LVL35:
+ 234:Lib/lvgl/src/misc/lv_ll.c **** 
+ 386              		.loc 1 234 1 view .LVU105
+ 387 0006 7047     		bx	lr
+ 388              		.cfi_endproc
+ 389              	.LFE10:
+ 391              		.section	.text._lv_ll_get_prev,"ax",%progbits
+ 392              		.align	1
+ 393              		.global	_lv_ll_get_prev
+ 394              		.syntax unified
+ 395              		.thumb
+ 396              		.thumb_func
+ 398              	_lv_ll_get_prev:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 15
+
+
+ 399              	.LVL36:
+ 400              	.LFB11:
+ 237:Lib/lvgl/src/misc/lv_ll.c ****     /*Pointer to the prev. node is stored in the end of this node.
+ 401              		.loc 1 237 1 is_stmt 1 view -0
+ 402              		.cfi_startproc
+ 403              		@ args = 0, pretend = 0, frame = 0
+ 404              		@ frame_needed = 0, uses_anonymous_args = 0
+ 405              		@ link register save eliminated.
+ 240:Lib/lvgl/src/misc/lv_ll.c ****     n_act_d += LL_PREV_P_OFFSET(ll_p);
+ 406              		.loc 1 240 5 view .LVU107
+ 241:Lib/lvgl/src/misc/lv_ll.c ****     return *((lv_ll_node_t **)n_act_d);
+ 407              		.loc 1 241 5 view .LVU108
+ 241:Lib/lvgl/src/misc/lv_ll.c ****     return *((lv_ll_node_t **)n_act_d);
+ 408              		.loc 1 241 16 is_stmt 0 view .LVU109
+ 409 0000 0368     		ldr	r3, [r0]
+ 410              	.LVL37:
+ 242:Lib/lvgl/src/misc/lv_ll.c **** }
+ 411              		.loc 1 242 5 is_stmt 1 view .LVU110
+ 243:Lib/lvgl/src/misc/lv_ll.c **** 
+ 412              		.loc 1 243 1 is_stmt 0 view .LVU111
+ 413 0002 C858     		ldr	r0, [r1, r3]
+ 414              	.LVL38:
+ 243:Lib/lvgl/src/misc/lv_ll.c **** 
+ 415              		.loc 1 243 1 view .LVU112
+ 416 0004 7047     		bx	lr
+ 417              		.cfi_endproc
+ 418              	.LFE11:
+ 420              		.section	.text._lv_ll_ins_prev,"ax",%progbits
+ 421              		.align	1
+ 422              		.global	_lv_ll_ins_prev
+ 423              		.syntax unified
+ 424              		.thumb
+ 425              		.thumb_func
+ 427              	_lv_ll_ins_prev:
+ 428              	.LVL39:
+ 429              	.LFB3:
+  81:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+ 430              		.loc 1 81 1 is_stmt 1 view -0
+ 431              		.cfi_startproc
+ 432              		@ args = 0, pretend = 0, frame = 0
+ 433              		@ frame_needed = 0, uses_anonymous_args = 0
+  81:Lib/lvgl/src/misc/lv_ll.c ****     lv_ll_node_t * n_new;
+ 434              		.loc 1 81 1 is_stmt 0 view .LVU114
+ 435 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 436              	.LCFI2:
+ 437              		.cfi_def_cfa_offset 24
+ 438              		.cfi_offset 3, -24
+ 439              		.cfi_offset 4, -20
+ 440              		.cfi_offset 5, -16
+ 441              		.cfi_offset 6, -12
+ 442              		.cfi_offset 7, -8
+ 443              		.cfi_offset 14, -4
+  82:Lib/lvgl/src/misc/lv_ll.c **** 
+ 444              		.loc 1 82 5 is_stmt 1 view .LVU115
+  84:Lib/lvgl/src/misc/lv_ll.c **** 
+ 445              		.loc 1 84 5 view .LVU116
+  84:Lib/lvgl/src/misc/lv_ll.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 16
+
+
+ 446              		.loc 1 84 7 is_stmt 0 view .LVU117
+ 447 0002 0746     		mov	r7, r0
+ 448 0004 58B3     		cbz	r0, .L27
+ 449 0006 0C46     		mov	r4, r1
+  84:Lib/lvgl/src/misc/lv_ll.c **** 
+ 450              		.loc 1 84 21 discriminator 2 view .LVU118
+ 451 0008 59B3     		cbz	r1, .L28
+  86:Lib/lvgl/src/misc/lv_ll.c ****         n_new = _lv_ll_ins_head(ll_p);
+ 452              		.loc 1 86 5 is_stmt 1 view .LVU119
+  86:Lib/lvgl/src/misc/lv_ll.c ****         n_new = _lv_ll_ins_head(ll_p);
+ 453              		.loc 1 86 8 is_stmt 0 view .LVU120
+ 454 000a FFF7FEFF 		bl	_lv_ll_get_head
+ 455              	.LVL40:
+  86:Lib/lvgl/src/misc/lv_ll.c ****         n_new = _lv_ll_ins_head(ll_p);
+ 456              		.loc 1 86 7 view .LVU121
+ 457 000e 8442     		cmp	r4, r0
+ 458 0010 20D0     		beq	.L30
+ 459              	.LBB2:
+  91:Lib/lvgl/src/misc/lv_ll.c ****         if(n_new == NULL) return NULL;
+ 460              		.loc 1 91 9 is_stmt 1 view .LVU122
+  91:Lib/lvgl/src/misc/lv_ll.c ****         if(n_new == NULL) return NULL;
+ 461              		.loc 1 91 31 is_stmt 0 view .LVU123
+ 462 0012 3868     		ldr	r0, [r7]
+  91:Lib/lvgl/src/misc/lv_ll.c ****         if(n_new == NULL) return NULL;
+ 463              		.loc 1 91 17 view .LVU124
+ 464 0014 0830     		adds	r0, r0, #8
+ 465 0016 FFF7FEFF 		bl	lv_malloc
+ 466              	.LVL41:
+  92:Lib/lvgl/src/misc/lv_ll.c **** 
+ 467              		.loc 1 92 9 is_stmt 1 view .LVU125
+  92:Lib/lvgl/src/misc/lv_ll.c **** 
+ 468              		.loc 1 92 11 is_stmt 0 view .LVU126
+ 469 001a 0546     		mov	r5, r0
+ 470 001c C0B1     		cbz	r0, .L24
+  94:Lib/lvgl/src/misc/lv_ll.c ****         n_prev = _lv_ll_get_prev(ll_p, n_act);
+ 471              		.loc 1 94 9 is_stmt 1 view .LVU127
+  95:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_prev, n_new);
+ 472              		.loc 1 95 9 view .LVU128
+  95:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_prev, n_new);
+ 473              		.loc 1 95 18 is_stmt 0 view .LVU129
+ 474 001e 2146     		mov	r1, r4
+ 475 0020 3846     		mov	r0, r7
+ 476              	.LVL42:
+  95:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_prev, n_new);
+ 477              		.loc 1 95 18 view .LVU130
+ 478 0022 FFF7FEFF 		bl	_lv_ll_get_prev
+ 479              	.LVL43:
+ 480 0026 0646     		mov	r6, r0
+ 481              	.LVL44:
+  96:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, n_prev);
+ 482              		.loc 1 96 9 is_stmt 1 view .LVU131
+ 483 0028 2A46     		mov	r2, r5
+ 484 002a 0146     		mov	r1, r0
+ 485 002c 3846     		mov	r0, r7
+ 486              	.LVL45:
+  96:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_new, n_prev);
+ 487              		.loc 1 96 9 is_stmt 0 view .LVU132
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 17
+
+
+ 488 002e FFF7FEFF 		bl	node_set_next
+ 489              	.LVL46:
+  97:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_act, n_new);
+ 490              		.loc 1 97 9 is_stmt 1 view .LVU133
+ 491 0032 3246     		mov	r2, r6
+ 492 0034 2946     		mov	r1, r5
+ 493 0036 3846     		mov	r0, r7
+ 494 0038 FFF7FEFF 		bl	node_set_prev
+ 495              	.LVL47:
+  98:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_p, n_new, n_act);
+ 496              		.loc 1 98 9 view .LVU134
+ 497 003c 2A46     		mov	r2, r5
+ 498 003e 2146     		mov	r1, r4
+ 499 0040 3846     		mov	r0, r7
+ 500 0042 FFF7FEFF 		bl	node_set_prev
+ 501              	.LVL48:
+  99:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 502              		.loc 1 99 9 view .LVU135
+ 503 0046 2246     		mov	r2, r4
+ 504 0048 2946     		mov	r1, r5
+ 505 004a 3846     		mov	r0, r7
+ 506 004c FFF7FEFF 		bl	node_set_next
+ 507              	.LVL49:
+ 508              	.L24:
+  99:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 509              		.loc 1 99 9 is_stmt 0 view .LVU136
+ 510              	.LBE2:
+ 103:Lib/lvgl/src/misc/lv_ll.c **** 
+ 511              		.loc 1 103 1 view .LVU137
+ 512 0050 2846     		mov	r0, r5
+ 513 0052 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 514              	.LVL50:
+ 515              	.L30:
+  87:Lib/lvgl/src/misc/lv_ll.c ****         if(n_new == NULL) return NULL;
+ 516              		.loc 1 87 9 is_stmt 1 view .LVU138
+  87:Lib/lvgl/src/misc/lv_ll.c ****         if(n_new == NULL) return NULL;
+ 517              		.loc 1 87 17 is_stmt 0 view .LVU139
+ 518 0054 3846     		mov	r0, r7
+ 519 0056 FFF7FEFF 		bl	_lv_ll_ins_head
+ 520              	.LVL51:
+ 521 005a 0546     		mov	r5, r0
+ 522              	.LVL52:
+  88:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 523              		.loc 1 88 9 is_stmt 1 view .LVU140
+ 524 005c F8E7     		b	.L24
+ 525              	.LVL53:
+ 526              	.L27:
+  84:Lib/lvgl/src/misc/lv_ll.c **** 
+ 527              		.loc 1 84 46 is_stmt 0 view .LVU141
+ 528 005e 0546     		mov	r5, r0
+ 529 0060 F6E7     		b	.L24
+ 530              	.L28:
+  84:Lib/lvgl/src/misc/lv_ll.c **** 
+ 531              		.loc 1 84 46 view .LVU142
+ 532 0062 0D46     		mov	r5, r1
+ 533 0064 F4E7     		b	.L24
+ 534              		.cfi_endproc
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 18
+
+
+ 535              	.LFE3:
+ 537              		.section	.text._lv_ll_remove,"ax",%progbits
+ 538              		.align	1
+ 539              		.global	_lv_ll_remove
+ 540              		.syntax unified
+ 541              		.thumb
+ 542              		.thumb_func
+ 544              	_lv_ll_remove:
+ 545              	.LVL54:
+ 546              	.LFB5:
+ 128:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return;
+ 547              		.loc 1 128 1 is_stmt 1 view -0
+ 548              		.cfi_startproc
+ 549              		@ args = 0, pretend = 0, frame = 0
+ 550              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129:Lib/lvgl/src/misc/lv_ll.c **** 
+ 551              		.loc 1 129 5 view .LVU144
+ 129:Lib/lvgl/src/misc/lv_ll.c **** 
+ 552              		.loc 1 129 7 is_stmt 0 view .LVU145
+ 553 0000 0028     		cmp	r0, #0
+ 554 0002 3ED0     		beq	.L38
+ 128:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return;
+ 555              		.loc 1 128 1 view .LVU146
+ 556 0004 70B5     		push	{r4, r5, r6, lr}
+ 557              	.LCFI3:
+ 558              		.cfi_def_cfa_offset 16
+ 559              		.cfi_offset 4, -16
+ 560              		.cfi_offset 5, -12
+ 561              		.cfi_offset 6, -8
+ 562              		.cfi_offset 14, -4
+ 563 0006 0C46     		mov	r4, r1
+ 564 0008 0546     		mov	r5, r0
+ 131:Lib/lvgl/src/misc/lv_ll.c ****         /*The new head will be the node after 'n_act'*/
+ 565              		.loc 1 131 5 is_stmt 1 view .LVU147
+ 131:Lib/lvgl/src/misc/lv_ll.c ****         /*The new head will be the node after 'n_act'*/
+ 566              		.loc 1 131 8 is_stmt 0 view .LVU148
+ 567 000a FFF7FEFF 		bl	_lv_ll_get_head
+ 568              	.LVL55:
+ 131:Lib/lvgl/src/misc/lv_ll.c ****         /*The new head will be the node after 'n_act'*/
+ 569              		.loc 1 131 7 view .LVU149
+ 570 000e 8442     		cmp	r4, r0
+ 571 0010 19D0     		beq	.L41
+ 141:Lib/lvgl/src/misc/lv_ll.c ****         /*The new tail will be the node before 'n_act'*/
+ 572              		.loc 1 141 10 is_stmt 1 view .LVU150
+ 141:Lib/lvgl/src/misc/lv_ll.c ****         /*The new tail will be the node before 'n_act'*/
+ 573              		.loc 1 141 13 is_stmt 0 view .LVU151
+ 574 0012 2846     		mov	r0, r5
+ 575 0014 FFF7FEFF 		bl	_lv_ll_get_tail
+ 576              	.LVL56:
+ 141:Lib/lvgl/src/misc/lv_ll.c ****         /*The new tail will be the node before 'n_act'*/
+ 577              		.loc 1 141 12 view .LVU152
+ 578 0018 8442     		cmp	r4, r0
+ 579 001a 23D0     		beq	.L42
+ 580              	.LBB3:
+ 152:Lib/lvgl/src/misc/lv_ll.c ****         lv_ll_node_t * n_next = _lv_ll_get_next(ll_p, node_p);
+ 581              		.loc 1 152 9 is_stmt 1 view .LVU153
+ 152:Lib/lvgl/src/misc/lv_ll.c ****         lv_ll_node_t * n_next = _lv_ll_get_next(ll_p, node_p);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 19
+
+
+ 582              		.loc 1 152 33 is_stmt 0 view .LVU154
+ 583 001c 2146     		mov	r1, r4
+ 584 001e 2846     		mov	r0, r5
+ 585 0020 FFF7FEFF 		bl	_lv_ll_get_prev
+ 586              	.LVL57:
+ 587 0024 0646     		mov	r6, r0
+ 588              	.LVL58:
+ 153:Lib/lvgl/src/misc/lv_ll.c **** 
+ 589              		.loc 1 153 9 is_stmt 1 view .LVU155
+ 153:Lib/lvgl/src/misc/lv_ll.c **** 
+ 590              		.loc 1 153 33 is_stmt 0 view .LVU156
+ 591 0026 2146     		mov	r1, r4
+ 592 0028 2846     		mov	r0, r5
+ 593              	.LVL59:
+ 153:Lib/lvgl/src/misc/lv_ll.c **** 
+ 594              		.loc 1 153 33 view .LVU157
+ 595 002a FFF7FEFF 		bl	_lv_ll_get_next
+ 596              	.LVL60:
+ 597 002e 0446     		mov	r4, r0
+ 598              	.LVL61:
+ 155:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_next, n_prev);
+ 599              		.loc 1 155 9 is_stmt 1 view .LVU158
+ 600 0030 0246     		mov	r2, r0
+ 601 0032 3146     		mov	r1, r6
+ 602 0034 2846     		mov	r0, r5
+ 603              	.LVL62:
+ 155:Lib/lvgl/src/misc/lv_ll.c ****         node_set_prev(ll_p, n_next, n_prev);
+ 604              		.loc 1 155 9 is_stmt 0 view .LVU159
+ 605 0036 FFF7FEFF 		bl	node_set_next
+ 606              	.LVL63:
+ 156:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 607              		.loc 1 156 9 is_stmt 1 view .LVU160
+ 608 003a 3246     		mov	r2, r6
+ 609 003c 2146     		mov	r1, r4
+ 610 003e 2846     		mov	r0, r5
+ 611 0040 FFF7FEFF 		bl	node_set_prev
+ 612              	.LVL64:
+ 613              	.L31:
+ 156:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 614              		.loc 1 156 9 is_stmt 0 view .LVU161
+ 615              	.LBE3:
+ 158:Lib/lvgl/src/misc/lv_ll.c **** 
+ 616              		.loc 1 158 1 view .LVU162
+ 617 0044 70BD     		pop	{r4, r5, r6, pc}
+ 618              	.LVL65:
+ 619              	.L41:
+ 133:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->head == NULL) {
+ 620              		.loc 1 133 9 is_stmt 1 view .LVU163
+ 133:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->head == NULL) {
+ 621              		.loc 1 133 22 is_stmt 0 view .LVU164
+ 622 0046 2146     		mov	r1, r4
+ 623 0048 2846     		mov	r0, r5
+ 624 004a FFF7FEFF 		bl	_lv_ll_get_next
+ 625              	.LVL66:
+ 626 004e 0146     		mov	r1, r0
+ 133:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->head == NULL) {
+ 627              		.loc 1 133 20 view .LVU165
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 20
+
+
+ 628 0050 6860     		str	r0, [r5, #4]
+ 134:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->tail = NULL;
+ 629              		.loc 1 134 9 is_stmt 1 view .LVU166
+ 134:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->tail = NULL;
+ 630              		.loc 1 134 11 is_stmt 0 view .LVU167
+ 631 0052 20B1     		cbz	r0, .L43
+ 138:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 632              		.loc 1 138 13 is_stmt 1 view .LVU168
+ 633 0054 0022     		movs	r2, #0
+ 634 0056 2846     		mov	r0, r5
+ 635 0058 FFF7FEFF 		bl	node_set_prev
+ 636              	.LVL67:
+ 637 005c F2E7     		b	.L31
+ 638              	.L43:
+ 135:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 639              		.loc 1 135 13 view .LVU169
+ 135:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 640              		.loc 1 135 24 is_stmt 0 view .LVU170
+ 641 005e 0023     		movs	r3, #0
+ 642 0060 AB60     		str	r3, [r5, #8]
+ 643 0062 EFE7     		b	.L31
+ 644              	.L42:
+ 143:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail == NULL) {
+ 645              		.loc 1 143 9 is_stmt 1 view .LVU171
+ 143:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail == NULL) {
+ 646              		.loc 1 143 22 is_stmt 0 view .LVU172
+ 647 0064 2146     		mov	r1, r4
+ 648 0066 2846     		mov	r0, r5
+ 649 0068 FFF7FEFF 		bl	_lv_ll_get_prev
+ 650              	.LVL68:
+ 651 006c 0146     		mov	r1, r0
+ 143:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_p->tail == NULL) {
+ 652              		.loc 1 143 20 view .LVU173
+ 653 006e A860     		str	r0, [r5, #8]
+ 144:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->head = NULL;
+ 654              		.loc 1 144 9 is_stmt 1 view .LVU174
+ 144:Lib/lvgl/src/misc/lv_ll.c ****             ll_p->head = NULL;
+ 655              		.loc 1 144 11 is_stmt 0 view .LVU175
+ 656 0070 20B1     		cbz	r0, .L44
+ 148:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 657              		.loc 1 148 13 is_stmt 1 view .LVU176
+ 658 0072 0022     		movs	r2, #0
+ 659 0074 2846     		mov	r0, r5
+ 660 0076 FFF7FEFF 		bl	node_set_next
+ 661              	.LVL69:
+ 662 007a E3E7     		b	.L31
+ 663              	.L44:
+ 145:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 664              		.loc 1 145 13 view .LVU177
+ 145:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 665              		.loc 1 145 24 is_stmt 0 view .LVU178
+ 666 007c 0023     		movs	r3, #0
+ 667 007e 6B60     		str	r3, [r5, #4]
+ 668 0080 E0E7     		b	.L31
+ 669              	.LVL70:
+ 670              	.L38:
+ 671              	.LCFI4:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 21
+
+
+ 672              		.cfi_def_cfa_offset 0
+ 673              		.cfi_restore 4
+ 674              		.cfi_restore 5
+ 675              		.cfi_restore 6
+ 676              		.cfi_restore 14
+ 145:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 677              		.loc 1 145 24 view .LVU179
+ 678 0082 7047     		bx	lr
+ 679              		.cfi_endproc
+ 680              	.LFE5:
+ 682              		.section	.text._lv_ll_clear_custom,"ax",%progbits
+ 683              		.align	1
+ 684              		.global	_lv_ll_clear_custom
+ 685              		.syntax unified
+ 686              		.thumb
+ 687              		.thumb_func
+ 689              	_lv_ll_clear_custom:
+ 690              	.LVL71:
+ 691              	.LFB6:
+ 161:Lib/lvgl/src/misc/lv_ll.c ****     void * i;
+ 692              		.loc 1 161 1 is_stmt 1 view -0
+ 693              		.cfi_startproc
+ 694              		@ args = 0, pretend = 0, frame = 0
+ 695              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161:Lib/lvgl/src/misc/lv_ll.c ****     void * i;
+ 696              		.loc 1 161 1 is_stmt 0 view .LVU181
+ 697 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 698              	.LCFI5:
+ 699              		.cfi_def_cfa_offset 24
+ 700              		.cfi_offset 3, -24
+ 701              		.cfi_offset 4, -20
+ 702              		.cfi_offset 5, -16
+ 703              		.cfi_offset 6, -12
+ 704              		.cfi_offset 7, -8
+ 705              		.cfi_offset 14, -4
+ 706 0002 0746     		mov	r7, r0
+ 707 0004 0E46     		mov	r6, r1
+ 162:Lib/lvgl/src/misc/lv_ll.c ****     void * i_next;
+ 708              		.loc 1 162 5 is_stmt 1 view .LVU182
+ 163:Lib/lvgl/src/misc/lv_ll.c **** 
+ 709              		.loc 1 163 5 view .LVU183
+ 165:Lib/lvgl/src/misc/lv_ll.c ****     i_next = NULL;
+ 710              		.loc 1 165 5 view .LVU184
+ 165:Lib/lvgl/src/misc/lv_ll.c ****     i_next = NULL;
+ 711              		.loc 1 165 14 is_stmt 0 view .LVU185
+ 712 0006 FFF7FEFF 		bl	_lv_ll_get_head
+ 713              	.LVL72:
+ 165:Lib/lvgl/src/misc/lv_ll.c ****     i_next = NULL;
+ 714              		.loc 1 165 14 view .LVU186
+ 715 000a 0446     		mov	r4, r0
+ 716              	.LVL73:
+ 166:Lib/lvgl/src/misc/lv_ll.c **** 
+ 717              		.loc 1 166 5 is_stmt 1 view .LVU187
+ 168:Lib/lvgl/src/misc/lv_ll.c ****         i_next = _lv_ll_get_next(ll_p, i);
+ 718              		.loc 1 168 5 view .LVU188
+ 168:Lib/lvgl/src/misc/lv_ll.c ****         i_next = _lv_ll_get_next(ll_p, i);
+ 719              		.loc 1 168 10 is_stmt 0 view .LVU189
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 22
+
+
+ 720 000c 07E0     		b	.L46
+ 721              	.LVL74:
+ 722              	.L52:
+ 171:Lib/lvgl/src/misc/lv_ll.c ****             lv_free(i);
+ 723              		.loc 1 171 13 is_stmt 1 view .LVU190
+ 724 000e 2146     		mov	r1, r4
+ 725 0010 3846     		mov	r0, r7
+ 726              	.LVL75:
+ 171:Lib/lvgl/src/misc/lv_ll.c ****             lv_free(i);
+ 727              		.loc 1 171 13 is_stmt 0 view .LVU191
+ 728 0012 FFF7FEFF 		bl	_lv_ll_remove
+ 729              	.LVL76:
+ 172:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 730              		.loc 1 172 13 is_stmt 1 view .LVU192
+ 731 0016 2046     		mov	r0, r4
+ 732 0018 FFF7FEFF 		bl	lv_free
+ 733              	.LVL77:
+ 734              	.L48:
+ 161:Lib/lvgl/src/misc/lv_ll.c ****     void * i;
+ 735              		.loc 1 161 1 is_stmt 0 view .LVU193
+ 736 001c 2C46     		mov	r4, r5
+ 737              	.LVL78:
+ 738              	.L46:
+ 168:Lib/lvgl/src/misc/lv_ll.c ****         i_next = _lv_ll_get_next(ll_p, i);
+ 739              		.loc 1 168 13 is_stmt 1 view .LVU194
+ 740 001e 4CB1     		cbz	r4, .L51
+ 169:Lib/lvgl/src/misc/lv_ll.c ****         if(cleanup == NULL) {
+ 741              		.loc 1 169 9 view .LVU195
+ 169:Lib/lvgl/src/misc/lv_ll.c ****         if(cleanup == NULL) {
+ 742              		.loc 1 169 18 is_stmt 0 view .LVU196
+ 743 0020 2146     		mov	r1, r4
+ 744 0022 3846     		mov	r0, r7
+ 745 0024 FFF7FEFF 		bl	_lv_ll_get_next
+ 746              	.LVL79:
+ 747 0028 0546     		mov	r5, r0
+ 748              	.LVL80:
+ 170:Lib/lvgl/src/misc/lv_ll.c ****             _lv_ll_remove(ll_p, i);
+ 749              		.loc 1 170 9 is_stmt 1 view .LVU197
+ 170:Lib/lvgl/src/misc/lv_ll.c ****             _lv_ll_remove(ll_p, i);
+ 750              		.loc 1 170 11 is_stmt 0 view .LVU198
+ 751 002a 002E     		cmp	r6, #0
+ 752 002c EFD0     		beq	.L52
+ 175:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 753              		.loc 1 175 13 is_stmt 1 view .LVU199
+ 754 002e 2046     		mov	r0, r4
+ 755              	.LVL81:
+ 175:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 756              		.loc 1 175 13 is_stmt 0 view .LVU200
+ 757 0030 B047     		blx	r6
+ 758              	.LVL82:
+ 759 0032 F3E7     		b	.L48
+ 760              	.LVL83:
+ 761              	.L51:
+ 179:Lib/lvgl/src/misc/lv_ll.c **** 
+ 762              		.loc 1 179 1 view .LVU201
+ 763 0034 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 179:Lib/lvgl/src/misc/lv_ll.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 23
+
+
+ 764              		.loc 1 179 1 view .LVU202
+ 765              		.cfi_endproc
+ 766              	.LFE6:
+ 768              		.section	.text._lv_ll_chg_list,"ax",%progbits
+ 769              		.align	1
+ 770              		.global	_lv_ll_chg_list
+ 771              		.syntax unified
+ 772              		.thumb
+ 773              		.thumb_func
+ 775              	_lv_ll_chg_list:
+ 776              	.LVL84:
+ 777              	.LFB7:
+ 182:Lib/lvgl/src/misc/lv_ll.c ****     _lv_ll_remove(ll_ori_p, node);
+ 778              		.loc 1 182 1 is_stmt 1 view -0
+ 779              		.cfi_startproc
+ 780              		@ args = 0, pretend = 0, frame = 0
+ 781              		@ frame_needed = 0, uses_anonymous_args = 0
+ 182:Lib/lvgl/src/misc/lv_ll.c ****     _lv_ll_remove(ll_ori_p, node);
+ 782              		.loc 1 182 1 is_stmt 0 view .LVU204
+ 783 0000 70B5     		push	{r4, r5, r6, lr}
+ 784              	.LCFI6:
+ 785              		.cfi_def_cfa_offset 16
+ 786              		.cfi_offset 4, -16
+ 787              		.cfi_offset 5, -12
+ 788              		.cfi_offset 6, -8
+ 789              		.cfi_offset 14, -4
+ 790 0002 0C46     		mov	r4, r1
+ 791 0004 1546     		mov	r5, r2
+ 792 0006 1E46     		mov	r6, r3
+ 183:Lib/lvgl/src/misc/lv_ll.c **** 
+ 793              		.loc 1 183 5 is_stmt 1 view .LVU205
+ 794 0008 1146     		mov	r1, r2
+ 795              	.LVL85:
+ 183:Lib/lvgl/src/misc/lv_ll.c **** 
+ 796              		.loc 1 183 5 is_stmt 0 view .LVU206
+ 797 000a FFF7FEFF 		bl	_lv_ll_remove
+ 798              	.LVL86:
+ 185:Lib/lvgl/src/misc/lv_ll.c ****         /*Set node as head*/
+ 799              		.loc 1 185 5 is_stmt 1 view .LVU207
+ 185:Lib/lvgl/src/misc/lv_ll.c ****         /*Set node as head*/
+ 800              		.loc 1 185 7 is_stmt 0 view .LVU208
+ 801 000e AEB1     		cbz	r6, .L54
+ 187:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_new_p, node, ll_new_p->head);
+ 802              		.loc 1 187 9 is_stmt 1 view .LVU209
+ 803 0010 0022     		movs	r2, #0
+ 804 0012 2946     		mov	r1, r5
+ 805 0014 2046     		mov	r0, r4
+ 806 0016 FFF7FEFF 		bl	node_set_prev
+ 807              	.LVL87:
+ 188:Lib/lvgl/src/misc/lv_ll.c **** 
+ 808              		.loc 1 188 9 view .LVU210
+ 809 001a 6268     		ldr	r2, [r4, #4]
+ 810 001c 2946     		mov	r1, r5
+ 811 001e 2046     		mov	r0, r4
+ 812 0020 FFF7FEFF 		bl	node_set_next
+ 813              	.LVL88:
+ 190:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_new_p, ll_new_p->head, node);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 24
+
+
+ 814              		.loc 1 190 9 view .LVU211
+ 190:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_new_p, ll_new_p->head, node);
+ 815              		.loc 1 190 20 is_stmt 0 view .LVU212
+ 816 0024 6168     		ldr	r1, [r4, #4]
+ 190:Lib/lvgl/src/misc/lv_ll.c ****             node_set_prev(ll_new_p, ll_new_p->head, node);
+ 817              		.loc 1 190 11 view .LVU213
+ 818 0026 19B1     		cbz	r1, .L55
+ 191:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 819              		.loc 1 191 13 is_stmt 1 view .LVU214
+ 820 0028 2A46     		mov	r2, r5
+ 821 002a 2046     		mov	r0, r4
+ 822 002c FFF7FEFF 		bl	node_set_prev
+ 823              	.LVL89:
+ 824              	.L55:
+ 194:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_new_p->tail == NULL) { /*If there is no tail (first node) set the tail too*/
+ 825              		.loc 1 194 9 view .LVU215
+ 194:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_new_p->tail == NULL) { /*If there is no tail (first node) set the tail too*/
+ 826              		.loc 1 194 24 is_stmt 0 view .LVU216
+ 827 0030 6560     		str	r5, [r4, #4]
+ 195:Lib/lvgl/src/misc/lv_ll.c ****             ll_new_p->tail = node;
+ 828              		.loc 1 195 9 is_stmt 1 view .LVU217
+ 195:Lib/lvgl/src/misc/lv_ll.c ****             ll_new_p->tail = node;
+ 829              		.loc 1 195 20 is_stmt 0 view .LVU218
+ 830 0032 A368     		ldr	r3, [r4, #8]
+ 195:Lib/lvgl/src/misc/lv_ll.c ****             ll_new_p->tail = node;
+ 831              		.loc 1 195 11 view .LVU219
+ 832 0034 03B1     		cbz	r3, .L59
+ 833              	.L53:
+ 213:Lib/lvgl/src/misc/lv_ll.c **** 
+ 834              		.loc 1 213 1 view .LVU220
+ 835 0036 70BD     		pop	{r4, r5, r6, pc}
+ 836              	.LVL90:
+ 837              	.L59:
+ 196:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 838              		.loc 1 196 13 is_stmt 1 view .LVU221
+ 196:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 839              		.loc 1 196 28 is_stmt 0 view .LVU222
+ 840 0038 A560     		str	r5, [r4, #8]
+ 841 003a FCE7     		b	.L53
+ 842              	.L54:
+ 201:Lib/lvgl/src/misc/lv_ll.c ****         node_set_next(ll_new_p, node, NULL);
+ 843              		.loc 1 201 9 is_stmt 1 view .LVU223
+ 844 003c A268     		ldr	r2, [r4, #8]
+ 845 003e 2946     		mov	r1, r5
+ 846 0040 2046     		mov	r0, r4
+ 847 0042 FFF7FEFF 		bl	node_set_prev
+ 848              	.LVL91:
+ 202:Lib/lvgl/src/misc/lv_ll.c **** 
+ 849              		.loc 1 202 9 view .LVU224
+ 850 0046 0022     		movs	r2, #0
+ 851 0048 2946     		mov	r1, r5
+ 852 004a 2046     		mov	r0, r4
+ 853 004c FFF7FEFF 		bl	node_set_next
+ 854              	.LVL92:
+ 204:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_new_p, ll_new_p->tail, node);
+ 855              		.loc 1 204 9 view .LVU225
+ 204:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_new_p, ll_new_p->tail, node);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 25
+
+
+ 856              		.loc 1 204 20 is_stmt 0 view .LVU226
+ 857 0050 A168     		ldr	r1, [r4, #8]
+ 204:Lib/lvgl/src/misc/lv_ll.c ****             node_set_next(ll_new_p, ll_new_p->tail, node);
+ 858              		.loc 1 204 11 view .LVU227
+ 859 0052 19B1     		cbz	r1, .L57
+ 205:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 860              		.loc 1 205 13 is_stmt 1 view .LVU228
+ 861 0054 2A46     		mov	r2, r5
+ 862 0056 2046     		mov	r0, r4
+ 863 0058 FFF7FEFF 		bl	node_set_next
+ 864              	.LVL93:
+ 865              	.L57:
+ 208:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_new_p->head == NULL) { /*If there is no head (first node) set the head too*/
+ 866              		.loc 1 208 9 view .LVU229
+ 208:Lib/lvgl/src/misc/lv_ll.c ****         if(ll_new_p->head == NULL) { /*If there is no head (first node) set the head too*/
+ 867              		.loc 1 208 24 is_stmt 0 view .LVU230
+ 868 005c A560     		str	r5, [r4, #8]
+ 209:Lib/lvgl/src/misc/lv_ll.c ****             ll_new_p->head = node;
+ 869              		.loc 1 209 9 is_stmt 1 view .LVU231
+ 209:Lib/lvgl/src/misc/lv_ll.c ****             ll_new_p->head = node;
+ 870              		.loc 1 209 20 is_stmt 0 view .LVU232
+ 871 005e 6368     		ldr	r3, [r4, #4]
+ 209:Lib/lvgl/src/misc/lv_ll.c ****             ll_new_p->head = node;
+ 872              		.loc 1 209 11 view .LVU233
+ 873 0060 002B     		cmp	r3, #0
+ 874 0062 E8D1     		bne	.L53
+ 210:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 875              		.loc 1 210 13 is_stmt 1 view .LVU234
+ 210:Lib/lvgl/src/misc/lv_ll.c ****         }
+ 876              		.loc 1 210 28 is_stmt 0 view .LVU235
+ 877 0064 6560     		str	r5, [r4, #4]
+ 213:Lib/lvgl/src/misc/lv_ll.c **** 
+ 878              		.loc 1 213 1 view .LVU236
+ 879 0066 E6E7     		b	.L53
+ 880              		.cfi_endproc
+ 881              	.LFE7:
+ 883              		.section	.text._lv_ll_get_len,"ax",%progbits
+ 884              		.align	1
+ 885              		.global	_lv_ll_get_len
+ 886              		.syntax unified
+ 887              		.thumb
+ 888              		.thumb_func
+ 890              	_lv_ll_get_len:
+ 891              	.LVL94:
+ 892              	.LFB12:
+ 246:Lib/lvgl/src/misc/lv_ll.c ****     uint32_t len = 0;
+ 893              		.loc 1 246 1 is_stmt 1 view -0
+ 894              		.cfi_startproc
+ 895              		@ args = 0, pretend = 0, frame = 0
+ 896              		@ frame_needed = 0, uses_anonymous_args = 0
+ 246:Lib/lvgl/src/misc/lv_ll.c ****     uint32_t len = 0;
+ 897              		.loc 1 246 1 is_stmt 0 view .LVU238
+ 898 0000 38B5     		push	{r3, r4, r5, lr}
+ 899              	.LCFI7:
+ 900              		.cfi_def_cfa_offset 16
+ 901              		.cfi_offset 3, -16
+ 902              		.cfi_offset 4, -12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 26
+
+
+ 903              		.cfi_offset 5, -8
+ 904              		.cfi_offset 14, -4
+ 905 0002 0546     		mov	r5, r0
+ 247:Lib/lvgl/src/misc/lv_ll.c ****     void * node;
+ 906              		.loc 1 247 5 is_stmt 1 view .LVU239
+ 907              	.LVL95:
+ 248:Lib/lvgl/src/misc/lv_ll.c **** 
+ 908              		.loc 1 248 5 view .LVU240
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 909              		.loc 1 250 5 view .LVU241
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 910              		.loc 1 250 16 is_stmt 0 view .LVU242
+ 911 0004 FFF7FEFF 		bl	_lv_ll_get_head
+ 912              	.LVL96:
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 913              		.loc 1 250 16 view .LVU243
+ 914 0008 0146     		mov	r1, r0
+ 915              	.LVL97:
+ 247:Lib/lvgl/src/misc/lv_ll.c ****     void * node;
+ 916              		.loc 1 247 14 view .LVU244
+ 917 000a 0024     		movs	r4, #0
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 918              		.loc 1 250 5 view .LVU245
+ 919 000c 04E0     		b	.L61
+ 920              	.LVL98:
+ 921              	.L62:
+ 251:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 922              		.loc 1 251 9 is_stmt 1 discriminator 3 view .LVU246
+ 251:Lib/lvgl/src/misc/lv_ll.c ****     }
+ 923              		.loc 1 251 12 is_stmt 0 discriminator 3 view .LVU247
+ 924 000e 0134     		adds	r4, r4, #1
+ 925              	.LVL99:
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 926              		.loc 1 250 58 is_stmt 1 discriminator 3 view .LVU248
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 927              		.loc 1 250 60 is_stmt 0 discriminator 3 view .LVU249
+ 928 0010 2846     		mov	r0, r5
+ 929              	.LVL100:
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 930              		.loc 1 250 60 discriminator 3 view .LVU250
+ 931 0012 FFF7FEFF 		bl	_lv_ll_get_next
+ 932              	.LVL101:
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 933              		.loc 1 250 60 discriminator 3 view .LVU251
+ 934 0016 0146     		mov	r1, r0
+ 935              	.LVL102:
+ 936              	.L61:
+ 250:Lib/lvgl/src/misc/lv_ll.c ****         len++;
+ 937              		.loc 1 250 44 is_stmt 1 discriminator 1 view .LVU252
+ 938 0018 0029     		cmp	r1, #0
+ 939 001a F8D1     		bne	.L62
+ 254:Lib/lvgl/src/misc/lv_ll.c **** }
+ 940              		.loc 1 254 5 view .LVU253
+ 255:Lib/lvgl/src/misc/lv_ll.c **** 
+ 941              		.loc 1 255 1 is_stmt 0 view .LVU254
+ 942 001c 2046     		mov	r0, r4
+ 943              	.LVL103:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 27
+
+
+ 255:Lib/lvgl/src/misc/lv_ll.c **** 
+ 944              		.loc 1 255 1 view .LVU255
+ 945 001e 38BD     		pop	{r3, r4, r5, pc}
+ 255:Lib/lvgl/src/misc/lv_ll.c **** 
+ 946              		.loc 1 255 1 view .LVU256
+ 947              		.cfi_endproc
+ 948              	.LFE12:
+ 950              		.section	.text._lv_ll_move_before,"ax",%progbits
+ 951              		.align	1
+ 952              		.global	_lv_ll_move_before
+ 953              		.syntax unified
+ 954              		.thumb
+ 955              		.thumb_func
+ 957              	_lv_ll_move_before:
+ 958              	.LVL104:
+ 959              	.LFB13:
+ 258:Lib/lvgl/src/misc/lv_ll.c ****     if(n_act == n_after) return; /*Can't move before itself*/
+ 960              		.loc 1 258 1 is_stmt 1 view -0
+ 961              		.cfi_startproc
+ 962              		@ args = 0, pretend = 0, frame = 0
+ 963              		@ frame_needed = 0, uses_anonymous_args = 0
+ 259:Lib/lvgl/src/misc/lv_ll.c **** 
+ 964              		.loc 1 259 5 view .LVU258
+ 259:Lib/lvgl/src/misc/lv_ll.c **** 
+ 965              		.loc 1 259 7 is_stmt 0 view .LVU259
+ 966 0000 9142     		cmp	r1, r2
+ 967 0002 2DD0     		beq	.L70
+ 258:Lib/lvgl/src/misc/lv_ll.c ****     if(n_act == n_after) return; /*Can't move before itself*/
+ 968              		.loc 1 258 1 view .LVU260
+ 969 0004 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 970              	.LCFI8:
+ 971              		.cfi_def_cfa_offset 24
+ 972              		.cfi_offset 3, -24
+ 973              		.cfi_offset 4, -20
+ 974              		.cfi_offset 5, -16
+ 975              		.cfi_offset 6, -12
+ 976              		.cfi_offset 7, -8
+ 977              		.cfi_offset 14, -4
+ 978 0006 0646     		mov	r6, r0
+ 979 0008 0C46     		mov	r4, r1
+ 980 000a 1546     		mov	r5, r2
+ 261:Lib/lvgl/src/misc/lv_ll.c ****     if(n_after != NULL)
+ 981              		.loc 1 261 5 is_stmt 1 view .LVU261
+ 262:Lib/lvgl/src/misc/lv_ll.c ****         n_before = _lv_ll_get_prev(ll_p, n_after);
+ 982              		.loc 1 262 5 view .LVU262
+ 262:Lib/lvgl/src/misc/lv_ll.c ****         n_before = _lv_ll_get_prev(ll_p, n_after);
+ 983              		.loc 1 262 7 is_stmt 0 view .LVU263
+ 984 000c 02B3     		cbz	r2, .L66
+ 263:Lib/lvgl/src/misc/lv_ll.c ****     else
+ 985              		.loc 1 263 9 is_stmt 1 view .LVU264
+ 263:Lib/lvgl/src/misc/lv_ll.c ****     else
+ 986              		.loc 1 263 20 is_stmt 0 view .LVU265
+ 987 000e 1146     		mov	r1, r2
+ 988              	.LVL105:
+ 263:Lib/lvgl/src/misc/lv_ll.c ****     else
+ 989              		.loc 1 263 20 view .LVU266
+ 990 0010 FFF7FEFF 		bl	_lv_ll_get_prev
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 28
+
+
+ 991              	.LVL106:
+ 263:Lib/lvgl/src/misc/lv_ll.c ****     else
+ 992              		.loc 1 263 20 view .LVU267
+ 993 0014 0746     		mov	r7, r0
+ 994              	.LVL107:
+ 995              	.L67:
+ 267:Lib/lvgl/src/misc/lv_ll.c **** 
+ 996              		.loc 1 267 5 is_stmt 1 view .LVU268
+ 267:Lib/lvgl/src/misc/lv_ll.c **** 
+ 997              		.loc 1 267 7 is_stmt 0 view .LVU269
+ 998 0016 A742     		cmp	r7, r4
+ 999 0018 19D0     		beq	.L64
+ 270:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1000              		.loc 1 270 5 is_stmt 1 view .LVU270
+ 1001 001a 2146     		mov	r1, r4
+ 1002 001c 3046     		mov	r0, r6
+ 1003              	.LVL108:
+ 270:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1004              		.loc 1 270 5 is_stmt 0 view .LVU271
+ 1005 001e FFF7FEFF 		bl	_lv_ll_remove
+ 1006              	.LVL109:
+ 273:Lib/lvgl/src/misc/lv_ll.c ****     node_set_prev(ll_p, n_act, n_before);
+ 1007              		.loc 1 273 5 is_stmt 1 view .LVU272
+ 1008 0022 2246     		mov	r2, r4
+ 1009 0024 3946     		mov	r1, r7
+ 1010 0026 3046     		mov	r0, r6
+ 1011 0028 FFF7FEFF 		bl	node_set_next
+ 1012              	.LVL110:
+ 274:Lib/lvgl/src/misc/lv_ll.c ****     node_set_prev(ll_p, n_after, n_act);
+ 1013              		.loc 1 274 5 view .LVU273
+ 1014 002c 3A46     		mov	r2, r7
+ 1015 002e 2146     		mov	r1, r4
+ 1016 0030 3046     		mov	r0, r6
+ 1017 0032 FFF7FEFF 		bl	node_set_prev
+ 1018              	.LVL111:
+ 275:Lib/lvgl/src/misc/lv_ll.c ****     node_set_next(ll_p, n_act, n_after);
+ 1019              		.loc 1 275 5 view .LVU274
+ 1020 0036 2246     		mov	r2, r4
+ 1021 0038 2946     		mov	r1, r5
+ 1022 003a 3046     		mov	r0, r6
+ 1023 003c FFF7FEFF 		bl	node_set_prev
+ 1024              	.LVL112:
+ 276:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1025              		.loc 1 276 5 view .LVU275
+ 1026 0040 2A46     		mov	r2, r5
+ 1027 0042 2146     		mov	r1, r4
+ 1028 0044 3046     		mov	r0, r6
+ 1029 0046 FFF7FEFF 		bl	node_set_next
+ 1030              	.LVL113:
+ 279:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1031              		.loc 1 279 5 view .LVU276
+ 279:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1032              		.loc 1 279 7 is_stmt 0 view .LVU277
+ 1033 004a 2DB1     		cbz	r5, .L73
+ 1034              	.L68:
+ 282:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1035              		.loc 1 282 5 is_stmt 1 view .LVU278
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 29
+
+
+ 282:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1036              		.loc 1 282 7 is_stmt 0 view .LVU279
+ 1037 004c 37B1     		cbz	r7, .L74
+ 1038              	.L64:
+ 283:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1039              		.loc 1 283 1 view .LVU280
+ 1040 004e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1041              	.LVL114:
+ 1042              	.L66:
+ 265:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1043              		.loc 1 265 9 is_stmt 1 view .LVU281
+ 265:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1044              		.loc 1 265 20 is_stmt 0 view .LVU282
+ 1045 0050 FFF7FEFF 		bl	_lv_ll_get_tail
+ 1046              	.LVL115:
+ 265:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1047              		.loc 1 265 20 view .LVU283
+ 1048 0054 0746     		mov	r7, r0
+ 1049              	.LVL116:
+ 265:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1050              		.loc 1 265 20 view .LVU284
+ 1051 0056 DEE7     		b	.L67
+ 1052              	.LVL117:
+ 1053              	.L73:
+ 279:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1054              		.loc 1 279 25 is_stmt 1 discriminator 1 view .LVU285
+ 279:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1055              		.loc 1 279 36 is_stmt 0 discriminator 1 view .LVU286
+ 1056 0058 B460     		str	r4, [r6, #8]
+ 1057 005a F7E7     		b	.L68
+ 1058              	.L74:
+ 282:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1059              		.loc 1 282 26 is_stmt 1 discriminator 1 view .LVU287
+ 282:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1060              		.loc 1 282 37 is_stmt 0 discriminator 1 view .LVU288
+ 1061 005c 7460     		str	r4, [r6, #4]
+ 1062 005e F6E7     		b	.L64
+ 1063              	.LVL118:
+ 1064              	.L70:
+ 1065              	.LCFI9:
+ 1066              		.cfi_def_cfa_offset 0
+ 1067              		.cfi_restore 3
+ 1068              		.cfi_restore 4
+ 1069              		.cfi_restore 5
+ 1070              		.cfi_restore 6
+ 1071              		.cfi_restore 7
+ 1072              		.cfi_restore 14
+ 282:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1073              		.loc 1 282 37 discriminator 1 view .LVU289
+ 1074 0060 7047     		bx	lr
+ 1075              		.cfi_endproc
+ 1076              	.LFE13:
+ 1078              		.section	.text._lv_ll_is_empty,"ax",%progbits
+ 1079              		.align	1
+ 1080              		.global	_lv_ll_is_empty
+ 1081              		.syntax unified
+ 1082              		.thumb
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 30
+
+
+ 1083              		.thumb_func
+ 1085              	_lv_ll_is_empty:
+ 1086              	.LVL119:
+ 1087              	.LFB14:
+ 286:Lib/lvgl/src/misc/lv_ll.c ****     if(ll_p == NULL) return true;
+ 1088              		.loc 1 286 1 is_stmt 1 view -0
+ 1089              		.cfi_startproc
+ 1090              		@ args = 0, pretend = 0, frame = 0
+ 1091              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1092              		@ link register save eliminated.
+ 287:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1093              		.loc 1 287 5 view .LVU291
+ 287:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1094              		.loc 1 287 7 is_stmt 0 view .LVU292
+ 1095 0000 38B1     		cbz	r0, .L77
+ 289:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1096              		.loc 1 289 5 is_stmt 1 view .LVU293
+ 289:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1097              		.loc 1 289 12 is_stmt 0 view .LVU294
+ 1098 0002 4268     		ldr	r2, [r0, #4]
+ 289:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1099              		.loc 1 289 7 view .LVU295
+ 1100 0004 0AB1     		cbz	r2, .L80
+ 291:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1101              		.loc 1 291 12 view .LVU296
+ 1102 0006 0020     		movs	r0, #0
+ 1103              	.LVL120:
+ 291:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1104              		.loc 1 291 12 view .LVU297
+ 1105 0008 7047     		bx	lr
+ 1106              	.LVL121:
+ 1107              	.L80:
+ 289:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1108              		.loc 1 289 34 discriminator 1 view .LVU298
+ 1109 000a 8368     		ldr	r3, [r0, #8]
+ 289:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1110              		.loc 1 289 27 discriminator 1 view .LVU299
+ 1111 000c 1BB1     		cbz	r3, .L79
+ 291:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1112              		.loc 1 291 12 view .LVU300
+ 1113 000e 0020     		movs	r0, #0
+ 1114              	.LVL122:
+ 291:Lib/lvgl/src/misc/lv_ll.c **** }
+ 1115              		.loc 1 291 12 view .LVU301
+ 1116 0010 7047     		bx	lr
+ 1117              	.LVL123:
+ 1118              	.L77:
+ 287:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1119              		.loc 1 287 29 view .LVU302
+ 1120 0012 0120     		movs	r0, #1
+ 1121              	.LVL124:
+ 287:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1122              		.loc 1 287 29 view .LVU303
+ 1123 0014 7047     		bx	lr
+ 1124              	.LVL125:
+ 1125              	.L79:
+ 289:Lib/lvgl/src/misc/lv_ll.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 31
+
+
+ 1126              		.loc 1 289 57 view .LVU304
+ 1127 0016 0120     		movs	r0, #1
+ 1128              	.LVL126:
+ 292:Lib/lvgl/src/misc/lv_ll.c **** 
+ 1129              		.loc 1 292 1 view .LVU305
+ 1130 0018 7047     		bx	lr
+ 1131              		.cfi_endproc
+ 1132              	.LFE14:
+ 1134              		.text
+ 1135              	.Letext0:
+ 1136              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1137              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1138              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1139              		.file 5 "Lib/lvgl/src/misc/lv_ll.h"
+ 1140              		.file 6 "Lib/lvgl/src/misc/../stdlib/lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s 			page 32
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_ll.c
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:21     .text.node_set_prev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:26     .text.node_set_prev:00000000 node_set_prev
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:57     .text.node_set_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:62     .text.node_set_next:00000000 node_set_next
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:94     .text._lv_ll_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:100    .text._lv_ll_init:00000000 _lv_ll_init
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:131    .text._lv_ll_ins_head:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:137    .text._lv_ll_ins_head:00000000 _lv_ll_ins_head
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:215    .text._lv_ll_ins_tail:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:221    .text._lv_ll_ins_tail:00000000 _lv_ll_ins_tail
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:299    .text._lv_ll_get_head:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:305    .text._lv_ll_get_head:00000000 _lv_ll_get_head
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:330    .text._lv_ll_get_tail:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:336    .text._lv_ll_get_tail:00000000 _lv_ll_get_tail
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:361    .text._lv_ll_get_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:367    .text._lv_ll_get_next:00000000 _lv_ll_get_next
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:392    .text._lv_ll_get_prev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:398    .text._lv_ll_get_prev:00000000 _lv_ll_get_prev
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:421    .text._lv_ll_ins_prev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:427    .text._lv_ll_ins_prev:00000000 _lv_ll_ins_prev
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:538    .text._lv_ll_remove:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:544    .text._lv_ll_remove:00000000 _lv_ll_remove
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:683    .text._lv_ll_clear_custom:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:689    .text._lv_ll_clear_custom:00000000 _lv_ll_clear_custom
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:769    .text._lv_ll_chg_list:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:775    .text._lv_ll_chg_list:00000000 _lv_ll_chg_list
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:884    .text._lv_ll_get_len:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:890    .text._lv_ll_get_len:00000000 _lv_ll_get_len
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:951    .text._lv_ll_move_before:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:957    .text._lv_ll_move_before:00000000 _lv_ll_move_before
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:1079   .text._lv_ll_is_empty:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccifbVxm.s:1085   .text._lv_ll_is_empty:00000000 _lv_ll_is_empty
+
+UNDEFINED SYMBOLS
+lv_malloc
+lv_free

@@ -1,0 +1,659 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_win.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/widgets/win/lv_win.c"
+  20              		.section	.text.lv_win_constructor,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_win_constructor:
+  27              	.LVL0:
+  28              	.LFB261:
+   1:Lib/lvgl/src/widgets/win/lv_win.c **** /**
+   2:Lib/lvgl/src/widgets/win/lv_win.c ****  * @file lv_win.c
+   3:Lib/lvgl/src/widgets/win/lv_win.c ****  *
+   4:Lib/lvgl/src/widgets/win/lv_win.c ****  */
+   5:Lib/lvgl/src/widgets/win/lv_win.c **** 
+   6:Lib/lvgl/src/widgets/win/lv_win.c **** /*********************
+   7:Lib/lvgl/src/widgets/win/lv_win.c ****  *      INCLUDES
+   8:Lib/lvgl/src/widgets/win/lv_win.c ****  *********************/
+   9:Lib/lvgl/src/widgets/win/lv_win.c **** #include "lv_win.h"
+  10:Lib/lvgl/src/widgets/win/lv_win.c **** #if LV_USE_WIN
+  11:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  12:Lib/lvgl/src/widgets/win/lv_win.c **** /*********************
+  13:Lib/lvgl/src/widgets/win/lv_win.c ****  *      DEFINES
+  14:Lib/lvgl/src/widgets/win/lv_win.c ****  *********************/
+  15:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  16:Lib/lvgl/src/widgets/win/lv_win.c **** /**********************
+  17:Lib/lvgl/src/widgets/win/lv_win.c ****  *      TYPEDEFS
+  18:Lib/lvgl/src/widgets/win/lv_win.c ****  **********************/
+  19:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  20:Lib/lvgl/src/widgets/win/lv_win.c **** /**********************
+  21:Lib/lvgl/src/widgets/win/lv_win.c ****  *  STATIC PROTOTYPES
+  22:Lib/lvgl/src/widgets/win/lv_win.c ****  **********************/
+  23:Lib/lvgl/src/widgets/win/lv_win.c **** static void lv_win_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
+  24:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  25:Lib/lvgl/src/widgets/win/lv_win.c **** /**********************
+  26:Lib/lvgl/src/widgets/win/lv_win.c ****  *  STATIC VARIABLES
+  27:Lib/lvgl/src/widgets/win/lv_win.c ****  **********************/
+  28:Lib/lvgl/src/widgets/win/lv_win.c **** const lv_obj_class_t lv_win_class = {
+  29:Lib/lvgl/src/widgets/win/lv_win.c ****     .constructor_cb = lv_win_constructor,
+  30:Lib/lvgl/src/widgets/win/lv_win.c ****     .width_def = LV_PCT(100),
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 2
+
+
+  31:Lib/lvgl/src/widgets/win/lv_win.c ****     .height_def = LV_PCT(100),
+  32:Lib/lvgl/src/widgets/win/lv_win.c ****     .base_class = &lv_obj_class,
+  33:Lib/lvgl/src/widgets/win/lv_win.c ****     .instance_size = sizeof(lv_win_t),
+  34:Lib/lvgl/src/widgets/win/lv_win.c ****     .name = "win",
+  35:Lib/lvgl/src/widgets/win/lv_win.c **** };
+  36:Lib/lvgl/src/widgets/win/lv_win.c **** /**********************
+  37:Lib/lvgl/src/widgets/win/lv_win.c ****  *      MACROS
+  38:Lib/lvgl/src/widgets/win/lv_win.c ****  **********************/
+  39:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  40:Lib/lvgl/src/widgets/win/lv_win.c **** /**********************
+  41:Lib/lvgl/src/widgets/win/lv_win.c ****  *   GLOBAL FUNCTIONS
+  42:Lib/lvgl/src/widgets/win/lv_win.c ****  **********************/
+  43:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  44:Lib/lvgl/src/widgets/win/lv_win.c **** lv_obj_t * lv_win_create(lv_obj_t * parent)
+  45:Lib/lvgl/src/widgets/win/lv_win.c **** {
+  46:Lib/lvgl/src/widgets/win/lv_win.c ****     LV_LOG_INFO("begin");
+  47:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_win_class, parent);
+  48:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_class_init_obj(obj);
+  49:Lib/lvgl/src/widgets/win/lv_win.c ****     return obj;
+  50:Lib/lvgl/src/widgets/win/lv_win.c **** }
+  51:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  52:Lib/lvgl/src/widgets/win/lv_win.c **** lv_obj_t * lv_win_add_title(lv_obj_t * win, const char * txt)
+  53:Lib/lvgl/src/widgets/win/lv_win.c **** {
+  54:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * header = lv_win_get_header(win);
+  55:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * title = lv_label_create(header);
+  56:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_label_set_long_mode(title, LV_LABEL_LONG_DOT);
+  57:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_label_set_text(title, txt);
+  58:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_flex_grow(title, 1);
+  59:Lib/lvgl/src/widgets/win/lv_win.c ****     return title;
+  60:Lib/lvgl/src/widgets/win/lv_win.c **** }
+  61:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  62:Lib/lvgl/src/widgets/win/lv_win.c **** lv_obj_t * lv_win_add_button(lv_obj_t * win, const void * icon, int32_t btn_w)
+  63:Lib/lvgl/src/widgets/win/lv_win.c **** {
+  64:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * header = lv_win_get_header(win);
+  65:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * btn = lv_button_create(header);
+  66:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_size(btn, btn_w, LV_PCT(100));
+  67:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  68:Lib/lvgl/src/widgets/win/lv_win.c ****     if(icon) {
+  69:Lib/lvgl/src/widgets/win/lv_win.c ****         lv_obj_t * img = lv_image_create(btn);
+  70:Lib/lvgl/src/widgets/win/lv_win.c ****         lv_image_set_src(img, icon);
+  71:Lib/lvgl/src/widgets/win/lv_win.c ****         lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
+  72:Lib/lvgl/src/widgets/win/lv_win.c ****     }
+  73:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  74:Lib/lvgl/src/widgets/win/lv_win.c ****     return btn;
+  75:Lib/lvgl/src/widgets/win/lv_win.c **** }
+  76:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  77:Lib/lvgl/src/widgets/win/lv_win.c **** lv_obj_t * lv_win_get_header(lv_obj_t * win)
+  78:Lib/lvgl/src/widgets/win/lv_win.c **** {
+  79:Lib/lvgl/src/widgets/win/lv_win.c ****     return lv_obj_get_child(win, 0);
+  80:Lib/lvgl/src/widgets/win/lv_win.c **** }
+  81:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  82:Lib/lvgl/src/widgets/win/lv_win.c **** lv_obj_t * lv_win_get_content(lv_obj_t * win)
+  83:Lib/lvgl/src/widgets/win/lv_win.c **** {
+  84:Lib/lvgl/src/widgets/win/lv_win.c ****     return lv_obj_get_child(win, 1);
+  85:Lib/lvgl/src/widgets/win/lv_win.c **** }
+  86:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  87:Lib/lvgl/src/widgets/win/lv_win.c **** /**********************
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 3
+
+
+  88:Lib/lvgl/src/widgets/win/lv_win.c ****  *   STATIC FUNCTIONS
+  89:Lib/lvgl/src/widgets/win/lv_win.c ****  **********************/
+  90:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  91:Lib/lvgl/src/widgets/win/lv_win.c **** static void lv_win_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+  92:Lib/lvgl/src/widgets/win/lv_win.c **** {
+  29              		.loc 1 92 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 92 1 is_stmt 0 view .LVU1
+  34 0000 70B5     		push	{r4, r5, r6, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 4, -16
+  38              		.cfi_offset 5, -12
+  39              		.cfi_offset 6, -8
+  40              		.cfi_offset 14, -4
+  41 0002 0C46     		mov	r4, r1
+  93:Lib/lvgl/src/widgets/win/lv_win.c ****     LV_UNUSED(class_p);
+  42              		.loc 1 93 5 is_stmt 1 view .LVU2
+  94:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * parent = lv_obj_get_parent(obj);
+  43              		.loc 1 94 5 view .LVU3
+  44              		.loc 1 94 25 is_stmt 0 view .LVU4
+  45 0004 0846     		mov	r0, r1
+  46              	.LVL1:
+  47              		.loc 1 94 25 view .LVU5
+  48 0006 FFF7FEFF 		bl	lv_obj_get_parent
+  49              	.LVL2:
+  50              		.loc 1 94 25 view .LVU6
+  51 000a 0646     		mov	r6, r0
+  52              	.LVL3:
+  95:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_size(obj, lv_obj_get_width(parent), lv_obj_get_height(parent));
+  53              		.loc 1 95 5 is_stmt 1 view .LVU7
+  54 000c FFF7FEFF 		bl	lv_obj_get_width
+  55              	.LVL4:
+  56              		.loc 1 95 5 is_stmt 0 view .LVU8
+  57 0010 0546     		mov	r5, r0
+  58 0012 3046     		mov	r0, r6
+  59 0014 FFF7FEFF 		bl	lv_obj_get_height
+  60              	.LVL5:
+  61 0018 0246     		mov	r2, r0
+  62 001a 2946     		mov	r1, r5
+  63 001c 2046     		mov	r0, r4
+  64 001e FFF7FEFF 		bl	lv_obj_set_size
+  65              	.LVL6:
+  96:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_flex_flow(obj, LV_FLEX_FLOW_COLUMN);
+  66              		.loc 1 96 5 is_stmt 1 view .LVU9
+  67 0022 0121     		movs	r1, #1
+  68 0024 2046     		mov	r0, r4
+  69 0026 FFF7FEFF 		bl	lv_obj_set_flex_flow
+  70              	.LVL7:
+  97:Lib/lvgl/src/widgets/win/lv_win.c **** 
+  98:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * header = lv_obj_create(obj);
+  71              		.loc 1 98 5 view .LVU10
+  72              		.loc 1 98 25 is_stmt 0 view .LVU11
+  73 002a 2046     		mov	r0, r4
+  74 002c FFF7FEFF 		bl	lv_obj_create
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 4
+
+
+  75              	.LVL8:
+  76 0030 0546     		mov	r5, r0
+  77              	.LVL9:
+  99:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_size(header, LV_PCT(100), lv_display_get_dpi(lv_obj_get_display(obj)) / 2);
+  78              		.loc 1 99 5 is_stmt 1 view .LVU12
+  79              		.loc 1 99 61 is_stmt 0 view .LVU13
+  80 0032 2046     		mov	r0, r4
+  81              	.LVL10:
+  82              		.loc 1 99 61 view .LVU14
+  83 0034 FFF7FEFF 		bl	lv_obj_get_display
+  84              	.LVL11:
+  85              		.loc 1 99 42 view .LVU15
+  86 0038 FFF7FEFF 		bl	lv_display_get_dpi
+  87              	.LVL12:
+  88              		.loc 1 99 5 view .LVU16
+  89 003c 00EBD070 		add	r0, r0, r0, lsr #31
+  90 0040 0D4E     		ldr	r6, .L3
+  91              	.LVL13:
+  92              		.loc 1 99 5 view .LVU17
+  93 0042 4210     		asrs	r2, r0, #1
+  94 0044 3146     		mov	r1, r6
+  95 0046 2846     		mov	r0, r5
+  96 0048 FFF7FEFF 		bl	lv_obj_set_size
+  97              	.LVL14:
+ 100:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_flex_flow(header, LV_FLEX_FLOW_ROW);
+  98              		.loc 1 100 5 is_stmt 1 view .LVU18
+  99 004c 0021     		movs	r1, #0
+ 100 004e 2846     		mov	r0, r5
+ 101 0050 FFF7FEFF 		bl	lv_obj_set_flex_flow
+ 102              	.LVL15:
+ 101:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_flex_align(header, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
+ 103              		.loc 1 101 5 view .LVU19
+ 104 0054 0223     		movs	r3, #2
+ 105 0056 1A46     		mov	r2, r3
+ 106 0058 0021     		movs	r1, #0
+ 107 005a 2846     		mov	r0, r5
+ 108 005c FFF7FEFF 		bl	lv_obj_set_flex_align
+ 109              	.LVL16:
+ 102:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 103:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * cont = lv_obj_create(obj);
+ 110              		.loc 1 103 5 view .LVU20
+ 111              		.loc 1 103 23 is_stmt 0 view .LVU21
+ 112 0060 2046     		mov	r0, r4
+ 113 0062 FFF7FEFF 		bl	lv_obj_create
+ 114              	.LVL17:
+ 115 0066 0446     		mov	r4, r0
+ 116              	.LVL18:
+ 104:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_flex_grow(cont, 1);
+ 117              		.loc 1 104 5 is_stmt 1 view .LVU22
+ 118 0068 0121     		movs	r1, #1
+ 119 006a FFF7FEFF 		bl	lv_obj_set_flex_grow
+ 120              	.LVL19:
+ 105:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_width(cont, LV_PCT(100));
+ 121              		.loc 1 105 5 view .LVU23
+ 122 006e 3146     		mov	r1, r6
+ 123 0070 2046     		mov	r0, r4
+ 124 0072 FFF7FEFF 		bl	lv_obj_set_width
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 5
+
+
+ 125              	.LVL20:
+ 106:Lib/lvgl/src/widgets/win/lv_win.c **** }
+ 126              		.loc 1 106 1 is_stmt 0 view .LVU24
+ 127 0076 70BD     		pop	{r4, r5, r6, pc}
+ 128              	.LVL21:
+ 129              	.L4:
+ 130              		.loc 1 106 1 view .LVU25
+ 131              		.align	2
+ 132              	.L3:
+ 133 0078 64000020 		.word	536871012
+ 134              		.cfi_endproc
+ 135              	.LFE261:
+ 137              		.section	.text.lv_win_create,"ax",%progbits
+ 138              		.align	1
+ 139              		.global	lv_win_create
+ 140              		.syntax unified
+ 141              		.thumb
+ 142              		.thumb_func
+ 144              	lv_win_create:
+ 145              	.LVL22:
+ 146              	.LFB256:
+  45:Lib/lvgl/src/widgets/win/lv_win.c ****     LV_LOG_INFO("begin");
+ 147              		.loc 1 45 1 is_stmt 1 view -0
+ 148              		.cfi_startproc
+ 149              		@ args = 0, pretend = 0, frame = 0
+ 150              		@ frame_needed = 0, uses_anonymous_args = 0
+  45:Lib/lvgl/src/widgets/win/lv_win.c ****     LV_LOG_INFO("begin");
+ 151              		.loc 1 45 1 is_stmt 0 view .LVU27
+ 152 0000 10B5     		push	{r4, lr}
+ 153              	.LCFI1:
+ 154              		.cfi_def_cfa_offset 8
+ 155              		.cfi_offset 4, -8
+ 156              		.cfi_offset 14, -4
+ 157 0002 0146     		mov	r1, r0
+  46:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_win_class, parent);
+ 158              		.loc 1 46 5 is_stmt 1 view .LVU28
+  46:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_win_class, parent);
+ 159              		.loc 1 46 5 view .LVU29
+  46:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_win_class, parent);
+ 160              		.loc 1 46 5 view .LVU30
+  47:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_class_init_obj(obj);
+ 161              		.loc 1 47 5 view .LVU31
+  47:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_class_init_obj(obj);
+ 162              		.loc 1 47 22 is_stmt 0 view .LVU32
+ 163 0004 0348     		ldr	r0, .L7
+ 164              	.LVL23:
+  47:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_class_init_obj(obj);
+ 165              		.loc 1 47 22 view .LVU33
+ 166 0006 FFF7FEFF 		bl	lv_obj_class_create_obj
+ 167              	.LVL24:
+  47:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_class_init_obj(obj);
+ 168              		.loc 1 47 22 view .LVU34
+ 169 000a 0446     		mov	r4, r0
+ 170              	.LVL25:
+  48:Lib/lvgl/src/widgets/win/lv_win.c ****     return obj;
+ 171              		.loc 1 48 5 is_stmt 1 view .LVU35
+ 172 000c FFF7FEFF 		bl	lv_obj_class_init_obj
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 6
+
+
+ 173              	.LVL26:
+  49:Lib/lvgl/src/widgets/win/lv_win.c **** }
+ 174              		.loc 1 49 5 view .LVU36
+  50:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 175              		.loc 1 50 1 is_stmt 0 view .LVU37
+ 176 0010 2046     		mov	r0, r4
+ 177 0012 10BD     		pop	{r4, pc}
+ 178              	.LVL27:
+ 179              	.L8:
+  50:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 180              		.loc 1 50 1 view .LVU38
+ 181              		.align	2
+ 182              	.L7:
+ 183 0014 00000000 		.word	lv_win_class
+ 184              		.cfi_endproc
+ 185              	.LFE256:
+ 187              		.section	.text.lv_win_get_header,"ax",%progbits
+ 188              		.align	1
+ 189              		.global	lv_win_get_header
+ 190              		.syntax unified
+ 191              		.thumb
+ 192              		.thumb_func
+ 194              	lv_win_get_header:
+ 195              	.LVL28:
+ 196              	.LFB259:
+  78:Lib/lvgl/src/widgets/win/lv_win.c ****     return lv_obj_get_child(win, 0);
+ 197              		.loc 1 78 1 is_stmt 1 view -0
+ 198              		.cfi_startproc
+ 199              		@ args = 0, pretend = 0, frame = 0
+ 200              		@ frame_needed = 0, uses_anonymous_args = 0
+  78:Lib/lvgl/src/widgets/win/lv_win.c ****     return lv_obj_get_child(win, 0);
+ 201              		.loc 1 78 1 is_stmt 0 view .LVU40
+ 202 0000 08B5     		push	{r3, lr}
+ 203              	.LCFI2:
+ 204              		.cfi_def_cfa_offset 8
+ 205              		.cfi_offset 3, -8
+ 206              		.cfi_offset 14, -4
+  79:Lib/lvgl/src/widgets/win/lv_win.c **** }
+ 207              		.loc 1 79 5 is_stmt 1 view .LVU41
+  79:Lib/lvgl/src/widgets/win/lv_win.c **** }
+ 208              		.loc 1 79 12 is_stmt 0 view .LVU42
+ 209 0002 0021     		movs	r1, #0
+ 210 0004 FFF7FEFF 		bl	lv_obj_get_child
+ 211              	.LVL29:
+  80:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 212              		.loc 1 80 1 view .LVU43
+ 213 0008 08BD     		pop	{r3, pc}
+ 214              		.cfi_endproc
+ 215              	.LFE259:
+ 217              		.section	.text.lv_win_add_title,"ax",%progbits
+ 218              		.align	1
+ 219              		.global	lv_win_add_title
+ 220              		.syntax unified
+ 221              		.thumb
+ 222              		.thumb_func
+ 224              	lv_win_add_title:
+ 225              	.LVL30:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 7
+
+
+ 226              	.LFB257:
+  53:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * header = lv_win_get_header(win);
+ 227              		.loc 1 53 1 is_stmt 1 view -0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+  53:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * header = lv_win_get_header(win);
+ 231              		.loc 1 53 1 is_stmt 0 view .LVU45
+ 232 0000 38B5     		push	{r3, r4, r5, lr}
+ 233              	.LCFI3:
+ 234              		.cfi_def_cfa_offset 16
+ 235              		.cfi_offset 3, -16
+ 236              		.cfi_offset 4, -12
+ 237              		.cfi_offset 5, -8
+ 238              		.cfi_offset 14, -4
+ 239 0002 0D46     		mov	r5, r1
+  54:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * title = lv_label_create(header);
+ 240              		.loc 1 54 5 is_stmt 1 view .LVU46
+  54:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * title = lv_label_create(header);
+ 241              		.loc 1 54 25 is_stmt 0 view .LVU47
+ 242 0004 FFF7FEFF 		bl	lv_win_get_header
+ 243              	.LVL31:
+  55:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_label_set_long_mode(title, LV_LABEL_LONG_DOT);
+ 244              		.loc 1 55 5 is_stmt 1 view .LVU48
+  55:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_label_set_long_mode(title, LV_LABEL_LONG_DOT);
+ 245              		.loc 1 55 24 is_stmt 0 view .LVU49
+ 246 0008 FFF7FEFF 		bl	lv_label_create
+ 247              	.LVL32:
+  55:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_label_set_long_mode(title, LV_LABEL_LONG_DOT);
+ 248              		.loc 1 55 24 view .LVU50
+ 249 000c 0446     		mov	r4, r0
+ 250              	.LVL33:
+  56:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_label_set_text(title, txt);
+ 251              		.loc 1 56 5 is_stmt 1 view .LVU51
+ 252 000e 0121     		movs	r1, #1
+ 253 0010 FFF7FEFF 		bl	lv_label_set_long_mode
+ 254              	.LVL34:
+  57:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_flex_grow(title, 1);
+ 255              		.loc 1 57 5 view .LVU52
+ 256 0014 2946     		mov	r1, r5
+ 257 0016 2046     		mov	r0, r4
+ 258 0018 FFF7FEFF 		bl	lv_label_set_text
+ 259              	.LVL35:
+  58:Lib/lvgl/src/widgets/win/lv_win.c ****     return title;
+ 260              		.loc 1 58 5 view .LVU53
+ 261 001c 0121     		movs	r1, #1
+ 262 001e 2046     		mov	r0, r4
+ 263 0020 FFF7FEFF 		bl	lv_obj_set_flex_grow
+ 264              	.LVL36:
+  59:Lib/lvgl/src/widgets/win/lv_win.c **** }
+ 265              		.loc 1 59 5 view .LVU54
+  60:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 266              		.loc 1 60 1 is_stmt 0 view .LVU55
+ 267 0024 2046     		mov	r0, r4
+ 268 0026 38BD     		pop	{r3, r4, r5, pc}
+  60:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 269              		.loc 1 60 1 view .LVU56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 8
+
+
+ 270              		.cfi_endproc
+ 271              	.LFE257:
+ 273              		.section	.text.lv_win_add_button,"ax",%progbits
+ 274              		.align	1
+ 275              		.global	lv_win_add_button
+ 276              		.syntax unified
+ 277              		.thumb
+ 278              		.thumb_func
+ 280              	lv_win_add_button:
+ 281              	.LVL37:
+ 282              	.LFB258:
+  63:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * header = lv_win_get_header(win);
+ 283              		.loc 1 63 1 is_stmt 1 view -0
+ 284              		.cfi_startproc
+ 285              		@ args = 0, pretend = 0, frame = 0
+ 286              		@ frame_needed = 0, uses_anonymous_args = 0
+  63:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * header = lv_win_get_header(win);
+ 287              		.loc 1 63 1 is_stmt 0 view .LVU58
+ 288 0000 70B5     		push	{r4, r5, r6, lr}
+ 289              	.LCFI4:
+ 290              		.cfi_def_cfa_offset 16
+ 291              		.cfi_offset 4, -16
+ 292              		.cfi_offset 5, -12
+ 293              		.cfi_offset 6, -8
+ 294              		.cfi_offset 14, -4
+ 295 0002 0D46     		mov	r5, r1
+ 296 0004 1646     		mov	r6, r2
+  64:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * btn = lv_button_create(header);
+ 297              		.loc 1 64 5 is_stmt 1 view .LVU59
+  64:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_t * btn = lv_button_create(header);
+ 298              		.loc 1 64 25 is_stmt 0 view .LVU60
+ 299 0006 FFF7FEFF 		bl	lv_win_get_header
+ 300              	.LVL38:
+  65:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_size(btn, btn_w, LV_PCT(100));
+ 301              		.loc 1 65 5 is_stmt 1 view .LVU61
+  65:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_size(btn, btn_w, LV_PCT(100));
+ 302              		.loc 1 65 22 is_stmt 0 view .LVU62
+ 303 000a FFF7FEFF 		bl	lv_button_create
+ 304              	.LVL39:
+  65:Lib/lvgl/src/widgets/win/lv_win.c ****     lv_obj_set_size(btn, btn_w, LV_PCT(100));
+ 305              		.loc 1 65 22 view .LVU63
+ 306 000e 0446     		mov	r4, r0
+ 307              	.LVL40:
+  66:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 308              		.loc 1 66 5 is_stmt 1 view .LVU64
+ 309 0010 094A     		ldr	r2, .L16
+ 310 0012 3146     		mov	r1, r6
+ 311 0014 FFF7FEFF 		bl	lv_obj_set_size
+ 312              	.LVL41:
+  68:Lib/lvgl/src/widgets/win/lv_win.c ****         lv_obj_t * img = lv_image_create(btn);
+ 313              		.loc 1 68 5 view .LVU65
+  68:Lib/lvgl/src/widgets/win/lv_win.c ****         lv_obj_t * img = lv_image_create(btn);
+ 314              		.loc 1 68 7 is_stmt 0 view .LVU66
+ 315 0018 65B1     		cbz	r5, .L13
+ 316              	.LBB2:
+  69:Lib/lvgl/src/widgets/win/lv_win.c ****         lv_image_set_src(img, icon);
+ 317              		.loc 1 69 9 is_stmt 1 view .LVU67
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 9
+
+
+  69:Lib/lvgl/src/widgets/win/lv_win.c ****         lv_image_set_src(img, icon);
+ 318              		.loc 1 69 26 is_stmt 0 view .LVU68
+ 319 001a 2046     		mov	r0, r4
+ 320 001c FFF7FEFF 		bl	lv_image_create
+ 321              	.LVL42:
+ 322 0020 0646     		mov	r6, r0
+ 323              	.LVL43:
+  70:Lib/lvgl/src/widgets/win/lv_win.c ****         lv_obj_align(img, LV_ALIGN_CENTER, 0, 0);
+ 324              		.loc 1 70 9 is_stmt 1 view .LVU69
+ 325 0022 2946     		mov	r1, r5
+ 326 0024 FFF7FEFF 		bl	lv_image_set_src
+ 327              	.LVL44:
+  71:Lib/lvgl/src/widgets/win/lv_win.c ****     }
+ 328              		.loc 1 71 9 view .LVU70
+ 329 0028 0023     		movs	r3, #0
+ 330 002a 1A46     		mov	r2, r3
+ 331 002c 0921     		movs	r1, #9
+ 332 002e 3046     		mov	r0, r6
+ 333 0030 FFF7FEFF 		bl	lv_obj_align
+ 334              	.LVL45:
+ 335              	.LBE2:
+  74:Lib/lvgl/src/widgets/win/lv_win.c **** }
+ 336              		.loc 1 74 5 view .LVU71
+ 337              	.L13:
+  75:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 338              		.loc 1 75 1 is_stmt 0 view .LVU72
+ 339 0034 2046     		mov	r0, r4
+ 340 0036 70BD     		pop	{r4, r5, r6, pc}
+ 341              	.LVL46:
+ 342              	.L17:
+  75:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 343              		.loc 1 75 1 view .LVU73
+ 344              		.align	2
+ 345              	.L16:
+ 346 0038 64000020 		.word	536871012
+ 347              		.cfi_endproc
+ 348              	.LFE258:
+ 350              		.section	.text.lv_win_get_content,"ax",%progbits
+ 351              		.align	1
+ 352              		.global	lv_win_get_content
+ 353              		.syntax unified
+ 354              		.thumb
+ 355              		.thumb_func
+ 357              	lv_win_get_content:
+ 358              	.LVL47:
+ 359              	.LFB260:
+  83:Lib/lvgl/src/widgets/win/lv_win.c ****     return lv_obj_get_child(win, 1);
+ 360              		.loc 1 83 1 is_stmt 1 view -0
+ 361              		.cfi_startproc
+ 362              		@ args = 0, pretend = 0, frame = 0
+ 363              		@ frame_needed = 0, uses_anonymous_args = 0
+  83:Lib/lvgl/src/widgets/win/lv_win.c ****     return lv_obj_get_child(win, 1);
+ 364              		.loc 1 83 1 is_stmt 0 view .LVU75
+ 365 0000 08B5     		push	{r3, lr}
+ 366              	.LCFI5:
+ 367              		.cfi_def_cfa_offset 8
+ 368              		.cfi_offset 3, -8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 10
+
+
+ 369              		.cfi_offset 14, -4
+  84:Lib/lvgl/src/widgets/win/lv_win.c **** }
+ 370              		.loc 1 84 5 is_stmt 1 view .LVU76
+  84:Lib/lvgl/src/widgets/win/lv_win.c **** }
+ 371              		.loc 1 84 12 is_stmt 0 view .LVU77
+ 372 0002 0121     		movs	r1, #1
+ 373 0004 FFF7FEFF 		bl	lv_obj_get_child
+ 374              	.LVL48:
+  85:Lib/lvgl/src/widgets/win/lv_win.c **** 
+ 375              		.loc 1 85 1 view .LVU78
+ 376 0008 08BD     		pop	{r3, pc}
+ 377              		.cfi_endproc
+ 378              	.LFE260:
+ 380              		.global	lv_win_class
+ 381              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 382              		.align	2
+ 383              	.LC0:
+ 384 0000 77696E00 		.ascii	"win\000"
+ 385              		.section	.rodata.lv_win_class,"a"
+ 386              		.align	2
+ 389              	lv_win_class:
+ 390 0000 00000000 		.word	lv_obj_class
+ 391 0004 00000000 		.word	lv_win_constructor
+ 392 0008 00000000 		.space	12
+ 392      00000000 
+ 392      00000000 
+ 393 0014 00000000 		.word	.LC0
+ 394 0018 64000020 		.word	536871012
+ 395 001c 64000020 		.word	536871012
+ 396 0020 C0       		.byte	192
+ 397 0021 02       		.byte	2
+ 398 0022 00       		.byte	0
+ 399 0023 00       		.space	1
+ 400              		.text
+ 401              	.Letext0:
+ 402              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 403              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 404              		.file 4 "Lib/lvgl/src/widgets/win/../../../src/stdlib/../misc/lv_types.h"
+ 405              		.file 5 "Lib/lvgl/src/widgets/win/../../../src/core/lv_obj.h"
+ 406              		.file 6 "Lib/lvgl/src/widgets/win/../../../src/core/lv_obj_class.h"
+ 407              		.file 7 "Lib/lvgl/src/widgets/win/../../../src/core/../indev/../core/lv_group.h"
+ 408              		.file 8 "Lib/lvgl/src/widgets/win/../../../src/display/lv_display_private.h"
+ 409              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_draw.h"
+ 410              		.file 10 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_event.h"
+ 411              		.file 11 "Lib/lvgl/src/widgets/win/../../../src/misc/lv_timer.h"
+ 412              		.file 12 "Lib/lvgl/src/widgets/win/../../../src/themes/lv_theme.h"
+ 413              		.file 13 "Lib/lvgl/src/widgets/win/../../../src/core/../misc/../font/lv_font.h"
+ 414              		.file 14 "Lib/lvgl/src/widgets/win/../../../src/misc/lv_ll.h"
+ 415              		.file 15 "Lib/lvgl/src/widgets/win/../../../src/misc/lv_array.h"
+ 416              		.file 16 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 417              		.file 17 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+ 418              		.file 18 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_image_buf.h"
+ 419              		.file 19 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_draw_buf.h"
+ 420              		.file 20 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\cache\\lv_cache_pri
+ 421              		.file 21 "Lib/lvgl/src/widgets/win/../../../src/core/../misc/../layouts/flex/lv_flex.h"
+ 422              		.file 22 "Lib/lvgl/src/widgets/win/../../../src/core/../misc/lv_style.h"
+ 423              		.file 23 "Lib/lvgl/src/widgets/win/../../../src/core/../display/lv_display.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 11
+
+
+ 424              		.file 24 "Lib/lvgl/src/widgets/win/../../../src/core/lv_obj_style.h"
+ 425              		.file 25 "Lib/lvgl/src/widgets/win/../../../src/widgets/bar/../label/lv_label.h"
+ 426              		.file 26 "Lib/lvgl/src/widgets/win/../../../src/widgets/bar/lv_bar.h"
+ 427              		.file 27 "Lib/lvgl/src/widgets/win/../../../src/widgets/imagebutton/lv_imagebutton.h"
+ 428              		.file 28 "Lib/lvgl/src/widgets/win/lv_win.h"
+ 429              		.file 29 "Lib/lvgl/src/widgets/win/../../../src/core/lv_obj_pos.h"
+ 430              		.file 30 "Lib/lvgl/src/widgets/win/../../../src/widgets/animimage/../image/lv_image.h"
+ 431              		.file 31 "Lib/lvgl/src/widgets/win/../../../src/core/lv_obj_tree.h"
+ 432              		.file 32 "Lib/lvgl/src/widgets/win/../../../src/widgets/button/lv_button.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_win.c
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:21     .text.lv_win_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:26     .text.lv_win_constructor:00000000 lv_win_constructor
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:133    .text.lv_win_constructor:00000078 $d
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:138    .text.lv_win_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:144    .text.lv_win_create:00000000 lv_win_create
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:183    .text.lv_win_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:389    .rodata.lv_win_class:00000000 lv_win_class
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:188    .text.lv_win_get_header:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:194    .text.lv_win_get_header:00000000 lv_win_get_header
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:218    .text.lv_win_add_title:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:224    .text.lv_win_add_title:00000000 lv_win_add_title
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:274    .text.lv_win_add_button:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:280    .text.lv_win_add_button:00000000 lv_win_add_button
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:346    .text.lv_win_add_button:00000038 $d
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:351    .text.lv_win_get_content:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:357    .text.lv_win_get_content:00000000 lv_win_get_content
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:382    .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccZ53AJt.s:386    .rodata.lv_win_class:00000000 $d
+
+UNDEFINED SYMBOLS
+lv_obj_get_parent
+lv_obj_get_width
+lv_obj_get_height
+lv_obj_set_size
+lv_obj_set_flex_flow
+lv_obj_create
+lv_obj_get_display
+lv_display_get_dpi
+lv_obj_set_flex_align
+lv_obj_set_flex_grow
+lv_obj_set_width
+lv_obj_class_create_obj
+lv_obj_class_init_obj
+lv_obj_get_child
+lv_label_create
+lv_label_set_long_mode
+lv_label_set_text
+lv_button_create
+lv_image_create
+lv_image_set_src
+lv_obj_align
+lv_obj_class

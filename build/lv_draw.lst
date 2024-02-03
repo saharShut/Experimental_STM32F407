@@ -1,0 +1,2908 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_draw.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/lv_draw.c"
+  20              		.section	.text.is_independent,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	is_independent:
+  27              	.LVL0:
+  28              	.LFB249:
+   1:Lib/lvgl/src/draw/lv_draw.c **** /**
+   2:Lib/lvgl/src/draw/lv_draw.c ****  * @file lv_draw.c
+   3:Lib/lvgl/src/draw/lv_draw.c ****  *
+   4:Lib/lvgl/src/draw/lv_draw.c ****  */
+   5:Lib/lvgl/src/draw/lv_draw.c **** 
+   6:Lib/lvgl/src/draw/lv_draw.c **** /*********************
+   7:Lib/lvgl/src/draw/lv_draw.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/lv_draw.c ****  *********************/
+   9:Lib/lvgl/src/draw/lv_draw.c **** #include "lv_draw.h"
+  10:Lib/lvgl/src/draw/lv_draw.c **** #include "sw/lv_draw_sw.h"
+  11:Lib/lvgl/src/draw/lv_draw.c **** #include "../display/lv_display_private.h"
+  12:Lib/lvgl/src/draw/lv_draw.c **** #include "../core/lv_global.h"
+  13:Lib/lvgl/src/draw/lv_draw.c **** #include "../core/lv_refr.h"
+  14:Lib/lvgl/src/draw/lv_draw.c **** #include "../stdlib/lv_string.h"
+  15:Lib/lvgl/src/draw/lv_draw.c **** 
+  16:Lib/lvgl/src/draw/lv_draw.c **** /*********************
+  17:Lib/lvgl/src/draw/lv_draw.c ****  *      DEFINES
+  18:Lib/lvgl/src/draw/lv_draw.c ****  *********************/
+  19:Lib/lvgl/src/draw/lv_draw.c **** #define _draw_info LV_GLOBAL_DEFAULT()->draw_info
+  20:Lib/lvgl/src/draw/lv_draw.c **** 
+  21:Lib/lvgl/src/draw/lv_draw.c **** /**********************
+  22:Lib/lvgl/src/draw/lv_draw.c ****  *      TYPEDEFS
+  23:Lib/lvgl/src/draw/lv_draw.c ****  **********************/
+  24:Lib/lvgl/src/draw/lv_draw.c **** 
+  25:Lib/lvgl/src/draw/lv_draw.c **** /**********************
+  26:Lib/lvgl/src/draw/lv_draw.c ****  *  STATIC PROTOTYPES
+  27:Lib/lvgl/src/draw/lv_draw.c ****  **********************/
+  28:Lib/lvgl/src/draw/lv_draw.c **** static bool is_independent(lv_layer_t * layer, lv_draw_task_t * t_check);
+  29:Lib/lvgl/src/draw/lv_draw.c **** 
+  30:Lib/lvgl/src/draw/lv_draw.c **** static inline uint32_t get_layer_size_kb(uint32_t size_byte)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 2
+
+
+  31:Lib/lvgl/src/draw/lv_draw.c **** {
+  32:Lib/lvgl/src/draw/lv_draw.c ****     return size_byte < 1024 ? 1 : size_byte >> 10;
+  33:Lib/lvgl/src/draw/lv_draw.c **** }
+  34:Lib/lvgl/src/draw/lv_draw.c **** /**********************
+  35:Lib/lvgl/src/draw/lv_draw.c ****  *  STATIC VARIABLES
+  36:Lib/lvgl/src/draw/lv_draw.c ****  **********************/
+  37:Lib/lvgl/src/draw/lv_draw.c **** 
+  38:Lib/lvgl/src/draw/lv_draw.c **** /**********************
+  39:Lib/lvgl/src/draw/lv_draw.c ****  *  STATIC VARIABLES
+  40:Lib/lvgl/src/draw/lv_draw.c ****  **********************/
+  41:Lib/lvgl/src/draw/lv_draw.c **** 
+  42:Lib/lvgl/src/draw/lv_draw.c **** /**********************
+  43:Lib/lvgl/src/draw/lv_draw.c ****  *      MACROS
+  44:Lib/lvgl/src/draw/lv_draw.c ****  **********************/
+  45:Lib/lvgl/src/draw/lv_draw.c **** 
+  46:Lib/lvgl/src/draw/lv_draw.c **** /**********************
+  47:Lib/lvgl/src/draw/lv_draw.c ****  *   GLOBAL FUNCTIONS
+  48:Lib/lvgl/src/draw/lv_draw.c ****  **********************/
+  49:Lib/lvgl/src/draw/lv_draw.c **** 
+  50:Lib/lvgl/src/draw/lv_draw.c **** void lv_draw_init(void)
+  51:Lib/lvgl/src/draw/lv_draw.c **** {
+  52:Lib/lvgl/src/draw/lv_draw.c **** #if LV_USE_OS
+  53:Lib/lvgl/src/draw/lv_draw.c ****     lv_thread_sync_init(&_draw_info.sync);
+  54:Lib/lvgl/src/draw/lv_draw.c **** #endif
+  55:Lib/lvgl/src/draw/lv_draw.c **** }
+  56:Lib/lvgl/src/draw/lv_draw.c **** 
+  57:Lib/lvgl/src/draw/lv_draw.c **** void lv_draw_deinit(void)
+  58:Lib/lvgl/src/draw/lv_draw.c **** {
+  59:Lib/lvgl/src/draw/lv_draw.c **** #if LV_USE_OS
+  60:Lib/lvgl/src/draw/lv_draw.c ****     lv_thread_sync_delete(&_draw_info.sync);
+  61:Lib/lvgl/src/draw/lv_draw.c **** #endif
+  62:Lib/lvgl/src/draw/lv_draw.c **** 
+  63:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_unit_t * u = _draw_info.unit_head;
+  64:Lib/lvgl/src/draw/lv_draw.c ****     while(u) {
+  65:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * cur_unit = u;
+  66:Lib/lvgl/src/draw/lv_draw.c ****         u = u->next;
+  67:Lib/lvgl/src/draw/lv_draw.c **** 
+  68:Lib/lvgl/src/draw/lv_draw.c ****         if(cur_unit->delete_cb) cur_unit->delete_cb(cur_unit);
+  69:Lib/lvgl/src/draw/lv_draw.c ****         lv_free(cur_unit);
+  70:Lib/lvgl/src/draw/lv_draw.c ****     }
+  71:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.unit_head = NULL;
+  72:Lib/lvgl/src/draw/lv_draw.c **** }
+  73:Lib/lvgl/src/draw/lv_draw.c **** 
+  74:Lib/lvgl/src/draw/lv_draw.c **** void * lv_draw_create_unit(size_t size)
+  75:Lib/lvgl/src/draw/lv_draw.c **** {
+  76:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_unit_t * new_unit = lv_malloc_zeroed(size);
+  77:Lib/lvgl/src/draw/lv_draw.c **** 
+  78:Lib/lvgl/src/draw/lv_draw.c ****     new_unit->next = _draw_info.unit_head;
+  79:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.unit_head = new_unit;
+  80:Lib/lvgl/src/draw/lv_draw.c **** 
+  81:Lib/lvgl/src/draw/lv_draw.c ****     return new_unit;
+  82:Lib/lvgl/src/draw/lv_draw.c **** }
+  83:Lib/lvgl/src/draw/lv_draw.c **** 
+  84:Lib/lvgl/src/draw/lv_draw.c **** lv_draw_task_t * lv_draw_add_task(lv_layer_t * layer, const lv_area_t * coords)
+  85:Lib/lvgl/src/draw/lv_draw.c **** {
+  86:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+  87:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * new_task = lv_malloc_zeroed(sizeof(lv_draw_task_t));
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 3
+
+
+  88:Lib/lvgl/src/draw/lv_draw.c **** 
+  89:Lib/lvgl/src/draw/lv_draw.c ****     new_task->area = *coords;
+  90:Lib/lvgl/src/draw/lv_draw.c ****     new_task->_real_area = *coords;
+  91:Lib/lvgl/src/draw/lv_draw.c ****     new_task->clip_area = layer->_clip_area;
+  92:Lib/lvgl/src/draw/lv_draw.c ****     new_task->state = LV_DRAW_TASK_STATE_QUEUED;
+  93:Lib/lvgl/src/draw/lv_draw.c **** 
+  94:Lib/lvgl/src/draw/lv_draw.c ****     /*Find the tail*/
+  95:Lib/lvgl/src/draw/lv_draw.c ****     if(layer->draw_task_head == NULL) {
+  96:Lib/lvgl/src/draw/lv_draw.c ****         layer->draw_task_head = new_task;
+  97:Lib/lvgl/src/draw/lv_draw.c ****     }
+  98:Lib/lvgl/src/draw/lv_draw.c ****     else {
+  99:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * tail = layer->draw_task_head;
+ 100:Lib/lvgl/src/draw/lv_draw.c ****         while(tail->next) tail = tail->next;
+ 101:Lib/lvgl/src/draw/lv_draw.c **** 
+ 102:Lib/lvgl/src/draw/lv_draw.c ****         tail->next = new_task;
+ 103:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 104:Lib/lvgl/src/draw/lv_draw.c **** 
+ 105:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_END;
+ 106:Lib/lvgl/src/draw/lv_draw.c ****     return new_task;
+ 107:Lib/lvgl/src/draw/lv_draw.c **** }
+ 108:Lib/lvgl/src/draw/lv_draw.c **** 
+ 109:Lib/lvgl/src/draw/lv_draw.c **** void lv_draw_finalize_task_creation(lv_layer_t * layer, lv_draw_task_t * t)
+ 110:Lib/lvgl/src/draw/lv_draw.c **** {
+ 111:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 112:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_dsc_base_t * base_dsc = t->draw_dsc;
+ 113:Lib/lvgl/src/draw/lv_draw.c ****     base_dsc->layer = layer;
+ 114:Lib/lvgl/src/draw/lv_draw.c **** 
+ 115:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_global_info_t * info = &_draw_info;
+ 116:Lib/lvgl/src/draw/lv_draw.c **** 
+ 117:Lib/lvgl/src/draw/lv_draw.c ****     /*Send LV_EVENT_DRAW_TASK_ADDED and dispatch only on the "main" draw_task
+ 118:Lib/lvgl/src/draw/lv_draw.c ****      *and not on the draw tasks added in the event.
+ 119:Lib/lvgl/src/draw/lv_draw.c ****      *Sending LV_EVENT_DRAW_TASK_ADDED events might cause recursive event sends and besides
+ 120:Lib/lvgl/src/draw/lv_draw.c ****      *dispatching might remove the "main" draw task while it's still being used in the event*/
+ 121:Lib/lvgl/src/draw/lv_draw.c **** 
+ 122:Lib/lvgl/src/draw/lv_draw.c ****     if(info->task_running == false) {
+ 123:Lib/lvgl/src/draw/lv_draw.c ****         if(base_dsc->obj && lv_obj_has_flag(base_dsc->obj, LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS)) {
+ 124:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = true;
+ 125:Lib/lvgl/src/draw/lv_draw.c ****             lv_obj_send_event(base_dsc->obj, LV_EVENT_DRAW_TASK_ADDED, t);
+ 126:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = false;
+ 127:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 128:Lib/lvgl/src/draw/lv_draw.c **** 
+ 129:Lib/lvgl/src/draw/lv_draw.c ****         /*Let the draw units set their preference score*/
+ 130:Lib/lvgl/src/draw/lv_draw.c ****         t->preference_score = 100;
+ 131:Lib/lvgl/src/draw/lv_draw.c ****         t->preferred_draw_unit_id = 0;
+ 132:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * u = info->unit_head;
+ 133:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 134:Lib/lvgl/src/draw/lv_draw.c ****             if(u->evaluate_cb) u->evaluate_cb(u, t);
+ 135:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 136:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 137:Lib/lvgl/src/draw/lv_draw.c **** 
+ 138:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_dispatch();
+ 139:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 140:Lib/lvgl/src/draw/lv_draw.c ****     else {
+ 141:Lib/lvgl/src/draw/lv_draw.c ****         /*Let the draw units set their preference score*/
+ 142:Lib/lvgl/src/draw/lv_draw.c ****         t->preference_score = 100;
+ 143:Lib/lvgl/src/draw/lv_draw.c ****         t->preferred_draw_unit_id = 0;
+ 144:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * u = info->unit_head;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 4
+
+
+ 145:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 146:Lib/lvgl/src/draw/lv_draw.c ****             if(u->evaluate_cb) u->evaluate_cb(u, t);
+ 147:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 148:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 149:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 150:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_END;
+ 151:Lib/lvgl/src/draw/lv_draw.c **** }
+ 152:Lib/lvgl/src/draw/lv_draw.c **** 
+ 153:Lib/lvgl/src/draw/lv_draw.c **** void lv_draw_dispatch(void)
+ 154:Lib/lvgl/src/draw/lv_draw.c **** {
+ 155:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 156:Lib/lvgl/src/draw/lv_draw.c ****     bool render_running = false;
+ 157:Lib/lvgl/src/draw/lv_draw.c ****     lv_display_t * disp = lv_display_get_next(NULL);
+ 158:Lib/lvgl/src/draw/lv_draw.c ****     while(disp) {
+ 159:Lib/lvgl/src/draw/lv_draw.c ****         lv_layer_t * layer = disp->layer_head;
+ 160:Lib/lvgl/src/draw/lv_draw.c ****         while(layer) {
+ 161:Lib/lvgl/src/draw/lv_draw.c ****             if(lv_draw_dispatch_layer(disp, layer))
+ 162:Lib/lvgl/src/draw/lv_draw.c ****                 render_running = true;
+ 163:Lib/lvgl/src/draw/lv_draw.c ****             layer = layer->next;
+ 164:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 165:Lib/lvgl/src/draw/lv_draw.c ****         if(!render_running) {
+ 166:Lib/lvgl/src/draw/lv_draw.c ****             lv_draw_dispatch_request();
+ 167:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 168:Lib/lvgl/src/draw/lv_draw.c ****         disp = lv_display_get_next(disp);
+ 169:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 170:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_END;
+ 171:Lib/lvgl/src/draw/lv_draw.c **** }
+ 172:Lib/lvgl/src/draw/lv_draw.c **** 
+ 173:Lib/lvgl/src/draw/lv_draw.c **** bool lv_draw_dispatch_layer(lv_display_t * disp, lv_layer_t * layer)
+ 174:Lib/lvgl/src/draw/lv_draw.c **** {
+ 175:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 176:Lib/lvgl/src/draw/lv_draw.c ****     /*Remove the finished tasks first*/
+ 177:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * t_prev = NULL;
+ 178:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * t = layer->draw_task_head;
+ 179:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 180:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t_next = t->next;
+ 181:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state == LV_DRAW_TASK_STATE_READY) {
+ 182:Lib/lvgl/src/draw/lv_draw.c ****             if(t_prev) t_prev->next = t->next;      /*Remove by it by assigning the next task to th
+ 183:Lib/lvgl/src/draw/lv_draw.c ****             else layer->draw_task_head = t_next;    /*If it was the head, set the next as head*/
+ 184:Lib/lvgl/src/draw/lv_draw.c **** 
+ 185:Lib/lvgl/src/draw/lv_draw.c ****             /*If it was layer drawing free the layer too*/
+ 186:Lib/lvgl/src/draw/lv_draw.c ****             if(t->type == LV_DRAW_TASK_TYPE_LAYER) {
+ 187:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_image_dsc = t->draw_dsc;
+ 188:Lib/lvgl/src/draw/lv_draw.c ****                 lv_layer_t * layer_drawn = (lv_layer_t *)draw_image_dsc->src;
+ 189:Lib/lvgl/src/draw/lv_draw.c **** 
+ 190:Lib/lvgl/src/draw/lv_draw.c ****                 if(layer_drawn->draw_buf) {
+ 191:Lib/lvgl/src/draw/lv_draw.c ****                     int32_t h = lv_area_get_height(&layer_drawn->buf_area);
+ 192:Lib/lvgl/src/draw/lv_draw.c ****                     int32_t w = lv_area_get_width(&layer_drawn->buf_area);
+ 193:Lib/lvgl/src/draw/lv_draw.c ****                     uint32_t layer_size_byte = h * lv_draw_buf_width_to_stride(w, layer_drawn->colo
+ 194:Lib/lvgl/src/draw/lv_draw.c **** 
+ 195:Lib/lvgl/src/draw/lv_draw.c ****                     _draw_info.used_memory_for_layers_kb -= get_layer_size_kb(layer_size_byte);
+ 196:Lib/lvgl/src/draw/lv_draw.c ****                     LV_LOG_INFO("Layer memory used: %" LV_PRIu32 " kB\n", _draw_info.used_memory_fo
+ 197:Lib/lvgl/src/draw/lv_draw.c ****                     lv_draw_buf_destroy(layer_drawn->draw_buf);
+ 198:Lib/lvgl/src/draw/lv_draw.c ****                     layer_drawn->draw_buf = NULL;
+ 199:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 200:Lib/lvgl/src/draw/lv_draw.c **** 
+ 201:Lib/lvgl/src/draw/lv_draw.c ****                 /*Remove the layer from  the display's*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 5
+
+
+ 202:Lib/lvgl/src/draw/lv_draw.c ****                 if(disp) {
+ 203:Lib/lvgl/src/draw/lv_draw.c ****                     lv_layer_t * l2 = disp->layer_head;
+ 204:Lib/lvgl/src/draw/lv_draw.c ****                     while(l2) {
+ 205:Lib/lvgl/src/draw/lv_draw.c ****                         if(l2->next == layer_drawn) {
+ 206:Lib/lvgl/src/draw/lv_draw.c ****                             l2->next = layer_drawn->next;
+ 207:Lib/lvgl/src/draw/lv_draw.c ****                             break;
+ 208:Lib/lvgl/src/draw/lv_draw.c ****                         }
+ 209:Lib/lvgl/src/draw/lv_draw.c ****                         l2 = l2->next;
+ 210:Lib/lvgl/src/draw/lv_draw.c ****                     }
+ 211:Lib/lvgl/src/draw/lv_draw.c **** 
+ 212:Lib/lvgl/src/draw/lv_draw.c ****                     if(disp->layer_deinit) disp->layer_deinit(disp, layer_drawn);
+ 213:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free(layer_drawn);
+ 214:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 215:Lib/lvgl/src/draw/lv_draw.c ****             }
+ 216:Lib/lvgl/src/draw/lv_draw.c ****             if(t->type == LV_DRAW_TASK_TYPE_LABEL) {
+ 217:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_label_dsc_t * draw_label_dsc = t->draw_dsc;
+ 218:Lib/lvgl/src/draw/lv_draw.c ****                 if(draw_label_dsc->text_local) {
+ 219:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free((void *)draw_label_dsc->text);
+ 220:Lib/lvgl/src/draw/lv_draw.c ****                     draw_label_dsc->text = NULL;
+ 221:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 222:Lib/lvgl/src/draw/lv_draw.c ****             }
+ 223:Lib/lvgl/src/draw/lv_draw.c **** 
+ 224:Lib/lvgl/src/draw/lv_draw.c ****             lv_free(t->draw_dsc);
+ 225:Lib/lvgl/src/draw/lv_draw.c ****             lv_free(t);
+ 226:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 227:Lib/lvgl/src/draw/lv_draw.c ****         else {
+ 228:Lib/lvgl/src/draw/lv_draw.c ****             t_prev = t;
+ 229:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 230:Lib/lvgl/src/draw/lv_draw.c ****         t = t_next;
+ 231:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 232:Lib/lvgl/src/draw/lv_draw.c **** 
+ 233:Lib/lvgl/src/draw/lv_draw.c ****     bool render_running = false;
+ 234:Lib/lvgl/src/draw/lv_draw.c **** 
+ 235:Lib/lvgl/src/draw/lv_draw.c ****     /*This layer is ready, enable blending its buffer*/
+ 236:Lib/lvgl/src/draw/lv_draw.c ****     if(layer->parent && layer->all_tasks_added && layer->draw_task_head == NULL) {
+ 237:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw task with TYPE_LAYER in the layer where the src is this layer*/
+ 238:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t_src = layer->parent->draw_task_head;
+ 239:Lib/lvgl/src/draw/lv_draw.c ****         while(t_src) {
+ 240:Lib/lvgl/src/draw/lv_draw.c ****             if(t_src->type == LV_DRAW_TASK_TYPE_LAYER && t_src->state == LV_DRAW_TASK_STATE_WAITING
+ 241:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_dsc = t_src->draw_dsc;
+ 242:Lib/lvgl/src/draw/lv_draw.c ****                 if(draw_dsc->src == layer) {
+ 243:Lib/lvgl/src/draw/lv_draw.c ****                     t_src->state = LV_DRAW_TASK_STATE_QUEUED;
+ 244:Lib/lvgl/src/draw/lv_draw.c ****                     lv_draw_dispatch_request();
+ 245:Lib/lvgl/src/draw/lv_draw.c ****                     break;
+ 246:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 247:Lib/lvgl/src/draw/lv_draw.c ****             }
+ 248:Lib/lvgl/src/draw/lv_draw.c ****             t_src = t_src->next;
+ 249:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 250:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 251:Lib/lvgl/src/draw/lv_draw.c ****     /*Assign draw tasks to the draw_units*/
+ 252:Lib/lvgl/src/draw/lv_draw.c ****     else {
+ 253:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw unit which is not busy and can take at least one task*/
+ 254:Lib/lvgl/src/draw/lv_draw.c ****         /*Let all draw units to pick draw tasks*/
+ 255:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * u = _draw_info.unit_head;
+ 256:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 257:Lib/lvgl/src/draw/lv_draw.c ****             int32_t taken_cnt = u->dispatch_cb(u, layer);
+ 258:Lib/lvgl/src/draw/lv_draw.c ****             if(taken_cnt >= 0) render_running = true;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 6
+
+
+ 259:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 260:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 261:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 262:Lib/lvgl/src/draw/lv_draw.c **** 
+ 263:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_END;
+ 264:Lib/lvgl/src/draw/lv_draw.c ****     return render_running;
+ 265:Lib/lvgl/src/draw/lv_draw.c **** }
+ 266:Lib/lvgl/src/draw/lv_draw.c **** 
+ 267:Lib/lvgl/src/draw/lv_draw.c **** void lv_draw_dispatch_wait_for_request(void)
+ 268:Lib/lvgl/src/draw/lv_draw.c **** {
+ 269:Lib/lvgl/src/draw/lv_draw.c **** #if LV_USE_OS
+ 270:Lib/lvgl/src/draw/lv_draw.c ****     lv_thread_sync_wait(&_draw_info.sync);
+ 271:Lib/lvgl/src/draw/lv_draw.c **** #else
+ 272:Lib/lvgl/src/draw/lv_draw.c ****     while(!_draw_info.dispatch_req);
+ 273:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.dispatch_req = 0;
+ 274:Lib/lvgl/src/draw/lv_draw.c **** #endif
+ 275:Lib/lvgl/src/draw/lv_draw.c **** }
+ 276:Lib/lvgl/src/draw/lv_draw.c **** 
+ 277:Lib/lvgl/src/draw/lv_draw.c **** void lv_draw_dispatch_request(void)
+ 278:Lib/lvgl/src/draw/lv_draw.c **** {
+ 279:Lib/lvgl/src/draw/lv_draw.c **** #if LV_USE_OS
+ 280:Lib/lvgl/src/draw/lv_draw.c ****     lv_thread_sync_signal(&_draw_info.sync);
+ 281:Lib/lvgl/src/draw/lv_draw.c **** #else
+ 282:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.dispatch_req = 1;
+ 283:Lib/lvgl/src/draw/lv_draw.c **** #endif
+ 284:Lib/lvgl/src/draw/lv_draw.c **** }
+ 285:Lib/lvgl/src/draw/lv_draw.c **** 
+ 286:Lib/lvgl/src/draw/lv_draw.c **** lv_draw_task_t * lv_draw_get_next_available_task(lv_layer_t * layer, lv_draw_task_t * t_prev, uint8
+ 287:Lib/lvgl/src/draw/lv_draw.c **** {
+ 288:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 289:Lib/lvgl/src/draw/lv_draw.c ****     /*If the first task is screen sized, there cannot be independent areas*/
+ 290:Lib/lvgl/src/draw/lv_draw.c ****     if(layer->draw_task_head) {
+ 291:Lib/lvgl/src/draw/lv_draw.c ****         int32_t hor_res = lv_display_get_horizontal_resolution(_lv_refr_get_disp_refreshing());
+ 292:Lib/lvgl/src/draw/lv_draw.c ****         int32_t ver_res = lv_display_get_vertical_resolution(_lv_refr_get_disp_refreshing());
+ 293:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t = layer->draw_task_head;
+ 294:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_QUEUED &&
+ 295:Lib/lvgl/src/draw/lv_draw.c ****            t->area.x1 <= 0 && t->area.x2 >= hor_res - 1 &&
+ 296:Lib/lvgl/src/draw/lv_draw.c ****            t->area.y1 <= 0 && t->area.y2 >= ver_res - 1) {
+ 297:Lib/lvgl/src/draw/lv_draw.c ****             LV_PROFILER_END;
+ 298:Lib/lvgl/src/draw/lv_draw.c ****             return NULL;
+ 299:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 300:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 301:Lib/lvgl/src/draw/lv_draw.c **** 
+ 302:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * t = t_prev ? t_prev->next : layer->draw_task_head;
+ 303:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 304:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a queued and independent task*/
+ 305:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state == LV_DRAW_TASK_STATE_QUEUED &&
+ 306:Lib/lvgl/src/draw/lv_draw.c ****            (t->preferred_draw_unit_id == LV_DRAW_UNIT_ID_ANY || t->preferred_draw_unit_id == draw_u
+ 307:Lib/lvgl/src/draw/lv_draw.c ****            is_independent(layer, t)) {
+ 308:Lib/lvgl/src/draw/lv_draw.c ****             LV_PROFILER_END;
+ 309:Lib/lvgl/src/draw/lv_draw.c ****             return t;
+ 310:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 311:Lib/lvgl/src/draw/lv_draw.c ****         t = t->next;
+ 312:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 313:Lib/lvgl/src/draw/lv_draw.c **** 
+ 314:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_END;
+ 315:Lib/lvgl/src/draw/lv_draw.c ****     return NULL;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 7
+
+
+ 316:Lib/lvgl/src/draw/lv_draw.c **** }
+ 317:Lib/lvgl/src/draw/lv_draw.c **** 
+ 318:Lib/lvgl/src/draw/lv_draw.c **** uint32_t lv_draw_get_dependent_count(lv_draw_task_t * t_check)
+ 319:Lib/lvgl/src/draw/lv_draw.c **** {
+ 320:Lib/lvgl/src/draw/lv_draw.c ****     if(t_check == NULL) return 0;
+ 321:Lib/lvgl/src/draw/lv_draw.c ****     if(t_check->next == NULL) return 0;
+ 322:Lib/lvgl/src/draw/lv_draw.c **** 
+ 323:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 324:Lib/lvgl/src/draw/lv_draw.c ****     uint32_t cnt = 0;
+ 325:Lib/lvgl/src/draw/lv_draw.c **** 
+ 326:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * t = t_check->next;
+ 327:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 328:Lib/lvgl/src/draw/lv_draw.c ****         if((t->state == LV_DRAW_TASK_STATE_QUEUED || t->state == LV_DRAW_TASK_STATE_WAITING) &&
+ 329:Lib/lvgl/src/draw/lv_draw.c ****            _lv_area_is_on(&t_check->area, &t->area)) {
+ 330:Lib/lvgl/src/draw/lv_draw.c ****             cnt++;
+ 331:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 332:Lib/lvgl/src/draw/lv_draw.c **** 
+ 333:Lib/lvgl/src/draw/lv_draw.c ****         t = t->next;
+ 334:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 335:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_END;
+ 336:Lib/lvgl/src/draw/lv_draw.c ****     return cnt;
+ 337:Lib/lvgl/src/draw/lv_draw.c **** }
+ 338:Lib/lvgl/src/draw/lv_draw.c **** 
+ 339:Lib/lvgl/src/draw/lv_draw.c **** lv_layer_t * lv_draw_layer_create(lv_layer_t * parent_layer, lv_color_format_t color_format, const 
+ 340:Lib/lvgl/src/draw/lv_draw.c **** {
+ 341:Lib/lvgl/src/draw/lv_draw.c ****     lv_display_t * disp = _lv_refr_get_disp_refreshing();
+ 342:Lib/lvgl/src/draw/lv_draw.c ****     lv_layer_t * new_layer = lv_malloc_zeroed(sizeof(lv_layer_t));
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     LV_ASSERT_MALLOC(new_layer);
+ 344:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 345:Lib/lvgl/src/draw/lv_draw.c **** 
+ 346:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->parent = parent_layer;
+ 347:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->_clip_area = *area;
+ 348:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->buf_area = *area;
+ 349:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->color_format = color_format;
+ 350:Lib/lvgl/src/draw/lv_draw.c **** 
+ 351:Lib/lvgl/src/draw/lv_draw.c ****     if(disp->layer_head) {
+ 352:Lib/lvgl/src/draw/lv_draw.c ****         lv_layer_t * tail = disp->layer_head;
+ 353:Lib/lvgl/src/draw/lv_draw.c ****         while(tail->next) tail = tail->next;
+ 354:Lib/lvgl/src/draw/lv_draw.c ****         tail->next = new_layer;
+ 355:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 356:Lib/lvgl/src/draw/lv_draw.c ****     else {
+ 357:Lib/lvgl/src/draw/lv_draw.c ****         disp->layer_head = new_layer;
+ 358:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 359:Lib/lvgl/src/draw/lv_draw.c **** 
+ 360:Lib/lvgl/src/draw/lv_draw.c ****     return new_layer;
+ 361:Lib/lvgl/src/draw/lv_draw.c **** }
+ 362:Lib/lvgl/src/draw/lv_draw.c **** 
+ 363:Lib/lvgl/src/draw/lv_draw.c **** void * lv_draw_layer_alloc_buf(lv_layer_t * layer)
+ 364:Lib/lvgl/src/draw/lv_draw.c **** {
+ 365:Lib/lvgl/src/draw/lv_draw.c ****     /*If the buffer of the layer is already allocated return it*/
+ 366:Lib/lvgl/src/draw/lv_draw.c ****     if(layer->draw_buf != NULL) {
+ 367:Lib/lvgl/src/draw/lv_draw.c ****         return layer->draw_buf->data;
+ 368:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 369:Lib/lvgl/src/draw/lv_draw.c **** 
+ 370:Lib/lvgl/src/draw/lv_draw.c ****     /*If the buffer of the layer is not allocated yet, allocate it now*/
+ 371:Lib/lvgl/src/draw/lv_draw.c ****     int32_t w = lv_area_get_width(&layer->buf_area);
+ 372:Lib/lvgl/src/draw/lv_draw.c ****     int32_t h = lv_area_get_height(&layer->buf_area);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 8
+
+
+ 373:Lib/lvgl/src/draw/lv_draw.c **** 
+ 374:Lib/lvgl/src/draw/lv_draw.c ****     layer->draw_buf = lv_draw_buf_create(w, h, layer->color_format, 0);
+ 375:Lib/lvgl/src/draw/lv_draw.c **** 
+ 376:Lib/lvgl/src/draw/lv_draw.c ****     if(layer->draw_buf == NULL) {
+ 377:Lib/lvgl/src/draw/lv_draw.c ****         LV_LOG_WARN("Allocating layer buffer failed. Try later");
+ 378:Lib/lvgl/src/draw/lv_draw.c ****         return NULL;
+ 379:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 380:Lib/lvgl/src/draw/lv_draw.c **** 
+ 381:Lib/lvgl/src/draw/lv_draw.c ****     if(lv_color_format_has_alpha(layer->color_format)) {
+ 382:Lib/lvgl/src/draw/lv_draw.c ****         lv_area_t a;
+ 383:Lib/lvgl/src/draw/lv_draw.c ****         a.x1 = 0;
+ 384:Lib/lvgl/src/draw/lv_draw.c ****         a.y1 = 0;
+ 385:Lib/lvgl/src/draw/lv_draw.c ****         a.x2 = w - 1;
+ 386:Lib/lvgl/src/draw/lv_draw.c ****         a.y2 = h - 1;
+ 387:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_buf_clear(layer->draw_buf, &a);
+ 388:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 389:Lib/lvgl/src/draw/lv_draw.c **** 
+ 390:Lib/lvgl/src/draw/lv_draw.c ****     return layer->draw_buf->data;
+ 391:Lib/lvgl/src/draw/lv_draw.c **** }
+ 392:Lib/lvgl/src/draw/lv_draw.c **** 
+ 393:Lib/lvgl/src/draw/lv_draw.c **** void * lv_draw_layer_go_to_xy(lv_layer_t * layer, int32_t x, int32_t y)
+ 394:Lib/lvgl/src/draw/lv_draw.c **** {
+ 395:Lib/lvgl/src/draw/lv_draw.c ****     return lv_draw_buf_goto_xy(layer->draw_buf, x, y);
+ 396:Lib/lvgl/src/draw/lv_draw.c **** }
+ 397:Lib/lvgl/src/draw/lv_draw.c **** 
+ 398:Lib/lvgl/src/draw/lv_draw.c **** /**********************
+ 399:Lib/lvgl/src/draw/lv_draw.c ****  *   STATIC FUNCTIONS
+ 400:Lib/lvgl/src/draw/lv_draw.c ****  **********************/
+ 401:Lib/lvgl/src/draw/lv_draw.c **** 
+ 402:Lib/lvgl/src/draw/lv_draw.c **** /**
+ 403:Lib/lvgl/src/draw/lv_draw.c ****  * Check if there are older draw task overlapping the area of `t_check`
+ 404:Lib/lvgl/src/draw/lv_draw.c ****  * @param layer      the draw ctx to search in
+ 405:Lib/lvgl/src/draw/lv_draw.c ****  * @param t_check       check this task if it overlaps with the older ones
+ 406:Lib/lvgl/src/draw/lv_draw.c ****  * @return              true: `t_check` is not overlapping with older tasks so it's independent
+ 407:Lib/lvgl/src/draw/lv_draw.c ****  */
+ 408:Lib/lvgl/src/draw/lv_draw.c **** static bool is_independent(lv_layer_t * layer, lv_draw_task_t * t_check)
+ 409:Lib/lvgl/src/draw/lv_draw.c **** {
+  29              		.loc 1 409 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 16
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 409 1 is_stmt 0 view .LVU1
+  34 0000 30B5     		push	{r4, r5, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 12
+  37              		.cfi_offset 4, -12
+  38              		.cfi_offset 5, -8
+  39              		.cfi_offset 14, -4
+  40 0002 85B0     		sub	sp, sp, #20
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 32
+  43 0004 0D46     		mov	r5, r1
+ 410:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+  44              		.loc 1 410 22 is_stmt 1 view .LVU2
+ 411:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * t = layer->draw_task_head;
+  45              		.loc 1 411 5 view .LVU3
+  46              		.loc 1 411 22 is_stmt 0 view .LVU4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 9
+
+
+  47 0006 846A     		ldr	r4, [r0, #40]
+  48              	.LVL1:
+ 412:Lib/lvgl/src/draw/lv_draw.c **** 
+ 413:Lib/lvgl/src/draw/lv_draw.c ****     /*If t_check is outside of the older tasks then it's independent*/
+ 414:Lib/lvgl/src/draw/lv_draw.c ****     while(t && t != t_check) {
+  49              		.loc 1 414 5 is_stmt 1 view .LVU5
+  50              		.loc 1 414 10 is_stmt 0 view .LVU6
+  51 0008 00E0     		b	.L2
+  52              	.LVL2:
+  53              	.L3:
+ 415:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_READY) {
+ 416:Lib/lvgl/src/draw/lv_draw.c ****             lv_area_t a;
+ 417:Lib/lvgl/src/draw/lv_draw.c ****             if(_lv_area_intersect(&a, &t->_real_area, &t_check->_real_area)) {
+ 418:Lib/lvgl/src/draw/lv_draw.c ****                 LV_PROFILER_END;
+ 419:Lib/lvgl/src/draw/lv_draw.c ****                 return false;
+ 420:Lib/lvgl/src/draw/lv_draw.c ****             }
+ 421:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 422:Lib/lvgl/src/draw/lv_draw.c ****         t = t->next;
+  54              		.loc 1 422 9 is_stmt 1 view .LVU7
+  55              		.loc 1 422 11 is_stmt 0 view .LVU8
+  56 000a 2468     		ldr	r4, [r4]
+  57              	.LVL3:
+  58              	.L2:
+ 414:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_READY) {
+  59              		.loc 1 414 13 is_stmt 1 view .LVU9
+  60 000c 8CB1     		cbz	r4, .L7
+ 414:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_READY) {
+  61              		.loc 1 414 13 is_stmt 0 discriminator 1 view .LVU10
+  62 000e AC42     		cmp	r4, r5
+  63 0010 0DD0     		beq	.L9
+ 415:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_READY) {
+  64              		.loc 1 415 9 is_stmt 1 view .LVU11
+ 415:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_READY) {
+  65              		.loc 1 415 13 is_stmt 0 view .LVU12
+  66 0012 A36C     		ldr	r3, [r4, #72]
+ 415:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_READY) {
+  67              		.loc 1 415 11 view .LVU13
+  68 0014 032B     		cmp	r3, #3
+  69 0016 F8D0     		beq	.L3
+  70              	.LBB22:
+ 416:Lib/lvgl/src/draw/lv_draw.c ****             if(_lv_area_intersect(&a, &t->_real_area, &t_check->_real_area)) {
+  71              		.loc 1 416 13 is_stmt 1 view .LVU14
+ 417:Lib/lvgl/src/draw/lv_draw.c ****                 LV_PROFILER_END;
+  72              		.loc 1 417 13 view .LVU15
+ 417:Lib/lvgl/src/draw/lv_draw.c ****                 LV_PROFILER_END;
+  73              		.loc 1 417 16 is_stmt 0 view .LVU16
+  74 0018 05F11802 		add	r2, r5, #24
+  75 001c 04F11801 		add	r1, r4, #24
+  76 0020 6846     		mov	r0, sp
+  77 0022 FFF7FEFF 		bl	_lv_area_intersect
+  78              	.LVL4:
+ 417:Lib/lvgl/src/draw/lv_draw.c ****                 LV_PROFILER_END;
+  79              		.loc 1 417 15 view .LVU17
+  80 0026 0028     		cmp	r0, #0
+  81 0028 EFD0     		beq	.L3
+ 418:Lib/lvgl/src/draw/lv_draw.c ****                 return false;
+  82              		.loc 1 418 32 is_stmt 1 view .LVU18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 10
+
+
+ 419:Lib/lvgl/src/draw/lv_draw.c ****             }
+  83              		.loc 1 419 17 view .LVU19
+ 419:Lib/lvgl/src/draw/lv_draw.c ****             }
+  84              		.loc 1 419 24 is_stmt 0 view .LVU20
+  85 002a 0020     		movs	r0, #0
+  86 002c 02E0     		b	.L5
+  87              	.L9:
+  88              	.LBE22:
+ 423:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 424:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_END;
+ 425:Lib/lvgl/src/draw/lv_draw.c **** 
+ 426:Lib/lvgl/src/draw/lv_draw.c ****     return true;
+  89              		.loc 1 426 12 view .LVU21
+  90 002e 0120     		movs	r0, #1
+  91 0030 00E0     		b	.L5
+  92              	.L7:
+  93              		.loc 1 426 12 view .LVU22
+  94 0032 0120     		movs	r0, #1
+  95              	.L5:
+ 427:Lib/lvgl/src/draw/lv_draw.c **** }
+  96              		.loc 1 427 1 view .LVU23
+  97 0034 05B0     		add	sp, sp, #20
+  98              	.LCFI2:
+  99              		.cfi_def_cfa_offset 12
+ 100              		@ sp needed
+ 101 0036 30BD     		pop	{r4, r5, pc}
+ 102              		.loc 1 427 1 view .LVU24
+ 103              		.cfi_endproc
+ 104              	.LFE249:
+ 106              		.section	.text.lv_draw_init,"ax",%progbits
+ 107              		.align	1
+ 108              		.global	lv_draw_init
+ 109              		.syntax unified
+ 110              		.thumb
+ 111              		.thumb_func
+ 113              	lv_draw_init:
+ 114              	.LFB235:
+  51:Lib/lvgl/src/draw/lv_draw.c **** #if LV_USE_OS
+ 115              		.loc 1 51 1 is_stmt 1 view -0
+ 116              		.cfi_startproc
+ 117              		@ args = 0, pretend = 0, frame = 0
+ 118              		@ frame_needed = 0, uses_anonymous_args = 0
+ 119              		@ link register save eliminated.
+  55:Lib/lvgl/src/draw/lv_draw.c **** 
+ 120              		.loc 1 55 1 view .LVU26
+ 121 0000 7047     		bx	lr
+ 122              		.cfi_endproc
+ 123              	.LFE235:
+ 125              		.section	.text.lv_draw_deinit,"ax",%progbits
+ 126              		.align	1
+ 127              		.global	lv_draw_deinit
+ 128              		.syntax unified
+ 129              		.thumb
+ 130              		.thumb_func
+ 132              	lv_draw_deinit:
+ 133              	.LFB236:
+  58:Lib/lvgl/src/draw/lv_draw.c **** #if LV_USE_OS
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 11
+
+
+ 134              		.loc 1 58 1 view -0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 0
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138 0000 38B5     		push	{r3, r4, r5, lr}
+ 139              	.LCFI3:
+ 140              		.cfi_def_cfa_offset 16
+ 141              		.cfi_offset 3, -16
+ 142              		.cfi_offset 4, -12
+ 143              		.cfi_offset 5, -8
+ 144              		.cfi_offset 14, -4
+  63:Lib/lvgl/src/draw/lv_draw.c ****     while(u) {
+ 145              		.loc 1 63 5 view .LVU28
+  63:Lib/lvgl/src/draw/lv_draw.c ****     while(u) {
+ 146              		.loc 1 63 22 is_stmt 0 view .LVU29
+ 147 0002 0A4B     		ldr	r3, .L18
+ 148 0004 D3F8F440 		ldr	r4, [r3, #244]
+ 149              	.LVL5:
+  64:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * cur_unit = u;
+ 150              		.loc 1 64 5 is_stmt 1 view .LVU30
+  64:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * cur_unit = u;
+ 151              		.loc 1 64 10 is_stmt 0 view .LVU31
+ 152 0008 05E0     		b	.L12
+ 153              	.LVL6:
+ 154              	.L17:
+ 155              	.LBB23:
+  68:Lib/lvgl/src/draw/lv_draw.c ****         lv_free(cur_unit);
+ 156              		.loc 1 68 33 is_stmt 1 discriminator 1 view .LVU32
+ 157 000a 2046     		mov	r0, r4
+ 158 000c 9847     		blx	r3
+ 159              	.LVL7:
+ 160              	.L13:
+  69:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 161              		.loc 1 69 9 view .LVU33
+ 162 000e 2046     		mov	r0, r4
+ 163 0010 FFF7FEFF 		bl	lv_free
+ 164              	.LVL8:
+  66:Lib/lvgl/src/draw/lv_draw.c **** 
+ 165              		.loc 1 66 11 is_stmt 0 view .LVU34
+ 166 0014 2C46     		mov	r4, r5
+ 167              	.LVL9:
+ 168              	.L12:
+  66:Lib/lvgl/src/draw/lv_draw.c **** 
+ 169              		.loc 1 66 11 view .LVU35
+ 170              	.LBE23:
+  64:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * cur_unit = u;
+ 171              		.loc 1 64 11 is_stmt 1 view .LVU36
+ 172 0016 24B1     		cbz	r4, .L16
+ 173              	.LBB24:
+  65:Lib/lvgl/src/draw/lv_draw.c ****         u = u->next;
+ 174              		.loc 1 65 9 view .LVU37
+ 175              	.LVL10:
+  66:Lib/lvgl/src/draw/lv_draw.c **** 
+ 176              		.loc 1 66 9 view .LVU38
+  66:Lib/lvgl/src/draw/lv_draw.c **** 
+ 177              		.loc 1 66 11 is_stmt 0 view .LVU39
+ 178 0018 2568     		ldr	r5, [r4]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 12
+
+
+ 179              	.LVL11:
+  68:Lib/lvgl/src/draw/lv_draw.c ****         lv_free(cur_unit);
+ 180              		.loc 1 68 9 is_stmt 1 view .LVU40
+  68:Lib/lvgl/src/draw/lv_draw.c ****         lv_free(cur_unit);
+ 181              		.loc 1 68 20 is_stmt 0 view .LVU41
+ 182 001a 6369     		ldr	r3, [r4, #20]
+  68:Lib/lvgl/src/draw/lv_draw.c ****         lv_free(cur_unit);
+ 183              		.loc 1 68 11 view .LVU42
+ 184 001c 002B     		cmp	r3, #0
+ 185 001e F4D1     		bne	.L17
+ 186 0020 F5E7     		b	.L13
+ 187              	.LVL12:
+ 188              	.L16:
+  68:Lib/lvgl/src/draw/lv_draw.c ****         lv_free(cur_unit);
+ 189              		.loc 1 68 11 view .LVU43
+ 190              	.LBE24:
+  71:Lib/lvgl/src/draw/lv_draw.c **** }
+ 191              		.loc 1 71 5 is_stmt 1 view .LVU44
+  71:Lib/lvgl/src/draw/lv_draw.c **** }
+ 192              		.loc 1 71 26 is_stmt 0 view .LVU45
+ 193 0022 024B     		ldr	r3, .L18
+ 194 0024 0022     		movs	r2, #0
+ 195 0026 C3F8F420 		str	r2, [r3, #244]
+  72:Lib/lvgl/src/draw/lv_draw.c **** 
+ 196              		.loc 1 72 1 view .LVU46
+ 197 002a 38BD     		pop	{r3, r4, r5, pc}
+ 198              	.LVL13:
+ 199              	.L19:
+  72:Lib/lvgl/src/draw/lv_draw.c **** 
+ 200              		.loc 1 72 1 view .LVU47
+ 201              		.align	2
+ 202              	.L18:
+ 203 002c 00000000 		.word	lv_global
+ 204              		.cfi_endproc
+ 205              	.LFE236:
+ 207              		.section	.text.lv_draw_create_unit,"ax",%progbits
+ 208              		.align	1
+ 209              		.global	lv_draw_create_unit
+ 210              		.syntax unified
+ 211              		.thumb
+ 212              		.thumb_func
+ 214              	lv_draw_create_unit:
+ 215              	.LVL14:
+ 216              	.LFB237:
+  75:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_unit_t * new_unit = lv_malloc_zeroed(size);
+ 217              		.loc 1 75 1 is_stmt 1 view -0
+ 218              		.cfi_startproc
+ 219              		@ args = 0, pretend = 0, frame = 0
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+  75:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_unit_t * new_unit = lv_malloc_zeroed(size);
+ 221              		.loc 1 75 1 is_stmt 0 view .LVU49
+ 222 0000 08B5     		push	{r3, lr}
+ 223              	.LCFI4:
+ 224              		.cfi_def_cfa_offset 8
+ 225              		.cfi_offset 3, -8
+ 226              		.cfi_offset 14, -4
+  76:Lib/lvgl/src/draw/lv_draw.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 13
+
+
+ 227              		.loc 1 76 5 is_stmt 1 view .LVU50
+  76:Lib/lvgl/src/draw/lv_draw.c **** 
+ 228              		.loc 1 76 33 is_stmt 0 view .LVU51
+ 229 0002 FFF7FEFF 		bl	lv_malloc_zeroed
+ 230              	.LVL15:
+  78:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.unit_head = new_unit;
+ 231              		.loc 1 78 5 is_stmt 1 view .LVU52
+  78:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.unit_head = new_unit;
+ 232              		.loc 1 78 32 is_stmt 0 view .LVU53
+ 233 0006 034A     		ldr	r2, .L22
+ 234 0008 D2F8F410 		ldr	r1, [r2, #244]
+  78:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.unit_head = new_unit;
+ 235              		.loc 1 78 20 view .LVU54
+ 236 000c 0160     		str	r1, [r0]
+  79:Lib/lvgl/src/draw/lv_draw.c **** 
+ 237              		.loc 1 79 5 is_stmt 1 view .LVU55
+  79:Lib/lvgl/src/draw/lv_draw.c **** 
+ 238              		.loc 1 79 26 is_stmt 0 view .LVU56
+ 239 000e C2F8F400 		str	r0, [r2, #244]
+  81:Lib/lvgl/src/draw/lv_draw.c **** }
+ 240              		.loc 1 81 5 is_stmt 1 view .LVU57
+  82:Lib/lvgl/src/draw/lv_draw.c **** 
+ 241              		.loc 1 82 1 is_stmt 0 view .LVU58
+ 242 0012 08BD     		pop	{r3, pc}
+ 243              	.L23:
+ 244              		.align	2
+ 245              	.L22:
+ 246 0014 00000000 		.word	lv_global
+ 247              		.cfi_endproc
+ 248              	.LFE237:
+ 250              		.section	.text.lv_draw_add_task,"ax",%progbits
+ 251              		.align	1
+ 252              		.global	lv_draw_add_task
+ 253              		.syntax unified
+ 254              		.thumb
+ 255              		.thumb_func
+ 257              	lv_draw_add_task:
+ 258              	.LVL16:
+ 259              	.LFB238:
+  85:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 260              		.loc 1 85 1 is_stmt 1 view -0
+ 261              		.cfi_startproc
+ 262              		@ args = 0, pretend = 0, frame = 0
+ 263              		@ frame_needed = 0, uses_anonymous_args = 0
+  85:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 264              		.loc 1 85 1 is_stmt 0 view .LVU60
+ 265 0000 70B5     		push	{r4, r5, r6, lr}
+ 266              	.LCFI5:
+ 267              		.cfi_def_cfa_offset 16
+ 268              		.cfi_offset 4, -16
+ 269              		.cfi_offset 5, -12
+ 270              		.cfi_offset 6, -8
+ 271              		.cfi_offset 14, -4
+ 272 0002 0646     		mov	r6, r0
+ 273 0004 0C46     		mov	r4, r1
+  86:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * new_task = lv_malloc_zeroed(sizeof(lv_draw_task_t));
+ 274              		.loc 1 86 22 is_stmt 1 view .LVU61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 14
+
+
+  87:Lib/lvgl/src/draw/lv_draw.c **** 
+ 275              		.loc 1 87 5 view .LVU62
+  87:Lib/lvgl/src/draw/lv_draw.c **** 
+ 276              		.loc 1 87 33 is_stmt 0 view .LVU63
+ 277 0006 5420     		movs	r0, #84
+ 278              	.LVL17:
+  87:Lib/lvgl/src/draw/lv_draw.c **** 
+ 279              		.loc 1 87 33 view .LVU64
+ 280 0008 FFF7FEFF 		bl	lv_malloc_zeroed
+ 281              	.LVL18:
+  87:Lib/lvgl/src/draw/lv_draw.c **** 
+ 282              		.loc 1 87 33 view .LVU65
+ 283 000c 0546     		mov	r5, r0
+ 284              	.LVL19:
+  89:Lib/lvgl/src/draw/lv_draw.c ****     new_task->_real_area = *coords;
+ 285              		.loc 1 89 5 is_stmt 1 view .LVU66
+  89:Lib/lvgl/src/draw/lv_draw.c ****     new_task->_real_area = *coords;
+ 286              		.loc 1 89 20 is_stmt 0 view .LVU67
+ 287 000e 00F1080C 		add	ip, r0, #8
+ 288 0012 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ 289              	.LVL20:
+  89:Lib/lvgl/src/draw/lv_draw.c ****     new_task->_real_area = *coords;
+ 290              		.loc 1 89 20 view .LVU68
+ 291 0016 8CE80F00 		stm	ip, {r0, r1, r2, r3}
+  90:Lib/lvgl/src/draw/lv_draw.c ****     new_task->clip_area = layer->_clip_area;
+ 292              		.loc 1 90 5 is_stmt 1 view .LVU69
+  90:Lib/lvgl/src/draw/lv_draw.c ****     new_task->clip_area = layer->_clip_area;
+ 293              		.loc 1 90 26 is_stmt 0 view .LVU70
+ 294 001a 05F1180C 		add	ip, r5, #24
+ 295 001e 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ 296 0022 8CE80F00 		stm	ip, {r0, r1, r2, r3}
+  91:Lib/lvgl/src/draw/lv_draw.c ****     new_task->state = LV_DRAW_TASK_STATE_QUEUED;
+ 297              		.loc 1 91 5 is_stmt 1 view .LVU71
+  91:Lib/lvgl/src/draw/lv_draw.c ****     new_task->state = LV_DRAW_TASK_STATE_QUEUED;
+ 298              		.loc 1 91 25 is_stmt 0 view .LVU72
+ 299 0026 05F13804 		add	r4, r5, #56
+ 300              	.LVL21:
+  91:Lib/lvgl/src/draw/lv_draw.c ****     new_task->state = LV_DRAW_TASK_STATE_QUEUED;
+ 301              		.loc 1 91 25 view .LVU73
+ 302 002a 06F11803 		add	r3, r6, #24
+ 303 002e 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 304 0030 84E80F00 		stm	r4, {r0, r1, r2, r3}
+  92:Lib/lvgl/src/draw/lv_draw.c **** 
+ 305              		.loc 1 92 5 is_stmt 1 view .LVU74
+  92:Lib/lvgl/src/draw/lv_draw.c **** 
+ 306              		.loc 1 92 21 is_stmt 0 view .LVU75
+ 307 0034 0123     		movs	r3, #1
+ 308 0036 AB64     		str	r3, [r5, #72]
+  95:Lib/lvgl/src/draw/lv_draw.c ****         layer->draw_task_head = new_task;
+ 309              		.loc 1 95 5 is_stmt 1 view .LVU76
+  95:Lib/lvgl/src/draw/lv_draw.c ****         layer->draw_task_head = new_task;
+ 310              		.loc 1 95 13 is_stmt 0 view .LVU77
+ 311 0038 B36A     		ldr	r3, [r6, #40]
+  95:Lib/lvgl/src/draw/lv_draw.c ****         layer->draw_task_head = new_task;
+ 312              		.loc 1 95 7 view .LVU78
+ 313 003a 33B1     		cbz	r3, .L28
+ 314              	.L25:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 15
+
+
+ 315              	.LVL22:
+ 316              	.LBB25:
+ 100:Lib/lvgl/src/draw/lv_draw.c **** 
+ 317              		.loc 1 100 15 is_stmt 1 discriminator 1 view .LVU79
+ 318 003c 1A46     		mov	r2, r3
+ 100:Lib/lvgl/src/draw/lv_draw.c **** 
+ 319              		.loc 1 100 19 is_stmt 0 discriminator 1 view .LVU80
+ 320 003e 1B68     		ldr	r3, [r3]
+ 321              	.LVL23:
+ 100:Lib/lvgl/src/draw/lv_draw.c **** 
+ 322              		.loc 1 100 15 discriminator 1 view .LVU81
+ 323 0040 002B     		cmp	r3, #0
+ 324 0042 FBD1     		bne	.L25
+ 102:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 325              		.loc 1 102 9 is_stmt 1 view .LVU82
+ 102:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 326              		.loc 1 102 20 is_stmt 0 view .LVU83
+ 327 0044 1560     		str	r5, [r2]
+ 328              	.LBE25:
+ 105:Lib/lvgl/src/draw/lv_draw.c ****     return new_task;
+ 329              		.loc 1 105 20 is_stmt 1 view .LVU84
+ 106:Lib/lvgl/src/draw/lv_draw.c **** }
+ 330              		.loc 1 106 5 view .LVU85
+ 331              	.LVL24:
+ 332              	.L24:
+ 107:Lib/lvgl/src/draw/lv_draw.c **** 
+ 333              		.loc 1 107 1 is_stmt 0 view .LVU86
+ 334 0046 2846     		mov	r0, r5
+ 335 0048 70BD     		pop	{r4, r5, r6, pc}
+ 336              	.LVL25:
+ 337              	.L28:
+  96:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 338              		.loc 1 96 9 is_stmt 1 view .LVU87
+  96:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 339              		.loc 1 96 31 is_stmt 0 view .LVU88
+ 340 004a B562     		str	r5, [r6, #40]
+ 341 004c FBE7     		b	.L24
+ 342              		.cfi_endproc
+ 343              	.LFE238:
+ 345              		.section	.text.lv_draw_dispatch_wait_for_request,"ax",%progbits
+ 346              		.align	1
+ 347              		.global	lv_draw_dispatch_wait_for_request
+ 348              		.syntax unified
+ 349              		.thumb
+ 350              		.thumb_func
+ 352              	lv_draw_dispatch_wait_for_request:
+ 353              	.LFB242:
+ 268:Lib/lvgl/src/draw/lv_draw.c **** #if LV_USE_OS
+ 354              		.loc 1 268 1 is_stmt 1 view -0
+ 355              		.cfi_startproc
+ 356              		@ args = 0, pretend = 0, frame = 0
+ 357              		@ frame_needed = 0, uses_anonymous_args = 0
+ 358              		@ link register save eliminated.
+ 359              	.L30:
+ 272:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.dispatch_req = 0;
+ 360              		.loc 1 272 11 discriminator 1 view .LVU90
+ 272:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.dispatch_req = 0;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 16
+
+
+ 361              		.loc 1 272 22 is_stmt 0 discriminator 1 view .LVU91
+ 362 0000 044B     		ldr	r3, .L31
+ 363 0002 D3F8FC30 		ldr	r3, [r3, #252]
+ 272:Lib/lvgl/src/draw/lv_draw.c ****     _draw_info.dispatch_req = 0;
+ 364              		.loc 1 272 11 discriminator 1 view .LVU92
+ 365 0006 002B     		cmp	r3, #0
+ 366 0008 FAD0     		beq	.L30
+ 273:Lib/lvgl/src/draw/lv_draw.c **** #endif
+ 367              		.loc 1 273 5 is_stmt 1 view .LVU93
+ 273:Lib/lvgl/src/draw/lv_draw.c **** #endif
+ 368              		.loc 1 273 29 is_stmt 0 view .LVU94
+ 369 000a 024B     		ldr	r3, .L31
+ 370 000c 0022     		movs	r2, #0
+ 371 000e C3F8FC20 		str	r2, [r3, #252]
+ 275:Lib/lvgl/src/draw/lv_draw.c **** 
+ 372              		.loc 1 275 1 view .LVU95
+ 373 0012 7047     		bx	lr
+ 374              	.L32:
+ 375              		.align	2
+ 376              	.L31:
+ 377 0014 00000000 		.word	lv_global
+ 378              		.cfi_endproc
+ 379              	.LFE242:
+ 381              		.section	.text.lv_draw_dispatch_request,"ax",%progbits
+ 382              		.align	1
+ 383              		.global	lv_draw_dispatch_request
+ 384              		.syntax unified
+ 385              		.thumb
+ 386              		.thumb_func
+ 388              	lv_draw_dispatch_request:
+ 389              	.LFB243:
+ 278:Lib/lvgl/src/draw/lv_draw.c **** #if LV_USE_OS
+ 390              		.loc 1 278 1 is_stmt 1 view -0
+ 391              		.cfi_startproc
+ 392              		@ args = 0, pretend = 0, frame = 0
+ 393              		@ frame_needed = 0, uses_anonymous_args = 0
+ 394              		@ link register save eliminated.
+ 282:Lib/lvgl/src/draw/lv_draw.c **** #endif
+ 395              		.loc 1 282 5 view .LVU97
+ 282:Lib/lvgl/src/draw/lv_draw.c **** #endif
+ 396              		.loc 1 282 29 is_stmt 0 view .LVU98
+ 397 0000 024B     		ldr	r3, .L34
+ 398 0002 0122     		movs	r2, #1
+ 399 0004 C3F8FC20 		str	r2, [r3, #252]
+ 284:Lib/lvgl/src/draw/lv_draw.c **** 
+ 400              		.loc 1 284 1 view .LVU99
+ 401 0008 7047     		bx	lr
+ 402              	.L35:
+ 403 000a 00BF     		.align	2
+ 404              	.L34:
+ 405 000c 00000000 		.word	lv_global
+ 406              		.cfi_endproc
+ 407              	.LFE243:
+ 409              		.section	.text.lv_draw_dispatch_layer,"ax",%progbits
+ 410              		.align	1
+ 411              		.global	lv_draw_dispatch_layer
+ 412              		.syntax unified
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 17
+
+
+ 413              		.thumb
+ 414              		.thumb_func
+ 416              	lv_draw_dispatch_layer:
+ 417              	.LVL26:
+ 418              	.LFB241:
+ 174:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 419              		.loc 1 174 1 is_stmt 1 view -0
+ 420              		.cfi_startproc
+ 421              		@ args = 0, pretend = 0, frame = 0
+ 422              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 423              		.loc 1 174 1 is_stmt 0 view .LVU101
+ 424 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 425              	.LCFI6:
+ 426              		.cfi_def_cfa_offset 32
+ 427              		.cfi_offset 4, -32
+ 428              		.cfi_offset 5, -28
+ 429              		.cfi_offset 6, -24
+ 430              		.cfi_offset 7, -20
+ 431              		.cfi_offset 8, -16
+ 432              		.cfi_offset 9, -12
+ 433              		.cfi_offset 10, -8
+ 434              		.cfi_offset 14, -4
+ 435 0004 8046     		mov	r8, r0
+ 436 0006 0E46     		mov	r6, r1
+ 175:Lib/lvgl/src/draw/lv_draw.c ****     /*Remove the finished tasks first*/
+ 437              		.loc 1 175 22 is_stmt 1 view .LVU102
+ 177:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * t = layer->draw_task_head;
+ 438              		.loc 1 177 5 view .LVU103
+ 439              	.LVL27:
+ 178:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 440              		.loc 1 178 5 view .LVU104
+ 178:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 441              		.loc 1 178 22 is_stmt 0 view .LVU105
+ 442 0008 8C6A     		ldr	r4, [r1, #40]
+ 443              	.LVL28:
+ 179:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t_next = t->next;
+ 444              		.loc 1 179 5 is_stmt 1 view .LVU106
+ 177:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_task_t * t = layer->draw_task_head;
+ 445              		.loc 1 177 22 is_stmt 0 view .LVU107
+ 446 000a 0027     		movs	r7, #0
+ 179:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t_next = t->next;
+ 447              		.loc 1 179 10 view .LVU108
+ 448 000c 0EE0     		b	.L37
+ 449              	.LVL29:
+ 450              	.L66:
+ 451              	.LBB26:
+ 182:Lib/lvgl/src/draw/lv_draw.c ****             else layer->draw_task_head = t_next;    /*If it was the head, set the next as head*/
+ 452              		.loc 1 182 13 is_stmt 1 view .LVU109
+ 182:Lib/lvgl/src/draw/lv_draw.c ****             else layer->draw_task_head = t_next;    /*If it was the head, set the next as head*/
+ 453              		.loc 1 182 15 is_stmt 0 view .LVU110
+ 454 000e AFB1     		cbz	r7, .L39
+ 182:Lib/lvgl/src/draw/lv_draw.c ****             else layer->draw_task_head = t_next;    /*If it was the head, set the next as head*/
+ 455              		.loc 1 182 24 is_stmt 1 discriminator 1 view .LVU111
+ 182:Lib/lvgl/src/draw/lv_draw.c ****             else layer->draw_task_head = t_next;    /*If it was the head, set the next as head*/
+ 456              		.loc 1 182 37 is_stmt 0 discriminator 1 view .LVU112
+ 457 0010 3D60     		str	r5, [r7]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 18
+
+
+ 458              	.L40:
+ 186:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_image_dsc = t->draw_dsc;
+ 459              		.loc 1 186 13 is_stmt 1 view .LVU113
+ 186:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_image_dsc = t->draw_dsc;
+ 460              		.loc 1 186 17 is_stmt 0 view .LVU114
+ 461 0012 2379     		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+ 186:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_image_dsc = t->draw_dsc;
+ 462              		.loc 1 186 15 view .LVU115
+ 463 0014 052B     		cmp	r3, #5
+ 464 0016 13D0     		beq	.L63
+ 465              	.L41:
+ 216:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_label_dsc_t * draw_label_dsc = t->draw_dsc;
+ 466              		.loc 1 216 13 is_stmt 1 view .LVU116
+ 216:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_label_dsc_t * draw_label_dsc = t->draw_dsc;
+ 467              		.loc 1 216 17 is_stmt 0 view .LVU117
+ 468 0018 2379     		ldrb	r3, [r4, #4]	@ zero_extendqisi2
+ 216:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_label_dsc_t * draw_label_dsc = t->draw_dsc;
+ 469              		.loc 1 216 15 view .LVU118
+ 470 001a 032B     		cmp	r3, #3
+ 471 001c 54D0     		beq	.L64
+ 472              	.L48:
+ 224:Lib/lvgl/src/draw/lv_draw.c ****             lv_free(t);
+ 473              		.loc 1 224 13 is_stmt 1 view .LVU119
+ 474 001e E06C     		ldr	r0, [r4, #76]
+ 475 0020 FFF7FEFF 		bl	lv_free
+ 476              	.LVL30:
+ 225:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 477              		.loc 1 225 13 view .LVU120
+ 478 0024 2046     		mov	r0, r4
+ 479 0026 FFF7FEFF 		bl	lv_free
+ 480              	.LVL31:
+ 481              	.L38:
+ 228:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 482              		.loc 1 228 20 is_stmt 0 view .LVU121
+ 483 002a 2C46     		mov	r4, r5
+ 484              	.LVL32:
+ 485              	.L37:
+ 228:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 486              		.loc 1 228 20 view .LVU122
+ 487              	.LBE26:
+ 179:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t_next = t->next;
+ 488              		.loc 1 179 11 is_stmt 1 view .LVU123
+ 489 002c 002C     		cmp	r4, #0
+ 490 002e 5AD0     		beq	.L65
+ 491              	.LBB37:
+ 180:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state == LV_DRAW_TASK_STATE_READY) {
+ 492              		.loc 1 180 9 view .LVU124
+ 180:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state == LV_DRAW_TASK_STATE_READY) {
+ 493              		.loc 1 180 26 is_stmt 0 view .LVU125
+ 494 0030 2568     		ldr	r5, [r4]
+ 495              	.LVL33:
+ 181:Lib/lvgl/src/draw/lv_draw.c ****             if(t_prev) t_prev->next = t->next;      /*Remove by it by assigning the next task to th
+ 496              		.loc 1 181 9 is_stmt 1 view .LVU126
+ 181:Lib/lvgl/src/draw/lv_draw.c ****             if(t_prev) t_prev->next = t->next;      /*Remove by it by assigning the next task to th
+ 497              		.loc 1 181 13 is_stmt 0 view .LVU127
+ 498 0032 A36C     		ldr	r3, [r4, #72]
+ 181:Lib/lvgl/src/draw/lv_draw.c ****             if(t_prev) t_prev->next = t->next;      /*Remove by it by assigning the next task to th
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 19
+
+
+ 499              		.loc 1 181 11 view .LVU128
+ 500 0034 032B     		cmp	r3, #3
+ 501 0036 EAD0     		beq	.L66
+ 228:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 502              		.loc 1 228 20 view .LVU129
+ 503 0038 2746     		mov	r7, r4
+ 504              	.LVL34:
+ 228:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 505              		.loc 1 228 20 view .LVU130
+ 506 003a F6E7     		b	.L38
+ 507              	.LVL35:
+ 508              	.L39:
+ 183:Lib/lvgl/src/draw/lv_draw.c **** 
+ 509              		.loc 1 183 18 is_stmt 1 view .LVU131
+ 183:Lib/lvgl/src/draw/lv_draw.c **** 
+ 510              		.loc 1 183 40 is_stmt 0 view .LVU132
+ 511 003c B562     		str	r5, [r6, #40]
+ 512 003e E8E7     		b	.L40
+ 513              	.L63:
+ 514              	.LBB27:
+ 187:Lib/lvgl/src/draw/lv_draw.c ****                 lv_layer_t * layer_drawn = (lv_layer_t *)draw_image_dsc->src;
+ 515              		.loc 1 187 17 is_stmt 1 view .LVU133
+ 187:Lib/lvgl/src/draw/lv_draw.c ****                 lv_layer_t * layer_drawn = (lv_layer_t *)draw_image_dsc->src;
+ 516              		.loc 1 187 39 is_stmt 0 view .LVU134
+ 517 0040 E36C     		ldr	r3, [r4, #76]
+ 518              	.LVL36:
+ 188:Lib/lvgl/src/draw/lv_draw.c **** 
+ 519              		.loc 1 188 17 is_stmt 1 view .LVU135
+ 188:Lib/lvgl/src/draw/lv_draw.c **** 
+ 520              		.loc 1 188 30 is_stmt 0 view .LVU136
+ 521 0042 D3F81C90 		ldr	r9, [r3, #28]
+ 522              	.LVL37:
+ 190:Lib/lvgl/src/draw/lv_draw.c ****                     int32_t h = lv_area_get_height(&layer_drawn->buf_area);
+ 523              		.loc 1 190 17 is_stmt 1 view .LVU137
+ 190:Lib/lvgl/src/draw/lv_draw.c ****                     int32_t h = lv_area_get_height(&layer_drawn->buf_area);
+ 524              		.loc 1 190 31 is_stmt 0 view .LVU138
+ 525 0046 D9F80030 		ldr	r3, [r9]
+ 526              	.LVL38:
+ 190:Lib/lvgl/src/draw/lv_draw.c ****                     int32_t h = lv_area_get_height(&layer_drawn->buf_area);
+ 527              		.loc 1 190 19 view .LVU139
+ 528 004a 2BB3     		cbz	r3, .L42
+ 529              	.LBB28:
+ 191:Lib/lvgl/src/draw/lv_draw.c ****                     int32_t w = lv_area_get_width(&layer_drawn->buf_area);
+ 530              		.loc 1 191 21 is_stmt 1 view .LVU140
+ 531              	.LVL39:
+ 532              	.LBB29:
+ 533              	.LBI29:
+ 534              		.file 2 "Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h"
+   1:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /**
+   2:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @file lv_area.h
+   3:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  *
+   4:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  */
+   5:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+   6:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #ifndef LV_AREA_H
+   7:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #define LV_AREA_H
+   8:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+   9:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #ifdef __cplusplus
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 20
+
+
+  10:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** extern "C" {
+  11:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #endif
+  12:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  13:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /*********************
+  14:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  *********************/
+  16:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #include "lv_types.h"
+  18:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #include <stdbool.h>
+  19:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #include <stdint.h>
+  20:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  21:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /*********************
+  22:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  *      DEFINES
+  23:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  *********************/
+  24:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  25:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /**********************
+  26:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  *      TYPEDEFS
+  27:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  **********************/
+  28:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  29:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /**
+  30:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * Represents a point on the screen.
+  31:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  */
+  32:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  33:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t x;
+  34:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t y;
+  35:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** } lv_point_t;
+  36:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  37:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  38:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     lv_value_precise_t x;
+  39:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     lv_value_precise_t y;
+  40:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** } lv_point_precise_t;
+  41:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  42:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /** Represents an area of the screen.*/
+  43:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  44:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t x1;
+  45:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t y1;
+  46:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t x2;
+  47:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t y2;
+  48:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** } lv_area_t;
+  49:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  50:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /** Alignments*/
+  51:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  52:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** enum _lv_align_t {
+  53:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_DEFAULT = 0,
+  54:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_LEFT,
+  55:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_MID,
+  56:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_RIGHT,
+  57:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_LEFT,
+  58:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_MID,
+  59:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_RIGHT,
+  60:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_LEFT_MID,
+  61:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_RIGHT_MID,
+  62:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_CENTER,
+  63:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  64:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_LEFT,
+  65:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_MID,
+  66:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_RIGHT,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 21
+
+
+  67:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_LEFT,
+  68:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_MID,
+  69:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_RIGHT,
+  70:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_TOP,
+  71:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_MID,
+  72:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_BOTTOM,
+  73:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_TOP,
+  74:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_MID,
+  75:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_BOTTOM,
+  76:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** };
+  77:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  78:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #ifdef DOXYGEN
+  79:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** typedef _lv_align_t lv_align_t;
+  80:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #else
+  81:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** typedef uint8_t lv_align_t;
+  82:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #endif /*DOXYGEN*/
+  83:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  84:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** enum _lv_dir_t {
+  85:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_NONE     = 0x00,
+  86:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_LEFT     = (1 << 0),
+  87:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_RIGHT    = (1 << 1),
+  88:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_TOP      = (1 << 2),
+  89:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_BOTTOM   = (1 << 3),
+  90:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_HOR      = LV_DIR_LEFT | LV_DIR_RIGHT,
+  91:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_VER      = LV_DIR_TOP | LV_DIR_BOTTOM,
+  92:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_ALL      = LV_DIR_HOR | LV_DIR_VER,
+  93:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** };
+  94:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+  95:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #ifdef DOXYGEN
+  96:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** typedef _lv_dir_t lv_dir_t;
+  97:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #else
+  98:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** typedef uint8_t lv_dir_t;
+  99:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** #endif /*DOXYGEN*/
+ 100:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+ 101:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** typedef struct  {
+ 102:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t angle_prev;
+ 103:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t sinma;
+ 104:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     int32_t cosma;
+ 105:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** } lv_area_transform_cache_t;
+ 106:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+ 107:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /**********************
+ 108:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * GLOBAL PROTOTYPES
+ 109:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  **********************/
+ 110:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+ 111:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /**
+ 112:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * Initialize an area
+ 113:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 114:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param x1 left coordinate of the area
+ 115:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param y1 top coordinate of the area
+ 116:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param x2 right coordinate of the area
+ 117:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param y2 bottom coordinate of the area
+ 118:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  */
+ 119:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** void lv_area_set(lv_area_t * area_p, int32_t x1, int32_t y1, int32_t x2, int32_t y2);
+ 120:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+ 121:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /**
+ 122:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * Copy an area
+ 123:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param dest pointer to the destination area
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 22
+
+
+ 124:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param src pointer to the source area
+ 125:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  */
+ 126:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** inline static void lv_area_copy(lv_area_t * dest, const lv_area_t * src)
+ 127:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** {
+ 128:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     dest->x1 = src->x1;
+ 129:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     dest->y1 = src->y1;
+ 130:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     dest->x2 = src->x2;
+ 131:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     dest->y2 = src->y2;
+ 132:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 133:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+ 134:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /**
+ 135:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * Get the width of an area
+ 136:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 137:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @return the width of the area (if x1 == x2 -> width = 1)
+ 138:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  */
+ 139:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** static inline int32_t lv_area_get_width(const lv_area_t * area_p)
+ 140:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** {
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     return (int32_t)(area_p->x2 - area_p->x1 + 1);
+ 142:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 143:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** 
+ 144:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** /**
+ 145:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * Get the height of an area
+ 146:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 147:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  * @return the height of the area (if y1 == y2 -> height = 1)
+ 148:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****  */
+ 149:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** static inline int32_t lv_area_get_height(const lv_area_t * area_p)
+ 535              		.loc 2 149 23 view .LVU141
+ 536              	.LBB30:
+ 150:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** {
+ 151:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h ****     return (int32_t)(area_p->y2 - area_p->y1 + 1);
+ 537              		.loc 2 151 5 view .LVU142
+ 538              		.loc 2 151 28 is_stmt 0 view .LVU143
+ 539 004c D9F81030 		ldr	r3, [r9, #16]
+ 540              		.loc 2 151 41 view .LVU144
+ 541 0050 D9F80820 		ldr	r2, [r9, #8]
+ 542              		.loc 2 151 33 view .LVU145
+ 543 0054 9B1A     		subs	r3, r3, r2
+ 544              		.loc 2 151 12 view .LVU146
+ 545 0056 03F1010A 		add	r10, r3, #1
+ 546              	.LVL40:
+ 547              		.loc 2 151 12 view .LVU147
+ 548              	.LBE30:
+ 549              	.LBE29:
+ 192:Lib/lvgl/src/draw/lv_draw.c ****                     uint32_t layer_size_byte = h * lv_draw_buf_width_to_stride(w, layer_drawn->colo
+ 550              		.loc 1 192 21 is_stmt 1 view .LVU148
+ 551              	.LBB31:
+ 552              	.LBI31:
+ 139:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** {
+ 553              		.loc 2 139 23 view .LVU149
+ 554              	.LBB32:
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 555              		.loc 2 141 5 view .LVU150
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 556              		.loc 2 141 28 is_stmt 0 view .LVU151
+ 557 005a D9F80C00 		ldr	r0, [r9, #12]
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 558              		.loc 2 141 41 view .LVU152
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 23
+
+
+ 559 005e D9F80430 		ldr	r3, [r9, #4]
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 560              		.loc 2 141 33 view .LVU153
+ 561 0062 C01A     		subs	r0, r0, r3
+ 562              	.LVL41:
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 563              		.loc 2 141 33 view .LVU154
+ 564              	.LBE32:
+ 565              	.LBE31:
+ 193:Lib/lvgl/src/draw/lv_draw.c **** 
+ 566              		.loc 1 193 21 is_stmt 1 view .LVU155
+ 193:Lib/lvgl/src/draw/lv_draw.c **** 
+ 567              		.loc 1 193 52 is_stmt 0 view .LVU156
+ 568 0064 99F81410 		ldrb	r1, [r9, #20]	@ zero_extendqisi2
+ 569 0068 0130     		adds	r0, r0, #1
+ 570              	.LVL42:
+ 193:Lib/lvgl/src/draw/lv_draw.c **** 
+ 571              		.loc 1 193 52 view .LVU157
+ 572 006a FFF7FEFF 		bl	lv_draw_buf_width_to_stride
+ 573              	.LVL43:
+ 193:Lib/lvgl/src/draw/lv_draw.c **** 
+ 574              		.loc 1 193 30 view .LVU158
+ 575 006e 0AFB00F0 		mul	r0, r10, r0
+ 576              	.LVL44:
+ 195:Lib/lvgl/src/draw/lv_draw.c ****                     LV_LOG_INFO("Layer memory used: %" LV_PRIu32 " kB\n", _draw_info.used_memory_fo
+ 577              		.loc 1 195 21 is_stmt 1 view .LVU159
+ 578              	.LBB33:
+ 579              	.LBI33:
+  30:Lib/lvgl/src/draw/lv_draw.c **** {
+ 580              		.loc 1 30 24 view .LVU160
+ 581              	.LBB34:
+  32:Lib/lvgl/src/draw/lv_draw.c **** }
+ 582              		.loc 1 32 5 view .LVU161
+  32:Lib/lvgl/src/draw/lv_draw.c **** }
+ 583              		.loc 1 32 33 is_stmt 0 view .LVU162
+ 584 0072 B0F5806F 		cmp	r0, #1024
+ 585 0076 01D3     		bcc	.L59
+ 586 0078 800A     		lsrs	r0, r0, #10
+ 587              	.LVL45:
+  32:Lib/lvgl/src/draw/lv_draw.c **** }
+ 588              		.loc 1 32 33 view .LVU163
+ 589 007a 00E0     		b	.L43
+ 590              	.LVL46:
+ 591              	.L59:
+  32:Lib/lvgl/src/draw/lv_draw.c **** }
+ 592              		.loc 1 32 33 view .LVU164
+ 593 007c 0120     		movs	r0, #1
+ 594              	.LVL47:
+ 595              	.L43:
+  32:Lib/lvgl/src/draw/lv_draw.c **** }
+ 596              		.loc 1 32 33 view .LVU165
+ 597              	.LBE34:
+ 598              	.LBE33:
+ 195:Lib/lvgl/src/draw/lv_draw.c ****                     LV_LOG_INFO("Layer memory used: %" LV_PRIu32 " kB\n", _draw_info.used_memory_fo
+ 599              		.loc 1 195 31 view .LVU166
+ 600 007e 314A     		ldr	r2, .L70
+ 601 0080 D2F8F830 		ldr	r3, [r2, #248]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 24
+
+
+ 195:Lib/lvgl/src/draw/lv_draw.c ****                     LV_LOG_INFO("Layer memory used: %" LV_PRIu32 " kB\n", _draw_info.used_memory_fo
+ 602              		.loc 1 195 58 view .LVU167
+ 603 0084 1B1A     		subs	r3, r3, r0
+ 604 0086 C2F8F830 		str	r3, [r2, #248]
+ 196:Lib/lvgl/src/draw/lv_draw.c ****                     lv_draw_buf_destroy(layer_drawn->draw_buf);
+ 605              		.loc 1 196 21 is_stmt 1 view .LVU168
+ 196:Lib/lvgl/src/draw/lv_draw.c ****                     lv_draw_buf_destroy(layer_drawn->draw_buf);
+ 606              		.loc 1 196 21 view .LVU169
+ 196:Lib/lvgl/src/draw/lv_draw.c ****                     lv_draw_buf_destroy(layer_drawn->draw_buf);
+ 607              		.loc 1 196 21 view .LVU170
+ 197:Lib/lvgl/src/draw/lv_draw.c ****                     layer_drawn->draw_buf = NULL;
+ 608              		.loc 1 197 21 view .LVU171
+ 609 008a D9F80000 		ldr	r0, [r9]
+ 610 008e FFF7FEFF 		bl	lv_draw_buf_destroy
+ 611              	.LVL48:
+ 198:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 612              		.loc 1 198 21 view .LVU172
+ 198:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 613              		.loc 1 198 43 is_stmt 0 view .LVU173
+ 614 0092 0023     		movs	r3, #0
+ 615 0094 C9F80030 		str	r3, [r9]
+ 616              	.LVL49:
+ 617              	.L42:
+ 198:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 618              		.loc 1 198 43 view .LVU174
+ 619              	.LBE28:
+ 202:Lib/lvgl/src/draw/lv_draw.c ****                     lv_layer_t * l2 = disp->layer_head;
+ 620              		.loc 1 202 17 is_stmt 1 view .LVU175
+ 202:Lib/lvgl/src/draw/lv_draw.c ****                     lv_layer_t * l2 = disp->layer_head;
+ 621              		.loc 1 202 19 is_stmt 0 view .LVU176
+ 622 0098 B8F1000F 		cmp	r8, #0
+ 623 009c BCD0     		beq	.L41
+ 624              	.LBB35:
+ 203:Lib/lvgl/src/draw/lv_draw.c ****                     while(l2) {
+ 625              		.loc 1 203 21 is_stmt 1 view .LVU177
+ 203:Lib/lvgl/src/draw/lv_draw.c ****                     while(l2) {
+ 626              		.loc 1 203 34 is_stmt 0 view .LVU178
+ 627 009e D8F8A032 		ldr	r3, [r8, #672]
+ 628              	.LVL50:
+ 204:Lib/lvgl/src/draw/lv_draw.c ****                         if(l2->next == layer_drawn) {
+ 629              		.loc 1 204 21 is_stmt 1 view .LVU179
+ 630              	.L44:
+ 204:Lib/lvgl/src/draw/lv_draw.c ****                         if(l2->next == layer_drawn) {
+ 631              		.loc 1 204 27 view .LVU180
+ 632 00a2 3BB1     		cbz	r3, .L45
+ 205:Lib/lvgl/src/draw/lv_draw.c ****                             l2->next = layer_drawn->next;
+ 633              		.loc 1 205 25 view .LVU181
+ 205:Lib/lvgl/src/draw/lv_draw.c ****                             l2->next = layer_drawn->next;
+ 634              		.loc 1 205 30 is_stmt 0 view .LVU182
+ 635 00a4 1A6B     		ldr	r2, [r3, #48]
+ 205:Lib/lvgl/src/draw/lv_draw.c ****                             l2->next = layer_drawn->next;
+ 636              		.loc 1 205 27 view .LVU183
+ 637 00a6 4A45     		cmp	r2, r9
+ 638 00a8 01D0     		beq	.L67
+ 209:Lib/lvgl/src/draw/lv_draw.c ****                     }
+ 639              		.loc 1 209 28 view .LVU184
+ 640 00aa 1346     		mov	r3, r2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 25
+
+
+ 641              	.LVL51:
+ 209:Lib/lvgl/src/draw/lv_draw.c ****                     }
+ 642              		.loc 1 209 28 view .LVU185
+ 643 00ac F9E7     		b	.L44
+ 644              	.LVL52:
+ 645              	.L67:
+ 206:Lib/lvgl/src/draw/lv_draw.c ****                             break;
+ 646              		.loc 1 206 29 is_stmt 1 view .LVU186
+ 206:Lib/lvgl/src/draw/lv_draw.c ****                             break;
+ 647              		.loc 1 206 51 is_stmt 0 view .LVU187
+ 648 00ae D9F83020 		ldr	r2, [r9, #48]
+ 206:Lib/lvgl/src/draw/lv_draw.c ****                             break;
+ 649              		.loc 1 206 38 view .LVU188
+ 650 00b2 1A63     		str	r2, [r3, #48]
+ 207:Lib/lvgl/src/draw/lv_draw.c ****                         }
+ 651              		.loc 1 207 29 is_stmt 1 view .LVU189
+ 652              	.L45:
+ 212:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free(layer_drawn);
+ 653              		.loc 1 212 21 view .LVU190
+ 212:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free(layer_drawn);
+ 654              		.loc 1 212 28 is_stmt 0 view .LVU191
+ 655 00b4 D8F8A832 		ldr	r3, [r8, #680]
+ 656              	.LVL53:
+ 212:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free(layer_drawn);
+ 657              		.loc 1 212 23 view .LVU192
+ 658 00b8 13B1     		cbz	r3, .L47
+ 212:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free(layer_drawn);
+ 659              		.loc 1 212 44 is_stmt 1 discriminator 1 view .LVU193
+ 660 00ba 4946     		mov	r1, r9
+ 661 00bc 4046     		mov	r0, r8
+ 662 00be 9847     		blx	r3
+ 663              	.LVL54:
+ 664              	.L47:
+ 213:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 665              		.loc 1 213 21 view .LVU194
+ 666 00c0 4846     		mov	r0, r9
+ 667 00c2 FFF7FEFF 		bl	lv_free
+ 668              	.LVL55:
+ 669 00c6 A7E7     		b	.L41
+ 670              	.LVL56:
+ 671              	.L64:
+ 213:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 672              		.loc 1 213 21 is_stmt 0 view .LVU195
+ 673              	.LBE35:
+ 674              	.LBE27:
+ 675              	.LBB36:
+ 217:Lib/lvgl/src/draw/lv_draw.c ****                 if(draw_label_dsc->text_local) {
+ 676              		.loc 1 217 17 is_stmt 1 view .LVU196
+ 217:Lib/lvgl/src/draw/lv_draw.c ****                 if(draw_label_dsc->text_local) {
+ 677              		.loc 1 217 39 is_stmt 0 view .LVU197
+ 678 00c8 D4F84C90 		ldr	r9, [r4, #76]
+ 679              	.LVL57:
+ 218:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free((void *)draw_label_dsc->text);
+ 680              		.loc 1 218 17 is_stmt 1 view .LVU198
+ 218:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free((void *)draw_label_dsc->text);
+ 681              		.loc 1 218 20 is_stmt 0 view .LVU199
+ 682 00cc 99F84C30 		ldrb	r3, [r9, #76]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 26
+
+
+ 218:Lib/lvgl/src/draw/lv_draw.c ****                     lv_free((void *)draw_label_dsc->text);
+ 683              		.loc 1 218 19 view .LVU200
+ 684 00d0 13F0400F 		tst	r3, #64
+ 685 00d4 A3D0     		beq	.L48
+ 219:Lib/lvgl/src/draw/lv_draw.c ****                     draw_label_dsc->text = NULL;
+ 686              		.loc 1 219 21 is_stmt 1 view .LVU201
+ 687 00d6 D9F81C00 		ldr	r0, [r9, #28]
+ 688 00da FFF7FEFF 		bl	lv_free
+ 689              	.LVL58:
+ 220:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 690              		.loc 1 220 21 view .LVU202
+ 220:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 691              		.loc 1 220 42 is_stmt 0 view .LVU203
+ 692 00de 0023     		movs	r3, #0
+ 693 00e0 C9F81C30 		str	r3, [r9, #28]
+ 694 00e4 9BE7     		b	.L48
+ 695              	.LVL59:
+ 696              	.L65:
+ 220:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 697              		.loc 1 220 42 view .LVU204
+ 698              	.LBE36:
+ 699              	.LBE37:
+ 233:Lib/lvgl/src/draw/lv_draw.c **** 
+ 700              		.loc 1 233 5 is_stmt 1 view .LVU205
+ 236:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw task with TYPE_LAYER in the layer where the src is this layer*/
+ 701              		.loc 1 236 5 view .LVU206
+ 236:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw task with TYPE_LAYER in the layer where the src is this layer*/
+ 702              		.loc 1 236 13 is_stmt 0 view .LVU207
+ 703 00e6 F36A     		ldr	r3, [r6, #44]
+ 236:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw task with TYPE_LAYER in the layer where the src is this layer*/
+ 704              		.loc 1 236 7 view .LVU208
+ 705 00e8 23B1     		cbz	r3, .L50
+ 236:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw task with TYPE_LAYER in the layer where the src is this layer*/
+ 706              		.loc 1 236 30 discriminator 1 view .LVU209
+ 707 00ea 96F83420 		ldrb	r2, [r6, #52]	@ zero_extendqisi2
+ 236:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw task with TYPE_LAYER in the layer where the src is this layer*/
+ 708              		.loc 1 236 22 discriminator 1 view .LVU210
+ 709 00ee 0AB1     		cbz	r2, .L50
+ 236:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw task with TYPE_LAYER in the layer where the src is this layer*/
+ 710              		.loc 1 236 56 discriminator 2 view .LVU211
+ 711 00f0 B26A     		ldr	r2, [r6, #40]
+ 236:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a draw task with TYPE_LAYER in the layer where the src is this layer*/
+ 712              		.loc 1 236 48 discriminator 2 view .LVU212
+ 713 00f2 22B1     		cbz	r2, .L68
+ 714              	.L50:
+ 715              	.LBB38:
+ 255:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 716              		.loc 1 255 9 is_stmt 1 view .LVU213
+ 255:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 717              		.loc 1 255 26 is_stmt 0 view .LVU214
+ 718 00f4 134B     		ldr	r3, .L70
+ 719 00f6 D3F8F440 		ldr	r4, [r3, #244]
+ 720              	.LVL60:
+ 256:Lib/lvgl/src/draw/lv_draw.c ****             int32_t taken_cnt = u->dispatch_cb(u, layer);
+ 721              		.loc 1 256 9 is_stmt 1 view .LVU215
+ 722              	.LBE38:
+ 233:Lib/lvgl/src/draw/lv_draw.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 27
+
+
+ 723              		.loc 1 233 10 is_stmt 0 view .LVU216
+ 724 00fa 0025     		movs	r5, #0
+ 725              	.LBB41:
+ 256:Lib/lvgl/src/draw/lv_draw.c ****             int32_t taken_cnt = u->dispatch_cb(u, layer);
+ 726              		.loc 1 256 14 view .LVU217
+ 727 00fc 18E0     		b	.L55
+ 728              	.LVL61:
+ 729              	.L68:
+ 256:Lib/lvgl/src/draw/lv_draw.c ****             int32_t taken_cnt = u->dispatch_cb(u, layer);
+ 730              		.loc 1 256 14 view .LVU218
+ 731              	.LBE41:
+ 732              	.LBB42:
+ 238:Lib/lvgl/src/draw/lv_draw.c ****         while(t_src) {
+ 733              		.loc 1 238 9 is_stmt 1 view .LVU219
+ 238:Lib/lvgl/src/draw/lv_draw.c ****         while(t_src) {
+ 734              		.loc 1 238 26 is_stmt 0 view .LVU220
+ 735 00fe 9B6A     		ldr	r3, [r3, #40]
+ 736              	.LVL62:
+ 239:Lib/lvgl/src/draw/lv_draw.c ****             if(t_src->type == LV_DRAW_TASK_TYPE_LAYER && t_src->state == LV_DRAW_TASK_STATE_WAITING
+ 737              		.loc 1 239 9 is_stmt 1 view .LVU221
+ 239:Lib/lvgl/src/draw/lv_draw.c ****             if(t_src->type == LV_DRAW_TASK_TYPE_LAYER && t_src->state == LV_DRAW_TASK_STATE_WAITING
+ 738              		.loc 1 239 14 is_stmt 0 view .LVU222
+ 739 0100 00E0     		b	.L51
+ 740              	.L52:
+ 248:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 741              		.loc 1 248 13 is_stmt 1 view .LVU223
+ 248:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 742              		.loc 1 248 19 is_stmt 0 view .LVU224
+ 743 0102 1B68     		ldr	r3, [r3]
+ 744              	.LVL63:
+ 745              	.L51:
+ 239:Lib/lvgl/src/draw/lv_draw.c ****             if(t_src->type == LV_DRAW_TASK_TYPE_LAYER && t_src->state == LV_DRAW_TASK_STATE_WAITING
+ 746              		.loc 1 239 15 is_stmt 1 view .LVU225
+ 747 0104 7BB1     		cbz	r3, .L69
+ 240:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_dsc = t_src->draw_dsc;
+ 748              		.loc 1 240 13 view .LVU226
+ 240:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_dsc = t_src->draw_dsc;
+ 749              		.loc 1 240 21 is_stmt 0 view .LVU227
+ 750 0106 1A79     		ldrb	r2, [r3, #4]	@ zero_extendqisi2
+ 240:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_dsc = t_src->draw_dsc;
+ 751              		.loc 1 240 15 view .LVU228
+ 752 0108 052A     		cmp	r2, #5
+ 753 010a FAD1     		bne	.L52
+ 240:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_dsc = t_src->draw_dsc;
+ 754              		.loc 1 240 63 discriminator 1 view .LVU229
+ 755 010c 9A6C     		ldr	r2, [r3, #72]
+ 240:Lib/lvgl/src/draw/lv_draw.c ****                 lv_draw_image_dsc_t * draw_dsc = t_src->draw_dsc;
+ 756              		.loc 1 240 55 discriminator 1 view .LVU230
+ 757 010e 002A     		cmp	r2, #0
+ 758 0110 F7D1     		bne	.L52
+ 759              	.LBB43:
+ 241:Lib/lvgl/src/draw/lv_draw.c ****                 if(draw_dsc->src == layer) {
+ 760              		.loc 1 241 17 is_stmt 1 view .LVU231
+ 241:Lib/lvgl/src/draw/lv_draw.c ****                 if(draw_dsc->src == layer) {
+ 761              		.loc 1 241 39 is_stmt 0 view .LVU232
+ 762 0112 DA6C     		ldr	r2, [r3, #76]
+ 763              	.LVL64:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 28
+
+
+ 242:Lib/lvgl/src/draw/lv_draw.c ****                     t_src->state = LV_DRAW_TASK_STATE_QUEUED;
+ 764              		.loc 1 242 17 is_stmt 1 view .LVU233
+ 242:Lib/lvgl/src/draw/lv_draw.c ****                     t_src->state = LV_DRAW_TASK_STATE_QUEUED;
+ 765              		.loc 1 242 28 is_stmt 0 view .LVU234
+ 766 0114 D269     		ldr	r2, [r2, #28]
+ 767              	.LVL65:
+ 242:Lib/lvgl/src/draw/lv_draw.c ****                     t_src->state = LV_DRAW_TASK_STATE_QUEUED;
+ 768              		.loc 1 242 19 view .LVU235
+ 769 0116 B242     		cmp	r2, r6
+ 770 0118 F3D1     		bne	.L52
+ 243:Lib/lvgl/src/draw/lv_draw.c ****                     lv_draw_dispatch_request();
+ 771              		.loc 1 243 21 is_stmt 1 view .LVU236
+ 243:Lib/lvgl/src/draw/lv_draw.c ****                     lv_draw_dispatch_request();
+ 772              		.loc 1 243 34 is_stmt 0 view .LVU237
+ 773 011a 0122     		movs	r2, #1
+ 774 011c 9A64     		str	r2, [r3, #72]
+ 244:Lib/lvgl/src/draw/lv_draw.c ****                     break;
+ 775              		.loc 1 244 21 is_stmt 1 view .LVU238
+ 776 011e FFF7FEFF 		bl	lv_draw_dispatch_request
+ 777              	.LVL66:
+ 245:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 778              		.loc 1 245 21 view .LVU239
+ 779              	.LBE43:
+ 780              	.LBE42:
+ 233:Lib/lvgl/src/draw/lv_draw.c **** 
+ 781              		.loc 1 233 10 is_stmt 0 view .LVU240
+ 782 0122 0025     		movs	r5, #0
+ 783              	.LBB45:
+ 784              	.LBB44:
+ 245:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 785              		.loc 1 245 21 view .LVU241
+ 786 0124 00E0     		b	.L53
+ 787              	.LVL67:
+ 788              	.L69:
+ 245:Lib/lvgl/src/draw/lv_draw.c ****                 }
+ 789              		.loc 1 245 21 view .LVU242
+ 790              	.LBE44:
+ 791              	.LBE45:
+ 233:Lib/lvgl/src/draw/lv_draw.c **** 
+ 792              		.loc 1 233 10 view .LVU243
+ 793 0126 0025     		movs	r5, #0
+ 794              	.LVL68:
+ 795              	.L53:
+ 263:Lib/lvgl/src/draw/lv_draw.c ****     return render_running;
+ 796              		.loc 1 263 20 is_stmt 1 view .LVU244
+ 264:Lib/lvgl/src/draw/lv_draw.c **** }
+ 797              		.loc 1 264 5 view .LVU245
+ 265:Lib/lvgl/src/draw/lv_draw.c **** 
+ 798              		.loc 1 265 1 is_stmt 0 view .LVU246
+ 799 0128 2846     		mov	r0, r5
+ 800 012a BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 801              	.LVL69:
+ 802              	.L56:
+ 803              	.LBB46:
+ 804              	.LBB39:
+ 259:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 805              		.loc 1 259 13 is_stmt 1 view .LVU247
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 29
+
+
+ 259:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 806              		.loc 1 259 15 is_stmt 0 view .LVU248
+ 807 012e 2468     		ldr	r4, [r4]
+ 808              	.LVL70:
+ 809              	.L55:
+ 259:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 810              		.loc 1 259 15 view .LVU249
+ 811              	.LBE39:
+ 256:Lib/lvgl/src/draw/lv_draw.c ****             int32_t taken_cnt = u->dispatch_cb(u, layer);
+ 812              		.loc 1 256 15 is_stmt 1 view .LVU250
+ 813 0130 002C     		cmp	r4, #0
+ 814 0132 F9D0     		beq	.L53
+ 815              	.LBB40:
+ 257:Lib/lvgl/src/draw/lv_draw.c ****             if(taken_cnt >= 0) render_running = true;
+ 816              		.loc 1 257 13 view .LVU251
+ 257:Lib/lvgl/src/draw/lv_draw.c ****             if(taken_cnt >= 0) render_running = true;
+ 817              		.loc 1 257 34 is_stmt 0 view .LVU252
+ 818 0134 E368     		ldr	r3, [r4, #12]
+ 257:Lib/lvgl/src/draw/lv_draw.c ****             if(taken_cnt >= 0) render_running = true;
+ 819              		.loc 1 257 33 view .LVU253
+ 820 0136 3146     		mov	r1, r6
+ 821 0138 2046     		mov	r0, r4
+ 822 013a 9847     		blx	r3
+ 823              	.LVL71:
+ 258:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 824              		.loc 1 258 13 is_stmt 1 view .LVU254
+ 258:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 825              		.loc 1 258 15 is_stmt 0 view .LVU255
+ 826 013c 0028     		cmp	r0, #0
+ 827 013e F6DB     		blt	.L56
+ 258:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 828              		.loc 1 258 47 view .LVU256
+ 829 0140 0125     		movs	r5, #1
+ 830              	.LVL72:
+ 258:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 831              		.loc 1 258 47 view .LVU257
+ 832 0142 F4E7     		b	.L56
+ 833              	.L71:
+ 834              		.align	2
+ 835              	.L70:
+ 836 0144 00000000 		.word	lv_global
+ 837              	.LBE40:
+ 838              	.LBE46:
+ 839              		.cfi_endproc
+ 840              	.LFE241:
+ 842              		.section	.text.lv_draw_dispatch,"ax",%progbits
+ 843              		.align	1
+ 844              		.global	lv_draw_dispatch
+ 845              		.syntax unified
+ 846              		.thumb
+ 847              		.thumb_func
+ 849              	lv_draw_dispatch:
+ 850              	.LFB240:
+ 154:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 851              		.loc 1 154 1 is_stmt 1 view -0
+ 852              		.cfi_startproc
+ 853              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 30
+
+
+ 854              		@ frame_needed = 0, uses_anonymous_args = 0
+ 855 0000 70B5     		push	{r4, r5, r6, lr}
+ 856              	.LCFI7:
+ 857              		.cfi_def_cfa_offset 16
+ 858              		.cfi_offset 4, -16
+ 859              		.cfi_offset 5, -12
+ 860              		.cfi_offset 6, -8
+ 861              		.cfi_offset 14, -4
+ 155:Lib/lvgl/src/draw/lv_draw.c ****     bool render_running = false;
+ 862              		.loc 1 155 22 view .LVU259
+ 156:Lib/lvgl/src/draw/lv_draw.c ****     lv_display_t * disp = lv_display_get_next(NULL);
+ 863              		.loc 1 156 5 view .LVU260
+ 864              	.LVL73:
+ 157:Lib/lvgl/src/draw/lv_draw.c ****     while(disp) {
+ 865              		.loc 1 157 5 view .LVU261
+ 157:Lib/lvgl/src/draw/lv_draw.c ****     while(disp) {
+ 866              		.loc 1 157 27 is_stmt 0 view .LVU262
+ 867 0002 0020     		movs	r0, #0
+ 868 0004 FFF7FEFF 		bl	lv_display_get_next
+ 869              	.LVL74:
+ 870 0008 0546     		mov	r5, r0
+ 871              	.LVL75:
+ 158:Lib/lvgl/src/draw/lv_draw.c ****         lv_layer_t * layer = disp->layer_head;
+ 872              		.loc 1 158 5 is_stmt 1 view .LVU263
+ 156:Lib/lvgl/src/draw/lv_draw.c ****     lv_display_t * disp = lv_display_get_next(NULL);
+ 873              		.loc 1 156 10 is_stmt 0 view .LVU264
+ 874 000a 0026     		movs	r6, #0
+ 158:Lib/lvgl/src/draw/lv_draw.c ****         lv_layer_t * layer = disp->layer_head;
+ 875              		.loc 1 158 10 view .LVU265
+ 876 000c 0EE0     		b	.L73
+ 877              	.LVL76:
+ 878              	.L75:
+ 879              	.LBB47:
+ 163:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 880              		.loc 1 163 13 is_stmt 1 view .LVU266
+ 163:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 881              		.loc 1 163 19 is_stmt 0 view .LVU267
+ 882 000e 246B     		ldr	r4, [r4, #48]
+ 883              	.LVL77:
+ 884              	.L74:
+ 160:Lib/lvgl/src/draw/lv_draw.c ****             if(lv_draw_dispatch_layer(disp, layer))
+ 885              		.loc 1 160 15 is_stmt 1 view .LVU268
+ 886 0010 3CB1     		cbz	r4, .L81
+ 161:Lib/lvgl/src/draw/lv_draw.c ****                 render_running = true;
+ 887              		.loc 1 161 13 view .LVU269
+ 161:Lib/lvgl/src/draw/lv_draw.c ****                 render_running = true;
+ 888              		.loc 1 161 16 is_stmt 0 view .LVU270
+ 889 0012 2146     		mov	r1, r4
+ 890 0014 2846     		mov	r0, r5
+ 891 0016 FFF7FEFF 		bl	lv_draw_dispatch_layer
+ 892              	.LVL78:
+ 161:Lib/lvgl/src/draw/lv_draw.c ****                 render_running = true;
+ 893              		.loc 1 161 15 view .LVU271
+ 894 001a 0028     		cmp	r0, #0
+ 895 001c F7D0     		beq	.L75
+ 162:Lib/lvgl/src/draw/lv_draw.c ****             layer = layer->next;
+ 896              		.loc 1 162 32 view .LVU272
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 31
+
+
+ 897 001e 0646     		mov	r6, r0
+ 898              	.LVL79:
+ 162:Lib/lvgl/src/draw/lv_draw.c ****             layer = layer->next;
+ 899              		.loc 1 162 32 view .LVU273
+ 900 0020 F5E7     		b	.L75
+ 901              	.LVL80:
+ 902              	.L81:
+ 165:Lib/lvgl/src/draw/lv_draw.c ****             lv_draw_dispatch_request();
+ 903              		.loc 1 165 9 is_stmt 1 view .LVU274
+ 165:Lib/lvgl/src/draw/lv_draw.c ****             lv_draw_dispatch_request();
+ 904              		.loc 1 165 11 is_stmt 0 view .LVU275
+ 905 0022 3EB1     		cbz	r6, .L82
+ 906              	.L77:
+ 168:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 907              		.loc 1 168 9 is_stmt 1 view .LVU276
+ 168:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 908              		.loc 1 168 16 is_stmt 0 view .LVU277
+ 909 0024 2846     		mov	r0, r5
+ 910 0026 FFF7FEFF 		bl	lv_display_get_next
+ 911              	.LVL81:
+ 912 002a 0546     		mov	r5, r0
+ 913              	.LVL82:
+ 914              	.L73:
+ 168:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 915              		.loc 1 168 16 view .LVU278
+ 916              	.LBE47:
+ 158:Lib/lvgl/src/draw/lv_draw.c ****         lv_layer_t * layer = disp->layer_head;
+ 917              		.loc 1 158 11 is_stmt 1 view .LVU279
+ 918 002c 2DB1     		cbz	r5, .L83
+ 919              	.LBB48:
+ 159:Lib/lvgl/src/draw/lv_draw.c ****         while(layer) {
+ 920              		.loc 1 159 9 view .LVU280
+ 159:Lib/lvgl/src/draw/lv_draw.c ****         while(layer) {
+ 921              		.loc 1 159 22 is_stmt 0 view .LVU281
+ 922 002e D5F8A042 		ldr	r4, [r5, #672]
+ 923              	.LVL83:
+ 160:Lib/lvgl/src/draw/lv_draw.c ****             if(lv_draw_dispatch_layer(disp, layer))
+ 924              		.loc 1 160 9 is_stmt 1 view .LVU282
+ 160:Lib/lvgl/src/draw/lv_draw.c ****             if(lv_draw_dispatch_layer(disp, layer))
+ 925              		.loc 1 160 14 is_stmt 0 view .LVU283
+ 926 0032 EDE7     		b	.L74
+ 927              	.LVL84:
+ 928              	.L82:
+ 166:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 929              		.loc 1 166 13 is_stmt 1 view .LVU284
+ 930 0034 FFF7FEFF 		bl	lv_draw_dispatch_request
+ 931              	.LVL85:
+ 932 0038 F4E7     		b	.L77
+ 933              	.LVL86:
+ 934              	.L83:
+ 166:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 935              		.loc 1 166 13 is_stmt 0 view .LVU285
+ 936              	.LBE48:
+ 171:Lib/lvgl/src/draw/lv_draw.c **** 
+ 937              		.loc 1 171 1 view .LVU286
+ 938 003a 70BD     		pop	{r4, r5, r6, pc}
+ 171:Lib/lvgl/src/draw/lv_draw.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 32
+
+
+ 939              		.loc 1 171 1 view .LVU287
+ 940              		.cfi_endproc
+ 941              	.LFE240:
+ 943              		.section	.text.lv_draw_finalize_task_creation,"ax",%progbits
+ 944              		.align	1
+ 945              		.global	lv_draw_finalize_task_creation
+ 946              		.syntax unified
+ 947              		.thumb
+ 948              		.thumb_func
+ 950              	lv_draw_finalize_task_creation:
+ 951              	.LVL87:
+ 952              	.LFB239:
+ 110:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 953              		.loc 1 110 1 is_stmt 1 view -0
+ 954              		.cfi_startproc
+ 955              		@ args = 0, pretend = 0, frame = 0
+ 956              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 957              		.loc 1 110 1 is_stmt 0 view .LVU289
+ 958 0000 70B5     		push	{r4, r5, r6, lr}
+ 959              	.LCFI8:
+ 960              		.cfi_def_cfa_offset 16
+ 961              		.cfi_offset 4, -16
+ 962              		.cfi_offset 5, -12
+ 963              		.cfi_offset 6, -8
+ 964              		.cfi_offset 14, -4
+ 965 0002 0D46     		mov	r5, r1
+ 111:Lib/lvgl/src/draw/lv_draw.c ****     lv_draw_dsc_base_t * base_dsc = t->draw_dsc;
+ 966              		.loc 1 111 22 is_stmt 1 view .LVU290
+ 112:Lib/lvgl/src/draw/lv_draw.c ****     base_dsc->layer = layer;
+ 967              		.loc 1 112 5 view .LVU291
+ 112:Lib/lvgl/src/draw/lv_draw.c ****     base_dsc->layer = layer;
+ 968              		.loc 1 112 26 is_stmt 0 view .LVU292
+ 969 0004 CC6C     		ldr	r4, [r1, #76]
+ 970              	.LVL88:
+ 113:Lib/lvgl/src/draw/lv_draw.c **** 
+ 971              		.loc 1 113 5 is_stmt 1 view .LVU293
+ 113:Lib/lvgl/src/draw/lv_draw.c **** 
+ 972              		.loc 1 113 21 is_stmt 0 view .LVU294
+ 973 0006 2061     		str	r0, [r4, #16]
+ 115:Lib/lvgl/src/draw/lv_draw.c **** 
+ 974              		.loc 1 115 5 is_stmt 1 view .LVU295
+ 975              	.LVL89:
+ 122:Lib/lvgl/src/draw/lv_draw.c ****         if(base_dsc->obj && lv_obj_has_flag(base_dsc->obj, LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS)) {
+ 976              		.loc 1 122 5 view .LVU296
+ 122:Lib/lvgl/src/draw/lv_draw.c ****         if(base_dsc->obj && lv_obj_has_flag(base_dsc->obj, LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS)) {
+ 977              		.loc 1 122 12 is_stmt 0 view .LVU297
+ 978 0008 204B     		ldr	r3, .L99
+ 979 000a 93F80431 		ldrb	r3, [r3, #260]	@ zero_extendqisi2
+ 122:Lib/lvgl/src/draw/lv_draw.c ****         if(base_dsc->obj && lv_obj_has_flag(base_dsc->obj, LV_OBJ_FLAG_SEND_DRAW_TASK_EVENTS)) {
+ 980              		.loc 1 122 7 view .LVU298
+ 981 000e 4BBB     		cbnz	r3, .L85
+ 982              	.LBB49:
+ 123:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = true;
+ 983              		.loc 1 123 9 is_stmt 1 view .LVU299
+ 123:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = true;
+ 984              		.loc 1 123 20 is_stmt 0 view .LVU300
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 33
+
+
+ 985 0010 2068     		ldr	r0, [r4]
+ 986              	.LVL90:
+ 123:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = true;
+ 987              		.loc 1 123 11 view .LVU301
+ 988 0012 20B1     		cbz	r0, .L86
+ 123:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = true;
+ 989              		.loc 1 123 29 discriminator 1 view .LVU302
+ 990 0014 4FF40021 		mov	r1, #524288
+ 991              	.LVL91:
+ 123:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = true;
+ 992              		.loc 1 123 29 discriminator 1 view .LVU303
+ 993 0018 FFF7FEFF 		bl	lv_obj_has_flag
+ 994              	.LVL92:
+ 123:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = true;
+ 995              		.loc 1 123 26 discriminator 1 view .LVU304
+ 996 001c 48B9     		cbnz	r0, .L95
+ 997              	.L86:
+ 130:Lib/lvgl/src/draw/lv_draw.c ****         t->preferred_draw_unit_id = 0;
+ 998              		.loc 1 130 9 is_stmt 1 view .LVU305
+ 130:Lib/lvgl/src/draw/lv_draw.c ****         t->preferred_draw_unit_id = 0;
+ 999              		.loc 1 130 29 is_stmt 0 view .LVU306
+ 1000 001e 6423     		movs	r3, #100
+ 1001 0020 85F85130 		strb	r3, [r5, #81]
+ 131:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * u = info->unit_head;
+ 1002              		.loc 1 131 9 is_stmt 1 view .LVU307
+ 131:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * u = info->unit_head;
+ 1003              		.loc 1 131 35 is_stmt 0 view .LVU308
+ 1004 0024 0023     		movs	r3, #0
+ 1005 0026 85F85030 		strb	r3, [r5, #80]
+ 132:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 1006              		.loc 1 132 9 is_stmt 1 view .LVU309
+ 132:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 1007              		.loc 1 132 26 is_stmt 0 view .LVU310
+ 1008 002a 184B     		ldr	r3, .L99
+ 1009 002c D3F8F440 		ldr	r4, [r3, #244]
+ 1010              	.LVL93:
+ 133:Lib/lvgl/src/draw/lv_draw.c ****             if(u->evaluate_cb) u->evaluate_cb(u, t);
+ 1011              		.loc 1 133 9 is_stmt 1 view .LVU311
+ 133:Lib/lvgl/src/draw/lv_draw.c ****             if(u->evaluate_cb) u->evaluate_cb(u, t);
+ 1012              		.loc 1 133 14 is_stmt 0 view .LVU312
+ 1013 0030 10E0     		b	.L87
+ 1014              	.LVL94:
+ 1015              	.L95:
+ 124:Lib/lvgl/src/draw/lv_draw.c ****             lv_obj_send_event(base_dsc->obj, LV_EVENT_DRAW_TASK_ADDED, t);
+ 1016              		.loc 1 124 13 is_stmt 1 view .LVU313
+ 124:Lib/lvgl/src/draw/lv_draw.c ****             lv_obj_send_event(base_dsc->obj, LV_EVENT_DRAW_TASK_ADDED, t);
+ 1017              		.loc 1 124 32 is_stmt 0 view .LVU314
+ 1018 0032 164E     		ldr	r6, .L99
+ 1019 0034 0123     		movs	r3, #1
+ 1020 0036 86F80431 		strb	r3, [r6, #260]
+ 125:Lib/lvgl/src/draw/lv_draw.c ****             info->task_running = false;
+ 1021              		.loc 1 125 13 is_stmt 1 view .LVU315
+ 1022 003a 2A46     		mov	r2, r5
+ 1023 003c 1C21     		movs	r1, #28
+ 1024 003e 2068     		ldr	r0, [r4]
+ 1025 0040 FFF7FEFF 		bl	lv_obj_send_event
+ 1026              	.LVL95:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 34
+
+
+ 126:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1027              		.loc 1 126 13 view .LVU316
+ 126:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1028              		.loc 1 126 32 is_stmt 0 view .LVU317
+ 1029 0044 0023     		movs	r3, #0
+ 1030 0046 86F80431 		strb	r3, [r6, #260]
+ 1031 004a E8E7     		b	.L86
+ 1032              	.LVL96:
+ 1033              	.L97:
+ 134:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 1034              		.loc 1 134 32 is_stmt 1 discriminator 1 view .LVU318
+ 1035 004c 2946     		mov	r1, r5
+ 1036 004e 2046     		mov	r0, r4
+ 1037 0050 9847     		blx	r3
+ 1038              	.LVL97:
+ 1039              	.L88:
+ 135:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1040              		.loc 1 135 13 view .LVU319
+ 135:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1041              		.loc 1 135 15 is_stmt 0 view .LVU320
+ 1042 0052 2468     		ldr	r4, [r4]
+ 1043              	.LVL98:
+ 1044              	.L87:
+ 133:Lib/lvgl/src/draw/lv_draw.c ****             if(u->evaluate_cb) u->evaluate_cb(u, t);
+ 1045              		.loc 1 133 15 is_stmt 1 view .LVU321
+ 1046 0054 1CB1     		cbz	r4, .L96
+ 134:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 1047              		.loc 1 134 13 view .LVU322
+ 134:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 1048              		.loc 1 134 17 is_stmt 0 view .LVU323
+ 1049 0056 2369     		ldr	r3, [r4, #16]
+ 134:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 1050              		.loc 1 134 15 view .LVU324
+ 1051 0058 002B     		cmp	r3, #0
+ 1052 005a F7D1     		bne	.L97
+ 1053 005c F9E7     		b	.L88
+ 1054              	.L96:
+ 138:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1055              		.loc 1 138 9 is_stmt 1 view .LVU325
+ 1056 005e FFF7FEFF 		bl	lv_draw_dispatch
+ 1057              	.LVL99:
+ 1058              	.L84:
+ 138:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1059              		.loc 1 138 9 is_stmt 0 view .LVU326
+ 1060              	.LBE49:
+ 151:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1061              		.loc 1 151 1 view .LVU327
+ 1062 0062 70BD     		pop	{r4, r5, r6, pc}
+ 1063              	.LVL100:
+ 1064              	.L85:
+ 1065              	.LBB50:
+ 142:Lib/lvgl/src/draw/lv_draw.c ****         t->preferred_draw_unit_id = 0;
+ 1066              		.loc 1 142 9 is_stmt 1 view .LVU328
+ 142:Lib/lvgl/src/draw/lv_draw.c ****         t->preferred_draw_unit_id = 0;
+ 1067              		.loc 1 142 29 is_stmt 0 view .LVU329
+ 1068 0064 6423     		movs	r3, #100
+ 1069 0066 81F85130 		strb	r3, [r1, #81]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 35
+
+
+ 143:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * u = info->unit_head;
+ 1070              		.loc 1 143 9 is_stmt 1 view .LVU330
+ 143:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_unit_t * u = info->unit_head;
+ 1071              		.loc 1 143 35 is_stmt 0 view .LVU331
+ 1072 006a 0023     		movs	r3, #0
+ 1073 006c 81F85030 		strb	r3, [r1, #80]
+ 144:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 1074              		.loc 1 144 9 is_stmt 1 view .LVU332
+ 144:Lib/lvgl/src/draw/lv_draw.c ****         while(u) {
+ 1075              		.loc 1 144 26 is_stmt 0 view .LVU333
+ 1076 0070 064B     		ldr	r3, .L99
+ 1077 0072 D3F8F440 		ldr	r4, [r3, #244]
+ 1078              	.LVL101:
+ 145:Lib/lvgl/src/draw/lv_draw.c ****             if(u->evaluate_cb) u->evaluate_cb(u, t);
+ 1079              		.loc 1 145 9 is_stmt 1 view .LVU334
+ 145:Lib/lvgl/src/draw/lv_draw.c ****             if(u->evaluate_cb) u->evaluate_cb(u, t);
+ 1080              		.loc 1 145 14 is_stmt 0 view .LVU335
+ 1081 0076 03E0     		b	.L91
+ 1082              	.LVL102:
+ 1083              	.L98:
+ 146:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 1084              		.loc 1 146 32 is_stmt 1 discriminator 1 view .LVU336
+ 1085 0078 2946     		mov	r1, r5
+ 1086 007a 2046     		mov	r0, r4
+ 1087 007c 9847     		blx	r3
+ 1088              	.LVL103:
+ 1089              	.L92:
+ 147:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1090              		.loc 1 147 13 view .LVU337
+ 147:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1091              		.loc 1 147 15 is_stmt 0 view .LVU338
+ 1092 007e 2468     		ldr	r4, [r4]
+ 1093              	.LVL104:
+ 1094              	.L91:
+ 145:Lib/lvgl/src/draw/lv_draw.c ****             if(u->evaluate_cb) u->evaluate_cb(u, t);
+ 1095              		.loc 1 145 15 is_stmt 1 view .LVU339
+ 1096 0080 002C     		cmp	r4, #0
+ 1097 0082 EED0     		beq	.L84
+ 146:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 1098              		.loc 1 146 13 view .LVU340
+ 146:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 1099              		.loc 1 146 17 is_stmt 0 view .LVU341
+ 1100 0084 2369     		ldr	r3, [r4, #16]
+ 146:Lib/lvgl/src/draw/lv_draw.c ****             u = u->next;
+ 1101              		.loc 1 146 15 view .LVU342
+ 1102 0086 002B     		cmp	r3, #0
+ 1103 0088 F6D1     		bne	.L98
+ 1104 008a F8E7     		b	.L92
+ 1105              	.L100:
+ 1106              		.align	2
+ 1107              	.L99:
+ 1108 008c 00000000 		.word	lv_global
+ 1109              	.LBE50:
+ 1110              		.cfi_endproc
+ 1111              	.LFE239:
+ 1113              		.section	.text.lv_draw_get_next_available_task,"ax",%progbits
+ 1114              		.align	1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 36
+
+
+ 1115              		.global	lv_draw_get_next_available_task
+ 1116              		.syntax unified
+ 1117              		.thumb
+ 1118              		.thumb_func
+ 1120              	lv_draw_get_next_available_task:
+ 1121              	.LVL105:
+ 1122              	.LFB244:
+ 287:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 1123              		.loc 1 287 1 is_stmt 1 view -0
+ 1124              		.cfi_startproc
+ 1125              		@ args = 0, pretend = 0, frame = 0
+ 1126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 287:Lib/lvgl/src/draw/lv_draw.c ****     LV_PROFILER_BEGIN;
+ 1127              		.loc 1 287 1 is_stmt 0 view .LVU344
+ 1128 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1129              	.LCFI9:
+ 1130              		.cfi_def_cfa_offset 24
+ 1131              		.cfi_offset 3, -24
+ 1132              		.cfi_offset 4, -20
+ 1133              		.cfi_offset 5, -16
+ 1134              		.cfi_offset 6, -12
+ 1135              		.cfi_offset 7, -8
+ 1136              		.cfi_offset 14, -4
+ 1137 0002 0546     		mov	r5, r0
+ 1138 0004 0C46     		mov	r4, r1
+ 1139 0006 1646     		mov	r6, r2
+ 288:Lib/lvgl/src/draw/lv_draw.c ****     /*If the first task is screen sized, there cannot be independent areas*/
+ 1140              		.loc 1 288 22 is_stmt 1 view .LVU345
+ 290:Lib/lvgl/src/draw/lv_draw.c ****         int32_t hor_res = lv_display_get_horizontal_resolution(_lv_refr_get_disp_refreshing());
+ 1141              		.loc 1 290 5 view .LVU346
+ 290:Lib/lvgl/src/draw/lv_draw.c ****         int32_t hor_res = lv_display_get_horizontal_resolution(_lv_refr_get_disp_refreshing());
+ 1142              		.loc 1 290 13 is_stmt 0 view .LVU347
+ 1143 0008 836A     		ldr	r3, [r0, #40]
+ 290:Lib/lvgl/src/draw/lv_draw.c ****         int32_t hor_res = lv_display_get_horizontal_resolution(_lv_refr_get_disp_refreshing());
+ 1144              		.loc 1 290 7 view .LVU348
+ 1145 000a 7BB1     		cbz	r3, .L102
+ 1146              	.LBB51:
+ 291:Lib/lvgl/src/draw/lv_draw.c ****         int32_t ver_res = lv_display_get_vertical_resolution(_lv_refr_get_disp_refreshing());
+ 1147              		.loc 1 291 9 is_stmt 1 view .LVU349
+ 291:Lib/lvgl/src/draw/lv_draw.c ****         int32_t ver_res = lv_display_get_vertical_resolution(_lv_refr_get_disp_refreshing());
+ 1148              		.loc 1 291 64 is_stmt 0 view .LVU350
+ 1149 000c FFF7FEFF 		bl	_lv_refr_get_disp_refreshing
+ 1150              	.LVL106:
+ 291:Lib/lvgl/src/draw/lv_draw.c ****         int32_t ver_res = lv_display_get_vertical_resolution(_lv_refr_get_disp_refreshing());
+ 1151              		.loc 1 291 27 view .LVU351
+ 1152 0010 FFF7FEFF 		bl	lv_display_get_horizontal_resolution
+ 1153              	.LVL107:
+ 1154 0014 0746     		mov	r7, r0
+ 1155              	.LVL108:
+ 292:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t = layer->draw_task_head;
+ 1156              		.loc 1 292 9 is_stmt 1 view .LVU352
+ 292:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t = layer->draw_task_head;
+ 1157              		.loc 1 292 62 is_stmt 0 view .LVU353
+ 1158 0016 FFF7FEFF 		bl	_lv_refr_get_disp_refreshing
+ 1159              	.LVL109:
+ 292:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_task_t * t = layer->draw_task_head;
+ 1160              		.loc 1 292 27 view .LVU354
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 37
+
+
+ 1161 001a FFF7FEFF 		bl	lv_display_get_vertical_resolution
+ 1162              	.LVL110:
+ 293:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_QUEUED &&
+ 1163              		.loc 1 293 9 is_stmt 1 view .LVU355
+ 293:Lib/lvgl/src/draw/lv_draw.c ****         if(t->state != LV_DRAW_TASK_STATE_QUEUED &&
+ 1164              		.loc 1 293 26 is_stmt 0 view .LVU356
+ 1165 001e AB6A     		ldr	r3, [r5, #40]
+ 1166              	.LVL111:
+ 294:Lib/lvgl/src/draw/lv_draw.c ****            t->area.x1 <= 0 && t->area.x2 >= hor_res - 1 &&
+ 1167              		.loc 1 294 9 is_stmt 1 view .LVU357
+ 294:Lib/lvgl/src/draw/lv_draw.c ****            t->area.x1 <= 0 && t->area.x2 >= hor_res - 1 &&
+ 1168              		.loc 1 294 13 is_stmt 0 view .LVU358
+ 1169 0020 9A6C     		ldr	r2, [r3, #72]
+ 294:Lib/lvgl/src/draw/lv_draw.c ****            t->area.x1 <= 0 && t->area.x2 >= hor_res - 1 &&
+ 1170              		.loc 1 294 11 view .LVU359
+ 1171 0022 012A     		cmp	r2, #1
+ 1172 0024 02D0     		beq	.L102
+ 295:Lib/lvgl/src/draw/lv_draw.c ****            t->area.y1 <= 0 && t->area.y2 >= ver_res - 1) {
+ 1173              		.loc 1 295 19 discriminator 1 view .LVU360
+ 1174 0026 9A68     		ldr	r2, [r3, #8]
+ 294:Lib/lvgl/src/draw/lv_draw.c ****            t->area.x1 <= 0 && t->area.x2 >= hor_res - 1 &&
+ 1175              		.loc 1 294 50 discriminator 1 view .LVU361
+ 1176 0028 002A     		cmp	r2, #0
+ 1177 002a 02DD     		ble	.L112
+ 1178              	.LVL112:
+ 1179              	.L102:
+ 294:Lib/lvgl/src/draw/lv_draw.c ****            t->area.x1 <= 0 && t->area.x2 >= hor_res - 1 &&
+ 1180              		.loc 1 294 50 discriminator 1 view .LVU362
+ 1181              	.LBE51:
+ 302:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 1182              		.loc 1 302 5 is_stmt 1 view .LVU363
+ 302:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 1183              		.loc 1 302 48 is_stmt 0 view .LVU364
+ 1184 002c 7CB1     		cbz	r4, .L104
+ 302:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 1185              		.loc 1 302 48 discriminator 1 view .LVU365
+ 1186 002e 2468     		ldr	r4, [r4]
+ 1187              	.LVL113:
+ 302:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 1188              		.loc 1 302 48 discriminator 1 view .LVU366
+ 1189 0030 16E0     		b	.L105
+ 1190              	.LVL114:
+ 1191              	.L112:
+ 1192              	.LBB52:
+ 295:Lib/lvgl/src/draw/lv_draw.c ****            t->area.y1 <= 0 && t->area.y2 >= ver_res - 1) {
+ 1193              		.loc 1 295 38 view .LVU367
+ 1194 0032 1A69     		ldr	r2, [r3, #16]
+ 295:Lib/lvgl/src/draw/lv_draw.c ****            t->area.y1 <= 0 && t->area.y2 >= ver_res - 1) {
+ 1195              		.loc 1 295 53 view .LVU368
+ 1196 0034 013F     		subs	r7, r7, #1
+ 1197              	.LVL115:
+ 295:Lib/lvgl/src/draw/lv_draw.c ****            t->area.y1 <= 0 && t->area.y2 >= ver_res - 1) {
+ 1198              		.loc 1 295 28 view .LVU369
+ 1199 0036 BA42     		cmp	r2, r7
+ 1200 0038 F8DB     		blt	.L102
+ 296:Lib/lvgl/src/draw/lv_draw.c ****             LV_PROFILER_END;
+ 1201              		.loc 1 296 19 discriminator 1 view .LVU370
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 38
+
+
+ 1202 003a DA68     		ldr	r2, [r3, #12]
+ 295:Lib/lvgl/src/draw/lv_draw.c ****            t->area.y1 <= 0 && t->area.y2 >= ver_res - 1) {
+ 1203              		.loc 1 295 57 discriminator 1 view .LVU371
+ 1204 003c 002A     		cmp	r2, #0
+ 1205 003e F5DC     		bgt	.L102
+ 296:Lib/lvgl/src/draw/lv_draw.c ****             LV_PROFILER_END;
+ 1206              		.loc 1 296 38 view .LVU372
+ 1207 0040 5B69     		ldr	r3, [r3, #20]
+ 1208              	.LVL116:
+ 296:Lib/lvgl/src/draw/lv_draw.c ****             LV_PROFILER_END;
+ 1209              		.loc 1 296 53 view .LVU373
+ 1210 0042 0138     		subs	r0, r0, #1
+ 1211              	.LVL117:
+ 296:Lib/lvgl/src/draw/lv_draw.c ****             LV_PROFILER_END;
+ 1212              		.loc 1 296 28 view .LVU374
+ 1213 0044 8342     		cmp	r3, r0
+ 1214 0046 F1DB     		blt	.L102
+ 298:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1215              		.loc 1 298 20 view .LVU375
+ 1216 0048 0024     		movs	r4, #0
+ 1217              	.LVL118:
+ 1218              	.L101:
+ 298:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1219              		.loc 1 298 20 view .LVU376
+ 1220              	.LBE52:
+ 316:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1221              		.loc 1 316 1 view .LVU377
+ 1222 004a 2046     		mov	r0, r4
+ 1223 004c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1224              	.LVL119:
+ 1225              	.L104:
+ 302:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 1226              		.loc 1 302 48 discriminator 2 view .LVU378
+ 1227 004e AC6A     		ldr	r4, [r5, #40]
+ 1228              	.LVL120:
+ 302:Lib/lvgl/src/draw/lv_draw.c ****     while(t) {
+ 1229              		.loc 1 302 48 discriminator 2 view .LVU379
+ 1230 0050 06E0     		b	.L105
+ 1231              	.LVL121:
+ 1232              	.L108:
+ 307:Lib/lvgl/src/draw/lv_draw.c ****             LV_PROFILER_END;
+ 1233              		.loc 1 307 12 discriminator 1 view .LVU380
+ 1234 0052 2146     		mov	r1, r4
+ 1235 0054 2846     		mov	r0, r5
+ 1236 0056 FFF7FEFF 		bl	is_independent
+ 1237              	.LVL122:
+ 306:Lib/lvgl/src/draw/lv_draw.c ****            is_independent(layer, t)) {
+ 1238              		.loc 1 306 108 discriminator 1 view .LVU381
+ 1239 005a 0028     		cmp	r0, #0
+ 1240 005c F5D1     		bne	.L101
+ 1241              	.L107:
+ 311:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1242              		.loc 1 311 9 is_stmt 1 view .LVU382
+ 311:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1243              		.loc 1 311 11 is_stmt 0 view .LVU383
+ 1244 005e 2468     		ldr	r4, [r4]
+ 1245              	.LVL123:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 39
+
+
+ 1246              	.L105:
+ 303:Lib/lvgl/src/draw/lv_draw.c ****         /*Find a queued and independent task*/
+ 1247              		.loc 1 303 11 is_stmt 1 view .LVU384
+ 1248 0060 002C     		cmp	r4, #0
+ 1249 0062 F2D0     		beq	.L101
+ 305:Lib/lvgl/src/draw/lv_draw.c ****            (t->preferred_draw_unit_id == LV_DRAW_UNIT_ID_ANY || t->preferred_draw_unit_id == draw_u
+ 1250              		.loc 1 305 9 view .LVU385
+ 305:Lib/lvgl/src/draw/lv_draw.c ****            (t->preferred_draw_unit_id == LV_DRAW_UNIT_ID_ANY || t->preferred_draw_unit_id == draw_u
+ 1251              		.loc 1 305 13 is_stmt 0 view .LVU386
+ 1252 0064 A36C     		ldr	r3, [r4, #72]
+ 305:Lib/lvgl/src/draw/lv_draw.c ****            (t->preferred_draw_unit_id == LV_DRAW_UNIT_ID_ANY || t->preferred_draw_unit_id == draw_u
+ 1253              		.loc 1 305 11 view .LVU387
+ 1254 0066 012B     		cmp	r3, #1
+ 1255 0068 F9D1     		bne	.L107
+ 306:Lib/lvgl/src/draw/lv_draw.c ****            is_independent(layer, t)) {
+ 1256              		.loc 1 306 14 discriminator 1 view .LVU388
+ 1257 006a 94F85030 		ldrb	r3, [r4, #80]	@ zero_extendqisi2
+ 305:Lib/lvgl/src/draw/lv_draw.c ****            (t->preferred_draw_unit_id == LV_DRAW_UNIT_ID_ANY || t->preferred_draw_unit_id == draw_u
+ 1258              		.loc 1 305 50 discriminator 1 view .LVU389
+ 1259 006e 002B     		cmp	r3, #0
+ 1260 0070 EFD0     		beq	.L108
+ 306:Lib/lvgl/src/draw/lv_draw.c ****            is_independent(layer, t)) {
+ 1261              		.loc 1 306 62 view .LVU390
+ 1262 0072 B342     		cmp	r3, r6
+ 1263 0074 F3D1     		bne	.L107
+ 1264 0076 ECE7     		b	.L108
+ 1265              		.cfi_endproc
+ 1266              	.LFE244:
+ 1268              		.section	.text.lv_draw_get_dependent_count,"ax",%progbits
+ 1269              		.align	1
+ 1270              		.global	lv_draw_get_dependent_count
+ 1271              		.syntax unified
+ 1272              		.thumb
+ 1273              		.thumb_func
+ 1275              	lv_draw_get_dependent_count:
+ 1276              	.LVL124:
+ 1277              	.LFB245:
+ 319:Lib/lvgl/src/draw/lv_draw.c ****     if(t_check == NULL) return 0;
+ 1278              		.loc 1 319 1 is_stmt 1 view -0
+ 1279              		.cfi_startproc
+ 1280              		@ args = 0, pretend = 0, frame = 0
+ 1281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 319:Lib/lvgl/src/draw/lv_draw.c ****     if(t_check == NULL) return 0;
+ 1282              		.loc 1 319 1 is_stmt 0 view .LVU392
+ 1283 0000 70B5     		push	{r4, r5, r6, lr}
+ 1284              	.LCFI10:
+ 1285              		.cfi_def_cfa_offset 16
+ 1286              		.cfi_offset 4, -16
+ 1287              		.cfi_offset 5, -12
+ 1288              		.cfi_offset 6, -8
+ 1289              		.cfi_offset 14, -4
+ 320:Lib/lvgl/src/draw/lv_draw.c ****     if(t_check->next == NULL) return 0;
+ 1290              		.loc 1 320 5 is_stmt 1 view .LVU393
+ 320:Lib/lvgl/src/draw/lv_draw.c ****     if(t_check->next == NULL) return 0;
+ 1291              		.loc 1 320 7 is_stmt 0 view .LVU394
+ 1292 0002 B0B1     		cbz	r0, .L119
+ 1293 0004 0646     		mov	r6, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 40
+
+
+ 321:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1294              		.loc 1 321 5 is_stmt 1 view .LVU395
+ 321:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1295              		.loc 1 321 15 is_stmt 0 view .LVU396
+ 1296 0006 0468     		ldr	r4, [r0]
+ 321:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1297              		.loc 1 321 7 view .LVU397
+ 1298 0008 B4B1     		cbz	r4, .L120
+ 324:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1299              		.loc 1 324 14 view .LVU398
+ 1300 000a 0025     		movs	r5, #0
+ 1301 000c 00E0     		b	.L115
+ 1302              	.LVL125:
+ 1303              	.L117:
+ 333:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1304              		.loc 1 333 9 is_stmt 1 view .LVU399
+ 333:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1305              		.loc 1 333 11 is_stmt 0 view .LVU400
+ 1306 000e 2468     		ldr	r4, [r4]
+ 1307              	.LVL126:
+ 1308              	.L115:
+ 327:Lib/lvgl/src/draw/lv_draw.c ****         if((t->state == LV_DRAW_TASK_STATE_QUEUED || t->state == LV_DRAW_TASK_STATE_WAITING) &&
+ 1309              		.loc 1 327 11 is_stmt 1 view .LVU401
+ 1310 0010 84B1     		cbz	r4, .L113
+ 328:Lib/lvgl/src/draw/lv_draw.c ****            _lv_area_is_on(&t_check->area, &t->area)) {
+ 1311              		.loc 1 328 9 view .LVU402
+ 328:Lib/lvgl/src/draw/lv_draw.c ****            _lv_area_is_on(&t_check->area, &t->area)) {
+ 1312              		.loc 1 328 14 is_stmt 0 view .LVU403
+ 1313 0012 A36C     		ldr	r3, [r4, #72]
+ 328:Lib/lvgl/src/draw/lv_draw.c ****            _lv_area_is_on(&t_check->area, &t->area)) {
+ 1314              		.loc 1 328 11 view .LVU404
+ 1315 0014 012B     		cmp	r3, #1
+ 1316 0016 02D0     		beq	.L116
+ 328:Lib/lvgl/src/draw/lv_draw.c ****            _lv_area_is_on(&t_check->area, &t->area)) {
+ 1317              		.loc 1 328 55 discriminator 2 view .LVU405
+ 1318 0018 A36C     		ldr	r3, [r4, #72]
+ 328:Lib/lvgl/src/draw/lv_draw.c ****            _lv_area_is_on(&t_check->area, &t->area)) {
+ 1319              		.loc 1 328 51 discriminator 2 view .LVU406
+ 1320 001a 002B     		cmp	r3, #0
+ 1321 001c F7D1     		bne	.L117
+ 1322              	.L116:
+ 329:Lib/lvgl/src/draw/lv_draw.c ****             cnt++;
+ 1323              		.loc 1 329 12 discriminator 3 view .LVU407
+ 1324 001e 04F10801 		add	r1, r4, #8
+ 1325 0022 06F10800 		add	r0, r6, #8
+ 1326 0026 FFF7FEFF 		bl	_lv_area_is_on
+ 1327              	.LVL127:
+ 328:Lib/lvgl/src/draw/lv_draw.c ****            _lv_area_is_on(&t_check->area, &t->area)) {
+ 1328              		.loc 1 328 94 discriminator 3 view .LVU408
+ 1329 002a 0028     		cmp	r0, #0
+ 1330 002c EFD0     		beq	.L117
+ 330:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1331              		.loc 1 330 13 is_stmt 1 view .LVU409
+ 330:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1332              		.loc 1 330 16 is_stmt 0 view .LVU410
+ 1333 002e 0135     		adds	r5, r5, #1
+ 1334              	.LVL128:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 41
+
+
+ 330:Lib/lvgl/src/draw/lv_draw.c ****         }
+ 1335              		.loc 1 330 16 view .LVU411
+ 1336 0030 EDE7     		b	.L117
+ 1337              	.LVL129:
+ 1338              	.L119:
+ 320:Lib/lvgl/src/draw/lv_draw.c ****     if(t_check->next == NULL) return 0;
+ 1339              		.loc 1 320 32 view .LVU412
+ 1340 0032 0025     		movs	r5, #0
+ 1341              	.LVL130:
+ 1342              	.L113:
+ 337:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1343              		.loc 1 337 1 view .LVU413
+ 1344 0034 2846     		mov	r0, r5
+ 1345 0036 70BD     		pop	{r4, r5, r6, pc}
+ 1346              	.LVL131:
+ 1347              	.L120:
+ 321:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1348              		.loc 1 321 38 view .LVU414
+ 1349 0038 0025     		movs	r5, #0
+ 1350 003a FBE7     		b	.L113
+ 1351              		.cfi_endproc
+ 1352              	.LFE245:
+ 1354              		.section	.text.lv_draw_layer_create,"ax",%progbits
+ 1355              		.align	1
+ 1356              		.global	lv_draw_layer_create
+ 1357              		.syntax unified
+ 1358              		.thumb
+ 1359              		.thumb_func
+ 1361              	lv_draw_layer_create:
+ 1362              	.LVL132:
+ 1363              	.LFB246:
+ 340:Lib/lvgl/src/draw/lv_draw.c ****     lv_display_t * disp = _lv_refr_get_disp_refreshing();
+ 1364              		.loc 1 340 1 is_stmt 1 view -0
+ 1365              		.cfi_startproc
+ 1366              		@ args = 0, pretend = 0, frame = 0
+ 1367              		@ frame_needed = 0, uses_anonymous_args = 0
+ 340:Lib/lvgl/src/draw/lv_draw.c ****     lv_display_t * disp = _lv_refr_get_disp_refreshing();
+ 1368              		.loc 1 340 1 is_stmt 0 view .LVU416
+ 1369 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1370              	.LCFI11:
+ 1371              		.cfi_def_cfa_offset 24
+ 1372              		.cfi_offset 4, -24
+ 1373              		.cfi_offset 5, -20
+ 1374              		.cfi_offset 6, -16
+ 1375              		.cfi_offset 7, -12
+ 1376              		.cfi_offset 8, -8
+ 1377              		.cfi_offset 14, -4
+ 1378 0004 8046     		mov	r8, r0
+ 1379 0006 0F46     		mov	r7, r1
+ 1380 0008 1446     		mov	r4, r2
+ 341:Lib/lvgl/src/draw/lv_draw.c ****     lv_layer_t * new_layer = lv_malloc_zeroed(sizeof(lv_layer_t));
+ 1381              		.loc 1 341 5 is_stmt 1 view .LVU417
+ 341:Lib/lvgl/src/draw/lv_draw.c ****     lv_layer_t * new_layer = lv_malloc_zeroed(sizeof(lv_layer_t));
+ 1382              		.loc 1 341 27 is_stmt 0 view .LVU418
+ 1383 000a FFF7FEFF 		bl	_lv_refr_get_disp_refreshing
+ 1384              	.LVL133:
+ 341:Lib/lvgl/src/draw/lv_draw.c ****     lv_layer_t * new_layer = lv_malloc_zeroed(sizeof(lv_layer_t));
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 42
+
+
+ 1385              		.loc 1 341 27 view .LVU419
+ 1386 000e 0646     		mov	r6, r0
+ 1387              	.LVL134:
+ 342:Lib/lvgl/src/draw/lv_draw.c ****     LV_ASSERT_MALLOC(new_layer);
+ 1388              		.loc 1 342 5 is_stmt 1 view .LVU420
+ 342:Lib/lvgl/src/draw/lv_draw.c ****     LV_ASSERT_MALLOC(new_layer);
+ 1389              		.loc 1 342 30 is_stmt 0 view .LVU421
+ 1390 0010 3C20     		movs	r0, #60
+ 1391              	.LVL135:
+ 342:Lib/lvgl/src/draw/lv_draw.c ****     LV_ASSERT_MALLOC(new_layer);
+ 1392              		.loc 1 342 30 view .LVU422
+ 1393 0012 FFF7FEFF 		bl	lv_malloc_zeroed
+ 1394              	.LVL136:
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1395              		.loc 1 343 5 is_stmt 1 view .LVU423
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1396              		.loc 1 343 5 view .LVU424
+ 1397 0016 D0B1     		cbz	r0, .L124
+ 1398 0018 0546     		mov	r5, r0
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1399              		.loc 1 343 5 view .LVU425
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1400              		.loc 1 343 32 view .LVU426
+ 344:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1401              		.loc 1 344 5 view .LVU427
+ 346:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->_clip_area = *area;
+ 1402              		.loc 1 346 5 view .LVU428
+ 346:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->_clip_area = *area;
+ 1403              		.loc 1 346 23 is_stmt 0 view .LVU429
+ 1404 001a C0F82C80 		str	r8, [r0, #44]
+ 347:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->buf_area = *area;
+ 1405              		.loc 1 347 5 is_stmt 1 view .LVU430
+ 347:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->buf_area = *area;
+ 1406              		.loc 1 347 27 is_stmt 0 view .LVU431
+ 1407 001e 00F1180C 		add	ip, r0, #24
+ 1408 0022 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ 1409              	.LVL137:
+ 347:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->buf_area = *area;
+ 1410              		.loc 1 347 27 view .LVU432
+ 1411 0026 8CE80F00 		stm	ip, {r0, r1, r2, r3}
+ 348:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->color_format = color_format;
+ 1412              		.loc 1 348 5 is_stmt 1 view .LVU433
+ 348:Lib/lvgl/src/draw/lv_draw.c ****     new_layer->color_format = color_format;
+ 1413              		.loc 1 348 25 is_stmt 0 view .LVU434
+ 1414 002a 05F1040C 		add	ip, r5, #4
+ 1415 002e 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ 1416 0032 8CE80F00 		stm	ip, {r0, r1, r2, r3}
+ 349:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1417              		.loc 1 349 5 is_stmt 1 view .LVU435
+ 349:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1418              		.loc 1 349 29 is_stmt 0 view .LVU436
+ 1419 0036 2F75     		strb	r7, [r5, #20]
+ 351:Lib/lvgl/src/draw/lv_draw.c ****         lv_layer_t * tail = disp->layer_head;
+ 1420              		.loc 1 351 5 is_stmt 1 view .LVU437
+ 351:Lib/lvgl/src/draw/lv_draw.c ****         lv_layer_t * tail = disp->layer_head;
+ 1421              		.loc 1 351 12 is_stmt 0 view .LVU438
+ 1422 0038 D6F8A032 		ldr	r3, [r6, #672]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 43
+
+
+ 351:Lib/lvgl/src/draw/lv_draw.c ****         lv_layer_t * tail = disp->layer_head;
+ 1423              		.loc 1 351 7 view .LVU439
+ 1424 003c 43B1     		cbz	r3, .L125
+ 1425              	.L126:
+ 1426              	.LVL138:
+ 1427              	.LBB53:
+ 353:Lib/lvgl/src/draw/lv_draw.c ****         tail->next = new_layer;
+ 1428              		.loc 1 353 15 is_stmt 1 discriminator 1 view .LVU440
+ 1429 003e 1A46     		mov	r2, r3
+ 353:Lib/lvgl/src/draw/lv_draw.c ****         tail->next = new_layer;
+ 1430              		.loc 1 353 19 is_stmt 0 discriminator 1 view .LVU441
+ 1431 0040 1B6B     		ldr	r3, [r3, #48]
+ 1432              	.LVL139:
+ 353:Lib/lvgl/src/draw/lv_draw.c ****         tail->next = new_layer;
+ 1433              		.loc 1 353 15 discriminator 1 view .LVU442
+ 1434 0042 002B     		cmp	r3, #0
+ 1435 0044 FBD1     		bne	.L126
+ 354:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1436              		.loc 1 354 9 is_stmt 1 view .LVU443
+ 354:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1437              		.loc 1 354 20 is_stmt 0 view .LVU444
+ 1438 0046 1563     		str	r5, [r2, #48]
+ 1439              	.LVL140:
+ 1440              	.L122:
+ 354:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1441              		.loc 1 354 20 view .LVU445
+ 1442              	.LBE53:
+ 361:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1443              		.loc 1 361 1 view .LVU446
+ 1444 0048 2846     		mov	r0, r5
+ 1445 004a BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1446              	.LVL141:
+ 1447              	.L124:
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1448              		.loc 1 343 5 is_stmt 1 discriminator 1 view .LVU447
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1449              		.loc 1 343 5 discriminator 1 view .LVU448
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1450              		.loc 1 343 5 discriminator 1 view .LVU449
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1451              		.loc 1 343 5 discriminator 1 view .LVU450
+ 343:Lib/lvgl/src/draw/lv_draw.c ****     if(new_layer == NULL) return NULL;
+ 1452              		.loc 1 343 5 discriminator 1 view .LVU451
+ 1453 004e FEE7     		b	.L124
+ 1454              	.LVL142:
+ 1455              	.L125:
+ 357:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1456              		.loc 1 357 9 view .LVU452
+ 357:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1457              		.loc 1 357 26 is_stmt 0 view .LVU453
+ 1458 0050 C6F8A052 		str	r5, [r6, #672]
+ 360:Lib/lvgl/src/draw/lv_draw.c **** }
+ 1459              		.loc 1 360 5 is_stmt 1 view .LVU454
+ 1460 0054 F8E7     		b	.L122
+ 1461              		.cfi_endproc
+ 1462              	.LFE246:
+ 1464              		.section	.text.lv_draw_layer_alloc_buf,"ax",%progbits
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 44
+
+
+ 1465              		.align	1
+ 1466              		.global	lv_draw_layer_alloc_buf
+ 1467              		.syntax unified
+ 1468              		.thumb
+ 1469              		.thumb_func
+ 1471              	lv_draw_layer_alloc_buf:
+ 1472              	.LVL143:
+ 1473              	.LFB247:
+ 364:Lib/lvgl/src/draw/lv_draw.c ****     /*If the buffer of the layer is already allocated return it*/
+ 1474              		.loc 1 364 1 view -0
+ 1475              		.cfi_startproc
+ 1476              		@ args = 0, pretend = 0, frame = 16
+ 1477              		@ frame_needed = 0, uses_anonymous_args = 0
+ 366:Lib/lvgl/src/draw/lv_draw.c ****         return layer->draw_buf->data;
+ 1478              		.loc 1 366 5 view .LVU456
+ 366:Lib/lvgl/src/draw/lv_draw.c ****         return layer->draw_buf->data;
+ 1479              		.loc 1 366 13 is_stmt 0 view .LVU457
+ 1480 0000 0368     		ldr	r3, [r0]
+ 366:Lib/lvgl/src/draw/lv_draw.c ****         return layer->draw_buf->data;
+ 1481              		.loc 1 366 7 view .LVU458
+ 1482 0002 0BB1     		cbz	r3, .L130
+ 367:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1483              		.loc 1 367 9 is_stmt 1 view .LVU459
+ 367:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1484              		.loc 1 367 31 is_stmt 0 view .LVU460
+ 1485 0004 1869     		ldr	r0, [r3, #16]
+ 1486              	.LVL144:
+ 391:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1487              		.loc 1 391 1 view .LVU461
+ 1488 0006 7047     		bx	lr
+ 1489              	.LVL145:
+ 1490              	.L130:
+ 364:Lib/lvgl/src/draw/lv_draw.c ****     /*If the buffer of the layer is already allocated return it*/
+ 1491              		.loc 1 364 1 view .LVU462
+ 1492 0008 70B5     		push	{r4, r5, r6, lr}
+ 1493              	.LCFI12:
+ 1494              		.cfi_def_cfa_offset 16
+ 1495              		.cfi_offset 4, -16
+ 1496              		.cfi_offset 5, -12
+ 1497              		.cfi_offset 6, -8
+ 1498              		.cfi_offset 14, -4
+ 1499 000a 84B0     		sub	sp, sp, #16
+ 1500              	.LCFI13:
+ 1501              		.cfi_def_cfa_offset 32
+ 1502 000c 0446     		mov	r4, r0
+ 371:Lib/lvgl/src/draw/lv_draw.c ****     int32_t h = lv_area_get_height(&layer->buf_area);
+ 1503              		.loc 1 371 5 is_stmt 1 view .LVU463
+ 1504              	.LVL146:
+ 1505              	.LBB54:
+ 1506              	.LBI54:
+ 139:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** {
+ 1507              		.loc 2 139 23 view .LVU464
+ 1508              	.LBB55:
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 1509              		.loc 2 141 5 view .LVU465
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 1510              		.loc 2 141 28 is_stmt 0 view .LVU466
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 45
+
+
+ 1511 000e C668     		ldr	r6, [r0, #12]
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 1512              		.loc 2 141 41 view .LVU467
+ 1513 0010 4368     		ldr	r3, [r0, #4]
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 1514              		.loc 2 141 33 view .LVU468
+ 1515 0012 F61A     		subs	r6, r6, r3
+ 1516              	.LVL147:
+ 141:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** }
+ 1517              		.loc 2 141 33 view .LVU469
+ 1518              	.LBE55:
+ 1519              	.LBE54:
+ 372:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1520              		.loc 1 372 5 is_stmt 1 view .LVU470
+ 1521              	.LBB56:
+ 1522              	.LBI56:
+ 149:Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_area.h **** {
+ 1523              		.loc 2 149 23 view .LVU471
+ 1524              	.LBB57:
+ 1525              		.loc 2 151 5 view .LVU472
+ 1526              		.loc 2 151 28 is_stmt 0 view .LVU473
+ 1527 0014 0569     		ldr	r5, [r0, #16]
+ 1528              		.loc 2 151 41 view .LVU474
+ 1529 0016 8368     		ldr	r3, [r0, #8]
+ 1530              		.loc 2 151 33 view .LVU475
+ 1531 0018 ED1A     		subs	r5, r5, r3
+ 1532              	.LVL148:
+ 1533              		.loc 2 151 33 view .LVU476
+ 1534              	.LBE57:
+ 1535              	.LBE56:
+ 374:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1536              		.loc 1 374 5 is_stmt 1 view .LVU477
+ 374:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1537              		.loc 1 374 23 is_stmt 0 view .LVU478
+ 1538 001a 0023     		movs	r3, #0
+ 1539 001c 027D     		ldrb	r2, [r0, #20]	@ zero_extendqisi2
+ 1540 001e 691C     		adds	r1, r5, #1
+ 1541              	.LVL149:
+ 374:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1542              		.loc 1 374 23 view .LVU479
+ 1543 0020 701C     		adds	r0, r6, #1
+ 1544              	.LVL150:
+ 374:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1545              		.loc 1 374 23 view .LVU480
+ 1546 0022 FFF7FEFF 		bl	lv_draw_buf_create
+ 1547              	.LVL151:
+ 374:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1548              		.loc 1 374 21 view .LVU481
+ 1549 0026 2060     		str	r0, [r4]
+ 376:Lib/lvgl/src/draw/lv_draw.c ****         LV_LOG_WARN("Allocating layer buffer failed. Try later");
+ 1550              		.loc 1 376 5 is_stmt 1 view .LVU482
+ 376:Lib/lvgl/src/draw/lv_draw.c ****         LV_LOG_WARN("Allocating layer buffer failed. Try later");
+ 1551              		.loc 1 376 7 is_stmt 0 view .LVU483
+ 1552 0028 28B1     		cbz	r0, .L129
+ 381:Lib/lvgl/src/draw/lv_draw.c ****         lv_area_t a;
+ 1553              		.loc 1 381 5 is_stmt 1 view .LVU484
+ 381:Lib/lvgl/src/draw/lv_draw.c ****         lv_area_t a;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 46
+
+
+ 1554              		.loc 1 381 8 is_stmt 0 view .LVU485
+ 1555 002a 207D     		ldrb	r0, [r4, #20]	@ zero_extendqisi2
+ 1556 002c FFF7FEFF 		bl	lv_color_format_has_alpha
+ 1557              	.LVL152:
+ 381:Lib/lvgl/src/draw/lv_draw.c ****         lv_area_t a;
+ 1558              		.loc 1 381 7 view .LVU486
+ 1559 0030 18B9     		cbnz	r0, .L136
+ 1560              	.L132:
+ 390:Lib/lvgl/src/draw/lv_draw.c **** }
+ 1561              		.loc 1 390 5 is_stmt 1 view .LVU487
+ 390:Lib/lvgl/src/draw/lv_draw.c **** }
+ 1562              		.loc 1 390 17 is_stmt 0 view .LVU488
+ 1563 0032 2368     		ldr	r3, [r4]
+ 390:Lib/lvgl/src/draw/lv_draw.c **** }
+ 1564              		.loc 1 390 27 view .LVU489
+ 1565 0034 1869     		ldr	r0, [r3, #16]
+ 1566              	.L129:
+ 391:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1567              		.loc 1 391 1 view .LVU490
+ 1568 0036 04B0     		add	sp, sp, #16
+ 1569              	.LCFI14:
+ 1570              		.cfi_remember_state
+ 1571              		.cfi_def_cfa_offset 16
+ 1572              		@ sp needed
+ 1573 0038 70BD     		pop	{r4, r5, r6, pc}
+ 1574              	.LVL153:
+ 1575              	.L136:
+ 1576              	.LCFI15:
+ 1577              		.cfi_restore_state
+ 1578              	.LBB58:
+ 382:Lib/lvgl/src/draw/lv_draw.c ****         a.x1 = 0;
+ 1579              		.loc 1 382 9 is_stmt 1 view .LVU491
+ 383:Lib/lvgl/src/draw/lv_draw.c ****         a.y1 = 0;
+ 1580              		.loc 1 383 9 view .LVU492
+ 383:Lib/lvgl/src/draw/lv_draw.c ****         a.y1 = 0;
+ 1581              		.loc 1 383 14 is_stmt 0 view .LVU493
+ 1582 003a 0023     		movs	r3, #0
+ 1583 003c 0093     		str	r3, [sp]
+ 384:Lib/lvgl/src/draw/lv_draw.c ****         a.x2 = w - 1;
+ 1584              		.loc 1 384 9 is_stmt 1 view .LVU494
+ 384:Lib/lvgl/src/draw/lv_draw.c ****         a.x2 = w - 1;
+ 1585              		.loc 1 384 14 is_stmt 0 view .LVU495
+ 1586 003e 0193     		str	r3, [sp, #4]
+ 385:Lib/lvgl/src/draw/lv_draw.c ****         a.y2 = h - 1;
+ 1587              		.loc 1 385 9 is_stmt 1 view .LVU496
+ 385:Lib/lvgl/src/draw/lv_draw.c ****         a.y2 = h - 1;
+ 1588              		.loc 1 385 14 is_stmt 0 view .LVU497
+ 1589 0040 0296     		str	r6, [sp, #8]
+ 386:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_buf_clear(layer->draw_buf, &a);
+ 1590              		.loc 1 386 9 is_stmt 1 view .LVU498
+ 386:Lib/lvgl/src/draw/lv_draw.c ****         lv_draw_buf_clear(layer->draw_buf, &a);
+ 1591              		.loc 1 386 14 is_stmt 0 view .LVU499
+ 1592 0042 0395     		str	r5, [sp, #12]
+ 387:Lib/lvgl/src/draw/lv_draw.c ****     }
+ 1593              		.loc 1 387 9 is_stmt 1 view .LVU500
+ 1594 0044 6946     		mov	r1, sp
+ 1595 0046 2068     		ldr	r0, [r4]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 47
+
+
+ 1596 0048 FFF7FEFF 		bl	lv_draw_buf_clear
+ 1597              	.LVL154:
+ 1598 004c F1E7     		b	.L132
+ 1599              	.LBE58:
+ 1600              		.cfi_endproc
+ 1601              	.LFE247:
+ 1603              		.section	.text.lv_draw_layer_go_to_xy,"ax",%progbits
+ 1604              		.align	1
+ 1605              		.global	lv_draw_layer_go_to_xy
+ 1606              		.syntax unified
+ 1607              		.thumb
+ 1608              		.thumb_func
+ 1610              	lv_draw_layer_go_to_xy:
+ 1611              	.LVL155:
+ 1612              	.LFB248:
+ 394:Lib/lvgl/src/draw/lv_draw.c ****     return lv_draw_buf_goto_xy(layer->draw_buf, x, y);
+ 1613              		.loc 1 394 1 view -0
+ 1614              		.cfi_startproc
+ 1615              		@ args = 0, pretend = 0, frame = 0
+ 1616              		@ frame_needed = 0, uses_anonymous_args = 0
+ 394:Lib/lvgl/src/draw/lv_draw.c ****     return lv_draw_buf_goto_xy(layer->draw_buf, x, y);
+ 1617              		.loc 1 394 1 is_stmt 0 view .LVU502
+ 1618 0000 08B5     		push	{r3, lr}
+ 1619              	.LCFI16:
+ 1620              		.cfi_def_cfa_offset 8
+ 1621              		.cfi_offset 3, -8
+ 1622              		.cfi_offset 14, -4
+ 395:Lib/lvgl/src/draw/lv_draw.c **** }
+ 1623              		.loc 1 395 5 is_stmt 1 view .LVU503
+ 395:Lib/lvgl/src/draw/lv_draw.c **** }
+ 1624              		.loc 1 395 12 is_stmt 0 view .LVU504
+ 1625 0002 0068     		ldr	r0, [r0]
+ 1626              	.LVL156:
+ 395:Lib/lvgl/src/draw/lv_draw.c **** }
+ 1627              		.loc 1 395 12 view .LVU505
+ 1628 0004 FFF7FEFF 		bl	lv_draw_buf_goto_xy
+ 1629              	.LVL157:
+ 396:Lib/lvgl/src/draw/lv_draw.c **** 
+ 1630              		.loc 1 396 1 view .LVU506
+ 1631 0008 08BD     		pop	{r3, pc}
+ 1632              		.cfi_endproc
+ 1633              	.LFE248:
+ 1635              		.text
+ 1636              	.Letext0:
+ 1637              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1638              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1639              		.file 5 "Lib/lvgl/src/draw/../misc/lv_types.h"
+ 1640              		.file 6 "Lib/lvgl/src/draw/../display/../core/lv_obj.h"
+ 1641              		.file 7 "Lib/lvgl/src/draw/../display/../core/lv_obj_class.h"
+ 1642              		.file 8 "Lib/lvgl/src/draw/../display/../core/../indev/../core/lv_group.h"
+ 1643              		.file 9 "Lib/lvgl/src/draw/../display/lv_display_private.h"
+ 1644              		.file 10 "Lib/lvgl/src/draw/lv_draw.h"
+ 1645              		.file 11 "Lib/lvgl/src/draw/sw/../../display/../misc/lv_event.h"
+ 1646              		.file 12 "Lib/lvgl/src/draw/../misc/lv_timer.h"
+ 1647              		.file 13 "Lib/lvgl/src/draw/../misc/../font/lv_font.h"
+ 1648              		.file 14 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64
+ 1649              		.file 15 "Lib/lvgl/src/draw/../misc/../font/../draw/../misc/lv_color.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 48
+
+
+ 1650              		.file 16 "Lib/lvgl/src/draw/../misc/../font/../draw/lv_image_buf.h"
+ 1651              		.file 17 "Lib/lvgl/src/draw/../misc/../font/../draw/lv_draw_buf.h"
+ 1652              		.file 18 "Lib/lvgl/src/draw/../misc/../font/../misc/cache/../../osal/lv_os_none.h"
+ 1653              		.file 19 "Lib/lvgl/src/draw/../misc/../font/../misc/cache/lv_cache_private.h"
+ 1654              		.file 20 "Lib/lvgl/src/draw/../misc/../tick/lv_tick.h"
+ 1655              		.file 21 "Lib/lvgl/src/draw/../misc/lv_ll.h"
+ 1656              		.file 22 "Lib/lvgl/src/draw/../misc/lv_anim.h"
+ 1657              		.file 23 "Lib/lvgl/src/draw/../misc/lv_text.h"
+ 1658              		.file 24 "Lib/lvgl/src/draw/../misc/lv_bidi.h"
+ 1659              		.file 25 "Lib/lvgl/src/draw/../misc/../layouts/lv_layout.h"
+ 1660              		.file 26 "Lib/lvgl/src/draw/../misc/lv_style.h"
+ 1661              		.file 27 "Lib/lvgl/src/draw/lv_draw_label.h"
+ 1662              		.file 28 "Lib/lvgl/src/draw/lv_draw_image.h"
+ 1663              		.file 29 "Lib/lvgl/src/draw/sw/../../display/../misc/lv_array.h"
+ 1664              		.file 30 "Lib/lvgl/src/draw/sw/../../display/lv_display.h"
+ 1665              		.file 31 "Lib/lvgl/src/draw/sw/blend/../lv_draw_sw_mask.h"
+ 1666              		.file 32 "Lib/lvgl/src/draw/../display/../core/lv_obj_style.h"
+ 1667              		.file 33 "Lib/lvgl/src/draw/../core/../stdlib/builtin/lv_tlsf.h"
+ 1668              		.file 34 "Lib/lvgl/src/draw/../core/lv_global.h"
+ 1669              		.file 35 "Lib/lvgl/src/draw/../display/../core/lv_obj_event.h"
+ 1670              		.file 36 "Lib/lvgl/src/draw/../misc/../font/../draw/../misc/../stdlib/lv_mem.h"
+ 1671              		.file 37 "Lib/lvgl/src/draw/../core/lv_refr.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 49
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_draw.c
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:21     .text.is_independent:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:26     .text.is_independent:00000000 is_independent
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:107    .text.lv_draw_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:113    .text.lv_draw_init:00000000 lv_draw_init
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:126    .text.lv_draw_deinit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:132    .text.lv_draw_deinit:00000000 lv_draw_deinit
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:203    .text.lv_draw_deinit:0000002c $d
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:208    .text.lv_draw_create_unit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:214    .text.lv_draw_create_unit:00000000 lv_draw_create_unit
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:246    .text.lv_draw_create_unit:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:251    .text.lv_draw_add_task:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:257    .text.lv_draw_add_task:00000000 lv_draw_add_task
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:346    .text.lv_draw_dispatch_wait_for_request:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:352    .text.lv_draw_dispatch_wait_for_request:00000000 lv_draw_dispatch_wait_for_request
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:377    .text.lv_draw_dispatch_wait_for_request:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:382    .text.lv_draw_dispatch_request:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:388    .text.lv_draw_dispatch_request:00000000 lv_draw_dispatch_request
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:405    .text.lv_draw_dispatch_request:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:410    .text.lv_draw_dispatch_layer:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:416    .text.lv_draw_dispatch_layer:00000000 lv_draw_dispatch_layer
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:836    .text.lv_draw_dispatch_layer:00000144 $d
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:843    .text.lv_draw_dispatch:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:849    .text.lv_draw_dispatch:00000000 lv_draw_dispatch
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:944    .text.lv_draw_finalize_task_creation:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:950    .text.lv_draw_finalize_task_creation:00000000 lv_draw_finalize_task_creation
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1108   .text.lv_draw_finalize_task_creation:0000008c $d
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1114   .text.lv_draw_get_next_available_task:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1120   .text.lv_draw_get_next_available_task:00000000 lv_draw_get_next_available_task
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1269   .text.lv_draw_get_dependent_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1275   .text.lv_draw_get_dependent_count:00000000 lv_draw_get_dependent_count
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1355   .text.lv_draw_layer_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1361   .text.lv_draw_layer_create:00000000 lv_draw_layer_create
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1465   .text.lv_draw_layer_alloc_buf:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1471   .text.lv_draw_layer_alloc_buf:00000000 lv_draw_layer_alloc_buf
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1604   .text.lv_draw_layer_go_to_xy:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s:1610   .text.lv_draw_layer_go_to_xy:00000000 lv_draw_layer_go_to_xy
+
+UNDEFINED SYMBOLS
+_lv_area_intersect
+lv_free
+lv_global
+lv_malloc_zeroed
+lv_draw_buf_width_to_stride
+lv_draw_buf_destroy
+lv_display_get_next
+lv_obj_has_flag
+lv_obj_send_event
+_lv_refr_get_disp_refreshing
+lv_display_get_horizontal_resolution
+lv_display_get_vertical_resolution
+_lv_area_is_on
+lv_draw_buf_create
+lv_color_format_has_alpha
+lv_draw_buf_clear
+lv_draw_buf_goto_xy
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccP4Nx5L.s 			page 50
+
+

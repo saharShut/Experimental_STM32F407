@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "make -j -s",
+            "options": {
+                "cwd": "${workspaceRoot}",
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        {
+            "label": "Download",
+            "type": "shell",
+            "command": "E:\\Programms\\JLink_V792m\\JLink.exe -Device STM32F407VE -If JTAG -Speed 4000 -commanderscript .\\scripts\\FlashMCU.jlink",
+            "options": {
+                "cwd": "${workspaceRoot}",
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+        }
+    ]
+}

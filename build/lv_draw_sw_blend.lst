@@ -1,0 +1,1418 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_draw_sw_blend.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c"
+  20              		.section	.text.lv_draw_sw_blend,"ax",%progbits
+  21              		.align	1
+  22              		.global	lv_draw_sw_blend
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	lv_draw_sw_blend:
+  28              	.LVL0:
+  29              	.LFB95:
+   1:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** /**
+   2:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  * @file lv_draw_sw_blend.c
+   3:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *
+   4:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  */
+   5:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+   6:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** /*********************
+   7:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *********************/
+   9:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** #include "../lv_draw_sw.h"
+  10:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** #include "lv_draw_sw_blend_to_rgb565.h"
+  11:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** #include "lv_draw_sw_blend_to_argb8888.h"
+  12:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** #include "lv_draw_sw_blend_to_rgb888.h"
+  13:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  14:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** #if LV_USE_DRAW_SW
+  15:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  16:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** /*********************
+  17:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *      DEFINES
+  18:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *********************/
+  19:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  20:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** /**********************
+  21:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *      TYPEDEFS
+  22:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  **********************/
+  23:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  24:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** /**********************
+  25:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *  STATIC PROTOTYPES
+  26:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  **********************/
+  27:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** /**********************
+  28:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *  STATIC VARIABLES
+  29:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  **********************/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 2
+
+
+  30:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  31:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** /**********************
+  32:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *      MACROS
+  33:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  **********************/
+  34:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  35:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** /**********************
+  36:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  *   GLOBAL FUNCTIONS
+  37:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****  **********************/
+  38:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  39:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** void lv_draw_sw_blend(lv_draw_unit_t * draw_unit, const lv_draw_sw_blend_dsc_t * blend_dsc)
+  40:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** {
+  30              		.loc 1 40 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 56
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  41:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     /*Do not draw transparent things*/
+  42:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     if(blend_dsc->opa <= LV_OPA_MIN) return;
+  34              		.loc 1 42 5 view .LVU1
+  35              		.loc 1 42 17 is_stmt 0 view .LVU2
+  36 0000 0B7D     		ldrb	r3, [r1, #20]	@ zero_extendqisi2
+  37              		.loc 1 42 7 view .LVU3
+  38 0002 022B     		cmp	r3, #2
+  39 0004 40F2FB80 		bls	.L33
+  40:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     /*Do not draw transparent things*/
+  40              		.loc 1 40 1 view .LVU4
+  41 0008 F0B5     		push	{r4, r5, r6, r7, lr}
+  42              	.LCFI0:
+  43              		.cfi_def_cfa_offset 20
+  44              		.cfi_offset 4, -20
+  45              		.cfi_offset 5, -16
+  46              		.cfi_offset 6, -12
+  47              		.cfi_offset 7, -8
+  48              		.cfi_offset 14, -4
+  49 000a 8FB0     		sub	sp, sp, #60
+  50              	.LCFI1:
+  51              		.cfi_def_cfa_offset 80
+  52 000c 0546     		mov	r5, r0
+  53 000e 0C46     		mov	r4, r1
+  43:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     if(blend_dsc->mask_buf && blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_TRANSP) return;
+  54              		.loc 1 43 5 is_stmt 1 view .LVU5
+  55              		.loc 1 43 17 is_stmt 0 view .LVU6
+  56 0010 8B69     		ldr	r3, [r1, #24]
+  57              		.loc 1 43 7 view .LVU7
+  58 0012 0BB1     		cbz	r3, .L3
+  59              		.loc 1 43 40 discriminator 1 view .LVU8
+  60 0014 0B7F     		ldrb	r3, [r1, #28]	@ zero_extendqisi2
+  61              		.loc 1 43 28 discriminator 1 view .LVU9
+  62 0016 2BB1     		cbz	r3, .L1
+  63              	.L3:
+  44:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  45:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     lv_area_t blend_area;
+  64              		.loc 1 45 5 is_stmt 1 view .LVU10
+  46:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     if(!_lv_area_intersect(&blend_area, blend_dsc->blend_area, draw_unit->clip_area)) return;
+  65              		.loc 1 46 5 view .LVU11
+  66              		.loc 1 46 9 is_stmt 0 view .LVU12
+  67 0018 AA68     		ldr	r2, [r5, #8]
+  68 001a 2168     		ldr	r1, [r4]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 3
+
+
+  69              	.LVL1:
+  70              		.loc 1 46 9 view .LVU13
+  71 001c 0AA8     		add	r0, sp, #40
+  72              	.LVL2:
+  73              		.loc 1 46 9 view .LVU14
+  74 001e FFF7FEFF 		bl	_lv_area_intersect
+  75              	.LVL3:
+  76              		.loc 1 46 7 view .LVU15
+  77 0022 08B9     		cbnz	r0, .L36
+  78              	.LVL4:
+  79              	.L1:
+  47:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  48:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     LV_PROFILER_BEGIN;
+  49:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     lv_layer_t * layer = draw_unit->target_layer;
+  50:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     uint32_t layer_stride_byte = lv_draw_buf_width_to_stride(lv_area_get_width(&layer->buf_area), l
+  51:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  52:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     if(blend_dsc->src_buf == NULL) {
+  53:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         _lv_draw_sw_blend_fill_dsc_t fill_dsc;
+  54:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_w = lv_area_get_width(&blend_area);
+  55:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_h = lv_area_get_height(&blend_area);
+  56:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_stride = layer_stride_byte;
+  57:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.opa = blend_dsc->opa;
+  58:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.color = blend_dsc->color;
+  59:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  60:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         if(blend_dsc->mask_buf == NULL) fill_dsc.mask_buf = NULL;
+  61:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) fill_dsc.mask_buf = NULL;
+  62:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else fill_dsc.mask_buf = blend_dsc->mask_buf;
+  63:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  64:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_buf = lv_draw_layer_go_to_xy(layer, blend_area.x1 - layer->buf_area.x1,
+  65:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                    blend_area.y1 - layer->buf_area.y1);
+  66:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  67:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         if(fill_dsc.mask_buf) {
+  68:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_stride = blend_dsc->mask_stride == 0  ? lv_area_get_width(blend_dsc->mask
+  69:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_buf += fill_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1) 
+  70:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                  (blend_area.x1 - blend_dsc->mask_area->x1);
+  71:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+  72:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  73:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         switch(layer->color_format) {
+  74:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+  75:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 lv_draw_sw_blend_color_to_rgb565(&fill_dsc);
+  76:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+  77:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_ARGB8888:
+  78:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 lv_draw_sw_blend_color_to_argb8888(&fill_dsc);
+  79:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+  80:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB888:
+  81:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 lv_draw_sw_blend_color_to_rgb888(&fill_dsc, 3);
+  82:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+  83:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_XRGB8888:
+  84:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 lv_draw_sw_blend_color_to_rgb888(&fill_dsc, 4);
+  85:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+  86:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             default:
+  87:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+  88:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+  89:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     }
+  90:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     else {
+  91:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         if(!_lv_area_intersect(&blend_area, &blend_area, blend_dsc->src_area)) {
+  92:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             LV_PROFILER_END;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 4
+
+
+  93:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             return;
+  94:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+  95:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  96:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         _lv_draw_sw_blend_image_dsc_t image_dsc;
+  97:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_w = lv_area_get_width(&blend_area);
+  98:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_h = lv_area_get_height(&blend_area);
+  99:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_stride = layer_stride_byte;
+ 100:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 101:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.opa = blend_dsc->opa;
+ 102:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.blend_mode = blend_dsc->blend_mode;
+ 103:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_stride = blend_dsc->src_stride;
+ 104:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_color_format = blend_dsc->src_color_format;
+ 105:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 106:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         const uint8_t * src_buf = blend_dsc->src_buf;
+ 107:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         uint32_t src_px_size = lv_color_format_get_size(blend_dsc->src_color_format);
+ 108:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += image_dsc.src_stride * (blend_area.y1 - blend_dsc->src_area->y1);
+ 109:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += (blend_area.x1 - blend_dsc->src_area->x1) * src_px_size;
+ 110:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_buf = src_buf;
+ 111:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 112:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         if(blend_dsc->mask_buf == NULL) image_dsc.mask_buf = NULL;
+ 113:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) image_dsc.mask_buf = NULL;
+ 114:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else image_dsc.mask_buf = blend_dsc->mask_buf;
+ 115:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 116:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         if(image_dsc.mask_buf) {
+ 117:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf = blend_dsc->mask_buf;
+ 118:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_stride = blend_dsc->mask_stride ? blend_dsc->mask_stride : lv_area_get_w
+ 119:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf += image_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1
+ 120:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                   (blend_area.x1 - blend_dsc->mask_area->x1);
+ 121:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+ 122:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 123:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_buf = lv_draw_layer_go_to_xy(layer, blend_area.x1 - layer->buf_area.x1,
+ 124:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                     blend_area.y1 - layer->buf_area.y1);
+ 125:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 126:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         switch(layer->color_format) {
+ 127:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+ 128:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565A8:
+ 129:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 lv_draw_sw_blend_image_to_rgb565(&image_dsc);
+ 130:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 131:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_ARGB8888:
+ 132:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 lv_draw_sw_blend_image_to_argb8888(&image_dsc);
+ 133:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 134:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB888:
+ 135:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 lv_draw_sw_blend_image_to_rgb888(&image_dsc, 3);
+ 136:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 137:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_XRGB8888:
+ 138:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 lv_draw_sw_blend_image_to_rgb888(&image_dsc, 4);
+ 139:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 140:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             default:
+ 141:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 142:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+ 143:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     }
+ 144:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     LV_PROFILER_END;
+ 145:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** }
+  80              		.loc 1 145 1 view .LVU16
+  81 0024 0FB0     		add	sp, sp, #60
+  82              	.LCFI2:
+  83              		.cfi_remember_state
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 5
+
+
+  84              		.cfi_def_cfa_offset 20
+  85              		@ sp needed
+  86 0026 F0BD     		pop	{r4, r5, r6, r7, pc}
+  87              	.LVL5:
+  88              	.L36:
+  89              	.LCFI3:
+  90              		.cfi_restore_state
+  48:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     lv_layer_t * layer = draw_unit->target_layer;
+  91              		.loc 1 48 22 is_stmt 1 view .LVU17
+  49:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     uint32_t layer_stride_byte = lv_draw_buf_width_to_stride(lv_area_get_width(&layer->buf_area), l
+  92              		.loc 1 49 5 view .LVU18
+  49:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****     uint32_t layer_stride_byte = lv_draw_buf_width_to_stride(lv_area_get_width(&layer->buf_area), l
+  93              		.loc 1 49 18 is_stmt 0 view .LVU19
+  94 0028 6D68     		ldr	r5, [r5, #4]
+  95              	.LVL6:
+  50:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+  96              		.loc 1 50 5 is_stmt 1 view .LVU20
+  97              	.LBB20:
+  98              	.LBI20:
+  99              		.file 2 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+   1:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+   2:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @file lv_area.h
+   3:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *
+   4:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+   5:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+   6:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #ifndef LV_AREA_H
+   7:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #define LV_AREA_H
+   8:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+   9:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #ifdef __cplusplus
+  10:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** extern "C" {
+  11:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #endif
+  12:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  13:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /*********************
+  14:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *      INCLUDES
+  15:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *********************/
+  16:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #include "../lv_conf_internal.h"
+  17:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #include "lv_types.h"
+  18:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #include <stdbool.h>
+  19:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #include <stdint.h>
+  20:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  21:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /*********************
+  22:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *      DEFINES
+  23:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *********************/
+  24:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  25:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**********************
+  26:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *      TYPEDEFS
+  27:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  **********************/
+  28:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  29:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+  30:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * Represents a point on the screen.
+  31:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+  32:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef struct {
+  33:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t x;
+  34:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t y;
+  35:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** } lv_point_t;
+  36:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  37:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef struct {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 6
+
+
+  38:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     lv_value_precise_t x;
+  39:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     lv_value_precise_t y;
+  40:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** } lv_point_precise_t;
+  41:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  42:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /** Represents an area of the screen.*/
+  43:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef struct {
+  44:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t x1;
+  45:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t y1;
+  46:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t x2;
+  47:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t y2;
+  48:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** } lv_area_t;
+  49:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  50:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /** Alignments*/
+  51:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  52:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** enum _lv_align_t {
+  53:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_DEFAULT = 0,
+  54:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_TOP_LEFT,
+  55:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_TOP_MID,
+  56:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_TOP_RIGHT,
+  57:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_BOTTOM_LEFT,
+  58:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_BOTTOM_MID,
+  59:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_BOTTOM_RIGHT,
+  60:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_LEFT_MID,
+  61:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_RIGHT_MID,
+  62:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_CENTER,
+  63:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  64:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_TOP_LEFT,
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_TOP_MID,
+  66:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_TOP_RIGHT,
+  67:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_LEFT,
+  68:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_MID,
+  69:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_RIGHT,
+  70:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_LEFT_TOP,
+  71:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_LEFT_MID,
+  72:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_LEFT_BOTTOM,
+  73:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_RIGHT_TOP,
+  74:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_RIGHT_MID,
+  75:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_RIGHT_BOTTOM,
+  76:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** };
+  77:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  78:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #ifdef DOXYGEN
+  79:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef _lv_align_t lv_align_t;
+  80:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #else
+  81:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef uint8_t lv_align_t;
+  82:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #endif /*DOXYGEN*/
+  83:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  84:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** enum _lv_dir_t {
+  85:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_NONE     = 0x00,
+  86:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_LEFT     = (1 << 0),
+  87:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_RIGHT    = (1 << 1),
+  88:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_TOP      = (1 << 2),
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_BOTTOM   = (1 << 3),
+  90:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_HOR      = LV_DIR_LEFT | LV_DIR_RIGHT,
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_VER      = LV_DIR_TOP | LV_DIR_BOTTOM,
+  92:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_ALL      = LV_DIR_HOR | LV_DIR_VER,
+  93:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** };
+  94:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 7
+
+
+  95:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #ifdef DOXYGEN
+  96:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef _lv_dir_t lv_dir_t;
+  97:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #else
+  98:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef uint8_t lv_dir_t;
+  99:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #endif /*DOXYGEN*/
+ 100:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 101:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef struct  {
+ 102:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t angle_prev;
+ 103:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t sinma;
+ 104:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t cosma;
+ 105:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** } lv_area_transform_cache_t;
+ 106:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 107:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**********************
+ 108:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * GLOBAL PROTOTYPES
+ 109:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  **********************/
+ 110:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 111:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+ 112:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * Initialize an area
+ 113:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param area_p pointer to an area
+ 114:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param x1 left coordinate of the area
+ 115:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param y1 top coordinate of the area
+ 116:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param x2 right coordinate of the area
+ 117:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param y2 bottom coordinate of the area
+ 118:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+ 119:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** void lv_area_set(lv_area_t * area_p, int32_t x1, int32_t y1, int32_t x2, int32_t y2);
+ 120:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 121:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+ 122:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * Copy an area
+ 123:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param dest pointer to the destination area
+ 124:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param src pointer to the source area
+ 125:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+ 126:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** inline static void lv_area_copy(lv_area_t * dest, const lv_area_t * src)
+ 127:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 128:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->x1 = src->x1;
+ 129:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->y1 = src->y1;
+ 130:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->x2 = src->x2;
+ 131:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->y2 = src->y2;
+ 132:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 133:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 134:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+ 135:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * Get the width of an area
+ 136:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param area_p pointer to an area
+ 137:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @return the width of the area (if x1 == x2 -> width = 1)
+ 138:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+ 139:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** static inline int32_t lv_area_get_width(const lv_area_t * area_p)
+ 100              		.loc 2 139 23 view .LVU21
+ 101              	.LBB21:
+ 140:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     return (int32_t)(area_p->x2 - area_p->x1 + 1);
+ 102              		.loc 2 141 5 view .LVU22
+ 103              		.loc 2 141 28 is_stmt 0 view .LVU23
+ 104 002a E868     		ldr	r0, [r5, #12]
+ 105              		.loc 2 141 41 view .LVU24
+ 106 002c 6B68     		ldr	r3, [r5, #4]
+ 107              		.loc 2 141 33 view .LVU25
+ 108 002e C01A     		subs	r0, r0, r3
+ 109              	.LVL7:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 8
+
+
+ 110              		.loc 2 141 33 view .LVU26
+ 111              	.LBE21:
+ 112              	.LBE20:
+  50:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 113              		.loc 1 50 34 view .LVU27
+ 114 0030 297D     		ldrb	r1, [r5, #20]	@ zero_extendqisi2
+ 115 0032 0130     		adds	r0, r0, #1
+ 116 0034 FFF7FEFF 		bl	lv_draw_buf_width_to_stride
+ 117              	.LVL8:
+ 118 0038 0646     		mov	r6, r0
+ 119              	.LVL9:
+  52:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         _lv_draw_sw_blend_fill_dsc_t fill_dsc;
+ 120              		.loc 1 52 5 is_stmt 1 view .LVU28
+  52:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         _lv_draw_sw_blend_fill_dsc_t fill_dsc;
+ 121              		.loc 1 52 17 is_stmt 0 view .LVU29
+ 122 003a 6368     		ldr	r3, [r4, #4]
+  52:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         _lv_draw_sw_blend_fill_dsc_t fill_dsc;
+ 123              		.loc 1 52 7 view .LVU30
+ 124 003c 002B     		cmp	r3, #0
+ 125 003e 6BD0     		beq	.L37
+ 126              	.LBB22:
+  91:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             LV_PROFILER_END;
+ 127              		.loc 1 91 9 is_stmt 1 view .LVU31
+  91:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             LV_PROFILER_END;
+ 128              		.loc 1 91 13 is_stmt 0 view .LVU32
+ 129 0040 2269     		ldr	r2, [r4, #16]
+ 130 0042 0AA9     		add	r1, sp, #40
+ 131 0044 0846     		mov	r0, r1
+ 132              	.LVL10:
+  91:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             LV_PROFILER_END;
+ 133              		.loc 1 91 13 view .LVU33
+ 134 0046 FFF7FEFF 		bl	_lv_area_intersect
+ 135              	.LVL11:
+  91:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             LV_PROFILER_END;
+ 136              		.loc 1 91 11 view .LVU34
+ 137 004a 0028     		cmp	r0, #0
+ 138 004c EAD0     		beq	.L1
+  96:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_w = lv_area_get_width(&blend_area);
+ 139              		.loc 1 96 9 is_stmt 1 view .LVU35
+  97:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_h = lv_area_get_height(&blend_area);
+ 140              		.loc 1 97 9 view .LVU36
+ 141              	.LVL12:
+ 142              	.LBB23:
+ 143              	.LBI23:
+ 139:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 144              		.loc 2 139 23 view .LVU37
+ 145              	.LBB24:
+ 146              		.loc 2 141 5 view .LVU38
+ 147              		.loc 2 141 33 is_stmt 0 view .LVU39
+ 148 004e 0C9B     		ldr	r3, [sp, #48]
+ 149 0050 0A9A     		ldr	r2, [sp, #40]
+ 150 0052 9B1A     		subs	r3, r3, r2
+ 151              		.loc 2 141 12 view .LVU40
+ 152 0054 0133     		adds	r3, r3, #1
+ 153              	.LVL13:
+ 154              		.loc 2 141 12 view .LVU41
+ 155              	.LBE24:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 9
+
+
+ 156              	.LBE23:
+  97:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_h = lv_area_get_height(&blend_area);
+ 157              		.loc 1 97 26 view .LVU42
+ 158 0056 0293     		str	r3, [sp, #8]
+  98:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_stride = layer_stride_byte;
+ 159              		.loc 1 98 9 is_stmt 1 view .LVU43
+ 160              	.LVL14:
+ 161              	.LBB25:
+ 162              	.LBI25:
+ 142:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 143:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 144:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+ 145:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * Get the height of an area
+ 146:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param area_p pointer to an area
+ 147:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @return the height of the area (if y1 == y2 -> height = 1)
+ 148:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+ 149:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** static inline int32_t lv_area_get_height(const lv_area_t * area_p)
+ 163              		.loc 2 149 23 view .LVU44
+ 164              	.LBB26:
+ 150:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 151:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     return (int32_t)(area_p->y2 - area_p->y1 + 1);
+ 165              		.loc 2 151 5 view .LVU45
+ 166              		.loc 2 151 33 is_stmt 0 view .LVU46
+ 167 0058 0D9B     		ldr	r3, [sp, #52]
+ 168 005a 0B9A     		ldr	r2, [sp, #44]
+ 169 005c 9B1A     		subs	r3, r3, r2
+ 170              		.loc 2 151 12 view .LVU47
+ 171 005e 0133     		adds	r3, r3, #1
+ 172              	.LVL15:
+ 173              		.loc 2 151 12 view .LVU48
+ 174              	.LBE26:
+ 175              	.LBE25:
+  98:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.dest_stride = layer_stride_byte;
+ 176              		.loc 1 98 26 view .LVU49
+ 177 0060 0393     		str	r3, [sp, #12]
+  99:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 178              		.loc 1 99 9 is_stmt 1 view .LVU50
+  99:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 179              		.loc 1 99 31 is_stmt 0 view .LVU51
+ 180 0062 0496     		str	r6, [sp, #16]
+ 101:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.blend_mode = blend_dsc->blend_mode;
+ 181              		.loc 1 101 9 is_stmt 1 view .LVU52
+ 101:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.blend_mode = blend_dsc->blend_mode;
+ 182              		.loc 1 101 34 is_stmt 0 view .LVU53
+ 183 0064 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 101:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.blend_mode = blend_dsc->blend_mode;
+ 184              		.loc 1 101 23 view .LVU54
+ 185 0066 8DF82530 		strb	r3, [sp, #37]
+ 102:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_stride = blend_dsc->src_stride;
+ 186              		.loc 1 102 9 is_stmt 1 view .LVU55
+ 102:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_stride = blend_dsc->src_stride;
+ 187              		.loc 1 102 41 is_stmt 0 view .LVU56
+ 188 006a 94F82830 		ldrb	r3, [r4, #40]	@ zero_extendqisi2
+ 102:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_stride = blend_dsc->src_stride;
+ 189              		.loc 1 102 30 view .LVU57
+ 190 006e 8DF82630 		strb	r3, [sp, #38]
+ 103:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_color_format = blend_dsc->src_color_format;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 10
+
+
+ 191              		.loc 1 103 9 is_stmt 1 view .LVU58
+ 103:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_color_format = blend_dsc->src_color_format;
+ 192              		.loc 1 103 41 is_stmt 0 view .LVU59
+ 193 0072 A368     		ldr	r3, [r4, #8]
+ 103:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_color_format = blend_dsc->src_color_format;
+ 194              		.loc 1 103 30 view .LVU60
+ 195 0074 0893     		str	r3, [sp, #32]
+ 104:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 196              		.loc 1 104 9 is_stmt 1 view .LVU61
+ 104:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 197              		.loc 1 104 47 is_stmt 0 view .LVU62
+ 198 0076 207B     		ldrb	r0, [r4, #12]	@ zero_extendqisi2
+ 104:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 199              		.loc 1 104 36 view .LVU63
+ 200 0078 8DF82400 		strb	r0, [sp, #36]
+ 106:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         uint32_t src_px_size = lv_color_format_get_size(blend_dsc->src_color_format);
+ 201              		.loc 1 106 9 is_stmt 1 view .LVU64
+ 106:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         uint32_t src_px_size = lv_color_format_get_size(blend_dsc->src_color_format);
+ 202              		.loc 1 106 25 is_stmt 0 view .LVU65
+ 203 007c 6668     		ldr	r6, [r4, #4]
+ 204              	.LVL16:
+ 107:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += image_dsc.src_stride * (blend_area.y1 - blend_dsc->src_area->y1);
+ 205              		.loc 1 107 9 is_stmt 1 view .LVU66
+ 206              	.LBB27:
+ 207              	.LBI27:
+ 208              		.file 3 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+   1:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+   2:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @file lv_color.h
+   3:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *
+   4:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+   5:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+   6:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifndef LV_COLOR_H
+   7:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_H
+   8:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+   9:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifdef __cplusplus
+  10:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** extern "C" {
+  11:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif
+  12:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  13:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /*********************
+  14:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *      INCLUDES
+  15:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *********************/
+  16:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include "../lv_conf_internal.h"
+  17:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include "lv_assert.h"
+  18:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include "lv_math.h"
+  19:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include "lv_types.h"
+  20:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include <stdint.h>
+  21:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include <stdbool.h>
+  22:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  23:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /*********************
+  24:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *      DEFINES
+  25:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *********************/
+  26:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** LV_EXPORT_CONST_INT(LV_COLOR_DEPTH);
+  27:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  28:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #if LV_COLOR_DEPTH == 8
+  29:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 2
+  30:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 16
+  31:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 11
+
+
+  32:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 24
+  33:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  34:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 32
+  35:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  36:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif
+  37:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  38:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+  39:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Opacity percentages.
+  40:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+  41:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  42:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** enum _lv_opa_t {
+  43:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_TRANSP = 0,
+  44:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_0      = 0,
+  45:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_10     = 25,
+  46:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_20     = 51,
+  47:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_30     = 76,
+  48:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_40     = 102,
+  49:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_50     = 127,
+  50:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_60     = 153,
+  51:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_70     = 178,
+  52:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_80     = 204,
+  53:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_90     = 229,
+  54:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_100    = 255,
+  55:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_COVER  = 255,
+  56:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** };
+  57:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  58:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifdef DOXYGEN
+  59:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef _lv_opa_t lv_opa_t;
+  60:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #else
+  61:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef uint8_t lv_opa_t;
+  62:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif /*DOXYGEN*/
+  63:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  64:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MIN 2    /*Opacities below this will be transparent*/
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MAX 253  /*Opacities above this will fully cover*/
+  66:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  67:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_GET_BPP(cf) (       \
+  68:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I1 ? 1 :        \
+  69:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A1 ? 1 :        \
+  70:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I2 ? 2 :        \
+  71:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A2 ? 2 :        \
+  72:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I4 ? 4 :        \
+  73:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A4 ? 4 :        \
+  74:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_L8 ? 8 :        \
+  75:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A8 ? 8 :        \
+  76:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I8 ? 8 :        \
+  77:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565 ? 16 :   \
+  78:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565A8 ? 24 : \
+  79:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB888 ? 24 :   \
+  80:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_ARGB8888 ? 32 : \
+  81:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_XRGB8888 ? 32 : \
+  82:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             0                                       \
+  83:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                     )
+  84:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  85:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**********************
+  86:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *      TYPEDEFS
+  87:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  **********************/
+  88:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 12
+
+
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef struct {
+  90:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t blue;
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t green;
+  92:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t red;
+  93:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** } lv_color_t;
+  94:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  95:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef struct {
+  96:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t blue : 5;
+  97:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t green : 6;
+  98:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t red : 5;
+  99:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** } lv_color16_t;
+ 100:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 101:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef struct {
+ 102:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t blue;
+ 103:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t green;
+ 104:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t red;
+ 105:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t alpha;
+ 106:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** } lv_color32_t;
+ 107:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 108:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef struct {
+ 109:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t h;
+ 110:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t s;
+ 111:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t v;
+ 112:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** } lv_color_hsv_t;
+ 113:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 114:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** enum _lv_color_format_t {
+ 115:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_UNKNOWN           = 0,
+ 116:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 117:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RAW               = 0x01,
+ 118:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RAW_ALPHA         = 0x02,
+ 119:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 120:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*<=1 byte (+alpha) formats*/
+ 121:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_L8                = 0x06,
+ 122:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I1                = 0x07,
+ 123:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I2                = 0x08,
+ 124:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I4                = 0x09,
+ 125:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I8                = 0x0A,
+ 126:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_A8                = 0x0E,
+ 127:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 128:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*2 byte (+alpha) formats*/
+ 129:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RGB565            = 0x12,
+ 130:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RGB565A8          = 0x14    /**< Color array followed by Alpha array*/,
+ 131:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 132:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*3 byte (+alpha) formats*/
+ 133:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RGB888            = 0x0F,
+ 134:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_ARGB8888          = 0x10,
+ 135:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_XRGB8888          = 0x11,
+ 136:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 137:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*Formats not supported by software renderer but kept here so GPU can use it*/
+ 138:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_A1                = 0x0B,
+ 139:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_A2                = 0x0C,
+ 140:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_A4                = 0x0D,
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 142:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /* reference to https://wiki.videolan.org/YUV/ */
+ 143:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*YUV planar formats*/
+ 144:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_YUV_START         = 0x20,
+ 145:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I420              = LV_COLOR_FORMAT_YUV_START,  /*YUV420 planar(3 plane)*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 13
+
+
+ 146:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I422              = 0x21,  /*YUV422 planar(3 plane)*/
+ 147:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I444              = 0x22,  /*YUV444 planar(3 plane)*/
+ 148:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I400              = 0x23,  /*YUV400 no chroma channel*/
+ 149:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NV21              = 0x24,  /*YUV420 planar(2 plane), UV plane in 'V, U, V, U'*/
+ 150:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NV12              = 0x25,  /*YUV420 planar(2 plane), UV plane in 'U, V, U, V'*/
+ 151:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 152:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*YUV packed formats*/
+ 153:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_YUY2              = 0x26,  /*YUV422 packed like 'Y U Y V'*/
+ 154:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_UYVY              = 0x27,  /*YUV422 packed like 'U Y V Y'*/
+ 155:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 156:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_YUV_END           = LV_COLOR_FORMAT_UYVY,
+ 157:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 158:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*Color formats in which LVGL can render*/
+ 159:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #if LV_COLOR_DEPTH == 8
+ 160:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_L8,
+ 161:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 16
+ 162:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB565,
+ 163:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_RGB565A8,
+ 164:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 24
+ 165:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB888,
+ 166:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 167:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 32
+ 168:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_XRGB8888,
+ 169:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 170:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif
+ 171:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** };
+ 172:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 173:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifdef DOXYGEN
+ 174:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef _lv_color_format_t lv_color_format_t;
+ 175:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #else
+ 176:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef uint8_t lv_color_format_t;
+ 177:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif /*DOXYGEN*/
+ 178:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 179:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_IS_ALPHA_ONLY(cf) ((cf) >= LV_COLOR_FORMAT_A1 && (cf) <= LV_COLOR_FORMAT_A8
+ 180:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_IS_INDEXED(cf) ((cf) >= LV_COLOR_FORMAT_I1 && (cf) <= LV_COLOR_FORMAT_I8)
+ 181:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_IS_YUV(cf)  ((cf) >= LV_COLOR_FORMAT_YUV_START && (cf) <= LV_COLOR_FORMAT_Y
+ 182:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_INDEXED_PALETTE_SIZE(cf) ((cf) == LV_COLOR_FORMAT_I1 ? 2 :\
+ 183:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I2 ? 4 :\
+ 184:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I4 ? 16 :\
+ 185:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I8 ? 256 : 0)
+ 186:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 187:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**********************
+ 188:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * MACROS
+ 189:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  **********************/
+ 190:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 191:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_MAKE(r8, g8, b8) {b8, g8, r8}
+ 192:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 193:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MIX2(a1, a2) (((int32_t)(a1) * (a2)) >> 8)
+ 194:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MIX3(a1, a2, a3) (((int32_t)(a1) * (a2) * (a3)) >> 16)
+ 195:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 196:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**********************
+ 197:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * GLOBAL PROTOTYPES
+ 198:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  **********************/
+ 199:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 200:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 201:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Get the pixel size of a color format in bits, bpp
+ 202:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 14
+
+
+ 203:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          the pixel size in bits
+ 204:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 205:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** uint8_t lv_color_format_get_bpp(lv_color_format_t cf);
+ 206:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 207:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 208:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Get the pixel size of a color format in bytes
+ 209:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 210:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          the pixel size in bytes
+ 211:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 212:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline uint8_t lv_color_format_get_size(lv_color_format_t cf)
+ 209              		.loc 3 212 23 view .LVU67
+ 210              	.LBB28:
+ 213:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 214:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return (lv_color_format_get_bpp(cf) + 7) >> 3;
+ 211              		.loc 3 214 5 view .LVU68
+ 212              		.loc 3 214 13 is_stmt 0 view .LVU69
+ 213 007e FFF7FEFF 		bl	lv_color_format_get_bpp
+ 214              	.LVL17:
+ 215              		.loc 3 214 41 view .LVU70
+ 216 0082 0730     		adds	r0, r0, #7
+ 217              	.LVL18:
+ 218              		.loc 3 214 41 view .LVU71
+ 219              	.LBE28:
+ 220              	.LBE27:
+ 107:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += image_dsc.src_stride * (blend_area.y1 - blend_dsc->src_area->y1);
+ 221              		.loc 1 107 18 view .LVU72
+ 222 0084 C0F3C700 		ubfx	r0, r0, #3, #8
+ 223              	.LVL19:
+ 108:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += (blend_area.x1 - blend_dsc->src_area->x1) * src_px_size;
+ 224              		.loc 1 108 9 is_stmt 1 view .LVU73
+ 108:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += (blend_area.x1 - blend_dsc->src_area->x1) * src_px_size;
+ 225              		.loc 1 108 54 is_stmt 0 view .LVU74
+ 226 0088 0B9A     		ldr	r2, [sp, #44]
+ 108:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += (blend_area.x1 - blend_dsc->src_area->x1) * src_px_size;
+ 227              		.loc 1 108 69 view .LVU75
+ 228 008a 2769     		ldr	r7, [r4, #16]
+ 108:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += (blend_area.x1 - blend_dsc->src_area->x1) * src_px_size;
+ 229              		.loc 1 108 79 view .LVU76
+ 230 008c 7B68     		ldr	r3, [r7, #4]
+ 108:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         src_buf += (blend_area.x1 - blend_dsc->src_area->x1) * src_px_size;
+ 231              		.loc 1 108 58 view .LVU77
+ 232 008e A2EB030C 		sub	ip, r2, r3
+ 233              	.LVL20:
+ 109:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_buf = src_buf;
+ 234              		.loc 1 109 9 is_stmt 1 view .LVU78
+ 109:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_buf = src_buf;
+ 235              		.loc 1 109 31 is_stmt 0 view .LVU79
+ 236 0092 0A99     		ldr	r1, [sp, #40]
+ 109:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_buf = src_buf;
+ 237              		.loc 1 109 56 view .LVU80
+ 238 0094 3B68     		ldr	r3, [r7]
+ 109:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_buf = src_buf;
+ 239              		.loc 1 109 35 view .LVU81
+ 240 0096 CB1A     		subs	r3, r1, r3
+ 109:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_buf = src_buf;
+ 241              		.loc 1 109 62 view .LVU82
+ 242 0098 00FB03F3 		mul	r3, r0, r3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 15
+
+
+ 109:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_buf = src_buf;
+ 243              		.loc 1 109 17 view .LVU83
+ 244 009c 0898     		ldr	r0, [sp, #32]
+ 245              	.LVL21:
+ 109:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         image_dsc.src_buf = src_buf;
+ 246              		.loc 1 109 17 view .LVU84
+ 247 009e 0CFB0033 		mla	r3, ip, r0, r3
+ 248 00a2 1E44     		add	r6, r6, r3
+ 249              	.LVL22:
+ 110:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 250              		.loc 1 110 9 is_stmt 1 view .LVU85
+ 110:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 251              		.loc 1 110 27 is_stmt 0 view .LVU86
+ 252 00a4 0796     		str	r6, [sp, #28]
+ 112:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) image_dsc.mask_buf = NULL;
+ 253              		.loc 1 112 9 is_stmt 1 view .LVU87
+ 112:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) image_dsc.mask_buf = NULL;
+ 254              		.loc 1 112 21 is_stmt 0 view .LVU88
+ 255 00a6 A369     		ldr	r3, [r4, #24]
+ 112:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) image_dsc.mask_buf = NULL;
+ 256              		.loc 1 112 11 view .LVU89
+ 257 00a8 002B     		cmp	r3, #0
+ 258 00aa 00F08F80 		beq	.L38
+ 113:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else image_dsc.mask_buf = blend_dsc->mask_buf;
+ 259              		.loc 1 113 14 is_stmt 1 view .LVU90
+ 113:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else image_dsc.mask_buf = blend_dsc->mask_buf;
+ 260              		.loc 1 113 26 is_stmt 0 view .LVU91
+ 261 00ae 207F     		ldrb	r0, [r4, #28]	@ zero_extendqisi2
+ 113:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else image_dsc.mask_buf = blend_dsc->mask_buf;
+ 262              		.loc 1 113 16 view .LVU92
+ 263 00b0 0128     		cmp	r0, #1
+ 264 00b2 00F08E80 		beq	.L39
+ 114:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 265              		.loc 1 114 14 is_stmt 1 view .LVU93
+ 114:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 266              		.loc 1 114 33 is_stmt 0 view .LVU94
+ 267 00b6 0593     		str	r3, [sp, #20]
+ 268              	.L19:
+ 116:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf = blend_dsc->mask_buf;
+ 269              		.loc 1 116 9 is_stmt 1 view .LVU95
+ 116:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf = blend_dsc->mask_buf;
+ 270              		.loc 1 116 21 is_stmt 0 view .LVU96
+ 271 00b8 0598     		ldr	r0, [sp, #20]
+ 116:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf = blend_dsc->mask_buf;
+ 272              		.loc 1 116 11 view .LVU97
+ 273 00ba 88B1     		cbz	r0, .L21
+ 117:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_stride = blend_dsc->mask_stride ? blend_dsc->mask_stride : lv_area_get_w
+ 274              		.loc 1 117 13 is_stmt 1 view .LVU98
+ 117:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_stride = blend_dsc->mask_stride ? blend_dsc->mask_stride : lv_area_get_w
+ 275              		.loc 1 117 32 is_stmt 0 view .LVU99
+ 276 00bc 0593     		str	r3, [sp, #20]
+ 118:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf += image_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1
+ 277              		.loc 1 118 13 is_stmt 1 view .LVU100
+ 118:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf += image_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1
+ 278              		.loc 1 118 46 is_stmt 0 view .LVU101
+ 279 00be 606A     		ldr	r0, [r4, #36]
+ 118:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf += image_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 16
+
+
+ 280              		.loc 1 118 85 view .LVU102
+ 281 00c0 20B9     		cbnz	r0, .L22
+ 118:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf += image_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1
+ 282              		.loc 1 118 114 discriminator 2 view .LVU103
+ 283 00c2 266A     		ldr	r6, [r4, #32]
+ 284              	.LVL23:
+ 285              	.LBB29:
+ 286              	.LBI29:
+ 139:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 287              		.loc 2 139 23 is_stmt 1 discriminator 2 view .LVU104
+ 288              	.LBB30:
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 289              		.loc 2 141 5 discriminator 2 view .LVU105
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 290              		.loc 2 141 28 is_stmt 0 discriminator 2 view .LVU106
+ 291 00c4 B068     		ldr	r0, [r6, #8]
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 292              		.loc 2 141 41 discriminator 2 view .LVU107
+ 293 00c6 3668     		ldr	r6, [r6]
+ 294              	.LVL24:
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 295              		.loc 2 141 33 discriminator 2 view .LVU108
+ 296 00c8 801B     		subs	r0, r0, r6
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 297              		.loc 2 141 12 discriminator 2 view .LVU109
+ 298 00ca 0130     		adds	r0, r0, #1
+ 299              	.LVL25:
+ 300              	.L22:
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 301              		.loc 2 141 12 discriminator 2 view .LVU110
+ 302              	.LBE30:
+ 303              	.LBE29:
+ 118:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             image_dsc.mask_buf += image_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1
+ 304              		.loc 1 118 35 discriminator 4 view .LVU111
+ 305 00cc 0690     		str	r0, [sp, #24]
+ 119:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                   (blend_area.x1 - blend_dsc->mask_area->x1);
+ 306              		.loc 1 119 13 is_stmt 1 discriminator 4 view .LVU112
+ 119:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                   (blend_area.x1 - blend_dsc->mask_area->x1);
+ 307              		.loc 1 119 85 is_stmt 0 discriminator 4 view .LVU113
+ 308 00ce 276A     		ldr	r7, [r4, #32]
+ 119:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                   (blend_area.x1 - blend_dsc->mask_area->x1);
+ 309              		.loc 1 119 96 discriminator 4 view .LVU114
+ 310 00d0 7C68     		ldr	r4, [r7, #4]
+ 311              	.LVL26:
+ 119:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                   (blend_area.x1 - blend_dsc->mask_area->x1);
+ 312              		.loc 1 119 74 discriminator 4 view .LVU115
+ 313 00d2 161B     		subs	r6, r2, r4
+ 120:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+ 314              		.loc 1 120 72 discriminator 4 view .LVU116
+ 315 00d4 3C68     		ldr	r4, [r7]
+ 120:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+ 316              		.loc 1 120 50 discriminator 4 view .LVU117
+ 317 00d6 0C1B     		subs	r4, r1, r4
+ 119:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                   (blend_area.x1 - blend_dsc->mask_area->x1);
+ 318              		.loc 1 119 102 discriminator 4 view .LVU118
+ 319 00d8 00FB0640 		mla	r0, r0, r6, r4
+ 119:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                   (blend_area.x1 - blend_dsc->mask_area->x1);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 17
+
+
+ 320              		.loc 1 119 32 discriminator 4 view .LVU119
+ 321 00dc 0344     		add	r3, r3, r0
+ 322 00de 0593     		str	r3, [sp, #20]
+ 323              	.L21:
+ 123:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                     blend_area.y1 - layer->buf_area.y1);
+ 324              		.loc 1 123 9 is_stmt 1 view .LVU120
+ 123:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                     blend_area.y1 - layer->buf_area.y1);
+ 325              		.loc 1 123 91 is_stmt 0 view .LVU121
+ 326 00e0 6B68     		ldr	r3, [r5, #4]
+ 124:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 327              		.loc 1 124 84 view .LVU122
+ 328 00e2 A868     		ldr	r0, [r5, #8]
+ 123:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                     blend_area.y1 - layer->buf_area.y1);
+ 329              		.loc 1 123 30 view .LVU123
+ 330 00e4 121A     		subs	r2, r2, r0
+ 331 00e6 C91A     		subs	r1, r1, r3
+ 332 00e8 2846     		mov	r0, r5
+ 333 00ea FFF7FEFF 		bl	lv_draw_layer_go_to_xy
+ 334              	.LVL27:
+ 123:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                     blend_area.y1 - layer->buf_area.y1);
+ 335              		.loc 1 123 28 view .LVU124
+ 336 00ee 0190     		str	r0, [sp, #4]
+ 126:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+ 337              		.loc 1 126 9 is_stmt 1 view .LVU125
+ 126:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+ 338              		.loc 1 126 21 is_stmt 0 view .LVU126
+ 339 00f0 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 126:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+ 340              		.loc 1 126 9 view .LVU127
+ 341 00f2 0F3B     		subs	r3, r3, #15
+ 342 00f4 052B     		cmp	r3, #5
+ 343 00f6 95D8     		bhi	.L1
+ 344 00f8 01A2     		adr	r2, .L25
+ 345 00fa 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 346 00fe 00BF     		.p2align 2
+ 347              	.L25:
+ 348 0100 E9010000 		.word	.L28+1
+ 349 0104 E1010000 		.word	.L27+1
+ 350 0108 F3010000 		.word	.L26+1
+ 351 010c D9010000 		.word	.L24+1
+ 352 0110 25000000 		.word	.L1+1
+ 353 0114 D9010000 		.word	.L24+1
+ 354              	.LVL28:
+ 355              		.p2align 1
+ 356              	.L37:
+ 126:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+ 357              		.loc 1 126 9 view .LVU128
+ 358              	.LBE22:
+ 359              	.LBB31:
+  53:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_w = lv_area_get_width(&blend_area);
+ 360              		.loc 1 53 9 is_stmt 1 view .LVU129
+  54:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_h = lv_area_get_height(&blend_area);
+ 361              		.loc 1 54 9 view .LVU130
+ 362              	.LBB32:
+ 363              	.LBI32:
+ 139:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 364              		.loc 2 139 23 view .LVU131
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 18
+
+
+ 365              	.LBB33:
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 366              		.loc 2 141 5 view .LVU132
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 367              		.loc 2 141 41 is_stmt 0 view .LVU133
+ 368 0118 0A99     		ldr	r1, [sp, #40]
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 369              		.loc 2 141 33 view .LVU134
+ 370 011a 0C9B     		ldr	r3, [sp, #48]
+ 371 011c 5B1A     		subs	r3, r3, r1
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 372              		.loc 2 141 12 view .LVU135
+ 373 011e 0133     		adds	r3, r3, #1
+ 374              	.LVL29:
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 375              		.loc 2 141 12 view .LVU136
+ 376              	.LBE33:
+ 377              	.LBE32:
+  54:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_h = lv_area_get_height(&blend_area);
+ 378              		.loc 1 54 25 view .LVU137
+ 379 0120 0293     		str	r3, [sp, #8]
+  55:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_stride = layer_stride_byte;
+ 380              		.loc 1 55 9 is_stmt 1 view .LVU138
+ 381              	.LVL30:
+ 382              	.LBB34:
+ 383              	.LBI34:
+ 149:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 384              		.loc 2 149 23 view .LVU139
+ 385              	.LBB35:
+ 386              		.loc 2 151 5 view .LVU140
+ 387              		.loc 2 151 41 is_stmt 0 view .LVU141
+ 388 0122 0B9A     		ldr	r2, [sp, #44]
+ 389              		.loc 2 151 33 view .LVU142
+ 390 0124 0D9B     		ldr	r3, [sp, #52]
+ 391 0126 9B1A     		subs	r3, r3, r2
+ 392              		.loc 2 151 12 view .LVU143
+ 393 0128 0133     		adds	r3, r3, #1
+ 394              	.LVL31:
+ 395              		.loc 2 151 12 view .LVU144
+ 396              	.LBE35:
+ 397              	.LBE34:
+  55:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.dest_stride = layer_stride_byte;
+ 398              		.loc 1 55 25 view .LVU145
+ 399 012a 0393     		str	r3, [sp, #12]
+  56:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.opa = blend_dsc->opa;
+ 400              		.loc 1 56 9 is_stmt 1 view .LVU146
+  56:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.opa = blend_dsc->opa;
+ 401              		.loc 1 56 30 is_stmt 0 view .LVU147
+ 402 012c 0490     		str	r0, [sp, #16]
+  57:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.color = blend_dsc->color;
+ 403              		.loc 1 57 9 is_stmt 1 view .LVU148
+  57:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.color = blend_dsc->color;
+ 404              		.loc 1 57 33 is_stmt 0 view .LVU149
+ 405 012e 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+  57:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         fill_dsc.color = blend_dsc->color;
+ 406              		.loc 1 57 22 view .LVU150
+ 407 0130 8DF81F30 		strb	r3, [sp, #31]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 19
+
+
+  58:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 408              		.loc 1 58 9 is_stmt 1 view .LVU151
+  58:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 409              		.loc 1 58 24 is_stmt 0 view .LVU152
+ 410 0134 B4F81500 		ldrh	r0, [r4, #21]	@ unaligned
+ 411              	.LVL32:
+  58:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 412              		.loc 1 58 24 view .LVU153
+ 413 0138 E37D     		ldrb	r3, [r4, #23]	@ zero_extendqisi2
+ 414 013a ADF81C00 		strh	r0, [sp, #28]	@ unaligned
+ 415 013e 8DF81E30 		strb	r3, [sp, #30]
+  60:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) fill_dsc.mask_buf = NULL;
+ 416              		.loc 1 60 9 is_stmt 1 view .LVU154
+  60:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) fill_dsc.mask_buf = NULL;
+ 417              		.loc 1 60 21 is_stmt 0 view .LVU155
+ 418 0142 A369     		ldr	r3, [r4, #24]
+  60:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) fill_dsc.mask_buf = NULL;
+ 419              		.loc 1 60 11 view .LVU156
+ 420 0144 002B     		cmp	r3, #0
+ 421 0146 29D0     		beq	.L40
+  61:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else fill_dsc.mask_buf = blend_dsc->mask_buf;
+ 422              		.loc 1 61 14 is_stmt 1 view .LVU157
+  61:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else fill_dsc.mask_buf = blend_dsc->mask_buf;
+ 423              		.loc 1 61 26 is_stmt 0 view .LVU158
+ 424 0148 207F     		ldrb	r0, [r4, #28]	@ zero_extendqisi2
+  61:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else fill_dsc.mask_buf = blend_dsc->mask_buf;
+ 425              		.loc 1 61 16 view .LVU159
+ 426 014a 0128     		cmp	r0, #1
+ 427 014c 28D0     		beq	.L41
+  62:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 428              		.loc 1 62 14 is_stmt 1 view .LVU160
+  62:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 429              		.loc 1 62 32 is_stmt 0 view .LVU161
+ 430 014e 0593     		str	r3, [sp, #20]
+ 431              	.L6:
+  64:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                    blend_area.y1 - layer->buf_area.y1);
+ 432              		.loc 1 64 9 is_stmt 1 view .LVU162
+  64:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                    blend_area.y1 - layer->buf_area.y1);
+ 433              		.loc 1 64 90 is_stmt 0 view .LVU163
+ 434 0150 6B68     		ldr	r3, [r5, #4]
+  65:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** 
+ 435              		.loc 1 65 83 view .LVU164
+ 436 0152 A868     		ldr	r0, [r5, #8]
+  64:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                    blend_area.y1 - layer->buf_area.y1);
+ 437              		.loc 1 64 29 view .LVU165
+ 438 0154 121A     		subs	r2, r2, r0
+ 439 0156 C91A     		subs	r1, r1, r3
+ 440 0158 2846     		mov	r0, r5
+ 441 015a FFF7FEFF 		bl	lv_draw_layer_go_to_xy
+ 442              	.LVL33:
+  64:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                                    blend_area.y1 - layer->buf_area.y1);
+ 443              		.loc 1 64 27 view .LVU166
+ 444 015e 0190     		str	r0, [sp, #4]
+  67:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_stride = blend_dsc->mask_stride == 0  ? lv_area_get_width(blend_dsc->mask
+ 445              		.loc 1 67 9 is_stmt 1 view .LVU167
+  67:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_stride = blend_dsc->mask_stride == 0  ? lv_area_get_width(blend_dsc->mask
+ 446              		.loc 1 67 20 is_stmt 0 view .LVU168
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 20
+
+
+ 447 0160 0599     		ldr	r1, [sp, #20]
+  67:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_stride = blend_dsc->mask_stride == 0  ? lv_area_get_width(blend_dsc->mask
+ 448              		.loc 1 67 11 view .LVU169
+ 449 0162 91B1     		cbz	r1, .L8
+  68:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_buf += fill_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1) 
+ 450              		.loc 1 68 13 is_stmt 1 view .LVU170
+  68:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_buf += fill_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1) 
+ 451              		.loc 1 68 45 is_stmt 0 view .LVU171
+ 452 0164 636A     		ldr	r3, [r4, #36]
+  68:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_buf += fill_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1) 
+ 453              		.loc 1 68 107 view .LVU172
+ 454 0166 23B9     		cbnz	r3, .L9
+  68:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_buf += fill_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1) 
+ 455              		.loc 1 68 94 discriminator 1 view .LVU173
+ 456 0168 226A     		ldr	r2, [r4, #32]
+ 457              	.LVL34:
+ 458              	.LBB36:
+ 459              	.LBI36:
+ 139:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 460              		.loc 2 139 23 is_stmt 1 discriminator 1 view .LVU174
+ 461              	.LBB37:
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 462              		.loc 2 141 5 discriminator 1 view .LVU175
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 463              		.loc 2 141 28 is_stmt 0 discriminator 1 view .LVU176
+ 464 016a 9368     		ldr	r3, [r2, #8]
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 465              		.loc 2 141 41 discriminator 1 view .LVU177
+ 466 016c 1268     		ldr	r2, [r2]
+ 467              	.LVL35:
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 468              		.loc 2 141 33 discriminator 1 view .LVU178
+ 469 016e 9B1A     		subs	r3, r3, r2
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 470              		.loc 2 141 12 discriminator 1 view .LVU179
+ 471 0170 0133     		adds	r3, r3, #1
+ 472              	.LVL36:
+ 473              	.L9:
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** }
+ 474              		.loc 2 141 12 discriminator 1 view .LVU180
+ 475              	.LBE37:
+ 476              	.LBE36:
+  68:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             fill_dsc.mask_buf += fill_dsc.mask_stride * (blend_area.y1 - blend_dsc->mask_area->y1) 
+ 477              		.loc 1 68 34 discriminator 4 view .LVU181
+ 478 0172 0693     		str	r3, [sp, #24]
+  69:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                  (blend_area.x1 - blend_dsc->mask_area->x1);
+ 479              		.loc 1 69 13 is_stmt 1 discriminator 4 view .LVU182
+  69:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                  (blend_area.x1 - blend_dsc->mask_area->x1);
+ 480              		.loc 1 69 83 is_stmt 0 discriminator 4 view .LVU183
+ 481 0174 246A     		ldr	r4, [r4, #32]
+ 482              	.LVL37:
+  69:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                  (blend_area.x1 - blend_dsc->mask_area->x1);
+ 483              		.loc 1 69 94 discriminator 4 view .LVU184
+ 484 0176 6068     		ldr	r0, [r4, #4]
+  69:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                  (blend_area.x1 - blend_dsc->mask_area->x1);
+ 485              		.loc 1 69 72 discriminator 4 view .LVU185
+ 486 0178 0B9A     		ldr	r2, [sp, #44]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 21
+
+
+ 487 017a 101A     		subs	r0, r2, r0
+  70:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+ 488              		.loc 1 70 71 discriminator 4 view .LVU186
+ 489 017c 2468     		ldr	r4, [r4]
+  70:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         }
+ 490              		.loc 1 70 49 discriminator 4 view .LVU187
+ 491 017e 0A9A     		ldr	r2, [sp, #40]
+ 492 0180 121B     		subs	r2, r2, r4
+  69:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                  (blend_area.x1 - blend_dsc->mask_area->x1);
+ 493              		.loc 1 69 100 discriminator 4 view .LVU188
+ 494 0182 03FB0022 		mla	r2, r3, r0, r2
+  69:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                                  (blend_area.x1 - blend_dsc->mask_area->x1);
+ 495              		.loc 1 69 31 discriminator 4 view .LVU189
+ 496 0186 1144     		add	r1, r1, r2
+ 497 0188 0591     		str	r1, [sp, #20]
+ 498              	.L8:
+  73:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+ 499              		.loc 1 73 9 is_stmt 1 view .LVU190
+  73:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+ 500              		.loc 1 73 21 is_stmt 0 view .LVU191
+ 501 018a 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+  73:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB565:
+ 502              		.loc 1 73 9 view .LVU192
+ 503 018c 0F3B     		subs	r3, r3, #15
+ 504 018e 032B     		cmp	r3, #3
+ 505 0190 3FF648AF 		bhi	.L1
+ 506 0194 DFE803F0 		tbb	[pc, r3]
+ 507              	.L12:
+ 508 0198 0F       		.byte	(.L15-.L12)/2
+ 509 0199 0B       		.byte	(.L14-.L12)/2
+ 510 019a 14       		.byte	(.L13-.L12)/2
+ 511 019b 07       		.byte	(.L11-.L12)/2
+ 512              	.LVL38:
+ 513              		.p2align 1
+ 514              	.L40:
+  60:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) fill_dsc.mask_buf = NULL;
+ 515              		.loc 1 60 41 is_stmt 1 discriminator 1 view .LVU193
+  60:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) fill_dsc.mask_buf = NULL;
+ 516              		.loc 1 60 59 is_stmt 0 discriminator 1 view .LVU194
+ 517 019c 0593     		str	r3, [sp, #20]
+ 518 019e D7E7     		b	.L6
+ 519              	.L41:
+  61:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else fill_dsc.mask_buf = blend_dsc->mask_buf;
+ 520              		.loc 1 61 72 is_stmt 1 discriminator 1 view .LVU195
+  61:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else fill_dsc.mask_buf = blend_dsc->mask_buf;
+ 521              		.loc 1 61 90 is_stmt 0 discriminator 1 view .LVU196
+ 522 01a0 0023     		movs	r3, #0
+ 523 01a2 0593     		str	r3, [sp, #20]
+ 524 01a4 D4E7     		b	.L6
+ 525              	.LVL39:
+ 526              	.L11:
+  75:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 527              		.loc 1 75 17 is_stmt 1 view .LVU197
+ 528 01a6 01A8     		add	r0, sp, #4
+ 529 01a8 FFF7FEFF 		bl	lv_draw_sw_blend_color_to_rgb565
+ 530              	.LVL40:
+  76:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_ARGB8888:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 22
+
+
+ 531              		.loc 1 76 17 view .LVU198
+ 532 01ac 3AE7     		b	.L1
+ 533              	.L14:
+  78:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 534              		.loc 1 78 17 view .LVU199
+ 535 01ae 01A8     		add	r0, sp, #4
+ 536 01b0 FFF7FEFF 		bl	lv_draw_sw_blend_color_to_argb8888
+ 537              	.LVL41:
+  79:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB888:
+ 538              		.loc 1 79 17 view .LVU200
+ 539 01b4 36E7     		b	.L1
+ 540              	.L15:
+  81:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 541              		.loc 1 81 17 view .LVU201
+ 542 01b6 0321     		movs	r1, #3
+ 543 01b8 01A8     		add	r0, sp, #4
+ 544 01ba FFF7FEFF 		bl	lv_draw_sw_blend_color_to_rgb888
+ 545              	.LVL42:
+  82:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_XRGB8888:
+ 546              		.loc 1 82 17 view .LVU202
+ 547 01be 31E7     		b	.L1
+ 548              	.L13:
+  84:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 549              		.loc 1 84 17 view .LVU203
+ 550 01c0 0421     		movs	r1, #4
+ 551 01c2 0DEB0100 		add	r0, sp, r1
+ 552 01c6 FFF7FEFF 		bl	lv_draw_sw_blend_color_to_rgb888
+ 553              	.LVL43:
+  85:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             default:
+ 554              		.loc 1 85 17 view .LVU204
+ 555 01ca 2BE7     		b	.L1
+ 556              	.LVL44:
+ 557              	.L38:
+  85:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             default:
+ 558              		.loc 1 85 17 is_stmt 0 view .LVU205
+ 559              	.LBE31:
+ 560              	.LBB38:
+ 112:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) image_dsc.mask_buf = NULL;
+ 561              		.loc 1 112 41 is_stmt 1 discriminator 1 view .LVU206
+ 112:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else if(blend_dsc->mask_res == LV_DRAW_SW_MASK_RES_FULL_COVER) image_dsc.mask_buf = NULL;
+ 562              		.loc 1 112 60 is_stmt 0 discriminator 1 view .LVU207
+ 563 01cc 0020     		movs	r0, #0
+ 564 01ce 0590     		str	r0, [sp, #20]
+ 565 01d0 72E7     		b	.L19
+ 566              	.L39:
+ 113:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else image_dsc.mask_buf = blend_dsc->mask_buf;
+ 567              		.loc 1 113 72 is_stmt 1 discriminator 1 view .LVU208
+ 113:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****         else image_dsc.mask_buf = blend_dsc->mask_buf;
+ 568              		.loc 1 113 91 is_stmt 0 discriminator 1 view .LVU209
+ 569 01d2 0020     		movs	r0, #0
+ 570 01d4 0590     		str	r0, [sp, #20]
+ 571 01d6 6FE7     		b	.L19
+ 572              	.LVL45:
+ 573              	.L24:
+ 129:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 574              		.loc 1 129 17 is_stmt 1 view .LVU210
+ 575 01d8 01A8     		add	r0, sp, #4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 23
+
+
+ 576 01da FFF7FEFF 		bl	lv_draw_sw_blend_image_to_rgb565
+ 577              	.LVL46:
+ 130:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_ARGB8888:
+ 578              		.loc 1 130 17 view .LVU211
+ 579 01de 21E7     		b	.L1
+ 580              	.L27:
+ 132:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 581              		.loc 1 132 17 view .LVU212
+ 582 01e0 01A8     		add	r0, sp, #4
+ 583 01e2 FFF7FEFF 		bl	lv_draw_sw_blend_image_to_argb8888
+ 584              	.LVL47:
+ 133:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_RGB888:
+ 585              		.loc 1 133 17 view .LVU213
+ 586 01e6 1DE7     		b	.L1
+ 587              	.L28:
+ 135:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 588              		.loc 1 135 17 view .LVU214
+ 589 01e8 0321     		movs	r1, #3
+ 590 01ea 01A8     		add	r0, sp, #4
+ 591 01ec FFF7FEFF 		bl	lv_draw_sw_blend_image_to_rgb888
+ 592              	.LVL48:
+ 136:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             case LV_COLOR_FORMAT_XRGB8888:
+ 593              		.loc 1 136 17 view .LVU215
+ 594 01f0 18E7     		b	.L1
+ 595              	.L26:
+ 138:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****                 break;
+ 596              		.loc 1 138 17 view .LVU216
+ 597 01f2 0421     		movs	r1, #4
+ 598 01f4 0DEB0100 		add	r0, sp, r1
+ 599 01f8 FFF7FEFF 		bl	lv_draw_sw_blend_image_to_rgb888
+ 600              	.LVL49:
+ 139:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             default:
+ 601              		.loc 1 139 17 view .LVU217
+ 602              	.LBE38:
+ 144:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c **** }
+ 603              		.loc 1 144 20 view .LVU218
+ 604              	.LBB39:
+ 139:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             default:
+ 605              		.loc 1 139 17 is_stmt 0 view .LVU219
+ 606 01fc 12E7     		b	.L1
+ 607              	.LVL50:
+ 608              	.L33:
+ 609              	.LCFI4:
+ 610              		.cfi_def_cfa_offset 0
+ 611              		.cfi_restore 4
+ 612              		.cfi_restore 5
+ 613              		.cfi_restore 6
+ 614              		.cfi_restore 7
+ 615              		.cfi_restore 14
+ 139:Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c ****             default:
+ 616              		.loc 1 139 17 view .LVU220
+ 617 01fe 7047     		bx	lr
+ 618              	.LBE39:
+ 619              		.cfi_endproc
+ 620              	.LFE95:
+ 622              		.text
+ 623              	.Letext0:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 24
+
+
+ 624              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 625              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 626              		.file 6 "Lib/lvgl/src/draw/sw/blend/../../../misc/lv_types.h"
+ 627              		.file 7 "Lib/lvgl/src/draw/sw/blend/../../lv_draw.h"
+ 628              		.file 8 "Lib/lvgl/src/draw/sw/blend/../../../misc/../font/../draw/lv_image_buf.h"
+ 629              		.file 9 "Lib/lvgl/src/draw/sw/blend/../../../misc/../font/../draw/lv_draw_buf.h"
+ 630              		.file 10 "Lib/lvgl/src/draw/sw/blend/../../../misc/lv_style.h"
+ 631              		.file 11 "Lib/lvgl/src/draw/sw/blend/../blend/../lv_draw_sw_mask.h"
+ 632              		.file 12 "Lib/lvgl/src/draw/sw/blend/../blend/lv_draw_sw_blend.h"
+ 633              		.file 13 "Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_rgb888.h"
+ 634              		.file 14 "Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_argb8888.h"
+ 635              		.file 15 "Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_rgb565.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s 			page 25
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_draw_sw_blend.c
+C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s:21     .text.lv_draw_sw_blend:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s:27     .text.lv_draw_sw_blend:00000000 lv_draw_sw_blend
+C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s:348    .text.lv_draw_sw_blend:00000100 $d
+C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s:355    .text.lv_draw_sw_blend:00000118 $t
+C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s:508    .text.lv_draw_sw_blend:00000198 $d
+C:\Users\Alex\AppData\Local\Temp\cceH0Hk9.s:513    .text.lv_draw_sw_blend:0000019c $t
+
+UNDEFINED SYMBOLS
+_lv_area_intersect
+lv_draw_buf_width_to_stride
+lv_color_format_get_bpp
+lv_draw_layer_go_to_xy
+lv_draw_sw_blend_color_to_rgb565
+lv_draw_sw_blend_color_to_argb8888
+lv_draw_sw_blend_color_to_rgb888
+lv_draw_sw_blend_image_to_rgb565
+lv_draw_sw_blend_image_to_argb8888
+lv_draw_sw_blend_image_to_rgb888

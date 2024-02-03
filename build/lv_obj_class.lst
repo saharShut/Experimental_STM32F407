@@ -1,0 +1,1094 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_obj_class.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/core/lv_obj_class.c"
+  20              		.section	.text.lv_obj_construct,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_obj_construct:
+  27              	.LVL0:
+  28              	.LFB238:
+   1:Lib/lvgl/src/core/lv_obj_class.c **** /**
+   2:Lib/lvgl/src/core/lv_obj_class.c ****  * @file lv_obj_class.c
+   3:Lib/lvgl/src/core/lv_obj_class.c ****  *
+   4:Lib/lvgl/src/core/lv_obj_class.c ****  */
+   5:Lib/lvgl/src/core/lv_obj_class.c **** 
+   6:Lib/lvgl/src/core/lv_obj_class.c **** /*********************
+   7:Lib/lvgl/src/core/lv_obj_class.c ****  *      INCLUDES
+   8:Lib/lvgl/src/core/lv_obj_class.c ****  *********************/
+   9:Lib/lvgl/src/core/lv_obj_class.c **** #include "lv_obj.h"
+  10:Lib/lvgl/src/core/lv_obj_class.c **** #include "../themes/lv_theme.h"
+  11:Lib/lvgl/src/core/lv_obj_class.c **** #include "../display/lv_display.h"
+  12:Lib/lvgl/src/core/lv_obj_class.c **** #include "../display/lv_display_private.h"
+  13:Lib/lvgl/src/core/lv_obj_class.c **** #include "../stdlib/lv_string.h"
+  14:Lib/lvgl/src/core/lv_obj_class.c **** 
+  15:Lib/lvgl/src/core/lv_obj_class.c **** /*********************
+  16:Lib/lvgl/src/core/lv_obj_class.c ****  *      DEFINES
+  17:Lib/lvgl/src/core/lv_obj_class.c ****  *********************/
+  18:Lib/lvgl/src/core/lv_obj_class.c **** #define MY_CLASS &lv_obj_class
+  19:Lib/lvgl/src/core/lv_obj_class.c **** 
+  20:Lib/lvgl/src/core/lv_obj_class.c **** /**********************
+  21:Lib/lvgl/src/core/lv_obj_class.c ****  *      TYPEDEFS
+  22:Lib/lvgl/src/core/lv_obj_class.c ****  **********************/
+  23:Lib/lvgl/src/core/lv_obj_class.c **** 
+  24:Lib/lvgl/src/core/lv_obj_class.c **** /**********************
+  25:Lib/lvgl/src/core/lv_obj_class.c ****  *  GLOBAL PROTOTYPES
+  26:Lib/lvgl/src/core/lv_obj_class.c ****  **********************/
+  27:Lib/lvgl/src/core/lv_obj_class.c **** 
+  28:Lib/lvgl/src/core/lv_obj_class.c **** /**********************
+  29:Lib/lvgl/src/core/lv_obj_class.c ****  *  STATIC PROTOTYPES
+  30:Lib/lvgl/src/core/lv_obj_class.c ****  **********************/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 2
+
+
+  31:Lib/lvgl/src/core/lv_obj_class.c **** static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj);
+  32:Lib/lvgl/src/core/lv_obj_class.c **** static uint32_t get_instance_size(const lv_obj_class_t * class_p);
+  33:Lib/lvgl/src/core/lv_obj_class.c **** 
+  34:Lib/lvgl/src/core/lv_obj_class.c **** /**********************
+  35:Lib/lvgl/src/core/lv_obj_class.c ****  *  STATIC VARIABLES
+  36:Lib/lvgl/src/core/lv_obj_class.c ****  **********************/
+  37:Lib/lvgl/src/core/lv_obj_class.c **** 
+  38:Lib/lvgl/src/core/lv_obj_class.c **** /**********************
+  39:Lib/lvgl/src/core/lv_obj_class.c ****  *      MACROS
+  40:Lib/lvgl/src/core/lv_obj_class.c ****  **********************/
+  41:Lib/lvgl/src/core/lv_obj_class.c **** 
+  42:Lib/lvgl/src/core/lv_obj_class.c **** /**********************
+  43:Lib/lvgl/src/core/lv_obj_class.c ****  *   GLOBAL FUNCTIONS
+  44:Lib/lvgl/src/core/lv_obj_class.c ****  **********************/
+  45:Lib/lvgl/src/core/lv_obj_class.c **** 
+  46:Lib/lvgl/src/core/lv_obj_class.c **** lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * parent)
+  47:Lib/lvgl/src/core/lv_obj_class.c **** {
+  48:Lib/lvgl/src/core/lv_obj_class.c ****     LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (void *)class_p, (void *)pare
+  49:Lib/lvgl/src/core/lv_obj_class.c ****     uint32_t s = get_instance_size(class_p);
+  50:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_t * obj = lv_malloc_zeroed(s);
+  51:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj == NULL) return NULL;
+  52:Lib/lvgl/src/core/lv_obj_class.c ****     obj->class_p = class_p;
+  53:Lib/lvgl/src/core/lv_obj_class.c ****     obj->parent = parent;
+  54:Lib/lvgl/src/core/lv_obj_class.c **** 
+  55:Lib/lvgl/src/core/lv_obj_class.c ****     /*Create a screen*/
+  56:Lib/lvgl/src/core/lv_obj_class.c ****     if(parent == NULL) {
+  57:Lib/lvgl/src/core/lv_obj_class.c ****         LV_TRACE_OBJ_CREATE("creating a screen");
+  58:Lib/lvgl/src/core/lv_obj_class.c ****         lv_display_t * disp = lv_display_get_default();
+  59:Lib/lvgl/src/core/lv_obj_class.c ****         if(!disp) {
+  60:Lib/lvgl/src/core/lv_obj_class.c ****             LV_LOG_WARN("No display created yet. No place to assign the new screen");
+  61:Lib/lvgl/src/core/lv_obj_class.c ****             lv_free(obj);
+  62:Lib/lvgl/src/core/lv_obj_class.c ****             return NULL;
+  63:Lib/lvgl/src/core/lv_obj_class.c ****         }
+  64:Lib/lvgl/src/core/lv_obj_class.c **** 
+  65:Lib/lvgl/src/core/lv_obj_class.c ****         if(disp->screens == NULL) {
+  66:Lib/lvgl/src/core/lv_obj_class.c ****             disp->screen_cnt = 0;
+  67:Lib/lvgl/src/core/lv_obj_class.c ****         }
+  68:Lib/lvgl/src/core/lv_obj_class.c **** 
+  69:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screen_cnt++;
+  70:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens = lv_realloc(disp->screens, sizeof(lv_obj_t *) * disp->screen_cnt);
+  71:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens[disp->screen_cnt - 1] = obj;
+  72:Lib/lvgl/src/core/lv_obj_class.c **** 
+  73:Lib/lvgl/src/core/lv_obj_class.c ****         /*Set coordinates to full screen size*/
+  74:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.x1 = 0;
+  75:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y1 = 0;
+  76:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.x2 = lv_display_get_horizontal_resolution(NULL) - 1;
+  77:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y2 = lv_display_get_vertical_resolution(NULL) - 1;
+  78:Lib/lvgl/src/core/lv_obj_class.c ****     }
+  79:Lib/lvgl/src/core/lv_obj_class.c ****     /*Create a normal object*/
+  80:Lib/lvgl/src/core/lv_obj_class.c ****     else {
+  81:Lib/lvgl/src/core/lv_obj_class.c ****         LV_TRACE_OBJ_CREATE("creating normal object");
+  82:Lib/lvgl/src/core/lv_obj_class.c ****         LV_ASSERT_OBJ(parent, MY_CLASS);
+  83:Lib/lvgl/src/core/lv_obj_class.c ****         if(parent->spec_attr == NULL) {
+  84:Lib/lvgl/src/core/lv_obj_class.c ****             lv_obj_allocate_spec_attr(parent);
+  85:Lib/lvgl/src/core/lv_obj_class.c ****         }
+  86:Lib/lvgl/src/core/lv_obj_class.c **** 
+  87:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->child_cnt++;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 3
+
+
+  88:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->children = lv_realloc(parent->spec_attr->children,
+  89:Lib/lvgl/src/core/lv_obj_class.c ****                                                  sizeof(lv_obj_t *) * parent->spec_attr->child_cnt)
+  90:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->children[parent->spec_attr->child_cnt - 1] = obj;
+  91:Lib/lvgl/src/core/lv_obj_class.c ****     }
+  92:Lib/lvgl/src/core/lv_obj_class.c **** 
+  93:Lib/lvgl/src/core/lv_obj_class.c ****     return obj;
+  94:Lib/lvgl/src/core/lv_obj_class.c **** }
+  95:Lib/lvgl/src/core/lv_obj_class.c **** 
+  96:Lib/lvgl/src/core/lv_obj_class.c **** void lv_obj_class_init_obj(lv_obj_t * obj)
+  97:Lib/lvgl/src/core/lv_obj_class.c **** {
+  98:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_mark_layout_as_dirty(obj);
+  99:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_enable_style_refresh(false);
+ 100:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 101:Lib/lvgl/src/core/lv_obj_class.c ****     lv_theme_apply(obj);
+ 102:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_construct(obj->class_p, obj);
+ 103:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 104:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_enable_style_refresh(true);
+ 105:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_refresh_style(obj, LV_PART_ANY, LV_STYLE_PROP_ANY);
+ 106:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 107:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_refresh_self_size(obj);
+ 108:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 109:Lib/lvgl/src/core/lv_obj_class.c ****     lv_group_t * def_group = lv_group_get_default();
+ 110:Lib/lvgl/src/core/lv_obj_class.c ****     if(def_group && lv_obj_is_group_def(obj)) {
+ 111:Lib/lvgl/src/core/lv_obj_class.c ****         lv_group_add_obj(def_group, obj);
+ 112:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 113:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 114:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_t * parent = lv_obj_get_parent(obj);
+ 115:Lib/lvgl/src/core/lv_obj_class.c ****     if(parent) {
+ 116:Lib/lvgl/src/core/lv_obj_class.c ****         /*Call the ancestor's event handler to the parent to notify it about the new child.
+ 117:Lib/lvgl/src/core/lv_obj_class.c ****          *Also triggers layout update*/
+ 118:Lib/lvgl/src/core/lv_obj_class.c ****         lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
+ 119:Lib/lvgl/src/core/lv_obj_class.c ****         lv_obj_send_event(parent, LV_EVENT_CHILD_CREATED, obj);
+ 120:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 121:Lib/lvgl/src/core/lv_obj_class.c ****         /*Invalidate the area if not screen created*/
+ 122:Lib/lvgl/src/core/lv_obj_class.c ****         lv_obj_invalidate(obj);
+ 123:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 124:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 125:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 126:Lib/lvgl/src/core/lv_obj_class.c **** void _lv_obj_destruct(lv_obj_t * obj)
+ 127:Lib/lvgl/src/core/lv_obj_class.c **** {
+ 128:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
+ 129:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 130:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj->class_p->base_class) {
+ 131:Lib/lvgl/src/core/lv_obj_class.c ****         /*Don't let the descendant methods run during destructing the ancestor type*/
+ 132:Lib/lvgl/src/core/lv_obj_class.c ****         obj->class_p = obj->class_p->base_class;
+ 133:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 134:Lib/lvgl/src/core/lv_obj_class.c ****         /*Call the base class's destructor too*/
+ 135:Lib/lvgl/src/core/lv_obj_class.c ****         _lv_obj_destruct(obj);
+ 136:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 137:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 138:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 139:Lib/lvgl/src/core/lv_obj_class.c **** bool lv_obj_is_editable(lv_obj_t * obj)
+ 140:Lib/lvgl/src/core/lv_obj_class.c **** {
+ 141:Lib/lvgl/src/core/lv_obj_class.c ****     const lv_obj_class_t * class_p = obj->class_p;
+ 142:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 143:Lib/lvgl/src/core/lv_obj_class.c ****     /*Find a base in which editable is set*/
+ 144:Lib/lvgl/src/core/lv_obj_class.c ****     while(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->base_cl
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 4
+
+
+ 145:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 146:Lib/lvgl/src/core/lv_obj_class.c ****     if(class_p == NULL) return false;
+ 147:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 148:Lib/lvgl/src/core/lv_obj_class.c ****     return class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
+ 149:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 150:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 151:Lib/lvgl/src/core/lv_obj_class.c **** bool lv_obj_is_group_def(lv_obj_t * obj)
+ 152:Lib/lvgl/src/core/lv_obj_class.c **** {
+ 153:Lib/lvgl/src/core/lv_obj_class.c ****     const lv_obj_class_t * class_p = obj->class_p;
+ 154:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 155:Lib/lvgl/src/core/lv_obj_class.c ****     /*Find a base in which group_def is set*/
+ 156:Lib/lvgl/src/core/lv_obj_class.c ****     while(class_p && class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_INHERIT) class_p = class_p->base_
+ 157:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 158:Lib/lvgl/src/core/lv_obj_class.c ****     if(class_p == NULL) return false;
+ 159:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 160:Lib/lvgl/src/core/lv_obj_class.c ****     return class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_TRUE;
+ 161:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 162:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 163:Lib/lvgl/src/core/lv_obj_class.c **** /**********************
+ 164:Lib/lvgl/src/core/lv_obj_class.c ****  *   STATIC FUNCTIONS
+ 165:Lib/lvgl/src/core/lv_obj_class.c ****  **********************/
+ 166:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 167:Lib/lvgl/src/core/lv_obj_class.c **** static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
+ 168:Lib/lvgl/src/core/lv_obj_class.c **** {
+  29              		.loc 1 168 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 168 1 is_stmt 0 view .LVU1
+  34 0000 70B5     		push	{r4, r5, r6, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 4, -16
+  38              		.cfi_offset 5, -12
+  39              		.cfi_offset 6, -8
+  40              		.cfi_offset 14, -4
+  41 0002 0546     		mov	r5, r0
+  42 0004 0C46     		mov	r4, r1
+ 169:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj->class_p->base_class) {
+  43              		.loc 1 169 5 is_stmt 1 view .LVU2
+  44              		.loc 1 169 11 is_stmt 0 view .LVU3
+  45 0006 0E68     		ldr	r6, [r1]
+  46              		.loc 1 169 20 view .LVU4
+  47 0008 3368     		ldr	r3, [r6]
+  48              		.loc 1 169 7 view .LVU5
+  49 000a 1BB1     		cbz	r3, .L2
+  50              	.LBB2:
+ 170:Lib/lvgl/src/core/lv_obj_class.c ****         const lv_obj_class_t * original_class_p = obj->class_p;
+  51              		.loc 1 170 9 is_stmt 1 view .LVU6
+  52              	.LVL1:
+ 171:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 172:Lib/lvgl/src/core/lv_obj_class.c ****         /*Don't let the descendant methods run during constructing the ancestor type*/
+ 173:Lib/lvgl/src/core/lv_obj_class.c ****         obj->class_p = obj->class_p->base_class;
+  53              		.loc 1 173 9 view .LVU7
+  54              		.loc 1 173 22 is_stmt 0 view .LVU8
+  55 000c 0B60     		str	r3, [r1]
+ 174:Lib/lvgl/src/core/lv_obj_class.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 5
+
+
+ 175:Lib/lvgl/src/core/lv_obj_class.c ****         /*Construct the base first*/
+ 176:Lib/lvgl/src/core/lv_obj_class.c ****         lv_obj_construct(class_p, obj);
+  56              		.loc 1 176 9 is_stmt 1 view .LVU9
+  57 000e FFF7F7FF 		bl	lv_obj_construct
+  58              	.LVL2:
+ 177:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 178:Lib/lvgl/src/core/lv_obj_class.c ****         /*Restore the original class*/
+ 179:Lib/lvgl/src/core/lv_obj_class.c ****         obj->class_p = original_class_p;
+  59              		.loc 1 179 9 view .LVU10
+  60              		.loc 1 179 22 is_stmt 0 view .LVU11
+  61 0012 2660     		str	r6, [r4]
+  62              	.LVL3:
+  63              	.L2:
+  64              		.loc 1 179 22 view .LVU12
+  65              	.LBE2:
+ 180:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 181:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 182:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
+  66              		.loc 1 182 5 is_stmt 1 view .LVU13
+  67              		.loc 1 182 11 is_stmt 0 view .LVU14
+  68 0014 2368     		ldr	r3, [r4]
+  69              		.loc 1 182 20 view .LVU15
+  70 0016 5B68     		ldr	r3, [r3, #4]
+  71              		.loc 1 182 7 view .LVU16
+  72 0018 13B1     		cbz	r3, .L1
+  73              		.loc 1 182 38 is_stmt 1 discriminator 1 view .LVU17
+  74 001a 2146     		mov	r1, r4
+  75 001c 2846     		mov	r0, r5
+  76 001e 9847     		blx	r3
+  77              	.LVL4:
+  78              	.L1:
+ 183:Lib/lvgl/src/core/lv_obj_class.c **** }
+  79              		.loc 1 183 1 is_stmt 0 view .LVU18
+  80 0020 70BD     		pop	{r4, r5, r6, pc}
+  81              		.loc 1 183 1 view .LVU19
+  82              		.cfi_endproc
+  83              	.LFE238:
+  85              		.section	.text.get_instance_size,"ax",%progbits
+  86              		.align	1
+  87              		.syntax unified
+  88              		.thumb
+  89              		.thumb_func
+  91              	get_instance_size:
+  92              	.LVL5:
+  93              	.LFB239:
+ 184:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 185:Lib/lvgl/src/core/lv_obj_class.c **** static uint32_t get_instance_size(const lv_obj_class_t * class_p)
+ 186:Lib/lvgl/src/core/lv_obj_class.c **** {
+  94              		.loc 1 186 1 is_stmt 1 view -0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		@ link register save eliminated.
+ 187:Lib/lvgl/src/core/lv_obj_class.c ****     /*Find a base in which instance size is set*/
+ 188:Lib/lvgl/src/core/lv_obj_class.c ****     const lv_obj_class_t * base = class_p;
+  99              		.loc 1 188 5 view .LVU21
+ 189:Lib/lvgl/src/core/lv_obj_class.c ****     while(base && base->instance_size == 0) base = base->base_class;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 6
+
+
+ 100              		.loc 1 189 5 view .LVU22
+ 101              		.loc 1 189 10 is_stmt 0 view .LVU23
+ 102 0000 00E0     		b	.L6
+ 103              	.LVL6:
+ 104              	.L8:
+ 105              		.loc 1 189 45 is_stmt 1 discriminator 3 view .LVU24
+ 106              		.loc 1 189 50 is_stmt 0 discriminator 3 view .LVU25
+ 107 0002 0068     		ldr	r0, [r0]
+ 108              	.LVL7:
+ 109              	.L6:
+ 110              		.loc 1 189 16 is_stmt 1 discriminator 1 view .LVU26
+ 111 0004 20B1     		cbz	r0, .L7
+ 112              		.loc 1 189 39 is_stmt 0 discriminator 2 view .LVU27
+ 113 0006 026A     		ldr	r2, [r0, #32]
+ 114 0008 054B     		ldr	r3, .L11
+ 115 000a 1340     		ands	r3, r3, r2
+ 116              		.loc 1 189 16 discriminator 2 view .LVU28
+ 117 000c 002B     		cmp	r3, #0
+ 118 000e F8D0     		beq	.L8
+ 119              	.L7:
+ 190:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 191:Lib/lvgl/src/core/lv_obj_class.c ****     if(base == NULL) return 0;  /*Never happens: set at least in `lv_obj` class*/
+ 120              		.loc 1 191 5 is_stmt 1 view .LVU29
+ 121              		.loc 1 191 7 is_stmt 0 view .LVU30
+ 122 0010 18B1     		cbz	r0, .L10
+ 192:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 193:Lib/lvgl/src/core/lv_obj_class.c ****     return base->instance_size;
+ 123              		.loc 1 193 5 is_stmt 1 view .LVU31
+ 124              		.loc 1 193 16 is_stmt 0 view .LVU32
+ 125 0012 006A     		ldr	r0, [r0, #32]
+ 126              	.LVL8:
+ 127              		.loc 1 193 16 view .LVU33
+ 128 0014 C0F30F10 		ubfx	r0, r0, #4, #16
+ 129 0018 7047     		bx	lr
+ 130              	.LVL9:
+ 131              	.L10:
+ 191:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 132              		.loc 1 191 29 view .LVU34
+ 133 001a 0020     		movs	r0, #0
+ 134              	.LVL10:
+ 194:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 135              		.loc 1 194 1 view .LVU35
+ 136 001c 7047     		bx	lr
+ 137              	.L12:
+ 138 001e 00BF     		.align	2
+ 139              	.L11:
+ 140 0020 F0FF0F00 		.word	1048560
+ 141              		.cfi_endproc
+ 142              	.LFE239:
+ 144              		.section	.text.lv_obj_class_create_obj,"ax",%progbits
+ 145              		.align	1
+ 146              		.global	lv_obj_class_create_obj
+ 147              		.syntax unified
+ 148              		.thumb
+ 149              		.thumb_func
+ 151              	lv_obj_class_create_obj:
+ 152              	.LVL11:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 7
+
+
+ 153              	.LFB233:
+  47:Lib/lvgl/src/core/lv_obj_class.c ****     LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (void *)class_p, (void *)pare
+ 154              		.loc 1 47 1 is_stmt 1 view -0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 0
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+  47:Lib/lvgl/src/core/lv_obj_class.c ****     LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (void *)class_p, (void *)pare
+ 158              		.loc 1 47 1 is_stmt 0 view .LVU37
+ 159 0000 70B5     		push	{r4, r5, r6, lr}
+ 160              	.LCFI1:
+ 161              		.cfi_def_cfa_offset 16
+ 162              		.cfi_offset 4, -16
+ 163              		.cfi_offset 5, -12
+ 164              		.cfi_offset 6, -8
+ 165              		.cfi_offset 14, -4
+ 166 0002 0646     		mov	r6, r0
+ 167 0004 0C46     		mov	r4, r1
+  48:Lib/lvgl/src/core/lv_obj_class.c ****     uint32_t s = get_instance_size(class_p);
+ 168              		.loc 1 48 103 is_stmt 1 view .LVU38
+  49:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_t * obj = lv_malloc_zeroed(s);
+ 169              		.loc 1 49 5 view .LVU39
+  49:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_t * obj = lv_malloc_zeroed(s);
+ 170              		.loc 1 49 18 is_stmt 0 view .LVU40
+ 171 0006 FFF7FEFF 		bl	get_instance_size
+ 172              	.LVL12:
+  50:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj == NULL) return NULL;
+ 173              		.loc 1 50 5 is_stmt 1 view .LVU41
+  50:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj == NULL) return NULL;
+ 174              		.loc 1 50 22 is_stmt 0 view .LVU42
+ 175 000a FFF7FEFF 		bl	lv_malloc_zeroed
+ 176              	.LVL13:
+  51:Lib/lvgl/src/core/lv_obj_class.c ****     obj->class_p = class_p;
+ 177              		.loc 1 51 5 is_stmt 1 view .LVU43
+  51:Lib/lvgl/src/core/lv_obj_class.c ****     obj->class_p = class_p;
+ 178              		.loc 1 51 7 is_stmt 0 view .LVU44
+ 179 000e 0546     		mov	r5, r0
+ 180 0010 C0B1     		cbz	r0, .L13
+  52:Lib/lvgl/src/core/lv_obj_class.c ****     obj->parent = parent;
+ 181              		.loc 1 52 5 is_stmt 1 view .LVU45
+  52:Lib/lvgl/src/core/lv_obj_class.c ****     obj->parent = parent;
+ 182              		.loc 1 52 18 is_stmt 0 view .LVU46
+ 183 0012 0660     		str	r6, [r0]
+  53:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 184              		.loc 1 53 5 is_stmt 1 view .LVU47
+  53:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 185              		.loc 1 53 17 is_stmt 0 view .LVU48
+ 186 0014 4460     		str	r4, [r0, #4]
+  56:Lib/lvgl/src/core/lv_obj_class.c ****         LV_TRACE_OBJ_CREATE("creating a screen");
+ 187              		.loc 1 56 5 is_stmt 1 view .LVU49
+  56:Lib/lvgl/src/core/lv_obj_class.c ****         LV_TRACE_OBJ_CREATE("creating a screen");
+ 188              		.loc 1 56 7 is_stmt 0 view .LVU50
+ 189 0016 BCB1     		cbz	r4, .L20
+  81:Lib/lvgl/src/core/lv_obj_class.c ****         LV_ASSERT_OBJ(parent, MY_CLASS);
+ 190              		.loc 1 81 54 is_stmt 1 view .LVU51
+  82:Lib/lvgl/src/core/lv_obj_class.c ****         if(parent->spec_attr == NULL) {
+ 191              		.loc 1 82 9 view .LVU52
+  82:Lib/lvgl/src/core/lv_obj_class.c ****         if(parent->spec_attr == NULL) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 8
+
+
+ 192              		.loc 1 82 9 view .LVU53
+  82:Lib/lvgl/src/core/lv_obj_class.c ****         if(parent->spec_attr == NULL) {
+ 193              		.loc 1 82 9 view .LVU54
+  83:Lib/lvgl/src/core/lv_obj_class.c ****             lv_obj_allocate_spec_attr(parent);
+ 194              		.loc 1 83 9 view .LVU55
+  83:Lib/lvgl/src/core/lv_obj_class.c ****             lv_obj_allocate_spec_attr(parent);
+ 195              		.loc 1 83 18 is_stmt 0 view .LVU56
+ 196 0018 A368     		ldr	r3, [r4, #8]
+  83:Lib/lvgl/src/core/lv_obj_class.c ****             lv_obj_allocate_spec_attr(parent);
+ 197              		.loc 1 83 11 view .LVU57
+ 198 001a 002B     		cmp	r3, #0
+ 199 001c 43D0     		beq	.L21
+ 200              	.LVL14:
+ 201              	.L18:
+  87:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->children = lv_realloc(parent->spec_attr->children,
+ 202              		.loc 1 87 9 is_stmt 1 view .LVU58
+  87:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->children = lv_realloc(parent->spec_attr->children,
+ 203              		.loc 1 87 15 is_stmt 0 view .LVU59
+ 204 001e A268     		ldr	r2, [r4, #8]
+  87:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->children = lv_realloc(parent->spec_attr->children,
+ 205              		.loc 1 87 26 view .LVU60
+ 206 0020 138D     		ldrh	r3, [r2, #40]
+  87:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->children = lv_realloc(parent->spec_attr->children,
+ 207              		.loc 1 87 37 view .LVU61
+ 208 0022 0133     		adds	r3, r3, #1
+ 209 0024 1385     		strh	r3, [r2, #40]	@ movhi
+  88:Lib/lvgl/src/core/lv_obj_class.c ****                                                  sizeof(lv_obj_t *) * parent->spec_attr->child_cnt)
+ 210              		.loc 1 88 9 is_stmt 1 view .LVU62
+  88:Lib/lvgl/src/core/lv_obj_class.c ****                                                  sizeof(lv_obj_t *) * parent->spec_attr->child_cnt)
+ 211              		.loc 1 88 56 is_stmt 0 view .LVU63
+ 212 0026 A668     		ldr	r6, [r4, #8]
+ 213              	.LVL15:
+  89:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->children[parent->spec_attr->child_cnt - 1] = obj;
+ 214              		.loc 1 89 88 view .LVU64
+ 215 0028 318D     		ldrh	r1, [r6, #40]
+  88:Lib/lvgl/src/core/lv_obj_class.c ****                                                  sizeof(lv_obj_t *) * parent->spec_attr->child_cnt)
+ 216              		.loc 1 88 39 view .LVU65
+ 217 002a 8900     		lsls	r1, r1, #2
+ 218 002c 3068     		ldr	r0, [r6]
+ 219 002e FFF7FEFF 		bl	lv_realloc
+ 220              	.LVL16:
+  88:Lib/lvgl/src/core/lv_obj_class.c ****                                                  sizeof(lv_obj_t *) * parent->spec_attr->child_cnt)
+ 221              		.loc 1 88 37 view .LVU66
+ 222 0032 3060     		str	r0, [r6]
+  90:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 223              		.loc 1 90 9 is_stmt 1 view .LVU67
+  90:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 224              		.loc 1 90 15 is_stmt 0 view .LVU68
+ 225 0034 A368     		ldr	r3, [r4, #8]
+  90:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 226              		.loc 1 90 26 view .LVU69
+ 227 0036 1A68     		ldr	r2, [r3]
+  90:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 228              		.loc 1 90 54 view .LVU70
+ 229 0038 1B8D     		ldrh	r3, [r3, #40]
+  90:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 230              		.loc 1 90 36 view .LVU71
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 9
+
+
+ 231 003a 03F18043 		add	r3, r3, #1073741824
+ 232 003e 013B     		subs	r3, r3, #1
+  90:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 233              		.loc 1 90 71 view .LVU72
+ 234 0040 42F82350 		str	r5, [r2, r3, lsl #2]
+ 235              	.LVL17:
+ 236              	.L13:
+  94:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 237              		.loc 1 94 1 view .LVU73
+ 238 0044 2846     		mov	r0, r5
+ 239 0046 70BD     		pop	{r4, r5, r6, pc}
+ 240              	.LVL18:
+ 241              	.L20:
+ 242              	.LBB3:
+  57:Lib/lvgl/src/core/lv_obj_class.c ****         lv_display_t * disp = lv_display_get_default();
+ 243              		.loc 1 57 49 is_stmt 1 view .LVU74
+  58:Lib/lvgl/src/core/lv_obj_class.c ****         if(!disp) {
+ 244              		.loc 1 58 9 view .LVU75
+  58:Lib/lvgl/src/core/lv_obj_class.c ****         if(!disp) {
+ 245              		.loc 1 58 31 is_stmt 0 view .LVU76
+ 246 0048 FFF7FEFF 		bl	lv_display_get_default
+ 247              	.LVL19:
+  59:Lib/lvgl/src/core/lv_obj_class.c ****             LV_LOG_WARN("No display created yet. No place to assign the new screen");
+ 248              		.loc 1 59 9 is_stmt 1 view .LVU77
+  59:Lib/lvgl/src/core/lv_obj_class.c ****             LV_LOG_WARN("No display created yet. No place to assign the new screen");
+ 249              		.loc 1 59 11 is_stmt 0 view .LVU78
+ 250 004c 0446     		mov	r4, r0
+ 251              	.LVL20:
+  59:Lib/lvgl/src/core/lv_obj_class.c ****             LV_LOG_WARN("No display created yet. No place to assign the new screen");
+ 252              		.loc 1 59 11 view .LVU79
+ 253 004e 08B3     		cbz	r0, .L22
+  65:Lib/lvgl/src/core/lv_obj_class.c ****             disp->screen_cnt = 0;
+ 254              		.loc 1 65 9 is_stmt 1 view .LVU80
+  65:Lib/lvgl/src/core/lv_obj_class.c ****             disp->screen_cnt = 0;
+ 255              		.loc 1 65 16 is_stmt 0 view .LVU81
+ 256 0050 D0F8AC02 		ldr	r0, [r0, #684]
+ 257              	.LVL21:
+  65:Lib/lvgl/src/core/lv_obj_class.c ****             disp->screen_cnt = 0;
+ 258              		.loc 1 65 11 view .LVU82
+ 259 0054 18B3     		cbz	r0, .L23
+ 260              	.L17:
+  69:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens = lv_realloc(disp->screens, sizeof(lv_obj_t *) * disp->screen_cnt);
+ 261              		.loc 1 69 9 is_stmt 1 view .LVU83
+  69:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens = lv_realloc(disp->screens, sizeof(lv_obj_t *) * disp->screen_cnt);
+ 262              		.loc 1 69 13 is_stmt 0 view .LVU84
+ 263 0056 D4F8C812 		ldr	r1, [r4, #712]
+  69:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens = lv_realloc(disp->screens, sizeof(lv_obj_t *) * disp->screen_cnt);
+ 264              		.loc 1 69 25 view .LVU85
+ 265 005a 0131     		adds	r1, r1, #1
+ 266 005c C4F8C812 		str	r1, [r4, #712]
+  70:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens[disp->screen_cnt - 1] = obj;
+ 267              		.loc 1 70 9 is_stmt 1 view .LVU86
+  70:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens[disp->screen_cnt - 1] = obj;
+ 268              		.loc 1 70 25 is_stmt 0 view .LVU87
+ 269 0060 8900     		lsls	r1, r1, #2
+ 270 0062 FFF7FEFF 		bl	lv_realloc
+ 271              	.LVL22:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 10
+
+
+  70:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens[disp->screen_cnt - 1] = obj;
+ 272              		.loc 1 70 23 view .LVU88
+ 273 0066 C4F8AC02 		str	r0, [r4, #684]
+  71:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 274              		.loc 1 71 9 is_stmt 1 view .LVU89
+  71:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 275              		.loc 1 71 27 is_stmt 0 view .LVU90
+ 276 006a D4F8C832 		ldr	r3, [r4, #712]
+  71:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 277              		.loc 1 71 22 view .LVU91
+ 278 006e 03F18043 		add	r3, r3, #1073741824
+ 279 0072 013B     		subs	r3, r3, #1
+  71:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 280              		.loc 1 71 45 view .LVU92
+ 281 0074 40F82350 		str	r5, [r0, r3, lsl #2]
+  74:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y1 = 0;
+ 282              		.loc 1 74 9 is_stmt 1 view .LVU93
+  74:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y1 = 0;
+ 283              		.loc 1 74 24 is_stmt 0 view .LVU94
+ 284 0078 0024     		movs	r4, #0
+ 285              	.LVL23:
+  74:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y1 = 0;
+ 286              		.loc 1 74 24 view .LVU95
+ 287 007a 6C61     		str	r4, [r5, #20]
+  75:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.x2 = lv_display_get_horizontal_resolution(NULL) - 1;
+ 288              		.loc 1 75 9 is_stmt 1 view .LVU96
+  75:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.x2 = lv_display_get_horizontal_resolution(NULL) - 1;
+ 289              		.loc 1 75 24 is_stmt 0 view .LVU97
+ 290 007c AC61     		str	r4, [r5, #24]
+  76:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y2 = lv_display_get_vertical_resolution(NULL) - 1;
+ 291              		.loc 1 76 9 is_stmt 1 view .LVU98
+  76:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y2 = lv_display_get_vertical_resolution(NULL) - 1;
+ 292              		.loc 1 76 26 is_stmt 0 view .LVU99
+ 293 007e 2046     		mov	r0, r4
+ 294 0080 FFF7FEFF 		bl	lv_display_get_horizontal_resolution
+ 295              	.LVL24:
+  76:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y2 = lv_display_get_vertical_resolution(NULL) - 1;
+ 296              		.loc 1 76 69 view .LVU100
+ 297 0084 0138     		subs	r0, r0, #1
+  76:Lib/lvgl/src/core/lv_obj_class.c ****         obj->coords.y2 = lv_display_get_vertical_resolution(NULL) - 1;
+ 298              		.loc 1 76 24 view .LVU101
+ 299 0086 E861     		str	r0, [r5, #28]
+  77:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 300              		.loc 1 77 9 is_stmt 1 view .LVU102
+  77:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 301              		.loc 1 77 26 is_stmt 0 view .LVU103
+ 302 0088 2046     		mov	r0, r4
+ 303 008a FFF7FEFF 		bl	lv_display_get_vertical_resolution
+ 304              	.LVL25:
+  77:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 305              		.loc 1 77 67 view .LVU104
+ 306 008e 0138     		subs	r0, r0, #1
+  77:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 307              		.loc 1 77 24 view .LVU105
+ 308 0090 2862     		str	r0, [r5, #32]
+ 309              	.LBE3:
+ 310 0092 D7E7     		b	.L13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 11
+
+
+ 311              	.LVL26:
+ 312              	.L22:
+ 313              	.LBB4:
+  60:Lib/lvgl/src/core/lv_obj_class.c ****             lv_free(obj);
+ 314              		.loc 1 60 13 is_stmt 1 view .LVU106
+  60:Lib/lvgl/src/core/lv_obj_class.c ****             lv_free(obj);
+ 315              		.loc 1 60 13 view .LVU107
+  60:Lib/lvgl/src/core/lv_obj_class.c ****             lv_free(obj);
+ 316              		.loc 1 60 13 view .LVU108
+  61:Lib/lvgl/src/core/lv_obj_class.c ****             return NULL;
+ 317              		.loc 1 61 13 view .LVU109
+ 318 0094 2846     		mov	r0, r5
+ 319              	.LVL27:
+  61:Lib/lvgl/src/core/lv_obj_class.c ****             return NULL;
+ 320              		.loc 1 61 13 is_stmt 0 view .LVU110
+ 321 0096 FFF7FEFF 		bl	lv_free
+ 322              	.LVL28:
+  62:Lib/lvgl/src/core/lv_obj_class.c ****         }
+ 323              		.loc 1 62 13 is_stmt 1 view .LVU111
+  62:Lib/lvgl/src/core/lv_obj_class.c ****         }
+ 324              		.loc 1 62 20 is_stmt 0 view .LVU112
+ 325 009a 2546     		mov	r5, r4
+ 326              	.LVL29:
+  62:Lib/lvgl/src/core/lv_obj_class.c ****         }
+ 327              		.loc 1 62 20 view .LVU113
+ 328 009c D2E7     		b	.L13
+ 329              	.LVL30:
+ 330              	.L23:
+  66:Lib/lvgl/src/core/lv_obj_class.c ****         }
+ 331              		.loc 1 66 13 is_stmt 1 view .LVU114
+  66:Lib/lvgl/src/core/lv_obj_class.c ****         }
+ 332              		.loc 1 66 30 is_stmt 0 view .LVU115
+ 333 009e 0023     		movs	r3, #0
+ 334 00a0 C4F8C832 		str	r3, [r4, #712]
+ 335 00a4 D7E7     		b	.L17
+ 336              	.LVL31:
+ 337              	.L21:
+  66:Lib/lvgl/src/core/lv_obj_class.c ****         }
+ 338              		.loc 1 66 30 view .LVU116
+ 339              	.LBE4:
+  84:Lib/lvgl/src/core/lv_obj_class.c ****         }
+ 340              		.loc 1 84 13 is_stmt 1 view .LVU117
+ 341 00a6 2046     		mov	r0, r4
+ 342              	.LVL32:
+  84:Lib/lvgl/src/core/lv_obj_class.c ****         }
+ 343              		.loc 1 84 13 is_stmt 0 view .LVU118
+ 344 00a8 FFF7FEFF 		bl	lv_obj_allocate_spec_attr
+ 345              	.LVL33:
+ 346 00ac B7E7     		b	.L18
+ 347              		.cfi_endproc
+ 348              	.LFE233:
+ 350              		.section	.text._lv_obj_destruct,"ax",%progbits
+ 351              		.align	1
+ 352              		.global	_lv_obj_destruct
+ 353              		.syntax unified
+ 354              		.thumb
+ 355              		.thumb_func
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 12
+
+
+ 357              	_lv_obj_destruct:
+ 358              	.LVL34:
+ 359              	.LFB235:
+ 127:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
+ 360              		.loc 1 127 1 is_stmt 1 view -0
+ 361              		.cfi_startproc
+ 362              		@ args = 0, pretend = 0, frame = 0
+ 363              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127:Lib/lvgl/src/core/lv_obj_class.c ****     if(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
+ 364              		.loc 1 127 1 is_stmt 0 view .LVU120
+ 365 0000 10B5     		push	{r4, lr}
+ 366              	.LCFI2:
+ 367              		.cfi_def_cfa_offset 8
+ 368              		.cfi_offset 4, -8
+ 369              		.cfi_offset 14, -4
+ 370 0002 0446     		mov	r4, r0
+ 128:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 371              		.loc 1 128 5 is_stmt 1 view .LVU121
+ 128:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 372              		.loc 1 128 11 is_stmt 0 view .LVU122
+ 373 0004 0068     		ldr	r0, [r0]
+ 374              	.LVL35:
+ 128:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 375              		.loc 1 128 20 view .LVU123
+ 376 0006 8368     		ldr	r3, [r0, #8]
+ 128:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 377              		.loc 1 128 7 view .LVU124
+ 378 0008 0BB1     		cbz	r3, .L25
+ 128:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 379              		.loc 1 128 37 is_stmt 1 discriminator 1 view .LVU125
+ 380 000a 2146     		mov	r1, r4
+ 381 000c 9847     		blx	r3
+ 382              	.LVL36:
+ 383              	.L25:
+ 130:Lib/lvgl/src/core/lv_obj_class.c ****         /*Don't let the descendant methods run during destructing the ancestor type*/
+ 384              		.loc 1 130 5 view .LVU126
+ 130:Lib/lvgl/src/core/lv_obj_class.c ****         /*Don't let the descendant methods run during destructing the ancestor type*/
+ 385              		.loc 1 130 11 is_stmt 0 view .LVU127
+ 386 000e 2368     		ldr	r3, [r4]
+ 130:Lib/lvgl/src/core/lv_obj_class.c ****         /*Don't let the descendant methods run during destructing the ancestor type*/
+ 387              		.loc 1 130 20 view .LVU128
+ 388 0010 1B68     		ldr	r3, [r3]
+ 130:Lib/lvgl/src/core/lv_obj_class.c ****         /*Don't let the descendant methods run during destructing the ancestor type*/
+ 389              		.loc 1 130 7 view .LVU129
+ 390 0012 1BB1     		cbz	r3, .L24
+ 132:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 391              		.loc 1 132 9 is_stmt 1 view .LVU130
+ 132:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 392              		.loc 1 132 22 is_stmt 0 view .LVU131
+ 393 0014 2360     		str	r3, [r4]
+ 135:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 394              		.loc 1 135 9 is_stmt 1 view .LVU132
+ 395 0016 2046     		mov	r0, r4
+ 396 0018 FFF7FEFF 		bl	_lv_obj_destruct
+ 397              	.LVL37:
+ 398              	.L24:
+ 137:Lib/lvgl/src/core/lv_obj_class.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 13
+
+
+ 399              		.loc 1 137 1 is_stmt 0 view .LVU133
+ 400 001c 10BD     		pop	{r4, pc}
+ 137:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 401              		.loc 1 137 1 view .LVU134
+ 402              		.cfi_endproc
+ 403              	.LFE235:
+ 405              		.section	.text.lv_obj_is_editable,"ax",%progbits
+ 406              		.align	1
+ 407              		.global	lv_obj_is_editable
+ 408              		.syntax unified
+ 409              		.thumb
+ 410              		.thumb_func
+ 412              	lv_obj_is_editable:
+ 413              	.LVL38:
+ 414              	.LFB236:
+ 140:Lib/lvgl/src/core/lv_obj_class.c ****     const lv_obj_class_t * class_p = obj->class_p;
+ 415              		.loc 1 140 1 is_stmt 1 view -0
+ 416              		.cfi_startproc
+ 417              		@ args = 0, pretend = 0, frame = 0
+ 418              		@ frame_needed = 0, uses_anonymous_args = 0
+ 419              		@ link register save eliminated.
+ 141:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 420              		.loc 1 141 5 view .LVU136
+ 141:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 421              		.loc 1 141 28 is_stmt 0 view .LVU137
+ 422 0000 0368     		ldr	r3, [r0]
+ 423              	.LVL39:
+ 144:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 424              		.loc 1 144 5 is_stmt 1 view .LVU138
+ 144:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 425              		.loc 1 144 10 is_stmt 0 view .LVU139
+ 426 0002 00E0     		b	.L29
+ 427              	.L31:
+ 144:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 428              		.loc 1 144 74 is_stmt 1 discriminator 3 view .LVU140
+ 144:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 429              		.loc 1 144 82 is_stmt 0 discriminator 3 view .LVU141
+ 430 0004 1B68     		ldr	r3, [r3]
+ 431              	.LVL40:
+ 432              	.L29:
+ 144:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 433              		.loc 1 144 19 is_stmt 1 discriminator 1 view .LVU142
+ 434 0006 23B1     		cbz	r3, .L30
+ 144:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 435              		.loc 1 144 40 is_stmt 0 discriminator 2 view .LVU143
+ 436 0008 93F82020 		ldrb	r2, [r3, #32]	@ zero_extendqisi2
+ 144:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 437              		.loc 1 144 19 discriminator 2 view .LVU144
+ 438 000c 12F0030F 		tst	r2, #3
+ 439 0010 F8D0     		beq	.L31
+ 440              	.L30:
+ 146:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 441              		.loc 1 146 5 is_stmt 1 view .LVU145
+ 146:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 442              		.loc 1 146 7 is_stmt 0 view .LVU146
+ 443 0012 43B1     		cbz	r3, .L33
+ 148:Lib/lvgl/src/core/lv_obj_class.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 14
+
+
+ 444              		.loc 1 148 5 is_stmt 1 view .LVU147
+ 148:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 445              		.loc 1 148 30 is_stmt 0 view .LVU148
+ 446 0014 93F82000 		ldrb	r0, [r3, #32]	@ zero_extendqisi2
+ 447              	.LVL41:
+ 148:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 448              		.loc 1 148 30 view .LVU149
+ 449 0018 00F00300 		and	r0, r0, #3
+ 450 001c 0128     		cmp	r0, #1
+ 451 001e 14BF     		ite	ne
+ 452 0020 0020     		movne	r0, #0
+ 453 0022 0120     		moveq	r0, #1
+ 454 0024 7047     		bx	lr
+ 455              	.LVL42:
+ 456              	.L33:
+ 146:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 457              		.loc 1 146 32 view .LVU150
+ 458 0026 0020     		movs	r0, #0
+ 459              	.LVL43:
+ 149:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 460              		.loc 1 149 1 view .LVU151
+ 461 0028 7047     		bx	lr
+ 462              		.cfi_endproc
+ 463              	.LFE236:
+ 465              		.section	.text.lv_obj_is_group_def,"ax",%progbits
+ 466              		.align	1
+ 467              		.global	lv_obj_is_group_def
+ 468              		.syntax unified
+ 469              		.thumb
+ 470              		.thumb_func
+ 472              	lv_obj_is_group_def:
+ 473              	.LVL44:
+ 474              	.LFB237:
+ 152:Lib/lvgl/src/core/lv_obj_class.c ****     const lv_obj_class_t * class_p = obj->class_p;
+ 475              		.loc 1 152 1 is_stmt 1 view -0
+ 476              		.cfi_startproc
+ 477              		@ args = 0, pretend = 0, frame = 0
+ 478              		@ frame_needed = 0, uses_anonymous_args = 0
+ 479              		@ link register save eliminated.
+ 153:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 480              		.loc 1 153 5 view .LVU153
+ 153:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 481              		.loc 1 153 28 is_stmt 0 view .LVU154
+ 482 0000 0368     		ldr	r3, [r0]
+ 483              	.LVL45:
+ 156:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 484              		.loc 1 156 5 is_stmt 1 view .LVU155
+ 156:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 485              		.loc 1 156 10 is_stmt 0 view .LVU156
+ 486 0002 00E0     		b	.L35
+ 487              	.L37:
+ 156:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 488              		.loc 1 156 76 is_stmt 1 discriminator 3 view .LVU157
+ 156:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 489              		.loc 1 156 84 is_stmt 0 discriminator 3 view .LVU158
+ 490 0004 1B68     		ldr	r3, [r3]
+ 491              	.LVL46:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 15
+
+
+ 492              	.L35:
+ 156:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 493              		.loc 1 156 19 is_stmt 1 discriminator 1 view .LVU159
+ 494 0006 23B1     		cbz	r3, .L36
+ 156:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 495              		.loc 1 156 41 is_stmt 0 discriminator 2 view .LVU160
+ 496 0008 93F82020 		ldrb	r2, [r3, #32]	@ zero_extendqisi2
+ 156:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 497              		.loc 1 156 19 discriminator 2 view .LVU161
+ 498 000c 12F00C0F 		tst	r2, #12
+ 499 0010 F8D0     		beq	.L37
+ 500              	.L36:
+ 158:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 501              		.loc 1 158 5 is_stmt 1 view .LVU162
+ 158:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 502              		.loc 1 158 7 is_stmt 0 view .LVU163
+ 503 0012 43B1     		cbz	r3, .L39
+ 160:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 504              		.loc 1 160 5 is_stmt 1 view .LVU164
+ 160:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 505              		.loc 1 160 31 is_stmt 0 view .LVU165
+ 506 0014 93F82000 		ldrb	r0, [r3, #32]	@ zero_extendqisi2
+ 507              	.LVL47:
+ 160:Lib/lvgl/src/core/lv_obj_class.c **** }
+ 508              		.loc 1 160 31 view .LVU166
+ 509 0018 00F00C00 		and	r0, r0, #12
+ 510 001c 0428     		cmp	r0, #4
+ 511 001e 14BF     		ite	ne
+ 512 0020 0020     		movne	r0, #0
+ 513 0022 0120     		moveq	r0, #1
+ 514 0024 7047     		bx	lr
+ 515              	.LVL48:
+ 516              	.L39:
+ 158:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 517              		.loc 1 158 32 view .LVU167
+ 518 0026 0020     		movs	r0, #0
+ 519              	.LVL49:
+ 161:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 520              		.loc 1 161 1 view .LVU168
+ 521 0028 7047     		bx	lr
+ 522              		.cfi_endproc
+ 523              	.LFE237:
+ 525              		.section	.text.lv_obj_class_init_obj,"ax",%progbits
+ 526              		.align	1
+ 527              		.global	lv_obj_class_init_obj
+ 528              		.syntax unified
+ 529              		.thumb
+ 530              		.thumb_func
+ 532              	lv_obj_class_init_obj:
+ 533              	.LVL50:
+ 534              	.LFB234:
+  97:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_mark_layout_as_dirty(obj);
+ 535              		.loc 1 97 1 is_stmt 1 view -0
+ 536              		.cfi_startproc
+ 537              		@ args = 0, pretend = 0, frame = 0
+ 538              		@ frame_needed = 0, uses_anonymous_args = 0
+  97:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_mark_layout_as_dirty(obj);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 16
+
+
+ 539              		.loc 1 97 1 is_stmt 0 view .LVU170
+ 540 0000 38B5     		push	{r3, r4, r5, lr}
+ 541              	.LCFI3:
+ 542              		.cfi_def_cfa_offset 16
+ 543              		.cfi_offset 3, -16
+ 544              		.cfi_offset 4, -12
+ 545              		.cfi_offset 5, -8
+ 546              		.cfi_offset 14, -4
+ 547 0002 0446     		mov	r4, r0
+  98:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_enable_style_refresh(false);
+ 548              		.loc 1 98 5 is_stmt 1 view .LVU171
+ 549 0004 FFF7FEFF 		bl	lv_obj_mark_layout_as_dirty
+ 550              	.LVL51:
+  99:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 551              		.loc 1 99 5 view .LVU172
+ 552 0008 0020     		movs	r0, #0
+ 553 000a FFF7FEFF 		bl	lv_obj_enable_style_refresh
+ 554              	.LVL52:
+ 101:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_construct(obj->class_p, obj);
+ 555              		.loc 1 101 5 view .LVU173
+ 556 000e 2046     		mov	r0, r4
+ 557 0010 FFF7FEFF 		bl	lv_theme_apply
+ 558              	.LVL53:
+ 102:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 559              		.loc 1 102 5 view .LVU174
+ 560 0014 2146     		mov	r1, r4
+ 561 0016 2068     		ldr	r0, [r4]
+ 562 0018 FFF7FEFF 		bl	lv_obj_construct
+ 563              	.LVL54:
+ 104:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_refresh_style(obj, LV_PART_ANY, LV_STYLE_PROP_ANY);
+ 564              		.loc 1 104 5 view .LVU175
+ 565 001c 0120     		movs	r0, #1
+ 566 001e FFF7FEFF 		bl	lv_obj_enable_style_refresh
+ 567              	.LVL55:
+ 105:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 568              		.loc 1 105 5 view .LVU176
+ 569 0022 FF22     		movs	r2, #255
+ 570 0024 4FF47021 		mov	r1, #983040
+ 571 0028 2046     		mov	r0, r4
+ 572 002a FFF7FEFF 		bl	lv_obj_refresh_style
+ 573              	.LVL56:
+ 107:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 574              		.loc 1 107 5 view .LVU177
+ 575 002e 2046     		mov	r0, r4
+ 576 0030 FFF7FEFF 		bl	lv_obj_refresh_self_size
+ 577              	.LVL57:
+ 109:Lib/lvgl/src/core/lv_obj_class.c ****     if(def_group && lv_obj_is_group_def(obj)) {
+ 578              		.loc 1 109 5 view .LVU178
+ 109:Lib/lvgl/src/core/lv_obj_class.c ****     if(def_group && lv_obj_is_group_def(obj)) {
+ 579              		.loc 1 109 30 is_stmt 0 view .LVU179
+ 580 0034 FFF7FEFF 		bl	lv_group_get_default
+ 581              	.LVL58:
+ 110:Lib/lvgl/src/core/lv_obj_class.c ****         lv_group_add_obj(def_group, obj);
+ 582              		.loc 1 110 5 is_stmt 1 view .LVU180
+ 110:Lib/lvgl/src/core/lv_obj_class.c ****         lv_group_add_obj(def_group, obj);
+ 583              		.loc 1 110 7 is_stmt 0 view .LVU181
+ 584 0038 20B1     		cbz	r0, .L41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 17
+
+
+ 585 003a 0546     		mov	r5, r0
+ 110:Lib/lvgl/src/core/lv_obj_class.c ****         lv_group_add_obj(def_group, obj);
+ 586              		.loc 1 110 21 discriminator 1 view .LVU182
+ 587 003c 2046     		mov	r0, r4
+ 588              	.LVL59:
+ 110:Lib/lvgl/src/core/lv_obj_class.c ****         lv_group_add_obj(def_group, obj);
+ 589              		.loc 1 110 21 discriminator 1 view .LVU183
+ 590 003e FFF7FEFF 		bl	lv_obj_is_group_def
+ 591              	.LVL60:
+ 110:Lib/lvgl/src/core/lv_obj_class.c ****         lv_group_add_obj(def_group, obj);
+ 592              		.loc 1 110 18 discriminator 1 view .LVU184
+ 593 0042 88B9     		cbnz	r0, .L44
+ 594              	.LVL61:
+ 595              	.L41:
+ 114:Lib/lvgl/src/core/lv_obj_class.c ****     if(parent) {
+ 596              		.loc 1 114 5 is_stmt 1 view .LVU185
+ 114:Lib/lvgl/src/core/lv_obj_class.c ****     if(parent) {
+ 597              		.loc 1 114 25 is_stmt 0 view .LVU186
+ 598 0044 2046     		mov	r0, r4
+ 599 0046 FFF7FEFF 		bl	lv_obj_get_parent
+ 600              	.LVL62:
+ 115:Lib/lvgl/src/core/lv_obj_class.c ****         /*Call the ancestor's event handler to the parent to notify it about the new child.
+ 601              		.loc 1 115 5 is_stmt 1 view .LVU187
+ 115:Lib/lvgl/src/core/lv_obj_class.c ****         /*Call the ancestor's event handler to the parent to notify it about the new child.
+ 602              		.loc 1 115 7 is_stmt 0 view .LVU188
+ 603 004a 0546     		mov	r5, r0
+ 604 004c 58B1     		cbz	r0, .L40
+ 118:Lib/lvgl/src/core/lv_obj_class.c ****         lv_obj_send_event(parent, LV_EVENT_CHILD_CREATED, obj);
+ 605              		.loc 1 118 9 is_stmt 1 view .LVU189
+ 606 004e 2246     		mov	r2, r4
+ 607 0050 2421     		movs	r1, #36
+ 608 0052 FFF7FEFF 		bl	lv_obj_send_event
+ 609              	.LVL63:
+ 119:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 610              		.loc 1 119 9 view .LVU190
+ 611 0056 2246     		mov	r2, r4
+ 612 0058 2521     		movs	r1, #37
+ 613 005a 2846     		mov	r0, r5
+ 614 005c FFF7FEFF 		bl	lv_obj_send_event
+ 615              	.LVL64:
+ 122:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 616              		.loc 1 122 9 view .LVU191
+ 617 0060 2046     		mov	r0, r4
+ 618 0062 FFF7FEFF 		bl	lv_obj_invalidate
+ 619              	.LVL65:
+ 620              	.L40:
+ 124:Lib/lvgl/src/core/lv_obj_class.c **** 
+ 621              		.loc 1 124 1 is_stmt 0 view .LVU192
+ 622 0066 38BD     		pop	{r3, r4, r5, pc}
+ 623              	.LVL66:
+ 624              	.L44:
+ 111:Lib/lvgl/src/core/lv_obj_class.c ****     }
+ 625              		.loc 1 111 9 is_stmt 1 view .LVU193
+ 626 0068 2146     		mov	r1, r4
+ 627 006a 2846     		mov	r0, r5
+ 628 006c FFF7FEFF 		bl	lv_group_add_obj
+ 629              	.LVL67:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 18
+
+
+ 630 0070 E8E7     		b	.L41
+ 631              		.cfi_endproc
+ 632              	.LFE234:
+ 634              		.text
+ 635              	.Letext0:
+ 636              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 637              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 638              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 639              		.file 5 "Lib/lvgl/src/core/../misc/lv_types.h"
+ 640              		.file 6 "Lib/lvgl/src/core/lv_obj.h"
+ 641              		.file 7 "Lib/lvgl/src/core/lv_obj_class.h"
+ 642              		.file 8 "Lib/lvgl/src/core/../indev/../core/lv_group.h"
+ 643              		.file 9 "Lib/lvgl/src/core/../display/lv_display_private.h"
+ 644              		.file 10 "Lib/lvgl/src/core/../display/../draw/lv_draw.h"
+ 645              		.file 11 "Lib/lvgl/src/core/../display/../misc/lv_event.h"
+ 646              		.file 12 "Lib/lvgl/src/core/../misc/lv_timer.h"
+ 647              		.file 13 "Lib/lvgl/src/core/../themes/lv_theme.h"
+ 648              		.file 14 "Lib/lvgl/src/core/../misc/../font/lv_font.h"
+ 649              		.file 15 "Lib/lvgl/src/core/../misc/../font/../draw/../misc/lv_area.h"
+ 650              		.file 16 "Lib/lvgl/src/core/../misc/../font/../draw/../misc/lv_color.h"
+ 651              		.file 17 "Lib/lvgl/src/core/../misc/../font/../draw/lv_image_buf.h"
+ 652              		.file 18 "Lib/lvgl/src/core/../misc/../font/../draw/lv_draw_buf.h"
+ 653              		.file 19 "Lib/lvgl/src/core/../misc/../font/../misc/cache/lv_cache_private.h"
+ 654              		.file 20 "Lib/lvgl/src/core/../misc/lv_ll.h"
+ 655              		.file 21 "Lib/lvgl/src/core/../misc/lv_style.h"
+ 656              		.file 22 "Lib/lvgl/src/core/../display/../misc/lv_array.h"
+ 657              		.file 23 "Lib/lvgl/src/core/../display/lv_display.h"
+ 658              		.file 24 "Lib/lvgl/src/core/lv_obj_style.h"
+ 659              		.file 25 "Lib/lvgl/src/core/lv_obj_event.h"
+ 660              		.file 26 "Lib/lvgl/src/core/lv_obj_tree.h"
+ 661              		.file 27 "Lib/lvgl/src/core/lv_obj_pos.h"
+ 662              		.file 28 "Lib/lvgl/src/core/../misc/../font/../draw/../misc/../stdlib/lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_obj_class.c
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:21     .text.lv_obj_construct:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:26     .text.lv_obj_construct:00000000 lv_obj_construct
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:86     .text.get_instance_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:91     .text.get_instance_size:00000000 get_instance_size
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:140    .text.get_instance_size:00000020 $d
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:145    .text.lv_obj_class_create_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:151    .text.lv_obj_class_create_obj:00000000 lv_obj_class_create_obj
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:351    .text._lv_obj_destruct:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:357    .text._lv_obj_destruct:00000000 _lv_obj_destruct
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:406    .text.lv_obj_is_editable:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:412    .text.lv_obj_is_editable:00000000 lv_obj_is_editable
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:466    .text.lv_obj_is_group_def:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:472    .text.lv_obj_is_group_def:00000000 lv_obj_is_group_def
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:526    .text.lv_obj_class_init_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:532    .text.lv_obj_class_init_obj:00000000 lv_obj_class_init_obj
+
+UNDEFINED SYMBOLS
+lv_malloc_zeroed
+lv_realloc
+lv_display_get_default
+lv_display_get_horizontal_resolution
+lv_display_get_vertical_resolution
+lv_free
+lv_obj_allocate_spec_attr
+lv_obj_mark_layout_as_dirty
+lv_obj_enable_style_refresh
+lv_theme_apply
+lv_obj_refresh_style
+lv_obj_refresh_self_size
+lv_group_get_default
+lv_obj_get_parent
+lv_obj_send_event
+lv_obj_invalidate
+lv_group_add_obj

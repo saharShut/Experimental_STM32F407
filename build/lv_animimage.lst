@@ -1,0 +1,1374 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_animimage.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/widgets/animimage/lv_animimage.c"
+  20              		.section	.text.lv_animimg_constructor,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_animimg_constructor:
+  27              	.LVL0:
+  28              	.LFB243:
+   1:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /**
+   2:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  * @file lv_animimg.c
+   3:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *
+   4:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  */
+   5:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+   6:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /*********************
+   7:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *      INCLUDES
+   8:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *********************/
+   9:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #include "lv_animimage.h"
+  10:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #if LV_USE_ANIMIMG != 0
+  11:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  12:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /*Testing of dependencies*/
+  13:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #if LV_USE_IMAGE == 0
+  14:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     #error "lv_animimg: lv_img is required. Enable it in lv_conf.h (LV_USE_IMAGE  1) "
+  15:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #endif
+  16:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  17:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #include "../../draw/lv_image_decoder.h"
+  18:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #include "../../misc/lv_assert.h"
+  19:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #include "../../misc/lv_fs.h"
+  20:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #include "../../misc/lv_text.h"
+  21:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #include "../../misc/lv_math.h"
+  22:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #include "../../misc/lv_log.h"
+  23:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #include "../../misc/lv_anim.h"
+  24:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  25:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /*********************
+  26:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *      DEFINES
+  27:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *********************/
+  28:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #define LV_OBJX_NAME "lv_animimg"
+  29:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  30:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** #define MY_CLASS &lv_animimg_class
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 2
+
+
+  31:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  32:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /**********************
+  33:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *      TYPEDEFS
+  34:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  **********************/
+  35:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  36:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /**********************
+  37:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *  STATIC PROTOTYPES
+  38:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  **********************/
+  39:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** static void index_change(lv_obj_t * obj, int32_t index);
+  40:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** static void lv_animimg_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
+  41:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  42:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /**********************
+  43:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *  STATIC VARIABLES
+  44:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  **********************/
+  45:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  46:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** const lv_obj_class_t lv_animimg_class = {
+  47:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     .constructor_cb = lv_animimg_constructor,
+  48:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     .instance_size = sizeof(lv_animimg_t),
+  49:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     .base_class = &lv_image_class,
+  50:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     .name = "animimg",
+  51:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** };
+  52:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  53:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /**********************
+  54:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *      MACROS
+  55:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  **********************/
+  56:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  57:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /**********************
+  58:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *   GLOBAL FUNCTIONS
+  59:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  **********************/
+  60:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  61:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** lv_obj_t * lv_animimg_create(lv_obj_t * parent)
+  62:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+  63:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_LOG_INFO("begin");
+  64:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_animimg_class, parent);
+  65:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_class_init_obj(obj);
+  66:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return obj;
+  67:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+  68:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  69:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** void lv_animimg_set_src(lv_obj_t * obj, const void * dsc[], size_t num)
+  70:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+  71:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  72:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+  73:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     animimg->dsc = dsc;
+  74:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     animimg->pic_count = num;
+  75:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_values(&animimg->anim, 0, (int32_t)num - 1);
+  76:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+  77:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  78:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** void lv_animimg_start(lv_obj_t * obj)
+  79:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+  80:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  81:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+  82:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_start(&animimg->anim);
+  83:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+  84:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  85:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /*=====================
+  86:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  * Setter functions
+  87:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *====================*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 3
+
+
+  88:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  89:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** void lv_animimg_set_duration(lv_obj_t * obj, uint32_t duration)
+  90:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+  91:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  92:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+  93:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_duration(&animimg->anim, duration);
+  94:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_playback_delay(&animimg->anim, duration);
+  95:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+  96:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+  97:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** void lv_animimg_set_repeat_count(lv_obj_t * obj, uint32_t count)
+  98:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+  99:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 100:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 101:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_repeat_count(&animimg->anim, count);
+ 102:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 103:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 104:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /*=====================
+ 105:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  * Getter functions
+ 106:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *====================*/
+ 107:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 108:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** const void ** lv_animimg_get_src(lv_obj_t * obj)
+ 109:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+ 110:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 111:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 112:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return animimg->dsc;
+ 113:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 114:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 115:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** uint8_t lv_animimg_get_src_count(lv_obj_t * obj)
+ 116:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+ 117:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 118:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 119:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return animimg->pic_count;
+ 120:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 121:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 122:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** uint32_t lv_animimg_get_duration(lv_obj_t * obj)
+ 123:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+ 124:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 125:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 126:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return lv_anim_get_time(&animimg->anim);
+ 127:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 128:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 129:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** uint32_t lv_animimg_get_repeat_count(lv_obj_t * obj)
+ 130:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+ 131:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 132:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 133:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return lv_anim_get_repeat_count(&animimg->anim);
+ 134:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 135:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 136:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** /**********************
+ 137:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  *   STATIC FUNCTIONS
+ 138:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****  **********************/
+ 139:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 140:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** static void lv_animimg_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+ 141:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+  29              		.loc 1 141 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 4
+
+
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 141 1 is_stmt 0 view .LVU1
+  34 0000 38B5     		push	{r3, r4, r5, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 3, -16
+  38              		.cfi_offset 4, -12
+  39              		.cfi_offset 5, -8
+  40              		.cfi_offset 14, -4
+  41 0002 0C46     		mov	r4, r1
+ 142:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_TRACE_OBJ_CREATE("begin");
+  42              		.loc 1 142 33 is_stmt 1 view .LVU2
+ 143:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 144:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_UNUSED(class_p);
+  43              		.loc 1 144 5 view .LVU3
+ 145:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+  44              		.loc 1 145 5 view .LVU4
+  45              	.LVL1:
+ 146:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 147:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     animimg->dsc = NULL;
+  46              		.loc 1 147 5 view .LVU5
+  47              		.loc 1 147 18 is_stmt 0 view .LVU6
+  48 0004 0025     		movs	r5, #0
+  49 0006 C1F8B050 		str	r5, [r1, #176]
+ 148:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     animimg->pic_count = -1;
+  50              		.loc 1 148 5 is_stmt 1 view .LVU7
+  51              		.loc 1 148 24 is_stmt 0 view .LVU8
+  52 000a FF23     		movs	r3, #255
+  53 000c 81F8B430 		strb	r3, [r1, #180]
+ 149:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 150:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     /*initial animation*/
+ 151:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_init(&animimg->anim);
+  54              		.loc 1 151 5 is_stmt 1 view .LVU9
+  55 0010 01F15800 		add	r0, r1, #88
+  56              	.LVL2:
+  57              		.loc 1 151 5 is_stmt 0 view .LVU10
+  58 0014 FFF7FEFF 		bl	lv_anim_init
+  59              	.LVL3:
+ 152:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_var(&animimg->anim, obj);
+  60              		.loc 1 152 5 is_stmt 1 view .LVU11
+  61              	.LBB24:
+  62              	.LBI24:
+  63              		.file 2 "Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h"
+   1:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+   2:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @file lv_anim.h
+   3:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *
+   4:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+   5:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+   6:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #ifndef LV_ANIM_H
+   7:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_H
+   8:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+   9:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** extern "C" {
+  11:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #endif
+  12:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  13:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /*********************
+  14:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *      INCLUDES
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 5
+
+
+  15:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *********************/
+  16:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #include "lv_types.h"
+  18:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #include "lv_math.h"
+  19:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #include "lv_timer.h"
+  20:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #include "lv_ll.h"
+  21:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  22:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #include <stdint.h>
+  23:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #include <stdbool.h>
+  24:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #include <stddef.h>
+  25:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  26:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /*********************
+  27:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *      DEFINES
+  28:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *********************/
+  29:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  30:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_REPEAT_INFINITE      0xFFFF
+  31:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_PLAYTIME_INFINITE    0xFFFFFFFF
+  32:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  33:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /*
+  34:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Macros used to set cubic-bezier anim parameter.
+  35:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Parameters come from https://easings.net/
+  36:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *
+  37:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Usage:
+  38:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *
+  39:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * lv_anim_t a;
+  40:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * lv_anim_init(&a);
+  41:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * ...
+  42:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * lv_anim_set_path_cb(&a, lv_anim_path_custom_bezier3);
+  43:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * LV_ANIM_SET_EASE_IN_SINE(&a); //Set cubic-bezier anim parameter to easeInSine
+  44:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * ...
+  45:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * lv_anim_start(&a);
+  46:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+  47:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  48:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define _PARA(a, x1, y1, x2, y2) ((a)->parameter.bezier3 =                                  \
+  49:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** (struct _lv_anim_bezier3_para_t) {                      \
+  50:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     LV_BEZIER_VAL_FLOAT(x1), LV_BEZIER_VAL_FLOAT(y1),   \
+  51:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     LV_BEZIER_VAL_FLOAT(x2), LV_BEZIER_VAL_FLOAT(y2) }  \
+  52:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****                                  )
+  53:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  54:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_SINE(a) _PARA(a, 0.12, 0, 0.39, 0)
+  55:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_SINE(a) _PARA(a, 0.61, 1, 0.88, 1)
+  56:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_SINE(a) _PARA(a, 0.37, 0, 0.63, 1)
+  57:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_QUAD(a) _PARA(a, 0.11, 0, 0.5, 0)
+  58:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_QUAD(a) _PARA(a, 0.5, 1, 0.89, 1)
+  59:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_QUAD(a) _PARA(a, 0.45, 0, 0.55, 1)
+  60:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_CUBIC(a) _PARA(a, 0.32, 0, 0.67, 0)
+  61:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_CUBIC(a) _PARA(a, 0.33, 1, 0.68, 1)
+  62:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_CUBIC(a) _PARA(a, 0.65, 0, 0.35, 1)
+  63:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_QUART(a) _PARA(a, 0.5, 0, 0.75, 0)
+  64:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_QUART(a) _PARA(a, 0.25, 1, 0.5, 1)
+  65:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_QUART(a) _PARA(a, 0.76, 0, 0.24, 1)
+  66:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_QUINT(a) _PARA(a, 0.64, 0, 0.78, 0)
+  67:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_QUINT(a) _PARA(a, 0.22, 1, 0.36, 1)
+  68:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_QUINT(a) _PARA(a, 0.83, 0, 0.17, 1)
+  69:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_EXPO(a) _PARA(a, 0.7, 0, 0.84, 0)
+  70:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_EXPO(a) _PARA(a, 0.16, 1, 0.3, 1)
+  71:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_EXPO(a) _PARA(a, 0.87, 0, 0.13, 1)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 6
+
+
+  72:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_CIRC(a) _PARA(a, 0.55, 0, 1, 0.45)
+  73:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_CIRC(a) _PARA(a, 0, 0.55, 0.45, 1)
+  74:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_CIRC(a) _PARA(a, 0.85, 0, 0.15, 1)
+  75:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_BACK(a) _PARA(a, 0.36, 0, 0.66, -0.56)
+  76:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_BACK(a) _PARA(a, 0.34, 1.56, 0.64, 1)
+  77:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_BACK(a) _PARA(a, 0.68, -0.6, 0.32, 1.6)
+  78:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  79:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** LV_EXPORT_CONST_INT(LV_ANIM_REPEAT_INFINITE);
+  80:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** LV_EXPORT_CONST_INT(LV_ANIM_PLAYTIME_INFINITE);
+  81:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  82:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**********************
+  83:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *      TYPEDEFS
+  84:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  **********************/
+  85:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  86:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Can be used to indicate if animations are enabled or disabled in a case*/
+  87:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef enum {
+  88:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     LV_ANIM_OFF,
+  89:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     LV_ANIM_ON,
+  90:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** } lv_anim_enable_t;
+  91:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  92:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef struct {
+  93:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     bool anim_list_changed;
+  94:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     bool anim_run_round;
+  95:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_timer_t * timer;
+  96:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_ll_t anim_ll;
+  97:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** } lv_anim_state_t;
+  98:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+  99:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Get the current value during an animation*/
+ 100:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef int32_t (*lv_anim_path_cb_t)(const lv_anim_t *);
+ 101:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 102:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Generic prototype of "animator" functions.
+ 103:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * First parameter is the variable to animate.
+ 104:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Second parameter is the value to set.
+ 105:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Compatible with `lv_xxx_set_yyy(obj, value)` functions
+ 106:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * The `x` in `_xcb_t` means it's not a fully generic prototype because
+ 107:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * it doesn't receive `lv_anim_t *` as its first argument*/
+ 108:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef void (*lv_anim_exec_xcb_t)(void *, int32_t);
+ 109:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 110:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Same as `lv_anim_exec_xcb_t` but receives `lv_anim_t *` as the first parameter.
+ 111:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * It's more consistent but less convenient. Might be used by binding generator functions.*/
+ 112:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef void (*lv_anim_custom_exec_cb_t)(lv_anim_t *, int32_t);
+ 113:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 114:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Callback to call when the animation is ready*/
+ 115:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef void (*lv_anim_completed_cb_t)(lv_anim_t *);
+ 116:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 117:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Callback to call when the animation really stars (considering `delay`)*/
+ 118:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef void (*lv_anim_start_cb_t)(lv_anim_t *);
+ 119:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 120:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Callback used when the animation values are relative to get the current value*/
+ 121:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef int32_t (*lv_anim_get_value_cb_t)(lv_anim_t *);
+ 122:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 123:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Callback used when the animation is deleted*/
+ 124:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef void (*lv_anim_deleted_cb_t)(lv_anim_t *);
+ 125:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 126:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** typedef struct _lv_anim_bezier3_para_t {
+ 127:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int16_t x1;
+ 128:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int16_t y1;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 7
+
+
+ 129:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int16_t x2;
+ 130:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int16_t y2;
+ 131:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** } lv_anim_bezier3_para_t; /**< Parameter used when path is custom_bezier*/
+ 132:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 133:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /** Describes an animation*/
+ 134:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** struct _lv_anim_t {
+ 135:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     void * var;                                 /**<Variable to animate*/
+ 136:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_exec_xcb_t exec_cb;                 /**< Function to execute to animate*/
+ 137:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_custom_exec_cb_t custom_exec_cb;/**< Function to execute to animate,
+ 138:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****                                                  same purpose as exec_cb but different parameters*/
+ 139:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_start_cb_t start_cb;         /**< Call it when the animation is starts (considering `de
+ 140:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_completed_cb_t completed_cb; /**< Call it when the animation is fully completed*/
+ 141:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_deleted_cb_t deleted_cb;     /**< Call it when the animation is deleted*/
+ 142:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_get_value_cb_t get_value_cb; /**< Get the current value in relative mode*/
+ 143:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     void * user_data;                    /**< Custom user data*/
+ 144:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_path_cb_t path_cb;         /**< Describe the path (curve) of animations*/
+ 145:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int32_t start_value;               /**< Start value*/
+ 146:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int32_t current_value;             /**< Current value*/
+ 147:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int32_t end_value;                 /**< End value*/
+ 148:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int32_t duration;                /**< Animation time in ms*/
+ 149:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     int32_t act_time;            /**< Current time in animation. Set to negative to make delay.*/
+ 150:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint32_t playback_delay;     /**< Wait before play back*/
+ 151:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint32_t playback_duration;      /**< Duration of playback animation*/
+ 152:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint32_t repeat_delay;       /**< Wait before repeat*/
+ 153:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint16_t repeat_cnt;         /**< Repeat count for the animation*/
+ 154:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     union _lv_anim_path_para_t {
+ 155:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****         lv_anim_bezier3_para_t bezier3; /**< Parameter used when path is custom_bezier*/
+ 156:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     } parameter;
+ 157:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 158:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint8_t early_apply  : 1;    /**< 1: Apply start value immediately even is there is `delay`*/
+ 159:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 160:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     /*Animation system use these - user shouldn't set*/
+ 161:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint32_t last_timer_run;
+ 162:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint8_t playback_now : 1; /**< Play back is in progress*/
+ 163:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint8_t run_round : 1;    /**< Indicates the animation has run in this round*/
+ 164:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     uint8_t start_cb_called : 1;    /**< Indicates that the `start_cb` was already called*/
+ 165:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** };
+ 166:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 167:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**********************
+ 168:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * GLOBAL PROTOTYPES
+ 169:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  **********************/
+ 170:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 171:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 172:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Init the animation module
+ 173:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 174:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** void _lv_anim_core_init(void);
+ 175:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 176:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 177:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Deinit the animation module
+ 178:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 179:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** void _lv_anim_core_deinit(void);
+ 180:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 181:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 182:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Initialize an animation variable.
+ 183:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * E.g.:
+ 184:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * lv_anim_t a;
+ 185:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * lv_anim_init(&a);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 8
+
+
+ 186:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * lv_anim_set_...(&a);
+ 187:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * lv_anim_start(&a);
+ 188:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a     pointer to an `lv_anim_t` variable to initialize
+ 189:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 190:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** void lv_anim_init(lv_anim_t * a);
+ 191:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 192:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 193:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a variable to animate
+ 194:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a     pointer to an initialized `lv_anim_t` variable
+ 195:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param var   pointer to a variable to animate
+ 196:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 197:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_var(lv_anim_t * a, void * var)
+  64              		.loc 2 197 20 view .LVU12
+  65              	.LBB25:
+ 198:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 199:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->var = var;
+  66              		.loc 2 199 5 view .LVU13
+  67              		.loc 2 199 12 is_stmt 0 view .LVU14
+  68 0018 A465     		str	r4, [r4, #88]
+  69              	.LVL4:
+  70              		.loc 2 199 12 view .LVU15
+  71              	.LBE25:
+  72              	.LBE24:
+ 153:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_duration(&animimg->anim, 30);
+  73              		.loc 1 153 5 is_stmt 1 view .LVU16
+  74              	.LBB26:
+  75              	.LBI26:
+ 200:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 201:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 202:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 203:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a function to animate `var`
+ 204:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 205:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param exec_cb   a function to execute during animation
+ 206:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *                  LVGL's built-in functions can be used.
+ 207:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *                  E.g. lv_obj_set_x
+ 208:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 209:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_exec_cb(lv_anim_t * a, lv_anim_exec_xcb_t exec_cb)
+ 210:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 211:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->exec_cb = exec_cb;
+ 212:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 213:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 214:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 215:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set the duration of an animation
+ 216:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 217:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param duration  duration of the animation in milliseconds
+ 218:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 219:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_duration(lv_anim_t * a, uint32_t duration)
+  76              		.loc 2 219 20 view .LVU17
+  77              	.LBB27:
+ 220:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 221:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->duration = duration;
+  78              		.loc 2 221 5 view .LVU18
+  79              		.loc 2 221 17 is_stmt 0 view .LVU19
+  80 001a 1E23     		movs	r3, #30
+  81 001c C4F88830 		str	r3, [r4, #136]
+  82              	.LVL5:
+  83              		.loc 2 221 17 view .LVU20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 9
+
+
+  84              	.LBE27:
+  85              	.LBE26:
+ 154:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_exec_cb(&animimg->anim, (lv_anim_exec_xcb_t)index_change);
+  86              		.loc 1 154 5 is_stmt 1 view .LVU21
+  87              	.LBB28:
+  88              	.LBI28:
+ 209:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+  89              		.loc 2 209 20 view .LVU22
+  90              	.LBB29:
+ 211:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+  91              		.loc 2 211 5 view .LVU23
+ 211:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+  92              		.loc 2 211 16 is_stmt 0 view .LVU24
+  93 0020 074B     		ldr	r3, .L3
+  94 0022 E365     		str	r3, [r4, #92]
+  95              	.LVL6:
+ 211:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+  96              		.loc 2 211 16 view .LVU25
+  97              	.LBE29:
+  98              	.LBE28:
+ 155:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_values(&animimg->anim, 0, 1);
+  99              		.loc 1 155 5 is_stmt 1 view .LVU26
+ 100              	.LBB30:
+ 101              	.LBI30:
+ 222:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 223:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 224:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 225:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Legacy `lv_anim_set_time` API will be removed soon, use `lv_anim_set_duration` instead.
+ 226:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 227:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_time(lv_anim_t * a, uint32_t duration)
+ 228:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 229:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_set_duration(a, duration);
+ 230:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 231:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 232:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 233:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a delay before starting the animation
+ 234:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 235:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param delay     delay before the animation in milliseconds
+ 236:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 237:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_delay(lv_anim_t * a, uint32_t delay)
+ 238:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 239:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->act_time = -(int32_t)(delay);
+ 240:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 241:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 242:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 243:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set the start and end values of an animation
+ 244:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 245:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param start     the start value
+ 246:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param end       the end value
+ 247:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 248:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_values(lv_anim_t * a, int32_t start, int32_t end)
+ 102              		.loc 2 248 20 view .LVU27
+ 103              	.LBB31:
+ 249:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 250:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->start_value = start;
+ 104              		.loc 2 250 5 view .LVU28
+ 105              		.loc 2 250 20 is_stmt 0 view .LVU29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 10
+
+
+ 106 0024 E567     		str	r5, [r4, #124]
+ 251:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->current_value = INT32_MIN;
+ 107              		.loc 2 251 5 is_stmt 1 view .LVU30
+ 108              		.loc 2 251 22 is_stmt 0 view .LVU31
+ 109 0026 4FF00043 		mov	r3, #-2147483648
+ 110 002a C4F88030 		str	r3, [r4, #128]
+ 252:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->end_value = end;
+ 111              		.loc 2 252 5 is_stmt 1 view .LVU32
+ 112              		.loc 2 252 18 is_stmt 0 view .LVU33
+ 113 002e 0123     		movs	r3, #1
+ 114 0030 C4F88430 		str	r3, [r4, #132]
+ 115              	.LVL7:
+ 116              		.loc 2 252 18 view .LVU34
+ 117              	.LBE31:
+ 118              	.LBE30:
+ 156:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_repeat_count(&animimg->anim, LV_ANIM_REPEAT_INFINITE);
+ 119              		.loc 1 156 5 is_stmt 1 view .LVU35
+ 120              	.LBB32:
+ 121              	.LBI32:
+ 253:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 254:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 255:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 256:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Similar to `lv_anim_set_exec_cb` but `lv_anim_custom_exec_cb_t` receives
+ 257:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * `lv_anim_t * ` as its first parameter instead of `void *`.
+ 258:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * This function might be used when LVGL is bound to other languages because
+ 259:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * it's more consistent to have `lv_anim_t *` as first parameter.
+ 260:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 261:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param exec_cb   a function to execute.
+ 262:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 263:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_custom_exec_cb(lv_anim_t * a, lv_anim_custom_exec_cb_t exec_cb)
+ 264:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 265:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->custom_exec_cb = exec_cb;
+ 266:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 267:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 268:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 269:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set the path (curve) of the animation.
+ 270:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 271:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param path_cb a function to set the current value of the animation.
+ 272:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 273:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_path_cb(lv_anim_t * a, lv_anim_path_cb_t path_cb)
+ 274:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 275:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->path_cb = path_cb;
+ 276:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 277:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 278:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 279:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a function call when the animation really starts (considering `delay`)
+ 280:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 281:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param start_cb  a function call when the animation starts
+ 282:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 283:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_start_cb(lv_anim_t * a, lv_anim_start_cb_t start_cb)
+ 284:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 285:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->start_cb = start_cb;
+ 286:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 287:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 288:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 289:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a function to use the current value of the variable and make start and end value
+ 290:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * relative to the returned current value.
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 11
+
+
+ 291:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a             pointer to an initialized `lv_anim_t` variable
+ 292:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param get_value_cb  a function call when the animation starts
+ 293:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 294:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_get_value_cb(lv_anim_t * a, lv_anim_get_value_cb_t get_value_cb)
+ 295:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 296:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->get_value_cb = get_value_cb;
+ 297:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 298:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 299:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 300:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a function call when the animation is completed
+ 301:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a             pointer to an initialized `lv_anim_t` variable
+ 302:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param completed_cb  a function call when the animation is fully completed
+ 303:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 304:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_completed_cb(lv_anim_t * a, lv_anim_completed_cb_t completed_cb)
+ 305:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 306:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->completed_cb = completed_cb;
+ 307:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 308:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 309:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 310:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a function call when the animation is deleted.
+ 311:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 312:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param deleted_cb  a function call when the animation is deleted
+ 313:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 314:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_deleted_cb(lv_anim_t * a, lv_anim_deleted_cb_t deleted_cb)
+ 315:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 316:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->deleted_cb = deleted_cb;
+ 317:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 318:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 319:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 320:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Make the animation to play back to when the forward direction is ready
+ 321:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 322:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param time      the duration of the playback animation in milliseconds. 0: disable playback
+ 323:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 324:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_playback_duration(lv_anim_t * a, uint32_t duration)
+ 325:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 326:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->playback_duration = duration;
+ 327:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 328:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 329:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 330:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Legacy `lv_anim_set_playback_time` API will be removed soon, use `lv_anim_set_playback_duration`
+ 331:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 332:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_playback_time(lv_anim_t * a, uint32_t duration)
+ 333:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 334:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     lv_anim_set_playback_duration(a, duration);
+ 335:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 336:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 337:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 338:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Make the animation to play back to when the forward direction is ready
+ 339:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 340:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param delay     delay in milliseconds before starting the playback animation.
+ 341:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 342:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_playback_delay(lv_anim_t * a, uint32_t delay)
+ 343:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 344:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->playback_delay = delay;
+ 345:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 346:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 347:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 12
+
+
+ 348:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Make the animation repeat itself.
+ 349:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 350:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param cnt       repeat count or `LV_ANIM_REPEAT_INFINITE` for infinite repetition. 0: to disabl
+ 351:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 352:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_repeat_count(lv_anim_t * a, uint16_t cnt)
+ 122              		.loc 2 352 20 view .LVU36
+ 123              	.LBB33:
+ 353:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 354:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->repeat_cnt = cnt;
+ 124              		.loc 2 354 5 view .LVU37
+ 125              		.loc 2 354 19 is_stmt 0 view .LVU38
+ 126 0034 4FF6FF73 		movw	r3, #65535
+ 127 0038 A4F89C30 		strh	r3, [r4, #156]	@ movhi
+ 128              	.LVL8:
+ 129              		.loc 2 354 19 view .LVU39
+ 130              	.LBE33:
+ 131              	.LBE32:
+ 157:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 132              		.loc 1 157 1 view .LVU40
+ 133 003c 38BD     		pop	{r3, r4, r5, pc}
+ 134              	.LVL9:
+ 135              	.L4:
+ 136              		.loc 1 157 1 view .LVU41
+ 137 003e 00BF     		.align	2
+ 138              	.L3:
+ 139 0040 00000000 		.word	index_change
+ 140              		.cfi_endproc
+ 141              	.LFE243:
+ 143              		.section	.text.index_change,"ax",%progbits
+ 144              		.align	1
+ 145              		.syntax unified
+ 146              		.thumb
+ 147              		.thumb_func
+ 149              	index_change:
+ 150              	.LVL10:
+ 151              	.LFB244:
+ 158:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 159:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** static void index_change(lv_obj_t * obj, int32_t index)
+ 160:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** {
+ 152              		.loc 1 160 1 is_stmt 1 view -0
+ 153              		.cfi_startproc
+ 154              		@ args = 0, pretend = 0, frame = 0
+ 155              		@ frame_needed = 0, uses_anonymous_args = 0
+ 156              		.loc 1 160 1 is_stmt 0 view .LVU43
+ 157 0000 08B5     		push	{r3, lr}
+ 158              	.LCFI1:
+ 159              		.cfi_def_cfa_offset 8
+ 160              		.cfi_offset 3, -8
+ 161              		.cfi_offset 14, -4
+ 161:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     int32_t idx;
+ 162              		.loc 1 161 5 is_stmt 1 view .LVU44
+ 162:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 163              		.loc 1 162 5 view .LVU45
+ 164              	.LVL11:
+ 163:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 164:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     idx = index % animimg->pic_count;
+ 165              		.loc 1 164 5 view .LVU46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 13
+
+
+ 166              		.loc 1 164 26 is_stmt 0 view .LVU47
+ 167 0002 90F9B420 		ldrsb	r2, [r0, #180]
+ 168              		.loc 1 164 9 view .LVU48
+ 169 0006 91FBF2FC 		sdiv	ip, r1, r2
+ 170 000a 02FB1C11 		mls	r1, r2, ip, r1
+ 171              	.LVL12:
+ 165:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 166:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_image_set_src(obj, animimg->dsc[idx]);
+ 172              		.loc 1 166 5 is_stmt 1 view .LVU49
+ 173              		.loc 1 166 34 is_stmt 0 view .LVU50
+ 174 000e D0F8B030 		ldr	r3, [r0, #176]
+ 175              		.loc 1 166 5 view .LVU51
+ 176 0012 53F82110 		ldr	r1, [r3, r1, lsl #2]
+ 177              	.LVL13:
+ 178              		.loc 1 166 5 view .LVU52
+ 179 0016 FFF7FEFF 		bl	lv_image_set_src
+ 180              	.LVL14:
+ 167:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 181              		.loc 1 167 1 view .LVU53
+ 182 001a 08BD     		pop	{r3, pc}
+ 183              		.cfi_endproc
+ 184              	.LFE244:
+ 186              		.section	.text.lv_animimg_create,"ax",%progbits
+ 187              		.align	1
+ 188              		.global	lv_animimg_create
+ 189              		.syntax unified
+ 190              		.thumb
+ 191              		.thumb_func
+ 193              	lv_animimg_create:
+ 194              	.LVL15:
+ 195              	.LFB234:
+  62:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_LOG_INFO("begin");
+ 196              		.loc 1 62 1 is_stmt 1 view -0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+  62:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_LOG_INFO("begin");
+ 200              		.loc 1 62 1 is_stmt 0 view .LVU55
+ 201 0000 10B5     		push	{r4, lr}
+ 202              	.LCFI2:
+ 203              		.cfi_def_cfa_offset 8
+ 204              		.cfi_offset 4, -8
+ 205              		.cfi_offset 14, -4
+ 206 0002 0146     		mov	r1, r0
+  63:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_animimg_class, parent);
+ 207              		.loc 1 63 5 is_stmt 1 view .LVU56
+  63:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_animimg_class, parent);
+ 208              		.loc 1 63 5 view .LVU57
+  63:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_animimg_class, parent);
+ 209              		.loc 1 63 5 view .LVU58
+  64:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_class_init_obj(obj);
+ 210              		.loc 1 64 5 view .LVU59
+  64:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_class_init_obj(obj);
+ 211              		.loc 1 64 22 is_stmt 0 view .LVU60
+ 212 0004 0348     		ldr	r0, .L9
+ 213              	.LVL16:
+  64:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_class_init_obj(obj);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 14
+
+
+ 214              		.loc 1 64 22 view .LVU61
+ 215 0006 FFF7FEFF 		bl	lv_obj_class_create_obj
+ 216              	.LVL17:
+  64:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_obj_class_init_obj(obj);
+ 217              		.loc 1 64 22 view .LVU62
+ 218 000a 0446     		mov	r4, r0
+ 219              	.LVL18:
+  65:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return obj;
+ 220              		.loc 1 65 5 is_stmt 1 view .LVU63
+ 221 000c FFF7FEFF 		bl	lv_obj_class_init_obj
+ 222              	.LVL19:
+  66:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 223              		.loc 1 66 5 view .LVU64
+  67:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 224              		.loc 1 67 1 is_stmt 0 view .LVU65
+ 225 0010 2046     		mov	r0, r4
+ 226 0012 10BD     		pop	{r4, pc}
+ 227              	.LVL20:
+ 228              	.L10:
+  67:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 229              		.loc 1 67 1 view .LVU66
+ 230              		.align	2
+ 231              	.L9:
+ 232 0014 00000000 		.word	lv_animimg_class
+ 233              		.cfi_endproc
+ 234              	.LFE234:
+ 236              		.section	.text.lv_animimg_set_src,"ax",%progbits
+ 237              		.align	1
+ 238              		.global	lv_animimg_set_src
+ 239              		.syntax unified
+ 240              		.thumb
+ 241              		.thumb_func
+ 243              	lv_animimg_set_src:
+ 244              	.LVL21:
+ 245              	.LFB235:
+  70:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 246              		.loc 1 70 1 is_stmt 1 view -0
+ 247              		.cfi_startproc
+ 248              		@ args = 0, pretend = 0, frame = 0
+ 249              		@ frame_needed = 0, uses_anonymous_args = 0
+ 250              		@ link register save eliminated.
+  71:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 251              		.loc 1 71 5 view .LVU68
+  71:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 252              		.loc 1 71 5 view .LVU69
+  71:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 253              		.loc 1 71 5 view .LVU70
+  72:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     animimg->dsc = dsc;
+ 254              		.loc 1 72 5 view .LVU71
+  73:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     animimg->pic_count = num;
+ 255              		.loc 1 73 5 view .LVU72
+  73:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     animimg->pic_count = num;
+ 256              		.loc 1 73 18 is_stmt 0 view .LVU73
+ 257 0000 C0F8B010 		str	r1, [r0, #176]
+  74:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_values(&animimg->anim, 0, (int32_t)num - 1);
+ 258              		.loc 1 74 5 is_stmt 1 view .LVU74
+  74:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_values(&animimg->anim, 0, (int32_t)num - 1);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 15
+
+
+ 259              		.loc 1 74 24 is_stmt 0 view .LVU75
+ 260 0004 80F8B420 		strb	r2, [r0, #180]
+  75:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 261              		.loc 1 75 5 is_stmt 1 view .LVU76
+ 262 0008 013A     		subs	r2, r2, #1
+ 263              	.LVL22:
+ 264              	.LBB34:
+ 265              	.LBI34:
+ 248:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 266              		.loc 2 248 20 view .LVU77
+ 267              	.LBB35:
+ 250:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->current_value = INT32_MIN;
+ 268              		.loc 2 250 5 view .LVU78
+ 250:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->current_value = INT32_MIN;
+ 269              		.loc 2 250 20 is_stmt 0 view .LVU79
+ 270 000a 0023     		movs	r3, #0
+ 271 000c C367     		str	r3, [r0, #124]
+ 251:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->end_value = end;
+ 272              		.loc 2 251 5 is_stmt 1 view .LVU80
+ 251:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->end_value = end;
+ 273              		.loc 2 251 22 is_stmt 0 view .LVU81
+ 274 000e 4FF00043 		mov	r3, #-2147483648
+ 275 0012 C0F88030 		str	r3, [r0, #128]
+ 252:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 276              		.loc 2 252 5 is_stmt 1 view .LVU82
+ 252:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 277              		.loc 2 252 18 is_stmt 0 view .LVU83
+ 278 0016 C0F88420 		str	r2, [r0, #132]
+ 279              	.LVL23:
+ 252:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 280              		.loc 2 252 18 view .LVU84
+ 281              	.LBE35:
+ 282              	.LBE34:
+  76:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 283              		.loc 1 76 1 view .LVU85
+ 284 001a 7047     		bx	lr
+ 285              		.cfi_endproc
+ 286              	.LFE235:
+ 288              		.section	.text.lv_animimg_start,"ax",%progbits
+ 289              		.align	1
+ 290              		.global	lv_animimg_start
+ 291              		.syntax unified
+ 292              		.thumb
+ 293              		.thumb_func
+ 295              	lv_animimg_start:
+ 296              	.LVL24:
+ 297              	.LFB236:
+  79:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 298              		.loc 1 79 1 is_stmt 1 view -0
+ 299              		.cfi_startproc
+ 300              		@ args = 0, pretend = 0, frame = 0
+ 301              		@ frame_needed = 0, uses_anonymous_args = 0
+  79:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 302              		.loc 1 79 1 is_stmt 0 view .LVU87
+ 303 0000 08B5     		push	{r3, lr}
+ 304              	.LCFI3:
+ 305              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 16
+
+
+ 306              		.cfi_offset 3, -8
+ 307              		.cfi_offset 14, -4
+  80:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 308              		.loc 1 80 5 is_stmt 1 view .LVU88
+  80:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 309              		.loc 1 80 5 view .LVU89
+  80:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 310              		.loc 1 80 5 view .LVU90
+  81:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_start(&animimg->anim);
+ 311              		.loc 1 81 5 view .LVU91
+ 312              	.LVL25:
+  82:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 313              		.loc 1 82 5 view .LVU92
+ 314 0002 5830     		adds	r0, r0, #88
+ 315              	.LVL26:
+  82:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 316              		.loc 1 82 5 is_stmt 0 view .LVU93
+ 317 0004 FFF7FEFF 		bl	lv_anim_start
+ 318              	.LVL27:
+  83:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 319              		.loc 1 83 1 view .LVU94
+ 320 0008 08BD     		pop	{r3, pc}
+ 321              		.cfi_endproc
+ 322              	.LFE236:
+ 324              		.section	.text.lv_animimg_set_duration,"ax",%progbits
+ 325              		.align	1
+ 326              		.global	lv_animimg_set_duration
+ 327              		.syntax unified
+ 328              		.thumb
+ 329              		.thumb_func
+ 331              	lv_animimg_set_duration:
+ 332              	.LVL28:
+ 333              	.LFB237:
+  90:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 334              		.loc 1 90 1 is_stmt 1 view -0
+ 335              		.cfi_startproc
+ 336              		@ args = 0, pretend = 0, frame = 0
+ 337              		@ frame_needed = 0, uses_anonymous_args = 0
+ 338              		@ link register save eliminated.
+  91:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 339              		.loc 1 91 5 view .LVU96
+  91:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 340              		.loc 1 91 5 view .LVU97
+  91:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 341              		.loc 1 91 5 view .LVU98
+  92:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_duration(&animimg->anim, duration);
+ 342              		.loc 1 92 5 view .LVU99
+  93:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_playback_delay(&animimg->anim, duration);
+ 343              		.loc 1 93 5 view .LVU100
+ 344              	.LBB36:
+ 345              	.LBI36:
+ 219:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 346              		.loc 2 219 20 view .LVU101
+ 347              	.LBB37:
+ 221:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 348              		.loc 2 221 5 view .LVU102
+ 221:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 17
+
+
+ 349              		.loc 2 221 17 is_stmt 0 view .LVU103
+ 350 0000 C0F88810 		str	r1, [r0, #136]
+ 351              	.LVL29:
+ 221:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 352              		.loc 2 221 17 view .LVU104
+ 353              	.LBE37:
+ 354              	.LBE36:
+  94:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 355              		.loc 1 94 5 is_stmt 1 view .LVU105
+ 356              	.LBB38:
+ 357              	.LBI38:
+ 342:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 358              		.loc 2 342 20 view .LVU106
+ 359              	.LBB39:
+ 344:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 360              		.loc 2 344 5 view .LVU107
+ 344:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 361              		.loc 2 344 23 is_stmt 0 view .LVU108
+ 362 0004 C0F89010 		str	r1, [r0, #144]
+ 363              	.LVL30:
+ 344:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 364              		.loc 2 344 23 view .LVU109
+ 365              	.LBE39:
+ 366              	.LBE38:
+  95:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 367              		.loc 1 95 1 view .LVU110
+ 368 0008 7047     		bx	lr
+ 369              		.cfi_endproc
+ 370              	.LFE237:
+ 372              		.section	.text.lv_animimg_set_repeat_count,"ax",%progbits
+ 373              		.align	1
+ 374              		.global	lv_animimg_set_repeat_count
+ 375              		.syntax unified
+ 376              		.thumb
+ 377              		.thumb_func
+ 379              	lv_animimg_set_repeat_count:
+ 380              	.LVL31:
+ 381              	.LFB238:
+  98:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 382              		.loc 1 98 1 is_stmt 1 view -0
+ 383              		.cfi_startproc
+ 384              		@ args = 0, pretend = 0, frame = 0
+ 385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 386              		@ link register save eliminated.
+  99:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 387              		.loc 1 99 5 view .LVU112
+  99:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 388              		.loc 1 99 5 view .LVU113
+  99:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 389              		.loc 1 99 5 view .LVU114
+ 100:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_anim_set_repeat_count(&animimg->anim, count);
+ 390              		.loc 1 100 5 view .LVU115
+ 101:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 391              		.loc 1 101 5 view .LVU116
+ 392              	.LBB40:
+ 393              	.LBI40:
+ 352:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 18
+
+
+ 394              		.loc 2 352 20 view .LVU117
+ 395              	.LBB41:
+ 396              		.loc 2 354 5 view .LVU118
+ 397              		.loc 2 354 19 is_stmt 0 view .LVU119
+ 398 0000 A0F89C10 		strh	r1, [r0, #156]	@ movhi
+ 399              	.LVL32:
+ 400              		.loc 2 354 19 view .LVU120
+ 401              	.LBE41:
+ 402              	.LBE40:
+ 102:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 403              		.loc 1 102 1 view .LVU121
+ 404 0004 7047     		bx	lr
+ 405              		.cfi_endproc
+ 406              	.LFE238:
+ 408              		.section	.text.lv_animimg_get_src,"ax",%progbits
+ 409              		.align	1
+ 410              		.global	lv_animimg_get_src
+ 411              		.syntax unified
+ 412              		.thumb
+ 413              		.thumb_func
+ 415              	lv_animimg_get_src:
+ 416              	.LVL33:
+ 417              	.LFB239:
+ 109:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 418              		.loc 1 109 1 is_stmt 1 view -0
+ 419              		.cfi_startproc
+ 420              		@ args = 0, pretend = 0, frame = 0
+ 421              		@ frame_needed = 0, uses_anonymous_args = 0
+ 422              		@ link register save eliminated.
+ 110:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 423              		.loc 1 110 5 view .LVU123
+ 110:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 424              		.loc 1 110 5 view .LVU124
+ 110:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 425              		.loc 1 110 5 view .LVU125
+ 111:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return animimg->dsc;
+ 426              		.loc 1 111 5 view .LVU126
+ 112:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 427              		.loc 1 112 5 view .LVU127
+ 113:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 428              		.loc 1 113 1 is_stmt 0 view .LVU128
+ 429 0000 D0F8B000 		ldr	r0, [r0, #176]
+ 430              	.LVL34:
+ 113:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 431              		.loc 1 113 1 view .LVU129
+ 432 0004 7047     		bx	lr
+ 433              		.cfi_endproc
+ 434              	.LFE239:
+ 436              		.section	.text.lv_animimg_get_src_count,"ax",%progbits
+ 437              		.align	1
+ 438              		.global	lv_animimg_get_src_count
+ 439              		.syntax unified
+ 440              		.thumb
+ 441              		.thumb_func
+ 443              	lv_animimg_get_src_count:
+ 444              	.LVL35:
+ 445              	.LFB240:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 19
+
+
+ 116:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 446              		.loc 1 116 1 is_stmt 1 view -0
+ 447              		.cfi_startproc
+ 448              		@ args = 0, pretend = 0, frame = 0
+ 449              		@ frame_needed = 0, uses_anonymous_args = 0
+ 450              		@ link register save eliminated.
+ 117:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 451              		.loc 1 117 5 view .LVU131
+ 117:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 452              		.loc 1 117 5 view .LVU132
+ 117:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 453              		.loc 1 117 5 view .LVU133
+ 118:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return animimg->pic_count;
+ 454              		.loc 1 118 5 view .LVU134
+ 119:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 455              		.loc 1 119 5 view .LVU135
+ 120:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 456              		.loc 1 120 1 is_stmt 0 view .LVU136
+ 457 0000 90F8B400 		ldrb	r0, [r0, #180]	@ zero_extendqisi2
+ 458              	.LVL36:
+ 120:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 459              		.loc 1 120 1 view .LVU137
+ 460 0004 7047     		bx	lr
+ 461              		.cfi_endproc
+ 462              	.LFE240:
+ 464              		.section	.text.lv_animimg_get_duration,"ax",%progbits
+ 465              		.align	1
+ 466              		.global	lv_animimg_get_duration
+ 467              		.syntax unified
+ 468              		.thumb
+ 469              		.thumb_func
+ 471              	lv_animimg_get_duration:
+ 472              	.LVL37:
+ 473              	.LFB241:
+ 123:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 474              		.loc 1 123 1 is_stmt 1 view -0
+ 475              		.cfi_startproc
+ 476              		@ args = 0, pretend = 0, frame = 0
+ 477              		@ frame_needed = 0, uses_anonymous_args = 0
+ 478              		@ link register save eliminated.
+ 124:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 479              		.loc 1 124 5 view .LVU139
+ 124:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 480              		.loc 1 124 5 view .LVU140
+ 124:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 481              		.loc 1 124 5 view .LVU141
+ 125:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return lv_anim_get_time(&animimg->anim);
+ 482              		.loc 1 125 5 view .LVU142
+ 126:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 483              		.loc 1 126 5 view .LVU143
+ 484              	.LBB42:
+ 485              	.LBI42:
+ 355:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 356:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 357:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 358:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a delay before repeating the animation.
+ 359:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 20
+
+
+ 360:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param delay     delay in milliseconds before repeating the animation.
+ 361:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 362:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_repeat_delay(lv_anim_t * a, uint32_t delay)
+ 363:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 364:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->repeat_delay = delay;
+ 365:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 366:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 367:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 368:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set a whether the animation's should be applied immediately or only when the delay expired.
+ 369:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 370:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param en        true: apply the start value immediately in `lv_anim_start`;
+ 371:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  *                  false: apply the start value only when `delay` ms is elapsed and the animations
+ 372:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 373:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_early_apply(lv_anim_t * a, bool en)
+ 374:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 375:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->early_apply = en;
+ 376:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 377:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 378:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 379:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set the custom user data field of the animation.
+ 380:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a           pointer to an initialized `lv_anim_t` variable
+ 381:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param user_data   pointer to the new user_data.
+ 382:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 383:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_user_data(lv_anim_t * a, void * user_data)
+ 384:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 385:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     a->user_data = user_data;
+ 386:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 387:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 388:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 389:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Set parameter for cubic bezier path
+ 390:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 391:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param x1        first control point
+ 392:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param y1
+ 393:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param y1        second control point
+ 394:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 395:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_bezier3_param(lv_anim_t * a, int16_t x1, int16_t y1, int16_t x2, int
+ 396:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 397:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     struct _lv_anim_bezier3_para_t * para = &a->parameter.bezier3;
+ 398:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 399:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     para->x1 = x1;
+ 400:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     para->x2 = x2;
+ 401:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     para->y1 = y1;
+ 402:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     para->y2 = y2;
+ 403:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 404:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 405:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 406:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Create an animation
+ 407:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         an initialized 'anim_t' variable. Not required after call.
+ 408:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @return          pointer to the created animation (different from the `a` parameter)
+ 409:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 410:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** lv_anim_t * lv_anim_start(const lv_anim_t * a);
+ 411:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 412:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 413:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Get a delay before starting the animation
+ 414:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a pointer to an initialized `lv_anim_t` variable
+ 415:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @return delay before the animation in milliseconds
+ 416:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 21
+
+
+ 417:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline uint32_t lv_anim_get_delay(const lv_anim_t * a)
+ 418:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 419:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     return -a->act_time;
+ 420:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 421:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 422:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 423:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Get the time used to play the animation.
+ 424:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a pointer to an animation.
+ 425:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @return the play time in milliseconds.
+ 426:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 427:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** uint32_t lv_anim_get_playtime(const lv_anim_t * a);
+ 428:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 429:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 430:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Get the duration of an animation
+ 431:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 432:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @return the duration of the animation in milliseconds
+ 433:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 434:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline uint32_t lv_anim_get_time(const lv_anim_t * a)
+ 486              		.loc 2 434 24 view .LVU144
+ 487              	.LBB43:
+ 435:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 436:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     return a->duration;
+ 488              		.loc 2 436 5 view .LVU145
+ 489              		.loc 2 436 5 is_stmt 0 view .LVU146
+ 490              	.LBE43:
+ 491              	.LBE42:
+ 127:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 492              		.loc 1 127 1 view .LVU147
+ 493 0000 D0F88800 		ldr	r0, [r0, #136]
+ 494              	.LVL38:
+ 127:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 495              		.loc 1 127 1 view .LVU148
+ 496 0004 7047     		bx	lr
+ 497              		.cfi_endproc
+ 498              	.LFE241:
+ 500              		.section	.text.lv_animimg_get_repeat_count,"ax",%progbits
+ 501              		.align	1
+ 502              		.global	lv_animimg_get_repeat_count
+ 503              		.syntax unified
+ 504              		.thumb
+ 505              		.thumb_func
+ 507              	lv_animimg_get_repeat_count:
+ 508              	.LVL39:
+ 509              	.LFB242:
+ 130:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 510              		.loc 1 130 1 is_stmt 1 view -0
+ 511              		.cfi_startproc
+ 512              		@ args = 0, pretend = 0, frame = 0
+ 513              		@ frame_needed = 0, uses_anonymous_args = 0
+ 514              		@ link register save eliminated.
+ 131:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 515              		.loc 1 131 5 view .LVU150
+ 131:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 516              		.loc 1 131 5 view .LVU151
+ 131:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     lv_animimg_t * animimg = (lv_animimg_t *)obj;
+ 517              		.loc 1 131 5 view .LVU152
+ 132:Lib/lvgl/src/widgets/animimage/lv_animimage.c ****     return lv_anim_get_repeat_count(&animimg->anim);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 22
+
+
+ 518              		.loc 1 132 5 view .LVU153
+ 133:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** }
+ 519              		.loc 1 133 5 view .LVU154
+ 520              	.LBB44:
+ 521              	.LBI44:
+ 437:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** }
+ 438:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** 
+ 439:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** /**
+ 440:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * Get the repeat count of the animation.
+ 441:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
+ 442:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  * @return the repeat count or `LV_ANIM_REPEAT_INFINITE` for infinite repetition. 0: disabled repet
+ 443:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****  */
+ 444:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** static inline uint16_t lv_anim_get_repeat_count(const lv_anim_t * a)
+ 522              		.loc 2 444 24 view .LVU155
+ 523              	.LBB45:
+ 445:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h **** {
+ 446:Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_anim.h ****     return a->repeat_cnt;
+ 524              		.loc 2 446 5 view .LVU156
+ 525              		.loc 2 446 5 is_stmt 0 view .LVU157
+ 526              	.LBE45:
+ 527              	.LBE44:
+ 134:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 528              		.loc 1 134 1 view .LVU158
+ 529 0000 B0F89C00 		ldrh	r0, [r0, #156]
+ 530              	.LVL40:
+ 134:Lib/lvgl/src/widgets/animimage/lv_animimage.c **** 
+ 531              		.loc 1 134 1 view .LVU159
+ 532 0004 7047     		bx	lr
+ 533              		.cfi_endproc
+ 534              	.LFE242:
+ 536              		.global	lv_animimg_class
+ 537              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 538              		.align	2
+ 539              	.LC0:
+ 540 0000 616E696D 		.ascii	"animimg\000"
+ 540      696D6700 
+ 541              		.section	.rodata.lv_animimg_class,"a"
+ 542              		.align	2
+ 545              	lv_animimg_class:
+ 546 0000 00000000 		.word	lv_image_class
+ 547 0004 00000000 		.word	lv_animimg_constructor
+ 548 0008 00000000 		.space	12
+ 548      00000000 
+ 548      00000000 
+ 549 0014 00000000 		.word	.LC0
+ 550 0018 00000000 		.space	8
+ 550      00000000 
+ 551 0020 80       		.byte	128
+ 552 0021 0B       		.byte	11
+ 553 0022 00       		.byte	0
+ 554 0023 00       		.space	1
+ 555              		.text
+ 556              	.Letext0:
+ 557              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 558              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 559              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 560              		.file 6 "Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_types.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 23
+
+
+ 561              		.file 7 "Lib/lvgl/src/widgets/animimage/../image/../../core/lv_obj.h"
+ 562              		.file 8 "Lib/lvgl/src/widgets/animimage/../image/../../core/lv_obj_class.h"
+ 563              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 564              		.file 10 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_event.h"
+ 565              		.file 11 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 566              		.file 12 "Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_ll.h"
+ 567              		.file 13 "Lib/lvgl/src/widgets/animimage/../image/../../core/../misc/lv_style.h"
+ 568              		.file 14 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_array.h"
+ 569              		.file 15 "Lib/lvgl/src/widgets/animimage/../image/../../core/lv_obj_style.h"
+ 570              		.file 16 "Lib/lvgl/src/widgets/animimage/../image/lv_image.h"
+ 571              		.file 17 "Lib/lvgl/src/widgets/animimage/lv_animimage.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s 			page 24
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_animimage.c
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:21     .text.lv_animimg_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:26     .text.lv_animimg_constructor:00000000 lv_animimg_constructor
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:139    .text.lv_animimg_constructor:00000040 $d
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:149    .text.index_change:00000000 index_change
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:144    .text.index_change:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:187    .text.lv_animimg_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:193    .text.lv_animimg_create:00000000 lv_animimg_create
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:232    .text.lv_animimg_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:545    .rodata.lv_animimg_class:00000000 lv_animimg_class
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:237    .text.lv_animimg_set_src:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:243    .text.lv_animimg_set_src:00000000 lv_animimg_set_src
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:289    .text.lv_animimg_start:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:295    .text.lv_animimg_start:00000000 lv_animimg_start
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:325    .text.lv_animimg_set_duration:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:331    .text.lv_animimg_set_duration:00000000 lv_animimg_set_duration
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:373    .text.lv_animimg_set_repeat_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:379    .text.lv_animimg_set_repeat_count:00000000 lv_animimg_set_repeat_count
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:409    .text.lv_animimg_get_src:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:415    .text.lv_animimg_get_src:00000000 lv_animimg_get_src
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:437    .text.lv_animimg_get_src_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:443    .text.lv_animimg_get_src_count:00000000 lv_animimg_get_src_count
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:465    .text.lv_animimg_get_duration:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:471    .text.lv_animimg_get_duration:00000000 lv_animimg_get_duration
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:501    .text.lv_animimg_get_repeat_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:507    .text.lv_animimg_get_repeat_count:00000000 lv_animimg_get_repeat_count
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:538    .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cc0kWQba.s:542    .rodata.lv_animimg_class:00000000 $d
+
+UNDEFINED SYMBOLS
+lv_anim_init
+lv_image_set_src
+lv_obj_class_create_obj
+lv_obj_class_init_obj
+lv_anim_start
+lv_image_class

@@ -1,0 +1,1803 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_cache.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/misc/cache/lv_cache.c"
+  20              		.section	.text.cache_drop_internal_no_lock,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	cache_drop_internal_no_lock:
+  27              	.LVL0:
+  28              	.LFB15:
+   1:Lib/lvgl/src/misc/cache/lv_cache.c **** /**
+   2:Lib/lvgl/src/misc/cache/lv_cache.c **** * @file lv_cache.c
+   3:Lib/lvgl/src/misc/cache/lv_cache.c **** *
+   4:Lib/lvgl/src/misc/cache/lv_cache.c **** */
+   5:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+   6:Lib/lvgl/src/misc/cache/lv_cache.c **** /*********************
+   7:Lib/lvgl/src/misc/cache/lv_cache.c ****  *      INCLUDES
+   8:Lib/lvgl/src/misc/cache/lv_cache.c ****  *********************/
+   9:Lib/lvgl/src/misc/cache/lv_cache.c **** #include "lv_cache.h"
+  10:Lib/lvgl/src/misc/cache/lv_cache.c **** #include "../../stdlib/lv_sprintf.h"
+  11:Lib/lvgl/src/misc/cache/lv_cache.c **** #include "../lv_assert.h"
+  12:Lib/lvgl/src/misc/cache/lv_cache.c **** #include "lv_cache_entry_private.h"
+  13:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  14:Lib/lvgl/src/misc/cache/lv_cache.c **** /*********************
+  15:Lib/lvgl/src/misc/cache/lv_cache.c ****  *      DEFINES
+  16:Lib/lvgl/src/misc/cache/lv_cache.c ****  *********************/
+  17:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  18:Lib/lvgl/src/misc/cache/lv_cache.c **** /**********************
+  19:Lib/lvgl/src/misc/cache/lv_cache.c ****  *      TYPEDEFS
+  20:Lib/lvgl/src/misc/cache/lv_cache.c ****  **********************/
+  21:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  22:Lib/lvgl/src/misc/cache/lv_cache.c **** /**********************
+  23:Lib/lvgl/src/misc/cache/lv_cache.c ****  *  STATIC PROTOTYPES
+  24:Lib/lvgl/src/misc/cache/lv_cache.c ****  **********************/
+  25:Lib/lvgl/src/misc/cache/lv_cache.c **** static void cache_drop_internal_no_lock(lv_cache_t * cache, const void * key, void * user_data);
+  26:Lib/lvgl/src/misc/cache/lv_cache.c **** /**********************
+  27:Lib/lvgl/src/misc/cache/lv_cache.c ****  *  GLOBAL VARIABLES
+  28:Lib/lvgl/src/misc/cache/lv_cache.c ****  **********************/
+  29:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  30:Lib/lvgl/src/misc/cache/lv_cache.c **** /**********************
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 2
+
+
+  31:Lib/lvgl/src/misc/cache/lv_cache.c ****  *  STATIC VARIABLES
+  32:Lib/lvgl/src/misc/cache/lv_cache.c ****  **********************/
+  33:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  34:Lib/lvgl/src/misc/cache/lv_cache.c **** /**********************
+  35:Lib/lvgl/src/misc/cache/lv_cache.c ****  *      MACROS
+  36:Lib/lvgl/src/misc/cache/lv_cache.c ****  **********************/
+  37:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  38:Lib/lvgl/src/misc/cache/lv_cache.c **** /**********************
+  39:Lib/lvgl/src/misc/cache/lv_cache.c ****  *   GLOBAL FUNCTIONS
+  40:Lib/lvgl/src/misc/cache/lv_cache.c ****  **********************/
+  41:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  42:Lib/lvgl/src/misc/cache/lv_cache.c **** lv_cache_t * lv_cache_create(const lv_cache_class_t * cache_class,
+  43:Lib/lvgl/src/misc/cache/lv_cache.c ****                              size_t node_size, size_t max_size,
+  44:Lib/lvgl/src/misc/cache/lv_cache.c ****                              lv_cache_ops_t ops)
+  45:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+  46:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_t * cache = cache_class->alloc_cb();
+  47:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_MALLOC(cache);
+  48:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  49:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->clz = cache_class;
+  50:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->node_size = node_size;
+  51:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->max_size = max_size;
+  52:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->size = 0;
+  53:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops = ops;
+  54:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  55:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(cache->clz->init_cb(cache) == false) {
+  56:Lib/lvgl/src/misc/cache/lv_cache.c ****         LV_LOG_ERROR("Cache init failed");
+  57:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_free(cache);
+  58:Lib/lvgl/src/misc/cache/lv_cache.c ****         return NULL;
+  59:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+  60:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  61:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_init(&cache->lock);
+  62:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  63:Lib/lvgl/src/misc/cache/lv_cache.c ****     return cache;
+  64:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+  65:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  66:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_destroy(lv_cache_t * cache, void * user_data)
+  67:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+  68:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+  69:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  70:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_lock(&cache->lock);
+  71:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->clz->destroy_cb(cache, user_data);
+  72:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+  73:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_delete(&cache->lock);
+  74:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_free(cache);
+  75:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+  76:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  77:Lib/lvgl/src/misc/cache/lv_cache.c **** lv_cache_entry_t * lv_cache_acquire(lv_cache_t * cache, const void * key, void * user_data)
+  78:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+  80:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+  81:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  82:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_lock(&cache->lock);
+  83:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->get_cb(cache, key, user_data);
+  84:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+  85:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+  86:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+  87:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 3
+
+
+  88:Lib/lvgl/src/misc/cache/lv_cache.c ****     return entry;
+  89:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+  90:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_release(lv_cache_t * cache, lv_cache_entry_t * entry, void * user_data)
+  91:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+  92:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(entry);
+  93:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  94:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_lock(&cache->lock);
+  95:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_release_data(entry, user_data);
+  96:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+  97:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(lv_cache_entry_get_ref(entry) == 0 && lv_cache_entry_is_invalid(entry)) {
+  98:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->ops.free_cb(lv_cache_entry_get_data(entry), user_data);
+  99:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 100:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 101:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 102:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 103:Lib/lvgl/src/misc/cache/lv_cache.c **** lv_cache_entry_t * lv_cache_add(lv_cache_t * cache, const void * key, void * user_data)
+ 104:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 107:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 108:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_lock(&cache->lock);
+ 109:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->add_cb(cache, key, user_data);
+ 110:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 111:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 112:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 113:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 114:Lib/lvgl/src/misc/cache/lv_cache.c ****     return entry;
+ 115:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 116:Lib/lvgl/src/misc/cache/lv_cache.c **** lv_cache_entry_t * lv_cache_acquire_or_create(lv_cache_t * cache, const void * key, void * user_dat
+ 117:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 120:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 121:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_lock(&cache->lock);
+ 122:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->get_cb(cache, key, user_data);
+ 123:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 124:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 125:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_mutex_unlock(&cache->lock);
+ 126:Lib/lvgl/src/misc/cache/lv_cache.c ****         return entry;
+ 127:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 128:Lib/lvgl/src/misc/cache/lv_cache.c ****     entry = cache->clz->add_cb(cache, key, user_data);
+ 129:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry == NULL) {
+ 130:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_mutex_unlock(&cache->lock);
+ 131:Lib/lvgl/src/misc/cache/lv_cache.c ****         return NULL;
+ 132:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 133:Lib/lvgl/src/misc/cache/lv_cache.c ****     bool create_res = cache->ops.create_cb(lv_cache_entry_get_data(entry), user_data);
+ 134:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(create_res == false) {
+ 135:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->clz->remove_cb(cache, entry, user_data);
+ 136:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 137:Lib/lvgl/src/misc/cache/lv_cache.c ****         entry = NULL;
+ 138:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 139:Lib/lvgl/src/misc/cache/lv_cache.c ****     else {
+ 140:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 141:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 142:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 143:Lib/lvgl/src/misc/cache/lv_cache.c ****     return entry;
+ 144:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 4
+
+
+ 145:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_drop(lv_cache_t * cache, const void * key, void * user_data)
+ 146:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 149:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 150:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_lock(&cache->lock);
+ 151:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache_drop_internal_no_lock(cache, key, user_data);
+ 152:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 153:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 154:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_drop_all(lv_cache_t * cache, void * user_data)
+ 155:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 157:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 158:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_lock(&cache->lock);
+ 159:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->clz->drop_all_cb(cache, user_data);
+ 160:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 161:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 162:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 163:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_set_max_size(lv_cache_t * cache, size_t max_size, void * user_data)
+ 164:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 165:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 166:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->max_size = max_size;
+ 167:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 168:Lib/lvgl/src/misc/cache/lv_cache.c **** size_t lv_cache_get_max_size(lv_cache_t * cache, void * user_data)
+ 169:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 170:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 171:Lib/lvgl/src/misc/cache/lv_cache.c ****     return cache->max_size;
+ 172:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 173:Lib/lvgl/src/misc/cache/lv_cache.c **** size_t lv_cache_get_size(lv_cache_t * cache, void * user_data)
+ 174:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 175:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 176:Lib/lvgl/src/misc/cache/lv_cache.c ****     return cache->size;
+ 177:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 178:Lib/lvgl/src/misc/cache/lv_cache.c **** size_t lv_cache_get_free_size(lv_cache_t * cache, void * user_data)
+ 179:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 180:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 181:Lib/lvgl/src/misc/cache/lv_cache.c ****     return cache->max_size - cache->size;
+ 182:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 183:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_set_compare_cb(lv_cache_t * cache, lv_cache_compare_cb_t compare_cb, void * user_data
+ 184:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 185:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 186:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops.compare_cb = compare_cb;
+ 187:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 188:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_set_create_cb(lv_cache_t * cache, lv_cache_create_cb_t alloc_cb, void * user_data)
+ 189:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 190:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 191:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops.create_cb = alloc_cb;
+ 192:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 193:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_set_free_cb(lv_cache_t * cache, lv_cache_free_cb_t free_cb, void * user_data)
+ 194:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+ 195:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 196:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops.free_cb = free_cb;
+ 197:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 198:Lib/lvgl/src/misc/cache/lv_cache.c **** /**********************
+ 199:Lib/lvgl/src/misc/cache/lv_cache.c ****  *   STATIC FUNCTIONS
+ 200:Lib/lvgl/src/misc/cache/lv_cache.c ****  **********************/
+ 201:Lib/lvgl/src/misc/cache/lv_cache.c **** static void cache_drop_internal_no_lock(lv_cache_t * cache, const void * key, void * user_data)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 5
+
+
+ 202:Lib/lvgl/src/misc/cache/lv_cache.c **** {
+  29              		.loc 1 202 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 202 1 is_stmt 0 view .LVU1
+  34 0000 70B5     		push	{r4, r5, r6, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 4, -16
+  38              		.cfi_offset 5, -12
+  39              		.cfi_offset 6, -8
+  40              		.cfi_offset 14, -4
+  41 0002 0446     		mov	r4, r0
+  42 0004 1546     		mov	r5, r2
+ 203:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->get_cb(cache, key, user_data);
+  43              		.loc 1 203 5 is_stmt 1 view .LVU2
+  44              		.loc 1 203 37 is_stmt 0 view .LVU3
+  45 0006 0368     		ldr	r3, [r0]
+  46              		.loc 1 203 42 view .LVU4
+  47 0008 DB68     		ldr	r3, [r3, #12]
+  48              		.loc 1 203 32 view .LVU5
+  49 000a 9847     		blx	r3
+  50              	.LVL1:
+ 204:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry == NULL) {
+  51              		.loc 1 204 5 is_stmt 1 view .LVU6
+  52              		.loc 1 204 7 is_stmt 0 view .LVU7
+  53 000c 90B1     		cbz	r0, .L1
+  54 000e 0646     		mov	r6, r0
+ 205:Lib/lvgl/src/misc/cache/lv_cache.c ****         return;
+ 206:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 207:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 208:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(lv_cache_entry_get_ref(entry) == 0) {
+  55              		.loc 1 208 5 is_stmt 1 view .LVU8
+  56              		.loc 1 208 8 is_stmt 0 view .LVU9
+  57 0010 FFF7FEFF 		bl	lv_cache_entry_get_ref
+  58              	.LVL2:
+  59              		.loc 1 208 7 view .LVU10
+  60 0014 78B9     		cbnz	r0, .L3
+ 209:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->clz->remove_cb(cache, entry, user_data);
+  61              		.loc 1 209 9 is_stmt 1 view .LVU11
+  62              		.loc 1 209 14 is_stmt 0 view .LVU12
+  63 0016 2368     		ldr	r3, [r4]
+  64              		.loc 1 209 19 view .LVU13
+  65 0018 5B69     		ldr	r3, [r3, #20]
+  66              		.loc 1 209 9 view .LVU14
+  67 001a 2A46     		mov	r2, r5
+  68 001c 3146     		mov	r1, r6
+  69 001e 2046     		mov	r0, r4
+  70 0020 9847     		blx	r3
+  71              	.LVL3:
+ 210:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->ops.free_cb(lv_cache_entry_get_data(entry), user_data);
+  72              		.loc 1 210 9 is_stmt 1 view .LVU15
+  73              		.loc 1 210 19 is_stmt 0 view .LVU16
+  74 0022 A469     		ldr	r4, [r4, #24]
+  75              	.LVL4:
+  76              		.loc 1 210 9 view .LVU17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 6
+
+
+  77 0024 3046     		mov	r0, r6
+  78 0026 FFF7FEFF 		bl	lv_cache_entry_get_data
+  79              	.LVL5:
+  80 002a 2946     		mov	r1, r5
+  81 002c A047     		blx	r4
+  82              	.LVL6:
+ 211:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+  83              		.loc 1 211 9 is_stmt 1 view .LVU18
+  84 002e 3046     		mov	r0, r6
+  85 0030 FFF7FEFF 		bl	lv_cache_entry_delete
+  86              	.LVL7:
+  87              	.L1:
+ 212:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 213:Lib/lvgl/src/misc/cache/lv_cache.c ****     else {
+ 214:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_set_invalid(entry, true);
+ 215:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->clz->remove_cb(cache, entry, user_data);
+ 216:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 217:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+  88              		.loc 1 217 1 is_stmt 0 view .LVU19
+  89 0034 70BD     		pop	{r4, r5, r6, pc}
+  90              	.LVL8:
+  91              	.L3:
+ 214:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->clz->remove_cb(cache, entry, user_data);
+  92              		.loc 1 214 9 is_stmt 1 view .LVU20
+  93 0036 0121     		movs	r1, #1
+  94 0038 3046     		mov	r0, r6
+  95 003a FFF7FEFF 		bl	lv_cache_entry_set_invalid
+  96              	.LVL9:
+ 215:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+  97              		.loc 1 215 9 view .LVU21
+ 215:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+  98              		.loc 1 215 14 is_stmt 0 view .LVU22
+  99 003e 2368     		ldr	r3, [r4]
+ 215:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 100              		.loc 1 215 19 view .LVU23
+ 101 0040 5B69     		ldr	r3, [r3, #20]
+ 215:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 102              		.loc 1 215 9 view .LVU24
+ 103 0042 2A46     		mov	r2, r5
+ 104 0044 3146     		mov	r1, r6
+ 105 0046 2046     		mov	r0, r4
+ 106 0048 9847     		blx	r3
+ 107              	.LVL10:
+ 108 004a F3E7     		b	.L1
+ 109              		.cfi_endproc
+ 110              	.LFE15:
+ 112              		.section	.text.lv_cache_create,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	lv_cache_create
+ 115              		.syntax unified
+ 116              		.thumb
+ 117              		.thumb_func
+ 119              	lv_cache_create:
+ 120              	.LVL11:
+ 121              	.LFB0:
+  45:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_t * cache = cache_class->alloc_cb();
+ 122              		.loc 1 45 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 7
+
+
+ 123              		.cfi_startproc
+ 124              		@ args = 16, pretend = 8, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+  45:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_t * cache = cache_class->alloc_cb();
+ 126              		.loc 1 45 1 is_stmt 0 view .LVU26
+ 127 0000 82B0     		sub	sp, sp, #8
+ 128              	.LCFI1:
+ 129              		.cfi_def_cfa_offset 8
+ 130 0002 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 131              	.LCFI2:
+ 132              		.cfi_def_cfa_offset 32
+ 133              		.cfi_offset 3, -32
+ 134              		.cfi_offset 4, -28
+ 135              		.cfi_offset 5, -24
+ 136              		.cfi_offset 6, -20
+ 137              		.cfi_offset 7, -16
+ 138              		.cfi_offset 14, -12
+ 139 0004 0546     		mov	r5, r0
+ 140 0006 0F46     		mov	r7, r1
+ 141 0008 1646     		mov	r6, r2
+ 142 000a 0793     		str	r3, [sp, #28]
+  46:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_MALLOC(cache);
+ 143              		.loc 1 46 5 is_stmt 1 view .LVU27
+  46:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_MALLOC(cache);
+ 144              		.loc 1 46 37 is_stmt 0 view .LVU28
+ 145 000c 0368     		ldr	r3, [r0]
+  46:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_MALLOC(cache);
+ 146              		.loc 1 46 26 view .LVU29
+ 147 000e 9847     		blx	r3
+ 148              	.LVL12:
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 149              		.loc 1 47 5 is_stmt 1 view .LVU30
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 150              		.loc 1 47 5 view .LVU31
+ 151 0010 C0B1     		cbz	r0, .L7
+ 152 0012 0446     		mov	r4, r0
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 153              		.loc 1 47 5 discriminator 2 view .LVU32
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 154              		.loc 1 47 28 discriminator 2 view .LVU33
+  49:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->node_size = node_size;
+ 155              		.loc 1 49 5 discriminator 2 view .LVU34
+  49:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->node_size = node_size;
+ 156              		.loc 1 49 16 is_stmt 0 discriminator 2 view .LVU35
+ 157 0014 0560     		str	r5, [r0]
+  50:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->max_size = max_size;
+ 158              		.loc 1 50 5 is_stmt 1 discriminator 2 view .LVU36
+  50:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->max_size = max_size;
+ 159              		.loc 1 50 22 is_stmt 0 discriminator 2 view .LVU37
+ 160 0016 4760     		str	r7, [r0, #4]
+  51:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->size = 0;
+ 161              		.loc 1 51 5 is_stmt 1 discriminator 2 view .LVU38
+  51:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->size = 0;
+ 162              		.loc 1 51 21 is_stmt 0 discriminator 2 view .LVU39
+ 163 0018 8660     		str	r6, [r0, #8]
+  52:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops = ops;
+ 164              		.loc 1 52 5 is_stmt 1 discriminator 2 view .LVU40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 8
+
+
+  52:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops = ops;
+ 165              		.loc 1 52 17 is_stmt 0 discriminator 2 view .LVU41
+ 166 001a 0023     		movs	r3, #0
+ 167 001c C360     		str	r3, [r0, #12]
+  53:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 168              		.loc 1 53 5 is_stmt 1 discriminator 2 view .LVU42
+  53:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 169              		.loc 1 53 16 is_stmt 0 discriminator 2 view .LVU43
+ 170 001e 00F11003 		add	r3, r0, #16
+ 171 0022 07AA     		add	r2, sp, #28
+ 172 0024 07CA     		ldm	r2, {r0, r1, r2}
+ 173              	.LVL13:
+  53:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 174              		.loc 1 53 16 discriminator 2 view .LVU44
+ 175 0026 83E80700 		stm	r3, {r0, r1, r2}
+  55:Lib/lvgl/src/misc/cache/lv_cache.c ****         LV_LOG_ERROR("Cache init failed");
+ 176              		.loc 1 55 5 is_stmt 1 discriminator 2 view .LVU45
+  55:Lib/lvgl/src/misc/cache/lv_cache.c ****         LV_LOG_ERROR("Cache init failed");
+ 177              		.loc 1 55 18 is_stmt 0 discriminator 2 view .LVU46
+ 178 002a 6B68     		ldr	r3, [r5, #4]
+  55:Lib/lvgl/src/misc/cache/lv_cache.c ****         LV_LOG_ERROR("Cache init failed");
+ 179              		.loc 1 55 8 discriminator 2 view .LVU47
+ 180 002c 2046     		mov	r0, r4
+ 181 002e 9847     		blx	r3
+ 182              	.LVL14:
+  55:Lib/lvgl/src/misc/cache/lv_cache.c ****         LV_LOG_ERROR("Cache init failed");
+ 183              		.loc 1 55 7 discriminator 2 view .LVU48
+ 184 0030 48B1     		cbz	r0, .L11
+  61:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 185              		.loc 1 61 5 is_stmt 1 view .LVU49
+ 186 0032 04F11C00 		add	r0, r4, #28
+ 187 0036 FFF7FEFF 		bl	lv_mutex_init
+ 188              	.LVL15:
+  63:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 189              		.loc 1 63 5 view .LVU50
+ 190              	.L5:
+  64:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 191              		.loc 1 64 1 is_stmt 0 view .LVU51
+ 192 003a 2046     		mov	r0, r4
+ 193 003c BDE8F840 		pop	{r3, r4, r5, r6, r7, lr}
+ 194              	.LCFI3:
+ 195              		.cfi_remember_state
+ 196              		.cfi_restore 14
+ 197              		.cfi_restore 7
+ 198              		.cfi_restore 6
+ 199              		.cfi_restore 5
+ 200              		.cfi_restore 4
+ 201              		.cfi_restore 3
+ 202              		.cfi_def_cfa_offset 8
+ 203              	.LVL16:
+  64:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 204              		.loc 1 64 1 view .LVU52
+ 205 0040 02B0     		add	sp, sp, #8
+ 206              	.LCFI4:
+ 207              		.cfi_def_cfa_offset 0
+ 208 0042 7047     		bx	lr
+ 209              	.LVL17:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 9
+
+
+ 210              	.L7:
+ 211              	.LCFI5:
+ 212              		.cfi_restore_state
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 213              		.loc 1 47 5 is_stmt 1 discriminator 1 view .LVU53
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 214              		.loc 1 47 5 discriminator 1 view .LVU54
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 215              		.loc 1 47 5 discriminator 1 view .LVU55
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 216              		.loc 1 47 5 discriminator 1 view .LVU56
+  47:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 217              		.loc 1 47 5 discriminator 1 view .LVU57
+ 218 0044 FEE7     		b	.L7
+ 219              	.LVL18:
+ 220              	.L11:
+  56:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_free(cache);
+ 221              		.loc 1 56 9 view .LVU58
+  56:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_free(cache);
+ 222              		.loc 1 56 9 view .LVU59
+  56:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_free(cache);
+ 223              		.loc 1 56 9 view .LVU60
+  57:Lib/lvgl/src/misc/cache/lv_cache.c ****         return NULL;
+ 224              		.loc 1 57 9 view .LVU61
+ 225 0046 2046     		mov	r0, r4
+ 226 0048 FFF7FEFF 		bl	lv_free
+ 227              	.LVL19:
+  58:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 228              		.loc 1 58 9 view .LVU62
+  58:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 229              		.loc 1 58 16 is_stmt 0 view .LVU63
+ 230 004c 0024     		movs	r4, #0
+ 231              	.LVL20:
+  58:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 232              		.loc 1 58 16 view .LVU64
+ 233 004e F4E7     		b	.L5
+ 234              		.cfi_endproc
+ 235              	.LFE0:
+ 237              		.section	.text.lv_cache_destroy,"ax",%progbits
+ 238              		.align	1
+ 239              		.global	lv_cache_destroy
+ 240              		.syntax unified
+ 241              		.thumb
+ 242              		.thumb_func
+ 244              	lv_cache_destroy:
+ 245              	.LVL21:
+ 246              	.LFB1:
+  67:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 247              		.loc 1 67 1 is_stmt 1 view -0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 0
+ 250              		@ frame_needed = 0, uses_anonymous_args = 0
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 251              		.loc 1 68 5 view .LVU66
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 252              		.loc 1 68 5 view .LVU67
+ 253 0000 B0B1     		cbz	r0, .L14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 10
+
+
+  67:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 254              		.loc 1 67 1 is_stmt 0 discriminator 2 view .LVU68
+ 255 0002 70B5     		push	{r4, r5, r6, lr}
+ 256              	.LCFI6:
+ 257              		.cfi_def_cfa_offset 16
+ 258              		.cfi_offset 4, -16
+ 259              		.cfi_offset 5, -12
+ 260              		.cfi_offset 6, -8
+ 261              		.cfi_offset 14, -4
+ 262 0004 0C46     		mov	r4, r1
+ 263 0006 0546     		mov	r5, r0
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 264              		.loc 1 68 5 is_stmt 1 discriminator 2 view .LVU69
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 265              		.loc 1 68 26 discriminator 2 view .LVU70
+  70:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->clz->destroy_cb(cache, user_data);
+ 266              		.loc 1 70 5 discriminator 2 view .LVU71
+ 267 0008 00F11C06 		add	r6, r0, #28
+ 268 000c 3046     		mov	r0, r6
+ 269              	.LVL22:
+  70:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->clz->destroy_cb(cache, user_data);
+ 270              		.loc 1 70 5 is_stmt 0 discriminator 2 view .LVU72
+ 271 000e FFF7FEFF 		bl	lv_mutex_lock
+ 272              	.LVL23:
+  71:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 273              		.loc 1 71 5 is_stmt 1 discriminator 2 view .LVU73
+  71:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 274              		.loc 1 71 10 is_stmt 0 discriminator 2 view .LVU74
+ 275 0012 2B68     		ldr	r3, [r5]
+  71:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 276              		.loc 1 71 15 discriminator 2 view .LVU75
+ 277 0014 9B68     		ldr	r3, [r3, #8]
+  71:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 278              		.loc 1 71 5 discriminator 2 view .LVU76
+ 279 0016 2146     		mov	r1, r4
+ 280 0018 2846     		mov	r0, r5
+ 281 001a 9847     		blx	r3
+ 282              	.LVL24:
+  72:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_delete(&cache->lock);
+ 283              		.loc 1 72 5 is_stmt 1 discriminator 2 view .LVU77
+ 284 001c 3046     		mov	r0, r6
+ 285 001e FFF7FEFF 		bl	lv_mutex_unlock
+ 286              	.LVL25:
+  73:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_free(cache);
+ 287              		.loc 1 73 5 discriminator 2 view .LVU78
+ 288 0022 3046     		mov	r0, r6
+ 289 0024 FFF7FEFF 		bl	lv_mutex_delete
+ 290              	.LVL26:
+  74:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 291              		.loc 1 74 5 discriminator 2 view .LVU79
+ 292 0028 2846     		mov	r0, r5
+ 293 002a FFF7FEFF 		bl	lv_free
+ 294              	.LVL27:
+  75:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 295              		.loc 1 75 1 is_stmt 0 discriminator 2 view .LVU80
+ 296 002e 70BD     		pop	{r4, r5, r6, pc}
+ 297              	.LVL28:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 11
+
+
+ 298              	.L14:
+ 299              	.LCFI7:
+ 300              		.cfi_def_cfa_offset 0
+ 301              		.cfi_restore 4
+ 302              		.cfi_restore 5
+ 303              		.cfi_restore 6
+ 304              		.cfi_restore 14
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 305              		.loc 1 68 5 is_stmt 1 discriminator 1 view .LVU81
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 306              		.loc 1 68 5 discriminator 1 view .LVU82
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 307              		.loc 1 68 5 discriminator 1 view .LVU83
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 308              		.loc 1 68 5 discriminator 1 view .LVU84
+  68:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 309              		.loc 1 68 5 discriminator 1 view .LVU85
+ 310 0030 FEE7     		b	.L14
+ 311              		.cfi_endproc
+ 312              	.LFE1:
+ 314              		.section	.text.lv_cache_acquire,"ax",%progbits
+ 315              		.align	1
+ 316              		.global	lv_cache_acquire
+ 317              		.syntax unified
+ 318              		.thumb
+ 319              		.thumb_func
+ 321              	lv_cache_acquire:
+ 322              	.LVL29:
+ 323              	.LFB2:
+  78:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 324              		.loc 1 78 1 view -0
+ 325              		.cfi_startproc
+ 326              		@ args = 0, pretend = 0, frame = 0
+ 327              		@ frame_needed = 0, uses_anonymous_args = 0
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 328              		.loc 1 79 5 view .LVU87
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 329              		.loc 1 79 5 view .LVU88
+ 330 0000 C0B1     		cbz	r0, .L19
+  78:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 331              		.loc 1 78 1 is_stmt 0 discriminator 2 view .LVU89
+ 332 0002 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 333              	.LCFI8:
+ 334              		.cfi_def_cfa_offset 24
+ 335              		.cfi_offset 3, -24
+ 336              		.cfi_offset 4, -20
+ 337              		.cfi_offset 5, -16
+ 338              		.cfi_offset 6, -12
+ 339              		.cfi_offset 7, -8
+ 340              		.cfi_offset 14, -4
+ 341 0004 0C46     		mov	r4, r1
+ 342 0006 1546     		mov	r5, r2
+ 343 0008 0646     		mov	r6, r0
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 344              		.loc 1 79 5 is_stmt 1 discriminator 2 view .LVU90
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 345              		.loc 1 79 26 discriminator 2 view .LVU91
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 12
+
+
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 346              		.loc 1 80 5 discriminator 2 view .LVU92
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 347              		.loc 1 80 5 discriminator 2 view .LVU93
+ 348 000a A1B1     		cbz	r1, .L21
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 349              		.loc 1 80 5 discriminator 2 view .LVU94
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 350              		.loc 1 80 24 discriminator 2 view .LVU95
+  82:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->get_cb(cache, key, user_data);
+ 351              		.loc 1 82 5 discriminator 2 view .LVU96
+ 352 000c 00F11C07 		add	r7, r0, #28
+ 353 0010 3846     		mov	r0, r7
+ 354              	.LVL30:
+  82:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->get_cb(cache, key, user_data);
+ 355              		.loc 1 82 5 is_stmt 0 discriminator 2 view .LVU97
+ 356 0012 FFF7FEFF 		bl	lv_mutex_lock
+ 357              	.LVL31:
+  83:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 358              		.loc 1 83 5 is_stmt 1 discriminator 2 view .LVU98
+  83:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 359              		.loc 1 83 37 is_stmt 0 discriminator 2 view .LVU99
+ 360 0016 3368     		ldr	r3, [r6]
+  83:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 361              		.loc 1 83 42 discriminator 2 view .LVU100
+ 362 0018 DB68     		ldr	r3, [r3, #12]
+  83:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 363              		.loc 1 83 32 discriminator 2 view .LVU101
+ 364 001a 2A46     		mov	r2, r5
+ 365 001c 2146     		mov	r1, r4
+ 366 001e 3046     		mov	r0, r6
+ 367 0020 9847     		blx	r3
+ 368              	.LVL32:
+  84:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 369              		.loc 1 84 5 is_stmt 1 discriminator 2 view .LVU102
+  84:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 370              		.loc 1 84 7 is_stmt 0 discriminator 2 view .LVU103
+ 371 0022 0446     		mov	r4, r0
+ 372              	.LVL33:
+  84:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 373              		.loc 1 84 7 discriminator 2 view .LVU104
+ 374 0024 08B1     		cbz	r0, .L22
+  85:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 375              		.loc 1 85 9 is_stmt 1 view .LVU105
+ 376 0026 FFF7FEFF 		bl	lv_cache_entry_acquire_data
+ 377              	.LVL34:
+ 378              	.L22:
+  87:Lib/lvgl/src/misc/cache/lv_cache.c ****     return entry;
+ 379              		.loc 1 87 5 view .LVU106
+ 380 002a 3846     		mov	r0, r7
+ 381 002c FFF7FEFF 		bl	lv_mutex_unlock
+ 382              	.LVL35:
+  88:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 383              		.loc 1 88 5 view .LVU107
+  89:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_release(lv_cache_t * cache, lv_cache_entry_t * entry, void * user_data)
+ 384              		.loc 1 89 1 is_stmt 0 view .LVU108
+ 385 0030 2046     		mov	r0, r4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 13
+
+
+ 386 0032 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 387              	.LVL36:
+ 388              	.L19:
+ 389              	.LCFI9:
+ 390              		.cfi_def_cfa_offset 0
+ 391              		.cfi_restore 3
+ 392              		.cfi_restore 4
+ 393              		.cfi_restore 5
+ 394              		.cfi_restore 6
+ 395              		.cfi_restore 7
+ 396              		.cfi_restore 14
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 397              		.loc 1 79 5 is_stmt 1 discriminator 1 view .LVU109
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 398              		.loc 1 79 5 discriminator 1 view .LVU110
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 399              		.loc 1 79 5 discriminator 1 view .LVU111
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 400              		.loc 1 79 5 discriminator 1 view .LVU112
+  79:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 401              		.loc 1 79 5 discriminator 1 view .LVU113
+ 402 0034 FEE7     		b	.L19
+ 403              	.L21:
+ 404              	.LCFI10:
+ 405              		.cfi_def_cfa_offset 24
+ 406              		.cfi_offset 3, -24
+ 407              		.cfi_offset 4, -20
+ 408              		.cfi_offset 5, -16
+ 409              		.cfi_offset 6, -12
+ 410              		.cfi_offset 7, -8
+ 411              		.cfi_offset 14, -4
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 412              		.loc 1 80 5 discriminator 2 view .LVU114
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 413              		.loc 1 80 5 discriminator 2 view .LVU115
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 414              		.loc 1 80 5 discriminator 2 view .LVU116
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 415              		.loc 1 80 5 discriminator 2 view .LVU117
+  80:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 416              		.loc 1 80 5 discriminator 2 view .LVU118
+ 417 0036 FEE7     		b	.L21
+ 418              		.cfi_endproc
+ 419              	.LFE2:
+ 421              		.section	.text.lv_cache_release,"ax",%progbits
+ 422              		.align	1
+ 423              		.global	lv_cache_release
+ 424              		.syntax unified
+ 425              		.thumb
+ 426              		.thumb_func
+ 428              	lv_cache_release:
+ 429              	.LVL37:
+ 430              	.LFB3:
+  91:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(entry);
+ 431              		.loc 1 91 1 view -0
+ 432              		.cfi_startproc
+ 433              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 14
+
+
+ 434              		@ frame_needed = 0, uses_anonymous_args = 0
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 435              		.loc 1 92 5 view .LVU120
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 436              		.loc 1 92 5 view .LVU121
+ 437 0000 A1B1     		cbz	r1, .L27
+  91:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(entry);
+ 438              		.loc 1 91 1 is_stmt 0 discriminator 2 view .LVU122
+ 439 0002 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 440              	.LCFI11:
+ 441              		.cfi_def_cfa_offset 24
+ 442              		.cfi_offset 3, -24
+ 443              		.cfi_offset 4, -20
+ 444              		.cfi_offset 5, -16
+ 445              		.cfi_offset 6, -12
+ 446              		.cfi_offset 7, -8
+ 447              		.cfi_offset 14, -4
+ 448 0004 0546     		mov	r5, r0
+ 449 0006 1446     		mov	r4, r2
+ 450 0008 0E46     		mov	r6, r1
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 451              		.loc 1 92 5 is_stmt 1 discriminator 2 view .LVU123
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 452              		.loc 1 92 26 discriminator 2 view .LVU124
+  94:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_release_data(entry, user_data);
+ 453              		.loc 1 94 5 discriminator 2 view .LVU125
+ 454 000a 00F11C07 		add	r7, r0, #28
+ 455 000e 3846     		mov	r0, r7
+ 456              	.LVL38:
+  94:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_release_data(entry, user_data);
+ 457              		.loc 1 94 5 is_stmt 0 discriminator 2 view .LVU126
+ 458 0010 FFF7FEFF 		bl	lv_mutex_lock
+ 459              	.LVL39:
+  95:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 460              		.loc 1 95 5 is_stmt 1 discriminator 2 view .LVU127
+ 461 0014 2146     		mov	r1, r4
+ 462 0016 3046     		mov	r0, r6
+ 463 0018 FFF7FEFF 		bl	lv_cache_entry_release_data
+ 464              	.LVL40:
+  97:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->ops.free_cb(lv_cache_entry_get_data(entry), user_data);
+ 465              		.loc 1 97 5 discriminator 2 view .LVU128
+  97:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->ops.free_cb(lv_cache_entry_get_data(entry), user_data);
+ 466              		.loc 1 97 8 is_stmt 0 discriminator 2 view .LVU129
+ 467 001c 3046     		mov	r0, r6
+ 468 001e FFF7FEFF 		bl	lv_cache_entry_get_ref
+ 469              	.LVL41:
+  97:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->ops.free_cb(lv_cache_entry_get_data(entry), user_data);
+ 470              		.loc 1 97 7 discriminator 2 view .LVU130
+ 471 0022 20B1     		cbz	r0, .L31
+ 472              	.LVL42:
+ 473              	.L28:
+ 101:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 474              		.loc 1 101 5 is_stmt 1 view .LVU131
+ 475 0024 3846     		mov	r0, r7
+ 476 0026 FFF7FEFF 		bl	lv_mutex_unlock
+ 477              	.LVL43:
+ 102:Lib/lvgl/src/misc/cache/lv_cache.c **** lv_cache_entry_t * lv_cache_add(lv_cache_t * cache, const void * key, void * user_data)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 15
+
+
+ 478              		.loc 1 102 1 is_stmt 0 view .LVU132
+ 479 002a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 480              	.LVL44:
+ 481              	.L27:
+ 482              	.LCFI12:
+ 483              		.cfi_def_cfa_offset 0
+ 484              		.cfi_restore 3
+ 485              		.cfi_restore 4
+ 486              		.cfi_restore 5
+ 487              		.cfi_restore 6
+ 488              		.cfi_restore 7
+ 489              		.cfi_restore 14
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 490              		.loc 1 92 5 is_stmt 1 discriminator 1 view .LVU133
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 491              		.loc 1 92 5 discriminator 1 view .LVU134
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 492              		.loc 1 92 5 discriminator 1 view .LVU135
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 493              		.loc 1 92 5 discriminator 1 view .LVU136
+  92:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 494              		.loc 1 92 5 discriminator 1 view .LVU137
+ 495 002c FEE7     		b	.L27
+ 496              	.LVL45:
+ 497              	.L31:
+ 498              	.LCFI13:
+ 499              		.cfi_def_cfa_offset 24
+ 500              		.cfi_offset 3, -24
+ 501              		.cfi_offset 4, -20
+ 502              		.cfi_offset 5, -16
+ 503              		.cfi_offset 6, -12
+ 504              		.cfi_offset 7, -8
+ 505              		.cfi_offset 14, -4
+  97:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->ops.free_cb(lv_cache_entry_get_data(entry), user_data);
+ 506              		.loc 1 97 46 is_stmt 0 discriminator 1 view .LVU138
+ 507 002e 3046     		mov	r0, r6
+ 508 0030 FFF7FEFF 		bl	lv_cache_entry_is_invalid
+ 509              	.LVL46:
+  97:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->ops.free_cb(lv_cache_entry_get_data(entry), user_data);
+ 510              		.loc 1 97 43 discriminator 1 view .LVU139
+ 511 0034 0028     		cmp	r0, #0
+ 512 0036 F5D0     		beq	.L28
+  98:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 513              		.loc 1 98 9 is_stmt 1 view .LVU140
+  98:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 514              		.loc 1 98 19 is_stmt 0 view .LVU141
+ 515 0038 AD69     		ldr	r5, [r5, #24]
+ 516              	.LVL47:
+  98:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 517              		.loc 1 98 9 view .LVU142
+ 518 003a 3046     		mov	r0, r6
+ 519 003c FFF7FEFF 		bl	lv_cache_entry_get_data
+ 520              	.LVL48:
+ 521 0040 2146     		mov	r1, r4
+ 522 0042 A847     		blx	r5
+ 523              	.LVL49:
+  99:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 16
+
+
+ 524              		.loc 1 99 9 is_stmt 1 view .LVU143
+ 525 0044 3046     		mov	r0, r6
+ 526 0046 FFF7FEFF 		bl	lv_cache_entry_delete
+ 527              	.LVL50:
+ 528 004a EBE7     		b	.L28
+ 529              		.cfi_endproc
+ 530              	.LFE3:
+ 532              		.section	.text.lv_cache_add,"ax",%progbits
+ 533              		.align	1
+ 534              		.global	lv_cache_add
+ 535              		.syntax unified
+ 536              		.thumb
+ 537              		.thumb_func
+ 539              	lv_cache_add:
+ 540              	.LVL51:
+ 541              	.LFB4:
+ 104:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 542              		.loc 1 104 1 view -0
+ 543              		.cfi_startproc
+ 544              		@ args = 0, pretend = 0, frame = 0
+ 545              		@ frame_needed = 0, uses_anonymous_args = 0
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 546              		.loc 1 105 5 view .LVU145
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 547              		.loc 1 105 5 view .LVU146
+ 548 0000 C0B1     		cbz	r0, .L34
+ 104:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 549              		.loc 1 104 1 is_stmt 0 discriminator 2 view .LVU147
+ 550 0002 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 551              	.LCFI14:
+ 552              		.cfi_def_cfa_offset 24
+ 553              		.cfi_offset 3, -24
+ 554              		.cfi_offset 4, -20
+ 555              		.cfi_offset 5, -16
+ 556              		.cfi_offset 6, -12
+ 557              		.cfi_offset 7, -8
+ 558              		.cfi_offset 14, -4
+ 559 0004 0C46     		mov	r4, r1
+ 560 0006 1546     		mov	r5, r2
+ 561 0008 0646     		mov	r6, r0
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 562              		.loc 1 105 5 is_stmt 1 discriminator 2 view .LVU148
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 563              		.loc 1 105 26 discriminator 2 view .LVU149
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 564              		.loc 1 106 5 discriminator 2 view .LVU150
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 565              		.loc 1 106 5 discriminator 2 view .LVU151
+ 566 000a A1B1     		cbz	r1, .L36
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 567              		.loc 1 106 5 discriminator 2 view .LVU152
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 568              		.loc 1 106 24 discriminator 2 view .LVU153
+ 108:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->add_cb(cache, key, user_data);
+ 569              		.loc 1 108 5 discriminator 2 view .LVU154
+ 570 000c 00F11C07 		add	r7, r0, #28
+ 571 0010 3846     		mov	r0, r7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 17
+
+
+ 572              	.LVL52:
+ 108:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->add_cb(cache, key, user_data);
+ 573              		.loc 1 108 5 is_stmt 0 discriminator 2 view .LVU155
+ 574 0012 FFF7FEFF 		bl	lv_mutex_lock
+ 575              	.LVL53:
+ 109:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 576              		.loc 1 109 5 is_stmt 1 discriminator 2 view .LVU156
+ 109:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 577              		.loc 1 109 37 is_stmt 0 discriminator 2 view .LVU157
+ 578 0016 3368     		ldr	r3, [r6]
+ 109:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 579              		.loc 1 109 42 discriminator 2 view .LVU158
+ 580 0018 1B69     		ldr	r3, [r3, #16]
+ 109:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 581              		.loc 1 109 32 discriminator 2 view .LVU159
+ 582 001a 2A46     		mov	r2, r5
+ 583 001c 2146     		mov	r1, r4
+ 584 001e 3046     		mov	r0, r6
+ 585 0020 9847     		blx	r3
+ 586              	.LVL54:
+ 110:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 587              		.loc 1 110 5 is_stmt 1 discriminator 2 view .LVU160
+ 110:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 588              		.loc 1 110 7 is_stmt 0 discriminator 2 view .LVU161
+ 589 0022 0446     		mov	r4, r0
+ 590              	.LVL55:
+ 110:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 591              		.loc 1 110 7 discriminator 2 view .LVU162
+ 592 0024 08B1     		cbz	r0, .L37
+ 111:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 593              		.loc 1 111 9 is_stmt 1 view .LVU163
+ 594 0026 FFF7FEFF 		bl	lv_cache_entry_acquire_data
+ 595              	.LVL56:
+ 596              	.L37:
+ 113:Lib/lvgl/src/misc/cache/lv_cache.c ****     return entry;
+ 597              		.loc 1 113 5 view .LVU164
+ 598 002a 3846     		mov	r0, r7
+ 599 002c FFF7FEFF 		bl	lv_mutex_unlock
+ 600              	.LVL57:
+ 114:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 601              		.loc 1 114 5 view .LVU165
+ 115:Lib/lvgl/src/misc/cache/lv_cache.c **** lv_cache_entry_t * lv_cache_acquire_or_create(lv_cache_t * cache, const void * key, void * user_dat
+ 602              		.loc 1 115 1 is_stmt 0 view .LVU166
+ 603 0030 2046     		mov	r0, r4
+ 604 0032 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 605              	.LVL58:
+ 606              	.L34:
+ 607              	.LCFI15:
+ 608              		.cfi_def_cfa_offset 0
+ 609              		.cfi_restore 3
+ 610              		.cfi_restore 4
+ 611              		.cfi_restore 5
+ 612              		.cfi_restore 6
+ 613              		.cfi_restore 7
+ 614              		.cfi_restore 14
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 615              		.loc 1 105 5 is_stmt 1 discriminator 1 view .LVU167
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 18
+
+
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 616              		.loc 1 105 5 discriminator 1 view .LVU168
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 617              		.loc 1 105 5 discriminator 1 view .LVU169
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 618              		.loc 1 105 5 discriminator 1 view .LVU170
+ 105:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 619              		.loc 1 105 5 discriminator 1 view .LVU171
+ 620 0034 FEE7     		b	.L34
+ 621              	.L36:
+ 622              	.LCFI16:
+ 623              		.cfi_def_cfa_offset 24
+ 624              		.cfi_offset 3, -24
+ 625              		.cfi_offset 4, -20
+ 626              		.cfi_offset 5, -16
+ 627              		.cfi_offset 6, -12
+ 628              		.cfi_offset 7, -8
+ 629              		.cfi_offset 14, -4
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 630              		.loc 1 106 5 discriminator 2 view .LVU172
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 631              		.loc 1 106 5 discriminator 2 view .LVU173
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 632              		.loc 1 106 5 discriminator 2 view .LVU174
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 633              		.loc 1 106 5 discriminator 2 view .LVU175
+ 106:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 634              		.loc 1 106 5 discriminator 2 view .LVU176
+ 635 0036 FEE7     		b	.L36
+ 636              		.cfi_endproc
+ 637              	.LFE4:
+ 639              		.section	.text.lv_cache_acquire_or_create,"ax",%progbits
+ 640              		.align	1
+ 641              		.global	lv_cache_acquire_or_create
+ 642              		.syntax unified
+ 643              		.thumb
+ 644              		.thumb_func
+ 646              	lv_cache_acquire_or_create:
+ 647              	.LVL59:
+ 648              	.LFB5:
+ 117:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 649              		.loc 1 117 1 view -0
+ 650              		.cfi_startproc
+ 651              		@ args = 0, pretend = 0, frame = 0
+ 652              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 653              		.loc 1 118 5 view .LVU178
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 654              		.loc 1 118 5 view .LVU179
+ 655 0000 80B3     		cbz	r0, .L42
+ 117:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 656              		.loc 1 117 1 is_stmt 0 discriminator 2 view .LVU180
+ 657 0002 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 658              	.LCFI17:
+ 659              		.cfi_def_cfa_offset 32
+ 660              		.cfi_offset 3, -32
+ 661              		.cfi_offset 4, -28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 19
+
+
+ 662              		.cfi_offset 5, -24
+ 663              		.cfi_offset 6, -20
+ 664              		.cfi_offset 7, -16
+ 665              		.cfi_offset 8, -12
+ 666              		.cfi_offset 9, -8
+ 667              		.cfi_offset 14, -4
+ 668 0006 0C46     		mov	r4, r1
+ 669 0008 1646     		mov	r6, r2
+ 670 000a 0546     		mov	r5, r0
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 671              		.loc 1 118 5 is_stmt 1 discriminator 2 view .LVU181
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 672              		.loc 1 118 26 discriminator 2 view .LVU182
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 673              		.loc 1 119 5 discriminator 2 view .LVU183
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 674              		.loc 1 119 5 discriminator 2 view .LVU184
+ 675 000c 59B3     		cbz	r1, .L44
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 676              		.loc 1 119 5 discriminator 2 view .LVU185
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 677              		.loc 1 119 24 discriminator 2 view .LVU186
+ 121:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->get_cb(cache, key, user_data);
+ 678              		.loc 1 121 5 discriminator 2 view .LVU187
+ 679 000e 00F11C07 		add	r7, r0, #28
+ 680 0012 3846     		mov	r0, r7
+ 681              	.LVL60:
+ 121:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_cache_entry_t * entry = cache->clz->get_cb(cache, key, user_data);
+ 682              		.loc 1 121 5 is_stmt 0 discriminator 2 view .LVU188
+ 683 0014 FFF7FEFF 		bl	lv_mutex_lock
+ 684              	.LVL61:
+ 122:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 685              		.loc 1 122 5 is_stmt 1 discriminator 2 view .LVU189
+ 122:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 686              		.loc 1 122 37 is_stmt 0 discriminator 2 view .LVU190
+ 687 0018 2B68     		ldr	r3, [r5]
+ 122:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 688              		.loc 1 122 42 discriminator 2 view .LVU191
+ 689 001a DB68     		ldr	r3, [r3, #12]
+ 122:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry != NULL) {
+ 690              		.loc 1 122 32 discriminator 2 view .LVU192
+ 691 001c 3246     		mov	r2, r6
+ 692 001e 2146     		mov	r1, r4
+ 693 0020 2846     		mov	r0, r5
+ 694 0022 9847     		blx	r3
+ 695              	.LVL62:
+ 123:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 696              		.loc 1 123 5 is_stmt 1 discriminator 2 view .LVU193
+ 123:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_acquire_data(entry);
+ 697              		.loc 1 123 7 is_stmt 0 discriminator 2 view .LVU194
+ 698 0024 8046     		mov	r8, r0
+ 699 0026 F8B9     		cbnz	r0, .L52
+ 128:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry == NULL) {
+ 700              		.loc 1 128 5 is_stmt 1 view .LVU195
+ 128:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry == NULL) {
+ 701              		.loc 1 128 18 is_stmt 0 view .LVU196
+ 702 0028 2B68     		ldr	r3, [r5]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 20
+
+
+ 128:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry == NULL) {
+ 703              		.loc 1 128 23 view .LVU197
+ 704 002a 1B69     		ldr	r3, [r3, #16]
+ 128:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry == NULL) {
+ 705              		.loc 1 128 13 view .LVU198
+ 706 002c 3246     		mov	r2, r6
+ 707 002e 2146     		mov	r1, r4
+ 708 0030 2846     		mov	r0, r5
+ 709              	.LVL63:
+ 128:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry == NULL) {
+ 710              		.loc 1 128 13 view .LVU199
+ 711 0032 9847     		blx	r3
+ 712              	.LVL64:
+ 129:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_mutex_unlock(&cache->lock);
+ 713              		.loc 1 129 5 is_stmt 1 view .LVU200
+ 129:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_mutex_unlock(&cache->lock);
+ 714              		.loc 1 129 7 is_stmt 0 view .LVU201
+ 715 0034 0446     		mov	r4, r0
+ 716              	.LVL65:
+ 129:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_mutex_unlock(&cache->lock);
+ 717              		.loc 1 129 7 view .LVU202
+ 718 0036 E8B1     		cbz	r0, .L53
+ 133:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(create_res == false) {
+ 719              		.loc 1 133 5 is_stmt 1 view .LVU203
+ 133:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(create_res == false) {
+ 720              		.loc 1 133 33 is_stmt 0 view .LVU204
+ 721 0038 D5F81490 		ldr	r9, [r5, #20]
+ 133:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(create_res == false) {
+ 722              		.loc 1 133 23 view .LVU205
+ 723 003c FFF7FEFF 		bl	lv_cache_entry_get_data
+ 724              	.LVL66:
+ 133:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(create_res == false) {
+ 725              		.loc 1 133 23 view .LVU206
+ 726 0040 3146     		mov	r1, r6
+ 727 0042 C847     		blx	r9
+ 728              	.LVL67:
+ 134:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->clz->remove_cb(cache, entry, user_data);
+ 729              		.loc 1 134 5 is_stmt 1 view .LVU207
+ 134:Lib/lvgl/src/misc/cache/lv_cache.c ****         cache->clz->remove_cb(cache, entry, user_data);
+ 730              		.loc 1 134 7 is_stmt 0 view .LVU208
+ 731 0044 D8B9     		cbnz	r0, .L48
+ 135:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 732              		.loc 1 135 9 is_stmt 1 view .LVU209
+ 135:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 733              		.loc 1 135 14 is_stmt 0 view .LVU210
+ 734 0046 2B68     		ldr	r3, [r5]
+ 135:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 735              		.loc 1 135 19 view .LVU211
+ 736 0048 5B69     		ldr	r3, [r3, #20]
+ 135:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 737              		.loc 1 135 9 view .LVU212
+ 738 004a 3246     		mov	r2, r6
+ 739 004c 2146     		mov	r1, r4
+ 740 004e 2846     		mov	r0, r5
+ 741              	.LVL68:
+ 135:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_cache_entry_delete(entry);
+ 742              		.loc 1 135 9 view .LVU213
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 21
+
+
+ 743 0050 9847     		blx	r3
+ 744              	.LVL69:
+ 136:Lib/lvgl/src/misc/cache/lv_cache.c ****         entry = NULL;
+ 745              		.loc 1 136 9 is_stmt 1 view .LVU214
+ 746 0052 2046     		mov	r0, r4
+ 747 0054 FFF7FEFF 		bl	lv_cache_entry_delete
+ 748              	.LVL70:
+ 137:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 749              		.loc 1 137 9 view .LVU215
+ 750              	.L49:
+ 142:Lib/lvgl/src/misc/cache/lv_cache.c ****     return entry;
+ 751              		.loc 1 142 5 view .LVU216
+ 752 0058 3846     		mov	r0, r7
+ 753 005a FFF7FEFF 		bl	lv_mutex_unlock
+ 754              	.LVL71:
+ 143:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 755              		.loc 1 143 5 view .LVU217
+ 756              	.L40:
+ 144:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_drop(lv_cache_t * cache, const void * key, void * user_data)
+ 757              		.loc 1 144 1 is_stmt 0 view .LVU218
+ 758 005e 4046     		mov	r0, r8
+ 759 0060 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 760              	.LVL72:
+ 761              	.L42:
+ 762              	.LCFI18:
+ 763              		.cfi_def_cfa_offset 0
+ 764              		.cfi_restore 3
+ 765              		.cfi_restore 4
+ 766              		.cfi_restore 5
+ 767              		.cfi_restore 6
+ 768              		.cfi_restore 7
+ 769              		.cfi_restore 8
+ 770              		.cfi_restore 9
+ 771              		.cfi_restore 14
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 772              		.loc 1 118 5 is_stmt 1 discriminator 1 view .LVU219
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 773              		.loc 1 118 5 discriminator 1 view .LVU220
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 774              		.loc 1 118 5 discriminator 1 view .LVU221
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 775              		.loc 1 118 5 discriminator 1 view .LVU222
+ 118:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 776              		.loc 1 118 5 discriminator 1 view .LVU223
+ 777 0064 FEE7     		b	.L42
+ 778              	.L44:
+ 779              	.LCFI19:
+ 780              		.cfi_def_cfa_offset 32
+ 781              		.cfi_offset 3, -32
+ 782              		.cfi_offset 4, -28
+ 783              		.cfi_offset 5, -24
+ 784              		.cfi_offset 6, -20
+ 785              		.cfi_offset 7, -16
+ 786              		.cfi_offset 8, -12
+ 787              		.cfi_offset 9, -8
+ 788              		.cfi_offset 14, -4
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 22
+
+
+ 789              		.loc 1 119 5 discriminator 2 view .LVU224
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 790              		.loc 1 119 5 discriminator 2 view .LVU225
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 791              		.loc 1 119 5 discriminator 2 view .LVU226
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 792              		.loc 1 119 5 discriminator 2 view .LVU227
+ 119:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 793              		.loc 1 119 5 discriminator 2 view .LVU228
+ 794 0066 FEE7     		b	.L44
+ 795              	.LVL73:
+ 796              	.L52:
+ 124:Lib/lvgl/src/misc/cache/lv_cache.c ****         lv_mutex_unlock(&cache->lock);
+ 797              		.loc 1 124 9 view .LVU229
+ 798 0068 FFF7FEFF 		bl	lv_cache_entry_acquire_data
+ 799              	.LVL74:
+ 125:Lib/lvgl/src/misc/cache/lv_cache.c ****         return entry;
+ 800              		.loc 1 125 9 view .LVU230
+ 801 006c 3846     		mov	r0, r7
+ 802 006e FFF7FEFF 		bl	lv_mutex_unlock
+ 803              	.LVL75:
+ 126:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 804              		.loc 1 126 9 view .LVU231
+ 126:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 805              		.loc 1 126 16 is_stmt 0 view .LVU232
+ 806 0072 F4E7     		b	.L40
+ 807              	.LVL76:
+ 808              	.L53:
+ 130:Lib/lvgl/src/misc/cache/lv_cache.c ****         return NULL;
+ 809              		.loc 1 130 9 is_stmt 1 view .LVU233
+ 810 0074 3846     		mov	r0, r7
+ 811              	.LVL77:
+ 130:Lib/lvgl/src/misc/cache/lv_cache.c ****         return NULL;
+ 812              		.loc 1 130 9 is_stmt 0 view .LVU234
+ 813 0076 FFF7FEFF 		bl	lv_mutex_unlock
+ 814              	.LVL78:
+ 131:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 815              		.loc 1 131 9 is_stmt 1 view .LVU235
+ 131:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 816              		.loc 1 131 16 is_stmt 0 view .LVU236
+ 817 007a A046     		mov	r8, r4
+ 818 007c EFE7     		b	.L40
+ 819              	.LVL79:
+ 820              	.L48:
+ 140:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 821              		.loc 1 140 9 is_stmt 1 view .LVU237
+ 822 007e 2046     		mov	r0, r4
+ 823              	.LVL80:
+ 140:Lib/lvgl/src/misc/cache/lv_cache.c ****     }
+ 824              		.loc 1 140 9 is_stmt 0 view .LVU238
+ 825 0080 FFF7FEFF 		bl	lv_cache_entry_acquire_data
+ 826              	.LVL81:
+ 128:Lib/lvgl/src/misc/cache/lv_cache.c ****     if(entry == NULL) {
+ 827              		.loc 1 128 13 view .LVU239
+ 828 0084 A046     		mov	r8, r4
+ 829 0086 E7E7     		b	.L49
+ 830              		.cfi_endproc
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 23
+
+
+ 831              	.LFE5:
+ 833              		.section	.text.lv_cache_drop,"ax",%progbits
+ 834              		.align	1
+ 835              		.global	lv_cache_drop
+ 836              		.syntax unified
+ 837              		.thumb
+ 838              		.thumb_func
+ 840              	lv_cache_drop:
+ 841              	.LVL82:
+ 842              	.LFB6:
+ 146:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 843              		.loc 1 146 1 is_stmt 1 view -0
+ 844              		.cfi_startproc
+ 845              		@ args = 0, pretend = 0, frame = 0
+ 846              		@ frame_needed = 0, uses_anonymous_args = 0
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 847              		.loc 1 147 5 view .LVU241
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 848              		.loc 1 147 5 view .LVU242
+ 849 0000 90B1     		cbz	r0, .L56
+ 146:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 850              		.loc 1 146 1 is_stmt 0 discriminator 2 view .LVU243
+ 851 0002 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 852              	.LCFI20:
+ 853              		.cfi_def_cfa_offset 24
+ 854              		.cfi_offset 3, -24
+ 855              		.cfi_offset 4, -20
+ 856              		.cfi_offset 5, -16
+ 857              		.cfi_offset 6, -12
+ 858              		.cfi_offset 7, -8
+ 859              		.cfi_offset 14, -4
+ 860 0004 0C46     		mov	r4, r1
+ 861 0006 1546     		mov	r5, r2
+ 862 0008 0646     		mov	r6, r0
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 863              		.loc 1 147 5 is_stmt 1 discriminator 2 view .LVU244
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 864              		.loc 1 147 26 discriminator 2 view .LVU245
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 865              		.loc 1 148 5 discriminator 2 view .LVU246
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 866              		.loc 1 148 5 discriminator 2 view .LVU247
+ 867 000a 71B1     		cbz	r1, .L58
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 868              		.loc 1 148 5 discriminator 2 view .LVU248
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 869              		.loc 1 148 24 discriminator 2 view .LVU249
+ 150:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache_drop_internal_no_lock(cache, key, user_data);
+ 870              		.loc 1 150 5 discriminator 2 view .LVU250
+ 871 000c 00F11C07 		add	r7, r0, #28
+ 872 0010 3846     		mov	r0, r7
+ 873              	.LVL83:
+ 150:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache_drop_internal_no_lock(cache, key, user_data);
+ 874              		.loc 1 150 5 is_stmt 0 discriminator 2 view .LVU251
+ 875 0012 FFF7FEFF 		bl	lv_mutex_lock
+ 876              	.LVL84:
+ 151:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 24
+
+
+ 877              		.loc 1 151 5 is_stmt 1 discriminator 2 view .LVU252
+ 878 0016 2A46     		mov	r2, r5
+ 879 0018 2146     		mov	r1, r4
+ 880 001a 3046     		mov	r0, r6
+ 881 001c FFF7FEFF 		bl	cache_drop_internal_no_lock
+ 882              	.LVL85:
+ 152:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 883              		.loc 1 152 5 discriminator 2 view .LVU253
+ 884 0020 3846     		mov	r0, r7
+ 885 0022 FFF7FEFF 		bl	lv_mutex_unlock
+ 886              	.LVL86:
+ 153:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_drop_all(lv_cache_t * cache, void * user_data)
+ 887              		.loc 1 153 1 is_stmt 0 discriminator 2 view .LVU254
+ 888 0026 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 889              	.LVL87:
+ 890              	.L56:
+ 891              	.LCFI21:
+ 892              		.cfi_def_cfa_offset 0
+ 893              		.cfi_restore 3
+ 894              		.cfi_restore 4
+ 895              		.cfi_restore 5
+ 896              		.cfi_restore 6
+ 897              		.cfi_restore 7
+ 898              		.cfi_restore 14
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 899              		.loc 1 147 5 is_stmt 1 discriminator 1 view .LVU255
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 900              		.loc 1 147 5 discriminator 1 view .LVU256
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 901              		.loc 1 147 5 discriminator 1 view .LVU257
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 902              		.loc 1 147 5 discriminator 1 view .LVU258
+ 147:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(key);
+ 903              		.loc 1 147 5 discriminator 1 view .LVU259
+ 904 0028 FEE7     		b	.L56
+ 905              	.L58:
+ 906              	.LCFI22:
+ 907              		.cfi_def_cfa_offset 24
+ 908              		.cfi_offset 3, -24
+ 909              		.cfi_offset 4, -20
+ 910              		.cfi_offset 5, -16
+ 911              		.cfi_offset 6, -12
+ 912              		.cfi_offset 7, -8
+ 913              		.cfi_offset 14, -4
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 914              		.loc 1 148 5 discriminator 2 view .LVU260
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 915              		.loc 1 148 5 discriminator 2 view .LVU261
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 916              		.loc 1 148 5 discriminator 2 view .LVU262
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 917              		.loc 1 148 5 discriminator 2 view .LVU263
+ 148:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 918              		.loc 1 148 5 discriminator 2 view .LVU264
+ 919 002a FEE7     		b	.L58
+ 920              		.cfi_endproc
+ 921              	.LFE6:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 25
+
+
+ 923              		.section	.text.lv_cache_drop_all,"ax",%progbits
+ 924              		.align	1
+ 925              		.global	lv_cache_drop_all
+ 926              		.syntax unified
+ 927              		.thumb
+ 928              		.thumb_func
+ 930              	lv_cache_drop_all:
+ 931              	.LVL88:
+ 932              	.LFB7:
+ 155:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 933              		.loc 1 155 1 view -0
+ 934              		.cfi_startproc
+ 935              		@ args = 0, pretend = 0, frame = 0
+ 936              		@ frame_needed = 0, uses_anonymous_args = 0
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 937              		.loc 1 156 5 view .LVU266
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 938              		.loc 1 156 5 view .LVU267
+ 939 0000 80B1     		cbz	r0, .L63
+ 155:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_ASSERT_NULL(cache);
+ 940              		.loc 1 155 1 is_stmt 0 discriminator 2 view .LVU268
+ 941 0002 70B5     		push	{r4, r5, r6, lr}
+ 942              	.LCFI23:
+ 943              		.cfi_def_cfa_offset 16
+ 944              		.cfi_offset 4, -16
+ 945              		.cfi_offset 5, -12
+ 946              		.cfi_offset 6, -8
+ 947              		.cfi_offset 14, -4
+ 948 0004 0C46     		mov	r4, r1
+ 949 0006 0546     		mov	r5, r0
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 950              		.loc 1 156 5 is_stmt 1 discriminator 2 view .LVU269
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 951              		.loc 1 156 26 discriminator 2 view .LVU270
+ 158:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->clz->drop_all_cb(cache, user_data);
+ 952              		.loc 1 158 5 discriminator 2 view .LVU271
+ 953 0008 00F11C06 		add	r6, r0, #28
+ 954 000c 3046     		mov	r0, r6
+ 955              	.LVL89:
+ 158:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->clz->drop_all_cb(cache, user_data);
+ 956              		.loc 1 158 5 is_stmt 0 discriminator 2 view .LVU272
+ 957 000e FFF7FEFF 		bl	lv_mutex_lock
+ 958              	.LVL90:
+ 159:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 959              		.loc 1 159 5 is_stmt 1 discriminator 2 view .LVU273
+ 159:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 960              		.loc 1 159 10 is_stmt 0 discriminator 2 view .LVU274
+ 961 0012 2B68     		ldr	r3, [r5]
+ 159:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 962              		.loc 1 159 15 discriminator 2 view .LVU275
+ 963 0014 DB69     		ldr	r3, [r3, #28]
+ 159:Lib/lvgl/src/misc/cache/lv_cache.c ****     lv_mutex_unlock(&cache->lock);
+ 964              		.loc 1 159 5 discriminator 2 view .LVU276
+ 965 0016 2146     		mov	r1, r4
+ 966 0018 2846     		mov	r0, r5
+ 967 001a 9847     		blx	r3
+ 968              	.LVL91:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 26
+
+
+ 160:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 969              		.loc 1 160 5 is_stmt 1 discriminator 2 view .LVU277
+ 970 001c 3046     		mov	r0, r6
+ 971 001e FFF7FEFF 		bl	lv_mutex_unlock
+ 972              	.LVL92:
+ 161:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 973              		.loc 1 161 1 is_stmt 0 discriminator 2 view .LVU278
+ 974 0022 70BD     		pop	{r4, r5, r6, pc}
+ 975              	.LVL93:
+ 976              	.L63:
+ 977              	.LCFI24:
+ 978              		.cfi_def_cfa_offset 0
+ 979              		.cfi_restore 4
+ 980              		.cfi_restore 5
+ 981              		.cfi_restore 6
+ 982              		.cfi_restore 14
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 983              		.loc 1 156 5 is_stmt 1 discriminator 1 view .LVU279
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 984              		.loc 1 156 5 discriminator 1 view .LVU280
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 985              		.loc 1 156 5 discriminator 1 view .LVU281
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 986              		.loc 1 156 5 discriminator 1 view .LVU282
+ 156:Lib/lvgl/src/misc/cache/lv_cache.c **** 
+ 987              		.loc 1 156 5 discriminator 1 view .LVU283
+ 988 0024 FEE7     		b	.L63
+ 989              		.cfi_endproc
+ 990              	.LFE7:
+ 992              		.section	.text.lv_cache_set_max_size,"ax",%progbits
+ 993              		.align	1
+ 994              		.global	lv_cache_set_max_size
+ 995              		.syntax unified
+ 996              		.thumb
+ 997              		.thumb_func
+ 999              	lv_cache_set_max_size:
+ 1000              	.LVL94:
+ 1001              	.LFB8:
+ 164:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 1002              		.loc 1 164 1 view -0
+ 1003              		.cfi_startproc
+ 1004              		@ args = 0, pretend = 0, frame = 0
+ 1005              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1006              		@ link register save eliminated.
+ 165:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->max_size = max_size;
+ 1007              		.loc 1 165 5 view .LVU285
+ 166:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1008              		.loc 1 166 5 view .LVU286
+ 166:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1009              		.loc 1 166 21 is_stmt 0 view .LVU287
+ 1010 0000 8160     		str	r1, [r0, #8]
+ 167:Lib/lvgl/src/misc/cache/lv_cache.c **** size_t lv_cache_get_max_size(lv_cache_t * cache, void * user_data)
+ 1011              		.loc 1 167 1 view .LVU288
+ 1012 0002 7047     		bx	lr
+ 1013              		.cfi_endproc
+ 1014              	.LFE8:
+ 1016              		.section	.text.lv_cache_get_max_size,"ax",%progbits
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 27
+
+
+ 1017              		.align	1
+ 1018              		.global	lv_cache_get_max_size
+ 1019              		.syntax unified
+ 1020              		.thumb
+ 1021              		.thumb_func
+ 1023              	lv_cache_get_max_size:
+ 1024              	.LVL95:
+ 1025              	.LFB9:
+ 169:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 1026              		.loc 1 169 1 is_stmt 1 view -0
+ 1027              		.cfi_startproc
+ 1028              		@ args = 0, pretend = 0, frame = 0
+ 1029              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1030              		@ link register save eliminated.
+ 170:Lib/lvgl/src/misc/cache/lv_cache.c ****     return cache->max_size;
+ 1031              		.loc 1 170 5 view .LVU290
+ 171:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1032              		.loc 1 171 5 view .LVU291
+ 172:Lib/lvgl/src/misc/cache/lv_cache.c **** size_t lv_cache_get_size(lv_cache_t * cache, void * user_data)
+ 1033              		.loc 1 172 1 is_stmt 0 view .LVU292
+ 1034 0000 8068     		ldr	r0, [r0, #8]
+ 1035              	.LVL96:
+ 172:Lib/lvgl/src/misc/cache/lv_cache.c **** size_t lv_cache_get_size(lv_cache_t * cache, void * user_data)
+ 1036              		.loc 1 172 1 view .LVU293
+ 1037 0002 7047     		bx	lr
+ 1038              		.cfi_endproc
+ 1039              	.LFE9:
+ 1041              		.section	.text.lv_cache_get_size,"ax",%progbits
+ 1042              		.align	1
+ 1043              		.global	lv_cache_get_size
+ 1044              		.syntax unified
+ 1045              		.thumb
+ 1046              		.thumb_func
+ 1048              	lv_cache_get_size:
+ 1049              	.LVL97:
+ 1050              	.LFB10:
+ 174:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 1051              		.loc 1 174 1 is_stmt 1 view -0
+ 1052              		.cfi_startproc
+ 1053              		@ args = 0, pretend = 0, frame = 0
+ 1054              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1055              		@ link register save eliminated.
+ 175:Lib/lvgl/src/misc/cache/lv_cache.c ****     return cache->size;
+ 1056              		.loc 1 175 5 view .LVU295
+ 176:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1057              		.loc 1 176 5 view .LVU296
+ 177:Lib/lvgl/src/misc/cache/lv_cache.c **** size_t lv_cache_get_free_size(lv_cache_t * cache, void * user_data)
+ 1058              		.loc 1 177 1 is_stmt 0 view .LVU297
+ 1059 0000 C068     		ldr	r0, [r0, #12]
+ 1060              	.LVL98:
+ 177:Lib/lvgl/src/misc/cache/lv_cache.c **** size_t lv_cache_get_free_size(lv_cache_t * cache, void * user_data)
+ 1061              		.loc 1 177 1 view .LVU298
+ 1062 0002 7047     		bx	lr
+ 1063              		.cfi_endproc
+ 1064              	.LFE10:
+ 1066              		.section	.text.lv_cache_get_free_size,"ax",%progbits
+ 1067              		.align	1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 28
+
+
+ 1068              		.global	lv_cache_get_free_size
+ 1069              		.syntax unified
+ 1070              		.thumb
+ 1071              		.thumb_func
+ 1073              	lv_cache_get_free_size:
+ 1074              	.LVL99:
+ 1075              	.LFB11:
+ 179:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 1076              		.loc 1 179 1 is_stmt 1 view -0
+ 1077              		.cfi_startproc
+ 1078              		@ args = 0, pretend = 0, frame = 0
+ 1079              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1080              		@ link register save eliminated.
+ 180:Lib/lvgl/src/misc/cache/lv_cache.c ****     return cache->max_size - cache->size;
+ 1081              		.loc 1 180 5 view .LVU300
+ 181:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1082              		.loc 1 181 5 view .LVU301
+ 181:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1083              		.loc 1 181 17 is_stmt 0 view .LVU302
+ 1084 0000 8268     		ldr	r2, [r0, #8]
+ 181:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1085              		.loc 1 181 35 view .LVU303
+ 1086 0002 C068     		ldr	r0, [r0, #12]
+ 1087              	.LVL100:
+ 182:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_set_compare_cb(lv_cache_t * cache, lv_cache_compare_cb_t compare_cb, void * user_data
+ 1088              		.loc 1 182 1 view .LVU304
+ 1089 0004 101A     		subs	r0, r2, r0
+ 1090 0006 7047     		bx	lr
+ 1091              		.cfi_endproc
+ 1092              	.LFE11:
+ 1094              		.section	.text.lv_cache_set_compare_cb,"ax",%progbits
+ 1095              		.align	1
+ 1096              		.global	lv_cache_set_compare_cb
+ 1097              		.syntax unified
+ 1098              		.thumb
+ 1099              		.thumb_func
+ 1101              	lv_cache_set_compare_cb:
+ 1102              	.LVL101:
+ 1103              	.LFB12:
+ 184:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 1104              		.loc 1 184 1 is_stmt 1 view -0
+ 1105              		.cfi_startproc
+ 1106              		@ args = 0, pretend = 0, frame = 0
+ 1107              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1108              		@ link register save eliminated.
+ 185:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops.compare_cb = compare_cb;
+ 1109              		.loc 1 185 5 view .LVU306
+ 186:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1110              		.loc 1 186 5 view .LVU307
+ 186:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1111              		.loc 1 186 27 is_stmt 0 view .LVU308
+ 1112 0000 0161     		str	r1, [r0, #16]
+ 187:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_set_create_cb(lv_cache_t * cache, lv_cache_create_cb_t alloc_cb, void * user_data)
+ 1113              		.loc 1 187 1 view .LVU309
+ 1114 0002 7047     		bx	lr
+ 1115              		.cfi_endproc
+ 1116              	.LFE12:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 29
+
+
+ 1118              		.section	.text.lv_cache_set_create_cb,"ax",%progbits
+ 1119              		.align	1
+ 1120              		.global	lv_cache_set_create_cb
+ 1121              		.syntax unified
+ 1122              		.thumb
+ 1123              		.thumb_func
+ 1125              	lv_cache_set_create_cb:
+ 1126              	.LVL102:
+ 1127              	.LFB13:
+ 189:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 1128              		.loc 1 189 1 is_stmt 1 view -0
+ 1129              		.cfi_startproc
+ 1130              		@ args = 0, pretend = 0, frame = 0
+ 1131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1132              		@ link register save eliminated.
+ 190:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops.create_cb = alloc_cb;
+ 1133              		.loc 1 190 5 view .LVU311
+ 191:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1134              		.loc 1 191 5 view .LVU312
+ 191:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1135              		.loc 1 191 26 is_stmt 0 view .LVU313
+ 1136 0000 4161     		str	r1, [r0, #20]
+ 192:Lib/lvgl/src/misc/cache/lv_cache.c **** void lv_cache_set_free_cb(lv_cache_t * cache, lv_cache_free_cb_t free_cb, void * user_data)
+ 1137              		.loc 1 192 1 view .LVU314
+ 1138 0002 7047     		bx	lr
+ 1139              		.cfi_endproc
+ 1140              	.LFE13:
+ 1142              		.section	.text.lv_cache_set_free_cb,"ax",%progbits
+ 1143              		.align	1
+ 1144              		.global	lv_cache_set_free_cb
+ 1145              		.syntax unified
+ 1146              		.thumb
+ 1147              		.thumb_func
+ 1149              	lv_cache_set_free_cb:
+ 1150              	.LVL103:
+ 1151              	.LFB14:
+ 194:Lib/lvgl/src/misc/cache/lv_cache.c ****     LV_UNUSED(user_data);
+ 1152              		.loc 1 194 1 is_stmt 1 view -0
+ 1153              		.cfi_startproc
+ 1154              		@ args = 0, pretend = 0, frame = 0
+ 1155              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1156              		@ link register save eliminated.
+ 195:Lib/lvgl/src/misc/cache/lv_cache.c ****     cache->ops.free_cb = free_cb;
+ 1157              		.loc 1 195 5 view .LVU316
+ 196:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1158              		.loc 1 196 5 view .LVU317
+ 196:Lib/lvgl/src/misc/cache/lv_cache.c **** }
+ 1159              		.loc 1 196 24 is_stmt 0 view .LVU318
+ 1160 0000 8161     		str	r1, [r0, #24]
+ 197:Lib/lvgl/src/misc/cache/lv_cache.c **** /**********************
+ 1161              		.loc 1 197 1 view .LVU319
+ 1162 0002 7047     		bx	lr
+ 1163              		.cfi_endproc
+ 1164              	.LFE14:
+ 1166              		.text
+ 1167              	.Letext0:
+ 1168              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 30
+
+
+ 1169              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1170              		.file 4 "Lib/lvgl/src/misc/cache/../../osal/../misc/lv_types.h"
+ 1171              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1172              		.file 6 "Lib/lvgl/src/misc/cache/../../osal/lv_os_none.h"
+ 1173              		.file 7 "Lib/lvgl/src/misc/cache/lv_cache_private.h"
+ 1174              		.file 8 "Lib/lvgl/src/misc/cache/lv_cache_entry_private.h"
+ 1175              		.file 9 "Lib/lvgl/src/misc/cache/lv_cache_entry.h"
+ 1176              		.file 10 "Lib/lvgl/src/misc/cache/../../osal/lv_os.h"
+ 1177              		.file 11 "Lib/lvgl/src/misc/cache/../../stdlib/lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s 			page 31
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_cache.c
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:21     .text.cache_drop_internal_no_lock:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:26     .text.cache_drop_internal_no_lock:00000000 cache_drop_internal_no_lock
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:113    .text.lv_cache_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:119    .text.lv_cache_create:00000000 lv_cache_create
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:238    .text.lv_cache_destroy:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:244    .text.lv_cache_destroy:00000000 lv_cache_destroy
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:315    .text.lv_cache_acquire:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:321    .text.lv_cache_acquire:00000000 lv_cache_acquire
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:422    .text.lv_cache_release:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:428    .text.lv_cache_release:00000000 lv_cache_release
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:533    .text.lv_cache_add:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:539    .text.lv_cache_add:00000000 lv_cache_add
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:640    .text.lv_cache_acquire_or_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:646    .text.lv_cache_acquire_or_create:00000000 lv_cache_acquire_or_create
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:834    .text.lv_cache_drop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:840    .text.lv_cache_drop:00000000 lv_cache_drop
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:924    .text.lv_cache_drop_all:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:930    .text.lv_cache_drop_all:00000000 lv_cache_drop_all
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:993    .text.lv_cache_set_max_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:999    .text.lv_cache_set_max_size:00000000 lv_cache_set_max_size
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1017   .text.lv_cache_get_max_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1023   .text.lv_cache_get_max_size:00000000 lv_cache_get_max_size
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1042   .text.lv_cache_get_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1048   .text.lv_cache_get_size:00000000 lv_cache_get_size
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1067   .text.lv_cache_get_free_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1073   .text.lv_cache_get_free_size:00000000 lv_cache_get_free_size
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1095   .text.lv_cache_set_compare_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1101   .text.lv_cache_set_compare_cb:00000000 lv_cache_set_compare_cb
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1119   .text.lv_cache_set_create_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1125   .text.lv_cache_set_create_cb:00000000 lv_cache_set_create_cb
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1143   .text.lv_cache_set_free_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc3ZqIit.s:1149   .text.lv_cache_set_free_cb:00000000 lv_cache_set_free_cb
+
+UNDEFINED SYMBOLS
+lv_cache_entry_get_ref
+lv_cache_entry_get_data
+lv_cache_entry_delete
+lv_cache_entry_set_invalid
+lv_mutex_init
+lv_free
+lv_mutex_lock
+lv_mutex_unlock
+lv_mutex_delete
+lv_cache_entry_acquire_data
+lv_cache_entry_release_data
+lv_cache_entry_is_invalid

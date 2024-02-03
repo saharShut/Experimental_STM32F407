@@ -1,0 +1,724 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_draw_sw_letter.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c"
+  20              		.section	.text.draw_letter_cb,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	draw_letter_cb:
+  27              	.LVL0:
+  28              	.LFB234:
+   1:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**
+   2:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  * @file lv_draw_sw_letter.c
+   3:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *
+   4:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  */
+   5:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+   6:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /*********************
+   7:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *********************/
+   9:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "lv_draw_sw.h"
+  10:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #if LV_USE_DRAW_SW
+  11:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  12:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "../../display/lv_display.h"
+  13:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "../../misc/lv_math.h"
+  14:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "../../misc/lv_assert.h"
+  15:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "../../misc/lv_area.h"
+  16:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "../../misc/lv_style.h"
+  17:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "../../font/lv_font.h"
+  18:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "../../core/lv_refr.h"
+  19:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #include "../../stdlib/lv_string.h"
+  20:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  21:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /*********************
+  22:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *      DEFINES
+  23:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *********************/
+  24:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  25:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**********************
+  26:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *      TYPEDEFS
+  27:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  **********************/
+  28:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  29:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**********************
+  30:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *  STATIC PROTOTYPES
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 2
+
+
+  31:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  **********************/
+  32:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  33:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** LV_ATTRIBUTE_FAST_MEM static void draw_letter_cb(lv_draw_unit_t * draw_unit, lv_draw_glyph_dsc_t * 
+  34:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****                                                  lv_draw_fill_dsc_t * fill_draw_dsc, const lv_area_
+  35:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  36:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**********************
+  37:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *  STATIC VARIABLES
+  38:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  **********************/
+  39:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  40:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**********************
+  41:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *  GLOBAL VARIABLES
+  42:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  **********************/
+  43:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  44:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**********************
+  45:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *      MACROS
+  46:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  **********************/
+  47:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  48:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**********************
+  49:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *   GLOBAL FUNCTIONS
+  50:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  **********************/
+  51:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  52:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** void lv_draw_sw_label(lv_draw_unit_t * draw_unit, const lv_draw_label_dsc_t * dsc, const lv_area_t 
+  53:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** {
+  54:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     if(dsc->opa <= LV_OPA_MIN) return;
+  55:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  56:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     LV_PROFILER_BEGIN;
+  57:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     lv_draw_label_iterate_characters(draw_unit, dsc, coords, draw_letter_cb);
+  58:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     LV_PROFILER_END;
+  59:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** }
+  60:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  61:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**********************
+  62:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *   STATIC FUNCTIONS
+  63:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  **********************/
+  64:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  65:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** LV_ATTRIBUTE_FAST_MEM static void draw_letter_cb(lv_draw_unit_t * draw_unit, lv_draw_glyph_dsc_t * 
+  66:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****                                                  lv_draw_fill_dsc_t * fill_draw_dsc, const lv_area_
+  67:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** {
+  29              		.loc 1 67 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 64
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 67 1 is_stmt 0 view .LVU1
+  34 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 28
+  37              		.cfi_offset 4, -28
+  38              		.cfi_offset 5, -24
+  39              		.cfi_offset 6, -20
+  40              		.cfi_offset 7, -16
+  41              		.cfi_offset 8, -12
+  42              		.cfi_offset 9, -8
+  43              		.cfi_offset 14, -4
+  44 0004 91B0     		sub	sp, sp, #68
+  45              	.LCFI1:
+  46              		.cfi_def_cfa_offset 96
+  47 0006 0746     		mov	r7, r0
+  48 0008 1446     		mov	r4, r2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 3
+
+
+  49 000a 1D46     		mov	r5, r3
+  68:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     if(glyph_draw_dsc) {
+  50              		.loc 1 68 5 is_stmt 1 view .LVU2
+  51              		.loc 1 68 7 is_stmt 0 view .LVU3
+  52 000c 21B1     		cbz	r1, .L2
+  53 000e 0E46     		mov	r6, r1
+  69:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         if(glyph_draw_dsc->format == LV_DRAW_LETTER_BITMAP_FORMAT_INVALID) {
+  54              		.loc 1 69 9 is_stmt 1 view .LVU4
+  55              		.loc 1 69 26 is_stmt 0 view .LVU5
+  56 0010 0B79     		ldrb	r3, [r1, #4]	@ zero_extendqisi2
+  57              	.LVL1:
+  58              		.loc 1 69 11 view .LVU6
+  59 0012 5BB1     		cbz	r3, .L6
+  70:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #if LV_USE_FONT_PLACEHOLDER
+  71:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             /* Draw a placeholder rectangle*/
+  72:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_border_dsc_t border_draw_dsc;
+  73:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_border_dsc_init(&border_draw_dsc);
+  74:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.opa = glyph_draw_dsc->opa;
+  75:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.color = glyph_draw_dsc->color;
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.width = 1;
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_border(draw_unit, &border_draw_dsc, glyph_draw_dsc->bg_coords);
+  78:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #endif
+  79:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         }
+  80:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         else if(glyph_draw_dsc->format == LV_DRAW_LETTER_BITMAP_FORMAT_A8) {
+  60              		.loc 1 80 14 is_stmt 1 view .LVU7
+  61              		.loc 1 80 16 is_stmt 0 view .LVU8
+  62 0014 012B     		cmp	r3, #1
+  63 0016 1DD0     		beq	.L7
+  64              	.LVL2:
+  65              	.L2:
+  81:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_area_t mask_area = *glyph_draw_dsc->letter_coords;
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             mask_area.x2 = mask_area.x1 + lv_draw_buf_width_to_stride(lv_area_get_width(&mask_area)
+  83:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_blend_dsc_t blend_dsc;
+  84:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_memzero(&blend_dsc, sizeof(blend_dsc));
+  85:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.color = glyph_draw_dsc->color;
+  86:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.opa = glyph_draw_dsc->opa;
+  87:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_buf_t * draw_buf = glyph_draw_dsc->glyph_data;
+  88:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_buf = draw_buf->data;
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_area = &mask_area;
+  90:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_stride = draw_buf->header.stride;
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.blend_area = glyph_draw_dsc->letter_coords;
+  92:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
+  93:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+  94:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_blend(draw_unit, &blend_dsc);
+  95:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         }
+  96:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         else if(glyph_draw_dsc->format == LV_DRAW_LETTER_BITMAP_FORMAT_IMAGE) {
+  97:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #if LV_USE_IMGFONT
+  98:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_image_dsc_t img_dsc;
+  99:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_image_dsc_init(&img_dsc);
+ 100:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             img_dsc.rotation = 0;
+ 101:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             img_dsc.scale_x = LV_SCALE_NONE;
+ 102:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             img_dsc.scale_y = LV_SCALE_NONE;
+ 103:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             img_dsc.opa = glyph_draw_dsc->opa;
+ 104:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             img_dsc.src = glyph_draw_dsc->glyph_data;
+ 105:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_image(draw_unit, &img_dsc, glyph_draw_dsc->letter_coords);
+ 106:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #endif
+ 107:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 4
+
+
+  66              		.loc 1 107 9 is_stmt 1 view .LVU9
+ 108:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     }
+ 109:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+ 110:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     if(fill_draw_dsc && fill_area) {
+  67              		.loc 1 110 5 view .LVU10
+  68              		.loc 1 110 7 is_stmt 0 view .LVU11
+  69 0018 2CB1     		cbz	r4, .L1
+  70              		.loc 1 110 22 discriminator 1 view .LVU12
+  71 001a 25B1     		cbz	r5, .L1
+ 111:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         lv_draw_sw_fill(draw_unit, fill_draw_dsc, fill_area);
+  72              		.loc 1 111 9 is_stmt 1 view .LVU13
+  73 001c 2A46     		mov	r2, r5
+  74 001e 2146     		mov	r1, r4
+  75 0020 3846     		mov	r0, r7
+  76 0022 FFF7FEFF 		bl	lv_draw_sw_fill
+  77              	.LVL3:
+  78              	.L1:
+ 112:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     }
+ 113:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** }
+  79              		.loc 1 113 1 is_stmt 0 view .LVU14
+  80 0026 11B0     		add	sp, sp, #68
+  81              	.LCFI2:
+  82              		.cfi_remember_state
+  83              		.cfi_def_cfa_offset 28
+  84              		@ sp needed
+  85 0028 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+  86              	.LVL4:
+  87              	.L6:
+  88              	.LCFI3:
+  89              		.cfi_restore_state
+  90              	.LBB8:
+  72:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_border_dsc_init(&border_draw_dsc);
+  91              		.loc 1 72 13 is_stmt 1 view .LVU15
+  73:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.opa = glyph_draw_dsc->opa;
+  92              		.loc 1 73 13 view .LVU16
+  93 002c 05A8     		add	r0, sp, #20
+  94              	.LVL5:
+  73:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.opa = glyph_draw_dsc->opa;
+  95              		.loc 1 73 13 is_stmt 0 view .LVU17
+  96 002e FFF7FEFF 		bl	lv_draw_border_dsc_init
+  97              	.LVL6:
+  74:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.color = glyph_draw_dsc->color;
+  98              		.loc 1 74 13 is_stmt 1 view .LVU18
+  74:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.color = glyph_draw_dsc->color;
+  99              		.loc 1 74 49 is_stmt 0 view .LVU19
+ 100 0032 F37D     		ldrb	r3, [r6, #23]	@ zero_extendqisi2
+  74:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.color = glyph_draw_dsc->color;
+ 101              		.loc 1 74 33 view .LVU20
+ 102 0034 8DF83C30 		strb	r3, [sp, #60]
+  75:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.width = 1;
+ 103              		.loc 1 75 13 is_stmt 1 view .LVU21
+  75:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             border_draw_dsc.width = 1;
+ 104              		.loc 1 75 35 is_stmt 0 view .LVU22
+ 105 0038 7369     		ldr	r3, [r6, #20]
+ 106 003a ADF83430 		strh	r3, [sp, #52]	@ movhi
+ 107 003e 1B0C     		lsrs	r3, r3, #16
+ 108 0040 8DF83630 		strb	r3, [sp, #54]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 5
+
+
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_border(draw_unit, &border_draw_dsc, glyph_draw_dsc->bg_coords);
+ 109              		.loc 1 76 13 is_stmt 1 view .LVU23
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_border(draw_unit, &border_draw_dsc, glyph_draw_dsc->bg_coords);
+ 110              		.loc 1 76 35 is_stmt 0 view .LVU24
+ 111 0044 0123     		movs	r3, #1
+ 112 0046 0E93     		str	r3, [sp, #56]
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #endif
+ 113              		.loc 1 77 13 is_stmt 1 view .LVU25
+ 114 0048 F268     		ldr	r2, [r6, #12]
+ 115 004a 05A9     		add	r1, sp, #20
+ 116 004c 3846     		mov	r0, r7
+ 117 004e FFF7FEFF 		bl	lv_draw_sw_border
+ 118              	.LVL7:
+ 119              	.LBE8:
+ 120 0052 E1E7     		b	.L2
+ 121              	.LVL8:
+ 122              	.L7:
+ 123              	.LBB9:
+  81:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             mask_area.x2 = mask_area.x1 + lv_draw_buf_width_to_stride(lv_area_get_width(&mask_area)
+ 124              		.loc 1 81 13 view .LVU26
+  81:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             mask_area.x2 = mask_area.x1 + lv_draw_buf_width_to_stride(lv_area_get_width(&mask_area)
+ 125              		.loc 1 81 50 is_stmt 0 view .LVU27
+ 126 0054 8B68     		ldr	r3, [r1, #8]
+  81:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             mask_area.x2 = mask_area.x1 + lv_draw_buf_width_to_stride(lv_area_get_width(&mask_area)
+ 127              		.loc 1 81 23 view .LVU28
+ 128 0056 0DF10409 		add	r9, sp, #4
+ 129 005a 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 130              	.LVL9:
+  81:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             mask_area.x2 = mask_area.x1 + lv_draw_buf_width_to_stride(lv_area_get_width(&mask_area)
+ 131              		.loc 1 81 23 view .LVU29
+ 132 005c 89E80F00 		stm	r9, {r0, r1, r2, r3}
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_blend_dsc_t blend_dsc;
+ 133              		.loc 1 82 13 is_stmt 1 view .LVU30
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_blend_dsc_t blend_dsc;
+ 134              		.loc 1 82 37 is_stmt 0 view .LVU31
+ 135 0060 8046     		mov	r8, r0
+ 136              	.LVL10:
+ 137              	.LBB10:
+ 138              	.LBI10:
+ 139              		.file 2 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h"
+   1:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+   2:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @file lv_area.h
+   3:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *
+   4:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+   5:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+   6:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifndef LV_AREA_H
+   7:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #define LV_AREA_H
+   8:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+   9:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** extern "C" {
+  11:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #endif
+  12:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  13:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /*********************
+  14:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *********************/
+  16:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include "lv_types.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 6
+
+
+  18:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include <stdbool.h>
+  19:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include <stdint.h>
+  20:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  21:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /*********************
+  22:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *      DEFINES
+  23:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *********************/
+  24:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  25:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**********************
+  26:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *      TYPEDEFS
+  27:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  **********************/
+  28:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  29:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+  30:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Represents a point on the screen.
+  31:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+  32:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  33:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t x;
+  34:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t y;
+  35:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_point_t;
+  36:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  37:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  38:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     lv_value_precise_t x;
+  39:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     lv_value_precise_t y;
+  40:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_point_precise_t;
+  41:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  42:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /** Represents an area of the screen.*/
+  43:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
+  44:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t x1;
+  45:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t y1;
+  46:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t x2;
+  47:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t y2;
+  48:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_area_t;
+  49:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  50:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /** Alignments*/
+  51:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  52:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** enum _lv_align_t {
+  53:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_DEFAULT = 0,
+  54:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_LEFT,
+  55:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_MID,
+  56:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_TOP_RIGHT,
+  57:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_LEFT,
+  58:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_MID,
+  59:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_BOTTOM_RIGHT,
+  60:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_LEFT_MID,
+  61:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_RIGHT_MID,
+  62:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_CENTER,
+  63:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  64:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_LEFT,
+  65:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_MID,
+  66:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_TOP_RIGHT,
+  67:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_LEFT,
+  68:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_MID,
+  69:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_RIGHT,
+  70:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_TOP,
+  71:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_MID,
+  72:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_BOTTOM,
+  73:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_TOP,
+  74:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_MID,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 7
+
+
+  75:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_BOTTOM,
+  76:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** };
+  77:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  78:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifdef DOXYGEN
+  79:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef _lv_align_t lv_align_t;
+  80:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #else
+  81:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef uint8_t lv_align_t;
+  82:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #endif /*DOXYGEN*/
+  83:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  84:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** enum _lv_dir_t {
+  85:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_NONE     = 0x00,
+  86:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_LEFT     = (1 << 0),
+  87:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_RIGHT    = (1 << 1),
+  88:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_TOP      = (1 << 2),
+  89:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_BOTTOM   = (1 << 3),
+  90:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_HOR      = LV_DIR_LEFT | LV_DIR_RIGHT,
+  91:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_VER      = LV_DIR_TOP | LV_DIR_BOTTOM,
+  92:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_DIR_ALL      = LV_DIR_HOR | LV_DIR_VER,
+  93:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** };
+  94:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+  95:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifdef DOXYGEN
+  96:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef _lv_dir_t lv_dir_t;
+  97:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #else
+  98:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef uint8_t lv_dir_t;
+  99:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #endif /*DOXYGEN*/
+ 100:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 101:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct  {
+ 102:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t angle_prev;
+ 103:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t sinma;
+ 104:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     int32_t cosma;
+ 105:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_area_transform_cache_t;
+ 106:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 107:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**********************
+ 108:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * GLOBAL PROTOTYPES
+ 109:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  **********************/
+ 110:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 111:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 112:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Initialize an area
+ 113:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 114:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param x1 left coordinate of the area
+ 115:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param y1 top coordinate of the area
+ 116:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param x2 right coordinate of the area
+ 117:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param y2 bottom coordinate of the area
+ 118:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 119:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_area_set(lv_area_t * area_p, int32_t x1, int32_t y1, int32_t x2, int32_t y2);
+ 120:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 121:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 122:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Copy an area
+ 123:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param dest pointer to the destination area
+ 124:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param src pointer to the source area
+ 125:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 126:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** inline static void lv_area_copy(lv_area_t * dest, const lv_area_t * src)
+ 127:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 128:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->x1 = src->x1;
+ 129:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->y1 = src->y1;
+ 130:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->x2 = src->x2;
+ 131:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->y2 = src->y2;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 8
+
+
+ 132:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
+ 133:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
+ 134:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /**
+ 135:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * Get the width of an area
+ 136:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param area_p pointer to an area
+ 137:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @return the width of the area (if x1 == x2 -> width = 1)
+ 138:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
+ 139:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** static inline int32_t lv_area_get_width(const lv_area_t * area_p)
+ 140              		.loc 2 139 23 is_stmt 1 view .LVU32
+ 141              	.LBB11:
+ 140:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
+ 141:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     return (int32_t)(area_p->x2 - area_p->x1 + 1);
+ 142              		.loc 2 141 5 view .LVU33
+ 143              		.loc 2 141 33 is_stmt 0 view .LVU34
+ 144 0062 101A     		subs	r0, r2, r0
+ 145              	.LVL11:
+ 146              		.loc 2 141 33 view .LVU35
+ 147              	.LBE11:
+ 148              	.LBE10:
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_blend_dsc_t blend_dsc;
+ 149              		.loc 1 82 43 view .LVU36
+ 150 0064 0E21     		movs	r1, #14
+ 151 0066 0130     		adds	r0, r0, #1
+ 152 0068 FFF7FEFF 		bl	lv_draw_buf_width_to_stride
+ 153              	.LVL12:
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_blend_dsc_t blend_dsc;
+ 154              		.loc 1 82 41 view .LVU37
+ 155 006c 8044     		add	r8, r8, r0
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_blend_dsc_t blend_dsc;
+ 156              		.loc 1 82 122 view .LVU38
+ 157 006e 08F1FF33 		add	r3, r8, #-1
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_blend_dsc_t blend_dsc;
+ 158              		.loc 1 82 26 view .LVU39
+ 159 0072 0393     		str	r3, [sp, #12]
+  83:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_memzero(&blend_dsc, sizeof(blend_dsc));
+ 160              		.loc 1 83 13 is_stmt 1 view .LVU40
+  84:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.color = glyph_draw_dsc->color;
+ 161              		.loc 1 84 13 view .LVU41
+ 162              	.LVL13:
+ 163              	.LBB12:
+ 164              	.LBI12:
+ 165              		.file 3 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h"
+   1:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /**
+   2:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @file lv_stringn.h
+   3:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *
+   4:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  */
+   5:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+   6:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** #ifndef LV_STRING_H
+   7:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** #define LV_STRING_H
+   8:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+   9:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** extern "C" {
+  11:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** #endif
+  12:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+  13:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /*********************
+  14:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 9
+
+
+  16:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** #include <stdint.h>
+  18:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** #include <stddef.h>
+  19:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+  20:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /*********************
+  21:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *      DEFINES
+  22:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
+  23:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+  24:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /**********************
+  25:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  **********************/
+  27:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+  28:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /**********************
+  29:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * GLOBAL PROTOTYPES
+  30:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  **********************/
+  31:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+  32:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  33:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Copies a block of memory from a source address to a destination address.
+  34:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  35:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  36:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy.
+  37:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  38:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @note The function does not check for any overlapping of the source and destination memory block
+  39:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  40:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** void * lv_memcpy(void * dst, const void * src, size_t len);
+  41:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+  42:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  43:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Fills a block of memory with a specified value.
+  44:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array to fill with the specified value.
+  45:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param v Value to be set. The value is passed as an int, but the function fills
+  46:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
+  47:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to be set to the value.
+  48:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  49:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** void lv_memset(void * dst, uint8_t v, size_t len);
+  50:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+  51:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  52:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Move a block of memory from source to destination
+  53:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  54:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  55:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy
+  56:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  57:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  58:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** void * lv_memmove(void * dst, const void * src, size_t len);
+  59:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
+  60:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  61:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * Same as `memset(dst, 0x00, len)`.
+  62:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst pointer to the destination buffer
+  63:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len number of byte to set
+  64:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  65:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** static inline void lv_memzero(void * dst, size_t len)
+ 166              		.loc 3 65 20 view .LVU42
+ 167              	.LBB13:
+  66:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** {
+  67:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****     lv_memset(dst, 0x00, len);
+ 168              		.loc 3 67 5 view .LVU43
+ 169 0074 2C22     		movs	r2, #44
+ 170 0076 0021     		movs	r1, #0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 10
+
+
+ 171 0078 05A8     		add	r0, sp, #20
+ 172              	.LVL14:
+ 173              		.loc 3 67 5 is_stmt 0 view .LVU44
+ 174 007a FFF7FEFF 		bl	lv_memset
+ 175              	.LVL15:
+ 176              		.loc 3 67 5 view .LVU45
+ 177              	.LBE13:
+ 178              	.LBE12:
+  85:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.opa = glyph_draw_dsc->opa;
+ 179              		.loc 1 85 13 is_stmt 1 view .LVU46
+  85:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.opa = glyph_draw_dsc->opa;
+ 180              		.loc 1 85 29 is_stmt 0 view .LVU47
+ 181 007e B28A     		ldrh	r2, [r6, #20]	@ unaligned
+ 182 0080 B37D     		ldrb	r3, [r6, #22]	@ zero_extendqisi2
+ 183 0082 ADF82920 		strh	r2, [sp, #41]	@ unaligned
+ 184 0086 8DF82B30 		strb	r3, [sp, #43]
+  86:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_buf_t * draw_buf = glyph_draw_dsc->glyph_data;
+ 185              		.loc 1 86 13 is_stmt 1 view .LVU48
+  86:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_buf_t * draw_buf = glyph_draw_dsc->glyph_data;
+ 186              		.loc 1 86 43 is_stmt 0 view .LVU49
+ 187 008a F37D     		ldrb	r3, [r6, #23]	@ zero_extendqisi2
+  86:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_buf_t * draw_buf = glyph_draw_dsc->glyph_data;
+ 188              		.loc 1 86 27 view .LVU50
+ 189 008c 8DF82830 		strb	r3, [sp, #40]
+  87:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_buf = draw_buf->data;
+ 190              		.loc 1 87 13 is_stmt 1 view .LVU51
+  87:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_buf = draw_buf->data;
+ 191              		.loc 1 87 29 is_stmt 0 view .LVU52
+ 192 0090 3368     		ldr	r3, [r6]
+ 193              	.LVL16:
+  88:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_area = &mask_area;
+ 194              		.loc 1 88 13 is_stmt 1 view .LVU53
+  88:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_area = &mask_area;
+ 195              		.loc 1 88 42 is_stmt 0 view .LVU54
+ 196 0092 1A69     		ldr	r2, [r3, #16]
+  88:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_area = &mask_area;
+ 197              		.loc 1 88 32 view .LVU55
+ 198 0094 0B92     		str	r2, [sp, #44]
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_stride = draw_buf->header.stride;
+ 199              		.loc 1 89 13 is_stmt 1 view .LVU56
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_stride = draw_buf->header.stride;
+ 200              		.loc 1 89 33 is_stmt 0 view .LVU57
+ 201 0096 CDF83490 		str	r9, [sp, #52]
+  90:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.blend_area = glyph_draw_dsc->letter_coords;
+ 202              		.loc 1 90 13 is_stmt 1 view .LVU58
+  90:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.blend_area = glyph_draw_dsc->letter_coords;
+ 203              		.loc 1 90 53 is_stmt 0 view .LVU59
+ 204 009a 1B89     		ldrh	r3, [r3, #8]
+ 205              	.LVL17:
+  90:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.blend_area = glyph_draw_dsc->letter_coords;
+ 206              		.loc 1 90 35 view .LVU60
+ 207 009c 0E93     		str	r3, [sp, #56]
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
+ 208              		.loc 1 91 13 is_stmt 1 view .LVU61
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
+ 209              		.loc 1 91 50 is_stmt 0 view .LVU62
+ 210 009e B368     		ldr	r3, [r6, #8]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 11
+
+
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
+ 211              		.loc 1 91 34 view .LVU63
+ 212 00a0 0593     		str	r3, [sp, #20]
+  92:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+ 213              		.loc 1 92 13 is_stmt 1 view .LVU64
+  92:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+ 214              		.loc 1 92 32 is_stmt 0 view .LVU65
+ 215 00a2 0223     		movs	r3, #2
+ 216 00a4 8DF83030 		strb	r3, [sp, #48]
+  94:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         }
+ 217              		.loc 1 94 13 is_stmt 1 view .LVU66
+ 218 00a8 05A9     		add	r1, sp, #20
+ 219 00aa 3846     		mov	r0, r7
+ 220 00ac FFF7FEFF 		bl	lv_draw_sw_blend
+ 221              	.LVL18:
+ 222              	.LBE9:
+ 223 00b0 B2E7     		b	.L2
+ 224              		.cfi_endproc
+ 225              	.LFE234:
+ 227              		.section	.text.lv_draw_sw_label,"ax",%progbits
+ 228              		.align	1
+ 229              		.global	lv_draw_sw_label
+ 230              		.syntax unified
+ 231              		.thumb
+ 232              		.thumb_func
+ 234              	lv_draw_sw_label:
+ 235              	.LVL19:
+ 236              	.LFB233:
+  53:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     if(dsc->opa <= LV_OPA_MIN) return;
+ 237              		.loc 1 53 1 view -0
+ 238              		.cfi_startproc
+ 239              		@ args = 0, pretend = 0, frame = 0
+ 240              		@ frame_needed = 0, uses_anonymous_args = 0
+  53:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     if(dsc->opa <= LV_OPA_MIN) return;
+ 241              		.loc 1 53 1 is_stmt 0 view .LVU68
+ 242 0000 08B5     		push	{r3, lr}
+ 243              	.LCFI4:
+ 244              		.cfi_def_cfa_offset 8
+ 245              		.cfi_offset 3, -8
+ 246              		.cfi_offset 14, -4
+  54:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+ 247              		.loc 1 54 5 is_stmt 1 view .LVU69
+  54:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+ 248              		.loc 1 54 11 is_stmt 0 view .LVU70
+ 249 0002 91F84830 		ldrb	r3, [r1, #72]	@ zero_extendqisi2
+  54:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+ 250              		.loc 1 54 7 view .LVU71
+ 251 0006 022B     		cmp	r3, #2
+ 252 0008 00D8     		bhi	.L11
+ 253              	.LVL20:
+ 254              	.L8:
+  59:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
+ 255              		.loc 1 59 1 view .LVU72
+ 256 000a 08BD     		pop	{r3, pc}
+ 257              	.LVL21:
+ 258              	.L11:
+  56:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     lv_draw_label_iterate_characters(draw_unit, dsc, coords, draw_letter_cb);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 12
+
+
+ 259              		.loc 1 56 22 is_stmt 1 view .LVU73
+  57:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     LV_PROFILER_END;
+ 260              		.loc 1 57 5 view .LVU74
+ 261 000c 014B     		ldr	r3, .L12
+ 262 000e FFF7FEFF 		bl	lv_draw_label_iterate_characters
+ 263              	.LVL22:
+  58:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** }
+ 264              		.loc 1 58 20 view .LVU75
+ 265 0012 FAE7     		b	.L8
+ 266              	.L13:
+ 267              		.align	2
+ 268              	.L12:
+ 269 0014 00000000 		.word	draw_letter_cb
+ 270              		.cfi_endproc
+ 271              	.LFE233:
+ 273              		.text
+ 274              	.Letext0:
+ 275              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 276              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 277              		.file 6 "Lib/lvgl/src/draw/sw/../../misc/lv_types.h"
+ 278              		.file 7 "Lib/lvgl/src/draw/sw/../../core/lv_obj.h"
+ 279              		.file 8 "Lib/lvgl/src/draw/sw/../../core/lv_obj_class.h"
+ 280              		.file 9 "Lib/lvgl/src/draw/sw/../../core/../indev/../core/lv_group.h"
+ 281              		.file 10 "Lib/lvgl/src/draw/sw/../lv_draw.h"
+ 282              		.file 11 "Lib/lvgl/src/draw/sw/../../display/../misc/lv_event.h"
+ 283              		.file 12 "Lib/lvgl/src/draw/sw/../../misc/../font/lv_font.h"
+ 284              		.file 13 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64
+ 285              		.file 14 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_color.h"
+ 286              		.file 15 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/lv_image_buf.h"
+ 287              		.file 16 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/lv_draw_buf.h"
+ 288              		.file 17 "Lib/lvgl/src/draw/sw/../../misc/../font/../misc/cache/lv_cache_private.h"
+ 289              		.file 18 "Lib/lvgl/src/draw/sw/../../misc/lv_ll.h"
+ 290              		.file 19 "Lib/lvgl/src/draw/sw/../../misc/lv_text.h"
+ 291              		.file 20 "Lib/lvgl/src/draw/sw/../../misc/lv_bidi.h"
+ 292              		.file 21 "Lib/lvgl/src/draw/sw/../../misc/lv_style.h"
+ 293              		.file 22 "Lib/lvgl/src/draw/sw/../lv_draw_rect.h"
+ 294              		.file 23 "Lib/lvgl/src/draw/sw/../lv_draw_label.h"
+ 295              		.file 24 "Lib/lvgl/src/draw/sw/../../display/../misc/lv_array.h"
+ 296              		.file 25 "Lib/lvgl/src/draw/sw/blend/../lv_draw_sw_mask.h"
+ 297              		.file 26 "Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h"
+ 298              		.file 27 "Lib/lvgl/src/draw/sw/../../core/lv_obj_style.h"
+ 299              		.file 28 "Lib/lvgl/src/draw/sw/lv_draw_sw.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_draw_sw_letter.c
+C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s:21     .text.draw_letter_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s:26     .text.draw_letter_cb:00000000 draw_letter_cb
+C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s:228    .text.lv_draw_sw_label:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s:234    .text.lv_draw_sw_label:00000000 lv_draw_sw_label
+C:\Users\Alex\AppData\Local\Temp\cc9mTqyu.s:269    .text.lv_draw_sw_label:00000014 $d
+
+UNDEFINED SYMBOLS
+lv_draw_sw_fill
+lv_draw_border_dsc_init
+lv_draw_sw_border
+lv_draw_buf_width_to_stride
+lv_memset
+lv_draw_sw_blend
+lv_draw_label_iterate_characters

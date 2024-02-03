@@ -1,0 +1,203 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc67Tbqn.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_utils.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/misc/lv_utils.c"
+  20              		.section	.text._lv_utils_bsearch,"ax",%progbits
+  21              		.align	1
+  22              		.global	_lv_utils_bsearch
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	_lv_utils_bsearch:
+  28              	.LVL0:
+  29              	.LFB0:
+   1:Lib/lvgl/src/misc/lv_utils.c **** /**
+   2:Lib/lvgl/src/misc/lv_utils.c ****  * @file lv_utils.c
+   3:Lib/lvgl/src/misc/lv_utils.c ****  *
+   4:Lib/lvgl/src/misc/lv_utils.c ****  */
+   5:Lib/lvgl/src/misc/lv_utils.c **** 
+   6:Lib/lvgl/src/misc/lv_utils.c **** /*********************
+   7:Lib/lvgl/src/misc/lv_utils.c ****  *      INCLUDES
+   8:Lib/lvgl/src/misc/lv_utils.c ****  *********************/
+   9:Lib/lvgl/src/misc/lv_utils.c **** #include <stddef.h>
+  10:Lib/lvgl/src/misc/lv_utils.c **** 
+  11:Lib/lvgl/src/misc/lv_utils.c **** #include "lv_utils.h"
+  12:Lib/lvgl/src/misc/lv_utils.c **** 
+  13:Lib/lvgl/src/misc/lv_utils.c **** /*********************
+  14:Lib/lvgl/src/misc/lv_utils.c ****  *      DEFINES
+  15:Lib/lvgl/src/misc/lv_utils.c ****  *********************/
+  16:Lib/lvgl/src/misc/lv_utils.c **** 
+  17:Lib/lvgl/src/misc/lv_utils.c **** /**********************
+  18:Lib/lvgl/src/misc/lv_utils.c ****  *      TYPEDEFS
+  19:Lib/lvgl/src/misc/lv_utils.c ****  **********************/
+  20:Lib/lvgl/src/misc/lv_utils.c **** 
+  21:Lib/lvgl/src/misc/lv_utils.c **** /**********************
+  22:Lib/lvgl/src/misc/lv_utils.c ****  *  STATIC PROTOTYPES
+  23:Lib/lvgl/src/misc/lv_utils.c ****  **********************/
+  24:Lib/lvgl/src/misc/lv_utils.c **** 
+  25:Lib/lvgl/src/misc/lv_utils.c **** /**********************
+  26:Lib/lvgl/src/misc/lv_utils.c ****  *  STATIC VARIABLES
+  27:Lib/lvgl/src/misc/lv_utils.c ****  **********************/
+  28:Lib/lvgl/src/misc/lv_utils.c **** 
+  29:Lib/lvgl/src/misc/lv_utils.c **** /**********************
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc67Tbqn.s 			page 2
+
+
+  30:Lib/lvgl/src/misc/lv_utils.c ****  *      MACROS
+  31:Lib/lvgl/src/misc/lv_utils.c ****  **********************/
+  32:Lib/lvgl/src/misc/lv_utils.c **** 
+  33:Lib/lvgl/src/misc/lv_utils.c **** /**********************
+  34:Lib/lvgl/src/misc/lv_utils.c ****  *   GLOBAL FUNCTIONS
+  35:Lib/lvgl/src/misc/lv_utils.c ****  **********************/
+  36:Lib/lvgl/src/misc/lv_utils.c **** 
+  37:Lib/lvgl/src/misc/lv_utils.c **** void * _lv_utils_bsearch(const void * key, const void * base, uint32_t n, uint32_t size,
+  38:Lib/lvgl/src/misc/lv_utils.c ****                          int32_t (*cmp)(const void * pRef, const void * pElement))
+  39:Lib/lvgl/src/misc/lv_utils.c **** {
+  30              		.loc 1 39 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 4, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 39 1 is_stmt 0 view .LVU1
+  35 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 32
+  38              		.cfi_offset 4, -32
+  39              		.cfi_offset 5, -28
+  40              		.cfi_offset 6, -24
+  41              		.cfi_offset 7, -20
+  42              		.cfi_offset 8, -16
+  43              		.cfi_offset 9, -12
+  44              		.cfi_offset 10, -8
+  45              		.cfi_offset 14, -4
+  46 0004 8146     		mov	r9, r0
+  47 0006 8846     		mov	r8, r1
+  48 0008 1446     		mov	r4, r2
+  49 000a 1F46     		mov	r7, r3
+  50 000c DDF820A0 		ldr	r10, [sp, #32]
+  40:Lib/lvgl/src/misc/lv_utils.c ****     const char * middle;
+  51              		.loc 1 40 5 is_stmt 1 view .LVU2
+  41:Lib/lvgl/src/misc/lv_utils.c ****     int32_t c;
+  52              		.loc 1 41 5 view .LVU3
+  42:Lib/lvgl/src/misc/lv_utils.c **** 
+  43:Lib/lvgl/src/misc/lv_utils.c ****     for(middle = base; n != 0;) {
+  53              		.loc 1 43 5 view .LVU4
+  54              	.LVL1:
+  55              		.loc 1 43 5 is_stmt 0 view .LVU5
+  56 0010 07E0     		b	.L2
+  57              	.LVL2:
+  58              	.L9:
+  44:Lib/lvgl/src/misc/lv_utils.c ****         middle += (n / 2) * size;
+  45:Lib/lvgl/src/misc/lv_utils.c ****         if((c = (*cmp)(key, middle)) > 0) {
+  46:Lib/lvgl/src/misc/lv_utils.c ****             n    = (n / 2) - ((n & 1) == 0);
+  59              		.loc 1 46 13 is_stmt 1 view .LVU6
+  60              		.loc 1 46 39 is_stmt 0 view .LVU7
+  61 0012 14F0010F 		tst	r4, #1
+  62 0016 0CBF     		ite	eq
+  63 0018 0124     		moveq	r4, #1
+  64              	.LVL3:
+  65              		.loc 1 46 39 view .LVU8
+  66 001a 0024     		movne	r4, #0
+  67              		.loc 1 46 18 view .LVU9
+  68 001c 2C1B     		subs	r4, r5, r4
+  69              	.LVL4:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc67Tbqn.s 			page 3
+
+
+  47:Lib/lvgl/src/misc/lv_utils.c ****             base = (middle += size);
+  70              		.loc 1 47 13 is_stmt 1 view .LVU10
+  71              		.loc 1 47 28 is_stmt 0 view .LVU11
+  72 001e 06EB0708 		add	r8, r6, r7
+  73              	.LVL5:
+  74              	.L2:
+  43:Lib/lvgl/src/misc/lv_utils.c ****         middle += (n / 2) * size;
+  75              		.loc 1 43 26 is_stmt 1 discriminator 1 view .LVU12
+  76 0022 5CB1     		cbz	r4, .L8
+  44:Lib/lvgl/src/misc/lv_utils.c ****         middle += (n / 2) * size;
+  77              		.loc 1 44 9 view .LVU13
+  44:Lib/lvgl/src/misc/lv_utils.c ****         middle += (n / 2) * size;
+  78              		.loc 1 44 22 is_stmt 0 view .LVU14
+  79 0024 6508     		lsrs	r5, r4, #1
+  44:Lib/lvgl/src/misc/lv_utils.c ****         middle += (n / 2) * size;
+  80              		.loc 1 44 16 view .LVU15
+  81 0026 07FB0586 		mla	r6, r7, r5, r8
+  82              	.LVL6:
+  45:Lib/lvgl/src/misc/lv_utils.c ****             n    = (n / 2) - ((n & 1) == 0);
+  83              		.loc 1 45 9 is_stmt 1 view .LVU16
+  45:Lib/lvgl/src/misc/lv_utils.c ****             n    = (n / 2) - ((n & 1) == 0);
+  84              		.loc 1 45 18 is_stmt 0 view .LVU17
+  85 002a 3146     		mov	r1, r6
+  86 002c 4846     		mov	r0, r9
+  87 002e D047     		blx	r10
+  88              	.LVL7:
+  45:Lib/lvgl/src/misc/lv_utils.c ****             n    = (n / 2) - ((n & 1) == 0);
+  89              		.loc 1 45 11 view .LVU18
+  90 0030 0028     		cmp	r0, #0
+  45:Lib/lvgl/src/misc/lv_utils.c ****             n    = (n / 2) - ((n & 1) == 0);
+  91              		.loc 1 45 11 view .LVU19
+  92 0032 EEDC     		bgt	.L9
+  48:Lib/lvgl/src/misc/lv_utils.c ****         }
+  49:Lib/lvgl/src/misc/lv_utils.c ****         else if(c < 0) {
+  93              		.loc 1 49 14 is_stmt 1 view .LVU20
+  94              		.loc 1 49 16 is_stmt 0 view .LVU21
+  95 0034 0028     		cmp	r0, #0
+  96 0036 02DA     		bge	.L1
+  50:Lib/lvgl/src/misc/lv_utils.c ****             n /= 2;
+  97              		.loc 1 50 15 view .LVU22
+  98 0038 2C46     		mov	r4, r5
+  99              	.LVL8:
+ 100              		.loc 1 50 15 view .LVU23
+ 101 003a F2E7     		b	.L2
+ 102              	.LVL9:
+ 103              	.L8:
+  51:Lib/lvgl/src/misc/lv_utils.c ****             middle = base;
+  52:Lib/lvgl/src/misc/lv_utils.c ****         }
+  53:Lib/lvgl/src/misc/lv_utils.c ****         else {
+  54:Lib/lvgl/src/misc/lv_utils.c ****             return (char *)middle;
+  55:Lib/lvgl/src/misc/lv_utils.c ****         }
+  56:Lib/lvgl/src/misc/lv_utils.c ****     }
+  57:Lib/lvgl/src/misc/lv_utils.c ****     return NULL;
+ 104              		.loc 1 57 12 view .LVU24
+ 105 003c 0026     		movs	r6, #0
+ 106              	.LVL10:
+ 107              	.L1:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc67Tbqn.s 			page 4
+
+
+  58:Lib/lvgl/src/misc/lv_utils.c **** }
+ 108              		.loc 1 58 1 view .LVU25
+ 109 003e 3046     		mov	r0, r6
+ 110 0040 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 111              		.loc 1 58 1 view .LVU26
+ 112              		.cfi_endproc
+ 113              	.LFE0:
+ 115              		.text
+ 116              	.Letext0:
+ 117              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 118              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc67Tbqn.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_utils.c
+C:\Users\Alex\AppData\Local\Temp\cc67Tbqn.s:21     .text._lv_utils_bsearch:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc67Tbqn.s:27     .text._lv_utils_bsearch:00000000 _lv_utils_bsearch
+
+NO UNDEFINED SYMBOLS

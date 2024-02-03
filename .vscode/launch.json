@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/Test.elf",
+            "name": "Debug Microcontroller",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "serverpath": "E:/Programms/JLink_V792m/JLinkGDBServerCL.exe",
+            "armToolchainPath": "E:\\Programms\\GNU_MCU_Eclipse\\Toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-i686-arm-none-eabi\\bin",
+            "device": "STM32F407VE",
+            "interface": "jtag",
+            "runToMain": true,
+            "svdFile": "./scripts/stm32f407.svd",
+            "preRestartCommands": [
+                "file ./bootloader.elf",
+                "load",
+                "add-symbol-file ./build/release/release.elf 0x08002030",
+                "enable breakpoint",
+                "monitor reset"
+            ]
+        }
+    ],
+    "miDebuggerPath": "E:\\Programms\\GNU_MCU_Eclipse\\Toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-i686-arm-none-eabi\\bin\\arm-none-eabi-gdb.exe"
+}

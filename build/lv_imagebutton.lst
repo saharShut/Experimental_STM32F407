@@ -1,0 +1,2606 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_imagebutton.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c"
+  20              		.section	.text.suggest_state,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	suggest_state:
+  27              	.LVL0:
+  28              	.LFB243:
+   1:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /**
+   2:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  * @file lv_imagebutton.c
+   3:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *
+   4:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  */
+   5:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+   6:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /*********************
+   7:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *      INCLUDES
+   8:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *********************/
+   9:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  10:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** #include "lv_imagebutton.h"
+  11:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  12:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** #if LV_USE_IMAGEBUTTON != 0
+  13:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  14:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** #include "../../stdlib/lv_string.h"
+  15:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  16:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /*********************
+  17:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *      DEFINES
+  18:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *********************/
+  19:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** #define MY_CLASS &lv_imagebutton_class
+  20:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  21:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /**********************
+  22:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *      TYPEDEFS
+  23:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  **********************/
+  24:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  25:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /**********************
+  26:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *  STATIC PROTOTYPES
+  27:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  **********************/
+  28:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void lv_imagebutton_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
+  29:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void draw_main(lv_event_t * e);
+  30:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void lv_imagebutton_event(const lv_obj_class_t * class_p, lv_event_t * e);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 2
+
+
+  31:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void refr_image(lv_obj_t * imagebutton);
+  32:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static lv_imagebutton_state_t suggest_state(lv_obj_t * imagebutton, lv_imagebutton_state_t state);
+  33:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static lv_imagebutton_state_t get_state(const lv_obj_t * imagebutton);
+  34:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void update_src_info(lv_imagebutton_src_info_t * info, const void * src);
+  35:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  36:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /**********************
+  37:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *  STATIC VARIABLES
+  38:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  **********************/
+  39:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  40:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** const lv_obj_class_t lv_imagebutton_class = {
+  41:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     .base_class = &lv_obj_class,
+  42:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     .width_def = LV_SIZE_CONTENT,
+  43:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     .height_def = LV_SIZE_CONTENT,
+  44:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     .instance_size = sizeof(lv_imagebutton_t),
+  45:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     .constructor_cb = lv_imagebutton_constructor,
+  46:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     .event_cb = lv_imagebutton_event,
+  47:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     .name = "imagebutton",
+  48:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** };
+  49:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  50:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /**********************
+  51:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *      MACROS
+  52:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  **********************/
+  53:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  54:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /**********************
+  55:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *   GLOBAL FUNCTIONS
+  56:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  **********************/
+  57:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  58:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** lv_obj_t * lv_imagebutton_create(lv_obj_t * parent)
+  59:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+  60:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_LOG_INFO("begin");
+  61:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+  62:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_class_init_obj(obj);
+  63:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     return obj;
+  64:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+  65:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  66:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /*=====================
+  67:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  * Setter functions
+  68:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *====================*/
+  69:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  70:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** void lv_imagebutton_set_src(lv_obj_t * obj, lv_imagebutton_state_t state, const void * src_left, co
+  71:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                             const void * src_right)
+  72:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+  73:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  74:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  75:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+  76:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  77:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     update_src_info(&imagebutton->src_left[state], src_left);
+  78:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     update_src_info(&imagebutton->src_mid[state], src_mid);
+  79:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     update_src_info(&imagebutton->src_right[state], src_right);
+  80:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  81:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     refr_image(obj);
+  82:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+  83:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  84:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** void lv_imagebutton_set_state(lv_obj_t * obj, lv_imagebutton_state_t state)
+  85:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+  86:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  87:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 3
+
+
+  88:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_state_t obj_state = LV_STATE_DEFAULT;
+  89:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_PRESSED ||
+  90:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_PRESSED) obj_state |= LV_STATE_PRESSED;
+  91:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_DISABLED ||
+  92:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_DISABLED) obj_state |= LV_STATE_DISABLED;
+  93:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_CHECKED_DISABLED || state == LV_IMAGEBUTTON_STATE_CHECKED_PRES
+  94:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_RELEASED) {
+  95:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         obj_state |= LV_STATE_CHECKED;
+  96:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+  97:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+  98:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_remove_state(obj, LV_STATE_CHECKED | LV_STATE_PRESSED | LV_STATE_DISABLED);
+  99:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_add_state(obj, obj_state);
+ 100:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 101:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     refr_image(obj);
+ 102:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 103:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 104:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /*=====================
+ 105:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  * Getter functions
+ 106:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *====================*/
+ 107:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 108:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** const void * lv_imagebutton_get_src_left(lv_obj_t * obj, lv_imagebutton_state_t state)
+ 109:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 110:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 111:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 112:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 113:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 114:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     return imagebutton->src_left[state].img_src;
+ 115:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 116:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 117:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** const void * lv_imagebutton_get_src_middle(lv_obj_t * obj, lv_imagebutton_state_t state)
+ 118:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 119:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 120:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 121:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 122:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     return imagebutton->src_mid[state].img_src;
+ 123:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 124:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 125:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** const void * lv_imagebutton_get_src_right(lv_obj_t * obj, lv_imagebutton_state_t state)
+ 126:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 127:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 128:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 129:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 130:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     return imagebutton->src_right[state].img_src;
+ 131:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 132:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 133:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /**********************
+ 134:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  *   STATIC FUNCTIONS
+ 135:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  **********************/
+ 136:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 137:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void lv_imagebutton_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+ 138:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 139:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_UNUSED(class_p);
+ 140:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 141:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     /*Initialize the allocated 'ext'*/
+ 142:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 143:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_memzero(&imagebutton->src_mid, sizeof(imagebutton->src_mid));
+ 144:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_memzero(&imagebutton->src_left, sizeof(imagebutton->src_left));
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 4
+
+
+ 145:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_memzero(&imagebutton->src_right, sizeof(imagebutton->src_right));
+ 146:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 147:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 148:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void lv_imagebutton_event(const lv_obj_class_t * class_p, lv_event_t * e)
+ 149:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 150:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_UNUSED(class_p);
+ 151:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 152:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_result_t res = lv_obj_event_base(&lv_imagebutton_class, e);
+ 153:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(res != LV_RESULT_OK) return;
+ 154:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 155:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_event_code_t code = lv_event_get_code(e);
+ 156:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 157:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(code == LV_EVENT_PRESSED || code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST) {
+ 158:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         refr_image(obj);
+ 159:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 160:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     else if(code == LV_EVENT_DRAW_MAIN) {
+ 161:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         draw_main(e);
+ 162:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 163:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     else if(code == LV_EVENT_COVER_CHECK) {
+ 164:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_cover_check_info_t * info = lv_event_get_param(e);
+ 165:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(info->res != LV_COVER_RES_MASKED) info->res = LV_COVER_RES_NOT_COVER;
+ 166:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 167:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     else if(code == LV_EVENT_GET_SELF_SIZE) {
+ 168:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_point_t * p = lv_event_get_self_size_info(e);
+ 169:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 170:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_imagebutton_state_t state  = suggest_state(obj, get_state(obj));
+ 171:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(imagebutton->src_left[state].img_src == NULL &&
+ 172:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****            imagebutton->src_mid[state].img_src != NULL &&
+ 173:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****            imagebutton->src_right[state].img_src == NULL) {
+ 174:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             p->x = LV_MAX(p->x, imagebutton->src_mid[state].header.w);
+ 175:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 176:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 177:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 178:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 179:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void draw_main(lv_event_t * e)
+ 180:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 181:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 182:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 183:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_layer_t * layer = lv_event_get_layer(e);
+ 184:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 185:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     /*Just draw_main an image*/
+ 186:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_state_t state  = suggest_state(obj, get_state(obj));
+ 187:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 188:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     /*Simply draw the middle src if no tiled*/
+ 189:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_src_info_t * src_info = &imagebutton->src_left[state];
+ 190:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 191:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     int32_t tw = lv_obj_get_style_transform_width(obj, LV_PART_MAIN);
+ 192:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     int32_t th = lv_obj_get_style_transform_height(obj, LV_PART_MAIN);
+ 193:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_area_t coords;
+ 194:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_area_copy(&coords, &obj->coords);
+ 195:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_area_increase(&coords, tw, th);
+ 196:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 197:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_draw_image_dsc_t img_dsc;
+ 198:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_draw_image_dsc_init(&img_dsc);
+ 199:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_init_draw_image_dsc(obj, LV_PART_MAIN, &img_dsc);
+ 200:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 201:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_area_t coords_part;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 5
+
+
+ 202:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     int32_t left_w = 0;
+ 203:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     int32_t right_w = 0;
+ 204:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 205:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(src_info->img_src) {
+ 206:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         left_w = src_info->header.w;
+ 207:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x1 = coords.x1;
+ 208:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 209:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x2 = coords.x1 + src_info->header.w - 1;
+ 210:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y2 = coords.y1 + src_info->header.h - 1;
+ 211:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 212:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_draw_image(layer, &img_dsc, &coords_part);
+ 213:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 214:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 215:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     src_info = &imagebutton->src_right[state];
+ 216:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(src_info->img_src) {
+ 217:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         right_w = src_info->header.w;
+ 218:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x1 = coords.x2 - src_info->header.w + 1;
+ 219:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 220:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x2 = coords.x2;
+ 221:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y2 = coords.y1 + src_info->header.h - 1;
+ 222:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 223:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_draw_image(layer, &img_dsc, &coords_part);
+ 224:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 225:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 226:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     src_info = &imagebutton->src_mid[state];
+ 227:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(src_info->img_src) {
+ 228:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_area_t clip_area_center;
+ 229:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.x1 = coords.x1 + left_w;
+ 230:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.x2 = coords.x2 - right_w;
+ 231:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y1 = coords.y1;
+ 232:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y2 = coords.y2;
+ 233:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 234:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         bool comm_res;
+ 235:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         comm_res = _lv_area_intersect(&clip_area_center, &clip_area_center, &layer->_clip_area);
+ 236:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(comm_res) {
+ 237:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             int32_t i;
+ 238:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 239:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             const lv_area_t clip_area_ori = layer->_clip_area;
+ 240:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             layer->_clip_area = clip_area_center;
+ 241:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 242:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.x1 = coords.x1 + left_w;
+ 243:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y1 = coords.y1;
+ 244:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.x2 = coords_part.x1 + src_info->header.w - 1;
+ 245:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y2 = coords_part.y1 + src_info->header.h - 1;
+ 246:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             for(i = coords_part.x1; i < (int32_t)(clip_area_center.x2 + src_info->header.w - 1); i 
+ 248:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 249:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 lv_draw_image(layer, &img_dsc, &coords_part);
+ 250:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 coords_part.x1 = coords_part.x2 + 1;
+ 251:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 coords_part.x2 += src_info->header.w;
+ 252:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             }
+ 253:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             layer->_clip_area = clip_area_ori;
+ 254:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 255:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 256:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 257:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 258:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void refr_image(lv_obj_t * obj)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 6
+
+
+ 259:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 260:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 261:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_state_t state  = suggest_state(obj, get_state(obj));
+ 262:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 263:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     const void * src = imagebutton->src_mid[state].img_src;
+ 264:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(src == NULL) return;
+ 265:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 266:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_refresh_self_size(obj);
+ 267:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_set_height(obj, imagebutton->src_mid[state].header.h); /*Keep the user defined width*/
+ 268:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 269:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_invalidate(obj);
+ 270:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 271:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 272:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** /**
+ 273:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  * If `src` is not defined for the current state try to get a state which is related to the current
+ 274:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  * E.g. if the PRESSED src is not set but the RELEASED does, use the RELEASED.
+ 275:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  * @param imagebutton pointer to an image button
+ 276:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  * @param state the state to convert
+ 277:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  * @return the suggested state
+ 278:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****  */
+ 279:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static lv_imagebutton_state_t suggest_state(lv_obj_t * obj, lv_imagebutton_state_t state)
+ 280:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+  29              		.loc 1 280 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34              		.loc 1 280 1 is_stmt 0 view .LVU1
+  35 0000 0346     		mov	r3, r0
+  36 0002 0846     		mov	r0, r1
+  37              	.LVL1:
+ 281:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+  38              		.loc 1 281 5 is_stmt 1 view .LVU2
+ 282:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(imagebutton->src_mid[state].img_src == NULL) {
+  39              		.loc 1 282 5 view .LVU3
+  40              		.loc 1 282 35 is_stmt 0 view .LVU4
+  41 0004 03EB0112 		add	r2, r3, r1, lsl #4
+  42 0008 D26A     		ldr	r2, [r2, #44]
+  43              		.loc 1 282 7 view .LVU5
+  44 000a 02B1     		cbz	r2, .L18
+  45              	.LVL2:
+  46              	.L2:
+ 283:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         switch(state) {
+ 284:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             case LV_IMAGEBUTTON_STATE_PRESSED:
+ 285:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 286:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 287:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             case LV_IMAGEBUTTON_STATE_CHECKED_RELEASED:
+ 288:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 289:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 290:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             case LV_IMAGEBUTTON_STATE_CHECKED_PRESSED:
+ 291:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_CHECKED_RELEASED].img_src) return LV_I
+ 292:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_PRESSED].img_src) return LV_IMAGEBUTTO
+ 293:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 294:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 295:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             case LV_IMAGEBUTTON_STATE_DISABLED:
+ 296:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 297:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 7
+
+
+ 298:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             case LV_IMAGEBUTTON_STATE_CHECKED_DISABLED:
+ 299:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_CHECKED_RELEASED].img_src) return LV_I
+ 300:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 301:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 302:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             default:
+ 303:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 304:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 305:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 306:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 307:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     return state;
+ 308:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+  47              		.loc 1 308 1 view .LVU6
+  48 000c 7047     		bx	lr
+  49              	.LVL3:
+  50              	.L18:
+ 283:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         switch(state) {
+  51              		.loc 1 283 9 is_stmt 1 view .LVU7
+  52 000e 4A1E     		subs	r2, r1, #1
+  53 0010 042A     		cmp	r2, #4
+  54 0012 FBD8     		bhi	.L2
+  55 0014 DFE802F0 		tbb	[pc, r2]
+  56              	.LVL4:
+  57              	.L4:
+  58 0018 03       		.byte	(.L8-.L4)/2
+  59 0019 18       		.byte	(.L7-.L4)/2
+  60 001a 08       		.byte	(.L6-.L4)/2
+  61 001b 0D       		.byte	(.L5-.L4)/2
+  62 001c 1D       		.byte	(.L3-.L4)/2
+  63 001d 00       		.p2align 1
+  64              	.L8:
+ 285:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+  65              		.loc 1 285 17 view .LVU8
+ 285:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+  66              		.loc 1 285 71 is_stmt 0 view .LVU9
+  67 001e DB6A     		ldr	r3, [r3, #44]
+  68              	.LVL5:
+ 285:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+  69              		.loc 1 285 19 view .LVU10
+  70 0020 0BB1     		cbz	r3, .L19
+ 285:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+  71              		.loc 1 285 88 view .LVU11
+  72 0022 0020     		movs	r0, #0
+  73 0024 7047     		bx	lr
+  74              	.L19:
+  75 0026 7047     		bx	lr
+  76              	.LVL6:
+  77              	.L6:
+ 288:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+  78              		.loc 1 288 17 is_stmt 1 view .LVU12
+ 288:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+  79              		.loc 1 288 71 is_stmt 0 view .LVU13
+  80 0028 DB6A     		ldr	r3, [r3, #44]
+  81              	.LVL7:
+ 288:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+  82              		.loc 1 288 19 view .LVU14
+  83 002a 0BB1     		cbz	r3, .L20
+ 288:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 8
+
+
+  84              		.loc 1 288 88 view .LVU15
+  85 002c 0020     		movs	r0, #0
+  86 002e 7047     		bx	lr
+  87              	.L20:
+  88 0030 7047     		bx	lr
+  89              	.LVL8:
+  90              	.L5:
+ 291:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_PRESSED].img_src) return LV_IMAGEBUTTO
+  91              		.loc 1 291 17 is_stmt 1 view .LVU16
+ 291:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_PRESSED].img_src) return LV_IMAGEBUTTO
+  92              		.loc 1 291 79 is_stmt 0 view .LVU17
+  93 0032 DA6D     		ldr	r2, [r3, #92]
+ 291:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_PRESSED].img_src) return LV_IMAGEBUTTO
+  94              		.loc 1 291 19 view .LVU18
+  95 0034 A2B9     		cbnz	r2, .L11
+ 292:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+  96              		.loc 1 292 17 is_stmt 1 view .LVU19
+ 292:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+  97              		.loc 1 292 70 is_stmt 0 view .LVU20
+  98 0036 DA6B     		ldr	r2, [r3, #60]
+ 292:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+  99              		.loc 1 292 19 view .LVU21
+ 100 0038 0AB1     		cbz	r2, .L21
+ 292:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 101              		.loc 1 292 87 view .LVU22
+ 102 003a 0120     		movs	r0, #1
+ 103 003c 7047     		bx	lr
+ 104              	.L21:
+ 293:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 105              		.loc 1 293 17 is_stmt 1 view .LVU23
+ 293:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 106              		.loc 1 293 71 is_stmt 0 view .LVU24
+ 107 003e DB6A     		ldr	r3, [r3, #44]
+ 108              	.LVL9:
+ 293:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 109              		.loc 1 293 19 view .LVU25
+ 110 0040 0BB1     		cbz	r3, .L22
+ 293:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 111              		.loc 1 293 88 view .LVU26
+ 112 0042 0020     		movs	r0, #0
+ 113 0044 7047     		bx	lr
+ 114              	.L22:
+ 115 0046 7047     		bx	lr
+ 116              	.LVL10:
+ 117              	.L7:
+ 296:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 118              		.loc 1 296 17 is_stmt 1 view .LVU27
+ 296:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 119              		.loc 1 296 71 is_stmt 0 view .LVU28
+ 120 0048 DB6A     		ldr	r3, [r3, #44]
+ 121              	.LVL11:
+ 296:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 122              		.loc 1 296 19 view .LVU29
+ 123 004a 0BB1     		cbz	r3, .L23
+ 296:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 124              		.loc 1 296 88 view .LVU30
+ 125 004c 0020     		movs	r0, #0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 9
+
+
+ 126 004e 7047     		bx	lr
+ 127              	.L23:
+ 128 0050 7047     		bx	lr
+ 129              	.LVL12:
+ 130              	.L3:
+ 299:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 131              		.loc 1 299 17 is_stmt 1 view .LVU31
+ 299:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 132              		.loc 1 299 79 is_stmt 0 view .LVU32
+ 133 0052 DA6D     		ldr	r2, [r3, #92]
+ 299:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 134              		.loc 1 299 19 view .LVU33
+ 135 0054 32B9     		cbnz	r2, .L15
+ 300:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 136              		.loc 1 300 17 is_stmt 1 view .LVU34
+ 300:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 137              		.loc 1 300 71 is_stmt 0 view .LVU35
+ 138 0056 DB6A     		ldr	r3, [r3, #44]
+ 139              	.LVL13:
+ 300:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 140              		.loc 1 300 19 view .LVU36
+ 141 0058 0BB1     		cbz	r3, .L24
+ 300:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 break;
+ 142              		.loc 1 300 88 view .LVU37
+ 143 005a 0020     		movs	r0, #0
+ 144 005c D6E7     		b	.L2
+ 145              	.L24:
+ 146 005e 7047     		bx	lr
+ 147              	.LVL14:
+ 148              	.L11:
+ 291:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_PRESSED].img_src) return LV_IMAGEBUTTO
+ 149              		.loc 1 291 96 view .LVU38
+ 150 0060 0320     		movs	r0, #3
+ 151 0062 7047     		bx	lr
+ 152              	.L15:
+ 299:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 if(imagebutton->src_mid[LV_IMAGEBUTTON_STATE_RELEASED].img_src) return LV_IMAGEBUTT
+ 153              		.loc 1 299 96 view .LVU39
+ 154 0064 0320     		movs	r0, #3
+ 155 0066 7047     		bx	lr
+ 156              		.cfi_endproc
+ 157              	.LFE243:
+ 159              		.section	.text.get_state,"ax",%progbits
+ 160              		.align	1
+ 161              		.syntax unified
+ 162              		.thumb
+ 163              		.thumb_func
+ 165              	get_state:
+ 166              	.LVL15:
+ 167              	.LFB244:
+ 309:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 310:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static lv_imagebutton_state_t get_state(const lv_obj_t * imagebutton)
+ 311:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 168              		.loc 1 311 1 is_stmt 1 view -0
+ 169              		.cfi_startproc
+ 170              		@ args = 0, pretend = 0, frame = 0
+ 171              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172              		.loc 1 311 1 is_stmt 0 view .LVU41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 10
+
+
+ 173 0000 08B5     		push	{r3, lr}
+ 174              	.LCFI0:
+ 175              		.cfi_def_cfa_offset 8
+ 176              		.cfi_offset 3, -8
+ 177              		.cfi_offset 14, -4
+ 312:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(imagebutton, MY_CLASS);
+ 178              		.loc 1 312 5 is_stmt 1 view .LVU42
+ 179              		.loc 1 312 5 view .LVU43
+ 180              		.loc 1 312 5 view .LVU44
+ 313:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 314:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_state_t obj_state = lv_obj_get_state(imagebutton);
+ 181              		.loc 1 314 5 view .LVU45
+ 182              		.loc 1 314 28 is_stmt 0 view .LVU46
+ 183 0002 FFF7FEFF 		bl	lv_obj_get_state
+ 184              	.LVL16:
+ 315:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 316:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(obj_state & LV_STATE_DISABLED) {
+ 185              		.loc 1 316 5 is_stmt 1 view .LVU47
+ 186              		.loc 1 316 7 is_stmt 0 view .LVU48
+ 187 0006 10F0800F 		tst	r0, #128
+ 188 000a 04D0     		beq	.L26
+ 317:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(obj_state & LV_STATE_CHECKED) return LV_IMAGEBUTTON_STATE_CHECKED_DISABLED;
+ 189              		.loc 1 317 9 is_stmt 1 view .LVU49
+ 190              		.loc 1 317 11 is_stmt 0 view .LVU50
+ 191 000c 10F0010F 		tst	r0, #1
+ 192 0010 0ED0     		beq	.L29
+ 193              		.loc 1 317 49 view .LVU51
+ 194 0012 0520     		movs	r0, #5
+ 195              	.LVL17:
+ 196              	.L27:
+ 318:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_DISABLED;
+ 319:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 320:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 321:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(obj_state & LV_STATE_CHECKED) {
+ 322:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(obj_state & LV_STATE_PRESSED) return LV_IMAGEBUTTON_STATE_CHECKED_PRESSED;
+ 323:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_CHECKED_RELEASED;
+ 324:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 325:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     else {
+ 326:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(obj_state & LV_STATE_PRESSED) return LV_IMAGEBUTTON_STATE_PRESSED;
+ 327:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_RELEASED;
+ 328:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 329:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 197              		.loc 1 329 1 view .LVU52
+ 198 0014 08BD     		pop	{r3, pc}
+ 199              	.LVL18:
+ 200              	.L26:
+ 321:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(obj_state & LV_STATE_PRESSED) return LV_IMAGEBUTTON_STATE_CHECKED_PRESSED;
+ 201              		.loc 1 321 5 is_stmt 1 view .LVU53
+ 321:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(obj_state & LV_STATE_PRESSED) return LV_IMAGEBUTTON_STATE_CHECKED_PRESSED;
+ 202              		.loc 1 321 7 is_stmt 0 view .LVU54
+ 203 0016 10F0010F 		tst	r0, #1
+ 204 001a 04D0     		beq	.L28
+ 322:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_CHECKED_RELEASED;
+ 205              		.loc 1 322 9 is_stmt 1 view .LVU55
+ 322:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_CHECKED_RELEASED;
+ 206              		.loc 1 322 11 is_stmt 0 view .LVU56
+ 207 001c 10F0200F 		tst	r0, #32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 11
+
+
+ 208 0020 08D0     		beq	.L30
+ 322:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_CHECKED_RELEASED;
+ 209              		.loc 1 322 49 view .LVU57
+ 210 0022 0420     		movs	r0, #4
+ 211              	.LVL19:
+ 322:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_CHECKED_RELEASED;
+ 212              		.loc 1 322 49 view .LVU58
+ 213 0024 F6E7     		b	.L27
+ 214              	.LVL20:
+ 215              	.L28:
+ 326:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_RELEASED;
+ 216              		.loc 1 326 9 is_stmt 1 view .LVU59
+ 326:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_RELEASED;
+ 217              		.loc 1 326 11 is_stmt 0 view .LVU60
+ 218 0026 10F0200F 		tst	r0, #32
+ 219 002a 05D0     		beq	.L31
+ 326:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_RELEASED;
+ 220              		.loc 1 326 49 view .LVU61
+ 221 002c 0120     		movs	r0, #1
+ 222              	.LVL21:
+ 326:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         else return LV_IMAGEBUTTON_STATE_RELEASED;
+ 223              		.loc 1 326 49 view .LVU62
+ 224 002e F1E7     		b	.L27
+ 225              	.LVL22:
+ 226              	.L29:
+ 318:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 227              		.loc 1 318 21 view .LVU63
+ 228 0030 0220     		movs	r0, #2
+ 229              	.LVL23:
+ 318:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 230              		.loc 1 318 21 view .LVU64
+ 231 0032 EFE7     		b	.L27
+ 232              	.LVL24:
+ 233              	.L30:
+ 323:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 234              		.loc 1 323 21 view .LVU65
+ 235 0034 0320     		movs	r0, #3
+ 236              	.LVL25:
+ 323:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 237              		.loc 1 323 21 view .LVU66
+ 238 0036 EDE7     		b	.L27
+ 239              	.LVL26:
+ 240              	.L31:
+ 327:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 241              		.loc 1 327 21 view .LVU67
+ 242 0038 0020     		movs	r0, #0
+ 243              	.LVL27:
+ 327:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 244              		.loc 1 327 21 view .LVU68
+ 245 003a EBE7     		b	.L27
+ 246              		.cfi_endproc
+ 247              	.LFE244:
+ 249              		.section	.text.refr_image,"ax",%progbits
+ 250              		.align	1
+ 251              		.syntax unified
+ 252              		.thumb
+ 253              		.thumb_func
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 12
+
+
+ 255              	refr_image:
+ 256              	.LVL28:
+ 257              	.LFB242:
+ 259:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 258              		.loc 1 259 1 is_stmt 1 view -0
+ 259              		.cfi_startproc
+ 260              		@ args = 0, pretend = 0, frame = 0
+ 261              		@ frame_needed = 0, uses_anonymous_args = 0
+ 259:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 262              		.loc 1 259 1 is_stmt 0 view .LVU70
+ 263 0000 38B5     		push	{r3, r4, r5, lr}
+ 264              	.LCFI1:
+ 265              		.cfi_def_cfa_offset 16
+ 266              		.cfi_offset 3, -16
+ 267              		.cfi_offset 4, -12
+ 268              		.cfi_offset 5, -8
+ 269              		.cfi_offset 14, -4
+ 270 0002 0446     		mov	r4, r0
+ 260:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_state_t state  = suggest_state(obj, get_state(obj));
+ 271              		.loc 1 260 5 is_stmt 1 view .LVU71
+ 272              	.LVL29:
+ 261:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 273              		.loc 1 261 5 view .LVU72
+ 261:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 274              		.loc 1 261 37 is_stmt 0 view .LVU73
+ 275 0004 FFF7FEFF 		bl	get_state
+ 276              	.LVL30:
+ 261:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 277              		.loc 1 261 37 view .LVU74
+ 278 0008 0146     		mov	r1, r0
+ 279 000a 2046     		mov	r0, r4
+ 280 000c FFF7FEFF 		bl	suggest_state
+ 281              	.LVL31:
+ 263:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(src == NULL) return;
+ 282              		.loc 1 263 5 is_stmt 1 view .LVU75
+ 263:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(src == NULL) return;
+ 283              		.loc 1 263 18 is_stmt 0 view .LVU76
+ 284 0010 04EB0013 		add	r3, r4, r0, lsl #4
+ 285 0014 DB6A     		ldr	r3, [r3, #44]
+ 286              	.LVL32:
+ 264:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 287              		.loc 1 264 5 is_stmt 1 view .LVU77
+ 264:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 288              		.loc 1 264 7 is_stmt 0 view .LVU78
+ 289 0016 63B1     		cbz	r3, .L33
+ 290 0018 0546     		mov	r5, r0
+ 266:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_set_height(obj, imagebutton->src_mid[state].header.h); /*Keep the user defined width*/
+ 291              		.loc 1 266 5 is_stmt 1 view .LVU79
+ 292 001a 2046     		mov	r0, r4
+ 293              	.LVL33:
+ 266:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_set_height(obj, imagebutton->src_mid[state].header.h); /*Keep the user defined width*/
+ 294              		.loc 1 266 5 is_stmt 0 view .LVU80
+ 295 001c FFF7FEFF 		bl	lv_obj_refresh_self_size
+ 296              	.LVL34:
+ 267:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 297              		.loc 1 267 5 is_stmt 1 view .LVU81
+ 267:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 13
+
+
+ 298              		.loc 1 267 62 is_stmt 0 view .LVU82
+ 299 0020 04EB0515 		add	r5, r4, r5, lsl #4
+ 267:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 300              		.loc 1 267 5 view .LVU83
+ 301 0024 E98E     		ldrh	r1, [r5, #54]
+ 302 0026 2046     		mov	r0, r4
+ 303 0028 FFF7FEFF 		bl	lv_obj_set_height
+ 304              	.LVL35:
+ 269:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 305              		.loc 1 269 5 is_stmt 1 view .LVU84
+ 306 002c 2046     		mov	r0, r4
+ 307 002e FFF7FEFF 		bl	lv_obj_invalidate
+ 308              	.LVL36:
+ 309              	.L33:
+ 270:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 310              		.loc 1 270 1 is_stmt 0 view .LVU85
+ 311 0032 38BD     		pop	{r3, r4, r5, pc}
+ 270:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 312              		.loc 1 270 1 view .LVU86
+ 313              		.cfi_endproc
+ 314              	.LFE242:
+ 316              		.section	.text.draw_main,"ax",%progbits
+ 317              		.align	1
+ 318              		.syntax unified
+ 319              		.thumb
+ 320              		.thumb_func
+ 322              	draw_main:
+ 323              	.LVL37:
+ 324              	.LFB241:
+ 180:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 325              		.loc 1 180 1 is_stmt 1 view -0
+ 326              		.cfi_startproc
+ 327              		@ args = 0, pretend = 0, frame = 152
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 329              		.loc 1 180 1 is_stmt 0 view .LVU88
+ 330 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 331              	.LCFI2:
+ 332              		.cfi_def_cfa_offset 24
+ 333              		.cfi_offset 4, -24
+ 334              		.cfi_offset 5, -20
+ 335              		.cfi_offset 6, -16
+ 336              		.cfi_offset 7, -12
+ 337              		.cfi_offset 8, -8
+ 338              		.cfi_offset 14, -4
+ 339 0004 A6B0     		sub	sp, sp, #152
+ 340              	.LCFI3:
+ 341              		.cfi_def_cfa_offset 176
+ 342 0006 0546     		mov	r5, r0
+ 181:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 343              		.loc 1 181 5 is_stmt 1 view .LVU89
+ 181:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 344              		.loc 1 181 22 is_stmt 0 view .LVU90
+ 345 0008 FFF7FEFF 		bl	lv_event_get_current_target
+ 346              	.LVL38:
+ 181:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 347              		.loc 1 181 22 view .LVU91
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 14
+
+
+ 348 000c 0446     		mov	r4, r0
+ 349              	.LVL39:
+ 182:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_layer_t * layer = lv_event_get_layer(e);
+ 350              		.loc 1 182 5 is_stmt 1 view .LVU92
+ 183:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 351              		.loc 1 183 5 view .LVU93
+ 183:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 352              		.loc 1 183 26 is_stmt 0 view .LVU94
+ 353 000e 2846     		mov	r0, r5
+ 354              	.LVL40:
+ 183:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 355              		.loc 1 183 26 view .LVU95
+ 356 0010 FFF7FEFF 		bl	lv_event_get_layer
+ 357              	.LVL41:
+ 358 0014 0646     		mov	r6, r0
+ 359              	.LVL42:
+ 186:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 360              		.loc 1 186 5 is_stmt 1 view .LVU96
+ 186:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 361              		.loc 1 186 37 is_stmt 0 view .LVU97
+ 362 0016 2046     		mov	r0, r4
+ 363              	.LVL43:
+ 186:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 364              		.loc 1 186 37 view .LVU98
+ 365 0018 FFF7FEFF 		bl	get_state
+ 366              	.LVL44:
+ 367 001c 0146     		mov	r1, r0
+ 368 001e 2046     		mov	r0, r4
+ 369 0020 FFF7FEFF 		bl	suggest_state
+ 370              	.LVL45:
+ 371 0024 0546     		mov	r5, r0
+ 372              	.LVL46:
+ 189:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 373              		.loc 1 189 5 is_stmt 1 view .LVU99
+ 191:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     int32_t th = lv_obj_get_style_transform_height(obj, LV_PART_MAIN);
+ 374              		.loc 1 191 5 view .LVU100
+ 375              	.LBB18:
+ 376              	.LBI18:
+ 377              		.file 2 "Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h"
+   1:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+   2:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** /*
+   3:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****  **********************************************************************
+   4:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****  *                            DO NOT EDIT
+   5:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****  * This file is automatically generated by "style_api_gen.py"
+   6:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****  **********************************************************************
+   7:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****  */
+   8:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+   9:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** #ifndef LV_OBJ_STYLE_GEN_H
+  10:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** #define LV_OBJ_STYLE_GEN_H
+  11:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  12:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** #include "../misc/lv_area.h"
+  13:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** #include "../misc/lv_style.h"
+  14:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** #include "../core/lv_obj_style.h"
+  15:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  16:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_width(const lv_obj_t * obj, uint32_t part)
+  17:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  18:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_WIDTH);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 15
+
+
+  19:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  20:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  21:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  22:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_min_width(const lv_obj_t * obj, uint32_t part)
+  23:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  24:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MIN_WIDTH);
+  25:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  26:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  27:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  28:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_max_width(const lv_obj_t * obj, uint32_t part)
+  29:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  30:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MAX_WIDTH);
+  31:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  32:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  33:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  34:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_height(const lv_obj_t * obj, uint32_t part)
+  35:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  36:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_HEIGHT);
+  37:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  38:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  39:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  40:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_min_height(const lv_obj_t * obj, uint32_t part)
+  41:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  42:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MIN_HEIGHT);
+  43:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  44:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  45:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  46:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_max_height(const lv_obj_t * obj, uint32_t part)
+  47:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  48:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MAX_HEIGHT);
+  49:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  50:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  51:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  52:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_length(const lv_obj_t * obj, uint32_t part)
+  53:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  54:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_LENGTH);
+  55:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  56:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  57:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  58:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_x(const lv_obj_t * obj, uint32_t part)
+  59:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  60:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_X);
+  61:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  62:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  63:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  64:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_y(const lv_obj_t * obj, uint32_t part)
+  65:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  66:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_Y);
+  67:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+  68:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  69:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  70:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline lv_align_t lv_obj_get_style_align(const lv_obj_t * obj, uint32_t part)
+  71:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  72:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_ALIGN);
+  73:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (lv_align_t)v.num;
+  74:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  75:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 16
+
+
+  76:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_width(const lv_obj_t * obj, uint32_t part)
+ 378              		.loc 2 76 23 view .LVU101
+ 379              	.LBB19:
+  77:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  78:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_WIDTH);
+ 380              		.loc 2 78 5 view .LVU102
+ 381              		.loc 2 78 26 is_stmt 0 view .LVU103
+ 382 0026 6822     		movs	r2, #104
+ 383 0028 0021     		movs	r1, #0
+ 384 002a 2046     		mov	r0, r4
+ 385              	.LVL47:
+ 386              		.loc 2 78 26 view .LVU104
+ 387 002c FFF7FEFF 		bl	lv_obj_get_style_prop
+ 388              	.LVL48:
+ 389 0030 0746     		mov	r7, r0
+ 390 0032 0590     		str	r0, [sp, #20]
+  79:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 391              		.loc 2 79 5 is_stmt 1 view .LVU105
+ 392              	.LVL49:
+ 393              		.loc 2 79 5 is_stmt 0 view .LVU106
+ 394              	.LBE19:
+ 395              	.LBE18:
+ 192:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_area_t coords;
+ 396              		.loc 1 192 5 is_stmt 1 view .LVU107
+ 397              	.LBB20:
+ 398              	.LBI20:
+  80:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** }
+  81:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** 
+  82:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_height(const lv_obj_t * obj, uint32_t part)
+ 399              		.loc 2 82 23 view .LVU108
+ 400              	.LBB21:
+  83:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h **** {
+  84:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_HEIGHT);
+ 401              		.loc 2 84 5 view .LVU109
+ 402              		.loc 2 84 26 is_stmt 0 view .LVU110
+ 403 0034 6922     		movs	r2, #105
+ 404 0036 0021     		movs	r1, #0
+ 405 0038 2046     		mov	r0, r4
+ 406              	.LVL50:
+ 407              		.loc 2 84 26 view .LVU111
+ 408 003a FFF7FEFF 		bl	lv_obj_get_style_prop
+ 409              	.LVL51:
+ 410 003e 0246     		mov	r2, r0
+ 411 0040 0590     		str	r0, [sp, #20]
+  85:Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
+ 412              		.loc 2 85 5 is_stmt 1 view .LVU112
+ 413              	.LVL52:
+ 414              		.loc 2 85 5 is_stmt 0 view .LVU113
+ 415              	.LBE21:
+ 416              	.LBE20:
+ 193:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_area_copy(&coords, &obj->coords);
+ 417              		.loc 1 193 5 is_stmt 1 view .LVU114
+ 194:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_area_increase(&coords, tw, th);
+ 418              		.loc 1 194 5 view .LVU115
+ 419              	.LBB22:
+ 420              	.LBI22:
+ 421              		.file 3 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 17
+
+
+   1:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+   2:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @file lv_area.h
+   3:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *
+   4:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+   5:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+   6:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #ifndef LV_AREA_H
+   7:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #define LV_AREA_H
+   8:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+   9:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #ifdef __cplusplus
+  10:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** extern "C" {
+  11:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #endif
+  12:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  13:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /*********************
+  14:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *      INCLUDES
+  15:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *********************/
+  16:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #include "../lv_conf_internal.h"
+  17:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #include "lv_types.h"
+  18:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #include <stdbool.h>
+  19:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #include <stdint.h>
+  20:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  21:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /*********************
+  22:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *      DEFINES
+  23:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *********************/
+  24:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  25:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**********************
+  26:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  *      TYPEDEFS
+  27:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  **********************/
+  28:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  29:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+  30:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * Represents a point on the screen.
+  31:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+  32:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef struct {
+  33:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t x;
+  34:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t y;
+  35:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** } lv_point_t;
+  36:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  37:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef struct {
+  38:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     lv_value_precise_t x;
+  39:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     lv_value_precise_t y;
+  40:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** } lv_point_precise_t;
+  41:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  42:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /** Represents an area of the screen.*/
+  43:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef struct {
+  44:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t x1;
+  45:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t y1;
+  46:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t x2;
+  47:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t y2;
+  48:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** } lv_area_t;
+  49:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  50:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /** Alignments*/
+  51:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  52:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** enum _lv_align_t {
+  53:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_DEFAULT = 0,
+  54:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_TOP_LEFT,
+  55:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_TOP_MID,
+  56:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_TOP_RIGHT,
+  57:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_BOTTOM_LEFT,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 18
+
+
+  58:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_BOTTOM_MID,
+  59:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_BOTTOM_RIGHT,
+  60:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_LEFT_MID,
+  61:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_RIGHT_MID,
+  62:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_CENTER,
+  63:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  64:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_TOP_LEFT,
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_TOP_MID,
+  66:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_TOP_RIGHT,
+  67:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_LEFT,
+  68:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_MID,
+  69:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_RIGHT,
+  70:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_LEFT_TOP,
+  71:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_LEFT_MID,
+  72:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_LEFT_BOTTOM,
+  73:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_RIGHT_TOP,
+  74:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_RIGHT_MID,
+  75:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_RIGHT_BOTTOM,
+  76:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** };
+  77:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  78:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #ifdef DOXYGEN
+  79:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef _lv_align_t lv_align_t;
+  80:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #else
+  81:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef uint8_t lv_align_t;
+  82:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #endif /*DOXYGEN*/
+  83:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  84:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** enum _lv_dir_t {
+  85:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_NONE     = 0x00,
+  86:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_LEFT     = (1 << 0),
+  87:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_RIGHT    = (1 << 1),
+  88:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_TOP      = (1 << 2),
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_BOTTOM   = (1 << 3),
+  90:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_HOR      = LV_DIR_LEFT | LV_DIR_RIGHT,
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_VER      = LV_DIR_TOP | LV_DIR_BOTTOM,
+  92:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_DIR_ALL      = LV_DIR_HOR | LV_DIR_VER,
+  93:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** };
+  94:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+  95:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #ifdef DOXYGEN
+  96:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef _lv_dir_t lv_dir_t;
+  97:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #else
+  98:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef uint8_t lv_dir_t;
+  99:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #endif /*DOXYGEN*/
+ 100:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 101:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** typedef struct  {
+ 102:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t angle_prev;
+ 103:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t sinma;
+ 104:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     int32_t cosma;
+ 105:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** } lv_area_transform_cache_t;
+ 106:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 107:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**********************
+ 108:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * GLOBAL PROTOTYPES
+ 109:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  **********************/
+ 110:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 111:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+ 112:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * Initialize an area
+ 113:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param area_p pointer to an area
+ 114:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param x1 left coordinate of the area
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 19
+
+
+ 115:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param y1 top coordinate of the area
+ 116:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param x2 right coordinate of the area
+ 117:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param y2 bottom coordinate of the area
+ 118:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+ 119:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** void lv_area_set(lv_area_t * area_p, int32_t x1, int32_t y1, int32_t x2, int32_t y2);
+ 120:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
+ 121:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /**
+ 122:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * Copy an area
+ 123:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param dest pointer to the destination area
+ 124:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param src pointer to the source area
+ 125:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
+ 126:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** inline static void lv_area_copy(lv_area_t * dest, const lv_area_t * src)
+ 422              		.loc 3 126 20 view .LVU116
+ 423              	.LBB23:
+ 127:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** {
+ 128:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->x1 = src->x1;
+ 424              		.loc 3 128 5 view .LVU117
+ 425              		.loc 3 128 19 is_stmt 0 view .LVU118
+ 426 0042 6369     		ldr	r3, [r4, #20]
+ 427              		.loc 3 128 14 view .LVU119
+ 428 0044 2293     		str	r3, [sp, #136]
+ 129:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->y1 = src->y1;
+ 429              		.loc 3 129 5 is_stmt 1 view .LVU120
+ 430              		.loc 3 129 19 is_stmt 0 view .LVU121
+ 431 0046 A369     		ldr	r3, [r4, #24]
+ 432              		.loc 3 129 14 view .LVU122
+ 433 0048 2393     		str	r3, [sp, #140]
+ 130:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->x2 = src->x2;
+ 434              		.loc 3 130 5 is_stmt 1 view .LVU123
+ 435              		.loc 3 130 19 is_stmt 0 view .LVU124
+ 436 004a E369     		ldr	r3, [r4, #28]
+ 437              		.loc 3 130 14 view .LVU125
+ 438 004c 2493     		str	r3, [sp, #144]
+ 131:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->y2 = src->y2;
+ 439              		.loc 3 131 5 is_stmt 1 view .LVU126
+ 440              		.loc 3 131 19 is_stmt 0 view .LVU127
+ 441 004e 236A     		ldr	r3, [r4, #32]
+ 442              		.loc 3 131 14 view .LVU128
+ 443 0050 2593     		str	r3, [sp, #148]
+ 444              	.LVL53:
+ 445              		.loc 3 131 14 view .LVU129
+ 446              	.LBE23:
+ 447              	.LBE22:
+ 195:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 448              		.loc 1 195 5 is_stmt 1 view .LVU130
+ 449 0052 3946     		mov	r1, r7
+ 450 0054 22A8     		add	r0, sp, #136
+ 451              	.LVL54:
+ 195:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 452              		.loc 1 195 5 is_stmt 0 view .LVU131
+ 453 0056 FFF7FEFF 		bl	lv_area_increase
+ 454              	.LVL55:
+ 197:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_draw_image_dsc_init(&img_dsc);
+ 455              		.loc 1 197 5 is_stmt 1 view .LVU132
+ 198:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_init_draw_image_dsc(obj, LV_PART_MAIN, &img_dsc);
+ 456              		.loc 1 198 5 view .LVU133
+ 457 005a 0DA8     		add	r0, sp, #52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 20
+
+
+ 458 005c FFF7FEFF 		bl	lv_draw_image_dsc_init
+ 459              	.LVL56:
+ 199:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 460              		.loc 1 199 5 view .LVU134
+ 461 0060 0DAA     		add	r2, sp, #52
+ 462 0062 0021     		movs	r1, #0
+ 463 0064 2046     		mov	r0, r4
+ 464 0066 FFF7FEFF 		bl	lv_obj_init_draw_image_dsc
+ 465              	.LVL57:
+ 201:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     int32_t left_w = 0;
+ 466              		.loc 1 201 5 view .LVU135
+ 202:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     int32_t right_w = 0;
+ 467              		.loc 1 202 5 view .LVU136
+ 203:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 468              		.loc 1 203 5 view .LVU137
+ 205:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         left_w = src_info->header.w;
+ 469              		.loc 1 205 5 view .LVU138
+ 205:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         left_w = src_info->header.w;
+ 470              		.loc 1 205 16 is_stmt 0 view .LVU139
+ 471 006a 04EB0513 		add	r3, r4, r5, lsl #4
+ 472 006e D3F88C10 		ldr	r1, [r3, #140]
+ 205:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         left_w = src_info->header.w;
+ 473              		.loc 1 205 7 view .LVU140
+ 474 0072 0029     		cmp	r1, #0
+ 475 0074 62D0     		beq	.L43
+ 206:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x1 = coords.x1;
+ 476              		.loc 1 206 9 is_stmt 1 view .LVU141
+ 206:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x1 = coords.x1;
+ 477              		.loc 1 206 34 is_stmt 0 view .LVU142
+ 478 0076 1846     		mov	r0, r3
+ 479 0078 B3F89480 		ldrh	r8, [r3, #148]
+ 480              	.LVL58:
+ 207:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 481              		.loc 1 207 9 is_stmt 1 view .LVU143
+ 207:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 482              		.loc 1 207 32 is_stmt 0 view .LVU144
+ 483 007c 229A     		ldr	r2, [sp, #136]
+ 207:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 484              		.loc 1 207 24 view .LVU145
+ 485 007e 0992     		str	r2, [sp, #36]
+ 208:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x2 = coords.x1 + src_info->header.w - 1;
+ 486              		.loc 1 208 9 is_stmt 1 view .LVU146
+ 208:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x2 = coords.x1 + src_info->header.w - 1;
+ 487              		.loc 1 208 32 is_stmt 0 view .LVU147
+ 488 0080 239B     		ldr	r3, [sp, #140]
+ 208:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x2 = coords.x1 + src_info->header.w - 1;
+ 489              		.loc 1 208 24 view .LVU148
+ 490 0082 0A93     		str	r3, [sp, #40]
+ 209:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y2 = coords.y1 + src_info->header.h - 1;
+ 491              		.loc 1 209 9 is_stmt 1 view .LVU149
+ 209:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y2 = coords.y1 + src_info->header.h - 1;
+ 492              		.loc 1 209 36 is_stmt 0 view .LVU150
+ 493 0084 4244     		add	r2, r2, r8
+ 209:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y2 = coords.y1 + src_info->header.h - 1;
+ 494              		.loc 1 209 57 view .LVU151
+ 495 0086 013A     		subs	r2, r2, #1
+ 209:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y2 = coords.y1 + src_info->header.h - 1;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 21
+
+
+ 496              		.loc 1 209 24 view .LVU152
+ 497 0088 0B92     		str	r2, [sp, #44]
+ 210:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 498              		.loc 1 210 9 is_stmt 1 view .LVU153
+ 210:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 499              		.loc 1 210 54 is_stmt 0 view .LVU154
+ 500 008a B0F89620 		ldrh	r2, [r0, #150]
+ 210:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 501              		.loc 1 210 36 view .LVU155
+ 502 008e 1344     		add	r3, r3, r2
+ 210:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 503              		.loc 1 210 57 view .LVU156
+ 504 0090 013B     		subs	r3, r3, #1
+ 210:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 505              		.loc 1 210 24 view .LVU157
+ 506 0092 0C93     		str	r3, [sp, #48]
+ 211:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_draw_image(layer, &img_dsc, &coords_part);
+ 507              		.loc 1 211 9 is_stmt 1 view .LVU158
+ 211:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_draw_image(layer, &img_dsc, &coords_part);
+ 508              		.loc 1 211 21 is_stmt 0 view .LVU159
+ 509 0094 1491     		str	r1, [sp, #80]
+ 212:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 510              		.loc 1 212 9 is_stmt 1 view .LVU160
+ 511 0096 09AA     		add	r2, sp, #36
+ 512 0098 0DA9     		add	r1, sp, #52
+ 513 009a 3046     		mov	r0, r6
+ 514 009c FFF7FEFF 		bl	lv_draw_image
+ 515              	.LVL59:
+ 516              	.L37:
+ 215:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(src_info->img_src) {
+ 517              		.loc 1 215 5 view .LVU161
+ 216:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         right_w = src_info->header.w;
+ 518              		.loc 1 216 5 view .LVU162
+ 216:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         right_w = src_info->header.w;
+ 519              		.loc 1 216 16 is_stmt 0 view .LVU163
+ 520 00a0 04EB0513 		add	r3, r4, r5, lsl #4
+ 521 00a4 D3F8EC20 		ldr	r2, [r3, #236]
+ 216:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         right_w = src_info->header.w;
+ 522              		.loc 1 216 7 view .LVU164
+ 523 00a8 002A     		cmp	r2, #0
+ 524 00aa 4AD0     		beq	.L44
+ 217:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x1 = coords.x2 - src_info->header.w + 1;
+ 525              		.loc 1 217 9 is_stmt 1 view .LVU165
+ 217:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x1 = coords.x2 - src_info->header.w + 1;
+ 526              		.loc 1 217 35 is_stmt 0 view .LVU166
+ 527 00ac 1946     		mov	r1, r3
+ 528 00ae B3F8F470 		ldrh	r7, [r3, #244]
+ 529              	.LVL60:
+ 218:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 530              		.loc 1 218 9 is_stmt 1 view .LVU167
+ 218:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 531              		.loc 1 218 32 is_stmt 0 view .LVU168
+ 532 00b2 2498     		ldr	r0, [sp, #144]
+ 218:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 533              		.loc 1 218 36 view .LVU169
+ 534 00b4 C31B     		subs	r3, r0, r7
+ 218:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 22
+
+
+ 535              		.loc 1 218 57 view .LVU170
+ 536 00b6 0133     		adds	r3, r3, #1
+ 218:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y1 = coords.y1;
+ 537              		.loc 1 218 24 view .LVU171
+ 538 00b8 0993     		str	r3, [sp, #36]
+ 219:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x2 = coords.x2;
+ 539              		.loc 1 219 9 is_stmt 1 view .LVU172
+ 219:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x2 = coords.x2;
+ 540              		.loc 1 219 32 is_stmt 0 view .LVU173
+ 541 00ba 239B     		ldr	r3, [sp, #140]
+ 219:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.x2 = coords.x2;
+ 542              		.loc 1 219 24 view .LVU174
+ 543 00bc 0A93     		str	r3, [sp, #40]
+ 220:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y2 = coords.y1 + src_info->header.h - 1;
+ 544              		.loc 1 220 9 is_stmt 1 view .LVU175
+ 220:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         coords_part.y2 = coords.y1 + src_info->header.h - 1;
+ 545              		.loc 1 220 24 is_stmt 0 view .LVU176
+ 546 00be 0B90     		str	r0, [sp, #44]
+ 221:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 547              		.loc 1 221 9 is_stmt 1 view .LVU177
+ 221:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 548              		.loc 1 221 54 is_stmt 0 view .LVU178
+ 549 00c0 B1F8F610 		ldrh	r1, [r1, #246]
+ 221:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 550              		.loc 1 221 36 view .LVU179
+ 551 00c4 0B44     		add	r3, r3, r1
+ 221:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 552              		.loc 1 221 57 view .LVU180
+ 553 00c6 013B     		subs	r3, r3, #1
+ 221:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         img_dsc.src = src_info->img_src;
+ 554              		.loc 1 221 24 view .LVU181
+ 555 00c8 0C93     		str	r3, [sp, #48]
+ 222:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_draw_image(layer, &img_dsc, &coords_part);
+ 556              		.loc 1 222 9 is_stmt 1 view .LVU182
+ 222:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_draw_image(layer, &img_dsc, &coords_part);
+ 557              		.loc 1 222 21 is_stmt 0 view .LVU183
+ 558 00ca 1492     		str	r2, [sp, #80]
+ 223:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 559              		.loc 1 223 9 is_stmt 1 view .LVU184
+ 560 00cc 09AA     		add	r2, sp, #36
+ 561 00ce 0DA9     		add	r1, sp, #52
+ 562 00d0 3046     		mov	r0, r6
+ 563 00d2 FFF7FEFF 		bl	lv_draw_image
+ 564              	.LVL61:
+ 565              	.L38:
+ 226:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(src_info->img_src) {
+ 566              		.loc 1 226 5 view .LVU185
+ 227:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_area_t clip_area_center;
+ 567              		.loc 1 227 5 view .LVU186
+ 227:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_area_t clip_area_center;
+ 568              		.loc 1 227 16 is_stmt 0 view .LVU187
+ 569 00d6 04EB0513 		add	r3, r4, r5, lsl #4
+ 570 00da DB6A     		ldr	r3, [r3, #44]
+ 227:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_area_t clip_area_center;
+ 571              		.loc 1 227 7 view .LVU188
+ 572 00dc 002B     		cmp	r3, #0
+ 573 00de 51D0     		beq	.L36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 23
+
+
+ 574              	.LBB24:
+ 228:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.x1 = coords.x1 + left_w;
+ 575              		.loc 1 228 9 is_stmt 1 view .LVU189
+ 229:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.x2 = coords.x2 - right_w;
+ 576              		.loc 1 229 9 view .LVU190
+ 229:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.x2 = coords.x2 - right_w;
+ 577              		.loc 1 229 37 is_stmt 0 view .LVU191
+ 578 00e0 229B     		ldr	r3, [sp, #136]
+ 229:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.x2 = coords.x2 - right_w;
+ 579              		.loc 1 229 41 view .LVU192
+ 580 00e2 4344     		add	r3, r3, r8
+ 229:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.x2 = coords.x2 - right_w;
+ 581              		.loc 1 229 29 view .LVU193
+ 582 00e4 0193     		str	r3, [sp, #4]
+ 230:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y1 = coords.y1;
+ 583              		.loc 1 230 9 is_stmt 1 view .LVU194
+ 230:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y1 = coords.y1;
+ 584              		.loc 1 230 37 is_stmt 0 view .LVU195
+ 585 00e6 249B     		ldr	r3, [sp, #144]
+ 230:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y1 = coords.y1;
+ 586              		.loc 1 230 41 view .LVU196
+ 587 00e8 DB1B     		subs	r3, r3, r7
+ 230:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y1 = coords.y1;
+ 588              		.loc 1 230 29 view .LVU197
+ 589 00ea 0393     		str	r3, [sp, #12]
+ 231:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y2 = coords.y2;
+ 590              		.loc 1 231 9 is_stmt 1 view .LVU198
+ 231:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y2 = coords.y2;
+ 591              		.loc 1 231 37 is_stmt 0 view .LVU199
+ 592 00ec 239B     		ldr	r3, [sp, #140]
+ 231:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         clip_area_center.y2 = coords.y2;
+ 593              		.loc 1 231 29 view .LVU200
+ 594 00ee 0293     		str	r3, [sp, #8]
+ 232:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 595              		.loc 1 232 9 is_stmt 1 view .LVU201
+ 232:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 596              		.loc 1 232 37 is_stmt 0 view .LVU202
+ 597 00f0 259B     		ldr	r3, [sp, #148]
+ 232:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 598              		.loc 1 232 29 view .LVU203
+ 599 00f2 0493     		str	r3, [sp, #16]
+ 234:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         comm_res = _lv_area_intersect(&clip_area_center, &clip_area_center, &layer->_clip_area);
+ 600              		.loc 1 234 9 is_stmt 1 view .LVU204
+ 235:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(comm_res) {
+ 601              		.loc 1 235 9 view .LVU205
+ 235:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(comm_res) {
+ 602              		.loc 1 235 20 is_stmt 0 view .LVU206
+ 603 00f4 06F11802 		add	r2, r6, #24
+ 604 00f8 01A9     		add	r1, sp, #4
+ 605 00fa 0846     		mov	r0, r1
+ 606 00fc FFF7FEFF 		bl	_lv_area_intersect
+ 607              	.LVL62:
+ 236:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             int32_t i;
+ 608              		.loc 1 236 9 is_stmt 1 view .LVU207
+ 236:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             int32_t i;
+ 609              		.loc 1 236 11 is_stmt 0 view .LVU208
+ 610 0100 0028     		cmp	r0, #0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 24
+
+
+ 611 0102 3FD0     		beq	.L36
+ 612              	.LBB25:
+ 237:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 613              		.loc 1 237 13 is_stmt 1 view .LVU209
+ 239:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             layer->_clip_area = clip_area_center;
+ 614              		.loc 1 239 13 view .LVU210
+ 239:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             layer->_clip_area = clip_area_center;
+ 615              		.loc 1 239 29 is_stmt 0 view .LVU211
+ 616 0104 0DF1140C 		add	ip, sp, #20
+ 617 0108 06F11807 		add	r7, r6, #24
+ 618              	.LVL63:
+ 239:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             layer->_clip_area = clip_area_center;
+ 619              		.loc 1 239 29 view .LVU212
+ 620 010c 97E80F00 		ldm	r7, {r0, r1, r2, r3}
+ 621              	.LVL64:
+ 239:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             layer->_clip_area = clip_area_center;
+ 622              		.loc 1 239 29 view .LVU213
+ 623 0110 8CE80F00 		stm	ip, {r0, r1, r2, r3}
+ 240:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 624              		.loc 1 240 13 is_stmt 1 view .LVU214
+ 240:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 625              		.loc 1 240 31 is_stmt 0 view .LVU215
+ 626 0114 01AB     		add	r3, sp, #4
+ 627 0116 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 628 0118 87E80F00 		stm	r7, {r0, r1, r2, r3}
+ 242:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y1 = coords.y1;
+ 629              		.loc 1 242 13 is_stmt 1 view .LVU216
+ 242:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y1 = coords.y1;
+ 630              		.loc 1 242 36 is_stmt 0 view .LVU217
+ 631 011c 229F     		ldr	r7, [sp, #136]
+ 242:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y1 = coords.y1;
+ 632              		.loc 1 242 40 view .LVU218
+ 633 011e 4744     		add	r7, r7, r8
+ 242:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y1 = coords.y1;
+ 634              		.loc 1 242 28 view .LVU219
+ 635 0120 0997     		str	r7, [sp, #36]
+ 243:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.x2 = coords_part.x1 + src_info->header.w - 1;
+ 636              		.loc 1 243 13 is_stmt 1 view .LVU220
+ 243:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.x2 = coords_part.x1 + src_info->header.w - 1;
+ 637              		.loc 1 243 36 is_stmt 0 view .LVU221
+ 638 0122 239B     		ldr	r3, [sp, #140]
+ 243:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.x2 = coords_part.x1 + src_info->header.w - 1;
+ 639              		.loc 1 243 28 view .LVU222
+ 640 0124 0A93     		str	r3, [sp, #40]
+ 244:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y2 = coords_part.y1 + src_info->header.h - 1;
+ 641              		.loc 1 244 13 is_stmt 1 view .LVU223
+ 244:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y2 = coords_part.y1 + src_info->header.h - 1;
+ 642              		.loc 1 244 63 is_stmt 0 view .LVU224
+ 643 0126 04EB0511 		add	r1, r4, r5, lsl #4
+ 644 012a 8A8E     		ldrh	r2, [r1, #52]
+ 244:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y2 = coords_part.y1 + src_info->header.h - 1;
+ 645              		.loc 1 244 45 view .LVU225
+ 646 012c 3A44     		add	r2, r2, r7
+ 244:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y2 = coords_part.y1 + src_info->header.h - 1;
+ 647              		.loc 1 244 66 view .LVU226
+ 648 012e 013A     		subs	r2, r2, #1
+ 244:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             coords_part.y2 = coords_part.y1 + src_info->header.h - 1;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 25
+
+
+ 649              		.loc 1 244 28 view .LVU227
+ 650 0130 0B92     		str	r2, [sp, #44]
+ 245:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 651              		.loc 1 245 13 is_stmt 1 view .LVU228
+ 245:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 652              		.loc 1 245 63 is_stmt 0 view .LVU229
+ 653 0132 CA8E     		ldrh	r2, [r1, #54]
+ 245:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 654              		.loc 1 245 45 view .LVU230
+ 655 0134 1344     		add	r3, r3, r2
+ 245:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 656              		.loc 1 245 66 view .LVU231
+ 657 0136 013B     		subs	r3, r3, #1
+ 245:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 658              		.loc 1 245 28 view .LVU232
+ 659 0138 0C93     		str	r3, [sp, #48]
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 660              		.loc 1 247 13 is_stmt 1 view .LVU233
+ 661              	.LVL65:
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 662              		.loc 1 247 13 is_stmt 0 view .LVU234
+ 663 013a 16E0     		b	.L41
+ 664              	.LVL66:
+ 665              	.L43:
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 666              		.loc 1 247 13 view .LVU235
+ 667              	.LBE25:
+ 668              	.LBE24:
+ 202:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     int32_t right_w = 0;
+ 669              		.loc 1 202 13 view .LVU236
+ 670 013c 4FF00008 		mov	r8, #0
+ 671 0140 AEE7     		b	.L37
+ 672              	.LVL67:
+ 673              	.L44:
+ 203:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 674              		.loc 1 203 13 view .LVU237
+ 675 0142 0027     		movs	r7, #0
+ 676              	.LVL68:
+ 203:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 677              		.loc 1 203 13 view .LVU238
+ 678 0144 C7E7     		b	.L38
+ 679              	.LVL69:
+ 680              	.L42:
+ 681              	.LBB27:
+ 682              	.LBB26:
+ 248:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 lv_draw_image(layer, &img_dsc, &coords_part);
+ 683              		.loc 1 248 17 is_stmt 1 discriminator 3 view .LVU239
+ 248:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 lv_draw_image(layer, &img_dsc, &coords_part);
+ 684              		.loc 1 248 39 is_stmt 0 discriminator 3 view .LVU240
+ 685 0146 04EB0518 		add	r8, r4, r5, lsl #4
+ 686 014a D8F82C30 		ldr	r3, [r8, #44]
+ 248:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 lv_draw_image(layer, &img_dsc, &coords_part);
+ 687              		.loc 1 248 29 discriminator 3 view .LVU241
+ 688 014e 1493     		str	r3, [sp, #80]
+ 249:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 coords_part.x1 = coords_part.x2 + 1;
+ 689              		.loc 1 249 17 is_stmt 1 discriminator 3 view .LVU242
+ 690 0150 09AA     		add	r2, sp, #36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 26
+
+
+ 691 0152 0DA9     		add	r1, sp, #52
+ 692 0154 3046     		mov	r0, r6
+ 693 0156 FFF7FEFF 		bl	lv_draw_image
+ 694              	.LVL70:
+ 250:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 coords_part.x2 += src_info->header.w;
+ 695              		.loc 1 250 17 discriminator 3 view .LVU243
+ 250:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 coords_part.x2 += src_info->header.w;
+ 696              		.loc 1 250 45 is_stmt 0 discriminator 3 view .LVU244
+ 697 015a 0B9B     		ldr	r3, [sp, #44]
+ 250:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 coords_part.x2 += src_info->header.w;
+ 698              		.loc 1 250 49 discriminator 3 view .LVU245
+ 699 015c 5A1C     		adds	r2, r3, #1
+ 250:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 coords_part.x2 += src_info->header.w;
+ 700              		.loc 1 250 32 discriminator 3 view .LVU246
+ 701 015e 0992     		str	r2, [sp, #36]
+ 251:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             }
+ 702              		.loc 1 251 17 is_stmt 1 discriminator 3 view .LVU247
+ 251:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             }
+ 703              		.loc 1 251 51 is_stmt 0 discriminator 3 view .LVU248
+ 704 0160 B8F83420 		ldrh	r2, [r8, #52]
+ 251:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             }
+ 705              		.loc 1 251 32 discriminator 3 view .LVU249
+ 706 0164 1344     		add	r3, r3, r2
+ 707 0166 0B93     		str	r3, [sp, #44]
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 708              		.loc 1 247 100 is_stmt 1 discriminator 3 view .LVU250
+ 709 0168 1744     		add	r7, r7, r2
+ 710              	.LVL71:
+ 711              	.L41:
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 712              		.loc 1 247 39 discriminator 1 view .LVU251
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 713              		.loc 1 247 89 is_stmt 0 discriminator 1 view .LVU252
+ 714 016a 04EB0513 		add	r3, r4, r5, lsl #4
+ 715 016e 9A8E     		ldrh	r2, [r3, #52]
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 716              		.loc 1 247 71 discriminator 1 view .LVU253
+ 717 0170 039B     		ldr	r3, [sp, #12]
+ 718 0172 1344     		add	r3, r3, r2
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 719              		.loc 1 247 41 discriminator 1 view .LVU254
+ 720 0174 013B     		subs	r3, r3, #1
+ 247:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****                 img_dsc.src = src_info->img_src;
+ 721              		.loc 1 247 39 discriminator 1 view .LVU255
+ 722 0176 BB42     		cmp	r3, r7
+ 723 0178 E5DC     		bgt	.L42
+ 253:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 724              		.loc 1 253 13 is_stmt 1 view .LVU256
+ 253:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 725              		.loc 1 253 31 is_stmt 0 view .LVU257
+ 726 017a 1836     		adds	r6, r6, #24
+ 727              	.LVL72:
+ 253:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 728              		.loc 1 253 31 view .LVU258
+ 729 017c 05AB     		add	r3, sp, #20
+ 730 017e 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 731 0180 86E80F00 		stm	r6, {r0, r1, r2, r3}
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 27
+
+
+ 732              	.LVL73:
+ 733              	.L36:
+ 253:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 734              		.loc 1 253 31 view .LVU259
+ 735              	.LBE26:
+ 736              	.LBE27:
+ 256:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 737              		.loc 1 256 1 view .LVU260
+ 738 0184 26B0     		add	sp, sp, #152
+ 739              	.LCFI4:
+ 740              		.cfi_def_cfa_offset 24
+ 741              		@ sp needed
+ 742 0186 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 256:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 743              		.loc 1 256 1 view .LVU261
+ 744              		.cfi_endproc
+ 745              	.LFE241:
+ 747              		.section	.text.lv_imagebutton_event,"ax",%progbits
+ 748              		.align	1
+ 749              		.syntax unified
+ 750              		.thumb
+ 751              		.thumb_func
+ 753              	lv_imagebutton_event:
+ 754              	.LVL74:
+ 755              	.LFB240:
+ 149:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_UNUSED(class_p);
+ 756              		.loc 1 149 1 is_stmt 1 view -0
+ 757              		.cfi_startproc
+ 758              		@ args = 0, pretend = 0, frame = 0
+ 759              		@ frame_needed = 0, uses_anonymous_args = 0
+ 149:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_UNUSED(class_p);
+ 760              		.loc 1 149 1 is_stmt 0 view .LVU263
+ 761 0000 70B5     		push	{r4, r5, r6, lr}
+ 762              	.LCFI5:
+ 763              		.cfi_def_cfa_offset 16
+ 764              		.cfi_offset 4, -16
+ 765              		.cfi_offset 5, -12
+ 766              		.cfi_offset 6, -8
+ 767              		.cfi_offset 14, -4
+ 768 0002 0C46     		mov	r4, r1
+ 150:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 769              		.loc 1 150 5 is_stmt 1 view .LVU264
+ 152:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(res != LV_RESULT_OK) return;
+ 770              		.loc 1 152 5 view .LVU265
+ 152:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(res != LV_RESULT_OK) return;
+ 771              		.loc 1 152 23 is_stmt 0 view .LVU266
+ 772 0004 3D48     		ldr	r0, .L58
+ 773              	.LVL75:
+ 152:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(res != LV_RESULT_OK) return;
+ 774              		.loc 1 152 23 view .LVU267
+ 775 0006 FFF7FEFF 		bl	lv_obj_event_base
+ 776              	.LVL76:
+ 153:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 777              		.loc 1 153 5 is_stmt 1 view .LVU268
+ 153:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 778              		.loc 1 153 7 is_stmt 0 view .LVU269
+ 779 000a 0128     		cmp	r0, #1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 28
+
+
+ 780 000c 00D0     		beq	.L57
+ 781              	.LVL77:
+ 782              	.L46:
+ 177:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 783              		.loc 1 177 1 view .LVU270
+ 784 000e 70BD     		pop	{r4, r5, r6, pc}
+ 785              	.LVL78:
+ 786              	.L57:
+ 155:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 787              		.loc 1 155 5 is_stmt 1 view .LVU271
+ 155:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 788              		.loc 1 155 28 is_stmt 0 view .LVU272
+ 789 0010 2046     		mov	r0, r4
+ 790              	.LVL79:
+ 155:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 791              		.loc 1 155 28 view .LVU273
+ 792 0012 FFF7FEFF 		bl	lv_event_get_code
+ 793              	.LVL80:
+ 794 0016 0546     		mov	r5, r0
+ 795              	.LVL81:
+ 156:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(code == LV_EVENT_PRESSED || code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST) {
+ 796              		.loc 1 156 5 is_stmt 1 view .LVU274
+ 156:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(code == LV_EVENT_PRESSED || code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST) {
+ 797              		.loc 1 156 22 is_stmt 0 view .LVU275
+ 798 0018 2046     		mov	r0, r4
+ 799 001a FFF7FEFF 		bl	lv_event_get_current_target
+ 800              	.LVL82:
+ 801 001e 0646     		mov	r6, r0
+ 802              	.LVL83:
+ 157:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         refr_image(obj);
+ 803              		.loc 1 157 5 is_stmt 1 view .LVU276
+ 157:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         refr_image(obj);
+ 804              		.loc 1 157 7 is_stmt 0 view .LVU277
+ 805 0020 012D     		cmp	r5, #1
+ 806 0022 5AD0     		beq	.L48
+ 807 0024 172D     		cmp	r5, #23
+ 808 0026 31D8     		bhi	.L49
+ 809 0028 032D     		cmp	r5, #3
+ 810 002a F0D3     		bcc	.L46
+ 811 002c 033D     		subs	r5, r5, #3
+ 812              	.LVL84:
+ 157:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         refr_image(obj);
+ 813              		.loc 1 157 7 view .LVU278
+ 814 002e 142D     		cmp	r5, #20
+ 815 0030 EDD8     		bhi	.L46
+ 816 0032 01A3     		adr	r3, .L51
+ 817 0034 53F825F0 		ldr	pc, [r3, r5, lsl #2]
+ 818              		.p2align 2
+ 819              	.L51:
+ 820 0038 DB000000 		.word	.L48+1
+ 821 003c 0F000000 		.word	.L46+1
+ 822 0040 0F000000 		.word	.L46+1
+ 823 0044 0F000000 		.word	.L46+1
+ 824 0048 0F000000 		.word	.L46+1
+ 825 004c DB000000 		.word	.L48+1
+ 826 0050 0F000000 		.word	.L46+1
+ 827 0054 0F000000 		.word	.L46+1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 29
+
+
+ 828 0058 0F000000 		.word	.L46+1
+ 829 005c 0F000000 		.word	.L46+1
+ 830 0060 0F000000 		.word	.L46+1
+ 831 0064 0F000000 		.word	.L46+1
+ 832 0068 0F000000 		.word	.L46+1
+ 833 006c 0F000000 		.word	.L46+1
+ 834 0070 0F000000 		.word	.L46+1
+ 835 0074 0F000000 		.word	.L46+1
+ 836 0078 0F000000 		.word	.L46+1
+ 837 007c EB000000 		.word	.L52+1
+ 838 0080 0F000000 		.word	.L46+1
+ 839 0084 0F000000 		.word	.L46+1
+ 840 0088 E3000000 		.word	.L50+1
+ 841              	.LVL85:
+ 842              		.p2align 1
+ 843              	.L49:
+ 157:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         refr_image(obj);
+ 844              		.loc 1 157 7 view .LVU279
+ 845 008c 2E2D     		cmp	r5, #46
+ 846 008e BED1     		bne	.L46
+ 847              	.LBB28:
+ 168:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 848              		.loc 1 168 9 is_stmt 1 view .LVU280
+ 168:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 849              		.loc 1 168 26 is_stmt 0 view .LVU281
+ 850 0090 2046     		mov	r0, r4
+ 851              	.LVL86:
+ 168:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 852              		.loc 1 168 26 view .LVU282
+ 853 0092 FFF7FEFF 		bl	lv_event_get_self_size_info
+ 854              	.LVL87:
+ 855 0096 0446     		mov	r4, r0
+ 856              	.LVL88:
+ 169:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_imagebutton_state_t state  = suggest_state(obj, get_state(obj));
+ 857              		.loc 1 169 9 is_stmt 1 view .LVU283
+ 170:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(imagebutton->src_left[state].img_src == NULL &&
+ 858              		.loc 1 170 9 view .LVU284
+ 170:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(imagebutton->src_left[state].img_src == NULL &&
+ 859              		.loc 1 170 41 is_stmt 0 view .LVU285
+ 860 0098 3046     		mov	r0, r6
+ 861              	.LVL89:
+ 170:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(imagebutton->src_left[state].img_src == NULL &&
+ 862              		.loc 1 170 41 view .LVU286
+ 863 009a FFF7FEFF 		bl	get_state
+ 864              	.LVL90:
+ 865 009e 0146     		mov	r1, r0
+ 866 00a0 3046     		mov	r0, r6
+ 867 00a2 FFF7FEFF 		bl	suggest_state
+ 868              	.LVL91:
+ 171:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****            imagebutton->src_mid[state].img_src != NULL &&
+ 869              		.loc 1 171 9 is_stmt 1 view .LVU287
+ 171:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****            imagebutton->src_mid[state].img_src != NULL &&
+ 870              		.loc 1 171 40 is_stmt 0 view .LVU288
+ 871 00a6 06EB0013 		add	r3, r6, r0, lsl #4
+ 872 00aa D3F88C30 		ldr	r3, [r3, #140]
+ 171:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****            imagebutton->src_mid[state].img_src != NULL &&
+ 873              		.loc 1 171 11 view .LVU289
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 30
+
+
+ 874 00ae 002B     		cmp	r3, #0
+ 875 00b0 ADD1     		bne	.L46
+ 172:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****            imagebutton->src_right[state].img_src == NULL) {
+ 876              		.loc 1 172 39 discriminator 1 view .LVU290
+ 877 00b2 06EB0013 		add	r3, r6, r0, lsl #4
+ 878 00b6 DB6A     		ldr	r3, [r3, #44]
+ 171:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****            imagebutton->src_mid[state].img_src != NULL &&
+ 879              		.loc 1 171 57 discriminator 1 view .LVU291
+ 880 00b8 002B     		cmp	r3, #0
+ 881 00ba A8D0     		beq	.L46
+ 173:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****             p->x = LV_MAX(p->x, imagebutton->src_mid[state].header.w);
+ 882              		.loc 1 173 41 view .LVU292
+ 883 00bc 06EB0013 		add	r3, r6, r0, lsl #4
+ 884 00c0 D3F8EC30 		ldr	r3, [r3, #236]
+ 172:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****            imagebutton->src_right[state].img_src == NULL) {
+ 885              		.loc 1 172 56 view .LVU293
+ 886 00c4 002B     		cmp	r3, #0
+ 887 00c6 A2D1     		bne	.L46
+ 174:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 888              		.loc 1 174 13 is_stmt 1 view .LVU294
+ 174:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 889              		.loc 1 174 20 is_stmt 0 view .LVU295
+ 890 00c8 06EB0016 		add	r6, r6, r0, lsl #4
+ 891              	.LVL92:
+ 174:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 892              		.loc 1 174 20 view .LVU296
+ 893 00cc B38E     		ldrh	r3, [r6, #52]
+ 894 00ce 2268     		ldr	r2, [r4]
+ 895 00d0 9342     		cmp	r3, r2
+ 896 00d2 B8BF     		it	lt
+ 897 00d4 1346     		movlt	r3, r2
+ 174:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 898              		.loc 1 174 18 view .LVU297
+ 899 00d6 2360     		str	r3, [r4]
+ 900 00d8 99E7     		b	.L46
+ 901              	.LVL93:
+ 902              	.L48:
+ 174:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         }
+ 903              		.loc 1 174 18 view .LVU298
+ 904              	.LBE28:
+ 158:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 905              		.loc 1 158 9 is_stmt 1 view .LVU299
+ 906 00da 3046     		mov	r0, r6
+ 907              	.LVL94:
+ 158:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 908              		.loc 1 158 9 is_stmt 0 view .LVU300
+ 909 00dc FFF7FEFF 		bl	refr_image
+ 910              	.LVL95:
+ 911 00e0 95E7     		b	.L46
+ 912              	.LVL96:
+ 913              	.L50:
+ 161:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 914              		.loc 1 161 9 is_stmt 1 view .LVU301
+ 915 00e2 2046     		mov	r0, r4
+ 916              	.LVL97:
+ 161:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 917              		.loc 1 161 9 is_stmt 0 view .LVU302
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 31
+
+
+ 918 00e4 FFF7FEFF 		bl	draw_main
+ 919              	.LVL98:
+ 920 00e8 91E7     		b	.L46
+ 921              	.LVL99:
+ 922              	.L52:
+ 923              	.LBB29:
+ 164:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(info->res != LV_COVER_RES_MASKED) info->res = LV_COVER_RES_NOT_COVER;
+ 924              		.loc 1 164 9 is_stmt 1 view .LVU303
+ 164:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(info->res != LV_COVER_RES_MASKED) info->res = LV_COVER_RES_NOT_COVER;
+ 925              		.loc 1 164 40 is_stmt 0 view .LVU304
+ 926 00ea 2046     		mov	r0, r4
+ 927              	.LVL100:
+ 164:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         if(info->res != LV_COVER_RES_MASKED) info->res = LV_COVER_RES_NOT_COVER;
+ 928              		.loc 1 164 40 view .LVU305
+ 929 00ec FFF7FEFF 		bl	lv_event_get_param
+ 930              	.LVL101:
+ 165:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 931              		.loc 1 165 9 is_stmt 1 view .LVU306
+ 165:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 932              		.loc 1 165 16 is_stmt 0 view .LVU307
+ 933 00f0 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 165:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 934              		.loc 1 165 11 view .LVU308
+ 935 00f2 022B     		cmp	r3, #2
+ 936 00f4 8BD0     		beq	.L46
+ 165:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 937              		.loc 1 165 46 is_stmt 1 discriminator 1 view .LVU309
+ 165:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 938              		.loc 1 165 56 is_stmt 0 discriminator 1 view .LVU310
+ 939 00f6 0123     		movs	r3, #1
+ 940 00f8 0370     		strb	r3, [r0]
+ 941 00fa 88E7     		b	.L46
+ 942              	.L59:
+ 943              		.align	2
+ 944              	.L58:
+ 945 00fc 00000000 		.word	lv_imagebutton_class
+ 946              	.LBE29:
+ 947              		.cfi_endproc
+ 948              	.LFE240:
+ 950              		.section	.text.lv_imagebutton_constructor,"ax",%progbits
+ 951              		.align	1
+ 952              		.syntax unified
+ 953              		.thumb
+ 954              		.thumb_func
+ 956              	lv_imagebutton_constructor:
+ 957              	.LVL102:
+ 958              	.LFB239:
+ 138:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_UNUSED(class_p);
+ 959              		.loc 1 138 1 is_stmt 1 view -0
+ 960              		.cfi_startproc
+ 961              		@ args = 0, pretend = 0, frame = 0
+ 962              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_UNUSED(class_p);
+ 963              		.loc 1 138 1 is_stmt 0 view .LVU312
+ 964 0000 10B5     		push	{r4, lr}
+ 965              	.LCFI6:
+ 966              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 32
+
+
+ 967              		.cfi_offset 4, -8
+ 968              		.cfi_offset 14, -4
+ 969 0002 0C46     		mov	r4, r1
+ 139:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 970              		.loc 1 139 5 is_stmt 1 view .LVU313
+ 140:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     /*Initialize the allocated 'ext'*/
+ 971              		.loc 1 140 5 view .LVU314
+ 972              	.LVL103:
+ 143:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_memzero(&imagebutton->src_left, sizeof(imagebutton->src_left));
+ 973              		.loc 1 143 5 view .LVU315
+ 974              	.LBB30:
+ 975              	.LBI30:
+ 976              		.file 4 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_string.h"
+   1:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /**
+   2:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @file lv_stringn.h
+   3:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  *
+   4:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  */
+   5:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+   6:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** #ifndef LV_STRING_H
+   7:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** #define LV_STRING_H
+   8:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+   9:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** #ifdef __cplusplus
+  10:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** extern "C" {
+  11:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** #endif
+  12:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+  13:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /*********************
+  14:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  *      INCLUDES
+  15:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  *********************/
+  16:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** #include "../lv_conf_internal.h"
+  17:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** #include <stdint.h>
+  18:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** #include <stddef.h>
+  19:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+  20:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /*********************
+  21:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  *      DEFINES
+  22:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  *********************/
+  23:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+  24:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /**********************
+  25:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  *      TYPEDEFS
+  26:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  **********************/
+  27:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+  28:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /**********************
+  29:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * GLOBAL PROTOTYPES
+  30:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  **********************/
+  31:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+  32:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /**
+  33:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @brief Copies a block of memory from a source address to a destination address.
+  34:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  35:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  36:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param len Number of bytes to copy.
+  37:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @return Pointer to the destination array.
+  38:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @note The function does not check for any overlapping of the source and destination memory block
+  39:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  */
+  40:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** void * lv_memcpy(void * dst, const void * src, size_t len);
+  41:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+  42:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /**
+  43:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @brief Fills a block of memory with a specified value.
+  44:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param dst Pointer to the destination array to fill with the specified value.
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 33
+
+
+  45:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param v Value to be set. The value is passed as an int, but the function fills
+  46:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
+  47:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param len Number of bytes to be set to the value.
+  48:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  */
+  49:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** void lv_memset(void * dst, uint8_t v, size_t len);
+  50:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+  51:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /**
+  52:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @brief Move a block of memory from source to destination
+  53:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  54:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  55:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param len Number of bytes to copy
+  56:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @return Pointer to the destination array.
+  57:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  */
+  58:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** void * lv_memmove(void * dst, const void * src, size_t len);
+  59:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** 
+  60:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** /**
+  61:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * Same as `memset(dst, 0x00, len)`.
+  62:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param dst pointer to the destination buffer
+  63:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param len number of byte to set
+  64:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  */
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** static inline void lv_memzero(void * dst, size_t len)
+ 977              		.loc 4 65 20 view .LVU316
+ 978              	.LBB31:
+  66:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** {
+  67:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****     lv_memset(dst, 0x00, len);
+ 979              		.loc 4 67 5 view .LVU317
+ 980 0004 6022     		movs	r2, #96
+ 981 0006 0021     		movs	r1, #0
+ 982              	.LVL104:
+ 983              		.loc 4 67 5 is_stmt 0 view .LVU318
+ 984 0008 04F12C00 		add	r0, r4, #44
+ 985              	.LVL105:
+ 986              		.loc 4 67 5 view .LVU319
+ 987 000c FFF7FEFF 		bl	lv_memset
+ 988              	.LVL106:
+ 989              		.loc 4 67 5 view .LVU320
+ 990              	.LBE31:
+ 991              	.LBE30:
+ 144:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_memzero(&imagebutton->src_right, sizeof(imagebutton->src_right));
+ 992              		.loc 1 144 5 is_stmt 1 view .LVU321
+ 993              	.LBB32:
+ 994              	.LBI32:
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** {
+ 995              		.loc 4 65 20 view .LVU322
+ 996              	.LBB33:
+ 997              		.loc 4 67 5 view .LVU323
+ 998 0010 6022     		movs	r2, #96
+ 999 0012 0021     		movs	r1, #0
+ 1000 0014 04F18C00 		add	r0, r4, #140
+ 1001              	.LVL107:
+ 1002              		.loc 4 67 5 is_stmt 0 view .LVU324
+ 1003 0018 FFF7FEFF 		bl	lv_memset
+ 1004              	.LVL108:
+ 1005              		.loc 4 67 5 view .LVU325
+ 1006              	.LBE33:
+ 1007              	.LBE32:
+ 145:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 34
+
+
+ 1008              		.loc 1 145 5 is_stmt 1 view .LVU326
+ 1009              	.LBB34:
+ 1010              	.LBI34:
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** {
+ 1011              		.loc 4 65 20 view .LVU327
+ 1012              	.LBB35:
+ 1013              		.loc 4 67 5 view .LVU328
+ 1014 001c 6022     		movs	r2, #96
+ 1015 001e 0021     		movs	r1, #0
+ 1016 0020 04F1EC00 		add	r0, r4, #236
+ 1017              	.LVL109:
+ 1018              		.loc 4 67 5 is_stmt 0 view .LVU329
+ 1019 0024 FFF7FEFF 		bl	lv_memset
+ 1020              	.LVL110:
+ 1021              		.loc 4 67 5 view .LVU330
+ 1022              	.LBE35:
+ 1023              	.LBE34:
+ 146:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1024              		.loc 1 146 1 view .LVU331
+ 1025 0028 10BD     		pop	{r4, pc}
+ 146:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1026              		.loc 1 146 1 view .LVU332
+ 1027              		.cfi_endproc
+ 1028              	.LFE239:
+ 1030              		.section	.text.update_src_info,"ax",%progbits
+ 1031              		.align	1
+ 1032              		.syntax unified
+ 1033              		.thumb
+ 1034              		.thumb_func
+ 1036              	update_src_info:
+ 1037              	.LVL111:
+ 1038              	.LFB245:
+ 330:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 331:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** static void update_src_info(lv_imagebutton_src_info_t * info, const void * src)
+ 332:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** {
+ 1039              		.loc 1 332 1 is_stmt 1 view -0
+ 1040              		.cfi_startproc
+ 1041              		@ args = 0, pretend = 0, frame = 0
+ 1042              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1043              		.loc 1 332 1 is_stmt 0 view .LVU334
+ 1044 0000 38B5     		push	{r3, r4, r5, lr}
+ 1045              	.LCFI7:
+ 1046              		.cfi_def_cfa_offset 16
+ 1047              		.cfi_offset 3, -16
+ 1048              		.cfi_offset 4, -12
+ 1049              		.cfi_offset 5, -8
+ 1050              		.cfi_offset 14, -4
+ 1051 0002 0446     		mov	r4, r0
+ 333:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(!src) {
+ 1052              		.loc 1 333 5 is_stmt 1 view .LVU335
+ 1053              		.loc 1 333 7 is_stmt 0 view .LVU336
+ 1054 0004 41B1     		cbz	r1, .L66
+ 1055 0006 0D46     		mov	r5, r1
+ 334:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         lv_memzero(info, sizeof(lv_imagebutton_src_info_t));
+ 335:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         return;
+ 336:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 337:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 35
+
+
+ 338:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_result_t res = lv_image_decoder_get_info(src, &info->header);
+ 1056              		.loc 1 338 5 is_stmt 1 view .LVU337
+ 1057              		.loc 1 338 23 is_stmt 0 view .LVU338
+ 1058 0008 011D     		adds	r1, r0, #4
+ 1059              	.LVL112:
+ 1060              		.loc 1 338 23 view .LVU339
+ 1061 000a 2846     		mov	r0, r5
+ 1062              	.LVL113:
+ 1063              		.loc 1 338 23 view .LVU340
+ 1064 000c FFF7FEFF 		bl	lv_image_decoder_get_info
+ 1065              	.LVL114:
+ 339:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(res != LV_RESULT_OK) {
+ 1066              		.loc 1 339 5 is_stmt 1 view .LVU341
+ 1067              		.loc 1 339 7 is_stmt 0 view .LVU342
+ 1068 0010 0128     		cmp	r0, #1
+ 1069 0012 00D1     		bne	.L62
+ 340:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         LV_LOG_WARN("can't get info");
+ 341:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         return;
+ 342:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 343:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 344:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     info->img_src = src;
+ 1070              		.loc 1 344 5 is_stmt 1 view .LVU343
+ 1071              		.loc 1 344 19 is_stmt 0 view .LVU344
+ 1072 0014 2560     		str	r5, [r4]
+ 1073              	.LVL115:
+ 1074              	.L62:
+ 345:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1075              		.loc 1 345 1 view .LVU345
+ 1076 0016 38BD     		pop	{r3, r4, r5, pc}
+ 1077              	.LVL116:
+ 1078              	.L66:
+ 334:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****         return;
+ 1079              		.loc 1 334 9 is_stmt 1 view .LVU346
+ 1080              	.LBB36:
+ 1081              	.LBI36:
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** {
+ 1082              		.loc 4 65 20 view .LVU347
+ 1083              	.LBB37:
+ 1084              		.loc 4 67 5 view .LVU348
+ 1085 0018 1022     		movs	r2, #16
+ 1086 001a FFF7FEFF 		bl	lv_memset
+ 1087              	.LVL117:
+ 1088              		.loc 4 67 5 is_stmt 0 view .LVU349
+ 1089              	.LBE37:
+ 1090              	.LBE36:
+ 335:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 1091              		.loc 1 335 9 is_stmt 1 view .LVU350
+ 1092 001e FAE7     		b	.L62
+ 1093              		.cfi_endproc
+ 1094              	.LFE245:
+ 1096              		.section	.text.lv_imagebutton_create,"ax",%progbits
+ 1097              		.align	1
+ 1098              		.global	lv_imagebutton_create
+ 1099              		.syntax unified
+ 1100              		.thumb
+ 1101              		.thumb_func
+ 1103              	lv_imagebutton_create:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 36
+
+
+ 1104              	.LVL118:
+ 1105              	.LFB233:
+  59:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_LOG_INFO("begin");
+ 1106              		.loc 1 59 1 view -0
+ 1107              		.cfi_startproc
+ 1108              		@ args = 0, pretend = 0, frame = 0
+ 1109              		@ frame_needed = 0, uses_anonymous_args = 0
+  59:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_LOG_INFO("begin");
+ 1110              		.loc 1 59 1 is_stmt 0 view .LVU352
+ 1111 0000 10B5     		push	{r4, lr}
+ 1112              	.LCFI8:
+ 1113              		.cfi_def_cfa_offset 8
+ 1114              		.cfi_offset 4, -8
+ 1115              		.cfi_offset 14, -4
+ 1116 0002 0146     		mov	r1, r0
+  60:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 1117              		.loc 1 60 5 is_stmt 1 view .LVU353
+  60:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 1118              		.loc 1 60 5 view .LVU354
+  60:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 1119              		.loc 1 60 5 view .LVU355
+  61:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_class_init_obj(obj);
+ 1120              		.loc 1 61 5 view .LVU356
+  61:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_class_init_obj(obj);
+ 1121              		.loc 1 61 22 is_stmt 0 view .LVU357
+ 1122 0004 0348     		ldr	r0, .L69
+ 1123              	.LVL119:
+  61:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_class_init_obj(obj);
+ 1124              		.loc 1 61 22 view .LVU358
+ 1125 0006 FFF7FEFF 		bl	lv_obj_class_create_obj
+ 1126              	.LVL120:
+  61:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_class_init_obj(obj);
+ 1127              		.loc 1 61 22 view .LVU359
+ 1128 000a 0446     		mov	r4, r0
+ 1129              	.LVL121:
+  62:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     return obj;
+ 1130              		.loc 1 62 5 is_stmt 1 view .LVU360
+ 1131 000c FFF7FEFF 		bl	lv_obj_class_init_obj
+ 1132              	.LVL122:
+  63:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1133              		.loc 1 63 5 view .LVU361
+  64:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1134              		.loc 1 64 1 is_stmt 0 view .LVU362
+ 1135 0010 2046     		mov	r0, r4
+ 1136 0012 10BD     		pop	{r4, pc}
+ 1137              	.LVL123:
+ 1138              	.L70:
+  64:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1139              		.loc 1 64 1 view .LVU363
+ 1140              		.align	2
+ 1141              	.L69:
+ 1142 0014 00000000 		.word	lv_imagebutton_class
+ 1143              		.cfi_endproc
+ 1144              	.LFE233:
+ 1146              		.section	.text.lv_imagebutton_set_src,"ax",%progbits
+ 1147              		.align	1
+ 1148              		.global	lv_imagebutton_set_src
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 37
+
+
+ 1149              		.syntax unified
+ 1150              		.thumb
+ 1151              		.thumb_func
+ 1153              	lv_imagebutton_set_src:
+ 1154              	.LVL124:
+ 1155              	.LFB234:
+  72:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1156              		.loc 1 72 1 is_stmt 1 view -0
+ 1157              		.cfi_startproc
+ 1158              		@ args = 4, pretend = 0, frame = 0
+ 1159              		@ frame_needed = 0, uses_anonymous_args = 0
+  72:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1160              		.loc 1 72 1 is_stmt 0 view .LVU365
+ 1161 0000 70B5     		push	{r4, r5, r6, lr}
+ 1162              	.LCFI9:
+ 1163              		.cfi_def_cfa_offset 16
+ 1164              		.cfi_offset 4, -16
+ 1165              		.cfi_offset 5, -12
+ 1166              		.cfi_offset 6, -8
+ 1167              		.cfi_offset 14, -4
+ 1168 0002 0546     		mov	r5, r0
+ 1169 0004 1E46     		mov	r6, r3
+  73:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1170              		.loc 1 73 5 is_stmt 1 view .LVU366
+  73:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1171              		.loc 1 73 5 view .LVU367
+  73:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1172              		.loc 1 73 5 view .LVU368
+  75:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1173              		.loc 1 75 5 view .LVU369
+ 1174              	.LVL125:
+  77:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     update_src_info(&imagebutton->src_mid[state], src_mid);
+ 1175              		.loc 1 77 5 view .LVU370
+ 1176 0006 0C01     		lsls	r4, r1, #4
+ 1177 0008 04F18800 		add	r0, r4, #136
+ 1178              	.LVL126:
+  77:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     update_src_info(&imagebutton->src_mid[state], src_mid);
+ 1179              		.loc 1 77 5 is_stmt 0 view .LVU371
+ 1180 000c 2844     		add	r0, r0, r5
+ 1181 000e 1146     		mov	r1, r2
+ 1182              	.LVL127:
+  77:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     update_src_info(&imagebutton->src_mid[state], src_mid);
+ 1183              		.loc 1 77 5 view .LVU372
+ 1184 0010 0430     		adds	r0, r0, #4
+ 1185 0012 FFF7FEFF 		bl	update_src_info
+ 1186              	.LVL128:
+  78:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     update_src_info(&imagebutton->src_right[state], src_right);
+ 1187              		.loc 1 78 5 is_stmt 1 view .LVU373
+ 1188 0016 04F12800 		add	r0, r4, #40
+ 1189 001a 2844     		add	r0, r0, r5
+ 1190 001c 3146     		mov	r1, r6
+ 1191 001e 0430     		adds	r0, r0, #4
+ 1192 0020 FFF7FEFF 		bl	update_src_info
+ 1193              	.LVL129:
+  79:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1194              		.loc 1 79 5 view .LVU374
+ 1195 0024 E834     		adds	r4, r4, #232
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 38
+
+
+ 1196 0026 2C44     		add	r4, r4, r5
+ 1197 0028 0499     		ldr	r1, [sp, #16]
+ 1198 002a 201D     		adds	r0, r4, #4
+ 1199 002c FFF7FEFF 		bl	update_src_info
+ 1200              	.LVL130:
+  81:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1201              		.loc 1 81 5 view .LVU375
+ 1202 0030 2846     		mov	r0, r5
+ 1203 0032 FFF7FEFF 		bl	refr_image
+ 1204              	.LVL131:
+  82:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1205              		.loc 1 82 1 is_stmt 0 view .LVU376
+ 1206 0036 70BD     		pop	{r4, r5, r6, pc}
+  82:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1207              		.loc 1 82 1 view .LVU377
+ 1208              		.cfi_endproc
+ 1209              	.LFE234:
+ 1211              		.section	.text.lv_imagebutton_set_state,"ax",%progbits
+ 1212              		.align	1
+ 1213              		.global	lv_imagebutton_set_state
+ 1214              		.syntax unified
+ 1215              		.thumb
+ 1216              		.thumb_func
+ 1218              	lv_imagebutton_set_state:
+ 1219              	.LVL132:
+ 1220              	.LFB235:
+  85:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1221              		.loc 1 85 1 is_stmt 1 view -0
+ 1222              		.cfi_startproc
+ 1223              		@ args = 0, pretend = 0, frame = 0
+ 1224              		@ frame_needed = 0, uses_anonymous_args = 0
+  85:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1225              		.loc 1 85 1 is_stmt 0 view .LVU379
+ 1226 0000 38B5     		push	{r3, r4, r5, lr}
+ 1227              	.LCFI10:
+ 1228              		.cfi_def_cfa_offset 16
+ 1229              		.cfi_offset 3, -16
+ 1230              		.cfi_offset 4, -12
+ 1231              		.cfi_offset 5, -8
+ 1232              		.cfi_offset 14, -4
+ 1233 0002 0446     		mov	r4, r0
+  86:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1234              		.loc 1 86 5 is_stmt 1 view .LVU380
+  86:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1235              		.loc 1 86 5 view .LVU381
+  86:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1236              		.loc 1 86 5 view .LVU382
+  88:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_PRESSED ||
+ 1237              		.loc 1 88 5 view .LVU383
+ 1238              	.LVL133:
+  89:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_PRESSED) obj_state |= LV_STATE_PRESSED;
+ 1239              		.loc 1 89 5 view .LVU384
+  89:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_PRESSED) obj_state |= LV_STATE_PRESSED;
+ 1240              		.loc 1 89 7 is_stmt 0 view .LVU385
+ 1241 0004 0129     		cmp	r1, #1
+ 1242 0006 05D0     		beq	.L78
+  89:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_PRESSED) obj_state |= LV_STATE_PRESSED;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 39
+
+
+ 1243              		.loc 1 89 46 discriminator 1 view .LVU386
+ 1244 0008 0429     		cmp	r1, #4
+ 1245 000a 18D0     		beq	.L79
+  91:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_DISABLED) obj_state |= LV_STATE_DISABLED;
+ 1246              		.loc 1 91 5 is_stmt 1 view .LVU387
+  91:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_DISABLED) obj_state |= LV_STATE_DISABLED;
+ 1247              		.loc 1 91 7 is_stmt 0 view .LVU388
+ 1248 000c 0229     		cmp	r1, #2
+ 1249 000e 18D0     		beq	.L80
+  88:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_PRESSED ||
+ 1250              		.loc 1 88 16 view .LVU389
+ 1251 0010 0025     		movs	r5, #0
+ 1252 0012 00E0     		b	.L74
+ 1253              	.L78:
+  90:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_DISABLED ||
+ 1254              		.loc 1 90 65 view .LVU390
+ 1255 0014 2025     		movs	r5, #32
+ 1256              	.L74:
+ 1257              	.LVL134:
+  91:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_DISABLED) obj_state |= LV_STATE_DISABLED;
+ 1258              		.loc 1 91 47 discriminator 1 view .LVU391
+ 1259 0016 0529     		cmp	r1, #5
+ 1260 0018 14D0     		beq	.L75
+ 1261              	.L76:
+ 1262              	.LVL135:
+  93:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_RELEASED) {
+ 1263              		.loc 1 93 5 is_stmt 1 view .LVU392
+  93:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_RELEASED) {
+ 1264              		.loc 1 93 104 is_stmt 0 view .LVU393
+ 1265 001a 0339     		subs	r1, r1, #3
+ 1266              	.LVL136:
+  93:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_RELEASED) {
+ 1267              		.loc 1 93 104 view .LVU394
+ 1268 001c C9B2     		uxtb	r1, r1
+  93:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****        state == LV_IMAGEBUTTON_STATE_CHECKED_RELEASED) {
+ 1269              		.loc 1 93 7 view .LVU395
+ 1270 001e 0229     		cmp	r1, #2
+ 1271 0020 01D8     		bhi	.L77
+  95:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 1272              		.loc 1 95 9 is_stmt 1 view .LVU396
+  95:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     }
+ 1273              		.loc 1 95 19 is_stmt 0 view .LVU397
+ 1274 0022 45F00105 		orr	r5, r5, #1
+ 1275              	.LVL137:
+ 1276              	.L77:
+  98:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_add_state(obj, obj_state);
+ 1277              		.loc 1 98 5 is_stmt 1 view .LVU398
+ 1278 0026 A121     		movs	r1, #161
+ 1279 0028 2046     		mov	r0, r4
+ 1280              	.LVL138:
+  98:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_obj_add_state(obj, obj_state);
+ 1281              		.loc 1 98 5 is_stmt 0 view .LVU399
+ 1282 002a FFF7FEFF 		bl	lv_obj_remove_state
+ 1283              	.LVL139:
+  99:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1284              		.loc 1 99 5 is_stmt 1 view .LVU400
+ 1285 002e 2946     		mov	r1, r5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 40
+
+
+ 1286 0030 2046     		mov	r0, r4
+ 1287 0032 FFF7FEFF 		bl	lv_obj_add_state
+ 1288              	.LVL140:
+ 101:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1289              		.loc 1 101 5 view .LVU401
+ 1290 0036 2046     		mov	r0, r4
+ 1291 0038 FFF7FEFF 		bl	refr_image
+ 1292              	.LVL141:
+ 102:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1293              		.loc 1 102 1 is_stmt 0 view .LVU402
+ 1294 003c 38BD     		pop	{r3, r4, r5, pc}
+ 1295              	.LVL142:
+ 1296              	.L79:
+  90:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_DISABLED ||
+ 1297              		.loc 1 90 65 view .LVU403
+ 1298 003e 2025     		movs	r5, #32
+ 1299 0040 E9E7     		b	.L74
+ 1300              	.L80:
+  88:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_PRESSED ||
+ 1301              		.loc 1 88 16 view .LVU404
+ 1302 0042 0025     		movs	r5, #0
+ 1303              	.LVL143:
+ 1304              	.L75:
+  92:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_CHECKED_DISABLED || state == LV_IMAGEBUTTON_STATE_CHECKED_PRES
+ 1305              		.loc 1 92 56 is_stmt 1 view .LVU405
+  92:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_CHECKED_DISABLED || state == LV_IMAGEBUTTON_STATE_CHECKED_PRES
+ 1306              		.loc 1 92 66 is_stmt 0 view .LVU406
+ 1307 0044 45F08005 		orr	r5, r5, #128
+ 1308              	.LVL144:
+  92:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     if(state == LV_IMAGEBUTTON_STATE_CHECKED_DISABLED || state == LV_IMAGEBUTTON_STATE_CHECKED_PRES
+ 1309              		.loc 1 92 66 view .LVU407
+ 1310 0048 E7E7     		b	.L76
+ 1311              		.cfi_endproc
+ 1312              	.LFE235:
+ 1314              		.section	.text.lv_imagebutton_get_src_left,"ax",%progbits
+ 1315              		.align	1
+ 1316              		.global	lv_imagebutton_get_src_left
+ 1317              		.syntax unified
+ 1318              		.thumb
+ 1319              		.thumb_func
+ 1321              	lv_imagebutton_get_src_left:
+ 1322              	.LVL145:
+ 1323              	.LFB236:
+ 109:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1324              		.loc 1 109 1 is_stmt 1 view -0
+ 1325              		.cfi_startproc
+ 1326              		@ args = 0, pretend = 0, frame = 0
+ 1327              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1328              		@ link register save eliminated.
+ 110:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1329              		.loc 1 110 5 view .LVU409
+ 110:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1330              		.loc 1 110 5 view .LVU410
+ 110:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1331              		.loc 1 110 5 view .LVU411
+ 112:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1332              		.loc 1 112 5 view .LVU412
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 41
+
+
+ 114:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1333              		.loc 1 114 5 view .LVU413
+ 114:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1334              		.loc 1 114 40 is_stmt 0 view .LVU414
+ 1335 0000 00EB0110 		add	r0, r0, r1, lsl #4
+ 1336              	.LVL146:
+ 115:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1337              		.loc 1 115 1 view .LVU415
+ 1338 0004 D0F88C00 		ldr	r0, [r0, #140]
+ 1339 0008 7047     		bx	lr
+ 1340              		.cfi_endproc
+ 1341              	.LFE236:
+ 1343              		.section	.text.lv_imagebutton_get_src_middle,"ax",%progbits
+ 1344              		.align	1
+ 1345              		.global	lv_imagebutton_get_src_middle
+ 1346              		.syntax unified
+ 1347              		.thumb
+ 1348              		.thumb_func
+ 1350              	lv_imagebutton_get_src_middle:
+ 1351              	.LVL147:
+ 1352              	.LFB237:
+ 118:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1353              		.loc 1 118 1 is_stmt 1 view -0
+ 1354              		.cfi_startproc
+ 1355              		@ args = 0, pretend = 0, frame = 0
+ 1356              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1357              		@ link register save eliminated.
+ 119:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 1358              		.loc 1 119 5 view .LVU417
+ 119:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 1359              		.loc 1 119 5 view .LVU418
+ 119:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 1360              		.loc 1 119 5 view .LVU419
+ 120:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1361              		.loc 1 120 5 view .LVU420
+ 122:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1362              		.loc 1 122 5 view .LVU421
+ 122:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1363              		.loc 1 122 39 is_stmt 0 view .LVU422
+ 1364 0000 00EB0110 		add	r0, r0, r1, lsl #4
+ 1365              	.LVL148:
+ 123:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1366              		.loc 1 123 1 view .LVU423
+ 1367 0004 C06A     		ldr	r0, [r0, #44]
+ 1368 0006 7047     		bx	lr
+ 1369              		.cfi_endproc
+ 1370              	.LFE237:
+ 1372              		.section	.text.lv_imagebutton_get_src_right,"ax",%progbits
+ 1373              		.align	1
+ 1374              		.global	lv_imagebutton_get_src_right
+ 1375              		.syntax unified
+ 1376              		.thumb
+ 1377              		.thumb_func
+ 1379              	lv_imagebutton_get_src_right:
+ 1380              	.LVL149:
+ 1381              	.LFB238:
+ 126:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 42
+
+
+ 1382              		.loc 1 126 1 is_stmt 1 view -0
+ 1383              		.cfi_startproc
+ 1384              		@ args = 0, pretend = 0, frame = 0
+ 1385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1386              		@ link register save eliminated.
+ 127:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 1387              		.loc 1 127 5 view .LVU425
+ 127:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 1388              		.loc 1 127 5 view .LVU426
+ 127:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c ****     lv_imagebutton_t * imagebutton = (lv_imagebutton_t *)obj;
+ 1389              		.loc 1 127 5 view .LVU427
+ 128:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1390              		.loc 1 128 5 view .LVU428
+ 130:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1391              		.loc 1 130 5 view .LVU429
+ 130:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** }
+ 1392              		.loc 1 130 41 is_stmt 0 view .LVU430
+ 1393 0000 00EB0110 		add	r0, r0, r1, lsl #4
+ 1394              	.LVL150:
+ 131:Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c **** 
+ 1395              		.loc 1 131 1 view .LVU431
+ 1396 0004 D0F8EC00 		ldr	r0, [r0, #236]
+ 1397 0008 7047     		bx	lr
+ 1398              		.cfi_endproc
+ 1399              	.LFE238:
+ 1401              		.global	lv_imagebutton_class
+ 1402              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1403              		.align	2
+ 1404              	.LC0:
+ 1405 0000 696D6167 		.ascii	"imagebutton\000"
+ 1405      65627574 
+ 1405      746F6E00 
+ 1406              		.section	.rodata.lv_imagebutton_class,"a"
+ 1407              		.align	2
+ 1410              	lv_imagebutton_class:
+ 1411 0000 00000000 		.word	lv_obj_class
+ 1412 0004 00000000 		.word	lv_imagebutton_constructor
+ 1413 0008 00000000 		.space	4
+ 1414 000c 00000000 		.word	lv_imagebutton_event
+ 1415 0010 00000000 		.space	4
+ 1416 0014 00000000 		.word	.LC0
+ 1417 0018 D1070020 		.word	536872913
+ 1418 001c D1070020 		.word	536872913
+ 1419 0020 C0       		.byte	192
+ 1420 0021 14       		.byte	20
+ 1421 0022 00       		.byte	0
+ 1422 0023 00       		.space	1
+ 1423              		.text
+ 1424              	.Letext0:
+ 1425              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1426              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1427              		.file 7 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1428              		.file 8 "Lib/lvgl/src/widgets/imagebutton/../../core/../misc/lv_types.h"
+ 1429              		.file 9 "Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj.h"
+ 1430              		.file 10 "Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_class.h"
+ 1431              		.file 11 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 1432              		.file 12 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_draw.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 43
+
+
+ 1433              		.file 13 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_event.h"
+ 1434              		.file 14 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+ 1435              		.file 15 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_image_buf.h"
+ 1436              		.file 16 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_draw_buf.h"
+ 1437              		.file 17 "Lib/lvgl/src/widgets/imagebutton/../../core/../misc/lv_ll.h"
+ 1438              		.file 18 "Lib/lvgl/src/widgets/imagebutton/../../core/../misc/lv_style.h"
+ 1439              		.file 19 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_array.h"
+ 1440              		.file 20 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_draw_image.h"
+ 1441              		.file 21 "Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_style.h"
+ 1442              		.file 22 "Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_event.h"
+ 1443              		.file 23 "Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.h"
+ 1444              		.file 24 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_image_decoder.h"
+ 1445              		.file 25 "Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_draw.h"
+ 1446              		.file 26 "Lib/lvgl/src/widgets/imagebutton/../../core/lv_obj_pos.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 44
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_imagebutton.c
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:21     .text.suggest_state:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:26     .text.suggest_state:00000000 suggest_state
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:58     .text.suggest_state:00000018 $d
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:160    .text.get_state:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:165    .text.get_state:00000000 get_state
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:250    .text.refr_image:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:255    .text.refr_image:00000000 refr_image
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:317    .text.draw_main:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:322    .text.draw_main:00000000 draw_main
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:748    .text.lv_imagebutton_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:753    .text.lv_imagebutton_event:00000000 lv_imagebutton_event
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:820    .text.lv_imagebutton_event:00000038 $d
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:842    .text.lv_imagebutton_event:0000008c $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:945    .text.lv_imagebutton_event:000000fc $d
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1410   .rodata.lv_imagebutton_class:00000000 lv_imagebutton_class
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:951    .text.lv_imagebutton_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:956    .text.lv_imagebutton_constructor:00000000 lv_imagebutton_constructor
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1031   .text.update_src_info:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1036   .text.update_src_info:00000000 update_src_info
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1097   .text.lv_imagebutton_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1103   .text.lv_imagebutton_create:00000000 lv_imagebutton_create
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1142   .text.lv_imagebutton_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1147   .text.lv_imagebutton_set_src:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1153   .text.lv_imagebutton_set_src:00000000 lv_imagebutton_set_src
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1212   .text.lv_imagebutton_set_state:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1218   .text.lv_imagebutton_set_state:00000000 lv_imagebutton_set_state
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1315   .text.lv_imagebutton_get_src_left:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1321   .text.lv_imagebutton_get_src_left:00000000 lv_imagebutton_get_src_left
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1344   .text.lv_imagebutton_get_src_middle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1350   .text.lv_imagebutton_get_src_middle:00000000 lv_imagebutton_get_src_middle
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1373   .text.lv_imagebutton_get_src_right:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1379   .text.lv_imagebutton_get_src_right:00000000 lv_imagebutton_get_src_right
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1403   .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:1407   .rodata.lv_imagebutton_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:63     .text.suggest_state:0000001d $d
+C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s:63     .text.suggest_state:0000001e $t
+
+UNDEFINED SYMBOLS
+lv_obj_get_state
+lv_obj_refresh_self_size
+lv_obj_set_height
+lv_obj_invalidate
+lv_event_get_current_target
+lv_event_get_layer
+lv_obj_get_style_prop
+lv_area_increase
+lv_draw_image_dsc_init
+lv_obj_init_draw_image_dsc
+lv_draw_image
+_lv_area_intersect
+lv_obj_event_base
+lv_event_get_code
+lv_event_get_self_size_info
+lv_event_get_param
+lv_memset
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc0aeXPc.s 			page 45
+
+
+lv_image_decoder_get_info
+lv_obj_class_create_obj
+lv_obj_class_init_obj
+lv_obj_remove_state
+lv_obj_add_state
+lv_obj_class

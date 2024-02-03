@@ -1,0 +1,1466 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_mem_core_builtin.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c"
+  20              		.section	.text.lv_mem_walker,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_mem_walker:
+  27              	.LVL0:
+  28              	.LFB243:
+   1:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /**
+   2:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  * @file lv_malloc_core.c
+   3:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  */
+   4:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+   5:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /*********************
+   6:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *      INCLUDES
+   7:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *********************/
+   8:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "../lv_mem.h"
+   9:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_STDLIB_MALLOC == LV_STDLIB_BUILTIN
+  10:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  11:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "lv_tlsf.h"
+  12:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "../lv_string.h"
+  13:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "../../misc/lv_assert.h"
+  14:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "../../misc/lv_log.h"
+  15:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "../../misc/lv_ll.h"
+  16:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "../../misc/lv_math.h"
+  17:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "../../osal/lv_os.h"
+  18:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #include "../../core/lv_global.h"
+  19:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  20:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #ifdef LV_MEM_POOL_INCLUDE
+  21:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     #include LV_MEM_POOL_INCLUDE
+  22:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+  23:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  24:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /*********************
+  25:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *      DEFINES
+  26:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *********************/
+  27:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /*memset the allocated memories to 0xaa and freed memories to 0xbb (just for testing purposes)*/
+  28:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #ifndef LV_MEM_ADD_JUNK
+  29:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     #define LV_MEM_ADD_JUNK  0
+  30:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 2
+
+
+  31:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  32:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #ifdef LV_ARCH_64
+  33:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     #define MEM_UNIT         uint64_t
+  34:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     #define ALIGN_MASK       0x7
+  35:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #else
+  36:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     #define MEM_UNIT         uint32_t
+  37:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     #define ALIGN_MASK       0x3
+  38:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+  39:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #define state LV_GLOBAL_DEFAULT()->tlsf_state
+  40:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  41:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /**********************
+  42:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *      TYPEDEFS
+  43:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  **********************/
+  44:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  45:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /**********************
+  46:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *  STATIC PROTOTYPES
+  47:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  **********************/
+  48:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** static void lv_mem_walker(void * ptr, size_t size, int used, void * user);
+  49:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  50:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /**********************
+  51:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *  STATIC VARIABLES
+  52:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  **********************/
+  53:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  54:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /**********************
+  55:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *      MACROS
+  56:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  **********************/
+  57:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_LOG && LV_LOG_TRACE_MEM
+  58:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     #define LV_TRACE_MEM(...) LV_LOG_TRACE(__VA_ARGS__)
+  59:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #else
+  60:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     #define LV_TRACE_MEM(...)
+  61:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+  62:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  63:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #define _COPY(d, s) *d = *s; d++; s++;
+  64:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #define _SET(d, v) *d = v; d++;
+  65:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #define _REPEAT8(expr) expr expr expr expr expr expr expr expr
+  66:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  67:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /**********************
+  68:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *   GLOBAL FUNCTIONS
+  69:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  **********************/
+  70:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  71:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** void lv_mem_init(void)
+  72:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+  73:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+  74:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_init(&state.mutex);
+  75:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+  76:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  77:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_MEM_ADR == 0
+  78:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #ifdef LV_MEM_POOL_ALLOC
+  79:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.tlsf = lv_tlsf_create_with_pool((void *)LV_MEM_POOL_ALLOC(LV_MEM_SIZE), LV_MEM_SIZE);
+  80:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #else
+  81:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     /*Allocate a large array to store the dynamically allocated data*/
+  82:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     static LV_ATTRIBUTE_LARGE_RAM_ARRAY MEM_UNIT work_mem_int[LV_MEM_SIZE / sizeof(MEM_UNIT)];
+  83:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.tlsf = lv_tlsf_create_with_pool((void *)work_mem_int, LV_MEM_SIZE);
+  84:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+  85:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #else
+  86:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.tlsf = lv_tlsf_create_with_pool((void *)LV_MEM_ADR, LV_MEM_SIZE);
+  87:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 3
+
+
+  88:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  89:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _lv_ll_init(&state.pool_ll, sizeof(lv_pool_t));
+  90:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  91:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     /*Record the first pool*/
+  92:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_pool_t * pool_p = _lv_ll_ins_tail(&state.pool_ll);
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_ASSERT_MALLOC(pool_p);
+  94:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+  95:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+  96:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_MEM_ADD_JUNK
+  97:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_LOG_WARN("LV_MEM_ADD_JUNK is enabled which makes LVGL much slower");
+  98:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+  99:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 100:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 101:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** void lv_mem_deinit(void)
+ 102:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+ 103:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _lv_ll_clear(&state.pool_ll);
+ 104:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_tlsf_destroy(state.tlsf);
+ 105:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 106:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_delete(&state.mutex);
+ 107:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 108:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 109:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 110:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** lv_mem_pool_t lv_mem_add_pool(void * mem, size_t bytes)
+ 111:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+ 112:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mem_pool_t new_pool = lv_tlsf_add_pool(state.tlsf, mem, bytes);
+ 113:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(!new_pool) {
+ 114:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         LV_LOG_WARN("failed to add memory pool, address: %p, size: %zu", mem, bytes);
+ 115:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         return NULL;
+ 116:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 117:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 118:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_pool_t * pool_p = _lv_ll_ins_tail(&state.pool_ll);
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_ASSERT_MALLOC(pool_p);
+ 120:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 121:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 122:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     return new_pool;
+ 123:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 124:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 125:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** void lv_mem_remove_pool(lv_mem_pool_t pool)
+ 126:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+ 127:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_pool_t * pool_p;
+ 128:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _LV_LL_READ(&state.pool_ll, pool_p) {
+ 129:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(*pool_p == pool) {
+ 130:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             _lv_ll_remove(&state.pool_ll, pool_p);
+ 131:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             lv_free(pool_p);
+ 132:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             lv_tlsf_remove_pool(state.tlsf, pool);
+ 133:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             return;
+ 134:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         }
+ 135:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 136:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_LOG_WARN("invalid pool: %p", pool);
+ 137:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 138:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 139:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** void * lv_malloc_core(size_t size)
+ 140:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+ 141:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 142:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_lock(&state.mutex);
+ 143:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 144:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.cur_used += size;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 4
+
+
+ 145:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.max_used = LV_MAX(state.cur_used, state.max_used);
+ 146:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     void * p = lv_tlsf_malloc(state.tlsf, size);
+ 147:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 148:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 149:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_unlock(&state.mutex);
+ 150:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 151:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     return p;
+ 152:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 153:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 154:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** void * lv_realloc_core(void * p, size_t new_size)
+ 155:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+ 156:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 157:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_lock(&state.mutex);
+ 158:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 159:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 160:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     void * p_new = lv_tlsf_realloc(state.tlsf, p, new_size);
+ 161:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 162:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 163:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_unlock(&state.mutex);
+ 164:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 165:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 166:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     return p_new;
+ 167:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 168:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 169:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** void lv_free_core(void * p)
+ 170:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+ 171:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 172:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_lock(&state.mutex);
+ 173:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 174:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 175:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_MEM_ADD_JUNK
+ 176:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_memset(p, 0xbb, lv_tlsf_block_size(data));
+ 177:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 178:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     size_t size = lv_tlsf_free(state.tlsf, p);
+ 179:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(state.cur_used > size) state.cur_used -= size;
+ 180:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     else state.cur_used = 0;
+ 181:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 182:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 183:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_unlock(&state.mutex);
+ 184:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 185:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 186:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 187:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** void lv_mem_monitor_core(lv_mem_monitor_t * mon_p)
+ 188:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+ 189:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     /*Init the data*/
+ 190:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_memzero(mon_p, sizeof(lv_mem_monitor_t));
+ 191:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_TRACE_MEM("begin");
+ 192:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 193:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_pool_t * pool_p;
+ 194:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _LV_LL_READ(&state.pool_ll, pool_p) {
+ 195:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         lv_tlsf_walk_pool(*pool_p, lv_mem_walker, mon_p);
+ 196:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 197:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 198:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     mon_p->used_pct = 100 - (uint64_t)100U * mon_p->free_size / mon_p->total_size;
+ 199:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(mon_p->free_size > 0) {
+ 200:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = (uint64_t)mon_p->free_biggest_size * 100U / mon_p->free_size;
+ 201:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = 100 - mon_p->frag_pct;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 5
+
+
+ 202:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 203:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     else {
+ 204:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = 0; /*no fragmentation if all the RAM is used*/
+ 205:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 206:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 207:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     mon_p->max_used = state.max_used;
+ 208:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 209:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_TRACE_MEM("finished");
+ 210:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 211:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 212:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** lv_result_t lv_mem_test_core(void)
+ 213:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+ 214:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 215:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_lock(&state.mutex);
+ 216:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 217:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(lv_tlsf_check(state.tlsf)) {
+ 218:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         LV_LOG_WARN("failed");
+ 219:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 220:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         lv_mutex_unlock(&state.mutex);
+ 221:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 222:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         return LV_RESULT_INVALID;
+ 223:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 224:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 225:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_pool_t * pool_p;
+ 226:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _LV_LL_READ(&state.pool_ll, pool_p) {
+ 227:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(lv_tlsf_check_pool(*pool_p)) {
+ 228:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             LV_LOG_WARN("pool failed");
+ 229:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 230:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             lv_mutex_unlock(&state.mutex);
+ 231:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 232:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             return LV_RESULT_INVALID;
+ 233:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         }
+ 234:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 235:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 236:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_TRACE_MEM("passed");
+ 237:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 238:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mutex_unlock(&state.mutex);
+ 239:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 240:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     return LV_RESULT_OK;
+ 241:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 242:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 243:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** /**********************
+ 244:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  *   STATIC FUNCTIONS
+ 245:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****  **********************/
+ 246:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 247:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** static void lv_mem_walker(void * ptr, size_t size, int used, void * user)
+ 248:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** {
+  29              		.loc 1 248 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+ 249:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_UNUSED(ptr);
+  34              		.loc 1 249 5 view .LVU1
+ 250:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 251:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mem_monitor_t * mon_p = user;
+  35              		.loc 1 251 5 view .LVU2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 6
+
+
+ 252:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     mon_p->total_size += size;
+  36              		.loc 1 252 5 view .LVU3
+  37              		.loc 1 252 10 is_stmt 0 view .LVU4
+  38 0000 1868     		ldr	r0, [r3]
+  39              	.LVL1:
+  40              		.loc 1 252 23 view .LVU5
+  41 0002 0844     		add	r0, r0, r1
+  42 0004 1860     		str	r0, [r3]
+ 253:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(used) {
+  43              		.loc 1 253 5 is_stmt 1 view .LVU6
+  44              		.loc 1 253 7 is_stmt 0 view .LVU7
+  45 0006 1AB1     		cbz	r2, .L2
+ 254:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->used_cnt++;
+  46              		.loc 1 254 9 is_stmt 1 view .LVU8
+  47              		.loc 1 254 14 is_stmt 0 view .LVU9
+  48 0008 1A69     		ldr	r2, [r3, #16]
+  49              	.LVL2:
+  50              		.loc 1 254 24 view .LVU10
+  51 000a 0132     		adds	r2, r2, #1
+  52 000c 1A61     		str	r2, [r3, #16]
+  53 000e 7047     		bx	lr
+  54              	.LVL3:
+  55              	.L2:
+ 255:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 256:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     else {
+ 257:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->free_cnt++;
+  56              		.loc 1 257 9 is_stmt 1 view .LVU11
+  57              		.loc 1 257 14 is_stmt 0 view .LVU12
+  58 0010 5A68     		ldr	r2, [r3, #4]
+  59              	.LVL4:
+  60              		.loc 1 257 24 view .LVU13
+  61 0012 0132     		adds	r2, r2, #1
+  62 0014 5A60     		str	r2, [r3, #4]
+ 258:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->free_size += size;
+  63              		.loc 1 258 9 is_stmt 1 view .LVU14
+  64              		.loc 1 258 14 is_stmt 0 view .LVU15
+  65 0016 9A68     		ldr	r2, [r3, #8]
+  66              		.loc 1 258 26 view .LVU16
+  67 0018 0A44     		add	r2, r2, r1
+  68 001a 9A60     		str	r2, [r3, #8]
+ 259:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(size > mon_p->free_biggest_size)
+  69              		.loc 1 259 9 is_stmt 1 view .LVU17
+  70              		.loc 1 259 24 is_stmt 0 view .LVU18
+  71 001c DA68     		ldr	r2, [r3, #12]
+  72              		.loc 1 259 11 view .LVU19
+  73 001e 8A42     		cmp	r2, r1
+  74 0020 00D2     		bcs	.L1
+ 260:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             mon_p->free_biggest_size = size;
+  75              		.loc 1 260 13 is_stmt 1 view .LVU20
+  76              		.loc 1 260 38 is_stmt 0 view .LVU21
+  77 0022 D960     		str	r1, [r3, #12]
+  78              	.L1:
+ 261:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 262:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+  79              		.loc 1 262 1 view .LVU22
+  80 0024 7047     		bx	lr
+  81              		.cfi_endproc
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 7
+
+
+  82              	.LFE243:
+  84              		.section	.text.lv_mem_init,"ax",%progbits
+  85              		.align	1
+  86              		.global	lv_mem_init
+  87              		.syntax unified
+  88              		.thumb
+  89              		.thumb_func
+  91              	lv_mem_init:
+  92              	.LFB234:
+  72:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+  93              		.loc 1 72 1 is_stmt 1 view -0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97 0000 10B5     		push	{r4, lr}
+  98              	.LCFI0:
+  99              		.cfi_def_cfa_offset 8
+ 100              		.cfi_offset 4, -8
+ 101              		.cfi_offset 14, -4
+  82:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.tlsf = lv_tlsf_create_with_pool((void *)work_mem_int, LV_MEM_SIZE);
+ 102              		.loc 1 82 5 view .LVU24
+  83:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 103              		.loc 1 83 5 view .LVU25
+  83:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 104              		.loc 1 83 18 is_stmt 0 view .LVU26
+ 105 0002 4FF48031 		mov	r1, #65536
+ 106 0006 0C48     		ldr	r0, .L8
+ 107 0008 FFF7FEFF 		bl	lv_tlsf_create_with_pool
+ 108              	.LVL5:
+  83:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #endif
+ 109              		.loc 1 83 16 view .LVU27
+ 110 000c 0B4C     		ldr	r4, .L8+4
+ 111 000e C4F88401 		str	r0, [r4, #388]
+  89:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 112              		.loc 1 89 5 is_stmt 1 view .LVU28
+ 113 0012 04F5C874 		add	r4, r4, #400
+ 114 0016 0421     		movs	r1, #4
+ 115 0018 2046     		mov	r0, r4
+ 116 001a FFF7FEFF 		bl	_lv_ll_init
+ 117              	.LVL6:
+  92:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_ASSERT_MALLOC(pool_p);
+ 118              		.loc 1 92 5 view .LVU29
+  92:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_ASSERT_MALLOC(pool_p);
+ 119              		.loc 1 92 26 is_stmt 0 view .LVU30
+ 120 001e 2046     		mov	r0, r4
+ 121 0020 FFF7FEFF 		bl	_lv_ll_ins_tail
+ 122              	.LVL7:
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 123              		.loc 1 93 5 is_stmt 1 view .LVU31
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 124              		.loc 1 93 5 view .LVU32
+ 125 0024 38B1     		cbz	r0, .L6
+ 126 0026 0446     		mov	r4, r0
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 127              		.loc 1 93 5 discriminator 2 view .LVU33
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 128              		.loc 1 93 29 discriminator 2 view .LVU34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 8
+
+
+  94:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 129              		.loc 1 94 5 discriminator 2 view .LVU35
+  94:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 130              		.loc 1 94 15 is_stmt 0 discriminator 2 view .LVU36
+ 131 0028 044B     		ldr	r3, .L8+4
+ 132 002a D3F88401 		ldr	r0, [r3, #388]
+ 133              	.LVL8:
+  94:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 134              		.loc 1 94 15 discriminator 2 view .LVU37
+ 135 002e FFF7FEFF 		bl	lv_tlsf_get_pool
+ 136              	.LVL9:
+  94:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 137              		.loc 1 94 13 discriminator 2 view .LVU38
+ 138 0032 2060     		str	r0, [r4]
+  99:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 139              		.loc 1 99 1 discriminator 2 view .LVU39
+ 140 0034 10BD     		pop	{r4, pc}
+ 141              	.LVL10:
+ 142              	.L6:
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 143              		.loc 1 93 5 is_stmt 1 discriminator 1 view .LVU40
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 144              		.loc 1 93 5 discriminator 1 view .LVU41
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 145              		.loc 1 93 5 discriminator 1 view .LVU42
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 146              		.loc 1 93 5 discriminator 1 view .LVU43
+  93:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = lv_tlsf_get_pool(state.tlsf);
+ 147              		.loc 1 93 5 discriminator 1 view .LVU44
+ 148 0036 FEE7     		b	.L6
+ 149              	.L9:
+ 150              		.align	2
+ 151              	.L8:
+ 152 0038 00000000 		.word	work_mem_int.0
+ 153 003c 00000000 		.word	lv_global
+ 154              		.cfi_endproc
+ 155              	.LFE234:
+ 157              		.section	.text.lv_mem_deinit,"ax",%progbits
+ 158              		.align	1
+ 159              		.global	lv_mem_deinit
+ 160              		.syntax unified
+ 161              		.thumb
+ 162              		.thumb_func
+ 164              	lv_mem_deinit:
+ 165              	.LFB235:
+ 102:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _lv_ll_clear(&state.pool_ll);
+ 166              		.loc 1 102 1 view -0
+ 167              		.cfi_startproc
+ 168              		@ args = 0, pretend = 0, frame = 0
+ 169              		@ frame_needed = 0, uses_anonymous_args = 0
+ 170 0000 10B5     		push	{r4, lr}
+ 171              	.LCFI1:
+ 172              		.cfi_def_cfa_offset 8
+ 173              		.cfi_offset 4, -8
+ 174              		.cfi_offset 14, -4
+ 103:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_tlsf_destroy(state.tlsf);
+ 175              		.loc 1 103 5 view .LVU46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 9
+
+
+ 176              	.LVL11:
+ 177              	.LBB6:
+ 178              	.LBI6:
+ 179              		.file 2 "Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h"
+   1:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**
+   2:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @file lv_ll.h
+   3:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * Handle linked lists. The nodes are dynamically allocated by the 'lv_mem' module.
+   4:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  */
+   5:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+   6:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** #ifndef LV_LL_H
+   7:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** #define LV_LL_H
+   8:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+   9:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** extern "C" {
+  11:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** #endif
+  12:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  13:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /*********************
+  14:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  *      INCLUDES
+  15:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  *********************/
+  16:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** #include <stdint.h>
+  17:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** #include <stddef.h>
+  18:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** #include <stdbool.h>
+  19:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  20:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /*********************
+  21:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  *      DEFINES
+  22:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  *********************/
+  23:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  24:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**********************
+  25:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  **********************/
+  27:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  28:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /** Dummy type to make handling easier*/
+  29:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** typedef uint8_t lv_ll_node_t;
+  30:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  31:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /** Description of a linked list*/
+  32:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** typedef struct {
+  33:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****     uint32_t n_size;
+  34:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****     lv_ll_node_t * head;
+  35:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****     lv_ll_node_t * tail;
+  36:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** } lv_ll_t;
+  37:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  38:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**********************
+  39:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * GLOBAL PROTOTYPES
+  40:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  **********************/
+  41:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  42:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**
+  43:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * Initialize linked list
+  44:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param ll_p pointer to lv_ll_t variable
+  45:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param node_size the size of 1 node in bytes
+  46:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  */
+  47:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** void _lv_ll_init(lv_ll_t * ll_p, uint32_t node_size);
+  48:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  49:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**
+  50:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * Add a new head to a linked list
+  51:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  52:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @return pointer to the new head
+  53:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  */
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 10
+
+
+  54:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** void * _lv_ll_ins_head(lv_ll_t * ll_p);
+  55:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  56:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**
+  57:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * Insert a new node in front of the n_act node
+  58:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  59:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param n_act pointer a node
+  60:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @return pointer to the new node
+  61:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  */
+  62:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** void * _lv_ll_ins_prev(lv_ll_t * ll_p, void * n_act);
+  63:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  64:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**
+  65:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * Add a new tail to a linked list
+  66:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  67:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @return pointer to the new tail
+  68:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  */
+  69:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** void * _lv_ll_ins_tail(lv_ll_t * ll_p);
+  70:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  71:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**
+  72:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * Remove the node 'node_p' from 'll_p' linked list.
+  73:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * It does not free the memory of node.
+  74:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param ll_p pointer to the linked list of 'node_p'
+  75:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param node_p pointer to node in 'll_p' linked list
+  76:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  */
+  77:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** void _lv_ll_remove(lv_ll_t * ll_p, void * node_p);
+  78:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  79:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** void _lv_ll_clear_custom(lv_ll_t * ll_p, void(*cleanup)(void *));
+  80:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** 
+  81:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** /**
+  82:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * Remove and free all elements from a linked list. The list remain valid but become empty.
+  83:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  84:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****  */
+  85:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** static inline void _lv_ll_clear(lv_ll_t * ll_p)
+ 180              		.loc 2 85 20 view .LVU47
+ 181              	.LBB7:
+  86:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h **** {
+  87:Lib/lvgl/src/stdlib/builtin/../../misc/lv_ll.h ****     _lv_ll_clear_custom(ll_p, NULL);
+ 182              		.loc 2 87 5 view .LVU48
+ 183 0002 054C     		ldr	r4, .L12
+ 184              	.LVL12:
+ 185              		.loc 2 87 5 is_stmt 0 view .LVU49
+ 186 0004 0021     		movs	r1, #0
+ 187 0006 2046     		mov	r0, r4
+ 188 0008 FFF7FEFF 		bl	_lv_ll_clear_custom
+ 189              	.LVL13:
+ 190              		.loc 2 87 5 view .LVU50
+ 191              	.LBE7:
+ 192              	.LBE6:
+ 104:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 193              		.loc 1 104 5 is_stmt 1 view .LVU51
+ 194 000c 54F80C0C 		ldr	r0, [r4, #-12]
+ 195 0010 FFF7FEFF 		bl	lv_tlsf_destroy
+ 196              	.LVL14:
+ 108:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 197              		.loc 1 108 1 is_stmt 0 view .LVU52
+ 198 0014 10BD     		pop	{r4, pc}
+ 199              	.L13:
+ 200 0016 00BF     		.align	2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 11
+
+
+ 201              	.L12:
+ 202 0018 90010000 		.word	lv_global+400
+ 203              		.cfi_endproc
+ 204              	.LFE235:
+ 206              		.section	.text.lv_mem_add_pool,"ax",%progbits
+ 207              		.align	1
+ 208              		.global	lv_mem_add_pool
+ 209              		.syntax unified
+ 210              		.thumb
+ 211              		.thumb_func
+ 213              	lv_mem_add_pool:
+ 214              	.LVL15:
+ 215              	.LFB236:
+ 111:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mem_pool_t new_pool = lv_tlsf_add_pool(state.tlsf, mem, bytes);
+ 216              		.loc 1 111 1 is_stmt 1 view -0
+ 217              		.cfi_startproc
+ 218              		@ args = 0, pretend = 0, frame = 0
+ 219              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_mem_pool_t new_pool = lv_tlsf_add_pool(state.tlsf, mem, bytes);
+ 220              		.loc 1 111 1 is_stmt 0 view .LVU54
+ 221 0000 10B5     		push	{r4, lr}
+ 222              	.LCFI2:
+ 223              		.cfi_def_cfa_offset 8
+ 224              		.cfi_offset 4, -8
+ 225              		.cfi_offset 14, -4
+ 226 0002 0A46     		mov	r2, r1
+ 112:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(!new_pool) {
+ 227              		.loc 1 112 5 is_stmt 1 view .LVU55
+ 112:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(!new_pool) {
+ 228              		.loc 1 112 30 is_stmt 0 view .LVU56
+ 229 0004 0146     		mov	r1, r0
+ 230              	.LVL16:
+ 112:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(!new_pool) {
+ 231              		.loc 1 112 30 view .LVU57
+ 232 0006 074B     		ldr	r3, .L19
+ 233 0008 D3F88401 		ldr	r0, [r3, #388]
+ 234              	.LVL17:
+ 112:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(!new_pool) {
+ 235              		.loc 1 112 30 view .LVU58
+ 236 000c FFF7FEFF 		bl	lv_tlsf_add_pool
+ 237              	.LVL18:
+ 113:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         LV_LOG_WARN("failed to add memory pool, address: %p, size: %zu", mem, bytes);
+ 238              		.loc 1 113 5 is_stmt 1 view .LVU59
+ 113:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         LV_LOG_WARN("failed to add memory pool, address: %p, size: %zu", mem, bytes);
+ 239              		.loc 1 113 7 is_stmt 0 view .LVU60
+ 240 0010 0446     		mov	r4, r0
+ 241 0012 20B1     		cbz	r0, .L14
+ 118:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_ASSERT_MALLOC(pool_p);
+ 242              		.loc 1 118 5 is_stmt 1 view .LVU61
+ 118:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_ASSERT_MALLOC(pool_p);
+ 243              		.loc 1 118 26 is_stmt 0 view .LVU62
+ 244 0014 0448     		ldr	r0, .L19+4
+ 245              	.LVL19:
+ 118:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_ASSERT_MALLOC(pool_p);
+ 246              		.loc 1 118 26 view .LVU63
+ 247 0016 FFF7FEFF 		bl	_lv_ll_ins_tail
+ 248              	.LVL20:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 12
+
+
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 249              		.loc 1 119 5 is_stmt 1 view .LVU64
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 250              		.loc 1 119 5 view .LVU65
+ 251 001a 10B1     		cbz	r0, .L17
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 252              		.loc 1 119 5 discriminator 2 view .LVU66
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 253              		.loc 1 119 29 discriminator 2 view .LVU67
+ 120:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 254              		.loc 1 120 5 discriminator 2 view .LVU68
+ 120:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 255              		.loc 1 120 13 is_stmt 0 discriminator 2 view .LVU69
+ 256 001c 0460     		str	r4, [r0]
+ 122:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 257              		.loc 1 122 5 is_stmt 1 discriminator 2 view .LVU70
+ 258              	.LVL21:
+ 259              	.L14:
+ 123:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 260              		.loc 1 123 1 is_stmt 0 view .LVU71
+ 261 001e 2046     		mov	r0, r4
+ 262 0020 10BD     		pop	{r4, pc}
+ 263              	.LVL22:
+ 264              	.L17:
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 265              		.loc 1 119 5 is_stmt 1 discriminator 1 view .LVU72
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 266              		.loc 1 119 5 discriminator 1 view .LVU73
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 267              		.loc 1 119 5 discriminator 1 view .LVU74
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 268              		.loc 1 119 5 discriminator 1 view .LVU75
+ 119:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     *pool_p = new_pool;
+ 269              		.loc 1 119 5 discriminator 1 view .LVU76
+ 270 0022 FEE7     		b	.L17
+ 271              	.L20:
+ 272              		.align	2
+ 273              	.L19:
+ 274 0024 00000000 		.word	lv_global
+ 275 0028 90010000 		.word	lv_global+400
+ 276              		.cfi_endproc
+ 277              	.LFE236:
+ 279              		.section	.text.lv_mem_remove_pool,"ax",%progbits
+ 280              		.align	1
+ 281              		.global	lv_mem_remove_pool
+ 282              		.syntax unified
+ 283              		.thumb
+ 284              		.thumb_func
+ 286              	lv_mem_remove_pool:
+ 287              	.LVL23:
+ 288              	.LFB237:
+ 126:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_pool_t * pool_p;
+ 289              		.loc 1 126 1 view -0
+ 290              		.cfi_startproc
+ 291              		@ args = 0, pretend = 0, frame = 0
+ 292              		@ frame_needed = 0, uses_anonymous_args = 0
+ 126:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     lv_pool_t * pool_p;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 13
+
+
+ 293              		.loc 1 126 1 is_stmt 0 view .LVU78
+ 294 0000 70B5     		push	{r4, r5, r6, lr}
+ 295              	.LCFI3:
+ 296              		.cfi_def_cfa_offset 16
+ 297              		.cfi_offset 4, -16
+ 298              		.cfi_offset 5, -12
+ 299              		.cfi_offset 6, -8
+ 300              		.cfi_offset 14, -4
+ 301 0002 0546     		mov	r5, r0
+ 127:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _LV_LL_READ(&state.pool_ll, pool_p) {
+ 302              		.loc 1 127 5 is_stmt 1 view .LVU79
+ 128:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(*pool_p == pool) {
+ 303              		.loc 1 128 5 view .LVU80
+ 304 0004 0D48     		ldr	r0, .L27
+ 305              	.LVL24:
+ 128:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(*pool_p == pool) {
+ 306              		.loc 1 128 5 is_stmt 0 view .LVU81
+ 307 0006 FFF7FEFF 		bl	_lv_ll_get_head
+ 308              	.LVL25:
+ 309 000a 0446     		mov	r4, r0
+ 310              	.LVL26:
+ 128:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(*pool_p == pool) {
+ 311              		.loc 1 128 5 view .LVU82
+ 312 000c 04E0     		b	.L22
+ 313              	.L23:
+ 128:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(*pool_p == pool) {
+ 314              		.loc 1 128 5 is_stmt 1 discriminator 2 view .LVU83
+ 315 000e 2146     		mov	r1, r4
+ 316 0010 0A48     		ldr	r0, .L27
+ 317              	.LVL27:
+ 128:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(*pool_p == pool) {
+ 318              		.loc 1 128 5 is_stmt 0 discriminator 2 view .LVU84
+ 319 0012 FFF7FEFF 		bl	_lv_ll_get_next
+ 320              	.LVL28:
+ 321 0016 0446     		mov	r4, r0
+ 322              	.LVL29:
+ 323              	.L22:
+ 128:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(*pool_p == pool) {
+ 324              		.loc 1 128 5 is_stmt 1 discriminator 1 view .LVU85
+ 325 0018 7CB1     		cbz	r4, .L21
+ 129:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             _lv_ll_remove(&state.pool_ll, pool_p);
+ 326              		.loc 1 129 9 view .LVU86
+ 129:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             _lv_ll_remove(&state.pool_ll, pool_p);
+ 327              		.loc 1 129 12 is_stmt 0 view .LVU87
+ 328 001a 2368     		ldr	r3, [r4]
+ 129:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             _lv_ll_remove(&state.pool_ll, pool_p);
+ 329              		.loc 1 129 11 view .LVU88
+ 330 001c AB42     		cmp	r3, r5
+ 331 001e F6D1     		bne	.L23
+ 130:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             lv_free(pool_p);
+ 332              		.loc 1 130 13 is_stmt 1 view .LVU89
+ 333 0020 064E     		ldr	r6, .L27
+ 334 0022 2146     		mov	r1, r4
+ 335 0024 3046     		mov	r0, r6
+ 336              	.LVL30:
+ 130:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             lv_free(pool_p);
+ 337              		.loc 1 130 13 is_stmt 0 view .LVU90
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 14
+
+
+ 338 0026 FFF7FEFF 		bl	_lv_ll_remove
+ 339              	.LVL31:
+ 131:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             lv_tlsf_remove_pool(state.tlsf, pool);
+ 340              		.loc 1 131 13 is_stmt 1 view .LVU91
+ 341 002a 2046     		mov	r0, r4
+ 342 002c FFF7FEFF 		bl	lv_free
+ 343              	.LVL32:
+ 132:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             return;
+ 344              		.loc 1 132 13 view .LVU92
+ 345 0030 2946     		mov	r1, r5
+ 346 0032 56F80C0C 		ldr	r0, [r6, #-12]
+ 347 0036 FFF7FEFF 		bl	lv_tlsf_remove_pool
+ 348              	.LVL33:
+ 133:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         }
+ 349              		.loc 1 133 13 view .LVU93
+ 350              	.L21:
+ 137:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 351              		.loc 1 137 1 is_stmt 0 view .LVU94
+ 352 003a 70BD     		pop	{r4, r5, r6, pc}
+ 353              	.LVL34:
+ 354              	.L28:
+ 137:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 355              		.loc 1 137 1 view .LVU95
+ 356              		.align	2
+ 357              	.L27:
+ 358 003c 90010000 		.word	lv_global+400
+ 359              		.cfi_endproc
+ 360              	.LFE237:
+ 362              		.section	.text.lv_malloc_core,"ax",%progbits
+ 363              		.align	1
+ 364              		.global	lv_malloc_core
+ 365              		.syntax unified
+ 366              		.thumb
+ 367              		.thumb_func
+ 369              	lv_malloc_core:
+ 370              	.LVL35:
+ 371              	.LFB238:
+ 140:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 372              		.loc 1 140 1 is_stmt 1 view -0
+ 373              		.cfi_startproc
+ 374              		@ args = 0, pretend = 0, frame = 0
+ 375              		@ frame_needed = 0, uses_anonymous_args = 0
+ 140:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 376              		.loc 1 140 1 is_stmt 0 view .LVU97
+ 377 0000 08B5     		push	{r3, lr}
+ 378              	.LCFI4:
+ 379              		.cfi_def_cfa_offset 8
+ 380              		.cfi_offset 3, -8
+ 381              		.cfi_offset 14, -4
+ 382 0002 0146     		mov	r1, r0
+ 144:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.max_used = LV_MAX(state.cur_used, state.max_used);
+ 383              		.loc 1 144 5 is_stmt 1 view .LVU98
+ 144:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.max_used = LV_MAX(state.cur_used, state.max_used);
+ 384              		.loc 1 144 10 is_stmt 0 view .LVU99
+ 385 0004 084A     		ldr	r2, .L31
+ 386 0006 D2F88831 		ldr	r3, [r2, #392]
+ 144:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     state.max_used = LV_MAX(state.cur_used, state.max_used);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 15
+
+
+ 387              		.loc 1 144 20 view .LVU100
+ 388 000a 0344     		add	r3, r3, r0
+ 389 000c C2F88831 		str	r3, [r2, #392]
+ 145:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     void * p = lv_tlsf_malloc(state.tlsf, size);
+ 390              		.loc 1 145 5 is_stmt 1 view .LVU101
+ 145:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     void * p = lv_tlsf_malloc(state.tlsf, size);
+ 391              		.loc 1 145 22 is_stmt 0 view .LVU102
+ 392 0010 D2F88C01 		ldr	r0, [r2, #396]
+ 393              	.LVL36:
+ 145:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     void * p = lv_tlsf_malloc(state.tlsf, size);
+ 394              		.loc 1 145 22 view .LVU103
+ 395 0014 8342     		cmp	r3, r0
+ 396 0016 38BF     		it	cc
+ 397 0018 0346     		movcc	r3, r0
+ 145:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     void * p = lv_tlsf_malloc(state.tlsf, size);
+ 398              		.loc 1 145 20 view .LVU104
+ 399 001a C2F88C31 		str	r3, [r2, #396]
+ 146:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 400              		.loc 1 146 5 is_stmt 1 view .LVU105
+ 146:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 401              		.loc 1 146 16 is_stmt 0 view .LVU106
+ 402 001e D2F88401 		ldr	r0, [r2, #388]
+ 403 0022 FFF7FEFF 		bl	lv_tlsf_malloc
+ 404              	.LVL37:
+ 151:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 405              		.loc 1 151 5 is_stmt 1 view .LVU107
+ 152:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 406              		.loc 1 152 1 is_stmt 0 view .LVU108
+ 407 0026 08BD     		pop	{r3, pc}
+ 408              	.L32:
+ 409              		.align	2
+ 410              	.L31:
+ 411 0028 00000000 		.word	lv_global
+ 412              		.cfi_endproc
+ 413              	.LFE238:
+ 415              		.section	.text.lv_realloc_core,"ax",%progbits
+ 416              		.align	1
+ 417              		.global	lv_realloc_core
+ 418              		.syntax unified
+ 419              		.thumb
+ 420              		.thumb_func
+ 422              	lv_realloc_core:
+ 423              	.LVL38:
+ 424              	.LFB239:
+ 155:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 425              		.loc 1 155 1 is_stmt 1 view -0
+ 426              		.cfi_startproc
+ 427              		@ args = 0, pretend = 0, frame = 0
+ 428              		@ frame_needed = 0, uses_anonymous_args = 0
+ 155:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 429              		.loc 1 155 1 is_stmt 0 view .LVU110
+ 430 0000 08B5     		push	{r3, lr}
+ 431              	.LCFI5:
+ 432              		.cfi_def_cfa_offset 8
+ 433              		.cfi_offset 3, -8
+ 434              		.cfi_offset 14, -4
+ 435 0002 0A46     		mov	r2, r1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 16
+
+
+ 160:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 436              		.loc 1 160 5 is_stmt 1 view .LVU111
+ 160:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 437              		.loc 1 160 20 is_stmt 0 view .LVU112
+ 438 0004 0146     		mov	r1, r0
+ 439              	.LVL39:
+ 160:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 440              		.loc 1 160 20 view .LVU113
+ 441 0006 034B     		ldr	r3, .L35
+ 442 0008 D3F88401 		ldr	r0, [r3, #388]
+ 443              	.LVL40:
+ 160:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 444              		.loc 1 160 20 view .LVU114
+ 445 000c FFF7FEFF 		bl	lv_tlsf_realloc
+ 446              	.LVL41:
+ 166:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 447              		.loc 1 166 5 is_stmt 1 view .LVU115
+ 167:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 448              		.loc 1 167 1 is_stmt 0 view .LVU116
+ 449 0010 08BD     		pop	{r3, pc}
+ 450              	.L36:
+ 451 0012 00BF     		.align	2
+ 452              	.L35:
+ 453 0014 00000000 		.word	lv_global
+ 454              		.cfi_endproc
+ 455              	.LFE239:
+ 457              		.section	.text.lv_free_core,"ax",%progbits
+ 458              		.align	1
+ 459              		.global	lv_free_core
+ 460              		.syntax unified
+ 461              		.thumb
+ 462              		.thumb_func
+ 464              	lv_free_core:
+ 465              	.LVL42:
+ 466              	.LFB240:
+ 170:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 467              		.loc 1 170 1 is_stmt 1 view -0
+ 468              		.cfi_startproc
+ 469              		@ args = 0, pretend = 0, frame = 0
+ 470              		@ frame_needed = 0, uses_anonymous_args = 0
+ 170:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 471              		.loc 1 170 1 is_stmt 0 view .LVU118
+ 472 0000 10B5     		push	{r4, lr}
+ 473              	.LCFI6:
+ 474              		.cfi_def_cfa_offset 8
+ 475              		.cfi_offset 4, -8
+ 476              		.cfi_offset 14, -4
+ 477 0002 0146     		mov	r1, r0
+ 178:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(state.cur_used > size) state.cur_used -= size;
+ 478              		.loc 1 178 5 is_stmt 1 view .LVU119
+ 178:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(state.cur_used > size) state.cur_used -= size;
+ 479              		.loc 1 178 19 is_stmt 0 view .LVU120
+ 480 0004 084C     		ldr	r4, .L41
+ 481 0006 D4F88401 		ldr	r0, [r4, #388]
+ 482              	.LVL43:
+ 178:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(state.cur_used > size) state.cur_used -= size;
+ 483              		.loc 1 178 19 view .LVU121
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 17
+
+
+ 484 000a FFF7FEFF 		bl	lv_tlsf_free
+ 485              	.LVL44:
+ 179:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     else state.cur_used = 0;
+ 486              		.loc 1 179 5 is_stmt 1 view .LVU122
+ 179:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     else state.cur_used = 0;
+ 487              		.loc 1 179 13 is_stmt 0 view .LVU123
+ 488 000e D4F88831 		ldr	r3, [r4, #392]
+ 179:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     else state.cur_used = 0;
+ 489              		.loc 1 179 7 view .LVU124
+ 490 0012 8342     		cmp	r3, r0
+ 491 0014 03D9     		bls	.L38
+ 179:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     else state.cur_used = 0;
+ 492              		.loc 1 179 31 is_stmt 1 discriminator 1 view .LVU125
+ 179:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     else state.cur_used = 0;
+ 493              		.loc 1 179 46 is_stmt 0 discriminator 1 view .LVU126
+ 494 0016 1B1A     		subs	r3, r3, r0
+ 495 0018 C4F88831 		str	r3, [r4, #392]
+ 496              	.L37:
+ 185:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 497              		.loc 1 185 1 view .LVU127
+ 498 001c 10BD     		pop	{r4, pc}
+ 499              	.L38:
+ 180:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 500              		.loc 1 180 10 is_stmt 1 view .LVU128
+ 180:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 501              		.loc 1 180 25 is_stmt 0 view .LVU129
+ 502 001e 024B     		ldr	r3, .L41
+ 503 0020 0022     		movs	r2, #0
+ 504 0022 C3F88821 		str	r2, [r3, #392]
+ 185:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 505              		.loc 1 185 1 view .LVU130
+ 506 0026 F9E7     		b	.L37
+ 507              	.L42:
+ 508              		.align	2
+ 509              	.L41:
+ 510 0028 00000000 		.word	lv_global
+ 511              		.cfi_endproc
+ 512              	.LFE240:
+ 514              		.global	__aeabi_uldivmod
+ 515              		.section	.text.lv_mem_monitor_core,"ax",%progbits
+ 516              		.align	1
+ 517              		.global	lv_mem_monitor_core
+ 518              		.syntax unified
+ 519              		.thumb
+ 520              		.thumb_func
+ 522              	lv_mem_monitor_core:
+ 523              	.LVL45:
+ 524              	.LFB241:
+ 188:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     /*Init the data*/
+ 525              		.loc 1 188 1 is_stmt 1 view -0
+ 526              		.cfi_startproc
+ 527              		@ args = 0, pretend = 0, frame = 0
+ 528              		@ frame_needed = 0, uses_anonymous_args = 0
+ 188:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     /*Init the data*/
+ 529              		.loc 1 188 1 is_stmt 0 view .LVU132
+ 530 0000 70B5     		push	{r4, r5, r6, lr}
+ 531              	.LCFI7:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 18
+
+
+ 532              		.cfi_def_cfa_offset 16
+ 533              		.cfi_offset 4, -16
+ 534              		.cfi_offset 5, -12
+ 535              		.cfi_offset 6, -8
+ 536              		.cfi_offset 14, -4
+ 537 0002 0546     		mov	r5, r0
+ 190:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     LV_TRACE_MEM("begin");
+ 538              		.loc 1 190 5 is_stmt 1 view .LVU133
+ 539              	.LVL46:
+ 540              	.LBB8:
+ 541              	.LBI8:
+ 542              		.file 3 "Lib/lvgl/src/stdlib/builtin/../lv_string.h"
+   1:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /**
+   2:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @file lv_stringn.h
+   3:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  *
+   4:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  */
+   5:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+   6:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** #ifndef LV_STRING_H
+   7:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** #define LV_STRING_H
+   8:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+   9:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** extern "C" {
+  11:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** #endif
+  12:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+  13:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /*********************
+  14:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  *      INCLUDES
+  15:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  *********************/
+  16:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** #include <stdint.h>
+  18:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** #include <stddef.h>
+  19:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+  20:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /*********************
+  21:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  *      DEFINES
+  22:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  *********************/
+  23:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+  24:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /**********************
+  25:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  **********************/
+  27:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+  28:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /**********************
+  29:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * GLOBAL PROTOTYPES
+  30:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  **********************/
+  31:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+  32:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /**
+  33:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @brief Copies a block of memory from a source address to a destination address.
+  34:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  35:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  36:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param len Number of bytes to copy.
+  37:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @return Pointer to the destination array.
+  38:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @note The function does not check for any overlapping of the source and destination memory block
+  39:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  */
+  40:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** void * lv_memcpy(void * dst, const void * src, size_t len);
+  41:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+  42:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /**
+  43:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @brief Fills a block of memory with a specified value.
+  44:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param dst Pointer to the destination array to fill with the specified value.
+  45:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param v Value to be set. The value is passed as an int, but the function fills
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 19
+
+
+  46:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
+  47:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param len Number of bytes to be set to the value.
+  48:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  */
+  49:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** void lv_memset(void * dst, uint8_t v, size_t len);
+  50:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+  51:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /**
+  52:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @brief Move a block of memory from source to destination
+  53:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  54:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  55:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param len Number of bytes to copy
+  56:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @return Pointer to the destination array.
+  57:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  */
+  58:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** void * lv_memmove(void * dst, const void * src, size_t len);
+  59:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** 
+  60:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** /**
+  61:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * Same as `memset(dst, 0x00, len)`.
+  62:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param dst pointer to the destination buffer
+  63:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  * @param len number of byte to set
+  64:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****  */
+  65:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** static inline void lv_memzero(void * dst, size_t len)
+ 543              		.loc 3 65 20 view .LVU134
+ 544              	.LBB9:
+  66:Lib/lvgl/src/stdlib/builtin/../lv_string.h **** {
+  67:Lib/lvgl/src/stdlib/builtin/../lv_string.h ****     lv_memset(dst, 0x00, len);
+ 545              		.loc 3 67 5 view .LVU135
+ 546 0004 1C22     		movs	r2, #28
+ 547 0006 0021     		movs	r1, #0
+ 548 0008 FFF7FEFF 		bl	lv_memset
+ 549              	.LVL47:
+ 550              		.loc 3 67 5 is_stmt 0 view .LVU136
+ 551              	.LBE9:
+ 552              	.LBE8:
+ 191:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 553              		.loc 1 191 26 is_stmt 1 view .LVU137
+ 193:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _LV_LL_READ(&state.pool_ll, pool_p) {
+ 554              		.loc 1 193 5 view .LVU138
+ 194:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         lv_tlsf_walk_pool(*pool_p, lv_mem_walker, mon_p);
+ 555              		.loc 1 194 5 view .LVU139
+ 556 000c 2848     		ldr	r0, .L49
+ 557 000e FFF7FEFF 		bl	_lv_ll_get_head
+ 558              	.LVL48:
+ 559 0012 0446     		mov	r4, r0
+ 560              	.LVL49:
+ 194:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         lv_tlsf_walk_pool(*pool_p, lv_mem_walker, mon_p);
+ 561              		.loc 1 194 5 is_stmt 0 view .LVU140
+ 562 0014 09E0     		b	.L44
+ 563              	.L45:
+ 195:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 564              		.loc 1 195 9 is_stmt 1 discriminator 3 view .LVU141
+ 565 0016 2A46     		mov	r2, r5
+ 566 0018 2649     		ldr	r1, .L49+4
+ 567 001a 2068     		ldr	r0, [r4]
+ 568              	.LVL50:
+ 195:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 569              		.loc 1 195 9 is_stmt 0 discriminator 3 view .LVU142
+ 570 001c FFF7FEFF 		bl	lv_tlsf_walk_pool
+ 571              	.LVL51:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 20
+
+
+ 194:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         lv_tlsf_walk_pool(*pool_p, lv_mem_walker, mon_p);
+ 572              		.loc 1 194 5 is_stmt 1 discriminator 3 view .LVU143
+ 573 0020 2146     		mov	r1, r4
+ 574 0022 2348     		ldr	r0, .L49
+ 575 0024 FFF7FEFF 		bl	_lv_ll_get_next
+ 576              	.LVL52:
+ 577 0028 0446     		mov	r4, r0
+ 578              	.LVL53:
+ 579              	.L44:
+ 194:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         lv_tlsf_walk_pool(*pool_p, lv_mem_walker, mon_p);
+ 580              		.loc 1 194 5 discriminator 1 view .LVU144
+ 581 002a 002C     		cmp	r4, #0
+ 582 002c F3D1     		bne	.L45
+ 198:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(mon_p->free_size > 0) {
+ 583              		.loc 1 198 5 view .LVU145
+ 198:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(mon_p->free_size > 0) {
+ 584              		.loc 1 198 51 is_stmt 0 view .LVU146
+ 585 002e AE68     		ldr	r6, [r5, #8]
+ 586 0030 2146     		mov	r1, r4
+ 198:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(mon_p->free_size > 0) {
+ 587              		.loc 1 198 44 view .LVU147
+ 588 0032 B319     		adds	r3, r6, r6
+ 589 0034 44EB0101 		adc	r1, r4, r1
+ 590 0038 9B19     		adds	r3, r3, r6
+ 591 003a 41F10001 		adc	r1, r1, #0
+ 592 003e 4801     		lsls	r0, r1, #5
+ 593              	.LVL54:
+ 198:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(mon_p->free_size > 0) {
+ 594              		.loc 1 198 44 view .LVU148
+ 595 0040 40EAD360 		orr	r0, r0, r3, lsr #27
+ 596 0044 4FEA431C 		lsl	ip, r3, #5
+ 597 0048 13EB0C03 		adds	r3, r3, ip
+ 598 004c 41EB0001 		adc	r1, r1, r0
+ 599 0050 9819     		adds	r0, r3, r6
+ 198:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(mon_p->free_size > 0) {
+ 600              		.loc 1 198 63 view .LVU149
+ 601 0052 2A68     		ldr	r2, [r5]
+ 602 0054 2346     		mov	r3, r4
+ 603 0056 41F10001 		adc	r1, r1, #0
+ 604 005a FFF7FEFF 		bl	__aeabi_uldivmod
+ 605              	.LVL55:
+ 198:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(mon_p->free_size > 0) {
+ 606              		.loc 1 198 27 view .LVU150
+ 607 005e C0F16400 		rsb	r0, r0, #100
+ 198:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     if(mon_p->free_size > 0) {
+ 608              		.loc 1 198 21 view .LVU151
+ 609 0062 2876     		strb	r0, [r5, #24]
+ 199:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = (uint64_t)mon_p->free_biggest_size * 100U / mon_p->free_size;
+ 610              		.loc 1 199 5 is_stmt 1 view .LVU152
+ 199:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = (uint64_t)mon_p->free_biggest_size * 100U / mon_p->free_size;
+ 611              		.loc 1 199 7 is_stmt 0 view .LVU153
+ 612 0064 0EB3     		cbz	r6, .L46
+ 200:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = 100 - mon_p->frag_pct;
+ 613              		.loc 1 200 9 is_stmt 1 view .LVU154
+ 200:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = 100 - mon_p->frag_pct;
+ 614              		.loc 1 200 42 is_stmt 0 view .LVU155
+ 615 0066 EA68     		ldr	r2, [r5, #12]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 21
+
+
+ 200:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = 100 - mon_p->frag_pct;
+ 616              		.loc 1 200 27 view .LVU156
+ 617 0068 2146     		mov	r1, r4
+ 200:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = 100 - mon_p->frag_pct;
+ 618              		.loc 1 200 62 view .LVU157
+ 619 006a 9318     		adds	r3, r2, r2
+ 620 006c 44EB0101 		adc	r1, r4, r1
+ 621 0070 9B18     		adds	r3, r3, r2
+ 622 0072 41F10001 		adc	r1, r1, #0
+ 623 0076 4801     		lsls	r0, r1, #5
+ 624 0078 40EAD360 		orr	r0, r0, r3, lsr #27
+ 625 007c 4FEA431C 		lsl	ip, r3, #5
+ 626 0080 13EB0C03 		adds	r3, r3, ip
+ 627 0084 41EB0001 		adc	r1, r1, r0
+ 628 0088 9818     		adds	r0, r3, r2
+ 200:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = 100 - mon_p->frag_pct;
+ 629              		.loc 1 200 69 view .LVU158
+ 630 008a 3246     		mov	r2, r6
+ 631 008c 2346     		mov	r3, r4
+ 632 008e 41F10001 		adc	r1, r1, #0
+ 633 0092 FFF7FEFF 		bl	__aeabi_uldivmod
+ 634              	.LVL56:
+ 200:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         mon_p->frag_pct = 100 - mon_p->frag_pct;
+ 635              		.loc 1 200 25 view .LVU159
+ 636 0096 C0B2     		uxtb	r0, r0
+ 637 0098 6876     		strb	r0, [r5, #25]
+ 201:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 638              		.loc 1 201 9 is_stmt 1 view .LVU160
+ 201:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 639              		.loc 1 201 31 is_stmt 0 view .LVU161
+ 640 009a C0F16400 		rsb	r0, r0, #100
+ 201:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 641              		.loc 1 201 25 view .LVU162
+ 642 009e 6876     		strb	r0, [r5, #25]
+ 643              	.L47:
+ 207:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 644              		.loc 1 207 5 is_stmt 1 view .LVU163
+ 207:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 645              		.loc 1 207 28 is_stmt 0 view .LVU164
+ 646 00a0 054B     		ldr	r3, .L49+8
+ 647 00a2 D3F88C31 		ldr	r3, [r3, #396]
+ 207:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 648              		.loc 1 207 21 view .LVU165
+ 649 00a6 6B61     		str	r3, [r5, #20]
+ 209:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 650              		.loc 1 209 29 is_stmt 1 view .LVU166
+ 210:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 651              		.loc 1 210 1 is_stmt 0 view .LVU167
+ 652 00a8 70BD     		pop	{r4, r5, r6, pc}
+ 653              	.LVL57:
+ 654              	.L46:
+ 204:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 655              		.loc 1 204 9 is_stmt 1 view .LVU168
+ 204:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 656              		.loc 1 204 25 is_stmt 0 view .LVU169
+ 657 00aa 0023     		movs	r3, #0
+ 658 00ac 6B76     		strb	r3, [r5, #25]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 22
+
+
+ 659 00ae F7E7     		b	.L47
+ 660              	.L50:
+ 661              		.align	2
+ 662              	.L49:
+ 663 00b0 90010000 		.word	lv_global+400
+ 664 00b4 00000000 		.word	lv_mem_walker
+ 665 00b8 00000000 		.word	lv_global
+ 666              		.cfi_endproc
+ 667              	.LFE241:
+ 669              		.section	.text.lv_mem_test_core,"ax",%progbits
+ 670              		.align	1
+ 671              		.global	lv_mem_test_core
+ 672              		.syntax unified
+ 673              		.thumb
+ 674              		.thumb_func
+ 676              	lv_mem_test_core:
+ 677              	.LFB242:
+ 213:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** #if LV_USE_OS
+ 678              		.loc 1 213 1 is_stmt 1 view -0
+ 679              		.cfi_startproc
+ 680              		@ args = 0, pretend = 0, frame = 0
+ 681              		@ frame_needed = 0, uses_anonymous_args = 0
+ 682 0000 10B5     		push	{r4, lr}
+ 683              	.LCFI8:
+ 684              		.cfi_def_cfa_offset 8
+ 685              		.cfi_offset 4, -8
+ 686              		.cfi_offset 14, -4
+ 217:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         LV_LOG_WARN("failed");
+ 687              		.loc 1 217 5 view .LVU171
+ 217:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         LV_LOG_WARN("failed");
+ 688              		.loc 1 217 8 is_stmt 0 view .LVU172
+ 689 0002 0D4B     		ldr	r3, .L60
+ 690 0004 D3F88401 		ldr	r0, [r3, #388]
+ 691 0008 FFF7FEFF 		bl	lv_tlsf_check
+ 692              	.LVL58:
+ 217:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         LV_LOG_WARN("failed");
+ 693              		.loc 1 217 7 view .LVU173
+ 694 000c 08B1     		cbz	r0, .L58
+ 222:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     }
+ 695              		.loc 1 222 16 view .LVU174
+ 696 000e 0020     		movs	r0, #0
+ 697              	.L52:
+ 241:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** 
+ 698              		.loc 1 241 1 view .LVU175
+ 699 0010 10BD     		pop	{r4, pc}
+ 700              	.L58:
+ 225:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****     _LV_LL_READ(&state.pool_ll, pool_p) {
+ 701              		.loc 1 225 5 is_stmt 1 view .LVU176
+ 226:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(lv_tlsf_check_pool(*pool_p)) {
+ 702              		.loc 1 226 5 view .LVU177
+ 703 0012 0A48     		ldr	r0, .L60+4
+ 704 0014 FFF7FEFF 		bl	_lv_ll_get_head
+ 705              	.LVL59:
+ 706 0018 0446     		mov	r4, r0
+ 707              	.LVL60:
+ 708              	.L53:
+ 226:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(lv_tlsf_check_pool(*pool_p)) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 23
+
+
+ 709              		.loc 1 226 5 discriminator 1 view .LVU178
+ 710 001a 4CB1     		cbz	r4, .L59
+ 227:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             LV_LOG_WARN("pool failed");
+ 711              		.loc 1 227 9 view .LVU179
+ 227:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             LV_LOG_WARN("pool failed");
+ 712              		.loc 1 227 12 is_stmt 0 view .LVU180
+ 713 001c 2068     		ldr	r0, [r4]
+ 714              	.LVL61:
+ 227:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             LV_LOG_WARN("pool failed");
+ 715              		.loc 1 227 12 view .LVU181
+ 716 001e FFF7FEFF 		bl	lv_tlsf_check_pool
+ 717              	.LVL62:
+ 227:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****             LV_LOG_WARN("pool failed");
+ 718              		.loc 1 227 11 view .LVU182
+ 719 0022 38B9     		cbnz	r0, .L56
+ 226:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(lv_tlsf_check_pool(*pool_p)) {
+ 720              		.loc 1 226 5 is_stmt 1 discriminator 2 view .LVU183
+ 721 0024 2146     		mov	r1, r4
+ 722 0026 0548     		ldr	r0, .L60+4
+ 723 0028 FFF7FEFF 		bl	_lv_ll_get_next
+ 724              	.LVL63:
+ 725 002c 0446     		mov	r4, r0
+ 726              	.LVL64:
+ 226:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         if(lv_tlsf_check_pool(*pool_p)) {
+ 727              		.loc 1 226 5 is_stmt 0 discriminator 2 view .LVU184
+ 728 002e F4E7     		b	.L53
+ 729              	.L59:
+ 240:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 730              		.loc 1 240 12 view .LVU185
+ 731 0030 0120     		movs	r0, #1
+ 732              	.LVL65:
+ 240:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c **** }
+ 733              		.loc 1 240 12 view .LVU186
+ 734 0032 EDE7     		b	.L52
+ 735              	.L56:
+ 232:Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c ****         }
+ 736              		.loc 1 232 20 view .LVU187
+ 737 0034 0020     		movs	r0, #0
+ 738 0036 EBE7     		b	.L52
+ 739              	.L61:
+ 740              		.align	2
+ 741              	.L60:
+ 742 0038 00000000 		.word	lv_global
+ 743 003c 90010000 		.word	lv_global+400
+ 744              		.cfi_endproc
+ 745              	.LFE242:
+ 747              		.section	.bss.work_mem_int.0,"aw",%nobits
+ 748              		.align	2
+ 751              	work_mem_int.0:
+ 752 0000 00000000 		.space	65536
+ 752      00000000 
+ 752      00000000 
+ 752      00000000 
+ 752      00000000 
+ 753              		.text
+ 754              	.Letext0:
+ 755              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 24
+
+
+ 756              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 757              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 758              		.file 7 "Lib/lvgl/src/stdlib/builtin/../../misc/lv_types.h"
+ 759              		.file 8 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj.h"
+ 760              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_class.h"
+ 761              		.file 10 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 762              		.file 11 "Lib/lvgl/src/stdlib/builtin/../../core/../draw/lv_draw.h"
+ 763              		.file 12 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_event.h"
+ 764              		.file 13 "Lib/lvgl/src/stdlib/builtin/../../core/../draw/../misc/lv_timer.h"
+ 765              		.file 14 "Lib/lvgl/src/stdlib/builtin/../lv_mem.h"
+ 766              		.file 15 "Lib/lvgl/src/stdlib/builtin/../../osal/lv_os_none.h"
+ 767              		.file 16 "Lib/lvgl/src/stdlib/builtin/lv_tlsf.h"
+ 768              		.file 17 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 769              		.file 18 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+ 770              		.file 19 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_image_buf.h"
+ 771              		.file 20 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_draw_buf.h"
+ 772              		.file 21 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\tick\\lv_tick.h"
+ 773              		.file 22 "Lib/lvgl/src/stdlib/builtin/../../core/../draw/../misc/lv_anim.h"
+ 774              		.file 23 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\layouts\\lv_layout.h"
+ 775              		.file 24 "Lib/lvgl/src/stdlib/builtin/../../core/../draw/../misc/lv_style.h"
+ 776              		.file 25 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_array.h"
+ 777              		.file 26 "Lib/lvgl/src/stdlib/builtin/../../core/../draw/sw/blend/../lv_draw_sw_mask.h"
+ 778              		.file 27 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
+ 779              		.file 28 "Lib/lvgl/src/stdlib/builtin/../../core/lv_global.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s 			page 25
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_mem_core_builtin.c
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:21     .text.lv_mem_walker:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:26     .text.lv_mem_walker:00000000 lv_mem_walker
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:85     .text.lv_mem_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:91     .text.lv_mem_init:00000000 lv_mem_init
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:152    .text.lv_mem_init:00000038 $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:751    .bss.work_mem_int.0:00000000 work_mem_int.0
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:158    .text.lv_mem_deinit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:164    .text.lv_mem_deinit:00000000 lv_mem_deinit
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:202    .text.lv_mem_deinit:00000018 $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:207    .text.lv_mem_add_pool:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:213    .text.lv_mem_add_pool:00000000 lv_mem_add_pool
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:274    .text.lv_mem_add_pool:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:280    .text.lv_mem_remove_pool:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:286    .text.lv_mem_remove_pool:00000000 lv_mem_remove_pool
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:358    .text.lv_mem_remove_pool:0000003c $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:363    .text.lv_malloc_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:369    .text.lv_malloc_core:00000000 lv_malloc_core
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:411    .text.lv_malloc_core:00000028 $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:416    .text.lv_realloc_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:422    .text.lv_realloc_core:00000000 lv_realloc_core
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:453    .text.lv_realloc_core:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:458    .text.lv_free_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:464    .text.lv_free_core:00000000 lv_free_core
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:510    .text.lv_free_core:00000028 $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:516    .text.lv_mem_monitor_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:522    .text.lv_mem_monitor_core:00000000 lv_mem_monitor_core
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:663    .text.lv_mem_monitor_core:000000b0 $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:670    .text.lv_mem_test_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:676    .text.lv_mem_test_core:00000000 lv_mem_test_core
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:742    .text.lv_mem_test_core:00000038 $d
+C:\Users\Alex\AppData\Local\Temp\ccCql5Cv.s:748    .bss.work_mem_int.0:00000000 $d
+
+UNDEFINED SYMBOLS
+lv_tlsf_create_with_pool
+_lv_ll_init
+_lv_ll_ins_tail
+lv_tlsf_get_pool
+lv_global
+_lv_ll_clear_custom
+lv_tlsf_destroy
+lv_tlsf_add_pool
+_lv_ll_get_head
+_lv_ll_get_next
+_lv_ll_remove
+lv_free
+lv_tlsf_remove_pool
+lv_tlsf_malloc
+lv_tlsf_realloc
+lv_tlsf_free
+__aeabi_uldivmod
+lv_memset
+lv_tlsf_walk_pool
+lv_tlsf_check
+lv_tlsf_check_pool

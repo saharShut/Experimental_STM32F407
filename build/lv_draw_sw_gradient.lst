@@ -1,0 +1,1165 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_draw_sw_gradient.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c"
+  20              		.section	.text.allocate_item,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	allocate_item:
+  27              	.LVL0:
+  28              	.LFB82:
+   1:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** /**
+   2:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  * @file lv_draw_sw_gradient.c
+   3:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *
+   4:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  */
+   5:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+   6:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** /*********************
+   7:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *********************/
+   9:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #include "lv_draw_sw_gradient.h"
+  10:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #if LV_USE_DRAW_SW
+  11:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  12:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #include "../../misc/lv_types.h"
+  13:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #include "../../osal/lv_os.h"
+  14:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  15:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** /*********************
+  16:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *      DEFINES
+  17:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *********************/
+  18:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #define GRAD_CM(r,g,b) lv_color_make(r,g,b)
+  19:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #define GRAD_CONV(t, x) t = x
+  20:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  21:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #undef ALIGN
+  22:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #if defined(LV_ARCH_64)
+  23:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     #define ALIGN(X)    (((X) + 7) & ~7)
+  24:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #else
+  25:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     #define ALIGN(X)    (((X) + 3) & ~3)
+  26:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** #endif
+  27:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  28:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** /**********************
+  29:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *  STATIC PROTOTYPES
+  30:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  **********************/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 2
+
+
+  31:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** typedef lv_result_t (*op_cache_t)(lv_grad_t * c, void * ctx);
+  32:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** static lv_grad_t * allocate_item(const lv_grad_dsc_t * g, int32_t w, int32_t h);
+  33:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  34:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** /**********************
+  35:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *   STATIC VARIABLE
+  36:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  **********************/
+  37:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  38:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** /**********************
+  39:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *   STATIC FUNCTIONS
+  40:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  **********************/
+  41:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  42:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** static lv_grad_t * allocate_item(const lv_grad_dsc_t * g, int32_t w, int32_t h)
+  43:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** {
+  29              		.loc 1 43 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 43 1 is_stmt 0 view .LVU1
+  34 0000 38B5     		push	{r3, r4, r5, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 3, -16
+  38              		.cfi_offset 4, -12
+  39              		.cfi_offset 5, -8
+  40              		.cfi_offset 14, -4
+  41 0002 1546     		mov	r5, r2
+  44:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     int32_t size = g->dir == LV_GRAD_DIR_HOR ? w : h;
+  42              		.loc 1 44 5 is_stmt 1 view .LVU2
+  43              		.loc 1 44 27 is_stmt 0 view .LVU3
+  44 0004 C37A     		ldrb	r3, [r0, #11]	@ zero_extendqisi2
+  45 0006 03F00703 		and	r3, r3, #7
+  46              		.loc 1 44 50 view .LVU4
+  47 000a 022B     		cmp	r3, #2
+  48 000c 14D0     		beq	.L6
+  49              	.L2:
+  50              	.LVL1:
+  45:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  46:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     size_t req_size = ALIGN(sizeof(lv_grad_t)) + ALIGN(size * sizeof(lv_color_t)) + ALIGN(size * si
+  51              		.loc 1 46 5 is_stmt 1 discriminator 4 view .LVU5
+  52              		.loc 1 46 50 is_stmt 0 discriminator 4 view .LVU6
+  53 000e 6B1C     		adds	r3, r5, #1
+  54 0010 03EB4303 		add	r3, r3, r3, lsl #1
+  55 0014 23F00304 		bic	r4, r3, #3
+  56              		.loc 1 46 85 discriminator 4 view .LVU7
+  57 0018 E81C     		adds	r0, r5, #3
+  58              	.LVL2:
+  59              		.loc 1 46 85 discriminator 4 view .LVU8
+  60 001a 20F00300 		bic	r0, r0, #3
+  61              		.loc 1 46 83 discriminator 4 view .LVU9
+  62 001e 2044     		add	r0, r0, r4
+  63              	.LVL3:
+  47:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_grad_t * item  = lv_malloc(req_size);
+  64              		.loc 1 47 5 is_stmt 1 discriminator 4 view .LVU10
+  65              		.loc 1 47 25 is_stmt 0 discriminator 4 view .LVU11
+  66 0020 0C30     		adds	r0, r0, #12
+  67              	.LVL4:
+  68              		.loc 1 47 25 discriminator 4 view .LVU12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 3
+
+
+  69 0022 FFF7FEFF 		bl	lv_malloc
+  70              	.LVL5:
+  48:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     LV_ASSERT_MALLOC(item);
+  71              		.loc 1 48 5 is_stmt 1 discriminator 4 view .LVU13
+  72              		.loc 1 48 5 discriminator 4 view .LVU14
+  73 0026 48B1     		cbz	r0, .L4
+  74              		.loc 1 48 5 view .LVU15
+  75              		.loc 1 48 27 view .LVU16
+  49:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) return NULL;
+  76              		.loc 1 49 5 view .LVU17
+  50:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  51:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     uint8_t * p = (uint8_t *)item;
+  77              		.loc 1 51 5 view .LVU18
+  78              	.LVL6:
+  52:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     item->color_map = (lv_color_t *)(p + ALIGN(sizeof(*item)));
+  79              		.loc 1 52 5 view .LVU19
+  80              		.loc 1 52 40 is_stmt 0 view .LVU20
+  81 0028 00F10C02 		add	r2, r0, #12
+  82              		.loc 1 52 21 view .LVU21
+  83 002c 0260     		str	r2, [r0]
+  53:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     item->opa_map = (lv_opa_t *)(p + ALIGN(sizeof(*item)) + ALIGN(size * sizeof(lv_color_t)));
+  84              		.loc 1 53 5 is_stmt 1 view .LVU22
+  85              		.loc 1 53 59 is_stmt 0 view .LVU23
+  86 002e 0C34     		adds	r4, r4, #12
+  87              	.LVL7:
+  88              		.loc 1 53 59 view .LVU24
+  89 0030 0444     		add	r4, r4, r0
+  90              	.LVL8:
+  91              		.loc 1 53 19 view .LVU25
+  92 0032 4460     		str	r4, [r0, #4]
+  54:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     item->size = size;
+  93              		.loc 1 54 5 is_stmt 1 view .LVU26
+  94              		.loc 1 54 16 is_stmt 0 view .LVU27
+  95 0034 8560     		str	r5, [r0, #8]
+  55:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     return item;
+  96              		.loc 1 55 5 is_stmt 1 view .LVU28
+  56:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+  97              		.loc 1 56 1 is_stmt 0 view .LVU29
+  98 0036 38BD     		pop	{r3, r4, r5, pc}
+  99              	.LVL9:
+ 100              	.L6:
+  44:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 101              		.loc 1 44 50 view .LVU30
+ 102 0038 0D46     		mov	r5, r1
+ 103 003a E8E7     		b	.L2
+ 104              	.LVL10:
+ 105              	.L4:
+  48:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) return NULL;
+ 106              		.loc 1 48 5 is_stmt 1 discriminator 1 view .LVU31
+  48:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) return NULL;
+ 107              		.loc 1 48 5 discriminator 1 view .LVU32
+  48:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) return NULL;
+ 108              		.loc 1 48 5 discriminator 1 view .LVU33
+  48:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) return NULL;
+ 109              		.loc 1 48 5 discriminator 1 view .LVU34
+  48:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) return NULL;
+ 110              		.loc 1 48 5 discriminator 1 view .LVU35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 4
+
+
+ 111 003c FEE7     		b	.L4
+ 112              		.cfi_endproc
+ 113              	.LFE82:
+ 115              		.section	.text.lv_gradient_color_calculate,"ax",%progbits
+ 116              		.align	1
+ 117              		.global	lv_gradient_color_calculate
+ 118              		.syntax unified
+ 119              		.thumb
+ 120              		.thumb_func
+ 122              	lv_gradient_color_calculate:
+ 123              	.LVL11:
+ 124              	.LFB84:
+  57:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  58:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** /**********************
+  59:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  *     FUNCTIONS
+  60:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****  **********************/
+  61:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  62:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** lv_grad_t * lv_gradient_get(const lv_grad_dsc_t * g, int32_t w, int32_t h)
+  63:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** {
+  64:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     /* No gradient, no cache */
+  65:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(g->dir == LV_GRAD_DIR_NONE) return NULL;
+  66:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  67:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     /* Step 1: Search cache for the given key */
+  68:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_grad_t * item = allocate_item(g, w, h);
+  69:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) {
+  70:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         LV_LOG_WARN("Failed to allocate item for the gradient");
+  71:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return item;
+  72:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+  73:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  74:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     /* Step 3: Fill it with the gradient, as expected */
+  75:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     uint32_t i;
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     for(i = 0; i < item->size; i++) {
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         lv_gradient_color_calculate(g, item->size, i, &item->color_map[i], &item->opa_map[i]);
+  78:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+  79:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     return item;
+  80:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+  81:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  82:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** LV_ATTRIBUTE_FAST_MEM void lv_gradient_color_calculate(const lv_grad_dsc_t * dsc, int32_t range,
+  83:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                                                        int32_t frac, lv_grad_color_t * color_out, l
+  84:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** {
+ 125              		.loc 1 84 1 view -0
+ 126              		.cfi_startproc
+ 127              		@ args = 4, pretend = 0, frame = 24
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129              		.loc 1 84 1 is_stmt 0 view .LVU37
+ 130 0000 70B5     		push	{r4, r5, r6, lr}
+ 131              	.LCFI1:
+ 132              		.cfi_def_cfa_offset 16
+ 133              		.cfi_offset 4, -16
+ 134              		.cfi_offset 5, -12
+ 135              		.cfi_offset 6, -8
+ 136              		.cfi_offset 14, -4
+ 137 0002 86B0     		sub	sp, sp, #24
+ 138              	.LCFI2:
+ 139              		.cfi_def_cfa_offset 40
+  85:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_grad_color_t tmp;
+ 140              		.loc 1 85 5 is_stmt 1 view .LVU38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 5
+
+
+  86:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     /*Clip out-of-bounds first*/
+  87:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     int32_t min = (dsc->stops[0].frac * range) >> 8;
+ 141              		.loc 1 87 5 view .LVU39
+ 142              		.loc 1 87 33 is_stmt 0 view .LVU40
+ 143 0004 0479     		ldrb	r4, [r0, #4]	@ zero_extendqisi2
+ 144              		.loc 1 87 39 view .LVU41
+ 145 0006 01FB04F4 		mul	r4, r1, r4
+ 146              	.LVL12:
+  88:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(frac <= min) {
+ 147              		.loc 1 88 5 is_stmt 1 view .LVU42
+ 148              		.loc 1 88 7 is_stmt 0 view .LVU43
+ 149 000a B2EB242F 		cmp	r2, r4, asr #8
+ 150 000e 1FDD     		ble	.L18
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         GRAD_CONV(tmp, dsc->stops[0].color);
+  90:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *color_out = tmp;
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *opa_out = dsc->stops[0].opa;
+  92:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+  93:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+  94:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+  95:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     int32_t max = (dsc->stops[dsc->stops_count - 1].frac * range) >> 8;
+ 151              		.loc 1 95 5 is_stmt 1 view .LVU44
+ 152              		.loc 1 95 34 is_stmt 0 view .LVU45
+ 153 0010 857A     		ldrb	r5, [r0, #10]	@ zero_extendqisi2
+ 154              		.loc 1 95 48 view .LVU46
+ 155 0012 6C1E     		subs	r4, r5, #1
+ 156              	.LVL13:
+ 157              		.loc 1 95 52 view .LVU47
+ 158 0014 04EB840C 		add	ip, r4, r4, lsl #2
+ 159 0018 8444     		add	ip, ip, r0
+ 160 001a 9CF804C0 		ldrb	ip, [ip, #4]	@ zero_extendqisi2
+ 161              		.loc 1 95 58 view .LVU48
+ 162 001e 01FB0CFC 		mul	ip, r1, ip
+ 163              	.LVL14:
+  96:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(frac >= max) {
+ 164              		.loc 1 96 5 is_stmt 1 view .LVU49
+ 165              		.loc 1 96 7 is_stmt 0 view .LVU50
+ 166 0022 B2EB2C2F 		cmp	r2, ip, asr #8
+ 167 0026 23DA     		bge	.L19
+ 168              	.LBB6:
+  97:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         GRAD_CONV(tmp, dsc->stops[dsc->stops_count - 1].color);
+  98:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *color_out = tmp;
+  99:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *opa_out = dsc->stops[dsc->stops_count - 1].opa;
+ 100:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 101:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 102:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 103:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     /*Find the 2 closest stop now*/
+ 104:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     int32_t d = 0;
+ 105:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     int32_t found_i = 0;
+ 106:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     for(uint8_t i = 1; i < dsc->stops_count; i++) {
+ 169              		.loc 1 106 17 view .LVU51
+ 170 0028 4FF0010C 		mov	ip, #1
+ 171              	.LVL15:
+ 172              	.L10:
+ 173              		.loc 1 106 26 is_stmt 1 discriminator 1 view .LVU52
+ 174 002c 6545     		cmp	r5, ip
+ 175 002e 36D9     		bls	.L20
+ 176              	.LBB7:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 6
+
+
+ 107:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         int32_t cur = (dsc->stops[i].frac * range) >> 8;
+ 177              		.loc 1 107 9 view .LVU53
+ 178              		.loc 1 107 37 is_stmt 0 view .LVU54
+ 179 0030 6446     		mov	r4, ip
+ 180 0032 0CEB8C0E 		add	lr, ip, ip, lsl #2
+ 181 0036 8644     		add	lr, lr, r0
+ 182 0038 9EF804E0 		ldrb	lr, [lr, #4]	@ zero_extendqisi2
+ 183              		.loc 1 107 43 view .LVU55
+ 184 003c 01FB0EFE 		mul	lr, r1, lr
+ 185              	.LVL16:
+ 108:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         if(frac <= cur) {
+ 186              		.loc 1 108 9 is_stmt 1 view .LVU56
+ 187              		.loc 1 108 11 is_stmt 0 view .LVU57
+ 188 0040 B2EB2E2F 		cmp	r2, lr, asr #8
+ 189 0044 2CDD     		ble	.L11
+ 190              	.LBE7:
+ 106:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         int32_t cur = (dsc->stops[i].frac * range) >> 8;
+ 191              		.loc 1 106 47 is_stmt 1 discriminator 2 view .LVU58
+ 192 0046 0CF1010C 		add	ip, ip, #1
+ 193              	.LVL17:
+ 106:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         int32_t cur = (dsc->stops[i].frac * range) >> 8;
+ 194              		.loc 1 106 47 is_stmt 0 discriminator 2 view .LVU59
+ 195 004a 5FFA8CFC 		uxtb	ip, ip
+ 196              	.LVL18:
+ 106:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         int32_t cur = (dsc->stops[i].frac * range) >> 8;
+ 197              		.loc 1 106 47 discriminator 2 view .LVU60
+ 198 004e EDE7     		b	.L10
+ 199              	.LVL19:
+ 200              	.L18:
+ 106:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         int32_t cur = (dsc->stops[i].frac * range) >> 8;
+ 201              		.loc 1 106 47 discriminator 2 view .LVU61
+ 202              	.LBE6:
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *color_out = tmp;
+ 203              		.loc 1 89 9 is_stmt 1 view .LVU62
+ 204 0050 0188     		ldrh	r1, [r0]	@ unaligned
+ 205              	.LVL20:
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *color_out = tmp;
+ 206              		.loc 1 89 9 is_stmt 0 view .LVU63
+ 207 0052 8278     		ldrb	r2, [r0, #2]	@ zero_extendqisi2
+ 208              	.LVL21:
+  89:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *color_out = tmp;
+ 209              		.loc 1 89 9 view .LVU64
+ 210 0054 ADF80C10 		strh	r1, [sp, #12]	@ unaligned
+ 211 0058 8DF80E20 		strb	r2, [sp, #14]
+  90:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *opa_out = dsc->stops[0].opa;
+ 212              		.loc 1 90 9 is_stmt 1 view .LVU65
+  90:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *opa_out = dsc->stops[0].opa;
+ 213              		.loc 1 90 20 is_stmt 0 view .LVU66
+ 214 005c BDF80C10 		ldrh	r1, [sp, #12]	@ unaligned
+ 215 0060 D2B2     		uxtb	r2, r2
+ 216 0062 1980     		strh	r1, [r3]	@ unaligned
+ 217 0064 9A70     		strb	r2, [r3, #2]
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 218              		.loc 1 91 9 is_stmt 1 view .LVU67
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 219              		.loc 1 91 33 is_stmt 0 view .LVU68
+ 220 0066 C378     		ldrb	r3, [r0, #3]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 7
+
+
+ 221              	.LVL22:
+  91:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 222              		.loc 1 91 18 view .LVU69
+ 223 0068 0A9A     		ldr	r2, [sp, #40]
+ 224 006a 1370     		strb	r3, [r2]
+  92:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 225              		.loc 1 92 9 is_stmt 1 view .LVU70
+ 226              	.LVL23:
+ 227              	.L7:
+ 109:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****             found_i = i;
+ 110:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****             break;
+ 111:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         }
+ 112:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 113:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     LV_ASSERT(found_i != 0);
+ 115:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 116:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_color_t one, two;
+ 117:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     one = dsc->stops[found_i - 1].color;
+ 118:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     two = dsc->stops[found_i].color;
+ 119:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     min = (dsc->stops[found_i - 1].frac * range) >> 8;
+ 120:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     max = (dsc->stops[found_i].frac * range) >> 8;
+ 121:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     d = max - min;
+ 122:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 123:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     /*Then interpolate*/
+ 124:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     frac -= min;
+ 125:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_opa_t mix = (frac * 255) / d;
+ 126:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_opa_t imix = 255 - mix;
+ 127:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 128:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     *color_out = GRAD_CM(LV_UDIV255(two.red * mix   + one.red * imix),
+ 129:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                          LV_UDIV255(two.green * mix + one.green * imix),
+ 130:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                          LV_UDIV255(two.blue * mix  + one.blue * imix));
+ 131:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 132:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     *opa_out = LV_UDIV255(dsc->stops[found_i].opa * mix   + dsc->stops[found_i - 1].opa * imix);
+ 133:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+ 228              		.loc 1 133 1 is_stmt 0 view .LVU71
+ 229 006c 06B0     		add	sp, sp, #24
+ 230              	.LCFI3:
+ 231              		.cfi_remember_state
+ 232              		.cfi_def_cfa_offset 16
+ 233              		@ sp needed
+ 234 006e 70BD     		pop	{r4, r5, r6, pc}
+ 235              	.LVL24:
+ 236              	.L19:
+ 237              	.LCFI4:
+ 238              		.cfi_restore_state
+  97:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *color_out = tmp;
+ 239              		.loc 1 97 9 is_stmt 1 view .LVU72
+ 240 0070 04EB8404 		add	r4, r4, r4, lsl #2
+ 241 0074 0219     		adds	r2, r0, r4
+ 242              	.LVL25:
+  97:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *color_out = tmp;
+ 243              		.loc 1 97 9 is_stmt 0 view .LVU73
+ 244 0076 015B     		ldrh	r1, [r0, r4]	@ unaligned
+ 245              	.LVL26:
+  97:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *color_out = tmp;
+ 246              		.loc 1 97 9 view .LVU74
+ 247 0078 9278     		ldrb	r2, [r2, #2]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 8
+
+
+ 248 007a ADF80C10 		strh	r1, [sp, #12]	@ unaligned
+ 249 007e 8DF80E20 		strb	r2, [sp, #14]
+  98:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *opa_out = dsc->stops[dsc->stops_count - 1].opa;
+ 250              		.loc 1 98 9 is_stmt 1 view .LVU75
+  98:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *opa_out = dsc->stops[dsc->stops_count - 1].opa;
+ 251              		.loc 1 98 20 is_stmt 0 view .LVU76
+ 252 0082 BDF80C10 		ldrh	r1, [sp, #12]	@ unaligned
+ 253 0086 D2B2     		uxtb	r2, r2
+ 254 0088 1980     		strh	r1, [r3]	@ unaligned
+ 255              	.LVL27:
+  98:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         *opa_out = dsc->stops[dsc->stops_count - 1].opa;
+ 256              		.loc 1 98 20 view .LVU77
+ 257 008a 9A70     		strb	r2, [r3, #2]
+  99:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 258              		.loc 1 99 9 is_stmt 1 view .LVU78
+  99:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 259              		.loc 1 99 34 is_stmt 0 view .LVU79
+ 260 008c 837A     		ldrb	r3, [r0, #10]	@ zero_extendqisi2
+ 261              	.LVL28:
+  99:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 262              		.loc 1 99 48 view .LVU80
+ 263 008e 013B     		subs	r3, r3, #1
+  99:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 264              		.loc 1 99 52 view .LVU81
+ 265 0090 03EB8303 		add	r3, r3, r3, lsl #2
+ 266 0094 0344     		add	r3, r3, r0
+ 267 0096 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+  99:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         return;
+ 268              		.loc 1 99 18 view .LVU82
+ 269 0098 0A9A     		ldr	r2, [sp, #40]
+ 270 009a 1370     		strb	r3, [r2]
+ 100:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 271              		.loc 1 100 9 is_stmt 1 view .LVU83
+ 272 009c E6E7     		b	.L7
+ 273              	.LVL29:
+ 274              	.L20:
+ 105:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     for(uint8_t i = 1; i < dsc->stops_count; i++) {
+ 275              		.loc 1 105 13 is_stmt 0 view .LVU84
+ 276 009e 0024     		movs	r4, #0
+ 277              	.L11:
+ 278              	.LVL30:
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 279              		.loc 1 114 5 is_stmt 1 view .LVU85
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 280              		.loc 1 114 5 view .LVU86
+ 281 00a0 04B9     		cbnz	r4, .L13
+ 282              	.L14:
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 283              		.loc 1 114 5 discriminator 1 view .LVU87
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 284              		.loc 1 114 5 discriminator 1 view .LVU88
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 285              		.loc 1 114 5 discriminator 1 view .LVU89
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 286              		.loc 1 114 5 discriminator 1 view .LVU90
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 287              		.loc 1 114 5 discriminator 1 view .LVU91
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 9
+
+
+ 288 00a2 FEE7     		b	.L14
+ 289              	.L13:
+ 114:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 290              		.loc 1 114 5 discriminator 2 view .LVU92
+ 116:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     one = dsc->stops[found_i - 1].color;
+ 291              		.loc 1 116 5 discriminator 2 view .LVU93
+ 117:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     two = dsc->stops[found_i].color;
+ 292              		.loc 1 117 5 discriminator 2 view .LVU94
+ 117:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     two = dsc->stops[found_i].color;
+ 293              		.loc 1 117 30 is_stmt 0 discriminator 2 view .LVU95
+ 294 00a4 04F1FF3C 		add	ip, r4, #-1
+ 295              	.LVL31:
+ 117:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     two = dsc->stops[found_i].color;
+ 296              		.loc 1 117 9 discriminator 2 view .LVU96
+ 297 00a8 0CEB8C0C 		add	ip, ip, ip, lsl #2
+ 298 00ac 00EB0C05 		add	r5, r0, ip
+ 299              	.LVL32:
+ 117:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     two = dsc->stops[found_i].color;
+ 300              		.loc 1 117 9 discriminator 2 view .LVU97
+ 301 00b0 30F80CC0 		ldrh	ip, [r0, ip]	@ unaligned
+ 302 00b4 AE78     		ldrb	r6, [r5, #2]	@ zero_extendqisi2
+ 303 00b6 ADF808C0 		strh	ip, [sp, #8]	@ unaligned
+ 304 00ba 8DF80A60 		strb	r6, [sp, #10]
+ 118:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     min = (dsc->stops[found_i - 1].frac * range) >> 8;
+ 305              		.loc 1 118 5 is_stmt 1 discriminator 2 view .LVU98
+ 118:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     min = (dsc->stops[found_i - 1].frac * range) >> 8;
+ 306              		.loc 1 118 9 is_stmt 0 discriminator 2 view .LVU99
+ 307 00be 04EB8404 		add	r4, r4, r4, lsl #2
+ 308              	.LVL33:
+ 118:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     min = (dsc->stops[found_i - 1].frac * range) >> 8;
+ 309              		.loc 1 118 9 discriminator 2 view .LVU100
+ 310 00c2 00EB040C 		add	ip, r0, r4
+ 311 00c6 045B     		ldrh	r4, [r0, r4]	@ unaligned
+ 312 00c8 9CF80200 		ldrb	r0, [ip, #2]	@ zero_extendqisi2
+ 313              	.LVL34:
+ 118:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     min = (dsc->stops[found_i - 1].frac * range) >> 8;
+ 314              		.loc 1 118 9 discriminator 2 view .LVU101
+ 315 00cc ADF80440 		strh	r4, [sp, #4]	@ unaligned
+ 316 00d0 8DF80600 		strb	r0, [sp, #6]
+ 119:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     max = (dsc->stops[found_i].frac * range) >> 8;
+ 317              		.loc 1 119 5 is_stmt 1 discriminator 2 view .LVU102
+ 119:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     max = (dsc->stops[found_i].frac * range) >> 8;
+ 318              		.loc 1 119 35 is_stmt 0 discriminator 2 view .LVU103
+ 319 00d4 2C79     		ldrb	r4, [r5, #4]	@ zero_extendqisi2
+ 119:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     max = (dsc->stops[found_i].frac * range) >> 8;
+ 320              		.loc 1 119 41 discriminator 2 view .LVU104
+ 321 00d6 01FB04F4 		mul	r4, r1, r4
+ 322              	.LVL35:
+ 120:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     d = max - min;
+ 323              		.loc 1 120 5 is_stmt 1 discriminator 2 view .LVU105
+ 120:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     d = max - min;
+ 324              		.loc 1 120 31 is_stmt 0 discriminator 2 view .LVU106
+ 325 00da 9CF80400 		ldrb	r0, [ip, #4]	@ zero_extendqisi2
+ 120:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     d = max - min;
+ 326              		.loc 1 120 37 discriminator 2 view .LVU107
+ 327 00de 00FB01F1 		mul	r1, r0, r1
+ 328              	.LVL36:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 10
+
+
+ 120:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     d = max - min;
+ 329              		.loc 1 120 9 discriminator 2 view .LVU108
+ 330 00e2 0912     		asrs	r1, r1, #8
+ 331              	.LVL37:
+ 121:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 332              		.loc 1 121 5 is_stmt 1 discriminator 2 view .LVU109
+ 121:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 333              		.loc 1 121 7 is_stmt 0 discriminator 2 view .LVU110
+ 334 00e4 A1EB2421 		sub	r1, r1, r4, asr #8
+ 335              	.LVL38:
+ 124:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_opa_t mix = (frac * 255) / d;
+ 336              		.loc 1 124 5 is_stmt 1 discriminator 2 view .LVU111
+ 124:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_opa_t mix = (frac * 255) / d;
+ 337              		.loc 1 124 10 is_stmt 0 discriminator 2 view .LVU112
+ 338 00e8 A2EB2422 		sub	r2, r2, r4, asr #8
+ 339              	.LVL39:
+ 125:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_opa_t imix = 255 - mix;
+ 340              		.loc 1 125 5 is_stmt 1 discriminator 2 view .LVU113
+ 125:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_opa_t imix = 255 - mix;
+ 341              		.loc 1 125 26 is_stmt 0 discriminator 2 view .LVU114
+ 342 00ec C2EB0222 		rsb	r2, r2, r2, lsl #8
+ 343              	.LVL40:
+ 125:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_opa_t imix = 255 - mix;
+ 344              		.loc 1 125 33 discriminator 2 view .LVU115
+ 345 00f0 92FBF1F2 		sdiv	r2, r2, r1
+ 125:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_opa_t imix = 255 - mix;
+ 346              		.loc 1 125 14 discriminator 2 view .LVU116
+ 347 00f4 D2B2     		uxtb	r2, r2
+ 348              	.LVL41:
+ 126:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 349              		.loc 1 126 5 is_stmt 1 discriminator 2 view .LVU117
+ 126:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 350              		.loc 1 126 14 is_stmt 0 discriminator 2 view .LVU118
+ 351 00f6 D143     		mvns	r1, r2
+ 352              	.LVL42:
+ 126:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 353              		.loc 1 126 14 discriminator 2 view .LVU119
+ 354 00f8 C9B2     		uxtb	r1, r1
+ 355              	.LVL43:
+ 128:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                          LV_UDIV255(two.green * mix + one.green * imix),
+ 356              		.loc 1 128 5 is_stmt 1 discriminator 2 view .LVU120
+ 128:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                          LV_UDIV255(two.green * mix + one.green * imix),
+ 357              		.loc 1 128 18 is_stmt 0 discriminator 2 view .LVU121
+ 358 00fa 9DF80640 		ldrb	r4, [sp, #6]	@ zero_extendqisi2
+ 359              	.LVL44:
+ 128:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                          LV_UDIV255(two.green * mix + one.green * imix),
+ 360              		.loc 1 128 18 discriminator 2 view .LVU122
+ 361 00fe F0B2     		uxtb	r0, r6
+ 362              	.LVL45:
+ 128:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                          LV_UDIV255(two.green * mix + one.green * imix),
+ 363              		.loc 1 128 18 discriminator 2 view .LVU123
+ 364 0100 01FB00F0 		mul	r0, r1, r0
+ 365 0104 02FB0400 		mla	r0, r2, r4, r0
+ 366 0108 00EB0024 		add	r4, r0, r0, lsl #8
+ 367 010c 00EBC410 		add	r0, r0, r4, lsl #7
+ 368 0110 C0F3C75E 		ubfx	lr, r0, #23, #8
+ 369 0114 9DF80540 		ldrb	r4, [sp, #5]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 11
+
+
+ 370 0118 9DF80900 		ldrb	r0, [sp, #9]	@ zero_extendqisi2
+ 371 011c 01FB00F0 		mul	r0, r1, r0
+ 372 0120 02FB0400 		mla	r0, r2, r4, r0
+ 373 0124 00EB0024 		add	r4, r0, r0, lsl #8
+ 374 0128 00EBC410 		add	r0, r0, r4, lsl #7
+ 375 012c C0F3C754 		ubfx	r4, r0, #23, #8
+ 376 0130 9DF80460 		ldrb	r6, [sp, #4]	@ zero_extendqisi2
+ 377 0134 9DF80800 		ldrb	r0, [sp, #8]	@ zero_extendqisi2
+ 378 0138 01FB00F0 		mul	r0, r1, r0
+ 379 013c 02FB0600 		mla	r0, r2, r6, r0
+ 380 0140 00EB0026 		add	r6, r0, r0, lsl #8
+ 381 0144 00EBC610 		add	r0, r0, r6, lsl #7
+ 382 0148 C0F3C750 		ubfx	r0, r0, #23, #8
+ 383              	.LVL46:
+ 384              	.LBB8:
+ 385              	.LBI8:
+ 386              		.file 2 "Lib/lvgl/src/draw/sw/../../misc/lv_color.h"
+   1:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+   2:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @file lv_color.h
+   3:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  *
+   4:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+   5:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+   6:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #ifndef LV_COLOR_H
+   7:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_COLOR_H
+   8:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+   9:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** extern "C" {
+  11:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #endif
+  12:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  13:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /*********************
+  14:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  *********************/
+  16:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #include "lv_assert.h"
+  18:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #include "lv_math.h"
+  19:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #include "lv_types.h"
+  20:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #include <stdint.h>
+  21:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #include <stdbool.h>
+  22:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  23:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /*********************
+  24:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  *      DEFINES
+  25:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  *********************/
+  26:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** LV_EXPORT_CONST_INT(LV_COLOR_DEPTH);
+  27:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  28:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #if LV_COLOR_DEPTH == 8
+  29:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 2
+  30:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 16
+  31:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 3
+  32:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 24
+  33:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  34:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 32
+  35:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  36:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #endif
+  37:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  38:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+  39:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Opacity percentages.
+  40:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 12
+
+
+  41:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  42:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** enum _lv_opa_t {
+  43:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_TRANSP = 0,
+  44:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_0      = 0,
+  45:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_10     = 25,
+  46:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_20     = 51,
+  47:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_30     = 76,
+  48:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_40     = 102,
+  49:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_50     = 127,
+  50:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_60     = 153,
+  51:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_70     = 178,
+  52:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_80     = 204,
+  53:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_90     = 229,
+  54:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_100    = 255,
+  55:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_OPA_COVER  = 255,
+  56:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** };
+  57:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  58:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #ifdef DOXYGEN
+  59:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** typedef _lv_opa_t lv_opa_t;
+  60:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #else
+  61:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** typedef uint8_t lv_opa_t;
+  62:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #endif /*DOXYGEN*/
+  63:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  64:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_OPA_MIN 2    /*Opacities below this will be transparent*/
+  65:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_OPA_MAX 253  /*Opacities above this will fully cover*/
+  66:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  67:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_COLOR_FORMAT_GET_BPP(cf) (       \
+  68:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I1 ? 1 :        \
+  69:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A1 ? 1 :        \
+  70:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I2 ? 2 :        \
+  71:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A2 ? 2 :        \
+  72:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I4 ? 4 :        \
+  73:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A4 ? 4 :        \
+  74:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_L8 ? 8 :        \
+  75:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A8 ? 8 :        \
+  76:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I8 ? 8 :        \
+  77:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565 ? 16 :   \
+  78:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565A8 ? 24 : \
+  79:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB888 ? 24 :   \
+  80:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_ARGB8888 ? 32 : \
+  81:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_XRGB8888 ? 32 : \
+  82:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                             0                                       \
+  83:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                     )
+  84:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  85:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**********************
+  86:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  *      TYPEDEFS
+  87:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  **********************/
+  88:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  89:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** typedef struct {
+  90:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t blue;
+  91:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t green;
+  92:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t red;
+  93:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** } lv_color_t;
+  94:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+  95:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** typedef struct {
+  96:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint16_t blue : 5;
+  97:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint16_t green : 6;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 13
+
+
+  98:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint16_t red : 5;
+  99:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** } lv_color16_t;
+ 100:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 101:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** typedef struct {
+ 102:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t blue;
+ 103:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t green;
+ 104:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t red;
+ 105:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t alpha;
+ 106:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** } lv_color32_t;
+ 107:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 108:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** typedef struct {
+ 109:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint16_t h;
+ 110:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t s;
+ 111:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t v;
+ 112:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** } lv_color_hsv_t;
+ 113:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 114:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** enum _lv_color_format_t {
+ 115:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_UNKNOWN           = 0,
+ 116:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 117:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_RAW               = 0x01,
+ 118:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_RAW_ALPHA         = 0x02,
+ 119:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 120:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     /*<=1 byte (+alpha) formats*/
+ 121:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_L8                = 0x06,
+ 122:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_I1                = 0x07,
+ 123:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_I2                = 0x08,
+ 124:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_I4                = 0x09,
+ 125:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_I8                = 0x0A,
+ 126:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_A8                = 0x0E,
+ 127:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 128:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     /*2 byte (+alpha) formats*/
+ 129:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB565            = 0x12,
+ 130:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB565A8          = 0x14    /**< Color array followed by Alpha array*/,
+ 131:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 132:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     /*3 byte (+alpha) formats*/
+ 133:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB888            = 0x0F,
+ 134:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_ARGB8888          = 0x10,
+ 135:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_XRGB8888          = 0x11,
+ 136:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 137:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     /*Formats not supported by software renderer but kept here so GPU can use it*/
+ 138:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_A1                = 0x0B,
+ 139:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_A2                = 0x0C,
+ 140:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_A4                = 0x0D,
+ 141:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 142:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     /* reference to https://wiki.videolan.org/YUV/ */
+ 143:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     /*YUV planar formats*/
+ 144:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_YUV_START         = 0x20,
+ 145:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_I420              = LV_COLOR_FORMAT_YUV_START,  /*YUV420 planar(3 plane)*/
+ 146:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_I422              = 0x21,  /*YUV422 planar(3 plane)*/
+ 147:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_I444              = 0x22,  /*YUV444 planar(3 plane)*/
+ 148:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_I400              = 0x23,  /*YUV400 no chroma channel*/
+ 149:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NV21              = 0x24,  /*YUV420 planar(2 plane), UV plane in 'V, U, V, U'*/
+ 150:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NV12              = 0x25,  /*YUV420 planar(2 plane), UV plane in 'U, V, U, V'*/
+ 151:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 152:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     /*YUV packed formats*/
+ 153:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_YUY2              = 0x26,  /*YUV422 packed like 'Y U Y V'*/
+ 154:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_UYVY              = 0x27,  /*YUV422 packed like 'U Y V Y'*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 14
+
+
+ 155:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 156:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_YUV_END           = LV_COLOR_FORMAT_UYVY,
+ 157:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 158:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     /*Color formats in which LVGL can render*/
+ 159:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #if LV_COLOR_DEPTH == 8
+ 160:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_L8,
+ 161:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 16
+ 162:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB565,
+ 163:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_RGB565A8,
+ 164:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 24
+ 165:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB888,
+ 166:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 167:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 32
+ 168:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_XRGB8888,
+ 169:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 170:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #endif
+ 171:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** };
+ 172:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 173:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #ifdef DOXYGEN
+ 174:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** typedef _lv_color_format_t lv_color_format_t;
+ 175:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #else
+ 176:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** typedef uint8_t lv_color_format_t;
+ 177:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #endif /*DOXYGEN*/
+ 178:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 179:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_ALPHA_ONLY(cf) ((cf) >= LV_COLOR_FORMAT_A1 && (cf) <= LV_COLOR_FORMAT_A8
+ 180:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_INDEXED(cf) ((cf) >= LV_COLOR_FORMAT_I1 && (cf) <= LV_COLOR_FORMAT_I8)
+ 181:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_YUV(cf)  ((cf) >= LV_COLOR_FORMAT_YUV_START && (cf) <= LV_COLOR_FORMAT_Y
+ 182:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_COLOR_INDEXED_PALETTE_SIZE(cf) ((cf) == LV_COLOR_FORMAT_I1 ? 2 :\
+ 183:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I2 ? 4 :\
+ 184:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I4 ? 16 :\
+ 185:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I8 ? 256 : 0)
+ 186:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 187:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**********************
+ 188:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * MACROS
+ 189:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  **********************/
+ 190:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 191:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_COLOR_MAKE(r8, g8, b8) {b8, g8, r8}
+ 192:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 193:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_OPA_MIX2(a1, a2) (((int32_t)(a1) * (a2)) >> 8)
+ 194:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** #define LV_OPA_MIX3(a1, a2, a3) (((int32_t)(a1) * (a2) * (a3)) >> 16)
+ 195:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 196:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**********************
+ 197:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * GLOBAL PROTOTYPES
+ 198:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  **********************/
+ 199:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 200:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 201:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Get the pixel size of a color format in bits, bpp
+ 202:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 203:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return          the pixel size in bits
+ 204:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ 205:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** uint8_t lv_color_format_get_bpp(lv_color_format_t cf);
+ 206:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 207:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 208:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Get the pixel size of a color format in bytes
+ 209:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 210:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return          the pixel size in bytes
+ 211:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 15
+
+
+ 212:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** static inline uint8_t lv_color_format_get_size(lv_color_format_t cf)
+ 213:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** {
+ 214:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     return (lv_color_format_get_bpp(cf) + 7) >> 3;
+ 215:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** }
+ 216:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 217:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 218:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Check if a color format has alpha channel or not
+ 219:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 220:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return          true: has alpha channel; false: doesn't have alpha channel
+ 221:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ 222:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** bool lv_color_format_has_alpha(lv_color_format_t src_cf);
+ 223:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 224:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 225:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Create an ARGB8888 color from RGB888 + alpha
+ 226:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param color     an RGB888 color
+ 227:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param opa       the alpha value
+ 228:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return          the ARGB8888 color
+ 229:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ 230:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** lv_color32_t lv_color_to_32(lv_color_t color, lv_opa_t opa);
+ 231:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 232:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 233:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Convert an RGB888 color to an integer
+ 234:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param c     an RGB888 color
+ 235:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return      `c` as an integer
+ 236:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ 237:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** static inline uint32_t lv_color_to_int(lv_color_t c)
+ 238:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** {
+ 239:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     uint8_t * tmp = (uint8_t *) &c;
+ 240:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     return tmp[0] + (tmp[1] << 8) + (tmp[2] << 16);
+ 241:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** }
+ 242:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 243:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 244:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Check if two RGB888 color are equal
+ 245:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param c1    the first color
+ 246:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param c2    the second color
+ 247:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return      true: equal
+ 248:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ 249:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** static inline bool lv_color_eq(lv_color_t c1, lv_color_t c2)
+ 250:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** {
+ 251:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     return lv_color_to_int(c1) == lv_color_to_int(c2);
+ 252:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** }
+ 253:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 254:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 255:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Check if two ARGB8888 color are equal
+ 256:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param c1    the first color
+ 257:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param c2    the second color
+ 258:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return      true: equal
+ 259:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ 260:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** static inline bool lv_color32_eq(lv_color32_t c1, lv_color32_t c2)
+ 261:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** {
+ 262:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     return *((uint32_t *)&c1) == *((uint32_t *)&c2);
+ 263:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** }
+ 264:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 265:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 266:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Create a color from 0x000000..0xffffff input
+ 267:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param c     the hex input
+ 268:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return      the color
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 16
+
+
+ 269:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ 270:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** static inline lv_color_t lv_color_hex(uint32_t c)
+ 271:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** {
+ 272:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     lv_color_t ret;
+ 273:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     ret.red = (c >> 16) & 0xff;
+ 274:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     ret.green = (c >> 8) & 0xff;
+ 275:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     ret.blue = (c >> 0) & 0xff;
+ 276:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     return ret;
+ 277:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** }
+ 278:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** 
+ 279:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** /**
+ 280:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * Create an RGB888 color
+ 281:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param r     the red channel (0..255)
+ 282:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param g     the green channel (0..255)
+ 283:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @param b     the blue channel (0..255)
+ 284:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  * @return      the color
+ 285:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****  */
+ 286:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** static inline lv_color_t lv_color_make(uint8_t r, uint8_t g, uint8_t b)
+ 387              		.loc 2 286 26 is_stmt 1 discriminator 2 view .LVU124
+ 388              	.LBB9:
+ 287:Lib/lvgl/src/draw/sw/../../misc/lv_color.h **** {
+ 288:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     lv_color_t ret;
+ 389              		.loc 2 288 5 discriminator 2 view .LVU125
+ 289:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     ret.red = r;
+ 390              		.loc 2 289 5 discriminator 2 view .LVU126
+ 391              		.loc 2 289 13 is_stmt 0 discriminator 2 view .LVU127
+ 392 014c 8DF802E0 		strb	lr, [sp, #2]
+ 290:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     ret.green = g;
+ 393              		.loc 2 290 5 is_stmt 1 discriminator 2 view .LVU128
+ 394              		.loc 2 290 15 is_stmt 0 discriminator 2 view .LVU129
+ 395 0150 8DF80140 		strb	r4, [sp, #1]
+ 291:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     ret.blue = b;
+ 396              		.loc 2 291 5 is_stmt 1 discriminator 2 view .LVU130
+ 397              		.loc 2 291 14 is_stmt 0 discriminator 2 view .LVU131
+ 398 0154 8DF80000 		strb	r0, [sp]
+ 292:Lib/lvgl/src/draw/sw/../../misc/lv_color.h ****     return ret;
+ 399              		.loc 2 292 5 is_stmt 1 discriminator 2 view .LVU132
+ 400              		.loc 2 292 12 is_stmt 0 discriminator 2 view .LVU133
+ 401 0158 0098     		ldr	r0, [sp]
+ 402              	.LVL47:
+ 403              		.loc 2 292 12 discriminator 2 view .LVU134
+ 404 015a ADF81400 		strh	r0, [sp, #20]	@ movhi
+ 405 015e 000C     		lsrs	r0, r0, #16
+ 406 0160 8DF81600 		strb	r0, [sp, #22]
+ 407 0164 0598     		ldr	r0, [sp, #20]
+ 408 0166 ADF81000 		strh	r0, [sp, #16]	@ movhi
+ 409 016a 000C     		lsrs	r0, r0, #16
+ 410 016c 8DF81200 		strb	r0, [sp, #18]
+ 411              	.LVL48:
+ 412              		.loc 2 292 12 discriminator 2 view .LVU135
+ 413              	.LBE9:
+ 414              	.LBE8:
+ 128:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                          LV_UDIV255(two.green * mix + one.green * imix),
+ 415              		.loc 1 128 18 discriminator 2 view .LVU136
+ 416 0170 BDF81040 		ldrh	r4, [sp, #16]	@ unaligned
+ 417 0174 C0B2     		uxtb	r0, r0
+ 418 0176 1C80     		strh	r4, [r3]	@ unaligned
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 17
+
+
+ 419              	.LVL49:
+ 128:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****                          LV_UDIV255(two.green * mix + one.green * imix),
+ 420              		.loc 1 128 18 discriminator 2 view .LVU137
+ 421 0178 9870     		strb	r0, [r3, #2]
+ 132:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+ 422              		.loc 1 132 5 is_stmt 1 discriminator 2 view .LVU138
+ 132:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+ 423              		.loc 1 132 16 is_stmt 0 discriminator 2 view .LVU139
+ 424 017a 9CF80300 		ldrb	r0, [ip, #3]	@ zero_extendqisi2
+ 425 017e EB78     		ldrb	r3, [r5, #3]	@ zero_extendqisi2
+ 426              	.LVL50:
+ 132:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+ 427              		.loc 1 132 16 discriminator 2 view .LVU140
+ 428 0180 01FB03F3 		mul	r3, r1, r3
+ 429 0184 02FB0033 		mla	r3, r2, r0, r3
+ 430 0188 03EB0322 		add	r2, r3, r3, lsl #8
+ 431              	.LVL51:
+ 132:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+ 432              		.loc 1 132 16 discriminator 2 view .LVU141
+ 433 018c 03EBC213 		add	r3, r3, r2, lsl #7
+ 434 0190 DB0D     		lsrs	r3, r3, #23
+ 132:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+ 435              		.loc 1 132 14 discriminator 2 view .LVU142
+ 436 0192 0A9A     		ldr	r2, [sp, #40]
+ 437 0194 1370     		strb	r3, [r2]
+ 438 0196 69E7     		b	.L7
+ 439              		.cfi_endproc
+ 440              	.LFE84:
+ 442              		.section	.text.lv_gradient_get,"ax",%progbits
+ 443              		.align	1
+ 444              		.global	lv_gradient_get
+ 445              		.syntax unified
+ 446              		.thumb
+ 447              		.thumb_func
+ 449              	lv_gradient_get:
+ 450              	.LVL52:
+ 451              	.LFB83:
+  63:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     /* No gradient, no cache */
+ 452              		.loc 1 63 1 is_stmt 1 view -0
+ 453              		.cfi_startproc
+ 454              		@ args = 0, pretend = 0, frame = 0
+ 455              		@ frame_needed = 0, uses_anonymous_args = 0
+  63:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     /* No gradient, no cache */
+ 456              		.loc 1 63 1 is_stmt 0 view .LVU144
+ 457 0000 70B5     		push	{r4, r5, r6, lr}
+ 458              	.LCFI5:
+ 459              		.cfi_def_cfa_offset 16
+ 460              		.cfi_offset 4, -16
+ 461              		.cfi_offset 5, -12
+ 462              		.cfi_offset 6, -8
+ 463              		.cfi_offset 14, -4
+ 464 0002 82B0     		sub	sp, sp, #8
+ 465              	.LCFI6:
+ 466              		.cfi_def_cfa_offset 24
+  65:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 467              		.loc 1 65 5 is_stmt 1 view .LVU145
+  65:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 18
+
+
+ 468              		.loc 1 65 15 is_stmt 0 view .LVU146
+ 469 0004 C37A     		ldrb	r3, [r0, #11]	@ zero_extendqisi2
+  65:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 470              		.loc 1 65 7 view .LVU147
+ 471 0006 13F0070F 		tst	r3, #7
+ 472 000a 18D0     		beq	.L25
+ 473 000c 0646     		mov	r6, r0
+  68:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) {
+ 474              		.loc 1 68 5 is_stmt 1 view .LVU148
+  68:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     if(item == NULL) {
+ 475              		.loc 1 68 24 is_stmt 0 view .LVU149
+ 476 000e FFF7FEFF 		bl	allocate_item
+ 477              	.LVL53:
+  69:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         LV_LOG_WARN("Failed to allocate item for the gradient");
+ 478              		.loc 1 69 5 is_stmt 1 view .LVU150
+  69:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         LV_LOG_WARN("Failed to allocate item for the gradient");
+ 479              		.loc 1 69 7 is_stmt 0 view .LVU151
+ 480 0012 0546     		mov	r5, r0
+ 481 0014 80B1     		cbz	r0, .L21
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         lv_gradient_color_calculate(g, item->size, i, &item->color_map[i], &item->opa_map[i]);
+ 482              		.loc 1 76 11 view .LVU152
+ 483 0016 0024     		movs	r4, #0
+ 484 0018 0BE0     		b	.L23
+ 485              	.LVL54:
+ 486              	.L24:
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 487              		.loc 1 77 9 is_stmt 1 discriminator 3 view .LVU153
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 488              		.loc 1 77 60 is_stmt 0 discriminator 3 view .LVU154
+ 489 001a 2868     		ldr	r0, [r5]
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 490              		.loc 1 77 71 discriminator 3 view .LVU155
+ 491 001c 04EB4403 		add	r3, r4, r4, lsl #1
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 492              		.loc 1 77 81 discriminator 3 view .LVU156
+ 493 0020 6A68     		ldr	r2, [r5, #4]
+  77:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     }
+ 494              		.loc 1 77 9 discriminator 3 view .LVU157
+ 495 0022 2244     		add	r2, r2, r4
+ 496 0024 0092     		str	r2, [sp]
+ 497 0026 0344     		add	r3, r3, r0
+ 498 0028 2246     		mov	r2, r4
+ 499 002a 3046     		mov	r0, r6
+ 500 002c FFF7FEFF 		bl	lv_gradient_color_calculate
+ 501              	.LVL55:
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         lv_gradient_color_calculate(g, item->size, i, &item->color_map[i], &item->opa_map[i]);
+ 502              		.loc 1 76 33 is_stmt 1 discriminator 3 view .LVU158
+ 503 0030 0134     		adds	r4, r4, #1
+ 504              	.LVL56:
+ 505              	.L23:
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         lv_gradient_color_calculate(g, item->size, i, &item->color_map[i], &item->opa_map[i]);
+ 506              		.loc 1 76 18 discriminator 1 view .LVU159
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         lv_gradient_color_calculate(g, item->size, i, &item->color_map[i], &item->opa_map[i]);
+ 507              		.loc 1 76 24 is_stmt 0 discriminator 1 view .LVU160
+ 508 0032 A968     		ldr	r1, [r5, #8]
+  76:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****         lv_gradient_color_calculate(g, item->size, i, &item->color_map[i], &item->opa_map[i]);
+ 509              		.loc 1 76 18 discriminator 1 view .LVU161
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 19
+
+
+ 510 0034 A142     		cmp	r1, r4
+ 511 0036 F0D8     		bhi	.L24
+ 512              	.LVL57:
+ 513              	.L21:
+  80:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 514              		.loc 1 80 1 view .LVU162
+ 515 0038 2846     		mov	r0, r5
+ 516 003a 02B0     		add	sp, sp, #8
+ 517              	.LCFI7:
+ 518              		.cfi_remember_state
+ 519              		.cfi_def_cfa_offset 16
+ 520              		@ sp needed
+ 521 003c 70BD     		pop	{r4, r5, r6, pc}
+ 522              	.LVL58:
+ 523              	.L25:
+ 524              	.LCFI8:
+ 525              		.cfi_restore_state
+  65:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 526              		.loc 1 65 43 view .LVU163
+ 527 003e 0025     		movs	r5, #0
+ 528 0040 FAE7     		b	.L21
+ 529              		.cfi_endproc
+ 530              	.LFE83:
+ 532              		.section	.text.lv_gradient_cleanup,"ax",%progbits
+ 533              		.align	1
+ 534              		.global	lv_gradient_cleanup
+ 535              		.syntax unified
+ 536              		.thumb
+ 537              		.thumb_func
+ 539              	lv_gradient_cleanup:
+ 540              	.LVL59:
+ 541              	.LFB85:
+ 134:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** 
+ 135:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** void lv_gradient_cleanup(lv_grad_t * grad)
+ 136:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** {
+ 542              		.loc 1 136 1 is_stmt 1 view -0
+ 543              		.cfi_startproc
+ 544              		@ args = 0, pretend = 0, frame = 0
+ 545              		@ frame_needed = 0, uses_anonymous_args = 0
+ 546              		.loc 1 136 1 is_stmt 0 view .LVU165
+ 547 0000 08B5     		push	{r3, lr}
+ 548              	.LCFI9:
+ 549              		.cfi_def_cfa_offset 8
+ 550              		.cfi_offset 3, -8
+ 551              		.cfi_offset 14, -4
+ 137:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c ****     lv_free(grad);
+ 552              		.loc 1 137 5 is_stmt 1 view .LVU166
+ 553 0002 FFF7FEFF 		bl	lv_free
+ 554              	.LVL60:
+ 138:Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c **** }
+ 555              		.loc 1 138 1 is_stmt 0 view .LVU167
+ 556 0006 08BD     		pop	{r3, pc}
+ 557              		.cfi_endproc
+ 558              	.LFE85:
+ 560              		.text
+ 561              	.Letext0:
+ 562              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 20
+
+
+ 563              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 564              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 565              		.file 6 "Lib/lvgl/src/draw/sw/../../misc/lv_style.h"
+ 566              		.file 7 "Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.h"
+ 567              		.file 8 "Lib/lvgl/src/draw/sw/../../misc/../stdlib/lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_draw_sw_gradient.c
+C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s:21     .text.allocate_item:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s:26     .text.allocate_item:00000000 allocate_item
+C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s:116    .text.lv_gradient_color_calculate:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s:122    .text.lv_gradient_color_calculate:00000000 lv_gradient_color_calculate
+C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s:443    .text.lv_gradient_get:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s:449    .text.lv_gradient_get:00000000 lv_gradient_get
+C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s:533    .text.lv_gradient_cleanup:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7wXCHR.s:539    .text.lv_gradient_cleanup:00000000 lv_gradient_cleanup
+
+UNDEFINED SYMBOLS
+lv_malloc
+lv_free

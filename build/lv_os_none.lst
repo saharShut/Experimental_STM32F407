@@ -1,0 +1,448 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_os_none.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/osal/lv_os_none.c"
+  20              		.section	.text.lv_thread_init,"ax",%progbits
+  21              		.align	1
+  22              		.global	lv_thread_init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	lv_thread_init:
+  28              	.LFB0:
+   1:Lib/lvgl/src/osal/lv_os_none.c **** /**
+   2:Lib/lvgl/src/osal/lv_os_none.c ****  * @file lv_os_none.c
+   3:Lib/lvgl/src/osal/lv_os_none.c ****  *
+   4:Lib/lvgl/src/osal/lv_os_none.c ****  */
+   5:Lib/lvgl/src/osal/lv_os_none.c **** 
+   6:Lib/lvgl/src/osal/lv_os_none.c **** /*********************
+   7:Lib/lvgl/src/osal/lv_os_none.c ****  *      INCLUDES
+   8:Lib/lvgl/src/osal/lv_os_none.c ****  *********************/
+   9:Lib/lvgl/src/osal/lv_os_none.c **** #include "lv_os.h"
+  10:Lib/lvgl/src/osal/lv_os_none.c **** 
+  11:Lib/lvgl/src/osal/lv_os_none.c **** #if LV_USE_OS == LV_OS_NONE
+  12:Lib/lvgl/src/osal/lv_os_none.c **** #include "../misc/lv_types.h"
+  13:Lib/lvgl/src/osal/lv_os_none.c **** #include "../misc/lv_assert.h"
+  14:Lib/lvgl/src/osal/lv_os_none.c **** 
+  15:Lib/lvgl/src/osal/lv_os_none.c **** /*********************
+  16:Lib/lvgl/src/osal/lv_os_none.c ****  *      DEFINES
+  17:Lib/lvgl/src/osal/lv_os_none.c ****  *********************/
+  18:Lib/lvgl/src/osal/lv_os_none.c **** 
+  19:Lib/lvgl/src/osal/lv_os_none.c **** /**********************
+  20:Lib/lvgl/src/osal/lv_os_none.c ****  *      TYPEDEFS
+  21:Lib/lvgl/src/osal/lv_os_none.c ****  **********************/
+  22:Lib/lvgl/src/osal/lv_os_none.c **** 
+  23:Lib/lvgl/src/osal/lv_os_none.c **** /**********************
+  24:Lib/lvgl/src/osal/lv_os_none.c ****  *  STATIC PROTOTYPES
+  25:Lib/lvgl/src/osal/lv_os_none.c ****  **********************/
+  26:Lib/lvgl/src/osal/lv_os_none.c **** 
+  27:Lib/lvgl/src/osal/lv_os_none.c **** /**********************
+  28:Lib/lvgl/src/osal/lv_os_none.c ****  *  STATIC VARIABLES
+  29:Lib/lvgl/src/osal/lv_os_none.c ****  **********************/
+  30:Lib/lvgl/src/osal/lv_os_none.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s 			page 2
+
+
+  31:Lib/lvgl/src/osal/lv_os_none.c **** /**********************
+  32:Lib/lvgl/src/osal/lv_os_none.c ****  *      MACROS
+  33:Lib/lvgl/src/osal/lv_os_none.c ****  **********************/
+  34:Lib/lvgl/src/osal/lv_os_none.c **** 
+  35:Lib/lvgl/src/osal/lv_os_none.c **** /**********************
+  36:Lib/lvgl/src/osal/lv_os_none.c ****  *   GLOBAL FUNCTIONS
+  37:Lib/lvgl/src/osal/lv_os_none.c ****  **********************/
+  38:Lib/lvgl/src/osal/lv_os_none.c **** 
+  39:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_thread_init(lv_thread_t * thread, lv_thread_prio_t prio, void (*callback)(void *), s
+  40:Lib/lvgl/src/osal/lv_os_none.c ****                            void * user_data)
+  41:Lib/lvgl/src/osal/lv_os_none.c **** {
+  29              		.loc 1 41 1 view -0
+  30              		.cfi_startproc
+  31              		@ Volatile: function does not return.
+  32              		@ args = 4, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              	.LVL0:
+  36              	.L2:
+  42:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(thread);
+  43:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(callback);
+  44:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(prio);
+  45:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(stack_size);
+  46:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(user_data);
+  47:Lib/lvgl/src/osal/lv_os_none.c ****     LV_ASSERT(0);
+  37              		.loc 1 47 5 discriminator 1 view .LVU1
+  38              		.loc 1 47 5 discriminator 1 view .LVU2
+  39              		.loc 1 47 5 discriminator 1 view .LVU3
+  40              		.loc 1 47 5 discriminator 1 view .LVU4
+  41              		.loc 1 47 5 discriminator 1 view .LVU5
+  42 0000 FEE7     		b	.L2
+  43              		.cfi_endproc
+  44              	.LFE0:
+  46              		.section	.text.lv_thread_delete,"ax",%progbits
+  47              		.align	1
+  48              		.global	lv_thread_delete
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  53              	lv_thread_delete:
+  54              	.LFB1:
+  48:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_INVALID;
+  49:Lib/lvgl/src/osal/lv_os_none.c **** }
+  50:Lib/lvgl/src/osal/lv_os_none.c **** 
+  51:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_thread_delete(lv_thread_t * thread)
+  52:Lib/lvgl/src/osal/lv_os_none.c **** {
+  55              		.loc 1 52 1 view -0
+  56              		.cfi_startproc
+  57              		@ Volatile: function does not return.
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  60              		@ link register save eliminated.
+  61              	.LVL1:
+  62              	.L4:
+  53:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(thread);
+  54:Lib/lvgl/src/osal/lv_os_none.c ****     LV_ASSERT(0);
+  63              		.loc 1 54 5 discriminator 1 view .LVU7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s 			page 3
+
+
+  64              		.loc 1 54 5 discriminator 1 view .LVU8
+  65              		.loc 1 54 5 discriminator 1 view .LVU9
+  66              		.loc 1 54 5 discriminator 1 view .LVU10
+  67              		.loc 1 54 5 discriminator 1 view .LVU11
+  68 0000 FEE7     		b	.L4
+  69              		.cfi_endproc
+  70              	.LFE1:
+  72              		.section	.text.lv_mutex_init,"ax",%progbits
+  73              		.align	1
+  74              		.global	lv_mutex_init
+  75              		.syntax unified
+  76              		.thumb
+  77              		.thumb_func
+  79              	lv_mutex_init:
+  80              	.LVL2:
+  81              	.LFB2:
+  55:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_INVALID;
+  56:Lib/lvgl/src/osal/lv_os_none.c **** }
+  57:Lib/lvgl/src/osal/lv_os_none.c **** 
+  58:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_mutex_init(lv_mutex_t * mutex)
+  59:Lib/lvgl/src/osal/lv_os_none.c **** {
+  82              		.loc 1 59 1 view -0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86              		@ link register save eliminated.
+  60:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(mutex);
+  87              		.loc 1 60 5 view .LVU13
+  61:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_OK;
+  88              		.loc 1 61 5 view .LVU14
+  62:Lib/lvgl/src/osal/lv_os_none.c **** }
+  89              		.loc 1 62 1 is_stmt 0 view .LVU15
+  90 0000 0120     		movs	r0, #1
+  91              	.LVL3:
+  92              		.loc 1 62 1 view .LVU16
+  93 0002 7047     		bx	lr
+  94              		.cfi_endproc
+  95              	.LFE2:
+  97              		.section	.text.lv_mutex_lock,"ax",%progbits
+  98              		.align	1
+  99              		.global	lv_mutex_lock
+ 100              		.syntax unified
+ 101              		.thumb
+ 102              		.thumb_func
+ 104              	lv_mutex_lock:
+ 105              	.LVL4:
+ 106              	.LFB3:
+  63:Lib/lvgl/src/osal/lv_os_none.c **** 
+  64:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_mutex_lock(lv_mutex_t * mutex)
+  65:Lib/lvgl/src/osal/lv_os_none.c **** {
+ 107              		.loc 1 65 1 is_stmt 1 view -0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+  66:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(mutex);
+ 112              		.loc 1 66 5 view .LVU18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s 			page 4
+
+
+  67:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_OK;
+ 113              		.loc 1 67 5 view .LVU19
+  68:Lib/lvgl/src/osal/lv_os_none.c **** }
+ 114              		.loc 1 68 1 is_stmt 0 view .LVU20
+ 115 0000 0120     		movs	r0, #1
+ 116              	.LVL5:
+ 117              		.loc 1 68 1 view .LVU21
+ 118 0002 7047     		bx	lr
+ 119              		.cfi_endproc
+ 120              	.LFE3:
+ 122              		.section	.text.lv_mutex_lock_isr,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	lv_mutex_lock_isr
+ 125              		.syntax unified
+ 126              		.thumb
+ 127              		.thumb_func
+ 129              	lv_mutex_lock_isr:
+ 130              	.LVL6:
+ 131              	.LFB4:
+  69:Lib/lvgl/src/osal/lv_os_none.c **** 
+  70:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_mutex_lock_isr(lv_mutex_t * mutex)
+  71:Lib/lvgl/src/osal/lv_os_none.c **** {
+ 132              		.loc 1 71 1 is_stmt 1 view -0
+ 133              		.cfi_startproc
+ 134              		@ args = 0, pretend = 0, frame = 0
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136              		@ link register save eliminated.
+  72:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(mutex);
+ 137              		.loc 1 72 5 view .LVU23
+  73:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_OK;
+ 138              		.loc 1 73 5 view .LVU24
+  74:Lib/lvgl/src/osal/lv_os_none.c **** }
+ 139              		.loc 1 74 1 is_stmt 0 view .LVU25
+ 140 0000 0120     		movs	r0, #1
+ 141              	.LVL7:
+ 142              		.loc 1 74 1 view .LVU26
+ 143 0002 7047     		bx	lr
+ 144              		.cfi_endproc
+ 145              	.LFE4:
+ 147              		.section	.text.lv_mutex_unlock,"ax",%progbits
+ 148              		.align	1
+ 149              		.global	lv_mutex_unlock
+ 150              		.syntax unified
+ 151              		.thumb
+ 152              		.thumb_func
+ 154              	lv_mutex_unlock:
+ 155              	.LVL8:
+ 156              	.LFB5:
+  75:Lib/lvgl/src/osal/lv_os_none.c **** 
+  76:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_mutex_unlock(lv_mutex_t * mutex)
+  77:Lib/lvgl/src/osal/lv_os_none.c **** {
+ 157              		.loc 1 77 1 is_stmt 1 view -0
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161              		@ link register save eliminated.
+  78:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(mutex);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s 			page 5
+
+
+ 162              		.loc 1 78 5 view .LVU28
+  79:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_OK;
+ 163              		.loc 1 79 5 view .LVU29
+  80:Lib/lvgl/src/osal/lv_os_none.c **** }
+ 164              		.loc 1 80 1 is_stmt 0 view .LVU30
+ 165 0000 0120     		movs	r0, #1
+ 166              	.LVL9:
+ 167              		.loc 1 80 1 view .LVU31
+ 168 0002 7047     		bx	lr
+ 169              		.cfi_endproc
+ 170              	.LFE5:
+ 172              		.section	.text.lv_mutex_delete,"ax",%progbits
+ 173              		.align	1
+ 174              		.global	lv_mutex_delete
+ 175              		.syntax unified
+ 176              		.thumb
+ 177              		.thumb_func
+ 179              	lv_mutex_delete:
+ 180              	.LVL10:
+ 181              	.LFB6:
+  81:Lib/lvgl/src/osal/lv_os_none.c **** 
+  82:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_mutex_delete(lv_mutex_t * mutex)
+  83:Lib/lvgl/src/osal/lv_os_none.c **** {
+ 182              		.loc 1 83 1 is_stmt 1 view -0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 0
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              		@ link register save eliminated.
+  84:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(mutex);
+ 187              		.loc 1 84 5 view .LVU33
+  85:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_OK;
+ 188              		.loc 1 85 5 view .LVU34
+  86:Lib/lvgl/src/osal/lv_os_none.c **** }
+ 189              		.loc 1 86 1 is_stmt 0 view .LVU35
+ 190 0000 0120     		movs	r0, #1
+ 191              	.LVL11:
+ 192              		.loc 1 86 1 view .LVU36
+ 193 0002 7047     		bx	lr
+ 194              		.cfi_endproc
+ 195              	.LFE6:
+ 197              		.section	.text.lv_thread_sync_init,"ax",%progbits
+ 198              		.align	1
+ 199              		.global	lv_thread_sync_init
+ 200              		.syntax unified
+ 201              		.thumb
+ 202              		.thumb_func
+ 204              	lv_thread_sync_init:
+ 205              	.LFB7:
+  87:Lib/lvgl/src/osal/lv_os_none.c **** 
+  88:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_thread_sync_init(lv_thread_sync_t * sync)
+  89:Lib/lvgl/src/osal/lv_os_none.c **** {
+ 206              		.loc 1 89 1 is_stmt 1 view -0
+ 207              		.cfi_startproc
+ 208              		@ Volatile: function does not return.
+ 209              		@ args = 0, pretend = 0, frame = 0
+ 210              		@ frame_needed = 0, uses_anonymous_args = 0
+ 211              		@ link register save eliminated.
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s 			page 6
+
+
+ 212              	.LVL12:
+ 213              	.L11:
+  90:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(sync);
+  91:Lib/lvgl/src/osal/lv_os_none.c ****     LV_ASSERT(0);
+ 214              		.loc 1 91 5 discriminator 1 view .LVU38
+ 215              		.loc 1 91 5 discriminator 1 view .LVU39
+ 216              		.loc 1 91 5 discriminator 1 view .LVU40
+ 217              		.loc 1 91 5 discriminator 1 view .LVU41
+ 218              		.loc 1 91 5 discriminator 1 view .LVU42
+ 219 0000 FEE7     		b	.L11
+ 220              		.cfi_endproc
+ 221              	.LFE7:
+ 223              		.section	.text.lv_thread_sync_wait,"ax",%progbits
+ 224              		.align	1
+ 225              		.global	lv_thread_sync_wait
+ 226              		.syntax unified
+ 227              		.thumb
+ 228              		.thumb_func
+ 230              	lv_thread_sync_wait:
+ 231              	.LFB8:
+  92:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_INVALID;
+  93:Lib/lvgl/src/osal/lv_os_none.c **** }
+  94:Lib/lvgl/src/osal/lv_os_none.c **** 
+  95:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_thread_sync_wait(lv_thread_sync_t * sync)
+  96:Lib/lvgl/src/osal/lv_os_none.c **** {
+ 232              		.loc 1 96 1 view -0
+ 233              		.cfi_startproc
+ 234              		@ Volatile: function does not return.
+ 235              		@ args = 0, pretend = 0, frame = 0
+ 236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 237              		@ link register save eliminated.
+ 238              	.LVL13:
+ 239              	.L13:
+  97:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(sync);
+  98:Lib/lvgl/src/osal/lv_os_none.c ****     LV_ASSERT(0);
+ 240              		.loc 1 98 5 discriminator 1 view .LVU44
+ 241              		.loc 1 98 5 discriminator 1 view .LVU45
+ 242              		.loc 1 98 5 discriminator 1 view .LVU46
+ 243              		.loc 1 98 5 discriminator 1 view .LVU47
+ 244              		.loc 1 98 5 discriminator 1 view .LVU48
+ 245 0000 FEE7     		b	.L13
+ 246              		.cfi_endproc
+ 247              	.LFE8:
+ 249              		.section	.text.lv_thread_sync_signal,"ax",%progbits
+ 250              		.align	1
+ 251              		.global	lv_thread_sync_signal
+ 252              		.syntax unified
+ 253              		.thumb
+ 254              		.thumb_func
+ 256              	lv_thread_sync_signal:
+ 257              	.LFB9:
+  99:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_INVALID;
+ 100:Lib/lvgl/src/osal/lv_os_none.c **** }
+ 101:Lib/lvgl/src/osal/lv_os_none.c **** 
+ 102:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_thread_sync_signal(lv_thread_sync_t * sync)
+ 103:Lib/lvgl/src/osal/lv_os_none.c **** {
+ 258              		.loc 1 103 1 view -0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s 			page 7
+
+
+ 259              		.cfi_startproc
+ 260              		@ Volatile: function does not return.
+ 261              		@ args = 0, pretend = 0, frame = 0
+ 262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 263              		@ link register save eliminated.
+ 264              	.LVL14:
+ 265              	.L15:
+ 104:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(sync);
+ 105:Lib/lvgl/src/osal/lv_os_none.c ****     LV_ASSERT(0);
+ 266              		.loc 1 105 5 discriminator 1 view .LVU50
+ 267              		.loc 1 105 5 discriminator 1 view .LVU51
+ 268              		.loc 1 105 5 discriminator 1 view .LVU52
+ 269              		.loc 1 105 5 discriminator 1 view .LVU53
+ 270              		.loc 1 105 5 discriminator 1 view .LVU54
+ 271 0000 FEE7     		b	.L15
+ 272              		.cfi_endproc
+ 273              	.LFE9:
+ 275              		.section	.text.lv_thread_sync_delete,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	lv_thread_sync_delete
+ 278              		.syntax unified
+ 279              		.thumb
+ 280              		.thumb_func
+ 282              	lv_thread_sync_delete:
+ 283              	.LFB10:
+ 106:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_INVALID;
+ 107:Lib/lvgl/src/osal/lv_os_none.c **** }
+ 108:Lib/lvgl/src/osal/lv_os_none.c **** 
+ 109:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_thread_sync_delete(lv_thread_sync_t * sync)
+ 110:Lib/lvgl/src/osal/lv_os_none.c **** {
+ 284              		.loc 1 110 1 view -0
+ 285              		.cfi_startproc
+ 286              		@ Volatile: function does not return.
+ 287              		@ args = 0, pretend = 0, frame = 0
+ 288              		@ frame_needed = 0, uses_anonymous_args = 0
+ 289              		@ link register save eliminated.
+ 290              	.LVL15:
+ 291              	.L17:
+ 111:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(sync);
+ 112:Lib/lvgl/src/osal/lv_os_none.c ****     LV_ASSERT(0);
+ 292              		.loc 1 112 5 discriminator 1 view .LVU56
+ 293              		.loc 1 112 5 discriminator 1 view .LVU57
+ 294              		.loc 1 112 5 discriminator 1 view .LVU58
+ 295              		.loc 1 112 5 discriminator 1 view .LVU59
+ 296              		.loc 1 112 5 discriminator 1 view .LVU60
+ 297 0000 FEE7     		b	.L17
+ 298              		.cfi_endproc
+ 299              	.LFE10:
+ 301              		.text
+ 302              	.Letext0:
+ 303              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 304              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 305              		.file 4 "Lib/lvgl/src/osal/../misc/lv_types.h"
+ 306              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 307              		.file 6 "Lib/lvgl/src/osal/lv_os_none.h"
+ 308              		.file 7 "Lib/lvgl/src/osal/lv_os.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_os_none.c
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:21     .text.lv_thread_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:27     .text.lv_thread_init:00000000 lv_thread_init
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:47     .text.lv_thread_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:53     .text.lv_thread_delete:00000000 lv_thread_delete
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:73     .text.lv_mutex_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:79     .text.lv_mutex_init:00000000 lv_mutex_init
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:98     .text.lv_mutex_lock:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:104    .text.lv_mutex_lock:00000000 lv_mutex_lock
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:123    .text.lv_mutex_lock_isr:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:129    .text.lv_mutex_lock_isr:00000000 lv_mutex_lock_isr
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:148    .text.lv_mutex_unlock:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:154    .text.lv_mutex_unlock:00000000 lv_mutex_unlock
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:173    .text.lv_mutex_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:179    .text.lv_mutex_delete:00000000 lv_mutex_delete
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:198    .text.lv_thread_sync_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:204    .text.lv_thread_sync_init:00000000 lv_thread_sync_init
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:224    .text.lv_thread_sync_wait:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:230    .text.lv_thread_sync_wait:00000000 lv_thread_sync_wait
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:250    .text.lv_thread_sync_signal:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:256    .text.lv_thread_sync_signal:00000000 lv_thread_sync_signal
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:276    .text.lv_thread_sync_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSPkhli.s:282    .text.lv_thread_sync_delete:00000000 lv_thread_sync_delete
+
+NO UNDEFINED SYMBOLS

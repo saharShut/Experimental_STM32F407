@@ -1,0 +1,877 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_draw_line.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/lv_draw_line.c"
+  20              		.section	.text.lv_draw_line_dsc_init,"ax",%progbits
+  21              		.align	1
+  22              		.global	lv_draw_line_dsc_init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	lv_draw_line_dsc_init:
+  28              	.LVL0:
+  29              	.LFB233:
+   1:Lib/lvgl/src/draw/lv_draw_line.c **** /**
+   2:Lib/lvgl/src/draw/lv_draw_line.c ****  * @file lv_draw_line.c
+   3:Lib/lvgl/src/draw/lv_draw_line.c ****  *
+   4:Lib/lvgl/src/draw/lv_draw_line.c ****  */
+   5:Lib/lvgl/src/draw/lv_draw_line.c **** 
+   6:Lib/lvgl/src/draw/lv_draw_line.c **** /*********************
+   7:Lib/lvgl/src/draw/lv_draw_line.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/lv_draw_line.c ****  *********************/
+   9:Lib/lvgl/src/draw/lv_draw_line.c **** #include <stdbool.h>
+  10:Lib/lvgl/src/draw/lv_draw_line.c **** #include "../core/lv_refr.h"
+  11:Lib/lvgl/src/draw/lv_draw_line.c **** #include "../misc/lv_math.h"
+  12:Lib/lvgl/src/draw/lv_draw_line.c **** #include "../stdlib/lv_string.h"
+  13:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  14:Lib/lvgl/src/draw/lv_draw_line.c **** /*********************
+  15:Lib/lvgl/src/draw/lv_draw_line.c ****  *      DEFINES
+  16:Lib/lvgl/src/draw/lv_draw_line.c ****  *********************/
+  17:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  18:Lib/lvgl/src/draw/lv_draw_line.c **** /**********************
+  19:Lib/lvgl/src/draw/lv_draw_line.c ****  *      TYPEDEFS
+  20:Lib/lvgl/src/draw/lv_draw_line.c ****  **********************/
+  21:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  22:Lib/lvgl/src/draw/lv_draw_line.c **** /**********************
+  23:Lib/lvgl/src/draw/lv_draw_line.c ****  *  STATIC PROTOTYPES
+  24:Lib/lvgl/src/draw/lv_draw_line.c ****  **********************/
+  25:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  26:Lib/lvgl/src/draw/lv_draw_line.c **** /**********************
+  27:Lib/lvgl/src/draw/lv_draw_line.c ****  *  STATIC VARIABLES
+  28:Lib/lvgl/src/draw/lv_draw_line.c ****  **********************/
+  29:Lib/lvgl/src/draw/lv_draw_line.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 2
+
+
+  30:Lib/lvgl/src/draw/lv_draw_line.c **** /**********************
+  31:Lib/lvgl/src/draw/lv_draw_line.c ****  *      MACROS
+  32:Lib/lvgl/src/draw/lv_draw_line.c ****  **********************/
+  33:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  34:Lib/lvgl/src/draw/lv_draw_line.c **** /**********************
+  35:Lib/lvgl/src/draw/lv_draw_line.c ****  *   GLOBAL FUNCTIONS
+  36:Lib/lvgl/src/draw/lv_draw_line.c ****  **********************/
+  37:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  38:Lib/lvgl/src/draw/lv_draw_line.c **** LV_ATTRIBUTE_FAST_MEM void lv_draw_line_dsc_init(lv_draw_line_dsc_t * dsc)
+  39:Lib/lvgl/src/draw/lv_draw_line.c **** {
+  30              		.loc 1 39 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 16
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 39 1 is_stmt 0 view .LVU1
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40 0002 84B0     		sub	sp, sp, #16
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 24
+  43 0004 0446     		mov	r4, r0
+  40:Lib/lvgl/src/draw/lv_draw_line.c ****     lv_memzero(dsc, sizeof(lv_draw_line_dsc_t));
+  44              		.loc 1 40 5 is_stmt 1 view .LVU2
+  45              	.LVL1:
+  46              	.LBB10:
+  47              	.LBI10:
+  48              		.file 2 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h"
+   1:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+   2:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @file lv_stringn.h
+   3:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *
+   4:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+   5:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+   6:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #ifndef LV_STRING_H
+   7:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #define LV_STRING_H
+   8:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+   9:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** extern "C" {
+  11:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #endif
+  12:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  13:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /*********************
+  14:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
+  16:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #include <stdint.h>
+  18:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** #include <stddef.h>
+  19:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  20:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /*********************
+  21:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *      DEFINES
+  22:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
+  23:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  24:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**********************
+  25:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  **********************/
+  27:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 3
+
+
+  28:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**********************
+  29:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * GLOBAL PROTOTYPES
+  30:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  **********************/
+  31:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  32:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  33:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Copies a block of memory from a source address to a destination address.
+  34:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  35:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  36:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy.
+  37:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  38:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @note The function does not check for any overlapping of the source and destination memory block
+  39:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  40:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** void * lv_memcpy(void * dst, const void * src, size_t len);
+  41:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  42:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  43:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Fills a block of memory with a specified value.
+  44:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array to fill with the specified value.
+  45:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param v Value to be set. The value is passed as an int, but the function fills
+  46:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
+  47:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to be set to the value.
+  48:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  49:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** void lv_memset(void * dst, uint8_t v, size_t len);
+  50:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  51:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  52:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Move a block of memory from source to destination
+  53:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  54:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  55:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy
+  56:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  57:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  58:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** void * lv_memmove(void * dst, const void * src, size_t len);
+  59:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** 
+  60:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** /**
+  61:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * Same as `memset(dst, 0x00, len)`.
+  62:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst pointer to the destination buffer
+  63:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  * @param len number of byte to set
+  64:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****  */
+  65:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** static inline void lv_memzero(void * dst, size_t len)
+  49              		.loc 2 65 20 view .LVU3
+  50              	.LBB11:
+  66:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h **** {
+  67:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../stdlib/lv_string.h ****     lv_memset(dst, 0x00, len);
+  51              		.loc 2 67 5 view .LVU4
+  52 0006 4022     		movs	r2, #64
+  53 0008 0021     		movs	r1, #0
+  54 000a FFF7FEFF 		bl	lv_memset
+  55              	.LVL2:
+  56              		.loc 2 67 5 is_stmt 0 view .LVU5
+  57              	.LBE11:
+  58              	.LBE10:
+  41:Lib/lvgl/src/draw/lv_draw_line.c ****     dsc->width = 1;
+  59              		.loc 1 41 5 is_stmt 1 view .LVU6
+  60              		.loc 1 41 16 is_stmt 0 view .LVU7
+  61 000e 0123     		movs	r3, #1
+  62 0010 2363     		str	r3, [r4, #48]
+  42:Lib/lvgl/src/draw/lv_draw_line.c ****     dsc->opa = LV_OPA_COVER;
+  63              		.loc 1 42 5 is_stmt 1 view .LVU8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 4
+
+
+  64              		.loc 1 42 14 is_stmt 0 view .LVU9
+  65 0012 FF23     		movs	r3, #255
+  66 0014 84F83C30 		strb	r3, [r4, #60]
+  43:Lib/lvgl/src/draw/lv_draw_line.c ****     dsc->color = lv_color_black();
+  67              		.loc 1 43 5 is_stmt 1 view .LVU10
+  68              	.LBB12:
+  69              	.LBI12:
+  70              		.file 3 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h"
+   1:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+   2:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @file lv_color.h
+   3:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *
+   4:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+   5:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+   6:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #ifndef LV_COLOR_H
+   7:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_H
+   8:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+   9:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** extern "C" {
+  11:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif
+  12:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  13:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /*********************
+  14:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *********************/
+  16:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include "lv_assert.h"
+  18:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include "lv_math.h"
+  19:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include "lv_types.h"
+  20:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include <stdint.h>
+  21:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #include <stdbool.h>
+  22:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  23:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /*********************
+  24:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *      DEFINES
+  25:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *********************/
+  26:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** LV_EXPORT_CONST_INT(LV_COLOR_DEPTH);
+  27:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  28:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #if LV_COLOR_DEPTH == 8
+  29:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 2
+  30:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 16
+  31:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 3
+  32:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 24
+  33:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  34:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 32
+  35:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  36:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif
+  37:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  38:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+  39:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Opacity percentages.
+  40:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+  41:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  42:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** enum _lv_opa_t {
+  43:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_TRANSP = 0,
+  44:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_0      = 0,
+  45:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_10     = 25,
+  46:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_20     = 51,
+  47:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_30     = 76,
+  48:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_40     = 102,
+  49:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_50     = 127,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 5
+
+
+  50:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_60     = 153,
+  51:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_70     = 178,
+  52:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_80     = 204,
+  53:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_90     = 229,
+  54:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_100    = 255,
+  55:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_OPA_COVER  = 255,
+  56:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** };
+  57:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  58:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #ifdef DOXYGEN
+  59:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef _lv_opa_t lv_opa_t;
+  60:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #else
+  61:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef uint8_t lv_opa_t;
+  62:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif /*DOXYGEN*/
+  63:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  64:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_OPA_MIN 2    /*Opacities below this will be transparent*/
+  65:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_OPA_MAX 253  /*Opacities above this will fully cover*/
+  66:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  67:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_FORMAT_GET_BPP(cf) (       \
+  68:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I1 ? 1 :        \
+  69:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A1 ? 1 :        \
+  70:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I2 ? 2 :        \
+  71:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A2 ? 2 :        \
+  72:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I4 ? 4 :        \
+  73:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A4 ? 4 :        \
+  74:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_L8 ? 8 :        \
+  75:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A8 ? 8 :        \
+  76:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I8 ? 8 :        \
+  77:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565 ? 16 :   \
+  78:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565A8 ? 24 : \
+  79:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB888 ? 24 :   \
+  80:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_ARGB8888 ? 32 : \
+  81:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_XRGB8888 ? 32 : \
+  82:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                             0                                       \
+  83:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                     )
+  84:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  85:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**********************
+  86:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *      TYPEDEFS
+  87:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  **********************/
+  88:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  89:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef struct {
+  90:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t blue;
+  91:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t green;
+  92:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t red;
+  93:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** } lv_color_t;
+  94:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+  95:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef struct {
+  96:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t blue : 5;
+  97:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t green : 6;
+  98:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t red : 5;
+  99:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** } lv_color16_t;
+ 100:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 101:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef struct {
+ 102:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t blue;
+ 103:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t green;
+ 104:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t red;
+ 105:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t alpha;
+ 106:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** } lv_color32_t;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 6
+
+
+ 107:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 108:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef struct {
+ 109:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t h;
+ 110:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t s;
+ 111:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t v;
+ 112:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** } lv_color_hsv_t;
+ 113:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 114:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** enum _lv_color_format_t {
+ 115:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_UNKNOWN           = 0,
+ 116:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 117:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RAW               = 0x01,
+ 118:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RAW_ALPHA         = 0x02,
+ 119:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 120:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*<=1 byte (+alpha) formats*/
+ 121:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_L8                = 0x06,
+ 122:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I1                = 0x07,
+ 123:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I2                = 0x08,
+ 124:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I4                = 0x09,
+ 125:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I8                = 0x0A,
+ 126:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_A8                = 0x0E,
+ 127:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 128:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*2 byte (+alpha) formats*/
+ 129:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB565            = 0x12,
+ 130:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB565A8          = 0x14    /**< Color array followed by Alpha array*/,
+ 131:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 132:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*3 byte (+alpha) formats*/
+ 133:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_RGB888            = 0x0F,
+ 134:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_ARGB8888          = 0x10,
+ 135:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_XRGB8888          = 0x11,
+ 136:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 137:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*Formats not supported by software renderer but kept here so GPU can use it*/
+ 138:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_A1                = 0x0B,
+ 139:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_A2                = 0x0C,
+ 140:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_A4                = 0x0D,
+ 141:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 142:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /* reference to https://wiki.videolan.org/YUV/ */
+ 143:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*YUV planar formats*/
+ 144:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_YUV_START         = 0x20,
+ 145:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I420              = LV_COLOR_FORMAT_YUV_START,  /*YUV420 planar(3 plane)*/
+ 146:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I422              = 0x21,  /*YUV422 planar(3 plane)*/
+ 147:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I444              = 0x22,  /*YUV444 planar(3 plane)*/
+ 148:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_I400              = 0x23,  /*YUV400 no chroma channel*/
+ 149:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NV21              = 0x24,  /*YUV420 planar(2 plane), UV plane in 'V, U, V, U'*/
+ 150:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NV12              = 0x25,  /*YUV420 planar(2 plane), UV plane in 'U, V, U, V'*/
+ 151:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 152:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*YUV packed formats*/
+ 153:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_YUY2              = 0x26,  /*YUV422 packed like 'Y U Y V'*/
+ 154:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_UYVY              = 0x27,  /*YUV422 packed like 'U Y V Y'*/
+ 155:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 156:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_YUV_END           = LV_COLOR_FORMAT_UYVY,
+ 157:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 158:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*Color formats in which LVGL can render*/
+ 159:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #if LV_COLOR_DEPTH == 8
+ 160:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_L8,
+ 161:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 16
+ 162:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB565,
+ 163:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_RGB565A8,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 7
+
+
+ 164:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 24
+ 165:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB888,
+ 166:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 167:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 32
+ 168:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_XRGB8888,
+ 169:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 170:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif
+ 171:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** };
+ 172:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 173:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #ifdef DOXYGEN
+ 174:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef _lv_color_format_t lv_color_format_t;
+ 175:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #else
+ 176:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** typedef uint8_t lv_color_format_t;
+ 177:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #endif /*DOXYGEN*/
+ 178:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 179:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_ALPHA_ONLY(cf) ((cf) >= LV_COLOR_FORMAT_A1 && (cf) <= LV_COLOR_FORMAT_A8
+ 180:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_INDEXED(cf) ((cf) >= LV_COLOR_FORMAT_I1 && (cf) <= LV_COLOR_FORMAT_I8)
+ 181:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_FORMAT_IS_YUV(cf)  ((cf) >= LV_COLOR_FORMAT_YUV_START && (cf) <= LV_COLOR_FORMAT_Y
+ 182:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_INDEXED_PALETTE_SIZE(cf) ((cf) == LV_COLOR_FORMAT_I1 ? 2 :\
+ 183:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I2 ? 4 :\
+ 184:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I4 ? 16 :\
+ 185:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I8 ? 256 : 0)
+ 186:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 187:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**********************
+ 188:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * MACROS
+ 189:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  **********************/
+ 190:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 191:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_COLOR_MAKE(r8, g8, b8) {b8, g8, r8}
+ 192:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 193:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_OPA_MIX2(a1, a2) (((int32_t)(a1) * (a2)) >> 8)
+ 194:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** #define LV_OPA_MIX3(a1, a2, a3) (((int32_t)(a1) * (a2) * (a3)) >> 16)
+ 195:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 196:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**********************
+ 197:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * GLOBAL PROTOTYPES
+ 198:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  **********************/
+ 199:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 200:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 201:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Get the pixel size of a color format in bits, bpp
+ 202:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 203:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          the pixel size in bits
+ 204:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 205:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** uint8_t lv_color_format_get_bpp(lv_color_format_t cf);
+ 206:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 207:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 208:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Get the pixel size of a color format in bytes
+ 209:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 210:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          the pixel size in bytes
+ 211:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 212:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline uint8_t lv_color_format_get_size(lv_color_format_t cf)
+ 213:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 214:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return (lv_color_format_get_bpp(cf) + 7) >> 3;
+ 215:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 216:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 217:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 218:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Check if a color format has alpha channel or not
+ 219:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 220:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          true: has alpha channel; false: doesn't have alpha channel
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 8
+
+
+ 221:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 222:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** bool lv_color_format_has_alpha(lv_color_format_t src_cf);
+ 223:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 224:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 225:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create an ARGB8888 color from RGB888 + alpha
+ 226:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param color     an RGB888 color
+ 227:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param opa       the alpha value
+ 228:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          the ARGB8888 color
+ 229:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 230:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color32_t lv_color_to_32(lv_color_t color, lv_opa_t opa);
+ 231:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 232:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 233:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert an RGB888 color to an integer
+ 234:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     an RGB888 color
+ 235:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      `c` as an integer
+ 236:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 237:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline uint32_t lv_color_to_int(lv_color_t c)
+ 238:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 239:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint8_t * tmp = (uint8_t *) &c;
+ 240:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return tmp[0] + (tmp[1] << 8) + (tmp[2] << 16);
+ 241:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 242:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 243:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 244:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Check if two RGB888 color are equal
+ 245:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c1    the first color
+ 246:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c2    the second color
+ 247:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      true: equal
+ 248:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 249:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline bool lv_color_eq(lv_color_t c1, lv_color_t c2)
+ 250:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 251:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return lv_color_to_int(c1) == lv_color_to_int(c2);
+ 252:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 253:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 254:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 255:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Check if two ARGB8888 color are equal
+ 256:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c1    the first color
+ 257:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c2    the second color
+ 258:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      true: equal
+ 259:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 260:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline bool lv_color32_eq(lv_color32_t c1, lv_color32_t c2)
+ 261:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 262:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return *((uint32_t *)&c1) == *((uint32_t *)&c2);
+ 263:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 264:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 265:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 266:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create a color from 0x000000..0xffffff input
+ 267:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     the hex input
+ 268:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the color
+ 269:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 270:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_hex(uint32_t c)
+ 271:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 272:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     lv_color_t ret;
+ 273:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.red = (c >> 16) & 0xff;
+ 274:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = (c >> 8) & 0xff;
+ 275:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = (c >> 0) & 0xff;
+ 276:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ 277:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 9
+
+
+ 278:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 279:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 280:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create an RGB888 color
+ 281:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param r     the red channel (0..255)
+ 282:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param g     the green channel (0..255)
+ 283:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param b     the blue channel (0..255)
+ 284:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the color
+ 285:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 286:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_make(uint8_t r, uint8_t g, uint8_t b)
+ 287:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 288:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     lv_color_t ret;
+ 289:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.red = r;
+ 290:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = g;
+ 291:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = b;
+ 292:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ 293:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 294:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 295:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 296:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create an ARGB8888 color
+ 297:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param r     the red channel (0..255)
+ 298:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param g     the green channel (0..255)
+ 299:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param b     the blue channel (0..255)
+ 300:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param a     the alpha channel (0..255)
+ 301:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the color
+ 302:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 303:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color32_t lv_color32_make(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+ 304:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 305:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     lv_color32_t ret;
+ 306:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.red = r;
+ 307:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = g;
+ 308:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = b;
+ 309:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.alpha = a;
+ 310:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ 311:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 312:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 313:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 314:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Create a color from 0x000..0xfff input
+ 315:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     the hex input (e.g. 0x123 will be 0x112233)
+ 316:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the color
+ 317:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 318:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_hex3(uint32_t c)
+ 319:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 320:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return lv_color_make((uint8_t)(((c >> 4) & 0xF0) | ((c >> 8) & 0xF)), (uint8_t)((c & 0xF0) | ((
+ 321:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****                          (uint8_t)((c & 0xF) | ((c & 0xF) << 4)));
+ 322:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 323:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 324:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 325:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert am RGB888 color to RGB565 stored in `uint16_t`
+ 326:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param color     and RGB888 color
+ 327:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          `color` as RGB565 on `uin16_t`
+ 328:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 329:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** uint16_t lv_color_to_u16(lv_color_t color);
+ 330:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 331:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 332:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert am RGB888 color to XRGB8888 stored in `uint32_t`
+ 333:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param color     and RGB888 color
+ 334:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          `color` as XRGB8888 on `uin32_t` (the alpha channel is always set to 0xFF)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 10
+
+
+ 335:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 336:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** uint32_t lv_color_to_u32(lv_color_t color);
+ 337:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 338:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 339:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Mix two RGB565 colors
+ 340:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c1        the first color (typically the foreground color)
+ 341:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c2        the second color  (typically the background color)
+ 342:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param mix       0..255, or LV_OPA_0/10/20...
+ 343:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return          mix == 0: c2
+ 344:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *                  mix == 255: c1
+ 345:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  *                  mix == 128: 0.5 x c1 + 0.5 x c2
+ 346:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 347:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** LV_ATTRIBUTE_FAST_MEM static inline uint16_t lv_color_16_16_mix(uint16_t c1, uint16_t c2, uint8_t m
+ 348:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 349:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     if(mix == 255) return c1;
+ 350:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     if(mix == 0) return c2;
+ 351:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 352:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint16_t ret;
+ 353:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 354:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /* Source: https://stackoverflow.com/a/50012418/1999969*/
+ 355:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     mix = (uint32_t)((uint32_t)mix + 4) >> 3;
+ 356:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 357:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     /*0x7E0F81F = 0b00000111111000001111100000011111*/
+ 358:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint32_t bg = (uint32_t)(c2 | ((uint32_t)c2 << 16)) & 0x7E0F81F;
+ 359:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint32_t fg = (uint32_t)(c1 | ((uint32_t)c1 << 16)) & 0x7E0F81F;
+ 360:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     uint32_t result = ((((fg - bg) * mix) >> 5) + bg) & 0x7E0F81F;
+ 361:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret = (uint16_t)(result >> 16) | result;
+ 362:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 363:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ 364:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 365:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 366:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 367:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Mix white to a color
+ 368:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     the base color
+ 369:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param lvl   the intensity of white (0: no change, 255: fully white)
+ 370:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the mixed color
+ 371:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 372:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_t lv_color_lighten(lv_color_t c, lv_opa_t lvl);
+ 373:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 374:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 375:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Mix black to a color
+ 376:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param c     the base color
+ 377:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param lvl   the intensity of black (0: no change, 255: fully black)
+ 378:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      the mixed color
+ 379:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 380:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_t lv_color_darken(lv_color_t c, lv_opa_t lvl);
+ 381:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 382:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 383:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert a HSV color to RGB
+ 384:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param h hue [0..359]
+ 385:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param s saturation [0..100]
+ 386:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param v value [0..100]
+ 387:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return the given RGB color in RGB (with LV_COLOR_DEPTH depth)
+ 388:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 389:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_t lv_color_hsv_to_rgb(uint16_t h, uint8_t s, uint8_t v);
+ 390:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 391:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 11
+
+
+ 392:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert a 32-bit RGB color to HSV
+ 393:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param r8 8-bit red
+ 394:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param g8 8-bit green
+ 395:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param b8 8-bit blue
+ 396:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return the given RGB color in HSV
+ 397:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 398:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_hsv_t lv_color_rgb_to_hsv(uint8_t r8, uint8_t g8, uint8_t b8);
+ 399:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 400:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 401:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * Convert a color to HSV
+ 402:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @param color color
+ 403:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return the given color in HSV
+ 404:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 405:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** lv_color_hsv_t lv_color_to_hsv(lv_color_t color);
+ 406:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 407:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /*Source: https://vuetifyjs.com/en/styles/colors/#material-colors*/
+ 408:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 409:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 410:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * A helper for white color
+ 411:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      a white color
+ 412:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 413:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_white(void)
+ 414:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 415:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return lv_color_make(0xff, 0xff, 0xff);
+ 416:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 417:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** 
+ 418:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** /**
+ 419:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * A helper for black color
+ 420:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  * @return      a black color
+ 421:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****  */
+ 422:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** static inline lv_color_t lv_color_black(void)
+  71              		.loc 3 422 26 view .LVU11
+ 423:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+ 424:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return lv_color_make(0x00, 0x00, 0x00);
+  72              		.loc 3 424 5 view .LVU12
+  73              	.LVL3:
+  74              	.LBB13:
+  75              	.LBI13:
+ 286:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** {
+  76              		.loc 3 286 26 view .LVU13
+  77              	.LBB14:
+ 288:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.red = r;
+  78              		.loc 3 288 5 view .LVU14
+ 289:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = g;
+  79              		.loc 3 289 5 view .LVU15
+ 289:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.green = g;
+  80              		.loc 3 289 13 is_stmt 0 view .LVU16
+  81 0018 0023     		movs	r3, #0
+  82 001a 8DF80230 		strb	r3, [sp, #2]
+ 290:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = b;
+  83              		.loc 3 290 5 is_stmt 1 view .LVU17
+ 290:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     ret.blue = b;
+  84              		.loc 3 290 15 is_stmt 0 view .LVU18
+  85 001e 8DF80130 		strb	r3, [sp, #1]
+ 291:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+  86              		.loc 3 291 5 is_stmt 1 view .LVU19
+ 291:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h ****     return ret;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 12
+
+
+  87              		.loc 3 291 14 is_stmt 0 view .LVU20
+  88 0022 8DF80030 		strb	r3, [sp]
+ 292:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+  89              		.loc 3 292 5 is_stmt 1 view .LVU21
+ 292:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+  90              		.loc 3 292 12 is_stmt 0 view .LVU22
+  91 0026 009B     		ldr	r3, [sp]
+  92 0028 ADF80830 		strh	r3, [sp, #8]	@ movhi
+  93 002c 1B0C     		lsrs	r3, r3, #16
+  94 002e 8DF80A30 		strb	r3, [sp, #10]
+  95 0032 029B     		ldr	r3, [sp, #8]
+  96 0034 ADF80C30 		strh	r3, [sp, #12]	@ movhi
+  97 0038 1B0C     		lsrs	r3, r3, #16
+  98 003a 8DF80E30 		strb	r3, [sp, #14]
+  99              	.LVL4:
+ 292:Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_color.h **** }
+ 100              		.loc 3 292 12 view .LVU23
+ 101 003e 039B     		ldr	r3, [sp, #12]
+ 102 0040 ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 103 0044 1B0C     		lsrs	r3, r3, #16
+ 104 0046 8DF80630 		strb	r3, [sp, #6]
+ 105              	.LBE14:
+ 106              	.LBE13:
+ 107              	.LBE12:
+ 108              		.loc 1 43 18 view .LVU24
+ 109 004a 019B     		ldr	r3, [sp, #4]
+ 110 004c A385     		strh	r3, [r4, #44]	@ movhi
+ 111 004e 1B0C     		lsrs	r3, r3, #16
+ 112 0050 84F82E30 		strb	r3, [r4, #46]
+  44:Lib/lvgl/src/draw/lv_draw_line.c **** }
+ 113              		.loc 1 44 1 view .LVU25
+ 114 0054 04B0     		add	sp, sp, #16
+ 115              	.LCFI2:
+ 116              		.cfi_def_cfa_offset 8
+ 117              		@ sp needed
+ 118 0056 10BD     		pop	{r4, pc}
+ 119              		.loc 1 44 1 view .LVU26
+ 120              		.cfi_endproc
+ 121              	.LFE233:
+ 123              		.section	.text.lv_draw_line,"ax",%progbits
+ 124              		.align	1
+ 125              		.global	lv_draw_line
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 130              	lv_draw_line:
+ 131              	.LVL5:
+ 132              	.LFB234:
+  45:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  46:Lib/lvgl/src/draw/lv_draw_line.c **** LV_ATTRIBUTE_FAST_MEM void lv_draw_line(lv_layer_t * layer, const lv_draw_line_dsc_t * dsc)
+  47:Lib/lvgl/src/draw/lv_draw_line.c **** {
+ 133              		.loc 1 47 1 is_stmt 1 view -0
+ 134              		.cfi_startproc
+ 135              		@ args = 0, pretend = 0, frame = 16
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+ 137              		.loc 1 47 1 is_stmt 0 view .LVU28
+ 138 0000 70B5     		push	{r4, r5, r6, lr}
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 13
+
+
+ 139              	.LCFI3:
+ 140              		.cfi_def_cfa_offset 16
+ 141              		.cfi_offset 4, -16
+ 142              		.cfi_offset 5, -12
+ 143              		.cfi_offset 6, -8
+ 144              		.cfi_offset 14, -4
+ 145 0002 84B0     		sub	sp, sp, #16
+ 146              	.LCFI4:
+ 147              		.cfi_def_cfa_offset 32
+ 148 0004 0646     		mov	r6, r0
+ 149 0006 0C46     		mov	r4, r1
+  48:Lib/lvgl/src/draw/lv_draw_line.c ****     LV_PROFILER_BEGIN;
+ 150              		.loc 1 48 22 is_stmt 1 view .LVU29
+  49:Lib/lvgl/src/draw/lv_draw_line.c ****     lv_area_t a;
+ 151              		.loc 1 49 5 view .LVU30
+  50:Lib/lvgl/src/draw/lv_draw_line.c ****     a.x1 = (int32_t)LV_MIN(dsc->p1.x, dsc->p2.x) - dsc->width;
+ 152              		.loc 1 50 5 view .LVU31
+ 153              		.loc 1 50 21 is_stmt 0 view .LVU32
+ 154 0008 496A     		ldr	r1, [r1, #36]
+ 155              	.LVL6:
+ 156              		.loc 1 50 21 view .LVU33
+ 157 000a E269     		ldr	r2, [r4, #28]
+ 158              		.loc 1 50 55 view .LVU34
+ 159 000c 236B     		ldr	r3, [r4, #48]
+ 160              		.loc 1 50 50 view .LVU35
+ 161 000e 9142     		cmp	r1, r2
+ 162 0010 D4BF     		ite	le
+ 163 0012 C3EB0105 		rsble	r5, r3, r1
+ 164 0016 C3EB0205 		rsbgt	r5, r3, r2
+ 165              		.loc 1 50 10 view .LVU36
+ 166 001a 0095     		str	r5, [sp]
+  51:Lib/lvgl/src/draw/lv_draw_line.c ****     a.x2 = (int32_t)LV_MAX(dsc->p1.x, dsc->p2.x) + dsc->width;
+ 167              		.loc 1 51 5 is_stmt 1 view .LVU37
+ 168              		.loc 1 51 50 is_stmt 0 view .LVU38
+ 169 001c 9142     		cmp	r1, r2
+ 170 001e ACBF     		ite	ge
+ 171 0020 5D18     		addge	r5, r3, r1
+ 172 0022 9D18     		addlt	r5, r3, r2
+ 173              		.loc 1 51 10 view .LVU39
+ 174 0024 0295     		str	r5, [sp, #8]
+  52:Lib/lvgl/src/draw/lv_draw_line.c ****     a.y1 = (int32_t)LV_MIN(dsc->p1.y, dsc->p2.y) - dsc->width;
+ 175              		.loc 1 52 5 is_stmt 1 view .LVU40
+ 176              		.loc 1 52 21 is_stmt 0 view .LVU41
+ 177 0026 A16A     		ldr	r1, [r4, #40]
+ 178 0028 226A     		ldr	r2, [r4, #32]
+ 179              		.loc 1 52 50 view .LVU42
+ 180 002a 9142     		cmp	r1, r2
+ 181 002c D4BF     		ite	le
+ 182 002e C3EB0105 		rsble	r5, r3, r1
+ 183 0032 C3EB0205 		rsbgt	r5, r3, r2
+ 184              		.loc 1 52 10 view .LVU43
+ 185 0036 0195     		str	r5, [sp, #4]
+  53:Lib/lvgl/src/draw/lv_draw_line.c ****     a.y2 = (int32_t)LV_MAX(dsc->p1.y, dsc->p2.y) + dsc->width;
+ 186              		.loc 1 53 5 is_stmt 1 view .LVU44
+ 187              		.loc 1 53 50 is_stmt 0 view .LVU45
+ 188 0038 9142     		cmp	r1, r2
+ 189 003a ACBF     		ite	ge
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 14
+
+
+ 190 003c 5B18     		addge	r3, r3, r1
+ 191 003e 9B18     		addlt	r3, r3, r2
+ 192              		.loc 1 53 10 view .LVU46
+ 193 0040 0393     		str	r3, [sp, #12]
+  54:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  55:Lib/lvgl/src/draw/lv_draw_line.c ****     lv_draw_task_t * t = lv_draw_add_task(layer, &a);
+ 194              		.loc 1 55 5 is_stmt 1 view .LVU47
+ 195              		.loc 1 55 26 is_stmt 0 view .LVU48
+ 196 0042 6946     		mov	r1, sp
+ 197 0044 FFF7FEFF 		bl	lv_draw_add_task
+ 198              	.LVL7:
+ 199              		.loc 1 55 26 view .LVU49
+ 200 0048 0546     		mov	r5, r0
+ 201              	.LVL8:
+  56:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  57:Lib/lvgl/src/draw/lv_draw_line.c ****     t->draw_dsc = lv_malloc(sizeof(*dsc));
+ 202              		.loc 1 57 5 is_stmt 1 view .LVU50
+ 203              		.loc 1 57 19 is_stmt 0 view .LVU51
+ 204 004a 4020     		movs	r0, #64
+ 205              	.LVL9:
+ 206              		.loc 1 57 19 view .LVU52
+ 207 004c FFF7FEFF 		bl	lv_malloc
+ 208              	.LVL10:
+ 209              		.loc 1 57 17 view .LVU53
+ 210 0050 E864     		str	r0, [r5, #76]
+  58:Lib/lvgl/src/draw/lv_draw_line.c ****     lv_memcpy(t->draw_dsc, dsc, sizeof(*dsc));
+ 211              		.loc 1 58 5 is_stmt 1 view .LVU54
+ 212 0052 4022     		movs	r2, #64
+ 213 0054 2146     		mov	r1, r4
+ 214 0056 FFF7FEFF 		bl	lv_memcpy
+ 215              	.LVL11:
+  59:Lib/lvgl/src/draw/lv_draw_line.c ****     t->type = LV_DRAW_TASK_TYPE_LINE;
+ 216              		.loc 1 59 5 view .LVU55
+ 217              		.loc 1 59 13 is_stmt 0 view .LVU56
+ 218 005a 0623     		movs	r3, #6
+ 219 005c 2B71     		strb	r3, [r5, #4]
+  60:Lib/lvgl/src/draw/lv_draw_line.c **** 
+  61:Lib/lvgl/src/draw/lv_draw_line.c ****     lv_draw_finalize_task_creation(layer, t);
+ 220              		.loc 1 61 5 is_stmt 1 view .LVU57
+ 221 005e 2946     		mov	r1, r5
+ 222 0060 3046     		mov	r0, r6
+ 223 0062 FFF7FEFF 		bl	lv_draw_finalize_task_creation
+ 224              	.LVL12:
+  62:Lib/lvgl/src/draw/lv_draw_line.c ****     LV_PROFILER_END;
+ 225              		.loc 1 62 20 view .LVU58
+  63:Lib/lvgl/src/draw/lv_draw_line.c **** }
+ 226              		.loc 1 63 1 is_stmt 0 view .LVU59
+ 227 0066 04B0     		add	sp, sp, #16
+ 228              	.LCFI5:
+ 229              		.cfi_def_cfa_offset 16
+ 230              		@ sp needed
+ 231 0068 70BD     		pop	{r4, r5, r6, pc}
+ 232              		.loc 1 63 1 view .LVU60
+ 233              		.cfi_endproc
+ 234              	.LFE234:
+ 236              		.text
+ 237              	.Letext0:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 15
+
+
+ 238              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 239              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 240              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 241              		.file 7 "Lib/lvgl/src/draw/../core/../misc/lv_types.h"
+ 242              		.file 8 "Lib/lvgl/src/draw/../core/lv_obj.h"
+ 243              		.file 9 "Lib/lvgl/src/draw/../core/lv_obj_class.h"
+ 244              		.file 10 "Lib/lvgl/src/draw/../core/../indev/../core/lv_group.h"
+ 245              		.file 11 "Lib/lvgl/src/draw/../core/../display/../draw/lv_draw.h"
+ 246              		.file 12 "Lib/lvgl/src/draw/../core/../display/../misc/lv_event.h"
+ 247              		.file 13 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/../misc/lv_area.h"
+ 248              		.file 14 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/lv_image_buf.h"
+ 249              		.file 15 "Lib/lvgl/src/draw/../core/../misc/../font/../draw/lv_draw_buf.h"
+ 250              		.file 16 "Lib/lvgl/src/draw/../core/../misc/lv_ll.h"
+ 251              		.file 17 "Lib/lvgl/src/draw/../core/../misc/lv_style.h"
+ 252              		.file 18 "Lib/lvgl/src/draw/../core/../display/../misc/lv_array.h"
+ 253              		.file 19 "Lib/lvgl/src/draw/../core/../display/../draw/lv_draw_line.h"
+ 254              		.file 20 "Lib/lvgl/src/draw/../core/lv_obj_style.h"
+ 255              		.file 21 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_draw_line.c
+C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s:21     .text.lv_draw_line_dsc_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s:27     .text.lv_draw_line_dsc_init:00000000 lv_draw_line_dsc_init
+C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s:124    .text.lv_draw_line:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc6AqFu9.s:130    .text.lv_draw_line:00000000 lv_draw_line
+
+UNDEFINED SYMBOLS
+lv_memset
+lv_draw_add_task
+lv_malloc
+lv_memcpy
+lv_draw_finalize_task_creation

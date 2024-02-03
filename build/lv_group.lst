@@ -1,0 +1,3915 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_group.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/core/lv_group.c"
+  20              		.section	.text.get_indev,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	get_indev:
+  27              	.LVL0:
+  28              	.LFB264:
+   1:Lib/lvgl/src/core/lv_group.c **** /**
+   2:Lib/lvgl/src/core/lv_group.c ****  * @file lv_group.c
+   3:Lib/lvgl/src/core/lv_group.c ****  *
+   4:Lib/lvgl/src/core/lv_group.c ****  */
+   5:Lib/lvgl/src/core/lv_group.c **** 
+   6:Lib/lvgl/src/core/lv_group.c **** /*********************
+   7:Lib/lvgl/src/core/lv_group.c ****  *      INCLUDES
+   8:Lib/lvgl/src/core/lv_group.c ****  *********************/
+   9:Lib/lvgl/src/core/lv_group.c **** #include <stddef.h>
+  10:Lib/lvgl/src/core/lv_group.c **** 
+  11:Lib/lvgl/src/core/lv_group.c **** #include "lv_group.h"
+  12:Lib/lvgl/src/core/lv_group.c **** #include "../core/lv_obj.h"
+  13:Lib/lvgl/src/core/lv_group.c **** #include "../core/lv_global.h"
+  14:Lib/lvgl/src/core/lv_group.c **** #include "../indev/lv_indev.h"
+  15:Lib/lvgl/src/core/lv_group.c **** 
+  16:Lib/lvgl/src/core/lv_group.c **** /*********************
+  17:Lib/lvgl/src/core/lv_group.c ****  *      DEFINES
+  18:Lib/lvgl/src/core/lv_group.c ****  *********************/
+  19:Lib/lvgl/src/core/lv_group.c **** #define default_group LV_GLOBAL_DEFAULT()->group_default
+  20:Lib/lvgl/src/core/lv_group.c **** #define group_ll_p &(LV_GLOBAL_DEFAULT()->group_ll)
+  21:Lib/lvgl/src/core/lv_group.c **** 
+  22:Lib/lvgl/src/core/lv_group.c **** /**********************
+  23:Lib/lvgl/src/core/lv_group.c ****  *      TYPEDEFS
+  24:Lib/lvgl/src/core/lv_group.c ****  **********************/
+  25:Lib/lvgl/src/core/lv_group.c **** 
+  26:Lib/lvgl/src/core/lv_group.c **** /**********************
+  27:Lib/lvgl/src/core/lv_group.c ****  *  STATIC PROTOTYPES
+  28:Lib/lvgl/src/core/lv_group.c ****  **********************/
+  29:Lib/lvgl/src/core/lv_group.c **** static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *),
+  30:Lib/lvgl/src/core/lv_group.c ****                             void * (*move)(const lv_ll_t *, const void *));
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 2
+
+
+  31:Lib/lvgl/src/core/lv_group.c **** static void lv_group_refocus(lv_group_t * g);
+  32:Lib/lvgl/src/core/lv_group.c **** static lv_indev_t * get_indev(const lv_group_t * g);
+  33:Lib/lvgl/src/core/lv_group.c **** 
+  34:Lib/lvgl/src/core/lv_group.c **** /**********************
+  35:Lib/lvgl/src/core/lv_group.c ****  *  STATIC VARIABLES
+  36:Lib/lvgl/src/core/lv_group.c ****  **********************/
+  37:Lib/lvgl/src/core/lv_group.c **** 
+  38:Lib/lvgl/src/core/lv_group.c **** /**********************
+  39:Lib/lvgl/src/core/lv_group.c ****  *      MACROS
+  40:Lib/lvgl/src/core/lv_group.c ****  **********************/
+  41:Lib/lvgl/src/core/lv_group.c **** 
+  42:Lib/lvgl/src/core/lv_group.c **** /**********************
+  43:Lib/lvgl/src/core/lv_group.c ****  *   GLOBAL FUNCTIONS
+  44:Lib/lvgl/src/core/lv_group.c ****  **********************/
+  45:Lib/lvgl/src/core/lv_group.c **** 
+  46:Lib/lvgl/src/core/lv_group.c **** void _lv_group_init(void)
+  47:Lib/lvgl/src/core/lv_group.c **** {
+  48:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_init(group_ll_p, sizeof(lv_group_t));
+  49:Lib/lvgl/src/core/lv_group.c **** }
+  50:Lib/lvgl/src/core/lv_group.c **** 
+  51:Lib/lvgl/src/core/lv_group.c **** void _lv_group_deinit(void)
+  52:Lib/lvgl/src/core/lv_group.c **** {
+  53:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_clear(group_ll_p);
+  54:Lib/lvgl/src/core/lv_group.c **** }
+  55:Lib/lvgl/src/core/lv_group.c **** 
+  56:Lib/lvgl/src/core/lv_group.c **** lv_group_t * lv_group_create(void)
+  57:Lib/lvgl/src/core/lv_group.c **** {
+  58:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * group = _lv_ll_ins_head(group_ll_p);
+  59:Lib/lvgl/src/core/lv_group.c ****     LV_ASSERT_MALLOC(group);
+  60:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+  61:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_init(&group->obj_ll, sizeof(lv_obj_t *));
+  62:Lib/lvgl/src/core/lv_group.c **** 
+  63:Lib/lvgl/src/core/lv_group.c ****     group->obj_focus      = NULL;
+  64:Lib/lvgl/src/core/lv_group.c ****     group->frozen         = 0;
+  65:Lib/lvgl/src/core/lv_group.c ****     group->focus_cb       = NULL;
+  66:Lib/lvgl/src/core/lv_group.c ****     group->edge_cb        = NULL;
+  67:Lib/lvgl/src/core/lv_group.c ****     group->editing        = 0;
+  68:Lib/lvgl/src/core/lv_group.c ****     group->refocus_policy = LV_GROUP_REFOCUS_POLICY_PREV;
+  69:Lib/lvgl/src/core/lv_group.c ****     group->wrap           = 1;
+  70:Lib/lvgl/src/core/lv_group.c ****     group->user_data      = NULL;
+  71:Lib/lvgl/src/core/lv_group.c **** 
+  72:Lib/lvgl/src/core/lv_group.c ****     return group;
+  73:Lib/lvgl/src/core/lv_group.c **** }
+  74:Lib/lvgl/src/core/lv_group.c **** 
+  75:Lib/lvgl/src/core/lv_group.c **** void lv_group_delete(lv_group_t * group)
+  76:Lib/lvgl/src/core/lv_group.c **** {
+  77:Lib/lvgl/src/core/lv_group.c ****     /*Defocus the currently focused object*/
+  78:Lib/lvgl/src/core/lv_group.c ****     if(group->obj_focus != NULL) {
+  79:Lib/lvgl/src/core/lv_group.c ****         lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
+  80:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+  81:Lib/lvgl/src/core/lv_group.c ****     }
+  82:Lib/lvgl/src/core/lv_group.c **** 
+  83:Lib/lvgl/src/core/lv_group.c ****     /*Remove the objects from the group*/
+  84:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** obj;
+  85:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&group->obj_ll, obj) {
+  86:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+  87:Lib/lvgl/src/core/lv_group.c ****     }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 3
+
+
+  88:Lib/lvgl/src/core/lv_group.c **** 
+  89:Lib/lvgl/src/core/lv_group.c ****     /*Remove the group from any indev devices */
+  90:Lib/lvgl/src/core/lv_group.c ****     lv_indev_t * indev = lv_indev_get_next(NULL);
+  91:Lib/lvgl/src/core/lv_group.c ****     while(indev) {
+  92:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == group) {
+  93:Lib/lvgl/src/core/lv_group.c ****             lv_indev_set_group(indev, NULL);
+  94:Lib/lvgl/src/core/lv_group.c ****         }
+  95:Lib/lvgl/src/core/lv_group.c ****         indev = lv_indev_get_next(indev);
+  96:Lib/lvgl/src/core/lv_group.c ****     }
+  97:Lib/lvgl/src/core/lv_group.c **** 
+  98:Lib/lvgl/src/core/lv_group.c ****     /*If the group is the default group, set the default group as NULL*/
+  99:Lib/lvgl/src/core/lv_group.c ****     if(group == lv_group_get_default()) lv_group_set_default(NULL);
+ 100:Lib/lvgl/src/core/lv_group.c **** 
+ 101:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_clear(&(group->obj_ll));
+ 102:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_remove(group_ll_p, group);
+ 103:Lib/lvgl/src/core/lv_group.c ****     lv_free(group);
+ 104:Lib/lvgl/src/core/lv_group.c **** }
+ 105:Lib/lvgl/src/core/lv_group.c **** 
+ 106:Lib/lvgl/src/core/lv_group.c **** void lv_group_set_default(lv_group_t * group)
+ 107:Lib/lvgl/src/core/lv_group.c **** {
+ 108:Lib/lvgl/src/core/lv_group.c ****     default_group = group;
+ 109:Lib/lvgl/src/core/lv_group.c **** }
+ 110:Lib/lvgl/src/core/lv_group.c **** 
+ 111:Lib/lvgl/src/core/lv_group.c **** lv_group_t * lv_group_get_default(void)
+ 112:Lib/lvgl/src/core/lv_group.c **** {
+ 113:Lib/lvgl/src/core/lv_group.c ****     return default_group;
+ 114:Lib/lvgl/src/core/lv_group.c **** }
+ 115:Lib/lvgl/src/core/lv_group.c **** 
+ 116:Lib/lvgl/src/core/lv_group.c **** void lv_group_add_obj(lv_group_t * group, lv_obj_t * obj)
+ 117:Lib/lvgl/src/core/lv_group.c **** {
+ 118:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return;
+ 119:Lib/lvgl/src/core/lv_group.c **** 
+ 120:Lib/lvgl/src/core/lv_group.c ****     LV_LOG_TRACE("begin");
+ 121:Lib/lvgl/src/core/lv_group.c **** 
+ 122:Lib/lvgl/src/core/lv_group.c ****     /*Be sure the object is removed from its current group*/
+ 123:Lib/lvgl/src/core/lv_group.c ****     lv_group_remove_obj(obj);
+ 124:Lib/lvgl/src/core/lv_group.c **** 
+ 125:Lib/lvgl/src/core/lv_group.c ****     /*Do not add the object twice*/
+ 126:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** obj_i;
+ 127:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&group->obj_ll, obj_i) {
+ 128:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj) {
+ 129:Lib/lvgl/src/core/lv_group.c ****             LV_LOG_INFO("the object is already added to this group");
+ 130:Lib/lvgl/src/core/lv_group.c ****             return;
+ 131:Lib/lvgl/src/core/lv_group.c ****         }
+ 132:Lib/lvgl/src/core/lv_group.c ****     }
+ 133:Lib/lvgl/src/core/lv_group.c **** 
+ 134:Lib/lvgl/src/core/lv_group.c ****     /*If the object is already in a group and focused then refocus it*/
+ 135:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * group_cur = lv_obj_get_group(obj);
+ 136:Lib/lvgl/src/core/lv_group.c ****     if(group_cur) {
+ 137:Lib/lvgl/src/core/lv_group.c ****         if(obj->spec_attr->group_p && *(obj->spec_attr->group_p->obj_focus) == obj) {
+ 138:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(group_cur);
+ 139:Lib/lvgl/src/core/lv_group.c **** 
+ 140:Lib/lvgl/src/core/lv_group.c ****             LV_LOG_INFO("changing object's group");
+ 141:Lib/lvgl/src/core/lv_group.c ****         }
+ 142:Lib/lvgl/src/core/lv_group.c ****     }
+ 143:Lib/lvgl/src/core/lv_group.c **** 
+ 144:Lib/lvgl/src/core/lv_group.c ****     if(obj->spec_attr == NULL) lv_obj_allocate_spec_attr(obj);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 4
+
+
+ 145:Lib/lvgl/src/core/lv_group.c ****     obj->spec_attr->group_p = group;
+ 146:Lib/lvgl/src/core/lv_group.c **** 
+ 147:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** next = _lv_ll_ins_tail(&group->obj_ll);
+ 148:Lib/lvgl/src/core/lv_group.c ****     LV_ASSERT_MALLOC(next);
+ 149:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 150:Lib/lvgl/src/core/lv_group.c ****     *next = obj;
+ 151:Lib/lvgl/src/core/lv_group.c **** 
+ 152:Lib/lvgl/src/core/lv_group.c ****     /*If the head and the tail is equal then there is only one object in the linked list.
+ 153:Lib/lvgl/src/core/lv_group.c ****      *In this case automatically activate it*/
+ 154:Lib/lvgl/src/core/lv_group.c ****     if(_lv_ll_get_head(&group->obj_ll) == next) {
+ 155:Lib/lvgl/src/core/lv_group.c ****         lv_group_refocus(group);
+ 156:Lib/lvgl/src/core/lv_group.c ****     }
+ 157:Lib/lvgl/src/core/lv_group.c **** 
+ 158:Lib/lvgl/src/core/lv_group.c ****     LV_LOG_TRACE("finished");
+ 159:Lib/lvgl/src/core/lv_group.c **** }
+ 160:Lib/lvgl/src/core/lv_group.c **** 
+ 161:Lib/lvgl/src/core/lv_group.c **** void lv_group_swap_obj(lv_obj_t * obj1, lv_obj_t * obj2)
+ 162:Lib/lvgl/src/core/lv_group.c **** {
+ 163:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g1 = lv_obj_get_group(obj1);
+ 164:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g2 = lv_obj_get_group(obj2);
+ 165:Lib/lvgl/src/core/lv_group.c ****     if(g1 != g2) return;
+ 166:Lib/lvgl/src/core/lv_group.c ****     if(g1 == NULL) return;
+ 167:Lib/lvgl/src/core/lv_group.c **** 
+ 168:Lib/lvgl/src/core/lv_group.c ****     /*Do not add the object twice*/
+ 169:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** obj_i;
+ 170:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&g1->obj_ll, obj_i) {
+ 171:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj1)(*obj_i) = obj2;
+ 172:Lib/lvgl/src/core/lv_group.c ****         else if((*obj_i) == obj2)(*obj_i) = obj1;
+ 173:Lib/lvgl/src/core/lv_group.c ****     }
+ 174:Lib/lvgl/src/core/lv_group.c **** 
+ 175:Lib/lvgl/src/core/lv_group.c ****     if(*g1->obj_focus == obj1) lv_group_focus_obj(obj2);
+ 176:Lib/lvgl/src/core/lv_group.c ****     else if(*g1->obj_focus == obj2) lv_group_focus_obj(obj1);
+ 177:Lib/lvgl/src/core/lv_group.c **** 
+ 178:Lib/lvgl/src/core/lv_group.c **** }
+ 179:Lib/lvgl/src/core/lv_group.c **** 
+ 180:Lib/lvgl/src/core/lv_group.c **** void lv_group_remove_obj(lv_obj_t * obj)
+ 181:Lib/lvgl/src/core/lv_group.c **** {
+ 182:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g = lv_obj_get_group(obj);
+ 183:Lib/lvgl/src/core/lv_group.c ****     if(g == NULL) return;
+ 184:Lib/lvgl/src/core/lv_group.c **** 
+ 185:Lib/lvgl/src/core/lv_group.c ****     LV_LOG_TRACE("begin");
+ 186:Lib/lvgl/src/core/lv_group.c **** 
+ 187:Lib/lvgl/src/core/lv_group.c ****     /*Focus on the next object*/
+ 188:Lib/lvgl/src/core/lv_group.c ****     if(g->obj_focus && *g->obj_focus == obj) {
+ 189:Lib/lvgl/src/core/lv_group.c ****         if(g->frozen) g->frozen = 0;
+ 190:Lib/lvgl/src/core/lv_group.c **** 
+ 191:Lib/lvgl/src/core/lv_group.c ****         /*If this is the only object in the group then focus to nothing.*/
+ 192:Lib/lvgl/src/core/lv_group.c ****         if(_lv_ll_get_head(&g->obj_ll) == g->obj_focus && _lv_ll_get_tail(&g->obj_ll) == g->obj_foc
+ 193:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 194:Lib/lvgl/src/core/lv_group.c ****         }
+ 195:Lib/lvgl/src/core/lv_group.c ****         /*If there more objects in the group then focus to the next/prev object*/
+ 196:Lib/lvgl/src/core/lv_group.c ****         else {
+ 197:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(g);
+ 198:Lib/lvgl/src/core/lv_group.c ****         }
+ 199:Lib/lvgl/src/core/lv_group.c ****     }
+ 200:Lib/lvgl/src/core/lv_group.c **** 
+ 201:Lib/lvgl/src/core/lv_group.c ****     /*If the focuses object is still the same then it was the only object in the group but it will
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 5
+
+
+ 202:Lib/lvgl/src/core/lv_group.c ****      *be deleted. Set the `obj_focus` to NULL to get back to the initial state of the group with
+ 203:Lib/lvgl/src/core/lv_group.c ****      *zero objects*/
+ 204:Lib/lvgl/src/core/lv_group.c ****     if(g->obj_focus && *g->obj_focus == obj) {
+ 205:Lib/lvgl/src/core/lv_group.c ****         g->obj_focus = NULL;
+ 206:Lib/lvgl/src/core/lv_group.c ****     }
+ 207:Lib/lvgl/src/core/lv_group.c **** 
+ 208:Lib/lvgl/src/core/lv_group.c ****     /*Search the object and remove it from its group*/
+ 209:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** i;
+ 210:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&g->obj_ll, i) {
+ 211:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 212:Lib/lvgl/src/core/lv_group.c ****             _lv_ll_remove(&g->obj_ll, i);
+ 213:Lib/lvgl/src/core/lv_group.c ****             lv_free(i);
+ 214:Lib/lvgl/src/core/lv_group.c ****             if(obj->spec_attr) obj->spec_attr->group_p = NULL;
+ 215:Lib/lvgl/src/core/lv_group.c ****             break;
+ 216:Lib/lvgl/src/core/lv_group.c ****         }
+ 217:Lib/lvgl/src/core/lv_group.c ****     }
+ 218:Lib/lvgl/src/core/lv_group.c ****     LV_LOG_TRACE("finished");
+ 219:Lib/lvgl/src/core/lv_group.c **** }
+ 220:Lib/lvgl/src/core/lv_group.c **** 
+ 221:Lib/lvgl/src/core/lv_group.c **** void lv_group_remove_all_objs(lv_group_t * group)
+ 222:Lib/lvgl/src/core/lv_group.c **** {
+ 223:Lib/lvgl/src/core/lv_group.c ****     /*Defocus the currently focused object*/
+ 224:Lib/lvgl/src/core/lv_group.c ****     if(group->obj_focus != NULL) {
+ 225:Lib/lvgl/src/core/lv_group.c ****         lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
+ 226:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 227:Lib/lvgl/src/core/lv_group.c ****         group->obj_focus = NULL;
+ 228:Lib/lvgl/src/core/lv_group.c ****     }
+ 229:Lib/lvgl/src/core/lv_group.c **** 
+ 230:Lib/lvgl/src/core/lv_group.c ****     /*Remove the objects from the group*/
+ 231:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** obj;
+ 232:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&group->obj_ll, obj) {
+ 233:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 234:Lib/lvgl/src/core/lv_group.c ****     }
+ 235:Lib/lvgl/src/core/lv_group.c **** 
+ 236:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_clear(&(group->obj_ll));
+ 237:Lib/lvgl/src/core/lv_group.c **** }
+ 238:Lib/lvgl/src/core/lv_group.c **** 
+ 239:Lib/lvgl/src/core/lv_group.c **** void lv_group_focus_obj(lv_obj_t * obj)
+ 240:Lib/lvgl/src/core/lv_group.c **** {
+ 241:Lib/lvgl/src/core/lv_group.c ****     if(obj == NULL) return;
+ 242:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g = lv_obj_get_group(obj);
+ 243:Lib/lvgl/src/core/lv_group.c ****     if(g == NULL) return;
+ 244:Lib/lvgl/src/core/lv_group.c **** 
+ 245:Lib/lvgl/src/core/lv_group.c ****     if(g->frozen != 0) return;
+ 246:Lib/lvgl/src/core/lv_group.c **** 
+ 247:Lib/lvgl/src/core/lv_group.c ****     /*On defocus edit mode must be leaved*/
+ 248:Lib/lvgl/src/core/lv_group.c ****     lv_group_set_editing(g, false);
+ 249:Lib/lvgl/src/core/lv_group.c **** 
+ 250:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** i;
+ 251:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&g->obj_ll, i) {
+ 252:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 253:Lib/lvgl/src/core/lv_group.c ****             if(g->obj_focus != NULL && obj != *g->obj_focus) {  /*Do not defocus if the same object
+ 254:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g)
+ 255:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 256:Lib/lvgl/src/core/lv_group.c ****                 lv_obj_invalidate(*g->obj_focus);
+ 257:Lib/lvgl/src/core/lv_group.c ****             }
+ 258:Lib/lvgl/src/core/lv_group.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 6
+
+
+ 259:Lib/lvgl/src/core/lv_group.c ****             g->obj_focus = i;
+ 260:Lib/lvgl/src/core/lv_group.c **** 
+ 261:Lib/lvgl/src/core/lv_group.c ****             if(g->obj_focus != NULL) {
+ 262:Lib/lvgl/src/core/lv_group.c ****                 if(g->focus_cb) g->focus_cb(g);
+ 263:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
+ 264:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 265:Lib/lvgl/src/core/lv_group.c ****                 lv_obj_invalidate(*g->obj_focus);
+ 266:Lib/lvgl/src/core/lv_group.c ****             }
+ 267:Lib/lvgl/src/core/lv_group.c ****             break;
+ 268:Lib/lvgl/src/core/lv_group.c ****         }
+ 269:Lib/lvgl/src/core/lv_group.c ****     }
+ 270:Lib/lvgl/src/core/lv_group.c **** }
+ 271:Lib/lvgl/src/core/lv_group.c **** 
+ 272:Lib/lvgl/src/core/lv_group.c **** void lv_group_focus_next(lv_group_t * group)
+ 273:Lib/lvgl/src/core/lv_group.c **** {
+ 274:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = focus_next_core(group, _lv_ll_get_head, _lv_ll_get_next);
+ 275:Lib/lvgl/src/core/lv_group.c ****     if(group->edge_cb) {
+ 276:Lib/lvgl/src/core/lv_group.c ****         if(!focus_changed)
+ 277:Lib/lvgl/src/core/lv_group.c ****             group->edge_cb(group, true);
+ 278:Lib/lvgl/src/core/lv_group.c ****     }
+ 279:Lib/lvgl/src/core/lv_group.c **** }
+ 280:Lib/lvgl/src/core/lv_group.c **** 
+ 281:Lib/lvgl/src/core/lv_group.c **** void lv_group_focus_prev(lv_group_t * group)
+ 282:Lib/lvgl/src/core/lv_group.c **** {
+ 283:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = focus_next_core(group, _lv_ll_get_tail, _lv_ll_get_prev);
+ 284:Lib/lvgl/src/core/lv_group.c ****     if(group->edge_cb) {
+ 285:Lib/lvgl/src/core/lv_group.c ****         if(!focus_changed)
+ 286:Lib/lvgl/src/core/lv_group.c ****             group->edge_cb(group, false);
+ 287:Lib/lvgl/src/core/lv_group.c ****     }
+ 288:Lib/lvgl/src/core/lv_group.c **** }
+ 289:Lib/lvgl/src/core/lv_group.c **** 
+ 290:Lib/lvgl/src/core/lv_group.c **** void lv_group_focus_freeze(lv_group_t * group, bool en)
+ 291:Lib/lvgl/src/core/lv_group.c **** {
+ 292:Lib/lvgl/src/core/lv_group.c ****     if(en == false) group->frozen = 0;
+ 293:Lib/lvgl/src/core/lv_group.c ****     else group->frozen = 1;
+ 294:Lib/lvgl/src/core/lv_group.c **** }
+ 295:Lib/lvgl/src/core/lv_group.c **** 
+ 296:Lib/lvgl/src/core/lv_group.c **** lv_result_t lv_group_send_data(lv_group_t * group, uint32_t c)
+ 297:Lib/lvgl/src/core/lv_group.c **** {
+ 298:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t * act = lv_group_get_focused(group);
+ 299:Lib/lvgl/src/core/lv_group.c ****     if(act == NULL) return LV_RESULT_OK;
+ 300:Lib/lvgl/src/core/lv_group.c **** 
+ 301:Lib/lvgl/src/core/lv_group.c ****     if(lv_obj_has_state(act, LV_STATE_DISABLED)) return LV_RESULT_OK;
+ 302:Lib/lvgl/src/core/lv_group.c **** 
+ 303:Lib/lvgl/src/core/lv_group.c ****     return lv_obj_send_event(act, LV_EVENT_KEY, &c);
+ 304:Lib/lvgl/src/core/lv_group.c **** }
+ 305:Lib/lvgl/src/core/lv_group.c **** 
+ 306:Lib/lvgl/src/core/lv_group.c **** void lv_group_set_focus_cb(lv_group_t * group, lv_group_focus_cb_t focus_cb)
+ 307:Lib/lvgl/src/core/lv_group.c **** {
+ 308:Lib/lvgl/src/core/lv_group.c ****     group->focus_cb = focus_cb;
+ 309:Lib/lvgl/src/core/lv_group.c **** }
+ 310:Lib/lvgl/src/core/lv_group.c **** 
+ 311:Lib/lvgl/src/core/lv_group.c **** void lv_group_set_edge_cb(lv_group_t * group, lv_group_edge_cb_t edge_cb)
+ 312:Lib/lvgl/src/core/lv_group.c **** {
+ 313:Lib/lvgl/src/core/lv_group.c ****     group->edge_cb = edge_cb;
+ 314:Lib/lvgl/src/core/lv_group.c **** }
+ 315:Lib/lvgl/src/core/lv_group.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 7
+
+
+ 316:Lib/lvgl/src/core/lv_group.c **** void lv_group_set_editing(lv_group_t * group, bool edit)
+ 317:Lib/lvgl/src/core/lv_group.c **** {
+ 318:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return;
+ 319:Lib/lvgl/src/core/lv_group.c ****     uint8_t en_val = edit ? 1 : 0;
+ 320:Lib/lvgl/src/core/lv_group.c **** 
+ 321:Lib/lvgl/src/core/lv_group.c ****     if(en_val == group->editing) return; /*Do not set the same mode again*/
+ 322:Lib/lvgl/src/core/lv_group.c **** 
+ 323:Lib/lvgl/src/core/lv_group.c ****     group->editing     = en_val;
+ 324:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t * focused = lv_group_get_focused(group);
+ 325:Lib/lvgl/src/core/lv_group.c **** 
+ 326:Lib/lvgl/src/core/lv_group.c ****     if(focused) {
+ 327:Lib/lvgl/src/core/lv_group.c ****         lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
+ 328:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return;
+ 329:Lib/lvgl/src/core/lv_group.c **** 
+ 330:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(focused);
+ 331:Lib/lvgl/src/core/lv_group.c ****     }
+ 332:Lib/lvgl/src/core/lv_group.c **** }
+ 333:Lib/lvgl/src/core/lv_group.c **** 
+ 334:Lib/lvgl/src/core/lv_group.c **** void lv_group_set_refocus_policy(lv_group_t * group, lv_group_refocus_policy_t policy)
+ 335:Lib/lvgl/src/core/lv_group.c **** {
+ 336:Lib/lvgl/src/core/lv_group.c ****     group->refocus_policy = policy & 0x01;
+ 337:Lib/lvgl/src/core/lv_group.c **** }
+ 338:Lib/lvgl/src/core/lv_group.c **** 
+ 339:Lib/lvgl/src/core/lv_group.c **** void lv_group_set_wrap(lv_group_t * group, bool en)
+ 340:Lib/lvgl/src/core/lv_group.c **** {
+ 341:Lib/lvgl/src/core/lv_group.c ****     group->wrap = en ? 1 : 0;
+ 342:Lib/lvgl/src/core/lv_group.c **** }
+ 343:Lib/lvgl/src/core/lv_group.c **** 
+ 344:Lib/lvgl/src/core/lv_group.c **** lv_obj_t * lv_group_get_focused(const lv_group_t * group)
+ 345:Lib/lvgl/src/core/lv_group.c **** {
+ 346:Lib/lvgl/src/core/lv_group.c ****     if(!group) return NULL;
+ 347:Lib/lvgl/src/core/lv_group.c ****     if(group->obj_focus == NULL) return NULL;
+ 348:Lib/lvgl/src/core/lv_group.c **** 
+ 349:Lib/lvgl/src/core/lv_group.c ****     return *group->obj_focus;
+ 350:Lib/lvgl/src/core/lv_group.c **** }
+ 351:Lib/lvgl/src/core/lv_group.c **** 
+ 352:Lib/lvgl/src/core/lv_group.c **** lv_group_focus_cb_t lv_group_get_focus_cb(const lv_group_t * group)
+ 353:Lib/lvgl/src/core/lv_group.c **** {
+ 354:Lib/lvgl/src/core/lv_group.c ****     if(!group) return NULL;
+ 355:Lib/lvgl/src/core/lv_group.c ****     return group->focus_cb;
+ 356:Lib/lvgl/src/core/lv_group.c **** }
+ 357:Lib/lvgl/src/core/lv_group.c **** 
+ 358:Lib/lvgl/src/core/lv_group.c **** lv_group_edge_cb_t lv_group_get_edge_cb(const lv_group_t * group)
+ 359:Lib/lvgl/src/core/lv_group.c **** {
+ 360:Lib/lvgl/src/core/lv_group.c ****     if(!group) return NULL;
+ 361:Lib/lvgl/src/core/lv_group.c ****     return group->edge_cb;
+ 362:Lib/lvgl/src/core/lv_group.c **** }
+ 363:Lib/lvgl/src/core/lv_group.c **** 
+ 364:Lib/lvgl/src/core/lv_group.c **** bool lv_group_get_editing(const lv_group_t * group)
+ 365:Lib/lvgl/src/core/lv_group.c **** {
+ 366:Lib/lvgl/src/core/lv_group.c ****     if(!group) return false;
+ 367:Lib/lvgl/src/core/lv_group.c ****     return group->editing;
+ 368:Lib/lvgl/src/core/lv_group.c **** }
+ 369:Lib/lvgl/src/core/lv_group.c **** 
+ 370:Lib/lvgl/src/core/lv_group.c **** bool lv_group_get_wrap(lv_group_t * group)
+ 371:Lib/lvgl/src/core/lv_group.c **** {
+ 372:Lib/lvgl/src/core/lv_group.c ****     if(!group) return false;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 8
+
+
+ 373:Lib/lvgl/src/core/lv_group.c ****     return group->wrap;
+ 374:Lib/lvgl/src/core/lv_group.c **** }
+ 375:Lib/lvgl/src/core/lv_group.c **** 
+ 376:Lib/lvgl/src/core/lv_group.c **** uint32_t lv_group_get_obj_count(lv_group_t * group)
+ 377:Lib/lvgl/src/core/lv_group.c **** {
+ 378:Lib/lvgl/src/core/lv_group.c ****     return _lv_ll_get_len(&group->obj_ll);
+ 379:Lib/lvgl/src/core/lv_group.c **** }
+ 380:Lib/lvgl/src/core/lv_group.c **** 
+ 381:Lib/lvgl/src/core/lv_group.c **** uint32_t lv_group_get_count(void)
+ 382:Lib/lvgl/src/core/lv_group.c **** {
+ 383:Lib/lvgl/src/core/lv_group.c ****     return _lv_ll_get_len(group_ll_p);
+ 384:Lib/lvgl/src/core/lv_group.c **** }
+ 385:Lib/lvgl/src/core/lv_group.c **** 
+ 386:Lib/lvgl/src/core/lv_group.c **** lv_group_t  * lv_group_by_index(uint32_t index)
+ 387:Lib/lvgl/src/core/lv_group.c **** {
+ 388:Lib/lvgl/src/core/lv_group.c ****     uint32_t len = 0;
+ 389:Lib/lvgl/src/core/lv_group.c ****     void * node;
+ 390:Lib/lvgl/src/core/lv_group.c **** 
+ 391:Lib/lvgl/src/core/lv_group.c ****     for(node = _lv_ll_get_tail(group_ll_p); node != NULL; node = _lv_ll_get_prev(group_ll_p, node))
+ 392:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 393:Lib/lvgl/src/core/lv_group.c ****             return (lv_group_t *) node;
+ 394:Lib/lvgl/src/core/lv_group.c ****         }
+ 395:Lib/lvgl/src/core/lv_group.c ****         len++;
+ 396:Lib/lvgl/src/core/lv_group.c ****     }
+ 397:Lib/lvgl/src/core/lv_group.c **** 
+ 398:Lib/lvgl/src/core/lv_group.c ****     return NULL;
+ 399:Lib/lvgl/src/core/lv_group.c **** }
+ 400:Lib/lvgl/src/core/lv_group.c **** /**********************
+ 401:Lib/lvgl/src/core/lv_group.c ****  *   STATIC FUNCTIONS
+ 402:Lib/lvgl/src/core/lv_group.c ****  **********************/
+ 403:Lib/lvgl/src/core/lv_group.c **** 
+ 404:Lib/lvgl/src/core/lv_group.c **** static void lv_group_refocus(lv_group_t * g)
+ 405:Lib/lvgl/src/core/lv_group.c **** {
+ 406:Lib/lvgl/src/core/lv_group.c ****     /*Refocus must temporarily allow wrapping to work correctly*/
+ 407:Lib/lvgl/src/core/lv_group.c ****     uint8_t temp_wrap = g->wrap;
+ 408:Lib/lvgl/src/core/lv_group.c ****     g->wrap           = 1;
+ 409:Lib/lvgl/src/core/lv_group.c **** 
+ 410:Lib/lvgl/src/core/lv_group.c ****     if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_NEXT)
+ 411:Lib/lvgl/src/core/lv_group.c ****         lv_group_focus_next(g);
+ 412:Lib/lvgl/src/core/lv_group.c ****     else if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_PREV)
+ 413:Lib/lvgl/src/core/lv_group.c ****         lv_group_focus_prev(g);
+ 414:Lib/lvgl/src/core/lv_group.c ****     /*Restore wrap property*/
+ 415:Lib/lvgl/src/core/lv_group.c ****     g->wrap = temp_wrap;
+ 416:Lib/lvgl/src/core/lv_group.c **** }
+ 417:Lib/lvgl/src/core/lv_group.c **** 
+ 418:Lib/lvgl/src/core/lv_group.c **** static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *),
+ 419:Lib/lvgl/src/core/lv_group.c ****                             void * (*move)(const lv_ll_t *, const void *))
+ 420:Lib/lvgl/src/core/lv_group.c **** {
+ 421:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = false;
+ 422:Lib/lvgl/src/core/lv_group.c ****     if(group->frozen) return focus_changed;
+ 423:Lib/lvgl/src/core/lv_group.c **** 
+ 424:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** obj_next     = group->obj_focus;
+ 425:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** obj_sentinel = NULL;
+ 426:Lib/lvgl/src/core/lv_group.c ****     bool can_move            = true;
+ 427:Lib/lvgl/src/core/lv_group.c ****     bool can_begin           = true;
+ 428:Lib/lvgl/src/core/lv_group.c **** 
+ 429:Lib/lvgl/src/core/lv_group.c ****     for(;;) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 9
+
+
+ 430:Lib/lvgl/src/core/lv_group.c ****         if(obj_next == NULL) {
+ 431:Lib/lvgl/src/core/lv_group.c ****             if(group->wrap || obj_sentinel == NULL) {
+ 432:Lib/lvgl/src/core/lv_group.c ****                 if(!can_begin) return focus_changed;
+ 433:Lib/lvgl/src/core/lv_group.c ****                 obj_next  = begin(&group->obj_ll);
+ 434:Lib/lvgl/src/core/lv_group.c ****                 can_move  = false;
+ 435:Lib/lvgl/src/core/lv_group.c ****                 can_begin = false;
+ 436:Lib/lvgl/src/core/lv_group.c ****             }
+ 437:Lib/lvgl/src/core/lv_group.c ****             else {
+ 438:Lib/lvgl/src/core/lv_group.c ****                 /*Currently focused object is the last/first in the group, keep it that way*/
+ 439:Lib/lvgl/src/core/lv_group.c ****                 return focus_changed;
+ 440:Lib/lvgl/src/core/lv_group.c ****             }
+ 441:Lib/lvgl/src/core/lv_group.c ****         }
+ 442:Lib/lvgl/src/core/lv_group.c **** 
+ 443:Lib/lvgl/src/core/lv_group.c ****         if(obj_sentinel == NULL) {
+ 444:Lib/lvgl/src/core/lv_group.c ****             obj_sentinel = obj_next;
+ 445:Lib/lvgl/src/core/lv_group.c ****             if(obj_sentinel == NULL) return focus_changed; /*Group is empty*/
+ 446:Lib/lvgl/src/core/lv_group.c ****         }
+ 447:Lib/lvgl/src/core/lv_group.c **** 
+ 448:Lib/lvgl/src/core/lv_group.c ****         if(can_move) {
+ 449:Lib/lvgl/src/core/lv_group.c ****             obj_next = move(&group->obj_ll, obj_next);
+ 450:Lib/lvgl/src/core/lv_group.c **** 
+ 451:Lib/lvgl/src/core/lv_group.c ****             /*Give up if we walked the entire list and haven't found another visible object*/
+ 452:Lib/lvgl/src/core/lv_group.c ****             if(obj_next == obj_sentinel) return focus_changed;
+ 453:Lib/lvgl/src/core/lv_group.c ****         }
+ 454:Lib/lvgl/src/core/lv_group.c **** 
+ 455:Lib/lvgl/src/core/lv_group.c ****         can_move = true;
+ 456:Lib/lvgl/src/core/lv_group.c **** 
+ 457:Lib/lvgl/src/core/lv_group.c ****         if(obj_next == NULL) continue;
+ 458:Lib/lvgl/src/core/lv_group.c ****         if(lv_obj_get_state(*obj_next) & LV_STATE_DISABLED) continue;
+ 459:Lib/lvgl/src/core/lv_group.c **** 
+ 460:Lib/lvgl/src/core/lv_group.c ****         /*Hidden objects don't receive focus.
+ 461:Lib/lvgl/src/core/lv_group.c ****          *If any parent is hidden, the object is also hidden)*/
+ 462:Lib/lvgl/src/core/lv_group.c ****         lv_obj_t * parent = *obj_next;
+ 463:Lib/lvgl/src/core/lv_group.c ****         while(parent) {
+ 464:Lib/lvgl/src/core/lv_group.c ****             if(lv_obj_has_flag(parent, LV_OBJ_FLAG_HIDDEN)) break;
+ 465:Lib/lvgl/src/core/lv_group.c ****             parent = lv_obj_get_parent(parent);
+ 466:Lib/lvgl/src/core/lv_group.c ****         }
+ 467:Lib/lvgl/src/core/lv_group.c **** 
+ 468:Lib/lvgl/src/core/lv_group.c ****         if(parent && lv_obj_has_flag(parent, LV_OBJ_FLAG_HIDDEN)) continue;
+ 469:Lib/lvgl/src/core/lv_group.c **** 
+ 470:Lib/lvgl/src/core/lv_group.c ****         /*If we got her a good candidate is found*/
+ 471:Lib/lvgl/src/core/lv_group.c ****         break;
+ 472:Lib/lvgl/src/core/lv_group.c ****     }
+ 473:Lib/lvgl/src/core/lv_group.c **** 
+ 474:Lib/lvgl/src/core/lv_group.c ****     if(obj_next == group->obj_focus) return focus_changed; /*There's only one visible object and it
+ 475:Lib/lvgl/src/core/lv_group.c **** 
+ 476:Lib/lvgl/src/core/lv_group.c ****     if(group->obj_focus) {
+ 477:Lib/lvgl/src/core/lv_group.c ****         lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group)
+ 478:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return focus_changed;
+ 479:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 480:Lib/lvgl/src/core/lv_group.c ****     }
+ 481:Lib/lvgl/src/core/lv_group.c **** 
+ 482:Lib/lvgl/src/core/lv_group.c ****     group->obj_focus = obj_next;
+ 483:Lib/lvgl/src/core/lv_group.c **** 
+ 484:Lib/lvgl/src/core/lv_group.c ****     lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
+ 485:Lib/lvgl/src/core/lv_group.c ****     if(res != LV_RESULT_OK) return focus_changed;
+ 486:Lib/lvgl/src/core/lv_group.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 10
+
+
+ 487:Lib/lvgl/src/core/lv_group.c ****     lv_obj_invalidate(*group->obj_focus);
+ 488:Lib/lvgl/src/core/lv_group.c **** 
+ 489:Lib/lvgl/src/core/lv_group.c ****     if(group->focus_cb) group->focus_cb(group);
+ 490:Lib/lvgl/src/core/lv_group.c ****     focus_changed = true;
+ 491:Lib/lvgl/src/core/lv_group.c ****     return focus_changed;
+ 492:Lib/lvgl/src/core/lv_group.c **** }
+ 493:Lib/lvgl/src/core/lv_group.c **** 
+ 494:Lib/lvgl/src/core/lv_group.c **** /**
+ 495:Lib/lvgl/src/core/lv_group.c ****  * Find an indev preferably with POINTER type (because it's the most generic) that uses the given g
+ 496:Lib/lvgl/src/core/lv_group.c ****  * In other words, find an indev, that is related to the given group.
+ 497:Lib/lvgl/src/core/lv_group.c ****  * In the worst case simply return the latest indev
+ 498:Lib/lvgl/src/core/lv_group.c ****  * @param g     a group the find in the indevs
+ 499:Lib/lvgl/src/core/lv_group.c ****  * @return      the suggested indev
+ 500:Lib/lvgl/src/core/lv_group.c ****  */
+ 501:Lib/lvgl/src/core/lv_group.c **** static lv_indev_t * get_indev(const lv_group_t * g)
+ 502:Lib/lvgl/src/core/lv_group.c **** {
+  29              		.loc 1 502 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 502 1 is_stmt 0 view .LVU1
+  34 0000 70B5     		push	{r4, r5, r6, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 4, -16
+  38              		.cfi_offset 5, -12
+  39              		.cfi_offset 6, -8
+  40              		.cfi_offset 14, -4
+  41 0002 0546     		mov	r5, r0
+ 503:Lib/lvgl/src/core/lv_group.c ****     lv_indev_t * indev_guess = NULL;
+  42              		.loc 1 503 5 is_stmt 1 view .LVU2
+  43              	.LVL1:
+ 504:Lib/lvgl/src/core/lv_group.c ****     lv_indev_t * indev = lv_indev_get_next(NULL);
+  44              		.loc 1 504 5 view .LVU3
+  45              		.loc 1 504 26 is_stmt 0 view .LVU4
+  46 0004 0020     		movs	r0, #0
+  47              	.LVL2:
+  48              		.loc 1 504 26 view .LVU5
+  49 0006 FFF7FEFF 		bl	lv_indev_get_next
+  50              	.LVL3:
+  51 000a 0446     		mov	r4, r0
+  52              	.LVL4:
+ 505:Lib/lvgl/src/core/lv_group.c **** 
+ 506:Lib/lvgl/src/core/lv_group.c ****     while(indev) {
+  53              		.loc 1 506 5 is_stmt 1 view .LVU6
+ 503:Lib/lvgl/src/core/lv_group.c ****     lv_indev_t * indev = lv_indev_get_next(NULL);
+  54              		.loc 1 503 18 is_stmt 0 view .LVU7
+  55 000c 0026     		movs	r6, #0
+  56              		.loc 1 506 10 view .LVU8
+  57 000e 03E0     		b	.L2
+  58              	.LVL5:
+  59              	.L4:
+  60              	.LBB8:
+ 507:Lib/lvgl/src/core/lv_group.c ****         lv_indev_type_t indev_type = lv_indev_get_type(indev);
+ 508:Lib/lvgl/src/core/lv_group.c ****         /*Prefer POINTER*/
+ 509:Lib/lvgl/src/core/lv_group.c ****         if(indev_type == LV_INDEV_TYPE_POINTER) return indev;
+ 510:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == g) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 11
+
+
+ 511:Lib/lvgl/src/core/lv_group.c ****             indev_guess = indev;
+ 512:Lib/lvgl/src/core/lv_group.c ****         }
+ 513:Lib/lvgl/src/core/lv_group.c ****         indev = lv_indev_get_next(indev);
+  61              		.loc 1 513 9 is_stmt 1 view .LVU9
+  62              		.loc 1 513 17 is_stmt 0 view .LVU10
+  63 0010 2046     		mov	r0, r4
+  64 0012 FFF7FEFF 		bl	lv_indev_get_next
+  65              	.LVL6:
+  66 0016 0446     		mov	r4, r0
+  67              	.LVL7:
+  68              	.L2:
+  69              		.loc 1 513 17 view .LVU11
+  70              	.LBE8:
+ 506:Lib/lvgl/src/core/lv_group.c ****         lv_indev_type_t indev_type = lv_indev_get_type(indev);
+  71              		.loc 1 506 11 is_stmt 1 view .LVU12
+  72 0018 64B1     		cbz	r4, .L1
+  73              	.LBB9:
+ 507:Lib/lvgl/src/core/lv_group.c ****         lv_indev_type_t indev_type = lv_indev_get_type(indev);
+  74              		.loc 1 507 9 view .LVU13
+ 507:Lib/lvgl/src/core/lv_group.c ****         lv_indev_type_t indev_type = lv_indev_get_type(indev);
+  75              		.loc 1 507 38 is_stmt 0 view .LVU14
+  76 001a 2046     		mov	r0, r4
+ 507:Lib/lvgl/src/core/lv_group.c ****         lv_indev_type_t indev_type = lv_indev_get_type(indev);
+  77              		.loc 1 507 38 view .LVU15
+  78 001c FFF7FEFF 		bl	lv_indev_get_type
+  79              	.LVL8:
+ 509:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == g) {
+  80              		.loc 1 509 9 is_stmt 1 view .LVU16
+ 509:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == g) {
+  81              		.loc 1 509 11 is_stmt 0 view .LVU17
+  82 0020 0128     		cmp	r0, #1
+  83 0022 06D0     		beq	.L6
+ 510:Lib/lvgl/src/core/lv_group.c ****             indev_guess = indev;
+  84              		.loc 1 510 9 is_stmt 1 view .LVU18
+ 510:Lib/lvgl/src/core/lv_group.c ****             indev_guess = indev;
+  85              		.loc 1 510 12 is_stmt 0 view .LVU19
+  86 0024 2046     		mov	r0, r4
+  87              	.LVL9:
+ 510:Lib/lvgl/src/core/lv_group.c ****             indev_guess = indev;
+  88              		.loc 1 510 12 view .LVU20
+  89 0026 FFF7FEFF 		bl	lv_indev_get_group
+  90              	.LVL10:
+ 510:Lib/lvgl/src/core/lv_group.c ****             indev_guess = indev;
+  91              		.loc 1 510 11 view .LVU21
+  92 002a 8542     		cmp	r5, r0
+  93 002c F0D1     		bne	.L4
+ 511:Lib/lvgl/src/core/lv_group.c ****         }
+  94              		.loc 1 511 25 view .LVU22
+  95 002e 2646     		mov	r6, r4
+  96              	.LVL11:
+ 511:Lib/lvgl/src/core/lv_group.c ****         }
+  97              		.loc 1 511 25 view .LVU23
+  98 0030 EEE7     		b	.L4
+  99              	.LVL12:
+ 100              	.L6:
+ 509:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == g) {
+ 101              		.loc 1 509 56 view .LVU24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 12
+
+
+ 102 0032 2646     		mov	r6, r4
+ 103              	.LVL13:
+ 104              	.L1:
+ 509:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == g) {
+ 105              		.loc 1 509 56 view .LVU25
+ 106              	.LBE9:
+ 514:Lib/lvgl/src/core/lv_group.c ****     }
+ 515:Lib/lvgl/src/core/lv_group.c **** 
+ 516:Lib/lvgl/src/core/lv_group.c ****     return indev_guess;
+ 517:Lib/lvgl/src/core/lv_group.c **** }
+ 107              		.loc 1 517 1 view .LVU26
+ 108 0034 3046     		mov	r0, r6
+ 109 0036 70BD     		pop	{r4, r5, r6, pc}
+ 110              		.loc 1 517 1 view .LVU27
+ 111              		.cfi_endproc
+ 112              	.LFE264:
+ 114              		.section	.text.focus_next_core,"ax",%progbits
+ 115              		.align	1
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 120              	focus_next_core:
+ 121              	.LVL14:
+ 122              	.LFB263:
+ 420:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = false;
+ 123              		.loc 1 420 1 is_stmt 1 view -0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 420:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = false;
+ 127              		.loc 1 420 1 is_stmt 0 view .LVU29
+ 128 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 129              	.LCFI1:
+ 130              		.cfi_def_cfa_offset 32
+ 131              		.cfi_offset 4, -32
+ 132              		.cfi_offset 5, -28
+ 133              		.cfi_offset 6, -24
+ 134              		.cfi_offset 7, -20
+ 135              		.cfi_offset 8, -16
+ 136              		.cfi_offset 9, -12
+ 137              		.cfi_offset 10, -8
+ 138              		.cfi_offset 14, -4
+ 421:Lib/lvgl/src/core/lv_group.c ****     if(group->frozen) return focus_changed;
+ 139              		.loc 1 421 5 is_stmt 1 view .LVU30
+ 140              	.LVL15:
+ 422:Lib/lvgl/src/core/lv_group.c **** 
+ 141              		.loc 1 422 5 view .LVU31
+ 422:Lib/lvgl/src/core/lv_group.c **** 
+ 142              		.loc 1 422 8 is_stmt 0 view .LVU32
+ 143 0004 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 422:Lib/lvgl/src/core/lv_group.c **** 
+ 144              		.loc 1 422 7 view .LVU33
+ 145 0006 13F0010F 		tst	r3, #1
+ 146 000a 6ED1     		bne	.L22
+ 147 000c 0646     		mov	r6, r0
+ 148 000e 8A46     		mov	r10, r1
+ 149 0010 9146     		mov	r9, r2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 13
+
+
+ 424:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** obj_sentinel = NULL;
+ 150              		.loc 1 424 5 is_stmt 1 view .LVU34
+ 424:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t ** obj_sentinel = NULL;
+ 151              		.loc 1 424 17 is_stmt 0 view .LVU35
+ 152 0012 C568     		ldr	r5, [r0, #12]
+ 153              	.LVL16:
+ 425:Lib/lvgl/src/core/lv_group.c ****     bool can_move            = true;
+ 154              		.loc 1 425 5 is_stmt 1 view .LVU36
+ 426:Lib/lvgl/src/core/lv_group.c ****     bool can_begin           = true;
+ 155              		.loc 1 426 5 view .LVU37
+ 427:Lib/lvgl/src/core/lv_group.c **** 
+ 156              		.loc 1 427 5 view .LVU38
+ 427:Lib/lvgl/src/core/lv_group.c **** 
+ 157              		.loc 1 427 10 is_stmt 0 view .LVU39
+ 158 0014 4FF00108 		mov	r8, #1
+ 425:Lib/lvgl/src/core/lv_group.c ****     bool can_move            = true;
+ 159              		.loc 1 425 17 view .LVU40
+ 160 0018 0027     		movs	r7, #0
+ 161              	.LVL17:
+ 162              	.L11:
+ 429:Lib/lvgl/src/core/lv_group.c ****         if(obj_next == NULL) {
+ 163              		.loc 1 429 5 is_stmt 1 view .LVU41
+ 164              	.LBB10:
+ 430:Lib/lvgl/src/core/lv_group.c ****             if(group->wrap || obj_sentinel == NULL) {
+ 165              		.loc 1 430 9 view .LVU42
+ 430:Lib/lvgl/src/core/lv_group.c ****             if(group->wrap || obj_sentinel == NULL) {
+ 166              		.loc 1 430 11 is_stmt 0 view .LVU43
+ 167 001a E5B1     		cbz	r5, .L32
+ 430:Lib/lvgl/src/core/lv_group.c ****             if(group->wrap || obj_sentinel == NULL) {
+ 168              		.loc 1 430 11 view .LVU44
+ 169 001c 0123     		movs	r3, #1
+ 170              	.LVL18:
+ 171              	.L12:
+ 443:Lib/lvgl/src/core/lv_group.c ****             obj_sentinel = obj_next;
+ 172              		.loc 1 443 9 is_stmt 1 view .LVU45
+ 443:Lib/lvgl/src/core/lv_group.c ****             obj_sentinel = obj_next;
+ 173              		.loc 1 443 11 is_stmt 0 view .LVU46
+ 174 001e 57B3     		cbz	r7, .L33
+ 175              	.L14:
+ 448:Lib/lvgl/src/core/lv_group.c ****             obj_next = move(&group->obj_ll, obj_next);
+ 176              		.loc 1 448 9 is_stmt 1 view .LVU47
+ 448:Lib/lvgl/src/core/lv_group.c ****             obj_next = move(&group->obj_ll, obj_next);
+ 177              		.loc 1 448 11 is_stmt 0 view .LVU48
+ 178 0020 2BB1     		cbz	r3, .L15
+ 449:Lib/lvgl/src/core/lv_group.c **** 
+ 179              		.loc 1 449 13 is_stmt 1 view .LVU49
+ 449:Lib/lvgl/src/core/lv_group.c **** 
+ 180              		.loc 1 449 24 is_stmt 0 view .LVU50
+ 181 0022 2946     		mov	r1, r5
+ 182 0024 3046     		mov	r0, r6
+ 183 0026 C847     		blx	r9
+ 184              	.LVL19:
+ 449:Lib/lvgl/src/core/lv_group.c **** 
+ 185              		.loc 1 449 24 view .LVU51
+ 186 0028 0546     		mov	r5, r0
+ 187              	.LVL20:
+ 452:Lib/lvgl/src/core/lv_group.c ****         }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 14
+
+
+ 188              		.loc 1 452 13 is_stmt 1 view .LVU52
+ 452:Lib/lvgl/src/core/lv_group.c ****         }
+ 189              		.loc 1 452 15 is_stmt 0 view .LVU53
+ 190 002a 8742     		cmp	r7, r0
+ 191 002c 68D0     		beq	.L26
+ 192              	.LVL21:
+ 193              	.L15:
+ 455:Lib/lvgl/src/core/lv_group.c **** 
+ 194              		.loc 1 455 9 is_stmt 1 view .LVU54
+ 457:Lib/lvgl/src/core/lv_group.c ****         if(lv_obj_get_state(*obj_next) & LV_STATE_DISABLED) continue;
+ 195              		.loc 1 457 9 view .LVU55
+ 457:Lib/lvgl/src/core/lv_group.c ****         if(lv_obj_get_state(*obj_next) & LV_STATE_DISABLED) continue;
+ 196              		.loc 1 457 11 is_stmt 0 view .LVU56
+ 197 002e 002D     		cmp	r5, #0
+ 198 0030 F3D0     		beq	.L11
+ 458:Lib/lvgl/src/core/lv_group.c **** 
+ 199              		.loc 1 458 9 is_stmt 1 view .LVU57
+ 458:Lib/lvgl/src/core/lv_group.c **** 
+ 200              		.loc 1 458 12 is_stmt 0 view .LVU58
+ 201 0032 2868     		ldr	r0, [r5]
+ 202 0034 FFF7FEFF 		bl	lv_obj_get_state
+ 203              	.LVL22:
+ 458:Lib/lvgl/src/core/lv_group.c **** 
+ 204              		.loc 1 458 11 view .LVU59
+ 205 0038 10F0800F 		tst	r0, #128
+ 206 003c EDD1     		bne	.L11
+ 462:Lib/lvgl/src/core/lv_group.c ****         while(parent) {
+ 207              		.loc 1 462 9 is_stmt 1 view .LVU60
+ 462:Lib/lvgl/src/core/lv_group.c ****         while(parent) {
+ 208              		.loc 1 462 20 is_stmt 0 view .LVU61
+ 209 003e 2C68     		ldr	r4, [r5]
+ 210              	.LVL23:
+ 463:Lib/lvgl/src/core/lv_group.c ****             if(lv_obj_has_flag(parent, LV_OBJ_FLAG_HIDDEN)) break;
+ 211              		.loc 1 463 9 is_stmt 1 view .LVU62
+ 212              	.L17:
+ 463:Lib/lvgl/src/core/lv_group.c ****             if(lv_obj_has_flag(parent, LV_OBJ_FLAG_HIDDEN)) break;
+ 213              		.loc 1 463 15 view .LVU63
+ 214 0040 1CB3     		cbz	r4, .L20
+ 464:Lib/lvgl/src/core/lv_group.c ****             parent = lv_obj_get_parent(parent);
+ 215              		.loc 1 464 13 view .LVU64
+ 464:Lib/lvgl/src/core/lv_group.c ****             parent = lv_obj_get_parent(parent);
+ 216              		.loc 1 464 16 is_stmt 0 view .LVU65
+ 217 0042 0121     		movs	r1, #1
+ 218 0044 2046     		mov	r0, r4
+ 219 0046 FFF7FEFF 		bl	lv_obj_has_flag
+ 220              	.LVL24:
+ 464:Lib/lvgl/src/core/lv_group.c ****             parent = lv_obj_get_parent(parent);
+ 221              		.loc 1 464 15 view .LVU66
+ 222 004a C0B9     		cbnz	r0, .L18
+ 465:Lib/lvgl/src/core/lv_group.c ****         }
+ 223              		.loc 1 465 13 is_stmt 1 view .LVU67
+ 465:Lib/lvgl/src/core/lv_group.c ****         }
+ 224              		.loc 1 465 22 is_stmt 0 view .LVU68
+ 225 004c 2046     		mov	r0, r4
+ 226 004e FFF7FEFF 		bl	lv_obj_get_parent
+ 227              	.LVL25:
+ 228 0052 0446     		mov	r4, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 15
+
+
+ 229              	.LVL26:
+ 465:Lib/lvgl/src/core/lv_group.c ****         }
+ 230              		.loc 1 465 22 view .LVU69
+ 231 0054 F4E7     		b	.L17
+ 232              	.LVL27:
+ 233              	.L32:
+ 431:Lib/lvgl/src/core/lv_group.c ****                 if(!can_begin) return focus_changed;
+ 234              		.loc 1 431 13 is_stmt 1 view .LVU70
+ 431:Lib/lvgl/src/core/lv_group.c ****                 if(!can_begin) return focus_changed;
+ 235              		.loc 1 431 16 is_stmt 0 view .LVU71
+ 236 0056 337F     		ldrb	r3, [r6, #28]	@ zero_extendqisi2
+ 431:Lib/lvgl/src/core/lv_group.c ****                 if(!can_begin) return focus_changed;
+ 237              		.loc 1 431 15 view .LVU72
+ 238 0058 13F0080F 		tst	r3, #8
+ 239 005c 01D1     		bne	.L13
+ 431:Lib/lvgl/src/core/lv_group.c ****                 if(!can_begin) return focus_changed;
+ 240              		.loc 1 431 28 discriminator 1 view .LVU73
+ 241 005e 002F     		cmp	r7, #0
+ 242 0060 48D1     		bne	.L24
+ 243              	.L13:
+ 432:Lib/lvgl/src/core/lv_group.c ****                 obj_next  = begin(&group->obj_ll);
+ 244              		.loc 1 432 17 is_stmt 1 view .LVU74
+ 432:Lib/lvgl/src/core/lv_group.c ****                 obj_next  = begin(&group->obj_ll);
+ 245              		.loc 1 432 19 is_stmt 0 view .LVU75
+ 246 0062 B8F1000F 		cmp	r8, #0
+ 247 0066 42D0     		beq	.L10
+ 433:Lib/lvgl/src/core/lv_group.c ****                 can_move  = false;
+ 248              		.loc 1 433 17 is_stmt 1 view .LVU76
+ 433:Lib/lvgl/src/core/lv_group.c ****                 can_move  = false;
+ 249              		.loc 1 433 29 is_stmt 0 view .LVU77
+ 250 0068 3046     		mov	r0, r6
+ 251 006a D047     		blx	r10
+ 252              	.LVL28:
+ 253 006c 0546     		mov	r5, r0
+ 254              	.LVL29:
+ 434:Lib/lvgl/src/core/lv_group.c ****                 can_begin = false;
+ 255              		.loc 1 434 17 is_stmt 1 view .LVU78
+ 435:Lib/lvgl/src/core/lv_group.c ****             }
+ 256              		.loc 1 435 17 view .LVU79
+ 435:Lib/lvgl/src/core/lv_group.c ****             }
+ 257              		.loc 1 435 27 is_stmt 0 view .LVU80
+ 258 006e 4FF00008 		mov	r8, #0
+ 434:Lib/lvgl/src/core/lv_group.c ****                 can_begin = false;
+ 259              		.loc 1 434 27 view .LVU81
+ 260 0072 4346     		mov	r3, r8
+ 435:Lib/lvgl/src/core/lv_group.c ****             }
+ 261              		.loc 1 435 27 view .LVU82
+ 262 0074 D3E7     		b	.L12
+ 263              	.LVL30:
+ 264              	.L33:
+ 444:Lib/lvgl/src/core/lv_group.c ****             if(obj_sentinel == NULL) return focus_changed; /*Group is empty*/
+ 265              		.loc 1 444 13 is_stmt 1 view .LVU83
+ 445:Lib/lvgl/src/core/lv_group.c ****         }
+ 266              		.loc 1 445 13 view .LVU84
+ 445:Lib/lvgl/src/core/lv_group.c ****         }
+ 267              		.loc 1 445 15 is_stmt 0 view .LVU85
+ 268 0076 002D     		cmp	r5, #0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 16
+
+
+ 269 0078 3FD0     		beq	.L25
+ 444:Lib/lvgl/src/core/lv_group.c ****             if(obj_sentinel == NULL) return focus_changed; /*Group is empty*/
+ 270              		.loc 1 444 26 view .LVU86
+ 271 007a 2F46     		mov	r7, r5
+ 272 007c D0E7     		b	.L14
+ 273              	.LVL31:
+ 274              	.L18:
+ 468:Lib/lvgl/src/core/lv_group.c **** 
+ 275              		.loc 1 468 9 is_stmt 1 view .LVU87
+ 468:Lib/lvgl/src/core/lv_group.c **** 
+ 276              		.loc 1 468 22 is_stmt 0 view .LVU88
+ 277 007e 0121     		movs	r1, #1
+ 278 0080 2046     		mov	r0, r4
+ 279 0082 FFF7FEFF 		bl	lv_obj_has_flag
+ 280              	.LVL32:
+ 468:Lib/lvgl/src/core/lv_group.c **** 
+ 281              		.loc 1 468 19 view .LVU89
+ 282 0086 0028     		cmp	r0, #0
+ 283 0088 C7D1     		bne	.L11
+ 284              	.L20:
+ 471:Lib/lvgl/src/core/lv_group.c ****     }
+ 285              		.loc 1 471 9 is_stmt 1 view .LVU90
+ 286              	.LBE10:
+ 474:Lib/lvgl/src/core/lv_group.c **** 
+ 287              		.loc 1 474 5 view .LVU91
+ 474:Lib/lvgl/src/core/lv_group.c **** 
+ 288              		.loc 1 474 25 is_stmt 0 view .LVU92
+ 289 008a F368     		ldr	r3, [r6, #12]
+ 474:Lib/lvgl/src/core/lv_group.c **** 
+ 290              		.loc 1 474 7 view .LVU93
+ 291 008c AB42     		cmp	r3, r5
+ 292 008e 3AD0     		beq	.L27
+ 476:Lib/lvgl/src/core/lv_group.c ****         lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group)
+ 293              		.loc 1 476 5 is_stmt 1 view .LVU94
+ 476:Lib/lvgl/src/core/lv_group.c ****         lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group)
+ 294              		.loc 1 476 7 is_stmt 0 view .LVU95
+ 295 0090 8BB1     		cbz	r3, .L21
+ 296              	.LBB11:
+ 477:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return focus_changed;
+ 297              		.loc 1 477 9 is_stmt 1 view .LVU96
+ 477:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return focus_changed;
+ 298              		.loc 1 477 27 is_stmt 0 view .LVU97
+ 299 0092 1C68     		ldr	r4, [r3]
+ 300              	.LVL33:
+ 477:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return focus_changed;
+ 301              		.loc 1 477 84 view .LVU98
+ 302 0094 3046     		mov	r0, r6
+ 303 0096 FFF7FEFF 		bl	get_indev
+ 304              	.LVL34:
+ 305 009a 0246     		mov	r2, r0
+ 477:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return focus_changed;
+ 306              		.loc 1 477 27 view .LVU99
+ 307 009c 1021     		movs	r1, #16
+ 308 009e 2046     		mov	r0, r4
+ 309 00a0 FFF7FEFF 		bl	lv_obj_send_event
+ 310              	.LVL35:
+ 478:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 17
+
+
+ 311              		.loc 1 478 9 is_stmt 1 view .LVU100
+ 478:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 312              		.loc 1 478 11 is_stmt 0 view .LVU101
+ 313 00a4 0128     		cmp	r0, #1
+ 314 00a6 02D0     		beq	.L34
+ 478:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 315              		.loc 1 478 40 view .LVU102
+ 316 00a8 4FF00008 		mov	r8, #0
+ 317              	.LVL36:
+ 478:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 318              		.loc 1 478 40 view .LVU103
+ 319 00ac 1FE0     		b	.L10
+ 320              	.LVL37:
+ 321              	.L34:
+ 479:Lib/lvgl/src/core/lv_group.c ****     }
+ 322              		.loc 1 479 9 is_stmt 1 view .LVU104
+ 479:Lib/lvgl/src/core/lv_group.c ****     }
+ 323              		.loc 1 479 33 is_stmt 0 view .LVU105
+ 324 00ae F368     		ldr	r3, [r6, #12]
+ 479:Lib/lvgl/src/core/lv_group.c ****     }
+ 325              		.loc 1 479 9 view .LVU106
+ 326 00b0 1868     		ldr	r0, [r3]
+ 327              	.LVL38:
+ 479:Lib/lvgl/src/core/lv_group.c ****     }
+ 328              		.loc 1 479 9 view .LVU107
+ 329 00b2 FFF7FEFF 		bl	lv_obj_invalidate
+ 330              	.LVL39:
+ 331              	.L21:
+ 479:Lib/lvgl/src/core/lv_group.c ****     }
+ 332              		.loc 1 479 9 view .LVU108
+ 333              	.LBE11:
+ 482:Lib/lvgl/src/core/lv_group.c **** 
+ 334              		.loc 1 482 5 is_stmt 1 view .LVU109
+ 482:Lib/lvgl/src/core/lv_group.c **** 
+ 335              		.loc 1 482 22 is_stmt 0 view .LVU110
+ 336 00b6 F560     		str	r5, [r6, #12]
+ 484:Lib/lvgl/src/core/lv_group.c ****     if(res != LV_RESULT_OK) return focus_changed;
+ 337              		.loc 1 484 5 is_stmt 1 view .LVU111
+ 484:Lib/lvgl/src/core/lv_group.c ****     if(res != LV_RESULT_OK) return focus_changed;
+ 338              		.loc 1 484 23 is_stmt 0 view .LVU112
+ 339 00b8 2C68     		ldr	r4, [r5]
+ 484:Lib/lvgl/src/core/lv_group.c ****     if(res != LV_RESULT_OK) return focus_changed;
+ 340              		.loc 1 484 78 view .LVU113
+ 341 00ba 3046     		mov	r0, r6
+ 342 00bc FFF7FEFF 		bl	get_indev
+ 343              	.LVL40:
+ 344 00c0 0246     		mov	r2, r0
+ 484:Lib/lvgl/src/core/lv_group.c ****     if(res != LV_RESULT_OK) return focus_changed;
+ 345              		.loc 1 484 23 view .LVU114
+ 346 00c2 0F21     		movs	r1, #15
+ 347 00c4 2046     		mov	r0, r4
+ 348 00c6 FFF7FEFF 		bl	lv_obj_send_event
+ 349              	.LVL41:
+ 485:Lib/lvgl/src/core/lv_group.c **** 
+ 350              		.loc 1 485 5 is_stmt 1 view .LVU115
+ 485:Lib/lvgl/src/core/lv_group.c **** 
+ 351              		.loc 1 485 7 is_stmt 0 view .LVU116
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 18
+
+
+ 352 00ca 0128     		cmp	r0, #1
+ 353 00cc 02D0     		beq	.L35
+ 485:Lib/lvgl/src/core/lv_group.c **** 
+ 354              		.loc 1 485 36 view .LVU117
+ 355 00ce 4FF00008 		mov	r8, #0
+ 356              	.LVL42:
+ 485:Lib/lvgl/src/core/lv_group.c **** 
+ 357              		.loc 1 485 36 view .LVU118
+ 358 00d2 0CE0     		b	.L10
+ 359              	.LVL43:
+ 360              	.L35:
+ 487:Lib/lvgl/src/core/lv_group.c **** 
+ 361              		.loc 1 487 5 is_stmt 1 view .LVU119
+ 487:Lib/lvgl/src/core/lv_group.c **** 
+ 362              		.loc 1 487 29 is_stmt 0 view .LVU120
+ 363 00d4 F368     		ldr	r3, [r6, #12]
+ 487:Lib/lvgl/src/core/lv_group.c **** 
+ 364              		.loc 1 487 5 view .LVU121
+ 365 00d6 1868     		ldr	r0, [r3]
+ 366              	.LVL44:
+ 487:Lib/lvgl/src/core/lv_group.c **** 
+ 367              		.loc 1 487 5 view .LVU122
+ 368 00d8 FFF7FEFF 		bl	lv_obj_invalidate
+ 369              	.LVL45:
+ 489:Lib/lvgl/src/core/lv_group.c ****     focus_changed = true;
+ 370              		.loc 1 489 5 is_stmt 1 view .LVU123
+ 489:Lib/lvgl/src/core/lv_group.c ****     focus_changed = true;
+ 371              		.loc 1 489 13 is_stmt 0 view .LVU124
+ 372 00dc 3369     		ldr	r3, [r6, #16]
+ 489:Lib/lvgl/src/core/lv_group.c ****     focus_changed = true;
+ 373              		.loc 1 489 7 view .LVU125
+ 374 00de ABB1     		cbz	r3, .L30
+ 489:Lib/lvgl/src/core/lv_group.c ****     focus_changed = true;
+ 375              		.loc 1 489 25 is_stmt 1 discriminator 1 view .LVU126
+ 376 00e0 3046     		mov	r0, r6
+ 377 00e2 9847     		blx	r3
+ 378              	.LVL46:
+ 491:Lib/lvgl/src/core/lv_group.c **** }
+ 379              		.loc 1 491 12 is_stmt 0 discriminator 1 view .LVU127
+ 380 00e4 4FF00108 		mov	r8, #1
+ 381              	.LVL47:
+ 491:Lib/lvgl/src/core/lv_group.c **** }
+ 382              		.loc 1 491 12 discriminator 1 view .LVU128
+ 383 00e8 01E0     		b	.L10
+ 384              	.LVL48:
+ 385              	.L22:
+ 422:Lib/lvgl/src/core/lv_group.c **** 
+ 386              		.loc 1 422 30 view .LVU129
+ 387 00ea 4FF00008 		mov	r8, #0
+ 388              	.LVL49:
+ 389              	.L10:
+ 492:Lib/lvgl/src/core/lv_group.c **** 
+ 390              		.loc 1 492 1 view .LVU130
+ 391 00ee 4046     		mov	r0, r8
+ 392 00f0 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 393              	.LVL50:
+ 394              	.L24:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 19
+
+
+ 395              	.LBB12:
+ 439:Lib/lvgl/src/core/lv_group.c ****             }
+ 396              		.loc 1 439 24 view .LVU131
+ 397 00f4 4FF00008 		mov	r8, #0
+ 398              	.LVL51:
+ 439:Lib/lvgl/src/core/lv_group.c ****             }
+ 399              		.loc 1 439 24 view .LVU132
+ 400 00f8 F9E7     		b	.L10
+ 401              	.LVL52:
+ 402              	.L25:
+ 445:Lib/lvgl/src/core/lv_group.c ****         }
+ 403              		.loc 1 445 45 view .LVU133
+ 404 00fa 4FF00008 		mov	r8, #0
+ 405              	.LVL53:
+ 445:Lib/lvgl/src/core/lv_group.c ****         }
+ 406              		.loc 1 445 45 view .LVU134
+ 407 00fe F6E7     		b	.L10
+ 408              	.LVL54:
+ 409              	.L26:
+ 452:Lib/lvgl/src/core/lv_group.c ****         }
+ 410              		.loc 1 452 49 view .LVU135
+ 411 0100 4FF00008 		mov	r8, #0
+ 412              	.LVL55:
+ 452:Lib/lvgl/src/core/lv_group.c ****         }
+ 413              		.loc 1 452 49 view .LVU136
+ 414 0104 F3E7     		b	.L10
+ 415              	.LVL56:
+ 416              	.L27:
+ 452:Lib/lvgl/src/core/lv_group.c ****         }
+ 417              		.loc 1 452 49 view .LVU137
+ 418              	.LBE12:
+ 474:Lib/lvgl/src/core/lv_group.c **** 
+ 419              		.loc 1 474 45 view .LVU138
+ 420 0106 4FF00008 		mov	r8, #0
+ 421              	.LVL57:
+ 474:Lib/lvgl/src/core/lv_group.c **** 
+ 422              		.loc 1 474 45 view .LVU139
+ 423 010a F0E7     		b	.L10
+ 424              	.LVL58:
+ 425              	.L30:
+ 491:Lib/lvgl/src/core/lv_group.c **** }
+ 426              		.loc 1 491 12 view .LVU140
+ 427 010c 4FF00108 		mov	r8, #1
+ 428              	.LVL59:
+ 491:Lib/lvgl/src/core/lv_group.c **** }
+ 429              		.loc 1 491 12 view .LVU141
+ 430 0110 EDE7     		b	.L10
+ 431              		.cfi_endproc
+ 432              	.LFE263:
+ 434              		.section	.text._lv_group_init,"ax",%progbits
+ 435              		.align	1
+ 436              		.global	_lv_group_init
+ 437              		.syntax unified
+ 438              		.thumb
+ 439              		.thumb_func
+ 441              	_lv_group_init:
+ 442              	.LFB234:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 20
+
+
+  47:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_init(group_ll_p, sizeof(lv_group_t));
+ 443              		.loc 1 47 1 is_stmt 1 view -0
+ 444              		.cfi_startproc
+ 445              		@ args = 0, pretend = 0, frame = 0
+ 446              		@ frame_needed = 0, uses_anonymous_args = 0
+ 447 0000 08B5     		push	{r3, lr}
+ 448              	.LCFI2:
+ 449              		.cfi_def_cfa_offset 8
+ 450              		.cfi_offset 3, -8
+ 451              		.cfi_offset 14, -4
+  48:Lib/lvgl/src/core/lv_group.c **** }
+ 452              		.loc 1 48 5 view .LVU143
+ 453 0002 2021     		movs	r1, #32
+ 454 0004 0148     		ldr	r0, .L38
+ 455 0006 FFF7FEFF 		bl	_lv_ll_init
+ 456              	.LVL60:
+  49:Lib/lvgl/src/core/lv_group.c **** 
+ 457              		.loc 1 49 1 is_stmt 0 view .LVU144
+ 458 000a 08BD     		pop	{r3, pc}
+ 459              	.L39:
+ 460              		.align	2
+ 461              	.L38:
+ 462 000c 34000000 		.word	lv_global+52
+ 463              		.cfi_endproc
+ 464              	.LFE234:
+ 466              		.section	.text._lv_group_deinit,"ax",%progbits
+ 467              		.align	1
+ 468              		.global	_lv_group_deinit
+ 469              		.syntax unified
+ 470              		.thumb
+ 471              		.thumb_func
+ 473              	_lv_group_deinit:
+ 474              	.LFB235:
+  52:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_clear(group_ll_p);
+ 475              		.loc 1 52 1 is_stmt 1 view -0
+ 476              		.cfi_startproc
+ 477              		@ args = 0, pretend = 0, frame = 0
+ 478              		@ frame_needed = 0, uses_anonymous_args = 0
+ 479 0000 08B5     		push	{r3, lr}
+ 480              	.LCFI3:
+ 481              		.cfi_def_cfa_offset 8
+ 482              		.cfi_offset 3, -8
+ 483              		.cfi_offset 14, -4
+  53:Lib/lvgl/src/core/lv_group.c **** }
+ 484              		.loc 1 53 5 view .LVU146
+ 485              	.LVL61:
+ 486              	.LBB13:
+ 487              	.LBI13:
+ 488              		.file 2 "Lib/lvgl/src/core/../misc/lv_ll.h"
+   1:Lib/lvgl/src/core/../misc/lv_ll.h **** /**
+   2:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @file lv_ll.h
+   3:Lib/lvgl/src/core/../misc/lv_ll.h ****  * Handle linked lists. The nodes are dynamically allocated by the 'lv_mem' module.
+   4:Lib/lvgl/src/core/../misc/lv_ll.h ****  */
+   5:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+   6:Lib/lvgl/src/core/../misc/lv_ll.h **** #ifndef LV_LL_H
+   7:Lib/lvgl/src/core/../misc/lv_ll.h **** #define LV_LL_H
+   8:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 21
+
+
+   9:Lib/lvgl/src/core/../misc/lv_ll.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/core/../misc/lv_ll.h **** extern "C" {
+  11:Lib/lvgl/src/core/../misc/lv_ll.h **** #endif
+  12:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  13:Lib/lvgl/src/core/../misc/lv_ll.h **** /*********************
+  14:Lib/lvgl/src/core/../misc/lv_ll.h ****  *      INCLUDES
+  15:Lib/lvgl/src/core/../misc/lv_ll.h ****  *********************/
+  16:Lib/lvgl/src/core/../misc/lv_ll.h **** #include <stdint.h>
+  17:Lib/lvgl/src/core/../misc/lv_ll.h **** #include <stddef.h>
+  18:Lib/lvgl/src/core/../misc/lv_ll.h **** #include <stdbool.h>
+  19:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  20:Lib/lvgl/src/core/../misc/lv_ll.h **** /*********************
+  21:Lib/lvgl/src/core/../misc/lv_ll.h ****  *      DEFINES
+  22:Lib/lvgl/src/core/../misc/lv_ll.h ****  *********************/
+  23:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  24:Lib/lvgl/src/core/../misc/lv_ll.h **** /**********************
+  25:Lib/lvgl/src/core/../misc/lv_ll.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/core/../misc/lv_ll.h ****  **********************/
+  27:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  28:Lib/lvgl/src/core/../misc/lv_ll.h **** /** Dummy type to make handling easier*/
+  29:Lib/lvgl/src/core/../misc/lv_ll.h **** typedef uint8_t lv_ll_node_t;
+  30:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  31:Lib/lvgl/src/core/../misc/lv_ll.h **** /** Description of a linked list*/
+  32:Lib/lvgl/src/core/../misc/lv_ll.h **** typedef struct {
+  33:Lib/lvgl/src/core/../misc/lv_ll.h ****     uint32_t n_size;
+  34:Lib/lvgl/src/core/../misc/lv_ll.h ****     lv_ll_node_t * head;
+  35:Lib/lvgl/src/core/../misc/lv_ll.h ****     lv_ll_node_t * tail;
+  36:Lib/lvgl/src/core/../misc/lv_ll.h **** } lv_ll_t;
+  37:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  38:Lib/lvgl/src/core/../misc/lv_ll.h **** /**********************
+  39:Lib/lvgl/src/core/../misc/lv_ll.h ****  * GLOBAL PROTOTYPES
+  40:Lib/lvgl/src/core/../misc/lv_ll.h ****  **********************/
+  41:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  42:Lib/lvgl/src/core/../misc/lv_ll.h **** /**
+  43:Lib/lvgl/src/core/../misc/lv_ll.h ****  * Initialize linked list
+  44:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param ll_p pointer to lv_ll_t variable
+  45:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param node_size the size of 1 node in bytes
+  46:Lib/lvgl/src/core/../misc/lv_ll.h ****  */
+  47:Lib/lvgl/src/core/../misc/lv_ll.h **** void _lv_ll_init(lv_ll_t * ll_p, uint32_t node_size);
+  48:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  49:Lib/lvgl/src/core/../misc/lv_ll.h **** /**
+  50:Lib/lvgl/src/core/../misc/lv_ll.h ****  * Add a new head to a linked list
+  51:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  52:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @return pointer to the new head
+  53:Lib/lvgl/src/core/../misc/lv_ll.h ****  */
+  54:Lib/lvgl/src/core/../misc/lv_ll.h **** void * _lv_ll_ins_head(lv_ll_t * ll_p);
+  55:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  56:Lib/lvgl/src/core/../misc/lv_ll.h **** /**
+  57:Lib/lvgl/src/core/../misc/lv_ll.h ****  * Insert a new node in front of the n_act node
+  58:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  59:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param n_act pointer a node
+  60:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @return pointer to the new node
+  61:Lib/lvgl/src/core/../misc/lv_ll.h ****  */
+  62:Lib/lvgl/src/core/../misc/lv_ll.h **** void * _lv_ll_ins_prev(lv_ll_t * ll_p, void * n_act);
+  63:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  64:Lib/lvgl/src/core/../misc/lv_ll.h **** /**
+  65:Lib/lvgl/src/core/../misc/lv_ll.h ****  * Add a new tail to a linked list
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 22
+
+
+  66:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  67:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @return pointer to the new tail
+  68:Lib/lvgl/src/core/../misc/lv_ll.h ****  */
+  69:Lib/lvgl/src/core/../misc/lv_ll.h **** void * _lv_ll_ins_tail(lv_ll_t * ll_p);
+  70:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  71:Lib/lvgl/src/core/../misc/lv_ll.h **** /**
+  72:Lib/lvgl/src/core/../misc/lv_ll.h ****  * Remove the node 'node_p' from 'll_p' linked list.
+  73:Lib/lvgl/src/core/../misc/lv_ll.h ****  * It does not free the memory of node.
+  74:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param ll_p pointer to the linked list of 'node_p'
+  75:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param node_p pointer to node in 'll_p' linked list
+  76:Lib/lvgl/src/core/../misc/lv_ll.h ****  */
+  77:Lib/lvgl/src/core/../misc/lv_ll.h **** void _lv_ll_remove(lv_ll_t * ll_p, void * node_p);
+  78:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  79:Lib/lvgl/src/core/../misc/lv_ll.h **** void _lv_ll_clear_custom(lv_ll_t * ll_p, void(*cleanup)(void *));
+  80:Lib/lvgl/src/core/../misc/lv_ll.h **** 
+  81:Lib/lvgl/src/core/../misc/lv_ll.h **** /**
+  82:Lib/lvgl/src/core/../misc/lv_ll.h ****  * Remove and free all elements from a linked list. The list remain valid but become empty.
+  83:Lib/lvgl/src/core/../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  84:Lib/lvgl/src/core/../misc/lv_ll.h ****  */
+  85:Lib/lvgl/src/core/../misc/lv_ll.h **** static inline void _lv_ll_clear(lv_ll_t * ll_p)
+ 489              		.loc 2 85 20 view .LVU147
+ 490              	.LBB14:
+  86:Lib/lvgl/src/core/../misc/lv_ll.h **** {
+  87:Lib/lvgl/src/core/../misc/lv_ll.h ****     _lv_ll_clear_custom(ll_p, NULL);
+ 491              		.loc 2 87 5 view .LVU148
+ 492 0002 0021     		movs	r1, #0
+ 493 0004 0148     		ldr	r0, .L42
+ 494              	.LVL62:
+ 495              		.loc 2 87 5 is_stmt 0 view .LVU149
+ 496 0006 FFF7FEFF 		bl	_lv_ll_clear_custom
+ 497              	.LVL63:
+ 498              		.loc 2 87 5 view .LVU150
+ 499              	.LBE14:
+ 500              	.LBE13:
+  54:Lib/lvgl/src/core/lv_group.c **** 
+ 501              		.loc 1 54 1 view .LVU151
+ 502 000a 08BD     		pop	{r3, pc}
+ 503              	.L43:
+ 504              		.align	2
+ 505              	.L42:
+ 506 000c 34000000 		.word	lv_global+52
+ 507              		.cfi_endproc
+ 508              	.LFE235:
+ 510              		.section	.text.lv_group_create,"ax",%progbits
+ 511              		.align	1
+ 512              		.global	lv_group_create
+ 513              		.syntax unified
+ 514              		.thumb
+ 515              		.thumb_func
+ 517              	lv_group_create:
+ 518              	.LFB236:
+  57:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * group = _lv_ll_ins_head(group_ll_p);
+ 519              		.loc 1 57 1 is_stmt 1 view -0
+ 520              		.cfi_startproc
+ 521              		@ args = 0, pretend = 0, frame = 0
+ 522              		@ frame_needed = 0, uses_anonymous_args = 0
+ 523 0000 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 23
+
+
+ 524              	.LCFI4:
+ 525              		.cfi_def_cfa_offset 8
+ 526              		.cfi_offset 4, -8
+ 527              		.cfi_offset 14, -4
+  58:Lib/lvgl/src/core/lv_group.c ****     LV_ASSERT_MALLOC(group);
+ 528              		.loc 1 58 5 view .LVU153
+  58:Lib/lvgl/src/core/lv_group.c ****     LV_ASSERT_MALLOC(group);
+ 529              		.loc 1 58 26 is_stmt 0 view .LVU154
+ 530 0002 1048     		ldr	r0, .L48
+ 531 0004 FFF7FEFF 		bl	_lv_ll_ins_head
+ 532              	.LVL64:
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 533              		.loc 1 59 5 is_stmt 1 view .LVU155
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 534              		.loc 1 59 5 view .LVU156
+ 535 0008 D0B1     		cbz	r0, .L46
+ 536 000a 0446     		mov	r4, r0
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 537              		.loc 1 59 5 view .LVU157
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 538              		.loc 1 59 28 view .LVU158
+  60:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_init(&group->obj_ll, sizeof(lv_obj_t *));
+ 539              		.loc 1 60 5 view .LVU159
+  61:Lib/lvgl/src/core/lv_group.c **** 
+ 540              		.loc 1 61 5 view .LVU160
+ 541 000c 0421     		movs	r1, #4
+ 542 000e FFF7FEFF 		bl	_lv_ll_init
+ 543              	.LVL65:
+  63:Lib/lvgl/src/core/lv_group.c ****     group->frozen         = 0;
+ 544              		.loc 1 63 5 view .LVU161
+  63:Lib/lvgl/src/core/lv_group.c ****     group->frozen         = 0;
+ 545              		.loc 1 63 27 is_stmt 0 view .LVU162
+ 546 0012 0023     		movs	r3, #0
+ 547 0014 E360     		str	r3, [r4, #12]
+  64:Lib/lvgl/src/core/lv_group.c ****     group->focus_cb       = NULL;
+ 548              		.loc 1 64 5 is_stmt 1 view .LVU163
+  64:Lib/lvgl/src/core/lv_group.c ****     group->focus_cb       = NULL;
+ 549              		.loc 1 64 27 is_stmt 0 view .LVU164
+ 550 0016 227F     		ldrb	r2, [r4, #28]	@ zero_extendqisi2
+ 551 0018 63F30002 		bfi	r2, r3, #0, #1
+ 552 001c 2277     		strb	r2, [r4, #28]
+  65:Lib/lvgl/src/core/lv_group.c ****     group->edge_cb        = NULL;
+ 553              		.loc 1 65 5 is_stmt 1 view .LVU165
+  65:Lib/lvgl/src/core/lv_group.c ****     group->edge_cb        = NULL;
+ 554              		.loc 1 65 27 is_stmt 0 view .LVU166
+ 555 001e 2361     		str	r3, [r4, #16]
+  66:Lib/lvgl/src/core/lv_group.c ****     group->editing        = 0;
+ 556              		.loc 1 66 5 is_stmt 1 view .LVU167
+  66:Lib/lvgl/src/core/lv_group.c ****     group->editing        = 0;
+ 557              		.loc 1 66 27 is_stmt 0 view .LVU168
+ 558 0020 6361     		str	r3, [r4, #20]
+  67:Lib/lvgl/src/core/lv_group.c ****     group->refocus_policy = LV_GROUP_REFOCUS_POLICY_PREV;
+ 559              		.loc 1 67 5 is_stmt 1 view .LVU169
+  67:Lib/lvgl/src/core/lv_group.c ****     group->refocus_policy = LV_GROUP_REFOCUS_POLICY_PREV;
+ 560              		.loc 1 67 27 is_stmt 0 view .LVU170
+ 561 0022 D2B2     		uxtb	r2, r2
+ 562 0024 63F34102 		bfi	r2, r3, #1, #1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 24
+
+
+ 563 0028 2277     		strb	r2, [r4, #28]
+  68:Lib/lvgl/src/core/lv_group.c ****     group->wrap           = 1;
+ 564              		.loc 1 68 5 is_stmt 1 view .LVU171
+  68:Lib/lvgl/src/core/lv_group.c ****     group->wrap           = 1;
+ 565              		.loc 1 68 27 is_stmt 0 view .LVU172
+ 566 002a D2B2     		uxtb	r2, r2
+ 567 002c 42F00402 		orr	r2, r2, #4
+ 568 0030 2277     		strb	r2, [r4, #28]
+  69:Lib/lvgl/src/core/lv_group.c ****     group->user_data      = NULL;
+ 569              		.loc 1 69 5 is_stmt 1 view .LVU173
+  69:Lib/lvgl/src/core/lv_group.c ****     group->user_data      = NULL;
+ 570              		.loc 1 69 27 is_stmt 0 view .LVU174
+ 571 0032 D2B2     		uxtb	r2, r2
+ 572 0034 42F00802 		orr	r2, r2, #8
+ 573 0038 2277     		strb	r2, [r4, #28]
+  70:Lib/lvgl/src/core/lv_group.c **** 
+ 574              		.loc 1 70 5 is_stmt 1 view .LVU175
+  70:Lib/lvgl/src/core/lv_group.c **** 
+ 575              		.loc 1 70 27 is_stmt 0 view .LVU176
+ 576 003a A361     		str	r3, [r4, #24]
+  72:Lib/lvgl/src/core/lv_group.c **** }
+ 577              		.loc 1 72 5 is_stmt 1 view .LVU177
+  73:Lib/lvgl/src/core/lv_group.c **** 
+ 578              		.loc 1 73 1 is_stmt 0 view .LVU178
+ 579 003c 2046     		mov	r0, r4
+ 580 003e 10BD     		pop	{r4, pc}
+ 581              	.LVL66:
+ 582              	.L46:
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 583              		.loc 1 59 5 is_stmt 1 discriminator 1 view .LVU179
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 584              		.loc 1 59 5 discriminator 1 view .LVU180
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 585              		.loc 1 59 5 discriminator 1 view .LVU181
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 586              		.loc 1 59 5 discriminator 1 view .LVU182
+  59:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return NULL;
+ 587              		.loc 1 59 5 discriminator 1 view .LVU183
+ 588 0040 FEE7     		b	.L46
+ 589              	.L49:
+ 590 0042 00BF     		.align	2
+ 591              	.L48:
+ 592 0044 34000000 		.word	lv_global+52
+ 593              		.cfi_endproc
+ 594              	.LFE236:
+ 596              		.section	.text.lv_group_set_default,"ax",%progbits
+ 597              		.align	1
+ 598              		.global	lv_group_set_default
+ 599              		.syntax unified
+ 600              		.thumb
+ 601              		.thumb_func
+ 603              	lv_group_set_default:
+ 604              	.LVL67:
+ 605              	.LFB238:
+ 107:Lib/lvgl/src/core/lv_group.c ****     default_group = group;
+ 606              		.loc 1 107 1 view -0
+ 607              		.cfi_startproc
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 25
+
+
+ 608              		@ args = 0, pretend = 0, frame = 0
+ 609              		@ frame_needed = 0, uses_anonymous_args = 0
+ 610              		@ link register save eliminated.
+ 108:Lib/lvgl/src/core/lv_group.c **** }
+ 611              		.loc 1 108 5 view .LVU185
+ 108:Lib/lvgl/src/core/lv_group.c **** }
+ 612              		.loc 1 108 19 is_stmt 0 view .LVU186
+ 613 0000 014B     		ldr	r3, .L51
+ 614 0002 1864     		str	r0, [r3, #64]
+ 109:Lib/lvgl/src/core/lv_group.c **** 
+ 615              		.loc 1 109 1 view .LVU187
+ 616 0004 7047     		bx	lr
+ 617              	.L52:
+ 618 0006 00BF     		.align	2
+ 619              	.L51:
+ 620 0008 00000000 		.word	lv_global
+ 621              		.cfi_endproc
+ 622              	.LFE238:
+ 624              		.section	.text.lv_group_get_default,"ax",%progbits
+ 625              		.align	1
+ 626              		.global	lv_group_get_default
+ 627              		.syntax unified
+ 628              		.thumb
+ 629              		.thumb_func
+ 631              	lv_group_get_default:
+ 632              	.LFB239:
+ 112:Lib/lvgl/src/core/lv_group.c ****     return default_group;
+ 633              		.loc 1 112 1 is_stmt 1 view -0
+ 634              		.cfi_startproc
+ 635              		@ args = 0, pretend = 0, frame = 0
+ 636              		@ frame_needed = 0, uses_anonymous_args = 0
+ 637              		@ link register save eliminated.
+ 113:Lib/lvgl/src/core/lv_group.c **** }
+ 638              		.loc 1 113 5 view .LVU189
+ 114:Lib/lvgl/src/core/lv_group.c **** 
+ 639              		.loc 1 114 1 is_stmt 0 view .LVU190
+ 640 0000 014B     		ldr	r3, .L54
+ 641 0002 186C     		ldr	r0, [r3, #64]
+ 642 0004 7047     		bx	lr
+ 643              	.L55:
+ 644 0006 00BF     		.align	2
+ 645              	.L54:
+ 646 0008 00000000 		.word	lv_global
+ 647              		.cfi_endproc
+ 648              	.LFE239:
+ 650              		.section	.text.lv_group_delete,"ax",%progbits
+ 651              		.align	1
+ 652              		.global	lv_group_delete
+ 653              		.syntax unified
+ 654              		.thumb
+ 655              		.thumb_func
+ 657              	lv_group_delete:
+ 658              	.LVL68:
+ 659              	.LFB237:
+  76:Lib/lvgl/src/core/lv_group.c ****     /*Defocus the currently focused object*/
+ 660              		.loc 1 76 1 is_stmt 1 view -0
+ 661              		.cfi_startproc
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 26
+
+
+ 662              		@ args = 0, pretend = 0, frame = 0
+ 663              		@ frame_needed = 0, uses_anonymous_args = 0
+  76:Lib/lvgl/src/core/lv_group.c ****     /*Defocus the currently focused object*/
+ 664              		.loc 1 76 1 is_stmt 0 view .LVU192
+ 665 0000 38B5     		push	{r3, r4, r5, lr}
+ 666              	.LCFI5:
+ 667              		.cfi_def_cfa_offset 16
+ 668              		.cfi_offset 3, -16
+ 669              		.cfi_offset 4, -12
+ 670              		.cfi_offset 5, -8
+ 671              		.cfi_offset 14, -4
+ 672 0002 0546     		mov	r5, r0
+  78:Lib/lvgl/src/core/lv_group.c ****         lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
+ 673              		.loc 1 78 5 is_stmt 1 view .LVU193
+  78:Lib/lvgl/src/core/lv_group.c ****         lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
+ 674              		.loc 1 78 13 is_stmt 0 view .LVU194
+ 675 0004 C368     		ldr	r3, [r0, #12]
+  78:Lib/lvgl/src/core/lv_group.c ****         lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
+ 676              		.loc 1 78 7 view .LVU195
+ 677 0006 5BB1     		cbz	r3, .L57
+  79:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 678              		.loc 1 79 9 is_stmt 1 view .LVU196
+ 679 0008 1C68     		ldr	r4, [r3]
+  79:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 680              		.loc 1 79 66 is_stmt 0 view .LVU197
+ 681 000a FFF7FEFF 		bl	get_indev
+ 682              	.LVL69:
+  79:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 683              		.loc 1 79 66 view .LVU198
+ 684 000e 0246     		mov	r2, r0
+  79:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 685              		.loc 1 79 9 view .LVU199
+ 686 0010 1021     		movs	r1, #16
+ 687 0012 2046     		mov	r0, r4
+ 688 0014 FFF7FEFF 		bl	lv_obj_send_event
+ 689              	.LVL70:
+  80:Lib/lvgl/src/core/lv_group.c ****     }
+ 690              		.loc 1 80 9 is_stmt 1 view .LVU200
+  80:Lib/lvgl/src/core/lv_group.c ****     }
+ 691              		.loc 1 80 33 is_stmt 0 view .LVU201
+ 692 0018 EB68     		ldr	r3, [r5, #12]
+  80:Lib/lvgl/src/core/lv_group.c ****     }
+ 693              		.loc 1 80 9 view .LVU202
+ 694 001a 1868     		ldr	r0, [r3]
+ 695 001c FFF7FEFF 		bl	lv_obj_invalidate
+ 696              	.LVL71:
+ 697              	.L57:
+  84:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&group->obj_ll, obj) {
+ 698              		.loc 1 84 5 is_stmt 1 view .LVU203
+  85:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 699              		.loc 1 85 5 view .LVU204
+ 700 0020 2846     		mov	r0, r5
+ 701 0022 FFF7FEFF 		bl	_lv_ll_get_head
+ 702              	.LVL72:
+ 703 0026 0146     		mov	r1, r0
+ 704              	.LVL73:
+  85:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 27
+
+
+ 705              		.loc 1 85 5 is_stmt 0 view .LVU205
+ 706 0028 05E0     		b	.L58
+ 707              	.L67:
+  86:Lib/lvgl/src/core/lv_group.c ****     }
+ 708              		.loc 1 86 30 is_stmt 1 discriminator 1 view .LVU206
+  86:Lib/lvgl/src/core/lv_group.c ****     }
+ 709              		.loc 1 86 57 is_stmt 0 discriminator 1 view .LVU207
+ 710 002a 0022     		movs	r2, #0
+ 711 002c 5A60     		str	r2, [r3, #4]
+ 712              	.L59:
+  85:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 713              		.loc 1 85 5 is_stmt 1 discriminator 2 view .LVU208
+ 714 002e 2846     		mov	r0, r5
+ 715              	.LVL74:
+  85:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 716              		.loc 1 85 5 is_stmt 0 discriminator 2 view .LVU209
+ 717 0030 FFF7FEFF 		bl	_lv_ll_get_next
+ 718              	.LVL75:
+  85:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 719              		.loc 1 85 5 discriminator 2 view .LVU210
+ 720 0034 0146     		mov	r1, r0
+ 721              	.LVL76:
+ 722              	.L58:
+  85:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 723              		.loc 1 85 5 is_stmt 1 discriminator 1 view .LVU211
+ 724 0036 21B1     		cbz	r1, .L66
+  86:Lib/lvgl/src/core/lv_group.c ****     }
+ 725              		.loc 1 86 9 view .LVU212
+  86:Lib/lvgl/src/core/lv_group.c ****     }
+ 726              		.loc 1 86 13 is_stmt 0 view .LVU213
+ 727 0038 0B68     		ldr	r3, [r1]
+  86:Lib/lvgl/src/core/lv_group.c ****     }
+ 728              		.loc 1 86 18 view .LVU214
+ 729 003a 9B68     		ldr	r3, [r3, #8]
+  86:Lib/lvgl/src/core/lv_group.c ****     }
+ 730              		.loc 1 86 11 view .LVU215
+ 731 003c 002B     		cmp	r3, #0
+ 732 003e F4D1     		bne	.L67
+ 733 0040 F5E7     		b	.L59
+ 734              	.L66:
+  90:Lib/lvgl/src/core/lv_group.c ****     while(indev) {
+ 735              		.loc 1 90 5 is_stmt 1 view .LVU216
+  90:Lib/lvgl/src/core/lv_group.c ****     while(indev) {
+ 736              		.loc 1 90 26 is_stmt 0 view .LVU217
+ 737 0042 0020     		movs	r0, #0
+ 738              	.LVL77:
+  90:Lib/lvgl/src/core/lv_group.c ****     while(indev) {
+ 739              		.loc 1 90 26 view .LVU218
+ 740 0044 FFF7FEFF 		bl	lv_indev_get_next
+ 741              	.LVL78:
+  90:Lib/lvgl/src/core/lv_group.c ****     while(indev) {
+ 742              		.loc 1 90 26 view .LVU219
+ 743 0048 0446     		mov	r4, r0
+ 744              	.LVL79:
+  91:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == group) {
+ 745              		.loc 1 91 5 is_stmt 1 view .LVU220
+  91:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == group) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 28
+
+
+ 746              		.loc 1 91 10 is_stmt 0 view .LVU221
+ 747 004a 03E0     		b	.L61
+ 748              	.LVL80:
+ 749              	.L62:
+  95:Lib/lvgl/src/core/lv_group.c ****     }
+ 750              		.loc 1 95 9 is_stmt 1 view .LVU222
+  95:Lib/lvgl/src/core/lv_group.c ****     }
+ 751              		.loc 1 95 17 is_stmt 0 view .LVU223
+ 752 004c 2046     		mov	r0, r4
+ 753 004e FFF7FEFF 		bl	lv_indev_get_next
+ 754              	.LVL81:
+ 755 0052 0446     		mov	r4, r0
+ 756              	.LVL82:
+ 757              	.L61:
+  91:Lib/lvgl/src/core/lv_group.c ****         if(lv_indev_get_group(indev) == group) {
+ 758              		.loc 1 91 11 is_stmt 1 view .LVU224
+ 759 0054 4CB1     		cbz	r4, .L68
+  92:Lib/lvgl/src/core/lv_group.c ****             lv_indev_set_group(indev, NULL);
+ 760              		.loc 1 92 9 view .LVU225
+  92:Lib/lvgl/src/core/lv_group.c ****             lv_indev_set_group(indev, NULL);
+ 761              		.loc 1 92 12 is_stmt 0 view .LVU226
+ 762 0056 2046     		mov	r0, r4
+  92:Lib/lvgl/src/core/lv_group.c ****             lv_indev_set_group(indev, NULL);
+ 763              		.loc 1 92 12 view .LVU227
+ 764 0058 FFF7FEFF 		bl	lv_indev_get_group
+ 765              	.LVL83:
+  92:Lib/lvgl/src/core/lv_group.c ****             lv_indev_set_group(indev, NULL);
+ 766              		.loc 1 92 11 view .LVU228
+ 767 005c 8542     		cmp	r5, r0
+ 768 005e F5D1     		bne	.L62
+  93:Lib/lvgl/src/core/lv_group.c ****         }
+ 769              		.loc 1 93 13 is_stmt 1 view .LVU229
+ 770 0060 0021     		movs	r1, #0
+ 771 0062 2046     		mov	r0, r4
+ 772 0064 FFF7FEFF 		bl	lv_indev_set_group
+ 773              	.LVL84:
+ 774 0068 F0E7     		b	.L62
+ 775              	.LVL85:
+ 776              	.L68:
+  99:Lib/lvgl/src/core/lv_group.c **** 
+ 777              		.loc 1 99 5 view .LVU230
+  99:Lib/lvgl/src/core/lv_group.c **** 
+ 778              		.loc 1 99 17 is_stmt 0 view .LVU231
+ 779 006a FFF7FEFF 		bl	lv_group_get_default
+ 780              	.LVL86:
+  99:Lib/lvgl/src/core/lv_group.c **** 
+ 781              		.loc 1 99 7 view .LVU232
+ 782 006e 8542     		cmp	r5, r0
+ 783 0070 0BD0     		beq	.L69
+ 784              	.L64:
+ 101:Lib/lvgl/src/core/lv_group.c ****     _lv_ll_remove(group_ll_p, group);
+ 785              		.loc 1 101 5 is_stmt 1 view .LVU233
+ 786              	.LVL87:
+ 787              	.LBB15:
+ 788              	.LBI15:
+  85:Lib/lvgl/src/core/../misc/lv_ll.h **** {
+ 789              		.loc 2 85 20 view .LVU234
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 29
+
+
+ 790              	.LBB16:
+ 791              		.loc 2 87 5 view .LVU235
+ 792 0072 0021     		movs	r1, #0
+ 793 0074 2846     		mov	r0, r5
+ 794 0076 FFF7FEFF 		bl	_lv_ll_clear_custom
+ 795              	.LVL88:
+ 796              		.loc 2 87 5 is_stmt 0 view .LVU236
+ 797              	.LBE16:
+ 798              	.LBE15:
+ 102:Lib/lvgl/src/core/lv_group.c ****     lv_free(group);
+ 799              		.loc 1 102 5 is_stmt 1 view .LVU237
+ 800 007a 2946     		mov	r1, r5
+ 801 007c 0548     		ldr	r0, .L70
+ 802 007e FFF7FEFF 		bl	_lv_ll_remove
+ 803              	.LVL89:
+ 103:Lib/lvgl/src/core/lv_group.c **** }
+ 804              		.loc 1 103 5 view .LVU238
+ 805 0082 2846     		mov	r0, r5
+ 806 0084 FFF7FEFF 		bl	lv_free
+ 807              	.LVL90:
+ 104:Lib/lvgl/src/core/lv_group.c **** 
+ 808              		.loc 1 104 1 is_stmt 0 view .LVU239
+ 809 0088 38BD     		pop	{r3, r4, r5, pc}
+ 810              	.LVL91:
+ 811              	.L69:
+  99:Lib/lvgl/src/core/lv_group.c **** 
+ 812              		.loc 1 99 41 is_stmt 1 discriminator 1 view .LVU240
+ 813 008a 0020     		movs	r0, #0
+ 814 008c FFF7FEFF 		bl	lv_group_set_default
+ 815              	.LVL92:
+ 816 0090 EFE7     		b	.L64
+ 817              	.L71:
+ 818 0092 00BF     		.align	2
+ 819              	.L70:
+ 820 0094 34000000 		.word	lv_global+52
+ 821              		.cfi_endproc
+ 822              	.LFE237:
+ 824              		.section	.text.lv_group_remove_all_objs,"ax",%progbits
+ 825              		.align	1
+ 826              		.global	lv_group_remove_all_objs
+ 827              		.syntax unified
+ 828              		.thumb
+ 829              		.thumb_func
+ 831              	lv_group_remove_all_objs:
+ 832              	.LVL93:
+ 833              	.LFB243:
+ 222:Lib/lvgl/src/core/lv_group.c ****     /*Defocus the currently focused object*/
+ 834              		.loc 1 222 1 view -0
+ 835              		.cfi_startproc
+ 836              		@ args = 0, pretend = 0, frame = 0
+ 837              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222:Lib/lvgl/src/core/lv_group.c ****     /*Defocus the currently focused object*/
+ 838              		.loc 1 222 1 is_stmt 0 view .LVU242
+ 839 0000 38B5     		push	{r3, r4, r5, lr}
+ 840              	.LCFI6:
+ 841              		.cfi_def_cfa_offset 16
+ 842              		.cfi_offset 3, -16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 30
+
+
+ 843              		.cfi_offset 4, -12
+ 844              		.cfi_offset 5, -8
+ 845              		.cfi_offset 14, -4
+ 846 0002 0446     		mov	r4, r0
+ 224:Lib/lvgl/src/core/lv_group.c ****         lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
+ 847              		.loc 1 224 5 is_stmt 1 view .LVU243
+ 224:Lib/lvgl/src/core/lv_group.c ****         lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
+ 848              		.loc 1 224 13 is_stmt 0 view .LVU244
+ 849 0004 C368     		ldr	r3, [r0, #12]
+ 224:Lib/lvgl/src/core/lv_group.c ****         lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
+ 850              		.loc 1 224 7 view .LVU245
+ 851 0006 6BB1     		cbz	r3, .L73
+ 225:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 852              		.loc 1 225 9 is_stmt 1 view .LVU246
+ 853 0008 1D68     		ldr	r5, [r3]
+ 225:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 854              		.loc 1 225 66 is_stmt 0 view .LVU247
+ 855 000a FFF7FEFF 		bl	get_indev
+ 856              	.LVL94:
+ 225:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 857              		.loc 1 225 66 view .LVU248
+ 858 000e 0246     		mov	r2, r0
+ 225:Lib/lvgl/src/core/lv_group.c ****         lv_obj_invalidate(*group->obj_focus);
+ 859              		.loc 1 225 9 view .LVU249
+ 860 0010 1021     		movs	r1, #16
+ 861 0012 2846     		mov	r0, r5
+ 862 0014 FFF7FEFF 		bl	lv_obj_send_event
+ 863              	.LVL95:
+ 226:Lib/lvgl/src/core/lv_group.c ****         group->obj_focus = NULL;
+ 864              		.loc 1 226 9 is_stmt 1 view .LVU250
+ 226:Lib/lvgl/src/core/lv_group.c ****         group->obj_focus = NULL;
+ 865              		.loc 1 226 33 is_stmt 0 view .LVU251
+ 866 0018 E368     		ldr	r3, [r4, #12]
+ 226:Lib/lvgl/src/core/lv_group.c ****         group->obj_focus = NULL;
+ 867              		.loc 1 226 9 view .LVU252
+ 868 001a 1868     		ldr	r0, [r3]
+ 869 001c FFF7FEFF 		bl	lv_obj_invalidate
+ 870              	.LVL96:
+ 227:Lib/lvgl/src/core/lv_group.c ****     }
+ 871              		.loc 1 227 9 is_stmt 1 view .LVU253
+ 227:Lib/lvgl/src/core/lv_group.c ****     }
+ 872              		.loc 1 227 26 is_stmt 0 view .LVU254
+ 873 0020 0023     		movs	r3, #0
+ 874 0022 E360     		str	r3, [r4, #12]
+ 875              	.L73:
+ 231:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&group->obj_ll, obj) {
+ 876              		.loc 1 231 5 is_stmt 1 view .LVU255
+ 232:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 877              		.loc 1 232 5 view .LVU256
+ 878 0024 2046     		mov	r0, r4
+ 879 0026 FFF7FEFF 		bl	_lv_ll_get_head
+ 880              	.LVL97:
+ 881 002a 0146     		mov	r1, r0
+ 882              	.LVL98:
+ 232:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 883              		.loc 1 232 5 is_stmt 0 view .LVU257
+ 884 002c 05E0     		b	.L74
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 31
+
+
+ 885              	.L79:
+ 233:Lib/lvgl/src/core/lv_group.c ****     }
+ 886              		.loc 1 233 30 is_stmt 1 discriminator 1 view .LVU258
+ 233:Lib/lvgl/src/core/lv_group.c ****     }
+ 887              		.loc 1 233 57 is_stmt 0 discriminator 1 view .LVU259
+ 888 002e 0022     		movs	r2, #0
+ 889 0030 5A60     		str	r2, [r3, #4]
+ 890              	.L75:
+ 232:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 891              		.loc 1 232 5 is_stmt 1 discriminator 2 view .LVU260
+ 892 0032 2046     		mov	r0, r4
+ 893              	.LVL99:
+ 232:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 894              		.loc 1 232 5 is_stmt 0 discriminator 2 view .LVU261
+ 895 0034 FFF7FEFF 		bl	_lv_ll_get_next
+ 896              	.LVL100:
+ 232:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 897              		.loc 1 232 5 discriminator 2 view .LVU262
+ 898 0038 0146     		mov	r1, r0
+ 899              	.LVL101:
+ 900              	.L74:
+ 232:Lib/lvgl/src/core/lv_group.c ****         if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+ 901              		.loc 1 232 5 is_stmt 1 discriminator 1 view .LVU263
+ 902 003a 21B1     		cbz	r1, .L78
+ 233:Lib/lvgl/src/core/lv_group.c ****     }
+ 903              		.loc 1 233 9 view .LVU264
+ 233:Lib/lvgl/src/core/lv_group.c ****     }
+ 904              		.loc 1 233 13 is_stmt 0 view .LVU265
+ 905 003c 0B68     		ldr	r3, [r1]
+ 233:Lib/lvgl/src/core/lv_group.c ****     }
+ 906              		.loc 1 233 18 view .LVU266
+ 907 003e 9B68     		ldr	r3, [r3, #8]
+ 233:Lib/lvgl/src/core/lv_group.c ****     }
+ 908              		.loc 1 233 11 view .LVU267
+ 909 0040 002B     		cmp	r3, #0
+ 910 0042 F4D1     		bne	.L79
+ 911 0044 F5E7     		b	.L75
+ 912              	.L78:
+ 236:Lib/lvgl/src/core/lv_group.c **** }
+ 913              		.loc 1 236 5 is_stmt 1 view .LVU268
+ 914              	.LVL102:
+ 915              	.LBB17:
+ 916              	.LBI17:
+  85:Lib/lvgl/src/core/../misc/lv_ll.h **** {
+ 917              		.loc 2 85 20 view .LVU269
+ 918              	.LBB18:
+ 919              		.loc 2 87 5 view .LVU270
+ 920 0046 2046     		mov	r0, r4
+ 921              	.LVL103:
+ 922              		.loc 2 87 5 is_stmt 0 view .LVU271
+ 923 0048 FFF7FEFF 		bl	_lv_ll_clear_custom
+ 924              	.LVL104:
+ 925              		.loc 2 87 5 view .LVU272
+ 926              	.LBE18:
+ 927              	.LBE17:
+ 237:Lib/lvgl/src/core/lv_group.c **** 
+ 928              		.loc 1 237 1 view .LVU273
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 32
+
+
+ 929 004c 38BD     		pop	{r3, r4, r5, pc}
+ 237:Lib/lvgl/src/core/lv_group.c **** 
+ 930              		.loc 1 237 1 view .LVU274
+ 931              		.cfi_endproc
+ 932              	.LFE243:
+ 934              		.section	.text.lv_group_focus_next,"ax",%progbits
+ 935              		.align	1
+ 936              		.global	lv_group_focus_next
+ 937              		.syntax unified
+ 938              		.thumb
+ 939              		.thumb_func
+ 941              	lv_group_focus_next:
+ 942              	.LVL105:
+ 943              	.LFB245:
+ 273:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = focus_next_core(group, _lv_ll_get_head, _lv_ll_get_next);
+ 944              		.loc 1 273 1 is_stmt 1 view -0
+ 945              		.cfi_startproc
+ 946              		@ args = 0, pretend = 0, frame = 0
+ 947              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = focus_next_core(group, _lv_ll_get_head, _lv_ll_get_next);
+ 948              		.loc 1 273 1 is_stmt 0 view .LVU276
+ 949 0000 10B5     		push	{r4, lr}
+ 950              	.LCFI7:
+ 951              		.cfi_def_cfa_offset 8
+ 952              		.cfi_offset 4, -8
+ 953              		.cfi_offset 14, -4
+ 954 0002 0446     		mov	r4, r0
+ 274:Lib/lvgl/src/core/lv_group.c ****     if(group->edge_cb) {
+ 955              		.loc 1 274 5 is_stmt 1 view .LVU277
+ 274:Lib/lvgl/src/core/lv_group.c ****     if(group->edge_cb) {
+ 956              		.loc 1 274 26 is_stmt 0 view .LVU278
+ 957 0004 054A     		ldr	r2, .L83
+ 958 0006 0649     		ldr	r1, .L83+4
+ 959 0008 FFF7FEFF 		bl	focus_next_core
+ 960              	.LVL106:
+ 275:Lib/lvgl/src/core/lv_group.c ****         if(!focus_changed)
+ 961              		.loc 1 275 5 is_stmt 1 view .LVU279
+ 275:Lib/lvgl/src/core/lv_group.c ****         if(!focus_changed)
+ 962              		.loc 1 275 13 is_stmt 0 view .LVU280
+ 963 000c 6369     		ldr	r3, [r4, #20]
+ 275:Lib/lvgl/src/core/lv_group.c ****         if(!focus_changed)
+ 964              		.loc 1 275 7 view .LVU281
+ 965 000e 1BB1     		cbz	r3, .L80
+ 276:Lib/lvgl/src/core/lv_group.c ****             group->edge_cb(group, true);
+ 966              		.loc 1 276 9 is_stmt 1 view .LVU282
+ 276:Lib/lvgl/src/core/lv_group.c ****             group->edge_cb(group, true);
+ 967              		.loc 1 276 11 is_stmt 0 view .LVU283
+ 968 0010 10B9     		cbnz	r0, .L80
+ 277:Lib/lvgl/src/core/lv_group.c ****     }
+ 969              		.loc 1 277 13 is_stmt 1 view .LVU284
+ 970 0012 0121     		movs	r1, #1
+ 971 0014 2046     		mov	r0, r4
+ 972              	.LVL107:
+ 277:Lib/lvgl/src/core/lv_group.c ****     }
+ 973              		.loc 1 277 13 is_stmt 0 view .LVU285
+ 974 0016 9847     		blx	r3
+ 975              	.LVL108:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 33
+
+
+ 976              	.L80:
+ 279:Lib/lvgl/src/core/lv_group.c **** 
+ 977              		.loc 1 279 1 view .LVU286
+ 978 0018 10BD     		pop	{r4, pc}
+ 979              	.LVL109:
+ 980              	.L84:
+ 279:Lib/lvgl/src/core/lv_group.c **** 
+ 981              		.loc 1 279 1 view .LVU287
+ 982 001a 00BF     		.align	2
+ 983              	.L83:
+ 984 001c 00000000 		.word	_lv_ll_get_next
+ 985 0020 00000000 		.word	_lv_ll_get_head
+ 986              		.cfi_endproc
+ 987              	.LFE245:
+ 989              		.section	.text.lv_group_focus_prev,"ax",%progbits
+ 990              		.align	1
+ 991              		.global	lv_group_focus_prev
+ 992              		.syntax unified
+ 993              		.thumb
+ 994              		.thumb_func
+ 996              	lv_group_focus_prev:
+ 997              	.LVL110:
+ 998              	.LFB246:
+ 282:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = focus_next_core(group, _lv_ll_get_tail, _lv_ll_get_prev);
+ 999              		.loc 1 282 1 is_stmt 1 view -0
+ 1000              		.cfi_startproc
+ 1001              		@ args = 0, pretend = 0, frame = 0
+ 1002              		@ frame_needed = 0, uses_anonymous_args = 0
+ 282:Lib/lvgl/src/core/lv_group.c ****     bool focus_changed = focus_next_core(group, _lv_ll_get_tail, _lv_ll_get_prev);
+ 1003              		.loc 1 282 1 is_stmt 0 view .LVU289
+ 1004 0000 10B5     		push	{r4, lr}
+ 1005              	.LCFI8:
+ 1006              		.cfi_def_cfa_offset 8
+ 1007              		.cfi_offset 4, -8
+ 1008              		.cfi_offset 14, -4
+ 1009 0002 0446     		mov	r4, r0
+ 283:Lib/lvgl/src/core/lv_group.c ****     if(group->edge_cb) {
+ 1010              		.loc 1 283 5 is_stmt 1 view .LVU290
+ 283:Lib/lvgl/src/core/lv_group.c ****     if(group->edge_cb) {
+ 1011              		.loc 1 283 26 is_stmt 0 view .LVU291
+ 1012 0004 054A     		ldr	r2, .L88
+ 1013 0006 0649     		ldr	r1, .L88+4
+ 1014 0008 FFF7FEFF 		bl	focus_next_core
+ 1015              	.LVL111:
+ 284:Lib/lvgl/src/core/lv_group.c ****         if(!focus_changed)
+ 1016              		.loc 1 284 5 is_stmt 1 view .LVU292
+ 284:Lib/lvgl/src/core/lv_group.c ****         if(!focus_changed)
+ 1017              		.loc 1 284 13 is_stmt 0 view .LVU293
+ 1018 000c 6369     		ldr	r3, [r4, #20]
+ 284:Lib/lvgl/src/core/lv_group.c ****         if(!focus_changed)
+ 1019              		.loc 1 284 7 view .LVU294
+ 1020 000e 1BB1     		cbz	r3, .L85
+ 285:Lib/lvgl/src/core/lv_group.c ****             group->edge_cb(group, false);
+ 1021              		.loc 1 285 9 is_stmt 1 view .LVU295
+ 285:Lib/lvgl/src/core/lv_group.c ****             group->edge_cb(group, false);
+ 1022              		.loc 1 285 11 is_stmt 0 view .LVU296
+ 1023 0010 10B9     		cbnz	r0, .L85
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 34
+
+
+ 286:Lib/lvgl/src/core/lv_group.c ****     }
+ 1024              		.loc 1 286 13 is_stmt 1 view .LVU297
+ 1025 0012 0021     		movs	r1, #0
+ 1026 0014 2046     		mov	r0, r4
+ 1027              	.LVL112:
+ 286:Lib/lvgl/src/core/lv_group.c ****     }
+ 1028              		.loc 1 286 13 is_stmt 0 view .LVU298
+ 1029 0016 9847     		blx	r3
+ 1030              	.LVL113:
+ 1031              	.L85:
+ 288:Lib/lvgl/src/core/lv_group.c **** 
+ 1032              		.loc 1 288 1 view .LVU299
+ 1033 0018 10BD     		pop	{r4, pc}
+ 1034              	.LVL114:
+ 1035              	.L89:
+ 288:Lib/lvgl/src/core/lv_group.c **** 
+ 1036              		.loc 1 288 1 view .LVU300
+ 1037 001a 00BF     		.align	2
+ 1038              	.L88:
+ 1039 001c 00000000 		.word	_lv_ll_get_prev
+ 1040 0020 00000000 		.word	_lv_ll_get_tail
+ 1041              		.cfi_endproc
+ 1042              	.LFE246:
+ 1044              		.section	.text.lv_group_refocus,"ax",%progbits
+ 1045              		.align	1
+ 1046              		.syntax unified
+ 1047              		.thumb
+ 1048              		.thumb_func
+ 1050              	lv_group_refocus:
+ 1051              	.LVL115:
+ 1052              	.LFB262:
+ 405:Lib/lvgl/src/core/lv_group.c ****     /*Refocus must temporarily allow wrapping to work correctly*/
+ 1053              		.loc 1 405 1 is_stmt 1 view -0
+ 1054              		.cfi_startproc
+ 1055              		@ args = 0, pretend = 0, frame = 0
+ 1056              		@ frame_needed = 0, uses_anonymous_args = 0
+ 405:Lib/lvgl/src/core/lv_group.c ****     /*Refocus must temporarily allow wrapping to work correctly*/
+ 1057              		.loc 1 405 1 is_stmt 0 view .LVU302
+ 1058 0000 38B5     		push	{r3, r4, r5, lr}
+ 1059              	.LCFI9:
+ 1060              		.cfi_def_cfa_offset 16
+ 1061              		.cfi_offset 3, -16
+ 1062              		.cfi_offset 4, -12
+ 1063              		.cfi_offset 5, -8
+ 1064              		.cfi_offset 14, -4
+ 1065 0002 0446     		mov	r4, r0
+ 407:Lib/lvgl/src/core/lv_group.c ****     g->wrap           = 1;
+ 1066              		.loc 1 407 5 is_stmt 1 view .LVU303
+ 407:Lib/lvgl/src/core/lv_group.c ****     g->wrap           = 1;
+ 1067              		.loc 1 407 26 is_stmt 0 view .LVU304
+ 1068 0004 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 1069 0006 C3F3C005 		ubfx	r5, r3, #3, #1
+ 1070              	.LVL116:
+ 408:Lib/lvgl/src/core/lv_group.c **** 
+ 1071              		.loc 1 408 5 is_stmt 1 view .LVU305
+ 408:Lib/lvgl/src/core/lv_group.c **** 
+ 1072              		.loc 1 408 23 is_stmt 0 view .LVU306
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 35
+
+
+ 1073 000a 43F00803 		orr	r3, r3, #8
+ 1074              	.LVL117:
+ 408:Lib/lvgl/src/core/lv_group.c **** 
+ 1075              		.loc 1 408 23 view .LVU307
+ 1076 000e 0377     		strb	r3, [r0, #28]
+ 1077              	.LVL118:
+ 410:Lib/lvgl/src/core/lv_group.c ****         lv_group_focus_next(g);
+ 1078              		.loc 1 410 5 is_stmt 1 view .LVU308
+ 410:Lib/lvgl/src/core/lv_group.c ****         lv_group_focus_next(g);
+ 1079              		.loc 1 410 26 is_stmt 0 view .LVU309
+ 1080 0010 DBB2     		uxtb	r3, r3
+ 410:Lib/lvgl/src/core/lv_group.c ****         lv_group_focus_next(g);
+ 1081              		.loc 1 410 7 view .LVU310
+ 1082 0012 13F0040F 		tst	r3, #4
+ 1083 0016 06D1     		bne	.L91
+ 411:Lib/lvgl/src/core/lv_group.c ****     else if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_PREV)
+ 1084              		.loc 1 411 9 is_stmt 1 view .LVU311
+ 1085 0018 FFF7FEFF 		bl	lv_group_focus_next
+ 1086              	.LVL119:
+ 1087              	.L92:
+ 415:Lib/lvgl/src/core/lv_group.c **** }
+ 1088              		.loc 1 415 5 view .LVU312
+ 415:Lib/lvgl/src/core/lv_group.c **** }
+ 1089              		.loc 1 415 13 is_stmt 0 view .LVU313
+ 1090 001c 237F     		ldrb	r3, [r4, #28]	@ zero_extendqisi2
+ 1091 001e 65F3C303 		bfi	r3, r5, #3, #1
+ 1092 0022 2377     		strb	r3, [r4, #28]
+ 416:Lib/lvgl/src/core/lv_group.c **** 
+ 1093              		.loc 1 416 1 view .LVU314
+ 1094 0024 38BD     		pop	{r3, r4, r5, pc}
+ 1095              	.LVL120:
+ 1096              	.L91:
+ 412:Lib/lvgl/src/core/lv_group.c ****         lv_group_focus_prev(g);
+ 1097              		.loc 1 412 10 is_stmt 1 view .LVU315
+ 413:Lib/lvgl/src/core/lv_group.c ****     /*Restore wrap property*/
+ 1098              		.loc 1 413 9 view .LVU316
+ 1099 0026 FFF7FEFF 		bl	lv_group_focus_prev
+ 1100              	.LVL121:
+ 413:Lib/lvgl/src/core/lv_group.c ****     /*Restore wrap property*/
+ 1101              		.loc 1 413 9 is_stmt 0 view .LVU317
+ 1102 002a F7E7     		b	.L92
+ 1103              		.cfi_endproc
+ 1104              	.LFE262:
+ 1106              		.section	.text.lv_group_remove_obj,"ax",%progbits
+ 1107              		.align	1
+ 1108              		.global	lv_group_remove_obj
+ 1109              		.syntax unified
+ 1110              		.thumb
+ 1111              		.thumb_func
+ 1113              	lv_group_remove_obj:
+ 1114              	.LVL122:
+ 1115              	.LFB242:
+ 181:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g = lv_obj_get_group(obj);
+ 1116              		.loc 1 181 1 is_stmt 1 view -0
+ 1117              		.cfi_startproc
+ 1118              		@ args = 0, pretend = 0, frame = 0
+ 1119              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 36
+
+
+ 181:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g = lv_obj_get_group(obj);
+ 1120              		.loc 1 181 1 is_stmt 0 view .LVU319
+ 1121 0000 70B5     		push	{r4, r5, r6, lr}
+ 1122              	.LCFI10:
+ 1123              		.cfi_def_cfa_offset 16
+ 1124              		.cfi_offset 4, -16
+ 1125              		.cfi_offset 5, -12
+ 1126              		.cfi_offset 6, -8
+ 1127              		.cfi_offset 14, -4
+ 1128 0002 0646     		mov	r6, r0
+ 182:Lib/lvgl/src/core/lv_group.c ****     if(g == NULL) return;
+ 1129              		.loc 1 182 5 is_stmt 1 view .LVU320
+ 182:Lib/lvgl/src/core/lv_group.c ****     if(g == NULL) return;
+ 1130              		.loc 1 182 22 is_stmt 0 view .LVU321
+ 1131 0004 FFF7FEFF 		bl	lv_obj_get_group
+ 1132              	.LVL123:
+ 183:Lib/lvgl/src/core/lv_group.c **** 
+ 1133              		.loc 1 183 5 is_stmt 1 view .LVU322
+ 183:Lib/lvgl/src/core/lv_group.c **** 
+ 1134              		.loc 1 183 7 is_stmt 0 view .LVU323
+ 1135 0008 0028     		cmp	r0, #0
+ 1136 000a 49D0     		beq	.L94
+ 1137 000c 0546     		mov	r5, r0
+ 185:Lib/lvgl/src/core/lv_group.c **** 
+ 1138              		.loc 1 185 5 is_stmt 1 view .LVU324
+ 185:Lib/lvgl/src/core/lv_group.c **** 
+ 1139              		.loc 1 185 5 view .LVU325
+ 185:Lib/lvgl/src/core/lv_group.c **** 
+ 1140              		.loc 1 185 5 view .LVU326
+ 188:Lib/lvgl/src/core/lv_group.c ****         if(g->frozen) g->frozen = 0;
+ 1141              		.loc 1 188 5 view .LVU327
+ 188:Lib/lvgl/src/core/lv_group.c ****         if(g->frozen) g->frozen = 0;
+ 1142              		.loc 1 188 9 is_stmt 0 view .LVU328
+ 1143 000e C368     		ldr	r3, [r0, #12]
+ 188:Lib/lvgl/src/core/lv_group.c ****         if(g->frozen) g->frozen = 0;
+ 1144              		.loc 1 188 7 view .LVU329
+ 1145 0010 13B1     		cbz	r3, .L96
+ 188:Lib/lvgl/src/core/lv_group.c ****         if(g->frozen) g->frozen = 0;
+ 1146              		.loc 1 188 24 discriminator 1 view .LVU330
+ 1147 0012 1B68     		ldr	r3, [r3]
+ 188:Lib/lvgl/src/core/lv_group.c ****         if(g->frozen) g->frozen = 0;
+ 1148              		.loc 1 188 21 discriminator 1 view .LVU331
+ 1149 0014 B342     		cmp	r3, r6
+ 1150 0016 13D0     		beq	.L104
+ 1151              	.LVL124:
+ 1152              	.L96:
+ 204:Lib/lvgl/src/core/lv_group.c ****         g->obj_focus = NULL;
+ 1153              		.loc 1 204 5 is_stmt 1 view .LVU332
+ 204:Lib/lvgl/src/core/lv_group.c ****         g->obj_focus = NULL;
+ 1154              		.loc 1 204 9 is_stmt 0 view .LVU333
+ 1155 0018 EB68     		ldr	r3, [r5, #12]
+ 204:Lib/lvgl/src/core/lv_group.c ****         g->obj_focus = NULL;
+ 1156              		.loc 1 204 7 view .LVU334
+ 1157 001a 13B1     		cbz	r3, .L99
+ 204:Lib/lvgl/src/core/lv_group.c ****         g->obj_focus = NULL;
+ 1158              		.loc 1 204 24 discriminator 1 view .LVU335
+ 1159 001c 1B68     		ldr	r3, [r3]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 37
+
+
+ 204:Lib/lvgl/src/core/lv_group.c ****         g->obj_focus = NULL;
+ 1160              		.loc 1 204 21 discriminator 1 view .LVU336
+ 1161 001e B342     		cmp	r3, r6
+ 1162 0020 30D0     		beq	.L105
+ 1163              	.L99:
+ 209:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&g->obj_ll, i) {
+ 1164              		.loc 1 209 5 is_stmt 1 view .LVU337
+ 210:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1165              		.loc 1 210 5 view .LVU338
+ 1166 0022 2846     		mov	r0, r5
+ 1167 0024 FFF7FEFF 		bl	_lv_ll_get_head
+ 1168              	.LVL125:
+ 1169 0028 0446     		mov	r4, r0
+ 1170              	.LVL126:
+ 1171              	.L100:
+ 210:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1172              		.loc 1 210 5 discriminator 1 view .LVU339
+ 1173 002a 002C     		cmp	r4, #0
+ 1174 002c 38D0     		beq	.L94
+ 211:Lib/lvgl/src/core/lv_group.c ****             _lv_ll_remove(&g->obj_ll, i);
+ 1175              		.loc 1 211 9 view .LVU340
+ 211:Lib/lvgl/src/core/lv_group.c ****             _lv_ll_remove(&g->obj_ll, i);
+ 1176              		.loc 1 211 12 is_stmt 0 view .LVU341
+ 1177 002e 2368     		ldr	r3, [r4]
+ 211:Lib/lvgl/src/core/lv_group.c ****             _lv_ll_remove(&g->obj_ll, i);
+ 1178              		.loc 1 211 11 view .LVU342
+ 1179 0030 B342     		cmp	r3, r6
+ 1180 0032 2AD0     		beq	.L106
+ 210:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1181              		.loc 1 210 5 is_stmt 1 discriminator 2 view .LVU343
+ 1182 0034 2146     		mov	r1, r4
+ 1183 0036 2846     		mov	r0, r5
+ 1184              	.LVL127:
+ 210:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1185              		.loc 1 210 5 is_stmt 0 discriminator 2 view .LVU344
+ 1186 0038 FFF7FEFF 		bl	_lv_ll_get_next
+ 1187              	.LVL128:
+ 210:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1188              		.loc 1 210 5 discriminator 2 view .LVU345
+ 1189 003c 0446     		mov	r4, r0
+ 1190              	.LVL129:
+ 210:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1191              		.loc 1 210 5 discriminator 2 view .LVU346
+ 1192 003e F4E7     		b	.L100
+ 1193              	.LVL130:
+ 1194              	.L104:
+ 189:Lib/lvgl/src/core/lv_group.c **** 
+ 1195              		.loc 1 189 9 is_stmt 1 view .LVU347
+ 189:Lib/lvgl/src/core/lv_group.c **** 
+ 1196              		.loc 1 189 12 is_stmt 0 view .LVU348
+ 1197 0040 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 189:Lib/lvgl/src/core/lv_group.c **** 
+ 1198              		.loc 1 189 11 view .LVU349
+ 1199 0042 13F0010F 		tst	r3, #1
+ 1200 0046 03D0     		beq	.L97
+ 189:Lib/lvgl/src/core/lv_group.c **** 
+ 1201              		.loc 1 189 23 is_stmt 1 discriminator 1 view .LVU350
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 38
+
+
+ 189:Lib/lvgl/src/core/lv_group.c **** 
+ 1202              		.loc 1 189 33 is_stmt 0 discriminator 1 view .LVU351
+ 1203 0048 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 1204 004a 6FF30003 		bfc	r3, #0, #1
+ 1205 004e 0377     		strb	r3, [r0, #28]
+ 1206              	.L97:
+ 192:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 1207              		.loc 1 192 9 is_stmt 1 view .LVU352
+ 192:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 1208              		.loc 1 192 12 is_stmt 0 view .LVU353
+ 1209 0050 2846     		mov	r0, r5
+ 1210              	.LVL131:
+ 192:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 1211              		.loc 1 192 12 view .LVU354
+ 1212 0052 FFF7FEFF 		bl	_lv_ll_get_head
+ 1213              	.LVL132:
+ 192:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 1214              		.loc 1 192 44 view .LVU355
+ 1215 0056 EB68     		ldr	r3, [r5, #12]
+ 192:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 1216              		.loc 1 192 11 view .LVU356
+ 1217 0058 8342     		cmp	r3, r0
+ 1218 005a 03D0     		beq	.L107
+ 1219              	.L98:
+ 197:Lib/lvgl/src/core/lv_group.c ****         }
+ 1220              		.loc 1 197 13 is_stmt 1 view .LVU357
+ 1221 005c 2846     		mov	r0, r5
+ 1222 005e FFF7FEFF 		bl	lv_group_refocus
+ 1223              	.LVL133:
+ 1224 0062 D9E7     		b	.L96
+ 1225              	.L107:
+ 192:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 1226              		.loc 1 192 59 is_stmt 0 discriminator 1 view .LVU358
+ 1227 0064 2846     		mov	r0, r5
+ 1228 0066 FFF7FEFF 		bl	_lv_ll_get_tail
+ 1229              	.LVL134:
+ 192:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 1230              		.loc 1 192 91 discriminator 1 view .LVU359
+ 1231 006a EB68     		ldr	r3, [r5, #12]
+ 192:Lib/lvgl/src/core/lv_group.c ****             lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+ 1232              		.loc 1 192 56 discriminator 1 view .LVU360
+ 1233 006c 8342     		cmp	r3, r0
+ 1234 006e F5D1     		bne	.L98
+ 193:Lib/lvgl/src/core/lv_group.c ****         }
+ 1235              		.loc 1 193 13 is_stmt 1 view .LVU361
+ 1236 0070 1C68     		ldr	r4, [r3]
+ 193:Lib/lvgl/src/core/lv_group.c ****         }
+ 1237              		.loc 1 193 66 is_stmt 0 view .LVU362
+ 1238 0072 2846     		mov	r0, r5
+ 1239 0074 FFF7FEFF 		bl	get_indev
+ 1240              	.LVL135:
+ 1241 0078 0246     		mov	r2, r0
+ 193:Lib/lvgl/src/core/lv_group.c ****         }
+ 1242              		.loc 1 193 13 view .LVU363
+ 1243 007a 1021     		movs	r1, #16
+ 1244 007c 2046     		mov	r0, r4
+ 1245 007e FFF7FEFF 		bl	lv_obj_send_event
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 39
+
+
+ 1246              	.LVL136:
+ 1247 0082 C9E7     		b	.L96
+ 1248              	.L105:
+ 205:Lib/lvgl/src/core/lv_group.c ****     }
+ 1249              		.loc 1 205 9 is_stmt 1 view .LVU364
+ 205:Lib/lvgl/src/core/lv_group.c ****     }
+ 1250              		.loc 1 205 22 is_stmt 0 view .LVU365
+ 1251 0084 0023     		movs	r3, #0
+ 1252 0086 EB60     		str	r3, [r5, #12]
+ 1253 0088 CBE7     		b	.L99
+ 1254              	.LVL137:
+ 1255              	.L106:
+ 212:Lib/lvgl/src/core/lv_group.c ****             lv_free(i);
+ 1256              		.loc 1 212 13 is_stmt 1 view .LVU366
+ 1257 008a 2146     		mov	r1, r4
+ 1258 008c 2846     		mov	r0, r5
+ 1259              	.LVL138:
+ 212:Lib/lvgl/src/core/lv_group.c ****             lv_free(i);
+ 1260              		.loc 1 212 13 is_stmt 0 view .LVU367
+ 1261 008e FFF7FEFF 		bl	_lv_ll_remove
+ 1262              	.LVL139:
+ 213:Lib/lvgl/src/core/lv_group.c ****             if(obj->spec_attr) obj->spec_attr->group_p = NULL;
+ 1263              		.loc 1 213 13 is_stmt 1 view .LVU368
+ 1264 0092 2046     		mov	r0, r4
+ 1265 0094 FFF7FEFF 		bl	lv_free
+ 1266              	.LVL140:
+ 214:Lib/lvgl/src/core/lv_group.c ****             break;
+ 1267              		.loc 1 214 13 view .LVU369
+ 214:Lib/lvgl/src/core/lv_group.c ****             break;
+ 1268              		.loc 1 214 19 is_stmt 0 view .LVU370
+ 1269 0098 B368     		ldr	r3, [r6, #8]
+ 214:Lib/lvgl/src/core/lv_group.c ****             break;
+ 1270              		.loc 1 214 15 view .LVU371
+ 1271 009a 0BB1     		cbz	r3, .L94
+ 214:Lib/lvgl/src/core/lv_group.c ****             break;
+ 1272              		.loc 1 214 32 is_stmt 1 discriminator 1 view .LVU372
+ 214:Lib/lvgl/src/core/lv_group.c ****             break;
+ 1273              		.loc 1 214 56 is_stmt 0 discriminator 1 view .LVU373
+ 1274 009c 0022     		movs	r2, #0
+ 1275 009e 5A60     		str	r2, [r3, #4]
+ 1276              	.LVL141:
+ 1277              	.L94:
+ 219:Lib/lvgl/src/core/lv_group.c **** 
+ 1278              		.loc 1 219 1 view .LVU374
+ 1279 00a0 70BD     		pop	{r4, r5, r6, pc}
+ 219:Lib/lvgl/src/core/lv_group.c **** 
+ 1280              		.loc 1 219 1 view .LVU375
+ 1281              		.cfi_endproc
+ 1282              	.LFE242:
+ 1284              		.section	.text.lv_group_add_obj,"ax",%progbits
+ 1285              		.align	1
+ 1286              		.global	lv_group_add_obj
+ 1287              		.syntax unified
+ 1288              		.thumb
+ 1289              		.thumb_func
+ 1291              	lv_group_add_obj:
+ 1292              	.LVL142:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 40
+
+
+ 1293              	.LFB240:
+ 117:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return;
+ 1294              		.loc 1 117 1 is_stmt 1 view -0
+ 1295              		.cfi_startproc
+ 1296              		@ args = 0, pretend = 0, frame = 0
+ 1297              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118:Lib/lvgl/src/core/lv_group.c **** 
+ 1298              		.loc 1 118 5 view .LVU377
+ 118:Lib/lvgl/src/core/lv_group.c **** 
+ 1299              		.loc 1 118 7 is_stmt 0 view .LVU378
+ 1300 0000 0028     		cmp	r0, #0
+ 1301 0002 39D0     		beq	.L117
+ 117:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return;
+ 1302              		.loc 1 117 1 view .LVU379
+ 1303 0004 70B5     		push	{r4, r5, r6, lr}
+ 1304              	.LCFI11:
+ 1305              		.cfi_def_cfa_offset 16
+ 1306              		.cfi_offset 4, -16
+ 1307              		.cfi_offset 5, -12
+ 1308              		.cfi_offset 6, -8
+ 1309              		.cfi_offset 14, -4
+ 1310 0006 0C46     		mov	r4, r1
+ 1311 0008 0546     		mov	r5, r0
+ 120:Lib/lvgl/src/core/lv_group.c **** 
+ 1312              		.loc 1 120 5 is_stmt 1 view .LVU380
+ 120:Lib/lvgl/src/core/lv_group.c **** 
+ 1313              		.loc 1 120 5 view .LVU381
+ 120:Lib/lvgl/src/core/lv_group.c **** 
+ 1314              		.loc 1 120 5 view .LVU382
+ 123:Lib/lvgl/src/core/lv_group.c **** 
+ 1315              		.loc 1 123 5 view .LVU383
+ 1316 000a 0846     		mov	r0, r1
+ 1317              	.LVL143:
+ 123:Lib/lvgl/src/core/lv_group.c **** 
+ 1318              		.loc 1 123 5 is_stmt 0 view .LVU384
+ 1319 000c FFF7FEFF 		bl	lv_group_remove_obj
+ 1320              	.LVL144:
+ 126:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&group->obj_ll, obj_i) {
+ 1321              		.loc 1 126 5 is_stmt 1 view .LVU385
+ 127:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj) {
+ 1322              		.loc 1 127 5 view .LVU386
+ 1323 0010 2846     		mov	r0, r5
+ 1324 0012 FFF7FEFF 		bl	_lv_ll_get_head
+ 1325              	.LVL145:
+ 1326 0016 0146     		mov	r1, r0
+ 1327              	.LVL146:
+ 1328              	.L110:
+ 127:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj) {
+ 1329              		.loc 1 127 5 discriminator 1 view .LVU387
+ 1330 0018 39B1     		cbz	r1, .L120
+ 128:Lib/lvgl/src/core/lv_group.c ****             LV_LOG_INFO("the object is already added to this group");
+ 1331              		.loc 1 128 9 view .LVU388
+ 128:Lib/lvgl/src/core/lv_group.c ****             LV_LOG_INFO("the object is already added to this group");
+ 1332              		.loc 1 128 13 is_stmt 0 view .LVU389
+ 1333 001a 0B68     		ldr	r3, [r1]
+ 128:Lib/lvgl/src/core/lv_group.c ****             LV_LOG_INFO("the object is already added to this group");
+ 1334              		.loc 1 128 11 view .LVU390
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 41
+
+
+ 1335 001c A342     		cmp	r3, r4
+ 1336 001e 1ED0     		beq	.L108
+ 127:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj) {
+ 1337              		.loc 1 127 5 is_stmt 1 discriminator 2 view .LVU391
+ 1338 0020 2846     		mov	r0, r5
+ 1339              	.LVL147:
+ 127:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj) {
+ 1340              		.loc 1 127 5 is_stmt 0 discriminator 2 view .LVU392
+ 1341 0022 FFF7FEFF 		bl	_lv_ll_get_next
+ 1342              	.LVL148:
+ 127:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj) {
+ 1343              		.loc 1 127 5 discriminator 2 view .LVU393
+ 1344 0026 0146     		mov	r1, r0
+ 1345              	.LVL149:
+ 127:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj) {
+ 1346              		.loc 1 127 5 discriminator 2 view .LVU394
+ 1347 0028 F6E7     		b	.L110
+ 1348              	.L120:
+ 135:Lib/lvgl/src/core/lv_group.c ****     if(group_cur) {
+ 1349              		.loc 1 135 5 is_stmt 1 view .LVU395
+ 135:Lib/lvgl/src/core/lv_group.c ****     if(group_cur) {
+ 1350              		.loc 1 135 30 is_stmt 0 view .LVU396
+ 1351 002a 2046     		mov	r0, r4
+ 1352              	.LVL150:
+ 135:Lib/lvgl/src/core/lv_group.c ****     if(group_cur) {
+ 1353              		.loc 1 135 30 view .LVU397
+ 1354 002c FFF7FEFF 		bl	lv_obj_get_group
+ 1355              	.LVL151:
+ 136:Lib/lvgl/src/core/lv_group.c ****         if(obj->spec_attr->group_p && *(obj->spec_attr->group_p->obj_focus) == obj) {
+ 1356              		.loc 1 136 5 is_stmt 1 view .LVU398
+ 136:Lib/lvgl/src/core/lv_group.c ****         if(obj->spec_attr->group_p && *(obj->spec_attr->group_p->obj_focus) == obj) {
+ 1357              		.loc 1 136 7 is_stmt 0 view .LVU399
+ 1358 0030 30B1     		cbz	r0, .L112
+ 137:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(group_cur);
+ 1359              		.loc 1 137 9 is_stmt 1 view .LVU400
+ 137:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(group_cur);
+ 1360              		.loc 1 137 15 is_stmt 0 view .LVU401
+ 1361 0032 A368     		ldr	r3, [r4, #8]
+ 137:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(group_cur);
+ 1362              		.loc 1 137 26 view .LVU402
+ 1363 0034 5B68     		ldr	r3, [r3, #4]
+ 137:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(group_cur);
+ 1364              		.loc 1 137 11 view .LVU403
+ 1365 0036 1BB1     		cbz	r3, .L112
+ 137:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(group_cur);
+ 1366              		.loc 1 137 64 discriminator 1 view .LVU404
+ 1367 0038 DB68     		ldr	r3, [r3, #12]
+ 137:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(group_cur);
+ 1368              		.loc 1 137 39 discriminator 1 view .LVU405
+ 1369 003a 1B68     		ldr	r3, [r3]
+ 137:Lib/lvgl/src/core/lv_group.c ****             lv_group_refocus(group_cur);
+ 1370              		.loc 1 137 36 discriminator 1 view .LVU406
+ 1371 003c A342     		cmp	r3, r4
+ 1372 003e 0FD0     		beq	.L121
+ 1373              	.LVL152:
+ 1374              	.L112:
+ 140:Lib/lvgl/src/core/lv_group.c ****         }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 42
+
+
+ 1375              		.loc 1 140 13 is_stmt 1 view .LVU407
+ 140:Lib/lvgl/src/core/lv_group.c ****         }
+ 1376              		.loc 1 140 13 view .LVU408
+ 140:Lib/lvgl/src/core/lv_group.c ****         }
+ 1377              		.loc 1 140 13 view .LVU409
+ 144:Lib/lvgl/src/core/lv_group.c ****     obj->spec_attr->group_p = group;
+ 1378              		.loc 1 144 5 view .LVU410
+ 144:Lib/lvgl/src/core/lv_group.c ****     obj->spec_attr->group_p = group;
+ 1379              		.loc 1 144 11 is_stmt 0 view .LVU411
+ 1380 0040 A368     		ldr	r3, [r4, #8]
+ 144:Lib/lvgl/src/core/lv_group.c ****     obj->spec_attr->group_p = group;
+ 1381              		.loc 1 144 7 view .LVU412
+ 1382 0042 83B1     		cbz	r3, .L122
+ 1383              	.L113:
+ 145:Lib/lvgl/src/core/lv_group.c **** 
+ 1384              		.loc 1 145 5 is_stmt 1 view .LVU413
+ 145:Lib/lvgl/src/core/lv_group.c **** 
+ 1385              		.loc 1 145 8 is_stmt 0 view .LVU414
+ 1386 0044 A368     		ldr	r3, [r4, #8]
+ 145:Lib/lvgl/src/core/lv_group.c **** 
+ 1387              		.loc 1 145 29 view .LVU415
+ 1388 0046 5D60     		str	r5, [r3, #4]
+ 147:Lib/lvgl/src/core/lv_group.c ****     LV_ASSERT_MALLOC(next);
+ 1389              		.loc 1 147 5 is_stmt 1 view .LVU416
+ 147:Lib/lvgl/src/core/lv_group.c ****     LV_ASSERT_MALLOC(next);
+ 1390              		.loc 1 147 24 is_stmt 0 view .LVU417
+ 1391 0048 2846     		mov	r0, r5
+ 1392 004a FFF7FEFF 		bl	_lv_ll_ins_tail
+ 1393              	.LVL153:
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1394              		.loc 1 148 5 is_stmt 1 view .LVU418
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1395              		.loc 1 148 5 view .LVU419
+ 1396 004e 0646     		mov	r6, r0
+ 1397 0050 68B1     		cbz	r0, .L115
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1398              		.loc 1 148 5 view .LVU420
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1399              		.loc 1 148 27 view .LVU421
+ 149:Lib/lvgl/src/core/lv_group.c ****     *next = obj;
+ 1400              		.loc 1 149 5 view .LVU422
+ 150:Lib/lvgl/src/core/lv_group.c **** 
+ 1401              		.loc 1 150 5 view .LVU423
+ 150:Lib/lvgl/src/core/lv_group.c **** 
+ 1402              		.loc 1 150 11 is_stmt 0 view .LVU424
+ 1403 0052 0460     		str	r4, [r0]
+ 154:Lib/lvgl/src/core/lv_group.c ****         lv_group_refocus(group);
+ 1404              		.loc 1 154 5 is_stmt 1 view .LVU425
+ 154:Lib/lvgl/src/core/lv_group.c ****         lv_group_refocus(group);
+ 1405              		.loc 1 154 8 is_stmt 0 view .LVU426
+ 1406 0054 2846     		mov	r0, r5
+ 1407              	.LVL154:
+ 154:Lib/lvgl/src/core/lv_group.c ****         lv_group_refocus(group);
+ 1408              		.loc 1 154 8 view .LVU427
+ 1409 0056 FFF7FEFF 		bl	_lv_ll_get_head
+ 1410              	.LVL155:
+ 154:Lib/lvgl/src/core/lv_group.c ****         lv_group_refocus(group);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 43
+
+
+ 1411              		.loc 1 154 7 view .LVU428
+ 1412 005a 8642     		cmp	r6, r0
+ 1413 005c 08D0     		beq	.L123
+ 1414              	.LVL156:
+ 1415              	.L108:
+ 159:Lib/lvgl/src/core/lv_group.c **** 
+ 1416              		.loc 1 159 1 view .LVU429
+ 1417 005e 70BD     		pop	{r4, r5, r6, pc}
+ 1418              	.LVL157:
+ 1419              	.L121:
+ 138:Lib/lvgl/src/core/lv_group.c **** 
+ 1420              		.loc 1 138 13 is_stmt 1 view .LVU430
+ 1421 0060 FFF7FEFF 		bl	lv_group_refocus
+ 1422              	.LVL158:
+ 138:Lib/lvgl/src/core/lv_group.c **** 
+ 1423              		.loc 1 138 13 is_stmt 0 view .LVU431
+ 1424 0064 ECE7     		b	.L112
+ 1425              	.L122:
+ 144:Lib/lvgl/src/core/lv_group.c ****     obj->spec_attr->group_p = group;
+ 1426              		.loc 1 144 32 is_stmt 1 discriminator 1 view .LVU432
+ 1427 0066 2046     		mov	r0, r4
+ 1428 0068 FFF7FEFF 		bl	lv_obj_allocate_spec_attr
+ 1429              	.LVL159:
+ 1430 006c EAE7     		b	.L113
+ 1431              	.LVL160:
+ 1432              	.L115:
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1433              		.loc 1 148 5 discriminator 1 view .LVU433
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1434              		.loc 1 148 5 discriminator 1 view .LVU434
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1435              		.loc 1 148 5 discriminator 1 view .LVU435
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1436              		.loc 1 148 5 discriminator 1 view .LVU436
+ 148:Lib/lvgl/src/core/lv_group.c ****     if(next == NULL) return;
+ 1437              		.loc 1 148 5 discriminator 1 view .LVU437
+ 1438 006e FEE7     		b	.L115
+ 1439              	.LVL161:
+ 1440              	.L123:
+ 155:Lib/lvgl/src/core/lv_group.c ****     }
+ 1441              		.loc 1 155 9 view .LVU438
+ 1442 0070 2846     		mov	r0, r5
+ 1443 0072 FFF7FEFF 		bl	lv_group_refocus
+ 1444              	.LVL162:
+ 158:Lib/lvgl/src/core/lv_group.c **** }
+ 1445              		.loc 1 158 5 view .LVU439
+ 158:Lib/lvgl/src/core/lv_group.c **** }
+ 1446              		.loc 1 158 5 view .LVU440
+ 158:Lib/lvgl/src/core/lv_group.c **** }
+ 1447              		.loc 1 158 5 view .LVU441
+ 1448 0076 F2E7     		b	.L108
+ 1449              	.LVL163:
+ 1450              	.L117:
+ 1451              	.LCFI12:
+ 1452              		.cfi_def_cfa_offset 0
+ 1453              		.cfi_restore 4
+ 1454              		.cfi_restore 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 44
+
+
+ 1455              		.cfi_restore 6
+ 1456              		.cfi_restore 14
+ 158:Lib/lvgl/src/core/lv_group.c **** }
+ 1457              		.loc 1 158 5 is_stmt 0 view .LVU442
+ 1458 0078 7047     		bx	lr
+ 1459              		.cfi_endproc
+ 1460              	.LFE240:
+ 1462              		.section	.text.lv_group_focus_freeze,"ax",%progbits
+ 1463              		.align	1
+ 1464              		.global	lv_group_focus_freeze
+ 1465              		.syntax unified
+ 1466              		.thumb
+ 1467              		.thumb_func
+ 1469              	lv_group_focus_freeze:
+ 1470              	.LVL164:
+ 1471              	.LFB247:
+ 291:Lib/lvgl/src/core/lv_group.c ****     if(en == false) group->frozen = 0;
+ 1472              		.loc 1 291 1 is_stmt 1 view -0
+ 1473              		.cfi_startproc
+ 1474              		@ args = 0, pretend = 0, frame = 0
+ 1475              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1476              		@ link register save eliminated.
+ 292:Lib/lvgl/src/core/lv_group.c ****     else group->frozen = 1;
+ 1477              		.loc 1 292 5 view .LVU444
+ 292:Lib/lvgl/src/core/lv_group.c ****     else group->frozen = 1;
+ 1478              		.loc 1 292 7 is_stmt 0 view .LVU445
+ 1479 0000 21B9     		cbnz	r1, .L125
+ 292:Lib/lvgl/src/core/lv_group.c ****     else group->frozen = 1;
+ 1480              		.loc 1 292 21 is_stmt 1 discriminator 1 view .LVU446
+ 292:Lib/lvgl/src/core/lv_group.c ****     else group->frozen = 1;
+ 1481              		.loc 1 292 35 is_stmt 0 discriminator 1 view .LVU447
+ 1482 0002 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 1483 0004 6FF30003 		bfc	r3, #0, #1
+ 1484 0008 0377     		strb	r3, [r0, #28]
+ 1485 000a 7047     		bx	lr
+ 1486              	.L125:
+ 293:Lib/lvgl/src/core/lv_group.c **** }
+ 1487              		.loc 1 293 10 is_stmt 1 view .LVU448
+ 293:Lib/lvgl/src/core/lv_group.c **** }
+ 1488              		.loc 1 293 24 is_stmt 0 view .LVU449
+ 1489 000c 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 1490 000e 43F00103 		orr	r3, r3, #1
+ 1491 0012 0377     		strb	r3, [r0, #28]
+ 294:Lib/lvgl/src/core/lv_group.c **** 
+ 1492              		.loc 1 294 1 view .LVU450
+ 1493 0014 7047     		bx	lr
+ 1494              		.cfi_endproc
+ 1495              	.LFE247:
+ 1497              		.section	.text.lv_group_set_focus_cb,"ax",%progbits
+ 1498              		.align	1
+ 1499              		.global	lv_group_set_focus_cb
+ 1500              		.syntax unified
+ 1501              		.thumb
+ 1502              		.thumb_func
+ 1504              	lv_group_set_focus_cb:
+ 1505              	.LVL165:
+ 1506              	.LFB249:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 45
+
+
+ 307:Lib/lvgl/src/core/lv_group.c ****     group->focus_cb = focus_cb;
+ 1507              		.loc 1 307 1 is_stmt 1 view -0
+ 1508              		.cfi_startproc
+ 1509              		@ args = 0, pretend = 0, frame = 0
+ 1510              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1511              		@ link register save eliminated.
+ 308:Lib/lvgl/src/core/lv_group.c **** }
+ 1512              		.loc 1 308 5 view .LVU452
+ 308:Lib/lvgl/src/core/lv_group.c **** }
+ 1513              		.loc 1 308 21 is_stmt 0 view .LVU453
+ 1514 0000 0161     		str	r1, [r0, #16]
+ 309:Lib/lvgl/src/core/lv_group.c **** 
+ 1515              		.loc 1 309 1 view .LVU454
+ 1516 0002 7047     		bx	lr
+ 1517              		.cfi_endproc
+ 1518              	.LFE249:
+ 1520              		.section	.text.lv_group_set_edge_cb,"ax",%progbits
+ 1521              		.align	1
+ 1522              		.global	lv_group_set_edge_cb
+ 1523              		.syntax unified
+ 1524              		.thumb
+ 1525              		.thumb_func
+ 1527              	lv_group_set_edge_cb:
+ 1528              	.LVL166:
+ 1529              	.LFB250:
+ 312:Lib/lvgl/src/core/lv_group.c ****     group->edge_cb = edge_cb;
+ 1530              		.loc 1 312 1 is_stmt 1 view -0
+ 1531              		.cfi_startproc
+ 1532              		@ args = 0, pretend = 0, frame = 0
+ 1533              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1534              		@ link register save eliminated.
+ 313:Lib/lvgl/src/core/lv_group.c **** }
+ 1535              		.loc 1 313 5 view .LVU456
+ 313:Lib/lvgl/src/core/lv_group.c **** }
+ 1536              		.loc 1 313 20 is_stmt 0 view .LVU457
+ 1537 0000 4161     		str	r1, [r0, #20]
+ 314:Lib/lvgl/src/core/lv_group.c **** 
+ 1538              		.loc 1 314 1 view .LVU458
+ 1539 0002 7047     		bx	lr
+ 1540              		.cfi_endproc
+ 1541              	.LFE250:
+ 1543              		.section	.text.lv_group_set_refocus_policy,"ax",%progbits
+ 1544              		.align	1
+ 1545              		.global	lv_group_set_refocus_policy
+ 1546              		.syntax unified
+ 1547              		.thumb
+ 1548              		.thumb_func
+ 1550              	lv_group_set_refocus_policy:
+ 1551              	.LVL167:
+ 1552              	.LFB252:
+ 335:Lib/lvgl/src/core/lv_group.c ****     group->refocus_policy = policy & 0x01;
+ 1553              		.loc 1 335 1 is_stmt 1 view -0
+ 1554              		.cfi_startproc
+ 1555              		@ args = 0, pretend = 0, frame = 0
+ 1556              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1557              		@ link register save eliminated.
+ 336:Lib/lvgl/src/core/lv_group.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 46
+
+
+ 1558              		.loc 1 336 5 view .LVU460
+ 336:Lib/lvgl/src/core/lv_group.c **** }
+ 1559              		.loc 1 336 27 is_stmt 0 view .LVU461
+ 1560 0000 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 1561 0002 61F38203 		bfi	r3, r1, #2, #1
+ 1562 0006 0377     		strb	r3, [r0, #28]
+ 337:Lib/lvgl/src/core/lv_group.c **** 
+ 1563              		.loc 1 337 1 view .LVU462
+ 1564 0008 7047     		bx	lr
+ 1565              		.cfi_endproc
+ 1566              	.LFE252:
+ 1568              		.section	.text.lv_group_set_wrap,"ax",%progbits
+ 1569              		.align	1
+ 1570              		.global	lv_group_set_wrap
+ 1571              		.syntax unified
+ 1572              		.thumb
+ 1573              		.thumb_func
+ 1575              	lv_group_set_wrap:
+ 1576              	.LVL168:
+ 1577              	.LFB253:
+ 340:Lib/lvgl/src/core/lv_group.c ****     group->wrap = en ? 1 : 0;
+ 1578              		.loc 1 340 1 is_stmt 1 view -0
+ 1579              		.cfi_startproc
+ 1580              		@ args = 0, pretend = 0, frame = 0
+ 1581              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1582              		@ link register save eliminated.
+ 341:Lib/lvgl/src/core/lv_group.c **** }
+ 1583              		.loc 1 341 5 view .LVU464
+ 341:Lib/lvgl/src/core/lv_group.c **** }
+ 1584              		.loc 1 341 17 is_stmt 0 view .LVU465
+ 1585 0000 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 1586 0002 61F3C303 		bfi	r3, r1, #3, #1
+ 1587 0006 0377     		strb	r3, [r0, #28]
+ 342:Lib/lvgl/src/core/lv_group.c **** 
+ 1588              		.loc 1 342 1 view .LVU466
+ 1589 0008 7047     		bx	lr
+ 1590              		.cfi_endproc
+ 1591              	.LFE253:
+ 1593              		.section	.text.lv_group_get_focused,"ax",%progbits
+ 1594              		.align	1
+ 1595              		.global	lv_group_get_focused
+ 1596              		.syntax unified
+ 1597              		.thumb
+ 1598              		.thumb_func
+ 1600              	lv_group_get_focused:
+ 1601              	.LVL169:
+ 1602              	.LFB254:
+ 345:Lib/lvgl/src/core/lv_group.c ****     if(!group) return NULL;
+ 1603              		.loc 1 345 1 is_stmt 1 view -0
+ 1604              		.cfi_startproc
+ 1605              		@ args = 0, pretend = 0, frame = 0
+ 1606              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1607              		@ link register save eliminated.
+ 346:Lib/lvgl/src/core/lv_group.c ****     if(group->obj_focus == NULL) return NULL;
+ 1608              		.loc 1 346 5 view .LVU468
+ 346:Lib/lvgl/src/core/lv_group.c ****     if(group->obj_focus == NULL) return NULL;
+ 1609              		.loc 1 346 7 is_stmt 0 view .LVU469
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 47
+
+
+ 1610 0000 18B1     		cbz	r0, .L131
+ 347:Lib/lvgl/src/core/lv_group.c **** 
+ 1611              		.loc 1 347 5 is_stmt 1 view .LVU470
+ 347:Lib/lvgl/src/core/lv_group.c **** 
+ 1612              		.loc 1 347 13 is_stmt 0 view .LVU471
+ 1613 0002 C068     		ldr	r0, [r0, #12]
+ 1614              	.LVL170:
+ 347:Lib/lvgl/src/core/lv_group.c **** 
+ 1615              		.loc 1 347 7 view .LVU472
+ 1616 0004 08B1     		cbz	r0, .L131
+ 349:Lib/lvgl/src/core/lv_group.c **** }
+ 1617              		.loc 1 349 5 is_stmt 1 view .LVU473
+ 349:Lib/lvgl/src/core/lv_group.c **** }
+ 1618              		.loc 1 349 12 is_stmt 0 view .LVU474
+ 1619 0006 0068     		ldr	r0, [r0]
+ 1620 0008 7047     		bx	lr
+ 1621              	.L131:
+ 350:Lib/lvgl/src/core/lv_group.c **** 
+ 1622              		.loc 1 350 1 view .LVU475
+ 1623 000a 7047     		bx	lr
+ 1624              		.cfi_endproc
+ 1625              	.LFE254:
+ 1627              		.section	.text.lv_group_send_data,"ax",%progbits
+ 1628              		.align	1
+ 1629              		.global	lv_group_send_data
+ 1630              		.syntax unified
+ 1631              		.thumb
+ 1632              		.thumb_func
+ 1634              	lv_group_send_data:
+ 1635              	.LVL171:
+ 1636              	.LFB248:
+ 297:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t * act = lv_group_get_focused(group);
+ 1637              		.loc 1 297 1 is_stmt 1 view -0
+ 1638              		.cfi_startproc
+ 1639              		@ args = 0, pretend = 0, frame = 8
+ 1640              		@ frame_needed = 0, uses_anonymous_args = 0
+ 297:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t * act = lv_group_get_focused(group);
+ 1641              		.loc 1 297 1 is_stmt 0 view .LVU477
+ 1642 0000 10B5     		push	{r4, lr}
+ 1643              	.LCFI13:
+ 1644              		.cfi_def_cfa_offset 8
+ 1645              		.cfi_offset 4, -8
+ 1646              		.cfi_offset 14, -4
+ 1647 0002 82B0     		sub	sp, sp, #8
+ 1648              	.LCFI14:
+ 1649              		.cfi_def_cfa_offset 16
+ 1650 0004 0191     		str	r1, [sp, #4]
+ 298:Lib/lvgl/src/core/lv_group.c ****     if(act == NULL) return LV_RESULT_OK;
+ 1651              		.loc 1 298 5 is_stmt 1 view .LVU478
+ 298:Lib/lvgl/src/core/lv_group.c ****     if(act == NULL) return LV_RESULT_OK;
+ 1652              		.loc 1 298 22 is_stmt 0 view .LVU479
+ 1653 0006 FFF7FEFF 		bl	lv_group_get_focused
+ 1654              	.LVL172:
+ 299:Lib/lvgl/src/core/lv_group.c **** 
+ 1655              		.loc 1 299 5 is_stmt 1 view .LVU480
+ 299:Lib/lvgl/src/core/lv_group.c **** 
+ 1656              		.loc 1 299 7 is_stmt 0 view .LVU481
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 48
+
+
+ 1657 000a 68B1     		cbz	r0, .L136
+ 1658 000c 0446     		mov	r4, r0
+ 301:Lib/lvgl/src/core/lv_group.c **** 
+ 1659              		.loc 1 301 5 is_stmt 1 view .LVU482
+ 301:Lib/lvgl/src/core/lv_group.c **** 
+ 1660              		.loc 1 301 8 is_stmt 0 view .LVU483
+ 1661 000e 8021     		movs	r1, #128
+ 1662 0010 FFF7FEFF 		bl	lv_obj_has_state
+ 1663              	.LVL173:
+ 301:Lib/lvgl/src/core/lv_group.c **** 
+ 1664              		.loc 1 301 7 view .LVU484
+ 1665 0014 10B1     		cbz	r0, .L139
+ 301:Lib/lvgl/src/core/lv_group.c **** 
+ 1666              		.loc 1 301 57 view .LVU485
+ 1667 0016 0120     		movs	r0, #1
+ 1668              	.LVL174:
+ 1669              	.L135:
+ 304:Lib/lvgl/src/core/lv_group.c **** 
+ 1670              		.loc 1 304 1 view .LVU486
+ 1671 0018 02B0     		add	sp, sp, #8
+ 1672              	.LCFI15:
+ 1673              		.cfi_remember_state
+ 1674              		.cfi_def_cfa_offset 8
+ 1675              		@ sp needed
+ 1676 001a 10BD     		pop	{r4, pc}
+ 1677              	.LVL175:
+ 1678              	.L139:
+ 1679              	.LCFI16:
+ 1680              		.cfi_restore_state
+ 303:Lib/lvgl/src/core/lv_group.c **** }
+ 1681              		.loc 1 303 5 is_stmt 1 view .LVU487
+ 303:Lib/lvgl/src/core/lv_group.c **** }
+ 1682              		.loc 1 303 12 is_stmt 0 view .LVU488
+ 1683 001c 01AA     		add	r2, sp, #4
+ 1684 001e 0E21     		movs	r1, #14
+ 1685 0020 2046     		mov	r0, r4
+ 1686 0022 FFF7FEFF 		bl	lv_obj_send_event
+ 1687              	.LVL176:
+ 1688 0026 F7E7     		b	.L135
+ 1689              	.LVL177:
+ 1690              	.L136:
+ 299:Lib/lvgl/src/core/lv_group.c **** 
+ 1691              		.loc 1 299 28 view .LVU489
+ 1692 0028 0120     		movs	r0, #1
+ 1693              	.LVL178:
+ 299:Lib/lvgl/src/core/lv_group.c **** 
+ 1694              		.loc 1 299 28 view .LVU490
+ 1695 002a F5E7     		b	.L135
+ 1696              		.cfi_endproc
+ 1697              	.LFE248:
+ 1699              		.section	.text.lv_group_set_editing,"ax",%progbits
+ 1700              		.align	1
+ 1701              		.global	lv_group_set_editing
+ 1702              		.syntax unified
+ 1703              		.thumb
+ 1704              		.thumb_func
+ 1706              	lv_group_set_editing:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 49
+
+
+ 1707              	.LVL179:
+ 1708              	.LFB251:
+ 317:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return;
+ 1709              		.loc 1 317 1 is_stmt 1 view -0
+ 1710              		.cfi_startproc
+ 1711              		@ args = 0, pretend = 0, frame = 0
+ 1712              		@ frame_needed = 0, uses_anonymous_args = 0
+ 318:Lib/lvgl/src/core/lv_group.c ****     uint8_t en_val = edit ? 1 : 0;
+ 1713              		.loc 1 318 5 view .LVU492
+ 318:Lib/lvgl/src/core/lv_group.c ****     uint8_t en_val = edit ? 1 : 0;
+ 1714              		.loc 1 318 7 is_stmt 0 view .LVU493
+ 1715 0000 F8B1     		cbz	r0, .L143
+ 317:Lib/lvgl/src/core/lv_group.c ****     if(group == NULL) return;
+ 1716              		.loc 1 317 1 view .LVU494
+ 1717 0002 70B5     		push	{r4, r5, r6, lr}
+ 1718              	.LCFI17:
+ 1719              		.cfi_def_cfa_offset 16
+ 1720              		.cfi_offset 4, -16
+ 1721              		.cfi_offset 5, -12
+ 1722              		.cfi_offset 6, -8
+ 1723              		.cfi_offset 14, -4
+ 1724 0004 0446     		mov	r4, r0
+ 319:Lib/lvgl/src/core/lv_group.c **** 
+ 1725              		.loc 1 319 5 is_stmt 1 view .LVU495
+ 1726              	.LVL180:
+ 321:Lib/lvgl/src/core/lv_group.c **** 
+ 1727              		.loc 1 321 5 view .LVU496
+ 321:Lib/lvgl/src/core/lv_group.c **** 
+ 1728              		.loc 1 321 23 is_stmt 0 view .LVU497
+ 1729 0006 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 1730 0008 C3F34003 		ubfx	r3, r3, #1, #1
+ 321:Lib/lvgl/src/core/lv_group.c **** 
+ 1731              		.loc 1 321 7 view .LVU498
+ 1732 000c 8B42     		cmp	r3, r1
+ 1733 000e 13D0     		beq	.L140
+ 323:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t * focused = lv_group_get_focused(group);
+ 1734              		.loc 1 323 5 is_stmt 1 view .LVU499
+ 323:Lib/lvgl/src/core/lv_group.c ****     lv_obj_t * focused = lv_group_get_focused(group);
+ 1735              		.loc 1 323 24 is_stmt 0 view .LVU500
+ 1736 0010 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 1737 0012 61F34103 		bfi	r3, r1, #1, #1
+ 1738 0016 0377     		strb	r3, [r0, #28]
+ 324:Lib/lvgl/src/core/lv_group.c **** 
+ 1739              		.loc 1 324 5 is_stmt 1 view .LVU501
+ 324:Lib/lvgl/src/core/lv_group.c **** 
+ 1740              		.loc 1 324 26 is_stmt 0 view .LVU502
+ 1741 0018 FFF7FEFF 		bl	lv_group_get_focused
+ 1742              	.LVL181:
+ 326:Lib/lvgl/src/core/lv_group.c ****         lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
+ 1743              		.loc 1 326 5 is_stmt 1 view .LVU503
+ 326:Lib/lvgl/src/core/lv_group.c ****         lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
+ 1744              		.loc 1 326 7 is_stmt 0 view .LVU504
+ 1745 001c 0546     		mov	r5, r0
+ 1746 001e 58B1     		cbz	r0, .L140
+ 1747              	.LBB19:
+ 327:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return;
+ 1748              		.loc 1 327 9 is_stmt 1 view .LVU505
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 50
+
+
+ 327:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return;
+ 1749              		.loc 1 327 51 is_stmt 0 view .LVU506
+ 1750 0020 E368     		ldr	r3, [r4, #12]
+ 327:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return;
+ 1751              		.loc 1 327 27 view .LVU507
+ 1752 0022 1E68     		ldr	r6, [r3]
+ 327:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return;
+ 1753              		.loc 1 327 82 view .LVU508
+ 1754 0024 2046     		mov	r0, r4
+ 1755              	.LVL182:
+ 327:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return;
+ 1756              		.loc 1 327 82 view .LVU509
+ 1757 0026 FFF7FEFF 		bl	get_indev
+ 1758              	.LVL183:
+ 1759 002a 0246     		mov	r2, r0
+ 327:Lib/lvgl/src/core/lv_group.c ****         if(res != LV_RESULT_OK) return;
+ 1760              		.loc 1 327 27 view .LVU510
+ 1761 002c 0F21     		movs	r1, #15
+ 1762 002e 3046     		mov	r0, r6
+ 1763 0030 FFF7FEFF 		bl	lv_obj_send_event
+ 1764              	.LVL184:
+ 328:Lib/lvgl/src/core/lv_group.c **** 
+ 1765              		.loc 1 328 9 is_stmt 1 view .LVU511
+ 328:Lib/lvgl/src/core/lv_group.c **** 
+ 1766              		.loc 1 328 11 is_stmt 0 view .LVU512
+ 1767 0034 0128     		cmp	r0, #1
+ 1768 0036 00D0     		beq	.L146
+ 1769              	.LVL185:
+ 1770              	.L140:
+ 328:Lib/lvgl/src/core/lv_group.c **** 
+ 1771              		.loc 1 328 11 view .LVU513
+ 1772              	.LBE19:
+ 332:Lib/lvgl/src/core/lv_group.c **** 
+ 1773              		.loc 1 332 1 view .LVU514
+ 1774 0038 70BD     		pop	{r4, r5, r6, pc}
+ 1775              	.LVL186:
+ 1776              	.L146:
+ 1777              	.LBB20:
+ 330:Lib/lvgl/src/core/lv_group.c ****     }
+ 1778              		.loc 1 330 9 is_stmt 1 view .LVU515
+ 1779 003a 2846     		mov	r0, r5
+ 1780              	.LVL187:
+ 330:Lib/lvgl/src/core/lv_group.c ****     }
+ 1781              		.loc 1 330 9 is_stmt 0 view .LVU516
+ 1782 003c FFF7FEFF 		bl	lv_obj_invalidate
+ 1783              	.LVL188:
+ 1784 0040 FAE7     		b	.L140
+ 1785              	.LVL189:
+ 1786              	.L143:
+ 1787              	.LCFI18:
+ 1788              		.cfi_def_cfa_offset 0
+ 1789              		.cfi_restore 4
+ 1790              		.cfi_restore 5
+ 1791              		.cfi_restore 6
+ 1792              		.cfi_restore 14
+ 330:Lib/lvgl/src/core/lv_group.c ****     }
+ 1793              		.loc 1 330 9 view .LVU517
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 51
+
+
+ 1794 0042 7047     		bx	lr
+ 1795              	.LBE20:
+ 1796              		.cfi_endproc
+ 1797              	.LFE251:
+ 1799              		.section	.text.lv_group_focus_obj,"ax",%progbits
+ 1800              		.align	1
+ 1801              		.global	lv_group_focus_obj
+ 1802              		.syntax unified
+ 1803              		.thumb
+ 1804              		.thumb_func
+ 1806              	lv_group_focus_obj:
+ 1807              	.LVL190:
+ 1808              	.LFB244:
+ 240:Lib/lvgl/src/core/lv_group.c ****     if(obj == NULL) return;
+ 1809              		.loc 1 240 1 is_stmt 1 view -0
+ 1810              		.cfi_startproc
+ 1811              		@ args = 0, pretend = 0, frame = 0
+ 1812              		@ frame_needed = 0, uses_anonymous_args = 0
+ 241:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g = lv_obj_get_group(obj);
+ 1813              		.loc 1 241 5 view .LVU519
+ 241:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g = lv_obj_get_group(obj);
+ 1814              		.loc 1 241 7 is_stmt 0 view .LVU520
+ 1815 0000 0028     		cmp	r0, #0
+ 1816 0002 45D0     		beq	.L155
+ 240:Lib/lvgl/src/core/lv_group.c ****     if(obj == NULL) return;
+ 1817              		.loc 1 240 1 view .LVU521
+ 1818 0004 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1819              	.LCFI19:
+ 1820              		.cfi_def_cfa_offset 24
+ 1821              		.cfi_offset 3, -24
+ 1822              		.cfi_offset 4, -20
+ 1823              		.cfi_offset 5, -16
+ 1824              		.cfi_offset 6, -12
+ 1825              		.cfi_offset 7, -8
+ 1826              		.cfi_offset 14, -4
+ 1827 0006 0546     		mov	r5, r0
+ 242:Lib/lvgl/src/core/lv_group.c ****     if(g == NULL) return;
+ 1828              		.loc 1 242 5 is_stmt 1 view .LVU522
+ 242:Lib/lvgl/src/core/lv_group.c ****     if(g == NULL) return;
+ 1829              		.loc 1 242 22 is_stmt 0 view .LVU523
+ 1830 0008 FFF7FEFF 		bl	lv_obj_get_group
+ 1831              	.LVL191:
+ 243:Lib/lvgl/src/core/lv_group.c **** 
+ 1832              		.loc 1 243 5 is_stmt 1 view .LVU524
+ 243:Lib/lvgl/src/core/lv_group.c **** 
+ 1833              		.loc 1 243 7 is_stmt 0 view .LVU525
+ 1834 000c 0646     		mov	r6, r0
+ 1835 000e 18B1     		cbz	r0, .L147
+ 245:Lib/lvgl/src/core/lv_group.c **** 
+ 1836              		.loc 1 245 5 is_stmt 1 view .LVU526
+ 245:Lib/lvgl/src/core/lv_group.c **** 
+ 1837              		.loc 1 245 18 is_stmt 0 view .LVU527
+ 1838 0010 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
+ 245:Lib/lvgl/src/core/lv_group.c **** 
+ 1839              		.loc 1 245 7 view .LVU528
+ 1840 0012 13F0010F 		tst	r3, #1
+ 1841 0016 00D0     		beq	.L158
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 52
+
+
+ 1842              	.LVL192:
+ 1843              	.L147:
+ 270:Lib/lvgl/src/core/lv_group.c **** 
+ 1844              		.loc 1 270 1 view .LVU529
+ 1845 0018 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1846              	.LVL193:
+ 1847              	.L158:
+ 248:Lib/lvgl/src/core/lv_group.c **** 
+ 1848              		.loc 1 248 5 is_stmt 1 view .LVU530
+ 1849 001a 0021     		movs	r1, #0
+ 1850 001c FFF7FEFF 		bl	lv_group_set_editing
+ 1851              	.LVL194:
+ 250:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&g->obj_ll, i) {
+ 1852              		.loc 1 250 5 view .LVU531
+ 251:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1853              		.loc 1 251 5 view .LVU532
+ 1854 0020 3046     		mov	r0, r6
+ 1855 0022 FFF7FEFF 		bl	_lv_ll_get_head
+ 1856              	.LVL195:
+ 1857 0026 0446     		mov	r4, r0
+ 1858              	.LVL196:
+ 1859              	.L149:
+ 251:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1860              		.loc 1 251 5 discriminator 1 view .LVU533
+ 1861 0028 002C     		cmp	r4, #0
+ 1862 002a F5D0     		beq	.L147
+ 252:Lib/lvgl/src/core/lv_group.c ****             if(g->obj_focus != NULL && obj != *g->obj_focus) {  /*Do not defocus if the same object
+ 1863              		.loc 1 252 9 view .LVU534
+ 252:Lib/lvgl/src/core/lv_group.c ****             if(g->obj_focus != NULL && obj != *g->obj_focus) {  /*Do not defocus if the same object
+ 1864              		.loc 1 252 12 is_stmt 0 view .LVU535
+ 1865 002c 2368     		ldr	r3, [r4]
+ 252:Lib/lvgl/src/core/lv_group.c ****             if(g->obj_focus != NULL && obj != *g->obj_focus) {  /*Do not defocus if the same object
+ 1866              		.loc 1 252 11 view .LVU536
+ 1867 002e AB42     		cmp	r3, r5
+ 1868 0030 05D0     		beq	.L159
+ 251:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1869              		.loc 1 251 5 is_stmt 1 discriminator 2 view .LVU537
+ 1870 0032 2146     		mov	r1, r4
+ 1871 0034 3046     		mov	r0, r6
+ 1872              	.LVL197:
+ 251:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1873              		.loc 1 251 5 is_stmt 0 discriminator 2 view .LVU538
+ 1874 0036 FFF7FEFF 		bl	_lv_ll_get_next
+ 1875              	.LVL198:
+ 251:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1876              		.loc 1 251 5 discriminator 2 view .LVU539
+ 1877 003a 0446     		mov	r4, r0
+ 1878              	.LVL199:
+ 251:Lib/lvgl/src/core/lv_group.c ****         if(*i == obj) {
+ 1879              		.loc 1 251 5 discriminator 2 view .LVU540
+ 1880 003c F4E7     		b	.L149
+ 1881              	.L159:
+ 253:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g)
+ 1882              		.loc 1 253 13 is_stmt 1 view .LVU541
+ 253:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g)
+ 1883              		.loc 1 253 17 is_stmt 0 view .LVU542
+ 1884 003e F368     		ldr	r3, [r6, #12]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 53
+
+
+ 253:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g)
+ 1885              		.loc 1 253 15 view .LVU543
+ 1886 0040 83B1     		cbz	r3, .L151
+ 253:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g)
+ 1887              		.loc 1 253 47 discriminator 1 view .LVU544
+ 1888 0042 1F68     		ldr	r7, [r3]
+ 253:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g)
+ 1889              		.loc 1 253 37 discriminator 1 view .LVU545
+ 1890 0044 AF42     		cmp	r7, r5
+ 1891 0046 0DD0     		beq	.L151
+ 1892              	.LBB21:
+ 254:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1893              		.loc 1 254 17 is_stmt 1 view .LVU546
+ 254:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1894              		.loc 1 254 88 is_stmt 0 view .LVU547
+ 1895 0048 3046     		mov	r0, r6
+ 1896              	.LVL200:
+ 254:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1897              		.loc 1 254 88 view .LVU548
+ 1898 004a FFF7FEFF 		bl	get_indev
+ 1899              	.LVL201:
+ 1900 004e 0246     		mov	r2, r0
+ 254:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1901              		.loc 1 254 35 view .LVU549
+ 1902 0050 1021     		movs	r1, #16
+ 1903 0052 3846     		mov	r0, r7
+ 1904 0054 FFF7FEFF 		bl	lv_obj_send_event
+ 1905              	.LVL202:
+ 255:Lib/lvgl/src/core/lv_group.c ****                 lv_obj_invalidate(*g->obj_focus);
+ 1906              		.loc 1 255 17 is_stmt 1 view .LVU550
+ 255:Lib/lvgl/src/core/lv_group.c ****                 lv_obj_invalidate(*g->obj_focus);
+ 1907              		.loc 1 255 19 is_stmt 0 view .LVU551
+ 1908 0058 0128     		cmp	r0, #1
+ 1909 005a DDD1     		bne	.L147
+ 256:Lib/lvgl/src/core/lv_group.c ****             }
+ 1910              		.loc 1 256 17 is_stmt 1 view .LVU552
+ 256:Lib/lvgl/src/core/lv_group.c ****             }
+ 1911              		.loc 1 256 37 is_stmt 0 view .LVU553
+ 1912 005c F368     		ldr	r3, [r6, #12]
+ 256:Lib/lvgl/src/core/lv_group.c ****             }
+ 1913              		.loc 1 256 17 view .LVU554
+ 1914 005e 1868     		ldr	r0, [r3]
+ 1915              	.LVL203:
+ 256:Lib/lvgl/src/core/lv_group.c ****             }
+ 1916              		.loc 1 256 17 view .LVU555
+ 1917 0060 FFF7FEFF 		bl	lv_obj_invalidate
+ 1918              	.LVL204:
+ 1919              	.L151:
+ 256:Lib/lvgl/src/core/lv_group.c ****             }
+ 1920              		.loc 1 256 17 view .LVU556
+ 1921              	.LBE21:
+ 259:Lib/lvgl/src/core/lv_group.c **** 
+ 1922              		.loc 1 259 13 is_stmt 1 view .LVU557
+ 259:Lib/lvgl/src/core/lv_group.c **** 
+ 1923              		.loc 1 259 26 is_stmt 0 view .LVU558
+ 1924 0064 F460     		str	r4, [r6, #12]
+ 261:Lib/lvgl/src/core/lv_group.c ****                 if(g->focus_cb) g->focus_cb(g);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 54
+
+
+ 1925              		.loc 1 261 13 is_stmt 1 view .LVU559
+ 1926              	.LBB22:
+ 262:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
+ 1927              		.loc 1 262 17 view .LVU560
+ 262:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
+ 1928              		.loc 1 262 21 is_stmt 0 view .LVU561
+ 1929 0066 3369     		ldr	r3, [r6, #16]
+ 262:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
+ 1930              		.loc 1 262 19 view .LVU562
+ 1931 0068 0BB1     		cbz	r3, .L152
+ 262:Lib/lvgl/src/core/lv_group.c ****                 lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
+ 1932              		.loc 1 262 33 is_stmt 1 discriminator 1 view .LVU563
+ 1933 006a 3046     		mov	r0, r6
+ 1934 006c 9847     		blx	r3
+ 1935              	.LVL205:
+ 1936              	.L152:
+ 263:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1937              		.loc 1 263 17 view .LVU564
+ 263:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1938              		.loc 1 263 55 is_stmt 0 view .LVU565
+ 1939 006e F368     		ldr	r3, [r6, #12]
+ 263:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1940              		.loc 1 263 35 view .LVU566
+ 1941 0070 1C68     		ldr	r4, [r3]
+ 1942              	.LVL206:
+ 263:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1943              		.loc 1 263 86 view .LVU567
+ 1944 0072 3046     		mov	r0, r6
+ 1945 0074 FFF7FEFF 		bl	get_indev
+ 1946              	.LVL207:
+ 1947 0078 0246     		mov	r2, r0
+ 263:Lib/lvgl/src/core/lv_group.c ****                 if(res != LV_RESULT_OK) return;
+ 1948              		.loc 1 263 35 view .LVU568
+ 1949 007a 0F21     		movs	r1, #15
+ 1950 007c 2046     		mov	r0, r4
+ 1951 007e FFF7FEFF 		bl	lv_obj_send_event
+ 1952              	.LVL208:
+ 264:Lib/lvgl/src/core/lv_group.c ****                 lv_obj_invalidate(*g->obj_focus);
+ 1953              		.loc 1 264 17 is_stmt 1 view .LVU569
+ 264:Lib/lvgl/src/core/lv_group.c ****                 lv_obj_invalidate(*g->obj_focus);
+ 1954              		.loc 1 264 19 is_stmt 0 view .LVU570
+ 1955 0082 0128     		cmp	r0, #1
+ 1956 0084 C8D1     		bne	.L147
+ 265:Lib/lvgl/src/core/lv_group.c ****             }
+ 1957              		.loc 1 265 17 is_stmt 1 view .LVU571
+ 265:Lib/lvgl/src/core/lv_group.c ****             }
+ 1958              		.loc 1 265 37 is_stmt 0 view .LVU572
+ 1959 0086 F368     		ldr	r3, [r6, #12]
+ 265:Lib/lvgl/src/core/lv_group.c ****             }
+ 1960              		.loc 1 265 17 view .LVU573
+ 1961 0088 1868     		ldr	r0, [r3]
+ 1962              	.LVL209:
+ 265:Lib/lvgl/src/core/lv_group.c ****             }
+ 1963              		.loc 1 265 17 view .LVU574
+ 1964 008a FFF7FEFF 		bl	lv_obj_invalidate
+ 1965              	.LVL210:
+ 1966 008e C3E7     		b	.L147
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 55
+
+
+ 1967              	.LVL211:
+ 1968              	.L155:
+ 1969              	.LCFI20:
+ 1970              		.cfi_def_cfa_offset 0
+ 1971              		.cfi_restore 3
+ 1972              		.cfi_restore 4
+ 1973              		.cfi_restore 5
+ 1974              		.cfi_restore 6
+ 1975              		.cfi_restore 7
+ 1976              		.cfi_restore 14
+ 265:Lib/lvgl/src/core/lv_group.c ****             }
+ 1977              		.loc 1 265 17 view .LVU575
+ 1978 0090 7047     		bx	lr
+ 1979              	.LBE22:
+ 1980              		.cfi_endproc
+ 1981              	.LFE244:
+ 1983              		.section	.text.lv_group_swap_obj,"ax",%progbits
+ 1984              		.align	1
+ 1985              		.global	lv_group_swap_obj
+ 1986              		.syntax unified
+ 1987              		.thumb
+ 1988              		.thumb_func
+ 1990              	lv_group_swap_obj:
+ 1991              	.LVL212:
+ 1992              	.LFB241:
+ 162:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g1 = lv_obj_get_group(obj1);
+ 1993              		.loc 1 162 1 is_stmt 1 view -0
+ 1994              		.cfi_startproc
+ 1995              		@ args = 0, pretend = 0, frame = 0
+ 1996              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g1 = lv_obj_get_group(obj1);
+ 1997              		.loc 1 162 1 is_stmt 0 view .LVU577
+ 1998 0000 70B5     		push	{r4, r5, r6, lr}
+ 1999              	.LCFI21:
+ 2000              		.cfi_def_cfa_offset 16
+ 2001              		.cfi_offset 4, -16
+ 2002              		.cfi_offset 5, -12
+ 2003              		.cfi_offset 6, -8
+ 2004              		.cfi_offset 14, -4
+ 2005 0002 0646     		mov	r6, r0
+ 2006 0004 0D46     		mov	r5, r1
+ 163:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g2 = lv_obj_get_group(obj2);
+ 2007              		.loc 1 163 5 is_stmt 1 view .LVU578
+ 163:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g2 = lv_obj_get_group(obj2);
+ 2008              		.loc 1 163 23 is_stmt 0 view .LVU579
+ 2009 0006 FFF7FEFF 		bl	lv_obj_get_group
+ 2010              	.LVL213:
+ 163:Lib/lvgl/src/core/lv_group.c ****     lv_group_t * g2 = lv_obj_get_group(obj2);
+ 2011              		.loc 1 163 23 view .LVU580
+ 2012 000a 0446     		mov	r4, r0
+ 2013              	.LVL214:
+ 164:Lib/lvgl/src/core/lv_group.c ****     if(g1 != g2) return;
+ 2014              		.loc 1 164 5 is_stmt 1 view .LVU581
+ 164:Lib/lvgl/src/core/lv_group.c ****     if(g1 != g2) return;
+ 2015              		.loc 1 164 23 is_stmt 0 view .LVU582
+ 2016 000c 2846     		mov	r0, r5
+ 2017              	.LVL215:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 56
+
+
+ 164:Lib/lvgl/src/core/lv_group.c ****     if(g1 != g2) return;
+ 2018              		.loc 1 164 23 view .LVU583
+ 2019 000e FFF7FEFF 		bl	lv_obj_get_group
+ 2020              	.LVL216:
+ 165:Lib/lvgl/src/core/lv_group.c ****     if(g1 == NULL) return;
+ 2021              		.loc 1 165 5 is_stmt 1 view .LVU584
+ 165:Lib/lvgl/src/core/lv_group.c ****     if(g1 == NULL) return;
+ 2022              		.loc 1 165 7 is_stmt 0 view .LVU585
+ 2023 0012 8442     		cmp	r4, r0
+ 2024 0014 00D0     		beq	.L168
+ 2025              	.LVL217:
+ 2026              	.L160:
+ 178:Lib/lvgl/src/core/lv_group.c **** 
+ 2027              		.loc 1 178 1 view .LVU586
+ 2028 0016 70BD     		pop	{r4, r5, r6, pc}
+ 2029              	.LVL218:
+ 2030              	.L168:
+ 166:Lib/lvgl/src/core/lv_group.c **** 
+ 2031              		.loc 1 166 5 is_stmt 1 view .LVU587
+ 166:Lib/lvgl/src/core/lv_group.c **** 
+ 2032              		.loc 1 166 7 is_stmt 0 view .LVU588
+ 2033 0018 002C     		cmp	r4, #0
+ 2034 001a FCD0     		beq	.L160
+ 169:Lib/lvgl/src/core/lv_group.c ****     _LV_LL_READ(&g1->obj_ll, obj_i) {
+ 2035              		.loc 1 169 5 is_stmt 1 view .LVU589
+ 170:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj1)(*obj_i) = obj2;
+ 2036              		.loc 1 170 5 view .LVU590
+ 2037 001c 2046     		mov	r0, r4
+ 2038              	.LVL219:
+ 170:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj1)(*obj_i) = obj2;
+ 2039              		.loc 1 170 5 is_stmt 0 view .LVU591
+ 2040 001e FFF7FEFF 		bl	_lv_ll_get_head
+ 2041              	.LVL220:
+ 2042 0022 0146     		mov	r1, r0
+ 2043              	.LVL221:
+ 170:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj1)(*obj_i) = obj2;
+ 2044              		.loc 1 170 5 view .LVU592
+ 2045 0024 04E0     		b	.L162
+ 2046              	.L170:
+ 171:Lib/lvgl/src/core/lv_group.c ****         else if((*obj_i) == obj2)(*obj_i) = obj1;
+ 2047              		.loc 1 171 29 is_stmt 1 discriminator 1 view .LVU593
+ 171:Lib/lvgl/src/core/lv_group.c ****         else if((*obj_i) == obj2)(*obj_i) = obj1;
+ 2048              		.loc 1 171 38 is_stmt 0 discriminator 1 view .LVU594
+ 2049 0026 0D60     		str	r5, [r1]
+ 2050              	.L164:
+ 170:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj1)(*obj_i) = obj2;
+ 2051              		.loc 1 170 5 is_stmt 1 discriminator 2 view .LVU595
+ 2052 0028 2046     		mov	r0, r4
+ 2053              	.LVL222:
+ 170:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj1)(*obj_i) = obj2;
+ 2054              		.loc 1 170 5 is_stmt 0 discriminator 2 view .LVU596
+ 2055 002a FFF7FEFF 		bl	_lv_ll_get_next
+ 2056              	.LVL223:
+ 170:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj1)(*obj_i) = obj2;
+ 2057              		.loc 1 170 5 discriminator 2 view .LVU597
+ 2058 002e 0146     		mov	r1, r0
+ 2059              	.LVL224:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 57
+
+
+ 2060              	.L162:
+ 170:Lib/lvgl/src/core/lv_group.c ****         if((*obj_i) == obj1)(*obj_i) = obj2;
+ 2061              		.loc 1 170 5 is_stmt 1 discriminator 1 view .LVU598
+ 2062 0030 31B1     		cbz	r1, .L169
+ 171:Lib/lvgl/src/core/lv_group.c ****         else if((*obj_i) == obj2)(*obj_i) = obj1;
+ 2063              		.loc 1 171 9 view .LVU599
+ 171:Lib/lvgl/src/core/lv_group.c ****         else if((*obj_i) == obj2)(*obj_i) = obj1;
+ 2064              		.loc 1 171 13 is_stmt 0 view .LVU600
+ 2065 0032 0B68     		ldr	r3, [r1]
+ 171:Lib/lvgl/src/core/lv_group.c ****         else if((*obj_i) == obj2)(*obj_i) = obj1;
+ 2066              		.loc 1 171 11 view .LVU601
+ 2067 0034 B342     		cmp	r3, r6
+ 2068 0036 F6D0     		beq	.L170
+ 172:Lib/lvgl/src/core/lv_group.c ****     }
+ 2069              		.loc 1 172 14 is_stmt 1 view .LVU602
+ 172:Lib/lvgl/src/core/lv_group.c ****     }
+ 2070              		.loc 1 172 16 is_stmt 0 view .LVU603
+ 2071 0038 AB42     		cmp	r3, r5
+ 2072 003a F5D1     		bne	.L164
+ 172:Lib/lvgl/src/core/lv_group.c ****     }
+ 2073              		.loc 1 172 34 is_stmt 1 discriminator 1 view .LVU604
+ 172:Lib/lvgl/src/core/lv_group.c ****     }
+ 2074              		.loc 1 172 43 is_stmt 0 discriminator 1 view .LVU605
+ 2075 003c 0E60     		str	r6, [r1]
+ 2076 003e F3E7     		b	.L164
+ 2077              	.L169:
+ 175:Lib/lvgl/src/core/lv_group.c ****     else if(*g1->obj_focus == obj2) lv_group_focus_obj(obj1);
+ 2078              		.loc 1 175 5 is_stmt 1 view .LVU606
+ 175:Lib/lvgl/src/core/lv_group.c ****     else if(*g1->obj_focus == obj2) lv_group_focus_obj(obj1);
+ 2079              		.loc 1 175 11 is_stmt 0 view .LVU607
+ 2080 0040 E368     		ldr	r3, [r4, #12]
+ 175:Lib/lvgl/src/core/lv_group.c ****     else if(*g1->obj_focus == obj2) lv_group_focus_obj(obj1);
+ 2081              		.loc 1 175 8 view .LVU608
+ 2082 0042 1B68     		ldr	r3, [r3]
+ 175:Lib/lvgl/src/core/lv_group.c ****     else if(*g1->obj_focus == obj2) lv_group_focus_obj(obj1);
+ 2083              		.loc 1 175 7 view .LVU609
+ 2084 0044 B342     		cmp	r3, r6
+ 2085 0046 05D0     		beq	.L171
+ 176:Lib/lvgl/src/core/lv_group.c **** 
+ 2086              		.loc 1 176 10 is_stmt 1 view .LVU610
+ 176:Lib/lvgl/src/core/lv_group.c **** 
+ 2087              		.loc 1 176 12 is_stmt 0 view .LVU611
+ 2088 0048 AB42     		cmp	r3, r5
+ 2089 004a E4D1     		bne	.L160
+ 176:Lib/lvgl/src/core/lv_group.c **** 
+ 2090              		.loc 1 176 37 is_stmt 1 discriminator 1 view .LVU612
+ 2091 004c 3046     		mov	r0, r6
+ 2092              	.LVL225:
+ 176:Lib/lvgl/src/core/lv_group.c **** 
+ 2093              		.loc 1 176 37 is_stmt 0 discriminator 1 view .LVU613
+ 2094 004e FFF7FEFF 		bl	lv_group_focus_obj
+ 2095              	.LVL226:
+ 176:Lib/lvgl/src/core/lv_group.c **** 
+ 2096              		.loc 1 176 37 discriminator 1 view .LVU614
+ 2097 0052 E0E7     		b	.L160
+ 2098              	.LVL227:
+ 2099              	.L171:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 58
+
+
+ 175:Lib/lvgl/src/core/lv_group.c ****     else if(*g1->obj_focus == obj2) lv_group_focus_obj(obj1);
+ 2100              		.loc 1 175 32 is_stmt 1 discriminator 1 view .LVU615
+ 2101 0054 2846     		mov	r0, r5
+ 2102              	.LVL228:
+ 175:Lib/lvgl/src/core/lv_group.c ****     else if(*g1->obj_focus == obj2) lv_group_focus_obj(obj1);
+ 2103              		.loc 1 175 32 is_stmt 0 discriminator 1 view .LVU616
+ 2104 0056 FFF7FEFF 		bl	lv_group_focus_obj
+ 2105              	.LVL229:
+ 175:Lib/lvgl/src/core/lv_group.c ****     else if(*g1->obj_focus == obj2) lv_group_focus_obj(obj1);
+ 2106              		.loc 1 175 32 discriminator 1 view .LVU617
+ 2107 005a DCE7     		b	.L160
+ 2108              		.cfi_endproc
+ 2109              	.LFE241:
+ 2111              		.section	.text.lv_group_get_focus_cb,"ax",%progbits
+ 2112              		.align	1
+ 2113              		.global	lv_group_get_focus_cb
+ 2114              		.syntax unified
+ 2115              		.thumb
+ 2116              		.thumb_func
+ 2118              	lv_group_get_focus_cb:
+ 2119              	.LVL230:
+ 2120              	.LFB255:
+ 353:Lib/lvgl/src/core/lv_group.c ****     if(!group) return NULL;
+ 2121              		.loc 1 353 1 is_stmt 1 view -0
+ 2122              		.cfi_startproc
+ 2123              		@ args = 0, pretend = 0, frame = 0
+ 2124              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2125              		@ link register save eliminated.
+ 354:Lib/lvgl/src/core/lv_group.c ****     return group->focus_cb;
+ 2126              		.loc 1 354 5 view .LVU619
+ 354:Lib/lvgl/src/core/lv_group.c ****     return group->focus_cb;
+ 2127              		.loc 1 354 7 is_stmt 0 view .LVU620
+ 2128 0000 08B1     		cbz	r0, .L174
+ 355:Lib/lvgl/src/core/lv_group.c **** }
+ 2129              		.loc 1 355 5 is_stmt 1 view .LVU621
+ 355:Lib/lvgl/src/core/lv_group.c **** }
+ 2130              		.loc 1 355 17 is_stmt 0 view .LVU622
+ 2131 0002 0069     		ldr	r0, [r0, #16]
+ 2132              	.LVL231:
+ 355:Lib/lvgl/src/core/lv_group.c **** }
+ 2133              		.loc 1 355 17 view .LVU623
+ 2134 0004 7047     		bx	lr
+ 2135              	.LVL232:
+ 2136              	.L174:
+ 354:Lib/lvgl/src/core/lv_group.c ****     return group->focus_cb;
+ 2137              		.loc 1 354 23 view .LVU624
+ 2138 0006 0020     		movs	r0, #0
+ 2139              	.LVL233:
+ 356:Lib/lvgl/src/core/lv_group.c **** 
+ 2140              		.loc 1 356 1 view .LVU625
+ 2141 0008 7047     		bx	lr
+ 2142              		.cfi_endproc
+ 2143              	.LFE255:
+ 2145              		.section	.text.lv_group_get_edge_cb,"ax",%progbits
+ 2146              		.align	1
+ 2147              		.global	lv_group_get_edge_cb
+ 2148              		.syntax unified
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 59
+
+
+ 2149              		.thumb
+ 2150              		.thumb_func
+ 2152              	lv_group_get_edge_cb:
+ 2153              	.LVL234:
+ 2154              	.LFB256:
+ 359:Lib/lvgl/src/core/lv_group.c ****     if(!group) return NULL;
+ 2155              		.loc 1 359 1 is_stmt 1 view -0
+ 2156              		.cfi_startproc
+ 2157              		@ args = 0, pretend = 0, frame = 0
+ 2158              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2159              		@ link register save eliminated.
+ 360:Lib/lvgl/src/core/lv_group.c ****     return group->edge_cb;
+ 2160              		.loc 1 360 5 view .LVU627
+ 360:Lib/lvgl/src/core/lv_group.c ****     return group->edge_cb;
+ 2161              		.loc 1 360 7 is_stmt 0 view .LVU628
+ 2162 0000 08B1     		cbz	r0, .L177
+ 361:Lib/lvgl/src/core/lv_group.c **** }
+ 2163              		.loc 1 361 5 is_stmt 1 view .LVU629
+ 361:Lib/lvgl/src/core/lv_group.c **** }
+ 2164              		.loc 1 361 17 is_stmt 0 view .LVU630
+ 2165 0002 4069     		ldr	r0, [r0, #20]
+ 2166              	.LVL235:
+ 361:Lib/lvgl/src/core/lv_group.c **** }
+ 2167              		.loc 1 361 17 view .LVU631
+ 2168 0004 7047     		bx	lr
+ 2169              	.LVL236:
+ 2170              	.L177:
+ 360:Lib/lvgl/src/core/lv_group.c ****     return group->edge_cb;
+ 2171              		.loc 1 360 23 view .LVU632
+ 2172 0006 0020     		movs	r0, #0
+ 2173              	.LVL237:
+ 362:Lib/lvgl/src/core/lv_group.c **** 
+ 2174              		.loc 1 362 1 view .LVU633
+ 2175 0008 7047     		bx	lr
+ 2176              		.cfi_endproc
+ 2177              	.LFE256:
+ 2179              		.section	.text.lv_group_get_editing,"ax",%progbits
+ 2180              		.align	1
+ 2181              		.global	lv_group_get_editing
+ 2182              		.syntax unified
+ 2183              		.thumb
+ 2184              		.thumb_func
+ 2186              	lv_group_get_editing:
+ 2187              	.LVL238:
+ 2188              	.LFB257:
+ 365:Lib/lvgl/src/core/lv_group.c ****     if(!group) return false;
+ 2189              		.loc 1 365 1 is_stmt 1 view -0
+ 2190              		.cfi_startproc
+ 2191              		@ args = 0, pretend = 0, frame = 0
+ 2192              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2193              		@ link register save eliminated.
+ 366:Lib/lvgl/src/core/lv_group.c ****     return group->editing;
+ 2194              		.loc 1 366 5 view .LVU635
+ 366:Lib/lvgl/src/core/lv_group.c ****     return group->editing;
+ 2195              		.loc 1 366 7 is_stmt 0 view .LVU636
+ 2196 0000 18B1     		cbz	r0, .L180
+ 367:Lib/lvgl/src/core/lv_group.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 60
+
+
+ 2197              		.loc 1 367 5 is_stmt 1 view .LVU637
+ 367:Lib/lvgl/src/core/lv_group.c **** }
+ 2198              		.loc 1 367 17 is_stmt 0 view .LVU638
+ 2199 0002 007F     		ldrb	r0, [r0, #28]	@ zero_extendqisi2
+ 2200              	.LVL239:
+ 367:Lib/lvgl/src/core/lv_group.c **** }
+ 2201              		.loc 1 367 17 view .LVU639
+ 2202 0004 C0F34000 		ubfx	r0, r0, #1, #1
+ 2203 0008 7047     		bx	lr
+ 2204              	.LVL240:
+ 2205              	.L180:
+ 366:Lib/lvgl/src/core/lv_group.c ****     return group->editing;
+ 2206              		.loc 1 366 23 view .LVU640
+ 2207 000a 0020     		movs	r0, #0
+ 2208              	.LVL241:
+ 368:Lib/lvgl/src/core/lv_group.c **** 
+ 2209              		.loc 1 368 1 view .LVU641
+ 2210 000c 7047     		bx	lr
+ 2211              		.cfi_endproc
+ 2212              	.LFE257:
+ 2214              		.section	.text.lv_group_get_wrap,"ax",%progbits
+ 2215              		.align	1
+ 2216              		.global	lv_group_get_wrap
+ 2217              		.syntax unified
+ 2218              		.thumb
+ 2219              		.thumb_func
+ 2221              	lv_group_get_wrap:
+ 2222              	.LVL242:
+ 2223              	.LFB258:
+ 371:Lib/lvgl/src/core/lv_group.c ****     if(!group) return false;
+ 2224              		.loc 1 371 1 is_stmt 1 view -0
+ 2225              		.cfi_startproc
+ 2226              		@ args = 0, pretend = 0, frame = 0
+ 2227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2228              		@ link register save eliminated.
+ 372:Lib/lvgl/src/core/lv_group.c ****     return group->wrap;
+ 2229              		.loc 1 372 5 view .LVU643
+ 372:Lib/lvgl/src/core/lv_group.c ****     return group->wrap;
+ 2230              		.loc 1 372 7 is_stmt 0 view .LVU644
+ 2231 0000 18B1     		cbz	r0, .L183
+ 373:Lib/lvgl/src/core/lv_group.c **** }
+ 2232              		.loc 1 373 5 is_stmt 1 view .LVU645
+ 373:Lib/lvgl/src/core/lv_group.c **** }
+ 2233              		.loc 1 373 17 is_stmt 0 view .LVU646
+ 2234 0002 007F     		ldrb	r0, [r0, #28]	@ zero_extendqisi2
+ 2235              	.LVL243:
+ 373:Lib/lvgl/src/core/lv_group.c **** }
+ 2236              		.loc 1 373 17 view .LVU647
+ 2237 0004 C0F3C000 		ubfx	r0, r0, #3, #1
+ 2238 0008 7047     		bx	lr
+ 2239              	.LVL244:
+ 2240              	.L183:
+ 372:Lib/lvgl/src/core/lv_group.c ****     return group->wrap;
+ 2241              		.loc 1 372 23 view .LVU648
+ 2242 000a 0020     		movs	r0, #0
+ 2243              	.LVL245:
+ 374:Lib/lvgl/src/core/lv_group.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 61
+
+
+ 2244              		.loc 1 374 1 view .LVU649
+ 2245 000c 7047     		bx	lr
+ 2246              		.cfi_endproc
+ 2247              	.LFE258:
+ 2249              		.section	.text.lv_group_get_obj_count,"ax",%progbits
+ 2250              		.align	1
+ 2251              		.global	lv_group_get_obj_count
+ 2252              		.syntax unified
+ 2253              		.thumb
+ 2254              		.thumb_func
+ 2256              	lv_group_get_obj_count:
+ 2257              	.LVL246:
+ 2258              	.LFB259:
+ 377:Lib/lvgl/src/core/lv_group.c ****     return _lv_ll_get_len(&group->obj_ll);
+ 2259              		.loc 1 377 1 is_stmt 1 view -0
+ 2260              		.cfi_startproc
+ 2261              		@ args = 0, pretend = 0, frame = 0
+ 2262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 377:Lib/lvgl/src/core/lv_group.c ****     return _lv_ll_get_len(&group->obj_ll);
+ 2263              		.loc 1 377 1 is_stmt 0 view .LVU651
+ 2264 0000 08B5     		push	{r3, lr}
+ 2265              	.LCFI22:
+ 2266              		.cfi_def_cfa_offset 8
+ 2267              		.cfi_offset 3, -8
+ 2268              		.cfi_offset 14, -4
+ 378:Lib/lvgl/src/core/lv_group.c **** }
+ 2269              		.loc 1 378 5 is_stmt 1 view .LVU652
+ 378:Lib/lvgl/src/core/lv_group.c **** }
+ 2270              		.loc 1 378 12 is_stmt 0 view .LVU653
+ 2271 0002 FFF7FEFF 		bl	_lv_ll_get_len
+ 2272              	.LVL247:
+ 379:Lib/lvgl/src/core/lv_group.c **** 
+ 2273              		.loc 1 379 1 view .LVU654
+ 2274 0006 08BD     		pop	{r3, pc}
+ 2275              		.cfi_endproc
+ 2276              	.LFE259:
+ 2278              		.section	.text.lv_group_get_count,"ax",%progbits
+ 2279              		.align	1
+ 2280              		.global	lv_group_get_count
+ 2281              		.syntax unified
+ 2282              		.thumb
+ 2283              		.thumb_func
+ 2285              	lv_group_get_count:
+ 2286              	.LFB260:
+ 382:Lib/lvgl/src/core/lv_group.c ****     return _lv_ll_get_len(group_ll_p);
+ 2287              		.loc 1 382 1 is_stmt 1 view -0
+ 2288              		.cfi_startproc
+ 2289              		@ args = 0, pretend = 0, frame = 0
+ 2290              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2291 0000 08B5     		push	{r3, lr}
+ 2292              	.LCFI23:
+ 2293              		.cfi_def_cfa_offset 8
+ 2294              		.cfi_offset 3, -8
+ 2295              		.cfi_offset 14, -4
+ 383:Lib/lvgl/src/core/lv_group.c **** }
+ 2296              		.loc 1 383 5 view .LVU656
+ 383:Lib/lvgl/src/core/lv_group.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 62
+
+
+ 2297              		.loc 1 383 12 is_stmt 0 view .LVU657
+ 2298 0002 0248     		ldr	r0, .L188
+ 2299 0004 FFF7FEFF 		bl	_lv_ll_get_len
+ 2300              	.LVL248:
+ 384:Lib/lvgl/src/core/lv_group.c **** 
+ 2301              		.loc 1 384 1 view .LVU658
+ 2302 0008 08BD     		pop	{r3, pc}
+ 2303              	.L189:
+ 2304 000a 00BF     		.align	2
+ 2305              	.L188:
+ 2306 000c 34000000 		.word	lv_global+52
+ 2307              		.cfi_endproc
+ 2308              	.LFE260:
+ 2310              		.section	.text.lv_group_by_index,"ax",%progbits
+ 2311              		.align	1
+ 2312              		.global	lv_group_by_index
+ 2313              		.syntax unified
+ 2314              		.thumb
+ 2315              		.thumb_func
+ 2317              	lv_group_by_index:
+ 2318              	.LVL249:
+ 2319              	.LFB261:
+ 387:Lib/lvgl/src/core/lv_group.c ****     uint32_t len = 0;
+ 2320              		.loc 1 387 1 is_stmt 1 view -0
+ 2321              		.cfi_startproc
+ 2322              		@ args = 0, pretend = 0, frame = 0
+ 2323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 387:Lib/lvgl/src/core/lv_group.c ****     uint32_t len = 0;
+ 2324              		.loc 1 387 1 is_stmt 0 view .LVU660
+ 2325 0000 38B5     		push	{r3, r4, r5, lr}
+ 2326              	.LCFI24:
+ 2327              		.cfi_def_cfa_offset 16
+ 2328              		.cfi_offset 3, -16
+ 2329              		.cfi_offset 4, -12
+ 2330              		.cfi_offset 5, -8
+ 2331              		.cfi_offset 14, -4
+ 2332 0002 0546     		mov	r5, r0
+ 388:Lib/lvgl/src/core/lv_group.c ****     void * node;
+ 2333              		.loc 1 388 5 is_stmt 1 view .LVU661
+ 2334              	.LVL250:
+ 389:Lib/lvgl/src/core/lv_group.c **** 
+ 2335              		.loc 1 389 5 view .LVU662
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2336              		.loc 1 391 5 view .LVU663
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2337              		.loc 1 391 16 is_stmt 0 view .LVU664
+ 2338 0004 0748     		ldr	r0, .L196
+ 2339              	.LVL251:
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2340              		.loc 1 391 16 view .LVU665
+ 2341 0006 FFF7FEFF 		bl	_lv_ll_get_tail
+ 2342              	.LVL252:
+ 2343 000a 0146     		mov	r1, r0
+ 2344              	.LVL253:
+ 388:Lib/lvgl/src/core/lv_group.c ****     void * node;
+ 2345              		.loc 1 388 14 view .LVU666
+ 2346 000c 0024     		movs	r4, #0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 63
+
+
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2347              		.loc 1 391 5 view .LVU667
+ 2348 000e 04E0     		b	.L191
+ 2349              	.LVL254:
+ 2350              	.L195:
+ 395:Lib/lvgl/src/core/lv_group.c ****     }
+ 2351              		.loc 1 395 9 is_stmt 1 discriminator 2 view .LVU668
+ 395:Lib/lvgl/src/core/lv_group.c ****     }
+ 2352              		.loc 1 395 12 is_stmt 0 discriminator 2 view .LVU669
+ 2353 0010 0134     		adds	r4, r4, #1
+ 2354              	.LVL255:
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2355              		.loc 1 391 64 is_stmt 1 discriminator 2 view .LVU670
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2356              		.loc 1 391 66 is_stmt 0 discriminator 2 view .LVU671
+ 2357 0012 0448     		ldr	r0, .L196
+ 2358              	.LVL256:
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2359              		.loc 1 391 66 discriminator 2 view .LVU672
+ 2360 0014 FFF7FEFF 		bl	_lv_ll_get_prev
+ 2361              	.LVL257:
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2362              		.loc 1 391 66 discriminator 2 view .LVU673
+ 2363 0018 0146     		mov	r1, r0
+ 2364              	.LVL258:
+ 2365              	.L191:
+ 391:Lib/lvgl/src/core/lv_group.c ****         if(len == index) {
+ 2366              		.loc 1 391 50 is_stmt 1 discriminator 1 view .LVU674
+ 2367 001a 09B1     		cbz	r1, .L190
+ 392:Lib/lvgl/src/core/lv_group.c ****             return (lv_group_t *) node;
+ 2368              		.loc 1 392 9 view .LVU675
+ 392:Lib/lvgl/src/core/lv_group.c ****             return (lv_group_t *) node;
+ 2369              		.loc 1 392 11 is_stmt 0 view .LVU676
+ 2370 001c AC42     		cmp	r4, r5
+ 2371 001e F7D1     		bne	.L195
+ 2372              	.L190:
+ 399:Lib/lvgl/src/core/lv_group.c **** /**********************
+ 2373              		.loc 1 399 1 view .LVU677
+ 2374 0020 0846     		mov	r0, r1
+ 2375              	.LVL259:
+ 399:Lib/lvgl/src/core/lv_group.c **** /**********************
+ 2376              		.loc 1 399 1 view .LVU678
+ 2377 0022 38BD     		pop	{r3, r4, r5, pc}
+ 2378              	.LVL260:
+ 2379              	.L197:
+ 399:Lib/lvgl/src/core/lv_group.c **** /**********************
+ 2380              		.loc 1 399 1 view .LVU679
+ 2381              		.align	2
+ 2382              	.L196:
+ 2383 0024 34000000 		.word	lv_global+52
+ 2384              		.cfi_endproc
+ 2385              	.LFE261:
+ 2387              		.text
+ 2388              	.Letext0:
+ 2389              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 2390              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 2391              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 64
+
+
+ 2392              		.file 6 "Lib/lvgl/src/core/../misc/lv_types.h"
+ 2393              		.file 7 "Lib/lvgl/src/core/../core/lv_obj.h"
+ 2394              		.file 8 "Lib/lvgl/src/core/../core/lv_obj_class.h"
+ 2395              		.file 9 "Lib/lvgl/src/core/lv_group.h"
+ 2396              		.file 10 "Lib/lvgl/src/core/../core/../display/../draw/lv_draw.h"
+ 2397              		.file 11 "Lib/lvgl/src/core/../core/../display/../misc/lv_event.h"
+ 2398              		.file 12 "Lib/lvgl/src/core/../core/../misc/lv_timer.h"
+ 2399              		.file 13 "Lib/lvgl/src/core/../core/../misc/../font/../draw/../misc/lv_area.h"
+ 2400              		.file 14 "Lib/lvgl/src/core/../core/../misc/../font/../draw/../misc/lv_color.h"
+ 2401              		.file 15 "Lib/lvgl/src/core/../core/../misc/../font/../draw/lv_image_buf.h"
+ 2402              		.file 16 "Lib/lvgl/src/core/../core/../misc/../font/../draw/lv_draw_buf.h"
+ 2403              		.file 17 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\osal\\lv_os_none.h"
+ 2404              		.file 18 "Lib/lvgl/src/core/../core/../misc/../tick/lv_tick.h"
+ 2405              		.file 19 "Lib/lvgl/src/core/../core/../misc/lv_anim.h"
+ 2406              		.file 20 "Lib/lvgl/src/core/../core/../misc/../layouts/lv_layout.h"
+ 2407              		.file 21 "Lib/lvgl/src/core/../core/../misc/lv_style.h"
+ 2408              		.file 22 "Lib/lvgl/src/core/../core/../display/../misc/lv_array.h"
+ 2409              		.file 23 "Lib/lvgl/src/core/../core/lv_obj_style.h"
+ 2410              		.file 24 "Lib/lvgl/src/core/../core/../indev/lv_indev.h"
+ 2411              		.file 25 "Lib/lvgl/src/core/../core/../draw/sw/blend/../lv_draw_sw_mask.h"
+ 2412              		.file 26 "Lib/lvgl/src/core/../core/../stdlib/builtin/lv_tlsf.h"
+ 2413              		.file 27 "Lib/lvgl/src/core/../core/lv_global.h"
+ 2414              		.file 28 "Lib/lvgl/src/core/../core/lv_obj_tree.h"
+ 2415              		.file 29 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
+ 2416              		.file 30 "Lib/lvgl/src/core/../core/lv_obj_pos.h"
+ 2417              		.file 31 "Lib/lvgl/src/core/../core/lv_obj_event.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 65
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_group.c
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:21     .text.get_indev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:26     .text.get_indev:00000000 get_indev
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:115    .text.focus_next_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:120    .text.focus_next_core:00000000 focus_next_core
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:435    .text._lv_group_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:441    .text._lv_group_init:00000000 _lv_group_init
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:462    .text._lv_group_init:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:467    .text._lv_group_deinit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:473    .text._lv_group_deinit:00000000 _lv_group_deinit
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:506    .text._lv_group_deinit:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:511    .text.lv_group_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:517    .text.lv_group_create:00000000 lv_group_create
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:592    .text.lv_group_create:00000044 $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:597    .text.lv_group_set_default:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:603    .text.lv_group_set_default:00000000 lv_group_set_default
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:620    .text.lv_group_set_default:00000008 $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:625    .text.lv_group_get_default:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:631    .text.lv_group_get_default:00000000 lv_group_get_default
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:646    .text.lv_group_get_default:00000008 $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:651    .text.lv_group_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:657    .text.lv_group_delete:00000000 lv_group_delete
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:820    .text.lv_group_delete:00000094 $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:825    .text.lv_group_remove_all_objs:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:831    .text.lv_group_remove_all_objs:00000000 lv_group_remove_all_objs
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:935    .text.lv_group_focus_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:941    .text.lv_group_focus_next:00000000 lv_group_focus_next
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:984    .text.lv_group_focus_next:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:990    .text.lv_group_focus_prev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:996    .text.lv_group_focus_prev:00000000 lv_group_focus_prev
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1039   .text.lv_group_focus_prev:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1045   .text.lv_group_refocus:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1050   .text.lv_group_refocus:00000000 lv_group_refocus
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1107   .text.lv_group_remove_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1113   .text.lv_group_remove_obj:00000000 lv_group_remove_obj
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1285   .text.lv_group_add_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1291   .text.lv_group_add_obj:00000000 lv_group_add_obj
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1463   .text.lv_group_focus_freeze:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1469   .text.lv_group_focus_freeze:00000000 lv_group_focus_freeze
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1498   .text.lv_group_set_focus_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1504   .text.lv_group_set_focus_cb:00000000 lv_group_set_focus_cb
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1521   .text.lv_group_set_edge_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1527   .text.lv_group_set_edge_cb:00000000 lv_group_set_edge_cb
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1544   .text.lv_group_set_refocus_policy:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1550   .text.lv_group_set_refocus_policy:00000000 lv_group_set_refocus_policy
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1569   .text.lv_group_set_wrap:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1575   .text.lv_group_set_wrap:00000000 lv_group_set_wrap
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1594   .text.lv_group_get_focused:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1600   .text.lv_group_get_focused:00000000 lv_group_get_focused
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1628   .text.lv_group_send_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1634   .text.lv_group_send_data:00000000 lv_group_send_data
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1700   .text.lv_group_set_editing:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1706   .text.lv_group_set_editing:00000000 lv_group_set_editing
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1800   .text.lv_group_focus_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1806   .text.lv_group_focus_obj:00000000 lv_group_focus_obj
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1984   .text.lv_group_swap_obj:00000000 $t
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s 			page 66
+
+
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:1990   .text.lv_group_swap_obj:00000000 lv_group_swap_obj
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2112   .text.lv_group_get_focus_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2118   .text.lv_group_get_focus_cb:00000000 lv_group_get_focus_cb
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2146   .text.lv_group_get_edge_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2152   .text.lv_group_get_edge_cb:00000000 lv_group_get_edge_cb
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2180   .text.lv_group_get_editing:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2186   .text.lv_group_get_editing:00000000 lv_group_get_editing
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2215   .text.lv_group_get_wrap:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2221   .text.lv_group_get_wrap:00000000 lv_group_get_wrap
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2250   .text.lv_group_get_obj_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2256   .text.lv_group_get_obj_count:00000000 lv_group_get_obj_count
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2279   .text.lv_group_get_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2285   .text.lv_group_get_count:00000000 lv_group_get_count
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2306   .text.lv_group_get_count:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2311   .text.lv_group_by_index:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2317   .text.lv_group_by_index:00000000 lv_group_by_index
+C:\Users\Alex\AppData\Local\Temp\ccAfeK3J.s:2383   .text.lv_group_by_index:00000024 $d
+
+UNDEFINED SYMBOLS
+lv_indev_get_next
+lv_indev_get_type
+lv_indev_get_group
+lv_obj_get_state
+lv_obj_has_flag
+lv_obj_get_parent
+lv_obj_send_event
+lv_obj_invalidate
+_lv_ll_init
+lv_global
+_lv_ll_clear_custom
+_lv_ll_ins_head
+_lv_ll_get_head
+_lv_ll_get_next
+lv_indev_set_group
+_lv_ll_remove
+lv_free
+_lv_ll_get_prev
+_lv_ll_get_tail
+lv_obj_get_group
+_lv_ll_ins_tail
+lv_obj_allocate_spec_attr
+lv_obj_has_state
+_lv_ll_get_len

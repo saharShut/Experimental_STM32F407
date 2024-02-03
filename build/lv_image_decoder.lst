@@ -1,0 +1,2330 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_image_decoder.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/draw/lv_image_decoder.c"
+  20              		.section	.text.img_width_to_stride,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	img_width_to_stride:
+  27              	.LVL0:
+  28              	.LFB249:
+   1:Lib/lvgl/src/draw/lv_image_decoder.c **** /**
+   2:Lib/lvgl/src/draw/lv_image_decoder.c ****  * @file lv_image_decoder.c
+   3:Lib/lvgl/src/draw/lv_image_decoder.c ****  *
+   4:Lib/lvgl/src/draw/lv_image_decoder.c ****  */
+   5:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+   6:Lib/lvgl/src/draw/lv_image_decoder.c **** /*********************
+   7:Lib/lvgl/src/draw/lv_image_decoder.c ****  *      INCLUDES
+   8:Lib/lvgl/src/draw/lv_image_decoder.c ****  *********************/
+   9:Lib/lvgl/src/draw/lv_image_decoder.c **** #include "lv_image_decoder.h"
+  10:Lib/lvgl/src/draw/lv_image_decoder.c **** #include "../misc/lv_assert.h"
+  11:Lib/lvgl/src/draw/lv_image_decoder.c **** #include "../draw/lv_draw_image.h"
+  12:Lib/lvgl/src/draw/lv_image_decoder.c **** #include "../misc/lv_ll.h"
+  13:Lib/lvgl/src/draw/lv_image_decoder.c **** #include "../stdlib/lv_string.h"
+  14:Lib/lvgl/src/draw/lv_image_decoder.c **** #include "../core/lv_global.h"
+  15:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  16:Lib/lvgl/src/draw/lv_image_decoder.c **** /*********************
+  17:Lib/lvgl/src/draw/lv_image_decoder.c ****  *      DEFINES
+  18:Lib/lvgl/src/draw/lv_image_decoder.c ****  *********************/
+  19:Lib/lvgl/src/draw/lv_image_decoder.c **** #define img_decoder_ll_p &(LV_GLOBAL_DEFAULT()->img_decoder_ll)
+  20:Lib/lvgl/src/draw/lv_image_decoder.c **** #define img_cache_p (LV_GLOBAL_DEFAULT()->img_cache)
+  21:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  22:Lib/lvgl/src/draw/lv_image_decoder.c **** /**********************
+  23:Lib/lvgl/src/draw/lv_image_decoder.c ****  *      TYPEDEFS
+  24:Lib/lvgl/src/draw/lv_image_decoder.c ****  **********************/
+  25:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  26:Lib/lvgl/src/draw/lv_image_decoder.c **** /**********************
+  27:Lib/lvgl/src/draw/lv_image_decoder.c ****  *  STATIC PROTOTYPES
+  28:Lib/lvgl/src/draw/lv_image_decoder.c ****  **********************/
+  29:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  30:Lib/lvgl/src/draw/lv_image_decoder.c **** static uint32_t img_width_to_stride(lv_image_header_t * header);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 2
+
+
+  31:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  32:Lib/lvgl/src/draw/lv_image_decoder.c **** #if LV_CACHE_DEF_SIZE > 0
+  33:Lib/lvgl/src/draw/lv_image_decoder.c **** static lv_cache_compare_res_t image_decoder_cache_compare_cb(const lv_image_cache_data_t * lhs,
+  34:Lib/lvgl/src/draw/lv_image_decoder.c ****                                                              const lv_image_cache_data_t * rhs);
+  35:Lib/lvgl/src/draw/lv_image_decoder.c **** static void image_decoder_cache_free_cb(lv_image_cache_data_t * entry, void * user_data);
+  36:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  37:Lib/lvgl/src/draw/lv_image_decoder.c **** static lv_result_t try_cache(lv_image_decoder_dsc_t * dsc);
+  38:Lib/lvgl/src/draw/lv_image_decoder.c **** #endif
+  39:Lib/lvgl/src/draw/lv_image_decoder.c **** /**********************
+  40:Lib/lvgl/src/draw/lv_image_decoder.c ****  *  STATIC VARIABLES
+  41:Lib/lvgl/src/draw/lv_image_decoder.c ****  **********************/
+  42:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  43:Lib/lvgl/src/draw/lv_image_decoder.c **** /**********************
+  44:Lib/lvgl/src/draw/lv_image_decoder.c ****  *      MACROS
+  45:Lib/lvgl/src/draw/lv_image_decoder.c ****  **********************/
+  46:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  47:Lib/lvgl/src/draw/lv_image_decoder.c **** /**********************
+  48:Lib/lvgl/src/draw/lv_image_decoder.c ****  *   GLOBAL FUNCTIONS
+  49:Lib/lvgl/src/draw/lv_image_decoder.c ****  **********************/
+  50:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  51:Lib/lvgl/src/draw/lv_image_decoder.c **** /**
+  52:Lib/lvgl/src/draw/lv_image_decoder.c ****  * Initialize the image decoder module
+  53:Lib/lvgl/src/draw/lv_image_decoder.c ****  */
+  54:Lib/lvgl/src/draw/lv_image_decoder.c **** void _lv_image_decoder_init(void)
+  55:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+  56:Lib/lvgl/src/draw/lv_image_decoder.c ****     _lv_ll_init(img_decoder_ll_p, sizeof(lv_image_decoder_t));
+  57:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  58:Lib/lvgl/src/draw/lv_image_decoder.c **** #if LV_CACHE_DEF_SIZE > 0
+  59:Lib/lvgl/src/draw/lv_image_decoder.c ****     img_cache_p = lv_cache_create(&lv_cache_class_lru_rb_size,
+  60:Lib/lvgl/src/draw/lv_image_decoder.c ****     sizeof(lv_image_cache_data_t), LV_CACHE_DEF_SIZE, (lv_cache_ops_t) {
+  61:Lib/lvgl/src/draw/lv_image_decoder.c ****         .compare_cb = (lv_cache_compare_cb_t)image_decoder_cache_compare_cb,
+  62:Lib/lvgl/src/draw/lv_image_decoder.c ****         .create_cb = NULL,
+  63:Lib/lvgl/src/draw/lv_image_decoder.c ****         .free_cb = (lv_cache_free_cb_t)image_decoder_cache_free_cb,
+  64:Lib/lvgl/src/draw/lv_image_decoder.c ****     });
+  65:Lib/lvgl/src/draw/lv_image_decoder.c **** #endif
+  66:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+  67:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  68:Lib/lvgl/src/draw/lv_image_decoder.c **** /**
+  69:Lib/lvgl/src/draw/lv_image_decoder.c ****  * Deinitialize the image decoder module
+  70:Lib/lvgl/src/draw/lv_image_decoder.c ****  */
+  71:Lib/lvgl/src/draw/lv_image_decoder.c **** void _lv_image_decoder_deinit(void)
+  72:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+  73:Lib/lvgl/src/draw/lv_image_decoder.c **** #if LV_CACHE_DEF_SIZE > 0
+  74:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_cache_destroy(img_cache_p, NULL);
+  75:Lib/lvgl/src/draw/lv_image_decoder.c **** #endif
+  76:Lib/lvgl/src/draw/lv_image_decoder.c ****     _lv_ll_clear(img_decoder_ll_p);
+  77:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+  78:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  79:Lib/lvgl/src/draw/lv_image_decoder.c **** lv_result_t lv_image_decoder_get_info(const void * src, lv_image_header_t * header)
+  80:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+  81:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_memzero(header, sizeof(lv_image_header_t));
+  82:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  83:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src == NULL) return LV_RESULT_INVALID;
+  84:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  85:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_src_t src_type = lv_image_src_get_type(src);
+  86:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src_type == LV_IMAGE_SRC_VARIABLE) {
+  87:Lib/lvgl/src/draw/lv_image_decoder.c ****         const lv_image_dsc_t * img_dsc = src;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 3
+
+
+  88:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(img_dsc->data == NULL) return LV_RESULT_INVALID;
+  89:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+  90:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  91:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_result_t res = LV_RESULT_INVALID;
+  92:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_t * decoder;
+  93:Lib/lvgl/src/draw/lv_image_decoder.c ****     _LV_LL_READ(img_decoder_ll_p, decoder) {
+  94:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoder->info_cb) {
+  95:Lib/lvgl/src/draw/lv_image_decoder.c ****             res = decoder->info_cb(decoder, src, header);
+  96:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(res == LV_RESULT_OK) {
+  97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 if(header->stride == 0) header->stride = img_width_to_stride(header);
+  98:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
+  99:Lib/lvgl/src/draw/lv_image_decoder.c ****             }
+ 100:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 101:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 102:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 103:Lib/lvgl/src/draw/lv_image_decoder.c ****     return res;
+ 104:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 105:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 106:Lib/lvgl/src/draw/lv_image_decoder.c **** lv_result_t lv_image_decoder_open(lv_image_decoder_dsc_t * dsc, const void * src, const lv_image_de
+ 107:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 108:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_memzero(dsc, sizeof(lv_image_decoder_dsc_t));
+ 109:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 110:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src == NULL) return LV_RESULT_INVALID;
+ 111:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_src_t src_type = lv_image_src_get_type(src);
+ 112:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src_type == LV_IMAGE_SRC_VARIABLE) {
+ 113:Lib/lvgl/src/draw/lv_image_decoder.c ****         const lv_image_dsc_t * img_dsc = src;
+ 114:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(img_dsc->data == NULL) return LV_RESULT_INVALID;
+ 115:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 116:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 117:Lib/lvgl/src/draw/lv_image_decoder.c ****     dsc->src_type = src_type;
+ 118:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 119:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->src_type == LV_IMAGE_SRC_FILE) {
+ 120:Lib/lvgl/src/draw/lv_image_decoder.c ****         size_t fnlen = lv_strlen(src);
+ 121:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->src = lv_malloc(fnlen + 1);
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         LV_ASSERT_MALLOC(dsc->src);
+ 123:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 124:Lib/lvgl/src/draw/lv_image_decoder.c ****             LV_LOG_WARN("Out of memory");
+ 125:Lib/lvgl/src/draw/lv_image_decoder.c ****             return LV_RESULT_INVALID;
+ 126:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 127:Lib/lvgl/src/draw/lv_image_decoder.c ****         lv_strcpy((char *)dsc->src, src);
+ 128:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 129:Lib/lvgl/src/draw/lv_image_decoder.c ****     else {
+ 130:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->src = src;
+ 131:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 132:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 133:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_result_t res = LV_RESULT_INVALID;
+ 134:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 135:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_t * decoder;
+ 136:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_args_t * args_copy = NULL;
+ 137:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 138:Lib/lvgl/src/draw/lv_image_decoder.c ****     static const lv_image_decoder_args_t def_args = {
+ 139:Lib/lvgl/src/draw/lv_image_decoder.c ****         .stride_align = LV_DRAW_BUF_STRIDE_ALIGN != 1,
+ 140:Lib/lvgl/src/draw/lv_image_decoder.c ****         .premultiply = false,
+ 141:Lib/lvgl/src/draw/lv_image_decoder.c ****         .no_cache = false,
+ 142:Lib/lvgl/src/draw/lv_image_decoder.c ****         .use_indexed = false,
+ 143:Lib/lvgl/src/draw/lv_image_decoder.c ****     };
+ 144:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 4
+
+
+ 145:Lib/lvgl/src/draw/lv_image_decoder.c ****     /*Make a copy of args */
+ 146:Lib/lvgl/src/draw/lv_image_decoder.c ****     dsc->args = args ? *args : def_args;
+ 147:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 148:Lib/lvgl/src/draw/lv_image_decoder.c ****     _LV_LL_READ(img_decoder_ll_p, decoder) {
+ 149:Lib/lvgl/src/draw/lv_image_decoder.c ****         /*Info and Open callbacks are required*/
+ 150:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoder->info_cb == NULL || decoder->open_cb == NULL) continue;
+ 151:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 152:Lib/lvgl/src/draw/lv_image_decoder.c ****         res = decoder->info_cb(decoder, src, &dsc->header);
+ 153:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(res != LV_RESULT_OK) continue;
+ 154:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 155:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->header.stride == 0) dsc->header.stride = img_width_to_stride(&dsc->header);
+ 156:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 157:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->decoder = decoder;
+ 158:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 159:Lib/lvgl/src/draw/lv_image_decoder.c **** #if LV_CACHE_DEF_SIZE > 0
+ 160:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->cache = img_cache_p;
+ 161:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 162:Lib/lvgl/src/draw/lv_image_decoder.c ****         /*Check the cache first*/
+ 163:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(try_cache(dsc) == LV_RESULT_OK) return LV_RESULT_OK;
+ 164:Lib/lvgl/src/draw/lv_image_decoder.c **** #endif
+ 165:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 166:Lib/lvgl/src/draw/lv_image_decoder.c ****         res = decoder->open_cb(decoder, dsc, args);
+ 167:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 168:Lib/lvgl/src/draw/lv_image_decoder.c ****         /*Opened successfully. It is a good decoder for this image source*/
+ 169:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(res == LV_RESULT_OK) return res;
+ 170:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 171:Lib/lvgl/src/draw/lv_image_decoder.c ****         /*Prepare for the next loop*/
+ 172:Lib/lvgl/src/draw/lv_image_decoder.c ****         lv_memzero(&dsc->header, sizeof(lv_image_header_t));
+ 173:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 174:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->error_msg = NULL;
+ 175:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->decoded  = NULL;
+ 176:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->cache_entry = NULL;
+ 177:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->user_data = NULL;
+ 178:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->time_to_open = 0;
+ 179:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 180:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 181:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->src_type == LV_IMAGE_SRC_FILE)
+ 182:Lib/lvgl/src/draw/lv_image_decoder.c ****         lv_free((void *)dsc->src);
+ 183:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 184:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(args_copy) lv_free(args_copy);
+ 185:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 186:Lib/lvgl/src/draw/lv_image_decoder.c ****     return res;
+ 187:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 188:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 189:Lib/lvgl/src/draw/lv_image_decoder.c **** lv_result_t lv_image_decoder_get_area(lv_image_decoder_dsc_t * dsc, const lv_area_t * full_area,
+ 190:Lib/lvgl/src/draw/lv_image_decoder.c ****                                       lv_area_t * decoded_area)
+ 191:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 192:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_result_t res = LV_RESULT_INVALID;
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder->get_area_cb) res = dsc->decoder->get_area_cb(dsc->decoder, dsc, full_area, dec
+ 194:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 195:Lib/lvgl/src/draw/lv_image_decoder.c ****     return res;
+ 196:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 197:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 198:Lib/lvgl/src/draw/lv_image_decoder.c **** void lv_image_decoder_close(lv_image_decoder_dsc_t * dsc)
+ 199:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 200:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder) {
+ 201:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->decoder->close_cb) dsc->decoder->close_cb(dsc->decoder, dsc);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 5
+
+
+ 202:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 203:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src_type == LV_IMAGE_SRC_FILE) {
+ 204:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_free((void *)dsc->src);
+ 205:Lib/lvgl/src/draw/lv_image_decoder.c ****             dsc->src = NULL;
+ 206:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 207:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 208:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 209:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 210:Lib/lvgl/src/draw/lv_image_decoder.c **** /**
+ 211:Lib/lvgl/src/draw/lv_image_decoder.c ****  * Create a new image decoder
+ 212:Lib/lvgl/src/draw/lv_image_decoder.c ****  * @return pointer to the new image decoder
+ 213:Lib/lvgl/src/draw/lv_image_decoder.c ****  */
+ 214:Lib/lvgl/src/draw/lv_image_decoder.c **** lv_image_decoder_t * lv_image_decoder_create(void)
+ 215:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 216:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_t * decoder;
+ 217:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder = _lv_ll_ins_head(img_decoder_ll_p);
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     LV_ASSERT_MALLOC(decoder);
+ 219:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 220:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 221:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_memzero(decoder, sizeof(lv_image_decoder_t));
+ 222:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 223:Lib/lvgl/src/draw/lv_image_decoder.c ****     return decoder;
+ 224:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 225:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 226:Lib/lvgl/src/draw/lv_image_decoder.c **** void lv_image_decoder_delete(lv_image_decoder_t * decoder)
+ 227:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 228:Lib/lvgl/src/draw/lv_image_decoder.c ****     _lv_ll_remove(img_decoder_ll_p, decoder);
+ 229:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_free(decoder);
+ 230:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 231:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 232:Lib/lvgl/src/draw/lv_image_decoder.c **** lv_image_decoder_t * lv_image_decoder_get_next(lv_image_decoder_t * decoder)
+ 233:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 234:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL)
+ 235:Lib/lvgl/src/draw/lv_image_decoder.c ****         return _lv_ll_get_head(img_decoder_ll_p);
+ 236:Lib/lvgl/src/draw/lv_image_decoder.c ****     else
+ 237:Lib/lvgl/src/draw/lv_image_decoder.c ****         return _lv_ll_get_next(img_decoder_ll_p, decoder);
+ 238:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 239:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 240:Lib/lvgl/src/draw/lv_image_decoder.c **** void lv_image_decoder_set_info_cb(lv_image_decoder_t * decoder, lv_image_decoder_info_f_t info_cb)
+ 241:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 242:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->info_cb = info_cb;
+ 243:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 244:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 245:Lib/lvgl/src/draw/lv_image_decoder.c **** void lv_image_decoder_set_open_cb(lv_image_decoder_t * decoder, lv_image_decoder_open_f_t open_cb)
+ 246:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 247:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->open_cb = open_cb;
+ 248:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 249:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 250:Lib/lvgl/src/draw/lv_image_decoder.c **** void lv_image_decoder_set_get_area_cb(lv_image_decoder_t * decoder, lv_image_decoder_get_area_cb_t 
+ 251:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 252:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->get_area_cb = get_area_cb;
+ 253:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 254:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 255:Lib/lvgl/src/draw/lv_image_decoder.c **** void lv_image_decoder_set_close_cb(lv_image_decoder_t * decoder, lv_image_decoder_close_f_t close_c
+ 256:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 257:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->close_cb = close_cb;
+ 258:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 6
+
+
+ 259:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 260:Lib/lvgl/src/draw/lv_image_decoder.c **** void lv_image_decoder_set_cache_free_cb(lv_image_decoder_t * decoder, lv_cache_free_cb_t cache_free
+ 261:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 262:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->cache_free_cb = cache_free_cb;
+ 263:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 264:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 265:Lib/lvgl/src/draw/lv_image_decoder.c **** #if LV_CACHE_DEF_SIZE > 0
+ 266:Lib/lvgl/src/draw/lv_image_decoder.c **** lv_cache_entry_t * lv_image_decoder_add_to_cache(lv_image_decoder_t * decoder,
+ 267:Lib/lvgl/src/draw/lv_image_decoder.c ****                                                  lv_image_cache_data_t * search_key,
+ 268:Lib/lvgl/src/draw/lv_image_decoder.c ****                                                  const lv_draw_buf_t * decoded, void * user_data)
+ 269:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 270:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_cache_entry_t * cache_entry = lv_cache_add(img_cache_p, search_key, NULL);
+ 271:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(cache_entry == NULL) {
+ 272:Lib/lvgl/src/draw/lv_image_decoder.c ****         return NULL;
+ 273:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 274:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 275:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_cache_data_t * cached_data;
+ 276:Lib/lvgl/src/draw/lv_image_decoder.c ****     cached_data = lv_cache_entry_get_data(cache_entry);
+ 277:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 278:Lib/lvgl/src/draw/lv_image_decoder.c ****     /*Set the cache entry to decoder data*/
+ 279:Lib/lvgl/src/draw/lv_image_decoder.c ****     cached_data->decoded = decoded;
+ 280:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(cached_data->src_type == LV_IMAGE_SRC_FILE) {
+ 281:Lib/lvgl/src/draw/lv_image_decoder.c ****         cached_data->src = lv_strdup(cached_data->src);
+ 282:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 283:Lib/lvgl/src/draw/lv_image_decoder.c ****     cached_data->user_data = user_data; /*Need to free data on cache invalidate instead of decoder_
+ 284:Lib/lvgl/src/draw/lv_image_decoder.c ****     cached_data->decoder = decoder;
+ 285:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 286:Lib/lvgl/src/draw/lv_image_decoder.c ****     return cache_entry;
+ 287:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 288:Lib/lvgl/src/draw/lv_image_decoder.c **** #endif
+ 289:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 290:Lib/lvgl/src/draw/lv_image_decoder.c **** lv_draw_buf_t * lv_image_decoder_post_process(lv_image_decoder_dsc_t * dsc, lv_draw_buf_t * decoded
+ 291:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+ 292:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoded == NULL) return NULL; /*No need to adjust*/
+ 293:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 294:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_args_t * args = &dsc->args;
+ 295:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(args->stride_align && decoded->header.cf != LV_COLOR_FORMAT_RGB565A8) {
+ 296:Lib/lvgl/src/draw/lv_image_decoder.c ****         uint32_t stride_expect = lv_draw_buf_width_to_stride(decoded->header.w, decoded->header.cf)
+ 297:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoded->header.stride != stride_expect) {
+ 298:Lib/lvgl/src/draw/lv_image_decoder.c ****             LV_LOG_TRACE("Stride mismatch");
+ 299:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_draw_buf_t * aligned = lv_draw_buf_adjust_stride(decoded, stride_expect);
+ 300:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(aligned == NULL) {
+ 301:Lib/lvgl/src/draw/lv_image_decoder.c ****                 LV_LOG_ERROR("No memory for Stride adjust.");
+ 302:Lib/lvgl/src/draw/lv_image_decoder.c ****                 return NULL;
+ 303:Lib/lvgl/src/draw/lv_image_decoder.c ****             }
+ 304:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 305:Lib/lvgl/src/draw/lv_image_decoder.c ****             decoded = aligned;
+ 306:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 307:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 308:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 309:Lib/lvgl/src/draw/lv_image_decoder.c ****     /*Premultiply alpha channel*/
+ 310:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(args->premultiply
+ 311:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !LV_COLOR_FORMAT_IS_ALPHA_ONLY(decoded->header.cf)
+ 312:Lib/lvgl/src/draw/lv_image_decoder.c ****        && lv_color_format_has_alpha(decoded->header.cf)
+ 313:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_PREMULTIPLIED) /*Hasn't done yet*/
+ 314:Lib/lvgl/src/draw/lv_image_decoder.c ****       ) {
+ 315:Lib/lvgl/src/draw/lv_image_decoder.c ****         LV_LOG_TRACE("Alpha premultiply.");
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 7
+
+
+ 316:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_MODIFIABLE)) {
+ 317:Lib/lvgl/src/draw/lv_image_decoder.c ****             /*Do it directly*/
+ 318:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_draw_buf_premultiply(decoded);
+ 319:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 320:Lib/lvgl/src/draw/lv_image_decoder.c ****         else {
+ 321:Lib/lvgl/src/draw/lv_image_decoder.c ****             decoded = lv_draw_buf_dup(decoded);
+ 322:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(decoded == NULL) {
+ 323:Lib/lvgl/src/draw/lv_image_decoder.c ****                 LV_LOG_ERROR("No memory for premulitplying.");
+ 324:Lib/lvgl/src/draw/lv_image_decoder.c ****                 return NULL;
+ 325:Lib/lvgl/src/draw/lv_image_decoder.c ****             }
+ 326:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 327:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_draw_buf_premultiply(decoded);
+ 328:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 329:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 330:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 331:Lib/lvgl/src/draw/lv_image_decoder.c ****     return decoded;
+ 332:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 333:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 334:Lib/lvgl/src/draw/lv_image_decoder.c **** static uint32_t img_width_to_stride(lv_image_header_t * header)
+ 335:Lib/lvgl/src/draw/lv_image_decoder.c **** {
+  29              		.loc 1 335 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 335 1 is_stmt 0 view .LVU1
+  34 0000 0346     		mov	r3, r0
+ 336:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(header->cf == LV_COLOR_FORMAT_RGB565A8) {
+  35              		.loc 1 336 5 is_stmt 1 view .LVU2
+  36              		.loc 1 336 14 is_stmt 0 view .LVU3
+  37 0002 4078     		ldrb	r0, [r0, #1]	@ zero_extendqisi2
+  38              	.LVL1:
+  39              		.loc 1 336 7 view .LVU4
+  40 0004 1428     		cmp	r0, #20
+  41 0006 02D1     		bne	.L2
+ 337:Lib/lvgl/src/draw/lv_image_decoder.c ****         return header->w * 2;
+  42              		.loc 1 337 9 is_stmt 1 view .LVU5
+  43              		.loc 1 337 22 is_stmt 0 view .LVU6
+  44 0008 9888     		ldrh	r0, [r3, #4]
+  45              		.loc 1 337 26 view .LVU7
+  46 000a 4000     		lsls	r0, r0, #1
+ 338:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 339:Lib/lvgl/src/draw/lv_image_decoder.c ****     else {
+ 340:Lib/lvgl/src/draw/lv_image_decoder.c ****         return ((uint32_t)header->w * lv_color_format_get_bpp(header->cf) + 7) >> 3;
+ 341:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 342:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+  47              		.loc 1 342 1 view .LVU8
+  48 000c 7047     		bx	lr
+  49              	.L2:
+ 335:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(header->cf == LV_COLOR_FORMAT_RGB565A8) {
+  50              		.loc 1 335 1 view .LVU9
+  51 000e 10B5     		push	{r4, lr}
+  52              	.LCFI0:
+  53              		.cfi_def_cfa_offset 8
+  54              		.cfi_offset 4, -8
+  55              		.cfi_offset 14, -4
+ 340:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+  56              		.loc 1 340 9 is_stmt 1 view .LVU10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 8
+
+
+ 340:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+  57              		.loc 1 340 33 is_stmt 0 view .LVU11
+  58 0010 9C88     		ldrh	r4, [r3, #4]
+ 340:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+  59              		.loc 1 340 39 view .LVU12
+  60 0012 FFF7FEFF 		bl	lv_color_format_get_bpp
+  61              	.LVL2:
+ 340:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+  62              		.loc 1 340 37 view .LVU13
+  63 0016 04FB00F0 		mul	r0, r4, r0
+ 340:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+  64              		.loc 1 340 75 view .LVU14
+  65 001a 0730     		adds	r0, r0, #7
+ 340:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+  66              		.loc 1 340 80 view .LVU15
+  67 001c C008     		lsrs	r0, r0, #3
+  68              		.loc 1 342 1 view .LVU16
+  69 001e 10BD     		pop	{r4, pc}
+  70              		.cfi_endproc
+  71              	.LFE249:
+  73              		.section	.text._lv_image_decoder_init,"ax",%progbits
+  74              		.align	1
+  75              		.global	_lv_image_decoder_init
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  80              	_lv_image_decoder_init:
+  81              	.LFB234:
+  55:Lib/lvgl/src/draw/lv_image_decoder.c ****     _lv_ll_init(img_decoder_ll_p, sizeof(lv_image_decoder_t));
+  82              		.loc 1 55 1 is_stmt 1 view -0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86 0000 08B5     		push	{r3, lr}
+  87              	.LCFI1:
+  88              		.cfi_def_cfa_offset 8
+  89              		.cfi_offset 3, -8
+  90              		.cfi_offset 14, -4
+  56:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  91              		.loc 1 56 5 view .LVU18
+  92 0002 1821     		movs	r1, #24
+  93 0004 0148     		ldr	r0, .L9
+  94 0006 FFF7FEFF 		bl	_lv_ll_init
+  95              	.LVL3:
+  66:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+  96              		.loc 1 66 1 is_stmt 0 view .LVU19
+  97 000a 08BD     		pop	{r3, pc}
+  98              	.L10:
+  99              		.align	2
+ 100              	.L9:
+ 101 000c E8000000 		.word	lv_global+232
+ 102              		.cfi_endproc
+ 103              	.LFE234:
+ 105              		.section	.text._lv_image_decoder_deinit,"ax",%progbits
+ 106              		.align	1
+ 107              		.global	_lv_image_decoder_deinit
+ 108              		.syntax unified
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 9
+
+
+ 109              		.thumb
+ 110              		.thumb_func
+ 112              	_lv_image_decoder_deinit:
+ 113              	.LFB235:
+  72:Lib/lvgl/src/draw/lv_image_decoder.c **** #if LV_CACHE_DEF_SIZE > 0
+ 114              		.loc 1 72 1 is_stmt 1 view -0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118 0000 08B5     		push	{r3, lr}
+ 119              	.LCFI2:
+ 120              		.cfi_def_cfa_offset 8
+ 121              		.cfi_offset 3, -8
+ 122              		.cfi_offset 14, -4
+  76:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 123              		.loc 1 76 5 view .LVU21
+ 124              	.LVL4:
+ 125              	.LBB21:
+ 126              	.LBI21:
+ 127              		.file 2 "Lib/lvgl/src/draw/../draw/../misc/lv_ll.h"
+   1:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**
+   2:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @file lv_ll.h
+   3:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * Handle linked lists. The nodes are dynamically allocated by the 'lv_mem' module.
+   4:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  */
+   5:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+   6:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** #ifndef LV_LL_H
+   7:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** #define LV_LL_H
+   8:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+   9:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** extern "C" {
+  11:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** #endif
+  12:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  13:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /*********************
+  14:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  *********************/
+  16:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** #include <stdint.h>
+  17:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** #include <stddef.h>
+  18:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** #include <stdbool.h>
+  19:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  20:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /*********************
+  21:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  *      DEFINES
+  22:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  *********************/
+  23:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  24:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**********************
+  25:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  **********************/
+  27:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  28:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /** Dummy type to make handling easier*/
+  29:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** typedef uint8_t lv_ll_node_t;
+  30:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  31:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /** Description of a linked list*/
+  32:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** typedef struct {
+  33:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****     uint32_t n_size;
+  34:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****     lv_ll_node_t * head;
+  35:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****     lv_ll_node_t * tail;
+  36:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** } lv_ll_t;
+  37:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 10
+
+
+  38:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**********************
+  39:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * GLOBAL PROTOTYPES
+  40:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  **********************/
+  41:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  42:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**
+  43:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * Initialize linked list
+  44:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param ll_p pointer to lv_ll_t variable
+  45:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param node_size the size of 1 node in bytes
+  46:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  */
+  47:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** void _lv_ll_init(lv_ll_t * ll_p, uint32_t node_size);
+  48:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  49:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**
+  50:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * Add a new head to a linked list
+  51:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  52:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @return pointer to the new head
+  53:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  */
+  54:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** void * _lv_ll_ins_head(lv_ll_t * ll_p);
+  55:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  56:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**
+  57:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * Insert a new node in front of the n_act node
+  58:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  59:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param n_act pointer a node
+  60:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @return pointer to the new node
+  61:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  */
+  62:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** void * _lv_ll_ins_prev(lv_ll_t * ll_p, void * n_act);
+  63:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  64:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**
+  65:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * Add a new tail to a linked list
+  66:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  67:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @return pointer to the new tail
+  68:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  */
+  69:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** void * _lv_ll_ins_tail(lv_ll_t * ll_p);
+  70:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  71:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**
+  72:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * Remove the node 'node_p' from 'll_p' linked list.
+  73:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * It does not free the memory of node.
+  74:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param ll_p pointer to the linked list of 'node_p'
+  75:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param node_p pointer to node in 'll_p' linked list
+  76:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  */
+  77:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** void _lv_ll_remove(lv_ll_t * ll_p, void * node_p);
+  78:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  79:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** void _lv_ll_clear_custom(lv_ll_t * ll_p, void(*cleanup)(void *));
+  80:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
+  81:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**
+  82:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * Remove and free all elements from a linked list. The list remain valid but become empty.
+  83:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  84:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****  */
+  85:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** static inline void _lv_ll_clear(lv_ll_t * ll_p)
+ 128              		.loc 2 85 20 view .LVU22
+ 129              	.LBB22:
+  86:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** {
+  87:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****     _lv_ll_clear_custom(ll_p, NULL);
+ 130              		.loc 2 87 5 view .LVU23
+ 131 0002 0021     		movs	r1, #0
+ 132 0004 0148     		ldr	r0, .L13
+ 133              	.LVL5:
+ 134              		.loc 2 87 5 is_stmt 0 view .LVU24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 11
+
+
+ 135 0006 FFF7FEFF 		bl	_lv_ll_clear_custom
+ 136              	.LVL6:
+ 137              		.loc 2 87 5 view .LVU25
+ 138              	.LBE22:
+ 139              	.LBE21:
+  77:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 140              		.loc 1 77 1 view .LVU26
+ 141 000a 08BD     		pop	{r3, pc}
+ 142              	.L14:
+ 143              		.align	2
+ 144              	.L13:
+ 145 000c E8000000 		.word	lv_global+232
+ 146              		.cfi_endproc
+ 147              	.LFE235:
+ 149              		.section	.text.lv_image_decoder_get_info,"ax",%progbits
+ 150              		.align	1
+ 151              		.global	lv_image_decoder_get_info
+ 152              		.syntax unified
+ 153              		.thumb
+ 154              		.thumb_func
+ 156              	lv_image_decoder_get_info:
+ 157              	.LVL7:
+ 158              	.LFB236:
+  80:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_memzero(header, sizeof(lv_image_header_t));
+ 159              		.loc 1 80 1 is_stmt 1 view -0
+ 160              		.cfi_startproc
+ 161              		@ args = 0, pretend = 0, frame = 0
+ 162              		@ frame_needed = 0, uses_anonymous_args = 0
+  80:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_memzero(header, sizeof(lv_image_header_t));
+ 163              		.loc 1 80 1 is_stmt 0 view .LVU28
+ 164 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 165              	.LCFI3:
+ 166              		.cfi_def_cfa_offset 24
+ 167              		.cfi_offset 3, -24
+ 168              		.cfi_offset 4, -20
+ 169              		.cfi_offset 5, -16
+ 170              		.cfi_offset 6, -12
+ 171              		.cfi_offset 7, -8
+ 172              		.cfi_offset 14, -4
+ 173 0002 0646     		mov	r6, r0
+ 174 0004 0F46     		mov	r7, r1
+  81:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 175              		.loc 1 81 5 is_stmt 1 view .LVU29
+ 176              	.LVL8:
+ 177              	.LBB23:
+ 178              	.LBI23:
+ 179              		.file 3 "Lib/lvgl/src/draw/../stdlib/lv_string.h"
+   1:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /**
+   2:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @file lv_stringn.h
+   3:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  *
+   4:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  */
+   5:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+   6:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #ifndef LV_STRING_H
+   7:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #define LV_STRING_H
+   8:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+   9:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/../stdlib/lv_string.h **** extern "C" {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 12
+
+
+  11:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #endif
+  12:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+  13:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /*********************
+  14:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  *********************/
+  16:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #include "../lv_conf_internal.h"
+  17:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #include <stdint.h>
+  18:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #include <stddef.h>
+  19:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+  20:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /*********************
+  21:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  *      DEFINES
+  22:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  *********************/
+  23:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+  24:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /**********************
+  25:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  **********************/
+  27:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+  28:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /**********************
+  29:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * GLOBAL PROTOTYPES
+  30:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  **********************/
+  31:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+  32:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /**
+  33:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @brief Copies a block of memory from a source address to a destination address.
+  34:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  35:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  36:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy.
+  37:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  38:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @note The function does not check for any overlapping of the source and destination memory block
+  39:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  */
+  40:Lib/lvgl/src/draw/../stdlib/lv_string.h **** void * lv_memcpy(void * dst, const void * src, size_t len);
+  41:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+  42:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /**
+  43:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @brief Fills a block of memory with a specified value.
+  44:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array to fill with the specified value.
+  45:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param v Value to be set. The value is passed as an int, but the function fills
+  46:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
+  47:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param len Number of bytes to be set to the value.
+  48:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  */
+  49:Lib/lvgl/src/draw/../stdlib/lv_string.h **** void lv_memset(void * dst, uint8_t v, size_t len);
+  50:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+  51:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /**
+  52:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @brief Move a block of memory from source to destination
+  53:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
+  54:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param src Pointer to the source of data to be copied.
+  55:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param len Number of bytes to copy
+  56:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @return Pointer to the destination array.
+  57:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  */
+  58:Lib/lvgl/src/draw/../stdlib/lv_string.h **** void * lv_memmove(void * dst, const void * src, size_t len);
+  59:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
+  60:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /**
+  61:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * Same as `memset(dst, 0x00, len)`.
+  62:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param dst pointer to the destination buffer
+  63:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  * @param len number of byte to set
+  64:Lib/lvgl/src/draw/../stdlib/lv_string.h ****  */
+  65:Lib/lvgl/src/draw/../stdlib/lv_string.h **** static inline void lv_memzero(void * dst, size_t len)
+ 180              		.loc 3 65 20 view .LVU30
+ 181              	.LBB24:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 13
+
+
+  66:Lib/lvgl/src/draw/../stdlib/lv_string.h **** {
+  67:Lib/lvgl/src/draw/../stdlib/lv_string.h ****     lv_memset(dst, 0x00, len);
+ 182              		.loc 3 67 5 view .LVU31
+ 183 0006 0C22     		movs	r2, #12
+ 184 0008 0021     		movs	r1, #0
+ 185              	.LVL9:
+ 186              		.loc 3 67 5 is_stmt 0 view .LVU32
+ 187 000a 3846     		mov	r0, r7
+ 188              	.LVL10:
+ 189              		.loc 3 67 5 view .LVU33
+ 190 000c FFF7FEFF 		bl	lv_memset
+ 191              	.LVL11:
+ 192              		.loc 3 67 5 view .LVU34
+ 193              	.LBE24:
+ 194              	.LBE23:
+  83:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 195              		.loc 1 83 5 is_stmt 1 view .LVU35
+  83:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 196              		.loc 1 83 7 is_stmt 0 view .LVU36
+ 197 0010 1EB3     		cbz	r6, .L21
+  85:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src_type == LV_IMAGE_SRC_VARIABLE) {
+ 198              		.loc 1 85 5 is_stmt 1 view .LVU37
+  85:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src_type == LV_IMAGE_SRC_VARIABLE) {
+ 199              		.loc 1 85 31 is_stmt 0 view .LVU38
+ 200 0012 3046     		mov	r0, r6
+ 201 0014 FFF7FEFF 		bl	lv_image_src_get_type
+ 202              	.LVL12:
+  86:Lib/lvgl/src/draw/lv_image_decoder.c ****         const lv_image_dsc_t * img_dsc = src;
+ 203              		.loc 1 86 5 is_stmt 1 view .LVU39
+  86:Lib/lvgl/src/draw/lv_image_decoder.c ****         const lv_image_dsc_t * img_dsc = src;
+ 204              		.loc 1 86 7 is_stmt 0 view .LVU40
+ 205 0018 0546     		mov	r5, r0
+ 206 001a 08B9     		cbnz	r0, .L17
+ 207              	.LBB25:
+  87:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(img_dsc->data == NULL) return LV_RESULT_INVALID;
+ 208              		.loc 1 87 9 is_stmt 1 view .LVU41
+ 209              	.LVL13:
+  88:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 210              		.loc 1 88 9 view .LVU42
+  88:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 211              		.loc 1 88 19 is_stmt 0 view .LVU43
+ 212 001c 3369     		ldr	r3, [r6, #16]
+  88:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 213              		.loc 1 88 11 view .LVU44
+ 214 001e EBB1     		cbz	r3, .L16
+ 215              	.LVL14:
+ 216              	.L17:
+  88:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 217              		.loc 1 88 11 view .LVU45
+ 218              	.LBE25:
+  91:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_t * decoder;
+ 219              		.loc 1 91 5 is_stmt 1 view .LVU46
+  92:Lib/lvgl/src/draw/lv_image_decoder.c ****     _LV_LL_READ(img_decoder_ll_p, decoder) {
+ 220              		.loc 1 92 5 view .LVU47
+  93:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoder->info_cb) {
+ 221              		.loc 1 93 5 view .LVU48
+ 222 0020 0F48     		ldr	r0, .L23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 14
+
+
+ 223              	.LVL15:
+  93:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoder->info_cb) {
+ 224              		.loc 1 93 5 is_stmt 0 view .LVU49
+ 225 0022 FFF7FEFF 		bl	_lv_ll_get_head
+ 226              	.LVL16:
+ 227 0026 0446     		mov	r4, r0
+ 228              	.LVL17:
+  91:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_t * decoder;
+ 229              		.loc 1 91 17 view .LVU50
+ 230 0028 0025     		movs	r5, #0
+  93:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoder->info_cb) {
+ 231              		.loc 1 93 5 view .LVU51
+ 232 002a 04E0     		b	.L18
+ 233              	.LVL18:
+ 234              	.L19:
+  93:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoder->info_cb) {
+ 235              		.loc 1 93 5 is_stmt 1 discriminator 2 view .LVU52
+ 236 002c 2146     		mov	r1, r4
+ 237 002e 0C48     		ldr	r0, .L23
+ 238 0030 FFF7FEFF 		bl	_lv_ll_get_next
+ 239              	.LVL19:
+ 240 0034 0446     		mov	r4, r0
+ 241              	.LVL20:
+ 242              	.L18:
+  93:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoder->info_cb) {
+ 243              		.loc 1 93 5 discriminator 1 view .LVU53
+ 244 0036 8CB1     		cbz	r4, .L16
+  94:Lib/lvgl/src/draw/lv_image_decoder.c ****             res = decoder->info_cb(decoder, src, header);
+ 245              		.loc 1 94 9 view .LVU54
+  94:Lib/lvgl/src/draw/lv_image_decoder.c ****             res = decoder->info_cb(decoder, src, header);
+ 246              		.loc 1 94 19 is_stmt 0 view .LVU55
+ 247 0038 2368     		ldr	r3, [r4]
+  94:Lib/lvgl/src/draw/lv_image_decoder.c ****             res = decoder->info_cb(decoder, src, header);
+ 248              		.loc 1 94 11 view .LVU56
+ 249 003a 002B     		cmp	r3, #0
+ 250 003c F6D0     		beq	.L19
+  95:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(res == LV_RESULT_OK) {
+ 251              		.loc 1 95 13 is_stmt 1 view .LVU57
+  95:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(res == LV_RESULT_OK) {
+ 252              		.loc 1 95 19 is_stmt 0 view .LVU58
+ 253 003e 3A46     		mov	r2, r7
+ 254 0040 3146     		mov	r1, r6
+ 255 0042 2046     		mov	r0, r4
+  95:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(res == LV_RESULT_OK) {
+ 256              		.loc 1 95 19 view .LVU59
+ 257 0044 9847     		blx	r3
+ 258              	.LVL21:
+  95:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(res == LV_RESULT_OK) {
+ 259              		.loc 1 95 19 view .LVU60
+ 260 0046 0546     		mov	r5, r0
+ 261              	.LVL22:
+  96:Lib/lvgl/src/draw/lv_image_decoder.c ****                 if(header->stride == 0) header->stride = img_width_to_stride(header);
+ 262              		.loc 1 96 13 is_stmt 1 view .LVU61
+  96:Lib/lvgl/src/draw/lv_image_decoder.c ****                 if(header->stride == 0) header->stride = img_width_to_stride(header);
+ 263              		.loc 1 96 15 is_stmt 0 view .LVU62
+ 264 0048 0128     		cmp	r0, #1
+ 265 004a EFD1     		bne	.L19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 15
+
+
+  97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
+ 266              		.loc 1 97 17 is_stmt 1 view .LVU63
+  97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
+ 267              		.loc 1 97 26 is_stmt 0 view .LVU64
+ 268 004c 3B89     		ldrh	r3, [r7, #8]
+  97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
+ 269              		.loc 1 97 19 view .LVU65
+ 270 004e 2BB9     		cbnz	r3, .L16
+  97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
+ 271              		.loc 1 97 41 is_stmt 1 discriminator 1 view .LVU66
+  97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
+ 272              		.loc 1 97 58 is_stmt 0 discriminator 1 view .LVU67
+ 273 0050 3846     		mov	r0, r7
+ 274              	.LVL23:
+  97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
+ 275              		.loc 1 97 58 discriminator 1 view .LVU68
+ 276 0052 FFF7FEFF 		bl	img_width_to_stride
+ 277              	.LVL24:
+  97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
+ 278              		.loc 1 97 56 discriminator 1 view .LVU69
+ 279 0056 3881     		strh	r0, [r7, #8]	@ movhi
+ 280 0058 00E0     		b	.L16
+ 281              	.LVL25:
+ 282              	.L21:
+  83:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 283              		.loc 1 83 28 view .LVU70
+ 284 005a 0025     		movs	r5, #0
+ 285              	.L16:
+ 104:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 286              		.loc 1 104 1 view .LVU71
+ 287 005c 2846     		mov	r0, r5
+ 288 005e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 289              	.LVL26:
+ 290              	.L24:
+ 104:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 291              		.loc 1 104 1 view .LVU72
+ 292              		.align	2
+ 293              	.L23:
+ 294 0060 E8000000 		.word	lv_global+232
+ 295              		.cfi_endproc
+ 296              	.LFE236:
+ 298              		.section	.text.lv_image_decoder_open,"ax",%progbits
+ 299              		.align	1
+ 300              		.global	lv_image_decoder_open
+ 301              		.syntax unified
+ 302              		.thumb
+ 303              		.thumb_func
+ 305              	lv_image_decoder_open:
+ 306              	.LVL27:
+ 307              	.LFB237:
+ 107:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_memzero(dsc, sizeof(lv_image_decoder_dsc_t));
+ 308              		.loc 1 107 1 is_stmt 1 view -0
+ 309              		.cfi_startproc
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_memzero(dsc, sizeof(lv_image_decoder_dsc_t));
+ 312              		.loc 1 107 1 is_stmt 0 view .LVU74
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 16
+
+
+ 313 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 314              	.LCFI4:
+ 315              		.cfi_def_cfa_offset 32
+ 316              		.cfi_offset 3, -32
+ 317              		.cfi_offset 4, -28
+ 318              		.cfi_offset 5, -24
+ 319              		.cfi_offset 6, -20
+ 320              		.cfi_offset 7, -16
+ 321              		.cfi_offset 8, -12
+ 322              		.cfi_offset 9, -8
+ 323              		.cfi_offset 14, -4
+ 324 0004 0646     		mov	r6, r0
+ 325 0006 0F46     		mov	r7, r1
+ 326 0008 9046     		mov	r8, r2
+ 108:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 327              		.loc 1 108 5 is_stmt 1 view .LVU75
+ 328              	.LVL28:
+ 329              	.LBB26:
+ 330              	.LBI26:
+  65:Lib/lvgl/src/draw/../stdlib/lv_string.h **** {
+ 331              		.loc 3 65 20 view .LVU76
+ 332              	.LBB27:
+ 333              		.loc 3 67 5 view .LVU77
+ 334 000a 3C22     		movs	r2, #60
+ 335              	.LVL29:
+ 336              		.loc 3 67 5 is_stmt 0 view .LVU78
+ 337 000c 0021     		movs	r1, #0
+ 338              	.LVL30:
+ 339              		.loc 3 67 5 view .LVU79
+ 340 000e FFF7FEFF 		bl	lv_memset
+ 341              	.LVL31:
+ 342              		.loc 3 67 5 view .LVU80
+ 343              	.LBE27:
+ 344              	.LBE26:
+ 110:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_src_t src_type = lv_image_src_get_type(src);
+ 345              		.loc 1 110 5 is_stmt 1 view .LVU81
+ 110:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_src_t src_type = lv_image_src_get_type(src);
+ 346              		.loc 1 110 7 is_stmt 0 view .LVU82
+ 347 0012 002F     		cmp	r7, #0
+ 348 0014 62D0     		beq	.L38
+ 111:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src_type == LV_IMAGE_SRC_VARIABLE) {
+ 349              		.loc 1 111 5 is_stmt 1 view .LVU83
+ 111:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src_type == LV_IMAGE_SRC_VARIABLE) {
+ 350              		.loc 1 111 31 is_stmt 0 view .LVU84
+ 351 0016 3846     		mov	r0, r7
+ 352 0018 FFF7FEFF 		bl	lv_image_src_get_type
+ 353              	.LVL32:
+ 112:Lib/lvgl/src/draw/lv_image_decoder.c ****         const lv_image_dsc_t * img_dsc = src;
+ 354              		.loc 1 112 5 is_stmt 1 view .LVU85
+ 112:Lib/lvgl/src/draw/lv_image_decoder.c ****         const lv_image_dsc_t * img_dsc = src;
+ 355              		.loc 1 112 7 is_stmt 0 view .LVU86
+ 356 001c 0546     		mov	r5, r0
+ 357 001e 10B9     		cbnz	r0, .L27
+ 358              	.LBB28:
+ 113:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(img_dsc->data == NULL) return LV_RESULT_INVALID;
+ 359              		.loc 1 113 9 is_stmt 1 view .LVU87
+ 360              	.LVL33:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 17
+
+
+ 114:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 361              		.loc 1 114 9 view .LVU88
+ 114:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 362              		.loc 1 114 19 is_stmt 0 view .LVU89
+ 363 0020 3B69     		ldr	r3, [r7, #16]
+ 114:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 364              		.loc 1 114 11 view .LVU90
+ 365 0022 002B     		cmp	r3, #0
+ 366 0024 53D0     		beq	.L26
+ 367              	.LVL34:
+ 368              	.L27:
+ 114:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 369              		.loc 1 114 11 view .LVU91
+ 370              	.LBE28:
+ 117:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 371              		.loc 1 117 5 is_stmt 1 view .LVU92
+ 117:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 372              		.loc 1 117 19 is_stmt 0 view .LVU93
+ 373 0026 3573     		strb	r5, [r6, #12]
+ 119:Lib/lvgl/src/draw/lv_image_decoder.c ****         size_t fnlen = lv_strlen(src);
+ 374              		.loc 1 119 5 is_stmt 1 view .LVU94
+ 119:Lib/lvgl/src/draw/lv_image_decoder.c ****         size_t fnlen = lv_strlen(src);
+ 375              		.loc 1 119 7 is_stmt 0 view .LVU95
+ 376 0028 012D     		cmp	r5, #1
+ 377 002a 0CD0     		beq	.L40
+ 130:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 378              		.loc 1 130 9 is_stmt 1 view .LVU96
+ 130:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 379              		.loc 1 130 18 is_stmt 0 view .LVU97
+ 380 002c B760     		str	r7, [r6, #8]
+ 381              	.LVL35:
+ 382              	.L31:
+ 133:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 383              		.loc 1 133 5 is_stmt 1 view .LVU98
+ 135:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_args_t * args_copy = NULL;
+ 384              		.loc 1 135 5 view .LVU99
+ 136:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 385              		.loc 1 136 5 view .LVU100
+ 138:Lib/lvgl/src/draw/lv_image_decoder.c ****         .stride_align = LV_DRAW_BUF_STRIDE_ALIGN != 1,
+ 386              		.loc 1 138 5 view .LVU101
+ 146:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 387              		.loc 1 146 5 view .LVU102
+ 146:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 388              		.loc 1 146 30 is_stmt 0 view .LVU103
+ 389 002e B8F1000F 		cmp	r8, #0
+ 390 0032 15D0     		beq	.L32
+ 146:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 391              		.loc 1 146 15 discriminator 1 view .LVU104
+ 392 0034 D8F80000 		ldr	r0, [r8]	@ unaligned
+ 393 0038 7060     		str	r0, [r6, #4]
+ 394              	.L33:
+ 148:Lib/lvgl/src/draw/lv_image_decoder.c ****         /*Info and Open callbacks are required*/
+ 395              		.loc 1 148 5 is_stmt 1 view .LVU105
+ 396 003a 2948     		ldr	r0, .L43
+ 397 003c FFF7FEFF 		bl	_lv_ll_get_head
+ 398              	.LVL36:
+ 399 0040 0446     		mov	r4, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 18
+
+
+ 400              	.LVL37:
+ 133:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 401              		.loc 1 133 17 is_stmt 0 view .LVU106
+ 402 0042 0025     		movs	r5, #0
+ 148:Lib/lvgl/src/draw/lv_image_decoder.c ****         /*Info and Open callbacks are required*/
+ 403              		.loc 1 148 5 view .LVU107
+ 404 0044 28E0     		b	.L34
+ 405              	.LVL38:
+ 406              	.L40:
+ 407              	.LBB29:
+ 120:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->src = lv_malloc(fnlen + 1);
+ 408              		.loc 1 120 9 is_stmt 1 view .LVU108
+ 120:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->src = lv_malloc(fnlen + 1);
+ 409              		.loc 1 120 24 is_stmt 0 view .LVU109
+ 410 0046 3846     		mov	r0, r7
+ 411              	.LVL39:
+ 120:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->src = lv_malloc(fnlen + 1);
+ 412              		.loc 1 120 24 view .LVU110
+ 413 0048 FFF7FEFF 		bl	lv_strlen
+ 414              	.LVL40:
+ 121:Lib/lvgl/src/draw/lv_image_decoder.c ****         LV_ASSERT_MALLOC(dsc->src);
+ 415              		.loc 1 121 9 is_stmt 1 view .LVU111
+ 121:Lib/lvgl/src/draw/lv_image_decoder.c ****         LV_ASSERT_MALLOC(dsc->src);
+ 416              		.loc 1 121 20 is_stmt 0 view .LVU112
+ 417 004c 0130     		adds	r0, r0, #1
+ 418              	.LVL41:
+ 121:Lib/lvgl/src/draw/lv_image_decoder.c ****         LV_ASSERT_MALLOC(dsc->src);
+ 419              		.loc 1 121 20 view .LVU113
+ 420 004e FFF7FEFF 		bl	lv_malloc
+ 421              	.LVL42:
+ 121:Lib/lvgl/src/draw/lv_image_decoder.c ****         LV_ASSERT_MALLOC(dsc->src);
+ 422              		.loc 1 121 18 view .LVU114
+ 423 0052 B060     		str	r0, [r6, #8]
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 424              		.loc 1 122 9 is_stmt 1 view .LVU115
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 425              		.loc 1 122 9 view .LVU116
+ 426 0054 18B1     		cbz	r0, .L30
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 427              		.loc 1 122 9 view .LVU117
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 428              		.loc 1 122 35 view .LVU118
+ 123:Lib/lvgl/src/draw/lv_image_decoder.c ****             LV_LOG_WARN("Out of memory");
+ 429              		.loc 1 123 9 view .LVU119
+ 127:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 430              		.loc 1 127 9 view .LVU120
+ 431 0056 3946     		mov	r1, r7
+ 432 0058 FFF7FEFF 		bl	lv_strcpy
+ 433              	.LVL43:
+ 434              	.LBE29:
+ 435 005c E7E7     		b	.L31
+ 436              	.L30:
+ 437              	.LBB30:
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 438              		.loc 1 122 9 discriminator 1 view .LVU121
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 439              		.loc 1 122 9 discriminator 1 view .LVU122
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 19
+
+
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 440              		.loc 1 122 9 discriminator 1 view .LVU123
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 441              		.loc 1 122 9 discriminator 1 view .LVU124
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 442              		.loc 1 122 9 discriminator 1 view .LVU125
+ 443 005e FEE7     		b	.L30
+ 444              	.LVL44:
+ 445              	.L32:
+ 122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
+ 446              		.loc 1 122 9 is_stmt 0 discriminator 1 view .LVU126
+ 447              	.LBE30:
+ 146:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 448              		.loc 1 146 15 discriminator 2 view .LVU127
+ 449 0060 0023     		movs	r3, #0
+ 450 0062 7360     		str	r3, [r6, #4]
+ 451 0064 E9E7     		b	.L33
+ 452              	.LVL45:
+ 453              	.L36:
+ 157:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 454              		.loc 1 157 9 is_stmt 1 view .LVU128
+ 157:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 455              		.loc 1 157 22 is_stmt 0 view .LVU129
+ 456 0066 3460     		str	r4, [r6]
+ 166:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 457              		.loc 1 166 9 is_stmt 1 view .LVU130
+ 166:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 458              		.loc 1 166 22 is_stmt 0 view .LVU131
+ 459 0068 6368     		ldr	r3, [r4, #4]
+ 166:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 460              		.loc 1 166 15 view .LVU132
+ 461 006a 4246     		mov	r2, r8
+ 462 006c 3146     		mov	r1, r6
+ 463 006e 2046     		mov	r0, r4
+ 464 0070 9847     		blx	r3
+ 465              	.LVL46:
+ 466 0072 0546     		mov	r5, r0
+ 467              	.LVL47:
+ 169:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 468              		.loc 1 169 9 is_stmt 1 view .LVU133
+ 169:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 469              		.loc 1 169 11 is_stmt 0 view .LVU134
+ 470 0074 0128     		cmp	r0, #1
+ 471 0076 2AD0     		beq	.L26
+ 172:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 472              		.loc 1 172 9 is_stmt 1 view .LVU135
+ 473              	.LVL48:
+ 474              	.LBB31:
+ 475              	.LBI31:
+  65:Lib/lvgl/src/draw/../stdlib/lv_string.h **** {
+ 476              		.loc 3 65 20 view .LVU136
+ 477              	.LBB32:
+ 478              		.loc 3 67 5 view .LVU137
+ 479 0078 0C22     		movs	r2, #12
+ 480 007a 0021     		movs	r1, #0
+ 481 007c 4846     		mov	r0, r9
+ 482              	.LVL49:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 20
+
+
+ 483              		.loc 3 67 5 is_stmt 0 view .LVU138
+ 484 007e FFF7FEFF 		bl	lv_memset
+ 485              	.LVL50:
+ 486              		.loc 3 67 5 view .LVU139
+ 487              	.LBE32:
+ 488              	.LBE31:
+ 174:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->decoded  = NULL;
+ 489              		.loc 1 174 9 is_stmt 1 view .LVU140
+ 174:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->decoded  = NULL;
+ 490              		.loc 1 174 24 is_stmt 0 view .LVU141
+ 491 0082 0023     		movs	r3, #0
+ 492 0084 F362     		str	r3, [r6, #44]
+ 175:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->cache_entry = NULL;
+ 493              		.loc 1 175 9 is_stmt 1 view .LVU142
+ 175:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->cache_entry = NULL;
+ 494              		.loc 1 175 23 is_stmt 0 view .LVU143
+ 495 0086 F361     		str	r3, [r6, #28]
+ 176:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->user_data = NULL;
+ 496              		.loc 1 176 9 is_stmt 1 view .LVU144
+ 176:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->user_data = NULL;
+ 497              		.loc 1 176 26 is_stmt 0 view .LVU145
+ 498 0088 7363     		str	r3, [r6, #52]
+ 177:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->time_to_open = 0;
+ 499              		.loc 1 177 9 is_stmt 1 view .LVU146
+ 177:Lib/lvgl/src/draw/lv_image_decoder.c ****         dsc->time_to_open = 0;
+ 500              		.loc 1 177 24 is_stmt 0 view .LVU147
+ 501 008a B363     		str	r3, [r6, #56]
+ 178:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 502              		.loc 1 178 9 is_stmt 1 view .LVU148
+ 178:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
+ 503              		.loc 1 178 27 is_stmt 0 view .LVU149
+ 504 008c B362     		str	r3, [r6, #40]
+ 505              	.LVL51:
+ 506              	.L35:
+ 148:Lib/lvgl/src/draw/lv_image_decoder.c ****         /*Info and Open callbacks are required*/
+ 507              		.loc 1 148 5 is_stmt 1 discriminator 2 view .LVU150
+ 508 008e 2146     		mov	r1, r4
+ 509 0090 1348     		ldr	r0, .L43
+ 510 0092 FFF7FEFF 		bl	_lv_ll_get_next
+ 511              	.LVL52:
+ 512 0096 0446     		mov	r4, r0
+ 513              	.LVL53:
+ 514              	.L34:
+ 148:Lib/lvgl/src/draw/lv_image_decoder.c ****         /*Info and Open callbacks are required*/
+ 515              		.loc 1 148 5 discriminator 1 view .LVU151
+ 516 0098 B4B1     		cbz	r4, .L41
+ 150:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 517              		.loc 1 150 9 view .LVU152
+ 150:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 518              		.loc 1 150 19 is_stmt 0 view .LVU153
+ 519 009a 2368     		ldr	r3, [r4]
+ 150:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 520              		.loc 1 150 11 view .LVU154
+ 521 009c 002B     		cmp	r3, #0
+ 522 009e F6D0     		beq	.L35
+ 150:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 523              		.loc 1 150 47 discriminator 2 view .LVU155
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 21
+
+
+ 524 00a0 6268     		ldr	r2, [r4, #4]
+ 150:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 525              		.loc 1 150 37 discriminator 2 view .LVU156
+ 526 00a2 002A     		cmp	r2, #0
+ 527 00a4 F3D0     		beq	.L35
+ 152:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(res != LV_RESULT_OK) continue;
+ 528              		.loc 1 152 9 is_stmt 1 view .LVU157
+ 152:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(res != LV_RESULT_OK) continue;
+ 529              		.loc 1 152 15 is_stmt 0 view .LVU158
+ 530 00a6 06F11009 		add	r9, r6, #16
+ 531 00aa 4A46     		mov	r2, r9
+ 532 00ac 3946     		mov	r1, r7
+ 533 00ae 2046     		mov	r0, r4
+ 152:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(res != LV_RESULT_OK) continue;
+ 534              		.loc 1 152 15 view .LVU159
+ 535 00b0 9847     		blx	r3
+ 536              	.LVL54:
+ 152:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(res != LV_RESULT_OK) continue;
+ 537              		.loc 1 152 15 view .LVU160
+ 538 00b2 0546     		mov	r5, r0
+ 539              	.LVL55:
+ 153:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 540              		.loc 1 153 9 is_stmt 1 view .LVU161
+ 153:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 541              		.loc 1 153 11 is_stmt 0 view .LVU162
+ 542 00b4 0128     		cmp	r0, #1
+ 543 00b6 EAD1     		bne	.L35
+ 155:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 544              		.loc 1 155 9 is_stmt 1 view .LVU163
+ 155:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 545              		.loc 1 155 23 is_stmt 0 view .LVU164
+ 546 00b8 338B     		ldrh	r3, [r6, #24]
+ 155:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 547              		.loc 1 155 11 view .LVU165
+ 548 00ba 002B     		cmp	r3, #0
+ 549 00bc D3D1     		bne	.L36
+ 155:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 550              		.loc 1 155 37 is_stmt 1 discriminator 1 view .LVU166
+ 155:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 551              		.loc 1 155 58 is_stmt 0 discriminator 1 view .LVU167
+ 552 00be 4846     		mov	r0, r9
+ 553              	.LVL56:
+ 155:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 554              		.loc 1 155 58 discriminator 1 view .LVU168
+ 555 00c0 FFF7FEFF 		bl	img_width_to_stride
+ 556              	.LVL57:
+ 155:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 557              		.loc 1 155 56 discriminator 1 view .LVU169
+ 558 00c4 3083     		strh	r0, [r6, #24]	@ movhi
+ 559 00c6 CEE7     		b	.L36
+ 560              	.LVL58:
+ 561              	.L41:
+ 181:Lib/lvgl/src/draw/lv_image_decoder.c ****         lv_free((void *)dsc->src);
+ 562              		.loc 1 181 5 is_stmt 1 view .LVU170
+ 181:Lib/lvgl/src/draw/lv_image_decoder.c ****         lv_free((void *)dsc->src);
+ 563              		.loc 1 181 11 is_stmt 0 view .LVU171
+ 564 00c8 337B     		ldrb	r3, [r6, #12]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 22
+
+
+ 181:Lib/lvgl/src/draw/lv_image_decoder.c ****         lv_free((void *)dsc->src);
+ 565              		.loc 1 181 7 view .LVU172
+ 566 00ca 012B     		cmp	r3, #1
+ 567 00cc 02D0     		beq	.L42
+ 568              	.LVL59:
+ 569              	.L26:
+ 187:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 570              		.loc 1 187 1 view .LVU173
+ 571 00ce 2846     		mov	r0, r5
+ 572 00d0 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 573              	.LVL60:
+ 574              	.L42:
+ 182:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 575              		.loc 1 182 9 is_stmt 1 view .LVU174
+ 576 00d4 B068     		ldr	r0, [r6, #8]
+ 577              	.LVL61:
+ 182:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 578              		.loc 1 182 9 is_stmt 0 view .LVU175
+ 579 00d6 FFF7FEFF 		bl	lv_free
+ 580              	.LVL62:
+ 581 00da F8E7     		b	.L26
+ 582              	.LVL63:
+ 583              	.L38:
+ 110:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_src_t src_type = lv_image_src_get_type(src);
+ 584              		.loc 1 110 28 view .LVU176
+ 585 00dc 0025     		movs	r5, #0
+ 586 00de F6E7     		b	.L26
+ 587              	.L44:
+ 588              		.align	2
+ 589              	.L43:
+ 590 00e0 E8000000 		.word	lv_global+232
+ 591              		.cfi_endproc
+ 592              	.LFE237:
+ 594              		.section	.text.lv_image_decoder_get_area,"ax",%progbits
+ 595              		.align	1
+ 596              		.global	lv_image_decoder_get_area
+ 597              		.syntax unified
+ 598              		.thumb
+ 599              		.thumb_func
+ 601              	lv_image_decoder_get_area:
+ 602              	.LVL64:
+ 603              	.LFB238:
+ 191:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_result_t res = LV_RESULT_INVALID;
+ 604              		.loc 1 191 1 is_stmt 1 view -0
+ 605              		.cfi_startproc
+ 606              		@ args = 0, pretend = 0, frame = 0
+ 607              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_result_t res = LV_RESULT_INVALID;
+ 608              		.loc 1 191 1 is_stmt 0 view .LVU178
+ 609 0000 10B5     		push	{r4, lr}
+ 610              	.LCFI5:
+ 611              		.cfi_def_cfa_offset 8
+ 612              		.cfi_offset 4, -8
+ 613              		.cfi_offset 14, -4
+ 614 0002 8446     		mov	ip, r0
+ 192:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder->get_area_cb) res = dsc->decoder->get_area_cb(dsc->decoder, dsc, full_area, dec
+ 615              		.loc 1 192 5 is_stmt 1 view .LVU179
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 23
+
+
+ 616              	.LVL65:
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 617              		.loc 1 193 5 view .LVU180
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 618              		.loc 1 193 11 is_stmt 0 view .LVU181
+ 619 0004 0068     		ldr	r0, [r0]
+ 620              	.LVL66:
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 621              		.loc 1 193 20 view .LVU182
+ 622 0006 8468     		ldr	r4, [r0, #8]
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 623              		.loc 1 193 7 view .LVU183
+ 624 0008 24B1     		cbz	r4, .L47
+ 625 000a 1346     		mov	r3, r2
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 626              		.loc 1 193 35 is_stmt 1 discriminator 1 view .LVU184
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 627              		.loc 1 193 41 is_stmt 0 discriminator 1 view .LVU185
+ 628 000c 0A46     		mov	r2, r1
+ 629              	.LVL67:
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 630              		.loc 1 193 41 discriminator 1 view .LVU186
+ 631 000e 6146     		mov	r1, ip
+ 632              	.LVL68:
+ 193:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 633              		.loc 1 193 41 discriminator 1 view .LVU187
+ 634 0010 A047     		blx	r4
+ 635              	.LVL69:
+ 636              	.L46:
+ 195:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 637              		.loc 1 195 5 is_stmt 1 view .LVU188
+ 196:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 638              		.loc 1 196 1 is_stmt 0 view .LVU189
+ 639 0012 10BD     		pop	{r4, pc}
+ 640              	.LVL70:
+ 641              	.L47:
+ 192:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder->get_area_cb) res = dsc->decoder->get_area_cb(dsc->decoder, dsc, full_area, dec
+ 642              		.loc 1 192 17 view .LVU190
+ 643 0014 0020     		movs	r0, #0
+ 644 0016 FCE7     		b	.L46
+ 645              		.cfi_endproc
+ 646              	.LFE238:
+ 648              		.section	.text.lv_image_decoder_close,"ax",%progbits
+ 649              		.align	1
+ 650              		.global	lv_image_decoder_close
+ 651              		.syntax unified
+ 652              		.thumb
+ 653              		.thumb_func
+ 655              	lv_image_decoder_close:
+ 656              	.LVL71:
+ 657              	.LFB239:
+ 199:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder) {
+ 658              		.loc 1 199 1 is_stmt 1 view -0
+ 659              		.cfi_startproc
+ 660              		@ args = 0, pretend = 0, frame = 0
+ 661              		@ frame_needed = 0, uses_anonymous_args = 0
+ 199:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 24
+
+
+ 662              		.loc 1 199 1 is_stmt 0 view .LVU192
+ 663 0000 10B5     		push	{r4, lr}
+ 664              	.LCFI6:
+ 665              		.cfi_def_cfa_offset 8
+ 666              		.cfi_offset 4, -8
+ 667              		.cfi_offset 14, -4
+ 668 0002 0446     		mov	r4, r0
+ 200:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->decoder->close_cb) dsc->decoder->close_cb(dsc->decoder, dsc);
+ 669              		.loc 1 200 5 is_stmt 1 view .LVU193
+ 200:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->decoder->close_cb) dsc->decoder->close_cb(dsc->decoder, dsc);
+ 670              		.loc 1 200 11 is_stmt 0 view .LVU194
+ 671 0004 0068     		ldr	r0, [r0]
+ 672              	.LVL72:
+ 200:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->decoder->close_cb) dsc->decoder->close_cb(dsc->decoder, dsc);
+ 673              		.loc 1 200 7 view .LVU195
+ 674 0006 30B1     		cbz	r0, .L49
+ 201:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 675              		.loc 1 201 9 is_stmt 1 view .LVU196
+ 201:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 676              		.loc 1 201 24 is_stmt 0 view .LVU197
+ 677 0008 C368     		ldr	r3, [r0, #12]
+ 201:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 678              		.loc 1 201 11 view .LVU198
+ 679 000a 0BB1     		cbz	r3, .L51
+ 201:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 680              		.loc 1 201 36 is_stmt 1 discriminator 1 view .LVU199
+ 681 000c 2146     		mov	r1, r4
+ 682 000e 9847     		blx	r3
+ 683              	.LVL73:
+ 684              	.L51:
+ 203:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_free((void *)dsc->src);
+ 685              		.loc 1 203 9 view .LVU200
+ 203:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_free((void *)dsc->src);
+ 686              		.loc 1 203 15 is_stmt 0 view .LVU201
+ 687 0010 237B     		ldrb	r3, [r4, #12]	@ zero_extendqisi2
+ 203:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_free((void *)dsc->src);
+ 688              		.loc 1 203 11 view .LVU202
+ 689 0012 012B     		cmp	r3, #1
+ 690 0014 00D0     		beq	.L53
+ 691              	.L49:
+ 208:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 692              		.loc 1 208 1 view .LVU203
+ 693 0016 10BD     		pop	{r4, pc}
+ 694              	.LVL74:
+ 695              	.L53:
+ 204:Lib/lvgl/src/draw/lv_image_decoder.c ****             dsc->src = NULL;
+ 696              		.loc 1 204 13 is_stmt 1 view .LVU204
+ 697 0018 A068     		ldr	r0, [r4, #8]
+ 698 001a FFF7FEFF 		bl	lv_free
+ 699              	.LVL75:
+ 205:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 700              		.loc 1 205 13 view .LVU205
+ 205:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 701              		.loc 1 205 22 is_stmt 0 view .LVU206
+ 702 001e 0023     		movs	r3, #0
+ 703 0020 A360     		str	r3, [r4, #8]
+ 208:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 25
+
+
+ 704              		.loc 1 208 1 view .LVU207
+ 705 0022 F8E7     		b	.L49
+ 706              		.cfi_endproc
+ 707              	.LFE239:
+ 709              		.section	.text.lv_image_decoder_create,"ax",%progbits
+ 710              		.align	1
+ 711              		.global	lv_image_decoder_create
+ 712              		.syntax unified
+ 713              		.thumb
+ 714              		.thumb_func
+ 716              	lv_image_decoder_create:
+ 717              	.LFB240:
+ 215:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_decoder_t * decoder;
+ 718              		.loc 1 215 1 is_stmt 1 view -0
+ 719              		.cfi_startproc
+ 720              		@ args = 0, pretend = 0, frame = 0
+ 721              		@ frame_needed = 0, uses_anonymous_args = 0
+ 722 0000 10B5     		push	{r4, lr}
+ 723              	.LCFI7:
+ 724              		.cfi_def_cfa_offset 8
+ 725              		.cfi_offset 4, -8
+ 726              		.cfi_offset 14, -4
+ 216:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder = _lv_ll_ins_head(img_decoder_ll_p);
+ 727              		.loc 1 216 5 view .LVU209
+ 217:Lib/lvgl/src/draw/lv_image_decoder.c ****     LV_ASSERT_MALLOC(decoder);
+ 728              		.loc 1 217 5 view .LVU210
+ 217:Lib/lvgl/src/draw/lv_image_decoder.c ****     LV_ASSERT_MALLOC(decoder);
+ 729              		.loc 1 217 15 is_stmt 0 view .LVU211
+ 730 0002 0648     		ldr	r0, .L58
+ 731 0004 FFF7FEFF 		bl	_lv_ll_ins_head
+ 732              	.LVL76:
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 733              		.loc 1 218 5 is_stmt 1 view .LVU212
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 734              		.loc 1 218 5 view .LVU213
+ 735 0008 30B1     		cbz	r0, .L56
+ 736 000a 0446     		mov	r4, r0
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 737              		.loc 1 218 5 view .LVU214
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 738              		.loc 1 218 30 view .LVU215
+ 219:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 739              		.loc 1 219 5 view .LVU216
+ 221:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 740              		.loc 1 221 5 view .LVU217
+ 741              	.LVL77:
+ 742              	.LBB33:
+ 743              	.LBI33:
+  65:Lib/lvgl/src/draw/../stdlib/lv_string.h **** {
+ 744              		.loc 3 65 20 view .LVU218
+ 745              	.LBB34:
+ 746              		.loc 3 67 5 view .LVU219
+ 747 000c 1822     		movs	r2, #24
+ 748 000e 0021     		movs	r1, #0
+ 749 0010 FFF7FEFF 		bl	lv_memset
+ 750              	.LVL78:
+ 751              		.loc 3 67 5 is_stmt 0 view .LVU220
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 26
+
+
+ 752              	.LBE34:
+ 753              	.LBE33:
+ 223:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 754              		.loc 1 223 5 is_stmt 1 view .LVU221
+ 224:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 755              		.loc 1 224 1 is_stmt 0 view .LVU222
+ 756 0014 2046     		mov	r0, r4
+ 757 0016 10BD     		pop	{r4, pc}
+ 758              	.LVL79:
+ 759              	.L56:
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 760              		.loc 1 218 5 is_stmt 1 discriminator 1 view .LVU223
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 761              		.loc 1 218 5 discriminator 1 view .LVU224
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 762              		.loc 1 218 5 discriminator 1 view .LVU225
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 763              		.loc 1 218 5 discriminator 1 view .LVU226
+ 218:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL) return NULL;
+ 764              		.loc 1 218 5 discriminator 1 view .LVU227
+ 765 0018 FEE7     		b	.L56
+ 766              	.L59:
+ 767 001a 00BF     		.align	2
+ 768              	.L58:
+ 769 001c E8000000 		.word	lv_global+232
+ 770              		.cfi_endproc
+ 771              	.LFE240:
+ 773              		.section	.text.lv_image_decoder_delete,"ax",%progbits
+ 774              		.align	1
+ 775              		.global	lv_image_decoder_delete
+ 776              		.syntax unified
+ 777              		.thumb
+ 778              		.thumb_func
+ 780              	lv_image_decoder_delete:
+ 781              	.LVL80:
+ 782              	.LFB241:
+ 227:Lib/lvgl/src/draw/lv_image_decoder.c ****     _lv_ll_remove(img_decoder_ll_p, decoder);
+ 783              		.loc 1 227 1 view -0
+ 784              		.cfi_startproc
+ 785              		@ args = 0, pretend = 0, frame = 0
+ 786              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227:Lib/lvgl/src/draw/lv_image_decoder.c ****     _lv_ll_remove(img_decoder_ll_p, decoder);
+ 787              		.loc 1 227 1 is_stmt 0 view .LVU229
+ 788 0000 10B5     		push	{r4, lr}
+ 789              	.LCFI8:
+ 790              		.cfi_def_cfa_offset 8
+ 791              		.cfi_offset 4, -8
+ 792              		.cfi_offset 14, -4
+ 793 0002 0446     		mov	r4, r0
+ 228:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_free(decoder);
+ 794              		.loc 1 228 5 is_stmt 1 view .LVU230
+ 795 0004 0146     		mov	r1, r0
+ 796 0006 0348     		ldr	r0, .L62
+ 797              	.LVL81:
+ 228:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_free(decoder);
+ 798              		.loc 1 228 5 is_stmt 0 view .LVU231
+ 799 0008 FFF7FEFF 		bl	_lv_ll_remove
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 27
+
+
+ 800              	.LVL82:
+ 229:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 801              		.loc 1 229 5 is_stmt 1 view .LVU232
+ 802 000c 2046     		mov	r0, r4
+ 803 000e FFF7FEFF 		bl	lv_free
+ 804              	.LVL83:
+ 230:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 805              		.loc 1 230 1 is_stmt 0 view .LVU233
+ 806 0012 10BD     		pop	{r4, pc}
+ 807              	.LVL84:
+ 808              	.L63:
+ 230:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 809              		.loc 1 230 1 view .LVU234
+ 810              		.align	2
+ 811              	.L62:
+ 812 0014 E8000000 		.word	lv_global+232
+ 813              		.cfi_endproc
+ 814              	.LFE241:
+ 816              		.section	.text.lv_image_decoder_get_next,"ax",%progbits
+ 817              		.align	1
+ 818              		.global	lv_image_decoder_get_next
+ 819              		.syntax unified
+ 820              		.thumb
+ 821              		.thumb_func
+ 823              	lv_image_decoder_get_next:
+ 824              	.LVL85:
+ 825              	.LFB242:
+ 233:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL)
+ 826              		.loc 1 233 1 is_stmt 1 view -0
+ 827              		.cfi_startproc
+ 828              		@ args = 0, pretend = 0, frame = 0
+ 829              		@ frame_needed = 0, uses_anonymous_args = 0
+ 233:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoder == NULL)
+ 830              		.loc 1 233 1 is_stmt 0 view .LVU236
+ 831 0000 08B5     		push	{r3, lr}
+ 832              	.LCFI9:
+ 833              		.cfi_def_cfa_offset 8
+ 834              		.cfi_offset 3, -8
+ 835              		.cfi_offset 14, -4
+ 234:Lib/lvgl/src/draw/lv_image_decoder.c ****         return _lv_ll_get_head(img_decoder_ll_p);
+ 836              		.loc 1 234 5 is_stmt 1 view .LVU237
+ 234:Lib/lvgl/src/draw/lv_image_decoder.c ****         return _lv_ll_get_head(img_decoder_ll_p);
+ 837              		.loc 1 234 7 is_stmt 0 view .LVU238
+ 838 0002 20B1     		cbz	r0, .L68
+ 839 0004 0146     		mov	r1, r0
+ 237:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 840              		.loc 1 237 9 is_stmt 1 view .LVU239
+ 237:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 841              		.loc 1 237 16 is_stmt 0 view .LVU240
+ 842 0006 0448     		ldr	r0, .L69
+ 843              	.LVL86:
+ 237:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 844              		.loc 1 237 16 view .LVU241
+ 845 0008 FFF7FEFF 		bl	_lv_ll_get_next
+ 846              	.LVL87:
+ 847              	.L64:
+ 238:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 28
+
+
+ 848              		.loc 1 238 1 view .LVU242
+ 849 000c 08BD     		pop	{r3, pc}
+ 850              	.LVL88:
+ 851              	.L68:
+ 235:Lib/lvgl/src/draw/lv_image_decoder.c ****     else
+ 852              		.loc 1 235 9 is_stmt 1 view .LVU243
+ 235:Lib/lvgl/src/draw/lv_image_decoder.c ****     else
+ 853              		.loc 1 235 16 is_stmt 0 view .LVU244
+ 854 000e 0248     		ldr	r0, .L69
+ 855              	.LVL89:
+ 235:Lib/lvgl/src/draw/lv_image_decoder.c ****     else
+ 856              		.loc 1 235 16 view .LVU245
+ 857 0010 FFF7FEFF 		bl	_lv_ll_get_head
+ 858              	.LVL90:
+ 859 0014 FAE7     		b	.L64
+ 860              	.L70:
+ 861 0016 00BF     		.align	2
+ 862              	.L69:
+ 863 0018 E8000000 		.word	lv_global+232
+ 864              		.cfi_endproc
+ 865              	.LFE242:
+ 867              		.section	.text.lv_image_decoder_set_info_cb,"ax",%progbits
+ 868              		.align	1
+ 869              		.global	lv_image_decoder_set_info_cb
+ 870              		.syntax unified
+ 871              		.thumb
+ 872              		.thumb_func
+ 874              	lv_image_decoder_set_info_cb:
+ 875              	.LVL91:
+ 876              	.LFB243:
+ 241:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->info_cb = info_cb;
+ 877              		.loc 1 241 1 is_stmt 1 view -0
+ 878              		.cfi_startproc
+ 879              		@ args = 0, pretend = 0, frame = 0
+ 880              		@ frame_needed = 0, uses_anonymous_args = 0
+ 881              		@ link register save eliminated.
+ 242:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 882              		.loc 1 242 5 view .LVU247
+ 242:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 883              		.loc 1 242 22 is_stmt 0 view .LVU248
+ 884 0000 0160     		str	r1, [r0]
+ 243:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 885              		.loc 1 243 1 view .LVU249
+ 886 0002 7047     		bx	lr
+ 887              		.cfi_endproc
+ 888              	.LFE243:
+ 890              		.section	.text.lv_image_decoder_set_open_cb,"ax",%progbits
+ 891              		.align	1
+ 892              		.global	lv_image_decoder_set_open_cb
+ 893              		.syntax unified
+ 894              		.thumb
+ 895              		.thumb_func
+ 897              	lv_image_decoder_set_open_cb:
+ 898              	.LVL92:
+ 899              	.LFB244:
+ 246:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->open_cb = open_cb;
+ 900              		.loc 1 246 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 29
+
+
+ 901              		.cfi_startproc
+ 902              		@ args = 0, pretend = 0, frame = 0
+ 903              		@ frame_needed = 0, uses_anonymous_args = 0
+ 904              		@ link register save eliminated.
+ 247:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 905              		.loc 1 247 5 view .LVU251
+ 247:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 906              		.loc 1 247 22 is_stmt 0 view .LVU252
+ 907 0000 4160     		str	r1, [r0, #4]
+ 248:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 908              		.loc 1 248 1 view .LVU253
+ 909 0002 7047     		bx	lr
+ 910              		.cfi_endproc
+ 911              	.LFE244:
+ 913              		.section	.text.lv_image_decoder_set_get_area_cb,"ax",%progbits
+ 914              		.align	1
+ 915              		.global	lv_image_decoder_set_get_area_cb
+ 916              		.syntax unified
+ 917              		.thumb
+ 918              		.thumb_func
+ 920              	lv_image_decoder_set_get_area_cb:
+ 921              	.LVL93:
+ 922              	.LFB245:
+ 251:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->get_area_cb = get_area_cb;
+ 923              		.loc 1 251 1 is_stmt 1 view -0
+ 924              		.cfi_startproc
+ 925              		@ args = 0, pretend = 0, frame = 0
+ 926              		@ frame_needed = 0, uses_anonymous_args = 0
+ 927              		@ link register save eliminated.
+ 252:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 928              		.loc 1 252 5 view .LVU255
+ 252:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 929              		.loc 1 252 26 is_stmt 0 view .LVU256
+ 930 0000 8160     		str	r1, [r0, #8]
+ 253:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 931              		.loc 1 253 1 view .LVU257
+ 932 0002 7047     		bx	lr
+ 933              		.cfi_endproc
+ 934              	.LFE245:
+ 936              		.section	.text.lv_image_decoder_set_close_cb,"ax",%progbits
+ 937              		.align	1
+ 938              		.global	lv_image_decoder_set_close_cb
+ 939              		.syntax unified
+ 940              		.thumb
+ 941              		.thumb_func
+ 943              	lv_image_decoder_set_close_cb:
+ 944              	.LVL94:
+ 945              	.LFB246:
+ 256:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->close_cb = close_cb;
+ 946              		.loc 1 256 1 is_stmt 1 view -0
+ 947              		.cfi_startproc
+ 948              		@ args = 0, pretend = 0, frame = 0
+ 949              		@ frame_needed = 0, uses_anonymous_args = 0
+ 950              		@ link register save eliminated.
+ 257:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 951              		.loc 1 257 5 view .LVU259
+ 257:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 30
+
+
+ 952              		.loc 1 257 23 is_stmt 0 view .LVU260
+ 953 0000 C160     		str	r1, [r0, #12]
+ 258:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 954              		.loc 1 258 1 view .LVU261
+ 955 0002 7047     		bx	lr
+ 956              		.cfi_endproc
+ 957              	.LFE246:
+ 959              		.section	.text.lv_image_decoder_set_cache_free_cb,"ax",%progbits
+ 960              		.align	1
+ 961              		.global	lv_image_decoder_set_cache_free_cb
+ 962              		.syntax unified
+ 963              		.thumb
+ 964              		.thumb_func
+ 966              	lv_image_decoder_set_cache_free_cb:
+ 967              	.LVL95:
+ 968              	.LFB247:
+ 261:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->cache_free_cb = cache_free_cb;
+ 969              		.loc 1 261 1 is_stmt 1 view -0
+ 970              		.cfi_startproc
+ 971              		@ args = 0, pretend = 0, frame = 0
+ 972              		@ frame_needed = 0, uses_anonymous_args = 0
+ 973              		@ link register save eliminated.
+ 262:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 974              		.loc 1 262 5 view .LVU263
+ 262:Lib/lvgl/src/draw/lv_image_decoder.c **** }
+ 975              		.loc 1 262 28 is_stmt 0 view .LVU264
+ 976 0000 0161     		str	r1, [r0, #16]
+ 263:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 977              		.loc 1 263 1 view .LVU265
+ 978 0002 7047     		bx	lr
+ 979              		.cfi_endproc
+ 980              	.LFE247:
+ 982              		.section	.text.lv_image_decoder_post_process,"ax",%progbits
+ 983              		.align	1
+ 984              		.global	lv_image_decoder_post_process
+ 985              		.syntax unified
+ 986              		.thumb
+ 987              		.thumb_func
+ 989              	lv_image_decoder_post_process:
+ 990              	.LVL96:
+ 991              	.LFB248:
+ 291:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoded == NULL) return NULL; /*No need to adjust*/
+ 992              		.loc 1 291 1 is_stmt 1 view -0
+ 993              		.cfi_startproc
+ 994              		@ args = 0, pretend = 0, frame = 0
+ 995              		@ frame_needed = 0, uses_anonymous_args = 0
+ 291:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(decoded == NULL) return NULL; /*No need to adjust*/
+ 996              		.loc 1 291 1 is_stmt 0 view .LVU267
+ 997 0000 38B5     		push	{r3, r4, r5, lr}
+ 998              	.LCFI10:
+ 999              		.cfi_def_cfa_offset 16
+ 1000              		.cfi_offset 3, -16
+ 1001              		.cfi_offset 4, -12
+ 1002              		.cfi_offset 5, -8
+ 1003              		.cfi_offset 14, -4
+ 292:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 1004              		.loc 1 292 5 is_stmt 1 view .LVU268
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 31
+
+
+ 292:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 1005              		.loc 1 292 7 is_stmt 0 view .LVU269
+ 1006 0002 0D46     		mov	r5, r1
+ 1007 0004 69B1     		cbz	r1, .L77
+ 1008 0006 0446     		mov	r4, r0
+ 294:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(args->stride_align && decoded->header.cf != LV_COLOR_FORMAT_RGB565A8) {
+ 1009              		.loc 1 294 5 is_stmt 1 view .LVU270
+ 1010              	.LVL97:
+ 295:Lib/lvgl/src/draw/lv_image_decoder.c ****         uint32_t stride_expect = lv_draw_buf_width_to_stride(decoded->header.w, decoded->header.cf)
+ 1011              		.loc 1 295 5 view .LVU271
+ 295:Lib/lvgl/src/draw/lv_image_decoder.c ****         uint32_t stride_expect = lv_draw_buf_width_to_stride(decoded->header.w, decoded->header.cf)
+ 1012              		.loc 1 295 12 is_stmt 0 view .LVU272
+ 1013 0008 0379     		ldrb	r3, [r0, #4]	@ zero_extendqisi2
+ 295:Lib/lvgl/src/draw/lv_image_decoder.c ****         uint32_t stride_expect = lv_draw_buf_width_to_stride(decoded->header.w, decoded->header.cf)
+ 1014              		.loc 1 295 7 view .LVU273
+ 1015 000a 13B1     		cbz	r3, .L78
+ 295:Lib/lvgl/src/draw/lv_image_decoder.c ****         uint32_t stride_expect = lv_draw_buf_width_to_stride(decoded->header.w, decoded->header.cf)
+ 1016              		.loc 1 295 45 discriminator 1 view .LVU274
+ 1017 000c 4978     		ldrb	r1, [r1, #1]	@ zero_extendqisi2
+ 1018              	.LVL98:
+ 295:Lib/lvgl/src/draw/lv_image_decoder.c ****         uint32_t stride_expect = lv_draw_buf_width_to_stride(decoded->header.w, decoded->header.cf)
+ 1019              		.loc 1 295 27 discriminator 1 view .LVU275
+ 1020 000e 1429     		cmp	r1, #20
+ 1021 0010 09D1     		bne	.L81
+ 1022              	.LVL99:
+ 1023              	.L78:
+ 310:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !LV_COLOR_FORMAT_IS_ALPHA_ONLY(decoded->header.cf)
+ 1024              		.loc 1 310 5 is_stmt 1 view .LVU276
+ 310:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !LV_COLOR_FORMAT_IS_ALPHA_ONLY(decoded->header.cf)
+ 1025              		.loc 1 310 12 is_stmt 0 view .LVU277
+ 1026 0012 6379     		ldrb	r3, [r4, #5]	@ zero_extendqisi2
+ 310:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !LV_COLOR_FORMAT_IS_ALPHA_ONLY(decoded->header.cf)
+ 1027              		.loc 1 310 7 view .LVU278
+ 1028 0014 2BB1     		cbz	r3, .L77
+ 311:Lib/lvgl/src/draw/lv_image_decoder.c ****        && lv_color_format_has_alpha(decoded->header.cf)
+ 1029              		.loc 1 311 12 view .LVU279
+ 1030 0016 6878     		ldrb	r0, [r5, #1]	@ zero_extendqisi2
+ 311:Lib/lvgl/src/draw/lv_image_decoder.c ****        && lv_color_format_has_alpha(decoded->header.cf)
+ 1031              		.loc 1 311 11 view .LVU280
+ 1032 0018 A0F10B03 		sub	r3, r0, #11
+ 1033 001c DBB2     		uxtb	r3, r3
+ 311:Lib/lvgl/src/draw/lv_image_decoder.c ****        && lv_color_format_has_alpha(decoded->header.cf)
+ 1034              		.loc 1 311 8 view .LVU281
+ 1035 001e 032B     		cmp	r3, #3
+ 1036 0020 0FD8     		bhi	.L82
+ 1037              	.LVL100:
+ 1038              	.L77:
+ 332:Lib/lvgl/src/draw/lv_image_decoder.c **** 
+ 1039              		.loc 1 332 1 view .LVU282
+ 1040 0022 2846     		mov	r0, r5
+ 1041 0024 38BD     		pop	{r3, r4, r5, pc}
+ 1042              	.LVL101:
+ 1043              	.L81:
+ 1044              	.LBB35:
+ 296:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoded->header.stride != stride_expect) {
+ 1045              		.loc 1 296 9 is_stmt 1 view .LVU283
+ 296:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoded->header.stride != stride_expect) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 32
+
+
+ 1046              		.loc 1 296 34 is_stmt 0 view .LVU284
+ 1047 0026 A888     		ldrh	r0, [r5, #4]
+ 1048              	.LVL102:
+ 296:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoded->header.stride != stride_expect) {
+ 1049              		.loc 1 296 34 view .LVU285
+ 1050 0028 FFF7FEFF 		bl	lv_draw_buf_width_to_stride
+ 1051              	.LVL103:
+ 297:Lib/lvgl/src/draw/lv_image_decoder.c ****             LV_LOG_TRACE("Stride mismatch");
+ 1052              		.loc 1 297 9 is_stmt 1 view .LVU286
+ 297:Lib/lvgl/src/draw/lv_image_decoder.c ****             LV_LOG_TRACE("Stride mismatch");
+ 1053              		.loc 1 297 27 is_stmt 0 view .LVU287
+ 1054 002c 2B89     		ldrh	r3, [r5, #8]
+ 297:Lib/lvgl/src/draw/lv_image_decoder.c ****             LV_LOG_TRACE("Stride mismatch");
+ 1055              		.loc 1 297 11 view .LVU288
+ 1056 002e 8342     		cmp	r3, r0
+ 1057 0030 EFD0     		beq	.L78
+ 1058              	.LBB36:
+ 298:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_draw_buf_t * aligned = lv_draw_buf_adjust_stride(decoded, stride_expect);
+ 1059              		.loc 1 298 13 is_stmt 1 view .LVU289
+ 298:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_draw_buf_t * aligned = lv_draw_buf_adjust_stride(decoded, stride_expect);
+ 1060              		.loc 1 298 13 view .LVU290
+ 298:Lib/lvgl/src/draw/lv_image_decoder.c ****             lv_draw_buf_t * aligned = lv_draw_buf_adjust_stride(decoded, stride_expect);
+ 1061              		.loc 1 298 13 view .LVU291
+ 299:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(aligned == NULL) {
+ 1062              		.loc 1 299 13 view .LVU292
+ 299:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(aligned == NULL) {
+ 1063              		.loc 1 299 39 is_stmt 0 view .LVU293
+ 1064 0032 0146     		mov	r1, r0
+ 1065 0034 2846     		mov	r0, r5
+ 1066              	.LVL104:
+ 299:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(aligned == NULL) {
+ 1067              		.loc 1 299 39 view .LVU294
+ 1068 0036 FFF7FEFF 		bl	lv_draw_buf_adjust_stride
+ 1069              	.LVL105:
+ 300:Lib/lvgl/src/draw/lv_image_decoder.c ****                 LV_LOG_ERROR("No memory for Stride adjust.");
+ 1070              		.loc 1 300 13 is_stmt 1 view .LVU295
+ 300:Lib/lvgl/src/draw/lv_image_decoder.c ****                 LV_LOG_ERROR("No memory for Stride adjust.");
+ 1071              		.loc 1 300 15 is_stmt 0 view .LVU296
+ 1072 003a 0546     		mov	r5, r0
+ 1073              	.LVL106:
+ 300:Lib/lvgl/src/draw/lv_image_decoder.c ****                 LV_LOG_ERROR("No memory for Stride adjust.");
+ 1074              		.loc 1 300 15 view .LVU297
+ 1075 003c 0028     		cmp	r0, #0
+ 1076 003e E8D1     		bne	.L78
+ 1077 0040 EFE7     		b	.L77
+ 1078              	.LVL107:
+ 1079              	.L82:
+ 300:Lib/lvgl/src/draw/lv_image_decoder.c ****                 LV_LOG_ERROR("No memory for Stride adjust.");
+ 1080              		.loc 1 300 15 view .LVU298
+ 1081              	.LBE36:
+ 1082              	.LBE35:
+ 312:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_PREMULTIPLIED) /*Hasn't done yet*/
+ 1083              		.loc 1 312 11 view .LVU299
+ 1084 0042 FFF7FEFF 		bl	lv_color_format_has_alpha
+ 1085              	.LVL108:
+ 312:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_PREMULTIPLIED) /*Hasn't done yet*/
+ 1086              		.loc 1 312 8 view .LVU300
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 33
+
+
+ 1087 0046 0028     		cmp	r0, #0
+ 1088 0048 EBD0     		beq	.L77
+ 1089              	.LVL109:
+ 1090              	.LBB37:
+ 1091              	.LBI37:
+ 1092              		.file 4 "Lib/lvgl/src/draw/lv_draw_buf.h"
+   1:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+   2:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @file lv_draw_buf.h
+   3:Lib/lvgl/src/draw/lv_draw_buf.h ****  *
+   4:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+   5:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+   6:Lib/lvgl/src/draw/lv_draw_buf.h **** #ifndef LV_DRAW_BUF_H
+   7:Lib/lvgl/src/draw/lv_draw_buf.h **** #define LV_DRAW_BUF_H
+   8:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+   9:Lib/lvgl/src/draw/lv_draw_buf.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/draw/lv_draw_buf.h **** extern "C" {
+  11:Lib/lvgl/src/draw/lv_draw_buf.h **** #endif
+  12:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  13:Lib/lvgl/src/draw/lv_draw_buf.h **** /*********************
+  14:Lib/lvgl/src/draw/lv_draw_buf.h ****  *      INCLUDES
+  15:Lib/lvgl/src/draw/lv_draw_buf.h ****  *********************/
+  16:Lib/lvgl/src/draw/lv_draw_buf.h **** #include "../misc/lv_area.h"
+  17:Lib/lvgl/src/draw/lv_draw_buf.h **** #include "../misc/lv_color.h"
+  18:Lib/lvgl/src/draw/lv_draw_buf.h **** #include "lv_image_buf.h"
+  19:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  20:Lib/lvgl/src/draw/lv_draw_buf.h **** /*********************
+  21:Lib/lvgl/src/draw/lv_draw_buf.h ****  *      DEFINES
+  22:Lib/lvgl/src/draw/lv_draw_buf.h ****  *********************/
+  23:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  24:Lib/lvgl/src/draw/lv_draw_buf.h **** /*Use this value to let LVGL calculate stride automatically*/
+  25:Lib/lvgl/src/draw/lv_draw_buf.h **** #define LV_STRIDE_AUTO 0
+  26:Lib/lvgl/src/draw/lv_draw_buf.h **** LV_EXPORT_CONST_INT(LV_STRIDE_AUTO);
+  27:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  28:Lib/lvgl/src/draw/lv_draw_buf.h **** /**********************
+  29:Lib/lvgl/src/draw/lv_draw_buf.h ****  *      TYPEDEFS
+  30:Lib/lvgl/src/draw/lv_draw_buf.h ****  **********************/
+  31:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  32:Lib/lvgl/src/draw/lv_draw_buf.h **** typedef struct {
+  33:Lib/lvgl/src/draw/lv_draw_buf.h ****     lv_image_header_t header;
+  34:Lib/lvgl/src/draw/lv_draw_buf.h ****     uint32_t data_size;     /*Total buf size in bytes*/
+  35:Lib/lvgl/src/draw/lv_draw_buf.h ****     void * data;
+  36:Lib/lvgl/src/draw/lv_draw_buf.h ****     void * unaligned_data;  /*Unaligned address of `data`, used internally by lvgl*/
+  37:Lib/lvgl/src/draw/lv_draw_buf.h **** } lv_draw_buf_t;
+  38:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  39:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+  40:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Stride alignment for draw buffers.
+  41:Lib/lvgl/src/draw/lv_draw_buf.h ****  * It may vary between different color formats and hardware.
+  42:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Refine it to suit your needs.
+  43:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+  44:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  45:Lib/lvgl/src/draw/lv_draw_buf.h **** #define _LV_DRAW_BUF_STRIDE(w, cf) \
+  46:Lib/lvgl/src/draw/lv_draw_buf.h ****     ((((w) * LV_COLOR_FORMAT_GET_BPP(cf) + 7) / 8 + (LV_DRAW_BUF_STRIDE_ALIGN) - 1) & ~((LV_DRAW_BU
+  47:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  48:Lib/lvgl/src/draw/lv_draw_buf.h **** #define _LV_DRAW_BUF_SIZE(w, h, cf) \
+  49:Lib/lvgl/src/draw/lv_draw_buf.h ****     (_LV_DRAW_BUF_STRIDE(w, cf) * (h))
+  50:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  51:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 34
+
+
+  52:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Define a static draw buffer with the given width, height, and color format.
+  53:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Stride alignment is set to LV_DRAW_BUF_STRIDE_ALIGN.
+  54:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+  55:Lib/lvgl/src/draw/lv_draw_buf.h **** #define LV_DRAW_BUF_DEFINE(name, _w, _h, _cf) \
+  56:Lib/lvgl/src/draw/lv_draw_buf.h ****     static uint8_t buf_##name[_LV_DRAW_BUF_SIZE(_w, _h, _cf)]; \
+  57:Lib/lvgl/src/draw/lv_draw_buf.h ****     static lv_draw_buf_t name = { \
+  58:Lib/lvgl/src/draw/lv_draw_buf.h ****                                   .header = { \
+  59:Lib/lvgl/src/draw/lv_draw_buf.h ****                                               .w = (_w), \
+  60:Lib/lvgl/src/draw/lv_draw_buf.h ****                                               .h = (_h), \
+  61:Lib/lvgl/src/draw/lv_draw_buf.h ****                                               .cf = (_cf), \
+  62:Lib/lvgl/src/draw/lv_draw_buf.h ****                                               .flags = LV_IMAGE_FLAGS_MODIFIABLE, \
+  63:Lib/lvgl/src/draw/lv_draw_buf.h ****                                               .stride = _LV_DRAW_BUF_STRIDE(_w, _cf), \
+  64:Lib/lvgl/src/draw/lv_draw_buf.h ****                                             }, \
+  65:Lib/lvgl/src/draw/lv_draw_buf.h ****                                   .data_size = sizeof(buf_##name), \
+  66:Lib/lvgl/src/draw/lv_draw_buf.h ****                                   .data = buf_##name, \
+  67:Lib/lvgl/src/draw/lv_draw_buf.h ****                                   .unaligned_data = buf_##name, \
+  68:Lib/lvgl/src/draw/lv_draw_buf.h ****                                 }
+  69:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  70:Lib/lvgl/src/draw/lv_draw_buf.h **** typedef void * (*lv_draw_buf_malloc_cb)(size_t size, lv_color_format_t color_format);
+  71:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  72:Lib/lvgl/src/draw/lv_draw_buf.h **** typedef void (*lv_draw_buf_free_cb)(void * draw_buf);
+  73:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  74:Lib/lvgl/src/draw/lv_draw_buf.h **** typedef void * (*lv_draw_buf_align_cb)(void * buf, lv_color_format_t color_format);
+  75:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  76:Lib/lvgl/src/draw/lv_draw_buf.h **** typedef void (*lv_draw_buf_invalidate_cache_cb)(void * buf, uint32_t stride, lv_color_format_t colo
+  77:Lib/lvgl/src/draw/lv_draw_buf.h ****                                                 const lv_area_t * area);
+  78:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  79:Lib/lvgl/src/draw/lv_draw_buf.h **** typedef uint32_t (*lv_draw_buf_width_to_stride_cb)(uint32_t w, lv_color_format_t color_format);
+  80:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  81:Lib/lvgl/src/draw/lv_draw_buf.h **** typedef struct {
+  82:Lib/lvgl/src/draw/lv_draw_buf.h ****     lv_draw_buf_malloc_cb buf_malloc_cb;
+  83:Lib/lvgl/src/draw/lv_draw_buf.h ****     lv_draw_buf_free_cb buf_free_cb;
+  84:Lib/lvgl/src/draw/lv_draw_buf.h ****     lv_draw_buf_align_cb align_pointer_cb;
+  85:Lib/lvgl/src/draw/lv_draw_buf.h ****     lv_draw_buf_invalidate_cache_cb invalidate_cache_cb;
+  86:Lib/lvgl/src/draw/lv_draw_buf.h ****     lv_draw_buf_width_to_stride_cb width_to_stride_cb;
+  87:Lib/lvgl/src/draw/lv_draw_buf.h **** } lv_draw_buf_handlers_t;
+  88:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  89:Lib/lvgl/src/draw/lv_draw_buf.h **** /**********************
+  90:Lib/lvgl/src/draw/lv_draw_buf.h ****  * GLOBAL PROTOTYPES
+  91:Lib/lvgl/src/draw/lv_draw_buf.h ****  **********************/
+  92:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  93:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+  94:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Called internally to initialize the draw_buf_handlers in lv_global
+  95:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+  96:Lib/lvgl/src/draw/lv_draw_buf.h **** void _lv_draw_buf_init_handlers(void);
+  97:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+  98:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+  99:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Get the struct which holds the callbacks for draw buf management.
+ 100:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Custom callback can be set on the returned value
+ 101:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @return                  pointer to the struct of handlers
+ 102:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 103:Lib/lvgl/src/draw/lv_draw_buf.h **** lv_draw_buf_handlers_t * lv_draw_buf_get_handlers(void);
+ 104:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 105:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 106:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Align the address of a buffer. The buffer needs to be large enough for the real data after align
+ 107:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param buf           the data to align
+ 108:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param color_format  the color format of the buffer
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 35
+
+
+ 109:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @return              the aligned buffer
+ 110:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 111:Lib/lvgl/src/draw/lv_draw_buf.h **** void * lv_draw_buf_align(void * buf, lv_color_format_t color_format);
+ 112:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 113:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 114:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Invalidate the cache of the buffer
+ 115:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param buf          a memory address to invalidate
+ 116:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param stride       stride of the buffer
+ 117:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param color_format color format of the buffer
+ 118:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param area         the area to invalidate in the buffer
+ 119:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 120:Lib/lvgl/src/draw/lv_draw_buf.h **** void lv_draw_buf_invalidate_cache(void * buf, uint32_t stride, lv_color_format_t color_format, cons
+ 121:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 122:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 123:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Calculate the stride in bytes based on a width and color format
+ 124:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param w                 the width in pixels
+ 125:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param color_format      the color format
+ 126:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @return                  the stride in bytes
+ 127:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 128:Lib/lvgl/src/draw/lv_draw_buf.h **** uint32_t lv_draw_buf_width_to_stride(uint32_t w, lv_color_format_t color_format);
+ 129:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 130:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 131:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Clear an area on the buffer
+ 132:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param draw_buf          pointer to draw buffer
+ 133:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param a                 the area to clear, or NULL to clear the whole buffer
+ 134:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 135:Lib/lvgl/src/draw/lv_draw_buf.h **** void lv_draw_buf_clear(lv_draw_buf_t * draw_buf, const lv_area_t * a);
+ 136:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 137:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 138:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Copy an area from a buffer to an other
+ 139:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param dest      pointer to the destination draw buffer
+ 140:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param dest_area the area to copy from the destination buffer, if NULL, use the whole buffer
+ 141:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param src       pointer to the source draw buffer
+ 142:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param src_area  the area to copy from the destination buffer, if NULL, use the whole buffer
+ 143:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @note `dest_area` and `src_area` should have the same width and height
+ 144:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @note  `dest` and `src` should have same color format. Color converting is not supported fow now
+ 145:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 146:Lib/lvgl/src/draw/lv_draw_buf.h **** void lv_draw_buf_copy(lv_draw_buf_t * dest, const lv_area_t * dest_area,
+ 147:Lib/lvgl/src/draw/lv_draw_buf.h ****                       const lv_draw_buf_t * src, const lv_area_t * src_area);
+ 148:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 149:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 150:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Note: Eventually, lv_draw_buf_malloc/free will be kept as private.
+ 151:Lib/lvgl/src/draw/lv_draw_buf.h ****  *       For now, we use `create` to distinguish with malloc.
+ 152:Lib/lvgl/src/draw/lv_draw_buf.h ****  *
+ 153:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Create an draw buf by allocating struct for `lv_draw_buf_t` and allocating a buffer for it
+ 154:Lib/lvgl/src/draw/lv_draw_buf.h ****  * that meets specified requirements.
+ 155:Lib/lvgl/src/draw/lv_draw_buf.h ****  *
+ 156:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param w         the buffer width in pixels
+ 157:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param h         the buffer height in pixels
+ 158:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param cf        the color format for image
+ 159:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param stride    the stride in bytes for image. Use 0 for automatic calculation based on
+ 160:Lib/lvgl/src/draw/lv_draw_buf.h ****  *                  w, cf, and global stride alignment configuration.
+ 161:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 162:Lib/lvgl/src/draw/lv_draw_buf.h **** lv_draw_buf_t * lv_draw_buf_create(uint32_t w, uint32_t h, lv_color_format_t cf, uint32_t stride);
+ 163:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 164:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 165:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Initialize a draw buf with the given buffer and parameters.
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 36
+
+
+ 166:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param draw_buf  the draw buf to initialize
+ 167:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param w         the buffer width in pixels
+ 168:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param h         the buffer height in pixels
+ 169:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param cf        the color format
+ 170:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param stride    the stride in bytes. Use 0 for automatic calculation
+ 171:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param data      the buffer used for drawing. Unaligned `data` will be aligned internally
+ 172:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param data_size the size of the buffer in bytes
+ 173:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @return          return LV_RESULT_OK on success, LV_RESULT_INVALID otherwise
+ 174:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 175:Lib/lvgl/src/draw/lv_draw_buf.h **** lv_result_t lv_draw_buf_init(lv_draw_buf_t * draw_buf, uint32_t w, uint32_t h, lv_color_format_t cf
+ 176:Lib/lvgl/src/draw/lv_draw_buf.h ****                              void * data, uint32_t data_size);
+ 177:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 178:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 179:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Duplicate a draw buf with same image size, stride and color format. Copy the image data too.
+ 180:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param draw_buf  the draw buf to duplicate
+ 181:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @return          the duplicated draw buf on success, NULL if failed
+ 182:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 183:Lib/lvgl/src/draw/lv_draw_buf.h **** lv_draw_buf_t * lv_draw_buf_dup(const lv_draw_buf_t * draw_buf);
+ 184:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 185:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 186:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Keep using the existing memory, reshape the draw buffer to the given width and height.
+ 187:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Return NULL if data_size is smaller than the required size.
+ 188:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param draw_buf  pointer to a draw buffer
+ 189:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param cf        the new color format, use 0 or LV_COLOR_FORMAT_UNKNOWN to keep using the origin
+ 190:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param w         the new width in pixels
+ 191:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param h         the new height in pixels
+ 192:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param stride    the stride in bytes for image. Use 0 for automatic calculation.
+ 193:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 194:Lib/lvgl/src/draw/lv_draw_buf.h **** lv_draw_buf_t * lv_draw_buf_reshape(lv_draw_buf_t * draw_buf, lv_color_format_t cf, uint32_t w, uin
+ 195:Lib/lvgl/src/draw/lv_draw_buf.h ****                                     uint32_t stride);
+ 196:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 197:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 198:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Destroy a draw buf by free the actual buffer if it's marked as LV_IMAGE_FLAGS_MODIFIABLE in head
+ 199:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Then free the lv_draw_buf_t struct.
+ 200:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 201:Lib/lvgl/src/draw/lv_draw_buf.h **** void lv_draw_buf_destroy(lv_draw_buf_t * buf);
+ 202:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 203:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 204:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Return pointer to the buffer at the given coordinates
+ 205:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 206:Lib/lvgl/src/draw/lv_draw_buf.h **** void * lv_draw_buf_goto_xy(const lv_draw_buf_t * buf, uint32_t x, uint32_t y);
+ 207:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 208:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 209:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Adjust the stride of a draw buf.
+ 210:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 211:Lib/lvgl/src/draw/lv_draw_buf.h **** lv_draw_buf_t * lv_draw_buf_adjust_stride(const lv_draw_buf_t * src, uint32_t stride);
+ 212:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 213:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
+ 214:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Premultiply draw buffer color with alpha channel.
+ 215:Lib/lvgl/src/draw/lv_draw_buf.h ****  * If it's already premultiplied, return directly.
+ 216:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Only color formats with alpha channel will be processed.
+ 217:Lib/lvgl/src/draw/lv_draw_buf.h ****  *
+ 218:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @return LV_RESULT_OK: premultiply success
+ 219:Lib/lvgl/src/draw/lv_draw_buf.h ****  */
+ 220:Lib/lvgl/src/draw/lv_draw_buf.h **** lv_result_t lv_draw_buf_premultiply(lv_draw_buf_t * draw_buf);
+ 221:Lib/lvgl/src/draw/lv_draw_buf.h **** 
+ 222:Lib/lvgl/src/draw/lv_draw_buf.h **** static inline bool lv_draw_buf_has_flag(lv_draw_buf_t * draw_buf, lv_image_flags_t flag)
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 37
+
+
+ 1093              		.loc 4 222 20 is_stmt 1 view .LVU301
+ 1094              	.LBB38:
+ 223:Lib/lvgl/src/draw/lv_draw_buf.h **** {
+ 224:Lib/lvgl/src/draw/lv_draw_buf.h ****     return draw_buf->header.flags & flag;
+ 1095              		.loc 4 224 5 view .LVU302
+ 1096              		.loc 4 224 28 is_stmt 0 view .LVU303
+ 1097 004a 6B88     		ldrh	r3, [r5, #2]
+ 1098              	.LVL110:
+ 1099              		.loc 4 224 28 view .LVU304
+ 1100              	.LBE38:
+ 1101              	.LBE37:
+ 313:Lib/lvgl/src/draw/lv_image_decoder.c ****       ) {
+ 1102              		.loc 1 313 8 view .LVU305
+ 1103 004c 13F0010F 		tst	r3, #1
+ 1104 0050 E7D1     		bne	.L77
+ 315:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_MODIFIABLE)) {
+ 1105              		.loc 1 315 9 is_stmt 1 view .LVU306
+ 315:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_MODIFIABLE)) {
+ 1106              		.loc 1 315 9 view .LVU307
+ 315:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_MODIFIABLE)) {
+ 1107              		.loc 1 315 9 view .LVU308
+ 316:Lib/lvgl/src/draw/lv_image_decoder.c ****             /*Do it directly*/
+ 1108              		.loc 1 316 9 view .LVU309
+ 1109              	.LVL111:
+ 1110              	.LBB39:
+ 1111              	.LBI39:
+ 222:Lib/lvgl/src/draw/lv_draw_buf.h **** {
+ 1112              		.loc 4 222 20 view .LVU310
+ 1113              	.LBB40:
+ 1114              		.loc 4 224 5 view .LVU311
+ 1115              		.loc 4 224 5 is_stmt 0 view .LVU312
+ 1116              	.LBE40:
+ 1117              	.LBE39:
+ 316:Lib/lvgl/src/draw/lv_image_decoder.c ****             /*Do it directly*/
+ 1118              		.loc 1 316 11 view .LVU313
+ 1119 0052 13F0020F 		tst	r3, #2
+ 1120 0056 03D0     		beq	.L79
+ 318:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 1121              		.loc 1 318 13 is_stmt 1 view .LVU314
+ 1122 0058 2846     		mov	r0, r5
+ 1123 005a FFF7FEFF 		bl	lv_draw_buf_premultiply
+ 1124              	.LVL112:
+ 1125 005e E0E7     		b	.L77
+ 1126              	.L79:
+ 321:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(decoded == NULL) {
+ 1127              		.loc 1 321 13 view .LVU315
+ 321:Lib/lvgl/src/draw/lv_image_decoder.c ****             if(decoded == NULL) {
+ 1128              		.loc 1 321 23 is_stmt 0 view .LVU316
+ 1129 0060 2846     		mov	r0, r5
+ 1130 0062 FFF7FEFF 		bl	lv_draw_buf_dup
+ 1131              	.LVL113:
+ 322:Lib/lvgl/src/draw/lv_image_decoder.c ****                 LV_LOG_ERROR("No memory for premulitplying.");
+ 1132              		.loc 1 322 13 is_stmt 1 view .LVU317
+ 322:Lib/lvgl/src/draw/lv_image_decoder.c ****                 LV_LOG_ERROR("No memory for premulitplying.");
+ 1133              		.loc 1 322 15 is_stmt 0 view .LVU318
+ 1134 0066 0546     		mov	r5, r0
+ 1135 0068 0028     		cmp	r0, #0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 38
+
+
+ 1136 006a DAD0     		beq	.L77
+ 327:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 1137              		.loc 1 327 13 is_stmt 1 view .LVU319
+ 1138 006c FFF7FEFF 		bl	lv_draw_buf_premultiply
+ 1139              	.LVL114:
+ 327:Lib/lvgl/src/draw/lv_image_decoder.c ****         }
+ 1140              		.loc 1 327 13 is_stmt 0 view .LVU320
+ 1141 0070 D7E7     		b	.L77
+ 1142              		.cfi_endproc
+ 1143              	.LFE248:
+ 1145              		.text
+ 1146              	.Letext0:
+ 1147              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1148              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1149              		.file 7 "Lib/lvgl/src/draw/../misc/lv_types.h"
+ 1150              		.file 8 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj.h"
+ 1151              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_class.h"
+ 1152              		.file 10 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 1153              		.file 11 "Lib/lvgl/src/draw/../draw/lv_draw.h"
+ 1154              		.file 12 "Lib/lvgl/src/draw/../core/../draw/sw/../../display/../misc/lv_event.h"
+ 1155              		.file 13 "Lib/lvgl/src/draw/../draw/../misc/lv_timer.h"
+ 1156              		.file 14 "Lib/lvgl/src/draw/lv_image_decoder.h"
+ 1157              		.file 15 "Lib/lvgl/src/draw/../misc/lv_area.h"
+ 1158              		.file 16 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64
+ 1159              		.file 17 "Lib/lvgl/src/draw/../misc/lv_color.h"
+ 1160              		.file 18 "Lib/lvgl/src/draw/lv_image_buf.h"
+ 1161              		.file 19 "Lib/lvgl/src/draw/../misc/cache/../../osal/lv_os_none.h"
+ 1162              		.file 20 "Lib/lvgl/src/draw/../misc/cache/lv_cache_private.h"
+ 1163              		.file 21 "Lib/lvgl/src/draw/../draw/../misc/../tick/lv_tick.h"
+ 1164              		.file 22 "Lib/lvgl/src/draw/../draw/../misc/lv_anim.h"
+ 1165              		.file 23 "Lib/lvgl/src/draw/../draw/../misc/../layouts/lv_layout.h"
+ 1166              		.file 24 "Lib/lvgl/src/draw/../draw/../misc/lv_style.h"
+ 1167              		.file 25 "Lib/lvgl/src/draw/../core/../draw/sw/../../display/../misc/lv_array.h"
+ 1168              		.file 26 "Lib/lvgl/src/draw/../core/../draw/sw/blend/../lv_draw_sw_mask.h"
+ 1169              		.file 27 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
+ 1170              		.file 28 "Lib/lvgl/src/draw/../core/../stdlib/builtin/lv_tlsf.h"
+ 1171              		.file 29 "Lib/lvgl/src/draw/../core/lv_global.h"
+ 1172              		.file 30 "Lib/lvgl/src/draw/../misc/../stdlib/lv_mem.h"
+ 1173              		.file 31 "Lib/lvgl/src/draw/../draw/lv_draw_image.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 39
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_image_decoder.c
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:21     .text.img_width_to_stride:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:26     .text.img_width_to_stride:00000000 img_width_to_stride
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:74     .text._lv_image_decoder_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:80     .text._lv_image_decoder_init:00000000 _lv_image_decoder_init
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:101    .text._lv_image_decoder_init:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:106    .text._lv_image_decoder_deinit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:112    .text._lv_image_decoder_deinit:00000000 _lv_image_decoder_deinit
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:145    .text._lv_image_decoder_deinit:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:150    .text.lv_image_decoder_get_info:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:156    .text.lv_image_decoder_get_info:00000000 lv_image_decoder_get_info
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:294    .text.lv_image_decoder_get_info:00000060 $d
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:299    .text.lv_image_decoder_open:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:305    .text.lv_image_decoder_open:00000000 lv_image_decoder_open
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:590    .text.lv_image_decoder_open:000000e0 $d
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:595    .text.lv_image_decoder_get_area:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:601    .text.lv_image_decoder_get_area:00000000 lv_image_decoder_get_area
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:649    .text.lv_image_decoder_close:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:655    .text.lv_image_decoder_close:00000000 lv_image_decoder_close
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:710    .text.lv_image_decoder_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:716    .text.lv_image_decoder_create:00000000 lv_image_decoder_create
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:769    .text.lv_image_decoder_create:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:774    .text.lv_image_decoder_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:780    .text.lv_image_decoder_delete:00000000 lv_image_decoder_delete
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:812    .text.lv_image_decoder_delete:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:817    .text.lv_image_decoder_get_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:823    .text.lv_image_decoder_get_next:00000000 lv_image_decoder_get_next
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:863    .text.lv_image_decoder_get_next:00000018 $d
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:868    .text.lv_image_decoder_set_info_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:874    .text.lv_image_decoder_set_info_cb:00000000 lv_image_decoder_set_info_cb
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:891    .text.lv_image_decoder_set_open_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:897    .text.lv_image_decoder_set_open_cb:00000000 lv_image_decoder_set_open_cb
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:914    .text.lv_image_decoder_set_get_area_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:920    .text.lv_image_decoder_set_get_area_cb:00000000 lv_image_decoder_set_get_area_cb
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:937    .text.lv_image_decoder_set_close_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:943    .text.lv_image_decoder_set_close_cb:00000000 lv_image_decoder_set_close_cb
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:960    .text.lv_image_decoder_set_cache_free_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:966    .text.lv_image_decoder_set_cache_free_cb:00000000 lv_image_decoder_set_cache_free_cb
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:983    .text.lv_image_decoder_post_process:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s:989    .text.lv_image_decoder_post_process:00000000 lv_image_decoder_post_process
+
+UNDEFINED SYMBOLS
+lv_color_format_get_bpp
+_lv_ll_init
+lv_global
+_lv_ll_clear_custom
+lv_memset
+lv_image_src_get_type
+_lv_ll_get_head
+_lv_ll_get_next
+lv_strlen
+lv_malloc
+lv_strcpy
+lv_free
+_lv_ll_ins_head
+_lv_ll_remove
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccZ5m4ki.s 			page 40
+
+
+lv_draw_buf_width_to_stride
+lv_draw_buf_adjust_stride
+lv_color_format_has_alpha
+lv_draw_buf_premultiply
+lv_draw_buf_dup

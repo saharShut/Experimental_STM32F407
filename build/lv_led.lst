@@ -1,0 +1,2497 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_led.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/widgets/led/lv_led.c"
+  20              		.section	.text.lv_color_mix,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_color_mix:
+  27              	.LVL0:
+  28              	.LFB26:
+  29              		.file 2 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color_op.h"
+   1:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** /**
+   2:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @file lv_color_op.h
+   3:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  *
+   4:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  */
+   5:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+   6:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** #ifndef LV_COLOR_OP_H
+   7:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** #define LV_COLOR_OP_H
+   8:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+   9:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** #ifdef __cplusplus
+  10:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** extern "C" {
+  11:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** #endif
+  12:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  13:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** /*********************
+  14:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  *      INCLUDES
+  15:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  *********************/
+  16:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** #include "lv_assert.h"
+  17:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** #include "lv_math.h"
+  18:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** #include "lv_color.h"
+  19:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** #include <stdint.h>
+  20:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  21:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** /*********************
+  22:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  *      DEFINES
+  23:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  *********************/
+  24:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  25:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** /**********************
+  26:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  *      TYPEDEFS
+  27:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  **********************/
+  28:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  29:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** struct _lv_color_filter_dsc_t;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 2
+
+
+  30:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  31:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** typedef lv_color_t (*lv_color_filter_cb_t)(const struct _lv_color_filter_dsc_t *, lv_color_t, lv_op
+  32:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  33:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** typedef struct _lv_color_filter_dsc_t {
+  34:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     lv_color_filter_cb_t filter_cb;
+  35:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     void * user_data;
+  36:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** } lv_color_filter_dsc_t;
+  37:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  38:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** /**********************
+  39:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * GLOBAL PROTOTYPES
+  40:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  **********************/
+  41:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  42:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** /**
+  43:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * Mix two colors with a given ratio.
+  44:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @param c1 the first color to mix (usually the foreground)
+  45:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @param c2 the second color to mix (usually the background)
+  46:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @param mix The ratio of the colors. 0: full `c2`, 255: full `c1`, 127: half `c1` and half`c2`
+  47:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @return the mixed color
+  48:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  */
+  49:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** LV_ATTRIBUTE_FAST_MEM static inline lv_color_t lv_color_mix(lv_color_t c1, lv_color_t c2, uint8_t m
+  50:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** {
+  30              		.loc 2 50 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 16
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              		.loc 2 50 1 is_stmt 0 view .LVU1
+  36 0000 84B0     		sub	sp, sp, #16
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 16
+  39 0002 0190     		str	r0, [sp, #4]
+  40 0004 0091     		str	r1, [sp]
+  51:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     lv_color_t ret;
+  41              		.loc 2 51 5 is_stmt 1 view .LVU2
+  52:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  53:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     ret.red = LV_UDIV255((uint16_t)c1.red * mix + c2.red * (255 - mix) + LV_COLOR_MIX_ROUND_OFS);
+  42              		.loc 2 53 5 view .LVU3
+  43              		.loc 2 53 15 is_stmt 0 view .LVU4
+  44 0006 9DF80600 		ldrb	r0, [sp, #6]	@ zero_extendqisi2
+  45 000a 9DF80210 		ldrb	r1, [sp, #2]	@ zero_extendqisi2
+  46 000e C2F1FF03 		rsb	r3, r2, #255
+  47 0012 03FB01F1 		mul	r1, r3, r1
+  48 0016 02FB0011 		mla	r1, r2, r0, r1
+  49 001a 01EB0120 		add	r0, r1, r1, lsl #8
+  50 001e 01EBC011 		add	r1, r1, r0, lsl #7
+  51 0022 C90D     		lsrs	r1, r1, #23
+  52              		.loc 2 53 13 view .LVU5
+  53 0024 8DF80A10 		strb	r1, [sp, #10]
+  54:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     ret.green = LV_UDIV255((uint16_t)c1.green * mix + c2.green * (255 - mix) + LV_COLOR_MIX_ROUND_O
+  54              		.loc 2 54 5 is_stmt 1 view .LVU6
+  55              		.loc 2 54 17 is_stmt 0 view .LVU7
+  56 0028 9DF80500 		ldrb	r0, [sp, #5]	@ zero_extendqisi2
+  57 002c 9DF80110 		ldrb	r1, [sp, #1]	@ zero_extendqisi2
+  58 0030 03FB01F1 		mul	r1, r3, r1
+  59 0034 00FB0211 		mla	r1, r0, r2, r1
+  60 0038 01EB0120 		add	r0, r1, r1, lsl #8
+  61 003c 01EBC011 		add	r1, r1, r0, lsl #7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 3
+
+
+  62 0040 C90D     		lsrs	r1, r1, #23
+  63              		.loc 2 54 15 view .LVU8
+  64 0042 8DF80910 		strb	r1, [sp, #9]
+  55:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     ret.blue = LV_UDIV255((uint16_t)c1.blue * mix + c2.blue * (255 - mix) + LV_COLOR_MIX_ROUND_OFS)
+  65              		.loc 2 55 5 is_stmt 1 view .LVU9
+  66              		.loc 2 55 16 is_stmt 0 view .LVU10
+  67 0046 9DF80410 		ldrb	r1, [sp, #4]	@ zero_extendqisi2
+  68 004a 9DF80000 		ldrb	r0, [sp]	@ zero_extendqisi2
+  69 004e 00FB03F3 		mul	r3, r0, r3
+  70 0052 01FB0232 		mla	r2, r1, r2, r3
+  71              	.LVL1:
+  72              		.loc 2 55 16 view .LVU11
+  73 0056 02EB0223 		add	r3, r2, r2, lsl #8
+  74 005a 02EBC312 		add	r2, r2, r3, lsl #7
+  75 005e D20D     		lsrs	r2, r2, #23
+  76              		.loc 2 55 14 view .LVU12
+  77 0060 8DF80820 		strb	r2, [sp, #8]
+  56:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return ret;
+  78              		.loc 2 56 5 is_stmt 1 view .LVU13
+  79              		.loc 2 56 12 is_stmt 0 view .LVU14
+  80 0064 029B     		ldr	r3, [sp, #8]
+  81 0066 ADF80C30 		strh	r3, [sp, #12]	@ movhi
+  82 006a 1B0C     		lsrs	r3, r3, #16
+  83 006c 8DF80E30 		strb	r3, [sp, #14]
+  84 0070 0020     		movs	r0, #0
+  85 0072 9DF80C30 		ldrb	r3, [sp, #12]	@ zero_extendqisi2
+  86 0076 63F30700 		bfi	r0, r3, #0, #8
+  87 007a 9DF80D30 		ldrb	r3, [sp, #13]	@ zero_extendqisi2
+  88 007e 63F30F20 		bfi	r0, r3, #8, #8
+  89 0082 9DF80E30 		ldrb	r3, [sp, #14]	@ zero_extendqisi2
+  90 0086 63F31740 		bfi	r0, r3, #16, #8
+  57:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** }
+  91              		.loc 2 57 1 view .LVU15
+  92 008a 04B0     		add	sp, sp, #16
+  93              	.LCFI1:
+  94              		.cfi_def_cfa_offset 0
+  95              		@ sp needed
+  96 008c 7047     		bx	lr
+  97              		.cfi_endproc
+  98              	.LFE26:
+ 100              		.section	.text.lv_led_event,"ax",%progbits
+ 101              		.align	1
+ 102              		.syntax unified
+ 103              		.thumb
+ 104              		.thumb_func
+ 106              	lv_led_event:
+ 107              	.LVL2:
+ 108              	.LFB241:
+   1:Lib/lvgl/src/widgets/led/lv_led.c **** /**
+   2:Lib/lvgl/src/widgets/led/lv_led.c ****  * @file lv_led.c
+   3:Lib/lvgl/src/widgets/led/lv_led.c ****  *
+   4:Lib/lvgl/src/widgets/led/lv_led.c ****  */
+   5:Lib/lvgl/src/widgets/led/lv_led.c **** 
+   6:Lib/lvgl/src/widgets/led/lv_led.c **** /*********************
+   7:Lib/lvgl/src/widgets/led/lv_led.c ****  *      INCLUDES
+   8:Lib/lvgl/src/widgets/led/lv_led.c ****  *********************/
+   9:Lib/lvgl/src/widgets/led/lv_led.c **** #include "lv_led.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 4
+
+
+  10:Lib/lvgl/src/widgets/led/lv_led.c **** #if LV_USE_LED
+  11:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  12:Lib/lvgl/src/widgets/led/lv_led.c **** #include "../../misc/lv_assert.h"
+  13:Lib/lvgl/src/widgets/led/lv_led.c **** #include "../../themes/lv_theme.h"
+  14:Lib/lvgl/src/widgets/led/lv_led.c **** #include "../../misc/lv_color.h"
+  15:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  16:Lib/lvgl/src/widgets/led/lv_led.c **** /*********************
+  17:Lib/lvgl/src/widgets/led/lv_led.c ****  *      DEFINES
+  18:Lib/lvgl/src/widgets/led/lv_led.c ****  *********************/
+  19:Lib/lvgl/src/widgets/led/lv_led.c **** #define MY_CLASS &lv_led_class
+  20:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  21:Lib/lvgl/src/widgets/led/lv_led.c **** /**********************
+  22:Lib/lvgl/src/widgets/led/lv_led.c ****  *      TYPEDEFS
+  23:Lib/lvgl/src/widgets/led/lv_led.c ****  **********************/
+  24:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  25:Lib/lvgl/src/widgets/led/lv_led.c **** /**********************
+  26:Lib/lvgl/src/widgets/led/lv_led.c ****  *  STATIC PROTOTYPES
+  27:Lib/lvgl/src/widgets/led/lv_led.c ****  **********************/
+  28:Lib/lvgl/src/widgets/led/lv_led.c **** static void lv_led_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
+  29:Lib/lvgl/src/widgets/led/lv_led.c **** static void lv_led_event(const lv_obj_class_t * class_p, lv_event_t * e);
+  30:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  31:Lib/lvgl/src/widgets/led/lv_led.c **** /**********************
+  32:Lib/lvgl/src/widgets/led/lv_led.c ****  *  STATIC VARIABLES
+  33:Lib/lvgl/src/widgets/led/lv_led.c ****  **********************/
+  34:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  35:Lib/lvgl/src/widgets/led/lv_led.c **** const lv_obj_class_t lv_led_class  = {
+  36:Lib/lvgl/src/widgets/led/lv_led.c ****     .base_class = &lv_obj_class,
+  37:Lib/lvgl/src/widgets/led/lv_led.c ****     .constructor_cb = lv_led_constructor,
+  38:Lib/lvgl/src/widgets/led/lv_led.c ****     .width_def = LV_DPI_DEF / 5,
+  39:Lib/lvgl/src/widgets/led/lv_led.c ****     .height_def = LV_DPI_DEF / 5,
+  40:Lib/lvgl/src/widgets/led/lv_led.c ****     .event_cb = lv_led_event,
+  41:Lib/lvgl/src/widgets/led/lv_led.c ****     .instance_size = sizeof(lv_led_t),
+  42:Lib/lvgl/src/widgets/led/lv_led.c ****     .name = "led",
+  43:Lib/lvgl/src/widgets/led/lv_led.c **** };
+  44:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  45:Lib/lvgl/src/widgets/led/lv_led.c **** /**********************
+  46:Lib/lvgl/src/widgets/led/lv_led.c ****  *      MACROS
+  47:Lib/lvgl/src/widgets/led/lv_led.c ****  **********************/
+  48:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  49:Lib/lvgl/src/widgets/led/lv_led.c **** /**********************
+  50:Lib/lvgl/src/widgets/led/lv_led.c ****  *   GLOBAL FUNCTIONS
+  51:Lib/lvgl/src/widgets/led/lv_led.c ****  **********************/
+  52:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  53:Lib/lvgl/src/widgets/led/lv_led.c **** lv_obj_t * lv_led_create(lv_obj_t * parent)
+  54:Lib/lvgl/src/widgets/led/lv_led.c **** {
+  55:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_LOG_INFO("begin");
+  56:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+  57:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_class_init_obj(obj);
+  58:Lib/lvgl/src/widgets/led/lv_led.c ****     return obj;
+  59:Lib/lvgl/src/widgets/led/lv_led.c **** }
+  60:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  61:Lib/lvgl/src/widgets/led/lv_led.c **** /*=====================
+  62:Lib/lvgl/src/widgets/led/lv_led.c ****  * Setter functions
+  63:Lib/lvgl/src/widgets/led/lv_led.c ****  *====================*/
+  64:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  65:Lib/lvgl/src/widgets/led/lv_led.c **** void lv_led_set_color(lv_obj_t * obj, lv_color_t color)
+  66:Lib/lvgl/src/widgets/led/lv_led.c **** {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 5
+
+
+  67:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  68:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  69:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_t * led = (lv_led_t *)obj;
+  70:Lib/lvgl/src/widgets/led/lv_led.c ****     led->color = color;
+  71:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_invalidate(obj);
+  72:Lib/lvgl/src/widgets/led/lv_led.c **** }
+  73:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  74:Lib/lvgl/src/widgets/led/lv_led.c **** void lv_led_set_brightness(lv_obj_t * obj, uint8_t bright)
+  75:Lib/lvgl/src/widgets/led/lv_led.c **** {
+  76:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+  77:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  78:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_t * led = (lv_led_t *)obj;
+  79:Lib/lvgl/src/widgets/led/lv_led.c ****     if(led->bright == bright) return;
+  80:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  81:Lib/lvgl/src/widgets/led/lv_led.c ****     led->bright = LV_CLAMP(LV_LED_BRIGHT_MIN, bright, LV_LED_BRIGHT_MAX);
+  82:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  83:Lib/lvgl/src/widgets/led/lv_led.c ****     /*Invalidate the object there fore it will be redrawn*/
+  84:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_invalidate(obj);
+  85:Lib/lvgl/src/widgets/led/lv_led.c **** }
+  86:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  87:Lib/lvgl/src/widgets/led/lv_led.c **** void lv_led_on(lv_obj_t * led)
+  88:Lib/lvgl/src/widgets/led/lv_led.c **** {
+  89:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_set_brightness(led, LV_LED_BRIGHT_MAX);
+  90:Lib/lvgl/src/widgets/led/lv_led.c **** }
+  91:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  92:Lib/lvgl/src/widgets/led/lv_led.c **** void lv_led_off(lv_obj_t * led)
+  93:Lib/lvgl/src/widgets/led/lv_led.c **** {
+  94:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_set_brightness(led, LV_LED_BRIGHT_MIN);
+  95:Lib/lvgl/src/widgets/led/lv_led.c **** }
+  96:Lib/lvgl/src/widgets/led/lv_led.c **** 
+  97:Lib/lvgl/src/widgets/led/lv_led.c **** void lv_led_toggle(lv_obj_t * obj)
+  98:Lib/lvgl/src/widgets/led/lv_led.c **** {
+  99:Lib/lvgl/src/widgets/led/lv_led.c ****     uint8_t bright = lv_led_get_brightness(obj);
+ 100:Lib/lvgl/src/widgets/led/lv_led.c ****     if(bright > (LV_LED_BRIGHT_MIN + LV_LED_BRIGHT_MAX) >> 1)
+ 101:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_led_off(obj);
+ 102:Lib/lvgl/src/widgets/led/lv_led.c ****     else
+ 103:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_led_on(obj);
+ 104:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 105:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 106:Lib/lvgl/src/widgets/led/lv_led.c **** /*=====================
+ 107:Lib/lvgl/src/widgets/led/lv_led.c ****  * Getter functions
+ 108:Lib/lvgl/src/widgets/led/lv_led.c ****  *====================*/
+ 109:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 110:Lib/lvgl/src/widgets/led/lv_led.c **** uint8_t lv_led_get_brightness(const lv_obj_t * obj)
+ 111:Lib/lvgl/src/widgets/led/lv_led.c **** {
+ 112:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 113:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 114:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_t * led = (lv_led_t *)obj;
+ 115:Lib/lvgl/src/widgets/led/lv_led.c ****     return led->bright;
+ 116:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 117:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 118:Lib/lvgl/src/widgets/led/lv_led.c **** /**********************
+ 119:Lib/lvgl/src/widgets/led/lv_led.c ****  *   STATIC FUNCTIONS
+ 120:Lib/lvgl/src/widgets/led/lv_led.c ****  **********************/
+ 121:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 122:Lib/lvgl/src/widgets/led/lv_led.c **** static void lv_led_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+ 123:Lib/lvgl/src/widgets/led/lv_led.c **** {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 6
+
+
+ 124:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_UNUSED(class_p);
+ 125:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_t * led = (lv_led_t *)obj;
+ 126:Lib/lvgl/src/widgets/led/lv_led.c ****     led->color = lv_theme_get_color_primary(obj);
+ 127:Lib/lvgl/src/widgets/led/lv_led.c ****     led->bright = LV_LED_BRIGHT_MAX;
+ 128:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 129:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 130:Lib/lvgl/src/widgets/led/lv_led.c **** static void lv_led_event(const lv_obj_class_t * class_p, lv_event_t * e)
+ 131:Lib/lvgl/src/widgets/led/lv_led.c **** {
+ 109              		.loc 1 131 1 is_stmt 1 view -0
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 264
+ 112              		@ frame_needed = 0, uses_anonymous_args = 0
+ 113              		.loc 1 131 1 is_stmt 0 view .LVU17
+ 114 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 115              	.LCFI2:
+ 116              		.cfi_def_cfa_offset 24
+ 117              		.cfi_offset 4, -24
+ 118              		.cfi_offset 5, -20
+ 119              		.cfi_offset 6, -16
+ 120              		.cfi_offset 7, -12
+ 121              		.cfi_offset 8, -8
+ 122              		.cfi_offset 14, -4
+ 123 0004 C2B0     		sub	sp, sp, #264
+ 124              	.LCFI3:
+ 125              		.cfi_def_cfa_offset 288
+ 126 0006 0C46     		mov	r4, r1
+ 132:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_UNUSED(class_p);
+ 127              		.loc 1 132 5 is_stmt 1 view .LVU18
+ 133:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 134:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_result_t res;
+ 128              		.loc 1 134 5 view .LVU19
+ 135:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 136:Lib/lvgl/src/widgets/led/lv_led.c ****     /* Call the ancestor's event handler */
+ 137:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_event_code_t code = lv_event_get_code(e);
+ 129              		.loc 1 137 5 view .LVU20
+ 130              		.loc 1 137 28 is_stmt 0 view .LVU21
+ 131 0008 0846     		mov	r0, r1
+ 132              	.LVL3:
+ 133              		.loc 1 137 28 view .LVU22
+ 134 000a FFF7FEFF 		bl	lv_event_get_code
+ 135              	.LVL4:
+ 136              		.loc 1 137 28 view .LVU23
+ 137 000e 0546     		mov	r5, r0
+ 138              	.LVL5:
+ 138:Lib/lvgl/src/widgets/led/lv_led.c ****     if(code != LV_EVENT_DRAW_MAIN && code != LV_EVENT_DRAW_MAIN_END) {
+ 139              		.loc 1 138 5 is_stmt 1 view .LVU24
+ 140              		.loc 1 138 35 is_stmt 0 view .LVU25
+ 141 0010 A0F11703 		sub	r3, r0, #23
+ 142 0014 9BB2     		uxth	r3, r3
+ 143              		.loc 1 138 7 view .LVU26
+ 144 0016 012B     		cmp	r3, #1
+ 145 0018 05D9     		bls	.L4
+ 139:Lib/lvgl/src/widgets/led/lv_led.c ****         res = lv_obj_event_base(MY_CLASS, e);
+ 146              		.loc 1 139 9 is_stmt 1 view .LVU27
+ 147              		.loc 1 139 15 is_stmt 0 view .LVU28
+ 148 001a 2146     		mov	r1, r4
+ 149 001c 0648     		ldr	r0, .L8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 7
+
+
+ 150              	.LVL6:
+ 151              		.loc 1 139 15 view .LVU29
+ 152 001e FFF7FEFF 		bl	lv_obj_event_base
+ 153              	.LVL7:
+ 140:Lib/lvgl/src/widgets/led/lv_led.c ****         if(res != LV_RESULT_OK) return;
+ 154              		.loc 1 140 9 is_stmt 1 view .LVU30
+ 155              		.loc 1 140 11 is_stmt 0 view .LVU31
+ 156 0022 0128     		cmp	r0, #1
+ 157 0024 05D1     		bne	.L3
+ 158              	.LVL8:
+ 159              	.L4:
+ 141:Lib/lvgl/src/widgets/led/lv_led.c ****     }
+ 142:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 143:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 160              		.loc 1 143 5 is_stmt 1 view .LVU32
+ 161              		.loc 1 143 22 is_stmt 0 view .LVU33
+ 162 0026 2046     		mov	r0, r4
+ 163 0028 FFF7FEFF 		bl	lv_event_get_current_target
+ 164              	.LVL9:
+ 165 002c 0646     		mov	r6, r0
+ 166              	.LVL10:
+ 144:Lib/lvgl/src/widgets/led/lv_led.c ****     if(code == LV_EVENT_DRAW_MAIN) {
+ 167              		.loc 1 144 5 is_stmt 1 view .LVU34
+ 168              		.loc 1 144 7 is_stmt 0 view .LVU35
+ 169 002e 172D     		cmp	r5, #23
+ 170 0030 04D0     		beq	.L7
+ 171              	.LVL11:
+ 172              	.L3:
+ 145:Lib/lvgl/src/widgets/led/lv_led.c ****         /*Make darker colors in a temporary style according to the brightness*/
+ 146:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_led_t * led = (lv_led_t *)obj;
+ 147:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 148:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_draw_rect_dsc_t rect_dsc;
+ 149:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_draw_rect_dsc_init(&rect_dsc);
+ 150:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_obj_init_draw_rect_dsc(obj, LV_PART_MAIN, &rect_dsc);
+ 151:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 152:Lib/lvgl/src/widgets/led/lv_led.c ****         /*Use the original colors brightness to modify color->led*/
+ 153:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_color = lv_color_mix(led->color, lv_color_black(), lv_color_brightness(rect_dsc
+ 154:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[0].color = lv_color_mix(led->color, lv_color_black(),
+ 155:Lib/lvgl/src/widgets/led/lv_led.c ****                                                        lv_color_brightness(rect_dsc.bg_grad.stops[0
+ 156:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[1].color = lv_color_mix(led->color, lv_color_black(),
+ 157:Lib/lvgl/src/widgets/led/lv_led.c ****                                                        lv_color_brightness(rect_dsc.bg_grad.stops[1
+ 158:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.shadow_color = lv_color_mix(led->color, lv_color_black(), lv_color_brightness(rect
+ 159:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.border_color = lv_color_mix(led->color, lv_color_black(), lv_color_brightness(rect
+ 160:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.outline_color = lv_color_mix(led->color, lv_color_black(), lv_color_brightness(rec
+ 161:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 162:Lib/lvgl/src/widgets/led/lv_led.c ****         /*Mix. the color with black proportionally with brightness*/
+ 163:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_color = lv_color_mix(rect_dsc.bg_color, lv_color_black(), led->bright);
+ 164:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[0].color   = lv_color_mix(rect_dsc.bg_grad.stops[0].color, lv_color_
+ 165:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[1].color   = lv_color_mix(rect_dsc.bg_grad.stops[1].color, lv_color_
+ 166:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.border_color = lv_color_mix(rect_dsc.border_color, lv_color_black(), led->bright);
+ 167:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.shadow_color = lv_color_mix(rect_dsc.shadow_color, lv_color_black(), led->bright);
+ 168:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.outline_color = lv_color_mix(rect_dsc.outline_color, lv_color_black(), led->bright
+ 169:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 170:Lib/lvgl/src/widgets/led/lv_led.c ****         /*Set the current shadow width according to brightness proportionally between LV_LED_BRIGHT
+ 171:Lib/lvgl/src/widgets/led/lv_led.c ****          * and LV_LED_BRIGHT_ON*/
+ 172:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.shadow_width = ((led->bright - LV_LED_BRIGHT_MIN) * rect_dsc.shadow_width) /
+ 173:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 8
+
+
+ 174:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.shadow_spread = ((led->bright - LV_LED_BRIGHT_MIN) * rect_dsc.shadow_spread) /
+ 175:Lib/lvgl/src/widgets/led/lv_led.c ****                                  (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 176:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 177:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_layer_t * layer = lv_event_get_layer(e);
+ 178:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 179:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_draw_rect(layer, &rect_dsc, &obj->coords);
+ 180:Lib/lvgl/src/widgets/led/lv_led.c ****     }
+ 181:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 173              		.loc 1 181 1 view .LVU36
+ 174 0032 42B0     		add	sp, sp, #264
+ 175              	.LCFI4:
+ 176              		.cfi_remember_state
+ 177              		.cfi_def_cfa_offset 24
+ 178              		@ sp needed
+ 179 0034 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 180              	.LVL12:
+ 181              	.L9:
+ 182              		.loc 1 181 1 view .LVU37
+ 183              		.align	2
+ 184              	.L8:
+ 185 0038 00000000 		.word	lv_led_class
+ 186              	.LVL13:
+ 187              	.L7:
+ 188              	.LCFI5:
+ 189              		.cfi_restore_state
+ 190              	.LBB65:
+ 146:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 191              		.loc 1 146 9 is_stmt 1 view .LVU38
+ 148:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_draw_rect_dsc_init(&rect_dsc);
+ 192              		.loc 1 148 9 view .LVU39
+ 149:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_obj_init_draw_rect_dsc(obj, LV_PART_MAIN, &rect_dsc);
+ 193              		.loc 1 149 9 view .LVU40
+ 194 003c 02A8     		add	r0, sp, #8
+ 195              	.LVL14:
+ 149:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_obj_init_draw_rect_dsc(obj, LV_PART_MAIN, &rect_dsc);
+ 196              		.loc 1 149 9 is_stmt 0 view .LVU41
+ 197 003e FFF7FEFF 		bl	lv_draw_rect_dsc_init
+ 198              	.LVL15:
+ 150:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 199              		.loc 1 150 9 is_stmt 1 view .LVU42
+ 200 0042 02AA     		add	r2, sp, #8
+ 201 0044 0021     		movs	r1, #0
+ 202 0046 3046     		mov	r0, r6
+ 203 0048 FFF7FEFF 		bl	lv_obj_init_draw_rect_dsc
+ 204              	.LVL16:
+ 153:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[0].color = lv_color_mix(led->color, lv_color_black(),
+ 205              		.loc 1 153 9 view .LVU43
+ 206              	.LBB66:
+ 207              	.LBI66:
+ 208              		.file 3 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+   1:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+   2:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @file lv_color.h
+   3:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *
+   4:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+   5:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+   6:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifndef LV_COLOR_H
+   7:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_H
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 9
+
+
+   8:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+   9:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifdef __cplusplus
+  10:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** extern "C" {
+  11:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif
+  12:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  13:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /*********************
+  14:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *      INCLUDES
+  15:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *********************/
+  16:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include "../lv_conf_internal.h"
+  17:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include "lv_assert.h"
+  18:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include "lv_math.h"
+  19:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include "lv_types.h"
+  20:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include <stdint.h>
+  21:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #include <stdbool.h>
+  22:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  23:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /*********************
+  24:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *      DEFINES
+  25:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *********************/
+  26:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** LV_EXPORT_CONST_INT(LV_COLOR_DEPTH);
+  27:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  28:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #if LV_COLOR_DEPTH == 8
+  29:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 2
+  30:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 16
+  31:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 3
+  32:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 24
+  33:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  34:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 32
+  35:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
+  36:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif
+  37:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  38:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+  39:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Opacity percentages.
+  40:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+  41:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  42:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** enum _lv_opa_t {
+  43:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_TRANSP = 0,
+  44:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_0      = 0,
+  45:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_10     = 25,
+  46:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_20     = 51,
+  47:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_30     = 76,
+  48:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_40     = 102,
+  49:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_50     = 127,
+  50:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_60     = 153,
+  51:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_70     = 178,
+  52:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_80     = 204,
+  53:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_90     = 229,
+  54:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_100    = 255,
+  55:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_OPA_COVER  = 255,
+  56:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** };
+  57:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  58:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifdef DOXYGEN
+  59:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef _lv_opa_t lv_opa_t;
+  60:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #else
+  61:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef uint8_t lv_opa_t;
+  62:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif /*DOXYGEN*/
+  63:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  64:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MIN 2    /*Opacities below this will be transparent*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 10
+
+
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MAX 253  /*Opacities above this will fully cover*/
+  66:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  67:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_GET_BPP(cf) (       \
+  68:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I1 ? 1 :        \
+  69:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A1 ? 1 :        \
+  70:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I2 ? 2 :        \
+  71:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A2 ? 2 :        \
+  72:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I4 ? 4 :        \
+  73:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A4 ? 4 :        \
+  74:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_L8 ? 8 :        \
+  75:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A8 ? 8 :        \
+  76:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I8 ? 8 :        \
+  77:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565 ? 16 :   \
+  78:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB565A8 ? 24 : \
+  79:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_RGB888 ? 24 :   \
+  80:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_ARGB8888 ? 32 : \
+  81:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_XRGB8888 ? 32 : \
+  82:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                             0                                       \
+  83:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                     )
+  84:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  85:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**********************
+  86:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *      TYPEDEFS
+  87:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  **********************/
+  88:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef struct {
+  90:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t blue;
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t green;
+  92:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t red;
+  93:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** } lv_color_t;
+  94:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+  95:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef struct {
+  96:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t blue : 5;
+  97:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t green : 6;
+  98:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t red : 5;
+  99:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** } lv_color16_t;
+ 100:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 101:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef struct {
+ 102:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t blue;
+ 103:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t green;
+ 104:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t red;
+ 105:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t alpha;
+ 106:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** } lv_color32_t;
+ 107:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 108:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef struct {
+ 109:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t h;
+ 110:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t s;
+ 111:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t v;
+ 112:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** } lv_color_hsv_t;
+ 113:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 114:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** enum _lv_color_format_t {
+ 115:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_UNKNOWN           = 0,
+ 116:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 117:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RAW               = 0x01,
+ 118:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RAW_ALPHA         = 0x02,
+ 119:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 120:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*<=1 byte (+alpha) formats*/
+ 121:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_L8                = 0x06,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 11
+
+
+ 122:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I1                = 0x07,
+ 123:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I2                = 0x08,
+ 124:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I4                = 0x09,
+ 125:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I8                = 0x0A,
+ 126:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_A8                = 0x0E,
+ 127:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 128:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*2 byte (+alpha) formats*/
+ 129:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RGB565            = 0x12,
+ 130:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RGB565A8          = 0x14    /**< Color array followed by Alpha array*/,
+ 131:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 132:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*3 byte (+alpha) formats*/
+ 133:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_RGB888            = 0x0F,
+ 134:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_ARGB8888          = 0x10,
+ 135:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_XRGB8888          = 0x11,
+ 136:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 137:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*Formats not supported by software renderer but kept here so GPU can use it*/
+ 138:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_A1                = 0x0B,
+ 139:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_A2                = 0x0C,
+ 140:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_A4                = 0x0D,
+ 141:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 142:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /* reference to https://wiki.videolan.org/YUV/ */
+ 143:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*YUV planar formats*/
+ 144:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_YUV_START         = 0x20,
+ 145:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I420              = LV_COLOR_FORMAT_YUV_START,  /*YUV420 planar(3 plane)*/
+ 146:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I422              = 0x21,  /*YUV422 planar(3 plane)*/
+ 147:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I444              = 0x22,  /*YUV444 planar(3 plane)*/
+ 148:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I400              = 0x23,  /*YUV400 no chroma channel*/
+ 149:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NV21              = 0x24,  /*YUV420 planar(2 plane), UV plane in 'V, U, V, U'*/
+ 150:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NV12              = 0x25,  /*YUV420 planar(2 plane), UV plane in 'U, V, U, V'*/
+ 151:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 152:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*YUV packed formats*/
+ 153:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_YUY2              = 0x26,  /*YUV422 packed like 'Y U Y V'*/
+ 154:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_UYVY              = 0x27,  /*YUV422 packed like 'U Y V Y'*/
+ 155:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 156:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_YUV_END           = LV_COLOR_FORMAT_UYVY,
+ 157:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 158:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*Color formats in which LVGL can render*/
+ 159:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #if LV_COLOR_DEPTH == 8
+ 160:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_L8,
+ 161:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 16
+ 162:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB565,
+ 163:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_RGB565A8,
+ 164:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 24
+ 165:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_RGB888,
+ 166:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 167:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #elif LV_COLOR_DEPTH == 32
+ 168:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE            = LV_COLOR_FORMAT_XRGB8888,
+ 169:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_NATIVE_WITH_ALPHA = LV_COLOR_FORMAT_ARGB8888,
+ 170:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif
+ 171:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** };
+ 172:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 173:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifdef DOXYGEN
+ 174:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef _lv_color_format_t lv_color_format_t;
+ 175:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #else
+ 176:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef uint8_t lv_color_format_t;
+ 177:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif /*DOXYGEN*/
+ 178:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 12
+
+
+ 179:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_IS_ALPHA_ONLY(cf) ((cf) >= LV_COLOR_FORMAT_A1 && (cf) <= LV_COLOR_FORMAT_A8
+ 180:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_IS_INDEXED(cf) ((cf) >= LV_COLOR_FORMAT_I1 && (cf) <= LV_COLOR_FORMAT_I8)
+ 181:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_IS_YUV(cf)  ((cf) >= LV_COLOR_FORMAT_YUV_START && (cf) <= LV_COLOR_FORMAT_Y
+ 182:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_INDEXED_PALETTE_SIZE(cf) ((cf) == LV_COLOR_FORMAT_I1 ? 2 :\
+ 183:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I2 ? 4 :\
+ 184:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I4 ? 16 :\
+ 185:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                                            (cf) == LV_COLOR_FORMAT_I8 ? 256 : 0)
+ 186:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 187:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**********************
+ 188:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * MACROS
+ 189:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  **********************/
+ 190:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 191:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_MAKE(r8, g8, b8) {b8, g8, r8}
+ 192:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 193:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MIX2(a1, a2) (((int32_t)(a1) * (a2)) >> 8)
+ 194:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MIX3(a1, a2, a3) (((int32_t)(a1) * (a2) * (a3)) >> 16)
+ 195:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 196:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**********************
+ 197:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * GLOBAL PROTOTYPES
+ 198:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  **********************/
+ 199:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 200:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 201:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Get the pixel size of a color format in bits, bpp
+ 202:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 203:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          the pixel size in bits
+ 204:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 205:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** uint8_t lv_color_format_get_bpp(lv_color_format_t cf);
+ 206:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 207:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 208:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Get the pixel size of a color format in bytes
+ 209:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 210:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          the pixel size in bytes
+ 211:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 212:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline uint8_t lv_color_format_get_size(lv_color_format_t cf)
+ 213:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 214:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return (lv_color_format_get_bpp(cf) + 7) >> 3;
+ 215:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 216:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 217:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 218:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Check if a color format has alpha channel or not
+ 219:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param src_cf    a color format (`LV_COLOR_FORMAT_...`)
+ 220:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          true: has alpha channel; false: doesn't have alpha channel
+ 221:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 222:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** bool lv_color_format_has_alpha(lv_color_format_t src_cf);
+ 223:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 224:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 225:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Create an ARGB8888 color from RGB888 + alpha
+ 226:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param color     an RGB888 color
+ 227:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param opa       the alpha value
+ 228:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          the ARGB8888 color
+ 229:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 230:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** lv_color32_t lv_color_to_32(lv_color_t color, lv_opa_t opa);
+ 231:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 232:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 233:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Convert an RGB888 color to an integer
+ 234:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c     an RGB888 color
+ 235:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      `c` as an integer
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 13
+
+
+ 236:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 237:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline uint32_t lv_color_to_int(lv_color_t c)
+ 238:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 239:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint8_t * tmp = (uint8_t *) &c;
+ 240:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return tmp[0] + (tmp[1] << 8) + (tmp[2] << 16);
+ 241:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 242:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 243:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 244:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Check if two RGB888 color are equal
+ 245:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c1    the first color
+ 246:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c2    the second color
+ 247:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      true: equal
+ 248:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 249:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline bool lv_color_eq(lv_color_t c1, lv_color_t c2)
+ 250:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 251:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return lv_color_to_int(c1) == lv_color_to_int(c2);
+ 252:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 253:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 254:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 255:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Check if two ARGB8888 color are equal
+ 256:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c1    the first color
+ 257:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c2    the second color
+ 258:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      true: equal
+ 259:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 260:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline bool lv_color32_eq(lv_color32_t c1, lv_color32_t c2)
+ 261:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 262:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return *((uint32_t *)&c1) == *((uint32_t *)&c2);
+ 263:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 264:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 265:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 266:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Create a color from 0x000000..0xffffff input
+ 267:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c     the hex input
+ 268:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      the color
+ 269:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 270:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline lv_color_t lv_color_hex(uint32_t c)
+ 271:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 272:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     lv_color_t ret;
+ 273:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = (c >> 16) & 0xff;
+ 274:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = (c >> 8) & 0xff;
+ 275:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = (c >> 0) & 0xff;
+ 276:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 277:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 278:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 279:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 280:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Create an RGB888 color
+ 281:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param r     the red channel (0..255)
+ 282:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param g     the green channel (0..255)
+ 283:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param b     the blue channel (0..255)
+ 284:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      the color
+ 285:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline lv_color_t lv_color_make(uint8_t r, uint8_t g, uint8_t b)
+ 287:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     lv_color_t ret;
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 14
+
+
+ 293:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 294:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 295:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 296:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Create an ARGB8888 color
+ 297:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param r     the red channel (0..255)
+ 298:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param g     the green channel (0..255)
+ 299:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param b     the blue channel (0..255)
+ 300:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param a     the alpha channel (0..255)
+ 301:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      the color
+ 302:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 303:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline lv_color32_t lv_color32_make(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+ 304:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 305:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     lv_color32_t ret;
+ 306:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 307:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 308:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 309:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.alpha = a;
+ 310:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 311:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 312:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 313:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 314:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Create a color from 0x000..0xfff input
+ 315:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c     the hex input (e.g. 0x123 will be 0x112233)
+ 316:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      the color
+ 317:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 318:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline lv_color_t lv_color_hex3(uint32_t c)
+ 319:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 320:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return lv_color_make((uint8_t)(((c >> 4) & 0xF0) | ((c >> 8) & 0xF)), (uint8_t)((c & 0xF0) | ((
+ 321:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****                          (uint8_t)((c & 0xF) | ((c & 0xF) << 4)));
+ 322:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 323:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 324:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 325:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Convert am RGB888 color to RGB565 stored in `uint16_t`
+ 326:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param color     and RGB888 color
+ 327:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          `color` as RGB565 on `uin16_t`
+ 328:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 329:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** uint16_t lv_color_to_u16(lv_color_t color);
+ 330:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 331:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 332:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Convert am RGB888 color to XRGB8888 stored in `uint32_t`
+ 333:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param color     and RGB888 color
+ 334:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          `color` as XRGB8888 on `uin32_t` (the alpha channel is always set to 0xFF)
+ 335:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 336:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** uint32_t lv_color_to_u32(lv_color_t color);
+ 337:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 338:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 339:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Mix two RGB565 colors
+ 340:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c1        the first color (typically the foreground color)
+ 341:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c2        the second color  (typically the background color)
+ 342:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param mix       0..255, or LV_OPA_0/10/20...
+ 343:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return          mix == 0: c2
+ 344:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *                  mix == 255: c1
+ 345:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  *                  mix == 128: 0.5 x c1 + 0.5 x c2
+ 346:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 347:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** LV_ATTRIBUTE_FAST_MEM static inline uint16_t lv_color_16_16_mix(uint16_t c1, uint16_t c2, uint8_t m
+ 348:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 349:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     if(mix == 255) return c1;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 15
+
+
+ 350:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     if(mix == 0) return c2;
+ 351:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 352:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint16_t ret;
+ 353:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 354:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /* Source: https://stackoverflow.com/a/50012418/1999969*/
+ 355:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     mix = (uint32_t)((uint32_t)mix + 4) >> 3;
+ 356:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 357:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*0x7E0F81F = 0b00000111111000001111100000011111*/
+ 358:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint32_t bg = (uint32_t)(c2 | ((uint32_t)c2 << 16)) & 0x7E0F81F;
+ 359:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint32_t fg = (uint32_t)(c1 | ((uint32_t)c1 << 16)) & 0x7E0F81F;
+ 360:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     uint32_t result = ((((fg - bg) * mix) >> 5) + bg) & 0x7E0F81F;
+ 361:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret = (uint16_t)(result >> 16) | result;
+ 362:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 363:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 364:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 365:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 366:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 367:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Mix white to a color
+ 368:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c     the base color
+ 369:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param lvl   the intensity of white (0: no change, 255: fully white)
+ 370:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      the mixed color
+ 371:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 372:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** lv_color_t lv_color_lighten(lv_color_t c, lv_opa_t lvl);
+ 373:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 374:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 375:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Mix black to a color
+ 376:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c     the base color
+ 377:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param lvl   the intensity of black (0: no change, 255: fully black)
+ 378:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      the mixed color
+ 379:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 380:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** lv_color_t lv_color_darken(lv_color_t c, lv_opa_t lvl);
+ 381:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 382:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 383:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Convert a HSV color to RGB
+ 384:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param h hue [0..359]
+ 385:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param s saturation [0..100]
+ 386:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param v value [0..100]
+ 387:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return the given RGB color in RGB (with LV_COLOR_DEPTH depth)
+ 388:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 389:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** lv_color_t lv_color_hsv_to_rgb(uint16_t h, uint8_t s, uint8_t v);
+ 390:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 391:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 392:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Convert a 32-bit RGB color to HSV
+ 393:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param r8 8-bit red
+ 394:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param g8 8-bit green
+ 395:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param b8 8-bit blue
+ 396:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return the given RGB color in HSV
+ 397:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 398:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** lv_color_hsv_t lv_color_rgb_to_hsv(uint8_t r8, uint8_t g8, uint8_t b8);
+ 399:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 400:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 401:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Convert a color to HSV
+ 402:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param color color
+ 403:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return the given color in HSV
+ 404:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 405:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** lv_color_hsv_t lv_color_to_hsv(lv_color_t color);
+ 406:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 16
+
+
+ 407:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /*Source: https://vuetifyjs.com/en/styles/colors/#material-colors*/
+ 408:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 409:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 410:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * A helper for white color
+ 411:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      a white color
+ 412:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 413:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline lv_color_t lv_color_white(void)
+ 414:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 415:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return lv_color_make(0xff, 0xff, 0xff);
+ 416:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 417:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
+ 418:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /**
+ 419:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * A helper for black color
+ 420:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      a black color
+ 421:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** static inline lv_color_t lv_color_black(void)
+ 209              		.loc 3 422 26 view .LVU44
+ 423:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 424:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return lv_color_make(0x00, 0x00, 0x00);
+ 210              		.loc 3 424 5 view .LVU45
+ 211              	.LBB67:
+ 212              	.LBI67:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 213              		.loc 3 286 26 view .LVU46
+ 214              	.LBB68:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 215              		.loc 3 288 5 view .LVU47
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 216              		.loc 3 289 5 view .LVU48
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 217              		.loc 3 289 13 is_stmt 0 view .LVU49
+ 218 004c 0025     		movs	r5, #0
+ 219 004e 8DF80650 		strb	r5, [sp, #6]
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 220              		.loc 3 290 5 is_stmt 1 view .LVU50
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 221              		.loc 3 290 15 is_stmt 0 view .LVU51
+ 222 0052 8DF80550 		strb	r5, [sp, #5]
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 223              		.loc 3 291 5 is_stmt 1 view .LVU52
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 224              		.loc 3 291 14 is_stmt 0 view .LVU53
+ 225 0056 8DF80450 		strb	r5, [sp, #4]
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 226              		.loc 3 292 5 is_stmt 1 view .LVU54
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 227              		.loc 3 292 12 is_stmt 0 view .LVU55
+ 228 005a 019B     		ldr	r3, [sp, #4]
+ 229 005c ADF80031 		strh	r3, [sp, #256]	@ movhi
+ 230 0060 1B0C     		lsrs	r3, r3, #16
+ 231 0062 8DF80231 		strb	r3, [sp, #258]
+ 232 0066 409B     		ldr	r3, [sp, #256]
+ 233 0068 ADF80431 		strh	r3, [sp, #260]	@ movhi
+ 234 006c 1B0C     		lsrs	r3, r3, #16
+ 235 006e 8DF80631 		strb	r3, [sp, #262]
+ 236              	.LVL17:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 17
+
+
+ 237              		.loc 3 292 12 view .LVU56
+ 238 0072 419B     		ldr	r3, [sp, #260]
+ 239 0074 ADF87830 		strh	r3, [sp, #120]	@ movhi
+ 240 0078 1B0C     		lsrs	r3, r3, #16
+ 241 007a 8DF87A30 		strb	r3, [sp, #122]
+ 242 007e BDF82920 		ldrh	r2, [sp, #41]	@ unaligned
+ 243 0082 9DF82B30 		ldrb	r3, [sp, #43]	@ zero_extendqisi2
+ 244 0086 ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 245 008a 8DF80630 		strb	r3, [sp, #6]
+ 246              	.LBE68:
+ 247              	.LBE67:
+ 248              	.LBE66:
+ 249              	.LBB69:
+ 250              	.LBI69:
+  58:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  59:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** /**
+  60:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  *
+  61:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @param fg
+  62:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @param bg
+  63:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @return
+  64:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @note Use bg.alpha in the return value
+  65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @note Use fg.alpha as mix ratio
+  66:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  */
+  67:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** static inline lv_color32_t lv_color_mix32(lv_color32_t fg, lv_color32_t bg)
+  68:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** {
+  69:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     if(fg.alpha >= LV_OPA_MAX) {
+  70:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****         fg.alpha = bg.alpha;
+  71:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****         return fg;
+  72:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     }
+  73:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     if(fg.alpha <= LV_OPA_MIN) {
+  74:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****         return bg;
+  75:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     }
+  76:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     bg.red = (uint32_t)((uint32_t)fg.red * fg.alpha + (uint32_t)bg.red * (255 - fg.alpha)) >> 8;
+  77:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     bg.green = (uint32_t)((uint32_t)fg.green * fg.alpha + (uint32_t)bg.green * (255 - fg.alpha)) >>
+  78:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     bg.blue = (uint32_t)((uint32_t)fg.blue * fg.alpha + (uint32_t)bg.blue * (255 - fg.alpha)) >> 8;
+  79:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return bg;
+  80:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** }
+  81:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  82:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** //! @endcond
+  83:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
+  84:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** /**
+  85:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * Get the brightness of a color
+  86:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @param color a color
+  87:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  * @return the brightness [0..255]
+  88:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  */
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** static inline uint8_t lv_color_brightness(lv_color_t c)
+ 251              		.loc 2 89 23 is_stmt 1 view .LVU57
+ 252              	.LBB70:
+  90:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** {
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     uint16_t bright = (uint16_t)(3u * c.red + c.green + 4u * c.blue);
+ 253              		.loc 2 91 5 view .LVU58
+ 254              		.loc 2 91 40 is_stmt 0 view .LVU59
+ 255 008e DAB2     		uxtb	r2, r3
+ 256              		.loc 2 91 37 view .LVU60
+ 257 0090 02EB4202 		add	r2, r2, r2, lsl #1
+ 258              		.loc 2 91 63 view .LVU61
+ 259 0094 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 18
+
+
+ 260              		.loc 2 91 55 view .LVU62
+ 261 0098 02EB8302 		add	r2, r2, r3, lsl #2
+ 262              		.loc 2 91 48 view .LVU63
+ 263 009c 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+ 264              		.loc 2 91 14 view .LVU64
+ 265 00a0 1A44     		add	r2, r2, r3
+ 266              	.LVL18:
+  92:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 267              		.loc 2 92 5 is_stmt 1 view .LVU65
+ 268              		.loc 2 92 5 is_stmt 0 view .LVU66
+ 269              	.LBE70:
+ 270              	.LBE69:
+ 153:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[0].color = lv_color_mix(led->color, lv_color_black(),
+ 271              		.loc 1 153 29 view .LVU67
+ 272 00a2 C2F3C702 		ubfx	r2, r2, #3, #8
+ 273 00a6 1E99     		ldr	r1, [sp, #120]
+ 274 00a8 F06A     		ldr	r0, [r6, #44]
+ 275 00aa FFF7FEFF 		bl	lv_color_mix
+ 276              	.LVL19:
+ 277 00ae 8DF82900 		strb	r0, [sp, #41]
+ 278 00b2 C0F30723 		ubfx	r3, r0, #8, #8
+ 279 00b6 8DF82A30 		strb	r3, [sp, #42]
+ 280 00ba C0F30740 		ubfx	r0, r0, #16, #8
+ 281 00be 8DF82B00 		strb	r0, [sp, #43]
+ 154:Lib/lvgl/src/widgets/led/lv_led.c ****                                                        lv_color_brightness(rect_dsc.bg_grad.stops[0
+ 282              		.loc 1 154 9 is_stmt 1 view .LVU68
+ 283              	.LBB71:
+ 284              	.LBI71:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 285              		.loc 3 422 26 view .LVU69
+ 286              		.loc 3 424 5 view .LVU70
+ 287              	.LVL20:
+ 288              	.LBB72:
+ 289              	.LBI72:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 290              		.loc 3 286 26 view .LVU71
+ 291              	.LBB73:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 292              		.loc 3 288 5 view .LVU72
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 293              		.loc 3 289 5 view .LVU73
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 294              		.loc 3 289 13 is_stmt 0 view .LVU74
+ 295 00c2 8DF80650 		strb	r5, [sp, #6]
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 296              		.loc 3 290 5 is_stmt 1 view .LVU75
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 297              		.loc 3 290 15 is_stmt 0 view .LVU76
+ 298 00c6 8DF80550 		strb	r5, [sp, #5]
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 299              		.loc 3 291 5 is_stmt 1 view .LVU77
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 300              		.loc 3 291 14 is_stmt 0 view .LVU78
+ 301 00ca 8DF80450 		strb	r5, [sp, #4]
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 302              		.loc 3 292 5 is_stmt 1 view .LVU79
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 19
+
+
+ 303              		.loc 3 292 12 is_stmt 0 view .LVU80
+ 304 00ce 019B     		ldr	r3, [sp, #4]
+ 305 00d0 ADF8F830 		strh	r3, [sp, #248]	@ movhi
+ 306 00d4 1B0C     		lsrs	r3, r3, #16
+ 307 00d6 8DF8FA30 		strb	r3, [sp, #250]
+ 308 00da 3E9B     		ldr	r3, [sp, #248]
+ 309 00dc ADF8FC30 		strh	r3, [sp, #252]	@ movhi
+ 310 00e0 1B0C     		lsrs	r3, r3, #16
+ 311 00e2 8DF8FE30 		strb	r3, [sp, #254]
+ 312              	.LVL21:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 313              		.loc 3 292 12 view .LVU81
+ 314 00e6 3F9B     		ldr	r3, [sp, #252]
+ 315 00e8 ADF87C30 		strh	r3, [sp, #124]	@ movhi
+ 316 00ec 1B0C     		lsrs	r3, r3, #16
+ 317 00ee 8DF87E30 		strb	r3, [sp, #126]
+ 318 00f2 0B9B     		ldr	r3, [sp, #44]
+ 319 00f4 ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 320 00f8 1B0C     		lsrs	r3, r3, #16
+ 321 00fa 8DF80630 		strb	r3, [sp, #6]
+ 322              	.LBE73:
+ 323              	.LBE72:
+ 324              	.LBE71:
+ 325              	.LBB74:
+ 326              	.LBI74:
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** {
+ 327              		.loc 2 89 23 is_stmt 1 view .LVU82
+ 328              	.LBB75:
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 329              		.loc 2 91 5 view .LVU83
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 330              		.loc 2 91 40 is_stmt 0 view .LVU84
+ 331 00fe DAB2     		uxtb	r2, r3
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 332              		.loc 2 91 37 view .LVU85
+ 333 0100 02EB4202 		add	r2, r2, r2, lsl #1
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 334              		.loc 2 91 63 view .LVU86
+ 335 0104 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 336              		.loc 2 91 55 view .LVU87
+ 337 0108 02EB8302 		add	r2, r2, r3, lsl #2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 338              		.loc 2 91 48 view .LVU88
+ 339 010c 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 340              		.loc 2 91 14 view .LVU89
+ 341 0110 1A44     		add	r2, r2, r3
+ 342              	.LVL22:
+ 343              		.loc 2 92 5 is_stmt 1 view .LVU90
+ 344              		.loc 2 92 5 is_stmt 0 view .LVU91
+ 345              	.LBE75:
+ 346              	.LBE74:
+ 154:Lib/lvgl/src/widgets/led/lv_led.c ****                                                        lv_color_brightness(rect_dsc.bg_grad.stops[0
+ 347              		.loc 1 154 43 view .LVU92
+ 348 0112 C2F3C702 		ubfx	r2, r2, #3, #8
+ 349 0116 1F99     		ldr	r1, [sp, #124]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 20
+
+
+ 350 0118 F06A     		ldr	r0, [r6, #44]
+ 351 011a FFF7FEFF 		bl	lv_color_mix
+ 352              	.LVL23:
+ 353 011e 8DF82C00 		strb	r0, [sp, #44]
+ 354 0122 C0F30723 		ubfx	r3, r0, #8, #8
+ 355 0126 8DF82D30 		strb	r3, [sp, #45]
+ 356 012a C0F30740 		ubfx	r0, r0, #16, #8
+ 357 012e 8DF82E00 		strb	r0, [sp, #46]
+ 156:Lib/lvgl/src/widgets/led/lv_led.c ****                                                        lv_color_brightness(rect_dsc.bg_grad.stops[1
+ 358              		.loc 1 156 9 is_stmt 1 view .LVU93
+ 359              	.LBB76:
+ 360              	.LBI76:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 361              		.loc 3 422 26 view .LVU94
+ 362              		.loc 3 424 5 view .LVU95
+ 363              	.LVL24:
+ 364              	.LBB77:
+ 365              	.LBI77:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 366              		.loc 3 286 26 view .LVU96
+ 367              	.LBB78:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 368              		.loc 3 288 5 view .LVU97
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 369              		.loc 3 289 5 view .LVU98
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 370              		.loc 3 289 13 is_stmt 0 view .LVU99
+ 371 0132 8DF80650 		strb	r5, [sp, #6]
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 372              		.loc 3 290 5 is_stmt 1 view .LVU100
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 373              		.loc 3 290 15 is_stmt 0 view .LVU101
+ 374 0136 8DF80550 		strb	r5, [sp, #5]
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 375              		.loc 3 291 5 is_stmt 1 view .LVU102
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 376              		.loc 3 291 14 is_stmt 0 view .LVU103
+ 377 013a 8DF80450 		strb	r5, [sp, #4]
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 378              		.loc 3 292 5 is_stmt 1 view .LVU104
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 379              		.loc 3 292 12 is_stmt 0 view .LVU105
+ 380 013e 019B     		ldr	r3, [sp, #4]
+ 381 0140 ADF8F030 		strh	r3, [sp, #240]	@ movhi
+ 382 0144 1B0C     		lsrs	r3, r3, #16
+ 383 0146 8DF8F230 		strb	r3, [sp, #242]
+ 384 014a 3C9B     		ldr	r3, [sp, #240]
+ 385 014c ADF8F430 		strh	r3, [sp, #244]	@ movhi
+ 386 0150 1B0C     		lsrs	r3, r3, #16
+ 387 0152 8DF8F630 		strb	r3, [sp, #246]
+ 388              	.LVL25:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 389              		.loc 3 292 12 view .LVU106
+ 390 0156 3D9B     		ldr	r3, [sp, #244]
+ 391 0158 ADF88030 		strh	r3, [sp, #128]	@ movhi
+ 392 015c 1B0C     		lsrs	r3, r3, #16
+ 393 015e 8DF88230 		strb	r3, [sp, #130]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 21
+
+
+ 394 0162 BDF83120 		ldrh	r2, [sp, #49]	@ unaligned
+ 395 0166 9DF83330 		ldrb	r3, [sp, #51]	@ zero_extendqisi2
+ 396 016a ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 397 016e 8DF80630 		strb	r3, [sp, #6]
+ 398              	.LBE78:
+ 399              	.LBE77:
+ 400              	.LBE76:
+ 401              	.LBB79:
+ 402              	.LBI79:
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** {
+ 403              		.loc 2 89 23 is_stmt 1 view .LVU107
+ 404              	.LBB80:
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 405              		.loc 2 91 5 view .LVU108
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 406              		.loc 2 91 40 is_stmt 0 view .LVU109
+ 407 0172 DAB2     		uxtb	r2, r3
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 408              		.loc 2 91 37 view .LVU110
+ 409 0174 02EB4202 		add	r2, r2, r2, lsl #1
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 410              		.loc 2 91 63 view .LVU111
+ 411 0178 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 412              		.loc 2 91 55 view .LVU112
+ 413 017c 02EB8302 		add	r2, r2, r3, lsl #2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 414              		.loc 2 91 48 view .LVU113
+ 415 0180 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 416              		.loc 2 91 14 view .LVU114
+ 417 0184 1A44     		add	r2, r2, r3
+ 418              	.LVL26:
+ 419              		.loc 2 92 5 is_stmt 1 view .LVU115
+ 420              		.loc 2 92 5 is_stmt 0 view .LVU116
+ 421              	.LBE80:
+ 422              	.LBE79:
+ 156:Lib/lvgl/src/widgets/led/lv_led.c ****                                                        lv_color_brightness(rect_dsc.bg_grad.stops[1
+ 423              		.loc 1 156 43 view .LVU117
+ 424 0186 C2F3C702 		ubfx	r2, r2, #3, #8
+ 425 018a 2099     		ldr	r1, [sp, #128]
+ 426 018c F06A     		ldr	r0, [r6, #44]
+ 427 018e FFF7FEFF 		bl	lv_color_mix
+ 428              	.LVL27:
+ 429 0192 8DF83100 		strb	r0, [sp, #49]
+ 430 0196 C0F30723 		ubfx	r3, r0, #8, #8
+ 431 019a 8DF83230 		strb	r3, [sp, #50]
+ 432 019e C0F30740 		ubfx	r0, r0, #16, #8
+ 433 01a2 8DF83300 		strb	r0, [sp, #51]
+ 158:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.border_color = lv_color_mix(led->color, lv_color_black(), lv_color_brightness(rect
+ 434              		.loc 1 158 9 is_stmt 1 view .LVU118
+ 435              	.LBB81:
+ 436              	.LBI81:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 437              		.loc 3 422 26 view .LVU119
+ 438              		.loc 3 424 5 view .LVU120
+ 439              	.LVL28:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 22
+
+
+ 440              	.LBB82:
+ 441              	.LBI82:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 442              		.loc 3 286 26 view .LVU121
+ 443              	.LBB83:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 444              		.loc 3 288 5 view .LVU122
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 445              		.loc 3 289 5 view .LVU123
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 446              		.loc 3 289 13 is_stmt 0 view .LVU124
+ 447 01a6 8DF80650 		strb	r5, [sp, #6]
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 448              		.loc 3 290 5 is_stmt 1 view .LVU125
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 449              		.loc 3 290 15 is_stmt 0 view .LVU126
+ 450 01aa 8DF80550 		strb	r5, [sp, #5]
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 451              		.loc 3 291 5 is_stmt 1 view .LVU127
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 452              		.loc 3 291 14 is_stmt 0 view .LVU128
+ 453 01ae 8DF80450 		strb	r5, [sp, #4]
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 454              		.loc 3 292 5 is_stmt 1 view .LVU129
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 455              		.loc 3 292 12 is_stmt 0 view .LVU130
+ 456 01b2 019B     		ldr	r3, [sp, #4]
+ 457 01b4 ADF8E830 		strh	r3, [sp, #232]	@ movhi
+ 458 01b8 1B0C     		lsrs	r3, r3, #16
+ 459 01ba 8DF8EA30 		strb	r3, [sp, #234]
+ 460 01be 3A9B     		ldr	r3, [sp, #232]
+ 461 01c0 ADF8EC30 		strh	r3, [sp, #236]	@ movhi
+ 462 01c4 1B0C     		lsrs	r3, r3, #16
+ 463 01c6 8DF8EE30 		strb	r3, [sp, #238]
+ 464              	.LVL29:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 465              		.loc 3 292 12 view .LVU131
+ 466 01ca 3B9B     		ldr	r3, [sp, #236]
+ 467 01cc ADF88430 		strh	r3, [sp, #132]	@ movhi
+ 468 01d0 1B0C     		lsrs	r3, r3, #16
+ 469 01d2 8DF88630 		strb	r3, [sp, #134]
+ 470 01d6 BDF86120 		ldrh	r2, [sp, #97]	@ unaligned
+ 471 01da 9DF86330 		ldrb	r3, [sp, #99]	@ zero_extendqisi2
+ 472 01de ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 473 01e2 8DF80630 		strb	r3, [sp, #6]
+ 474              	.LBE83:
+ 475              	.LBE82:
+ 476              	.LBE81:
+ 477              	.LBB84:
+ 478              	.LBI84:
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** {
+ 479              		.loc 2 89 23 is_stmt 1 view .LVU132
+ 480              	.LBB85:
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 481              		.loc 2 91 5 view .LVU133
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 482              		.loc 2 91 40 is_stmt 0 view .LVU134
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 23
+
+
+ 483 01e6 DAB2     		uxtb	r2, r3
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 484              		.loc 2 91 37 view .LVU135
+ 485 01e8 02EB4202 		add	r2, r2, r2, lsl #1
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 486              		.loc 2 91 63 view .LVU136
+ 487 01ec 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 488              		.loc 2 91 55 view .LVU137
+ 489 01f0 02EB8302 		add	r2, r2, r3, lsl #2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 490              		.loc 2 91 48 view .LVU138
+ 491 01f4 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 492              		.loc 2 91 14 view .LVU139
+ 493 01f8 1A44     		add	r2, r2, r3
+ 494              	.LVL30:
+ 495              		.loc 2 92 5 is_stmt 1 view .LVU140
+ 496              		.loc 2 92 5 is_stmt 0 view .LVU141
+ 497              	.LBE85:
+ 498              	.LBE84:
+ 158:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.border_color = lv_color_mix(led->color, lv_color_black(), lv_color_brightness(rect
+ 499              		.loc 1 158 33 view .LVU142
+ 500 01fa C2F3C702 		ubfx	r2, r2, #3, #8
+ 501 01fe 2199     		ldr	r1, [sp, #132]
+ 502 0200 F06A     		ldr	r0, [r6, #44]
+ 503 0202 FFF7FEFF 		bl	lv_color_mix
+ 504              	.LVL31:
+ 505 0206 8DF86100 		strb	r0, [sp, #97]
+ 506 020a C0F30723 		ubfx	r3, r0, #8, #8
+ 507 020e 8DF86230 		strb	r3, [sp, #98]
+ 508 0212 C0F30740 		ubfx	r0, r0, #16, #8
+ 509 0216 8DF86300 		strb	r0, [sp, #99]
+ 159:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.outline_color = lv_color_mix(led->color, lv_color_black(), lv_color_brightness(rec
+ 510              		.loc 1 159 9 is_stmt 1 view .LVU143
+ 511              	.LBB86:
+ 512              	.LBI86:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 513              		.loc 3 422 26 view .LVU144
+ 514              		.loc 3 424 5 view .LVU145
+ 515              	.LVL32:
+ 516              	.LBB87:
+ 517              	.LBI87:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 518              		.loc 3 286 26 view .LVU146
+ 519              	.LBB88:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 520              		.loc 3 288 5 view .LVU147
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 521              		.loc 3 289 5 view .LVU148
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 522              		.loc 3 289 13 is_stmt 0 view .LVU149
+ 523 021a 8DF80650 		strb	r5, [sp, #6]
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 524              		.loc 3 290 5 is_stmt 1 view .LVU150
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 525              		.loc 3 290 15 is_stmt 0 view .LVU151
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 24
+
+
+ 526 021e 8DF80550 		strb	r5, [sp, #5]
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 527              		.loc 3 291 5 is_stmt 1 view .LVU152
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 528              		.loc 3 291 14 is_stmt 0 view .LVU153
+ 529 0222 8DF80450 		strb	r5, [sp, #4]
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 530              		.loc 3 292 5 is_stmt 1 view .LVU154
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 531              		.loc 3 292 12 is_stmt 0 view .LVU155
+ 532 0226 019B     		ldr	r3, [sp, #4]
+ 533 0228 ADF8E030 		strh	r3, [sp, #224]	@ movhi
+ 534 022c 1B0C     		lsrs	r3, r3, #16
+ 535 022e 8DF8E230 		strb	r3, [sp, #226]
+ 536 0232 389B     		ldr	r3, [sp, #224]
+ 537 0234 ADF8E430 		strh	r3, [sp, #228]	@ movhi
+ 538 0238 1B0C     		lsrs	r3, r3, #16
+ 539 023a 8DF8E630 		strb	r3, [sp, #230]
+ 540              	.LVL33:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 541              		.loc 3 292 12 view .LVU156
+ 542 023e 399B     		ldr	r3, [sp, #228]
+ 543 0240 ADF88830 		strh	r3, [sp, #136]	@ movhi
+ 544 0244 1B0C     		lsrs	r3, r3, #16
+ 545 0246 8DF88A30 		strb	r3, [sp, #138]
+ 546 024a BDF84620 		ldrh	r2, [sp, #70]	@ unaligned
+ 547 024e 9DF84830 		ldrb	r3, [sp, #72]	@ zero_extendqisi2
+ 548 0252 ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 549 0256 8DF80630 		strb	r3, [sp, #6]
+ 550              	.LBE88:
+ 551              	.LBE87:
+ 552              	.LBE86:
+ 553              	.LBB89:
+ 554              	.LBI89:
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** {
+ 555              		.loc 2 89 23 is_stmt 1 view .LVU157
+ 556              	.LBB90:
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 557              		.loc 2 91 5 view .LVU158
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 558              		.loc 2 91 40 is_stmt 0 view .LVU159
+ 559 025a DAB2     		uxtb	r2, r3
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 560              		.loc 2 91 37 view .LVU160
+ 561 025c 02EB4202 		add	r2, r2, r2, lsl #1
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 562              		.loc 2 91 63 view .LVU161
+ 563 0260 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 564              		.loc 2 91 55 view .LVU162
+ 565 0264 02EB8302 		add	r2, r2, r3, lsl #2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 566              		.loc 2 91 48 view .LVU163
+ 567 0268 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 568              		.loc 2 91 14 view .LVU164
+ 569 026c 1A44     		add	r2, r2, r3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 25
+
+
+ 570              	.LVL34:
+ 571              		.loc 2 92 5 is_stmt 1 view .LVU165
+ 572              		.loc 2 92 5 is_stmt 0 view .LVU166
+ 573              	.LBE90:
+ 574              	.LBE89:
+ 159:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.outline_color = lv_color_mix(led->color, lv_color_black(), lv_color_brightness(rec
+ 575              		.loc 1 159 33 view .LVU167
+ 576 026e C2F3C702 		ubfx	r2, r2, #3, #8
+ 577 0272 2299     		ldr	r1, [sp, #136]
+ 578 0274 F06A     		ldr	r0, [r6, #44]
+ 579 0276 FFF7FEFF 		bl	lv_color_mix
+ 580              	.LVL35:
+ 581 027a 8DF84600 		strb	r0, [sp, #70]
+ 582 027e C0F30723 		ubfx	r3, r0, #8, #8
+ 583 0282 8DF84730 		strb	r3, [sp, #71]
+ 584 0286 C0F30740 		ubfx	r0, r0, #16, #8
+ 585 028a 8DF84800 		strb	r0, [sp, #72]
+ 160:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 586              		.loc 1 160 9 is_stmt 1 view .LVU168
+ 587              	.LBB91:
+ 588              	.LBI91:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 589              		.loc 3 422 26 view .LVU169
+ 590              		.loc 3 424 5 view .LVU170
+ 591              	.LVL36:
+ 592              	.LBB92:
+ 593              	.LBI92:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 594              		.loc 3 286 26 view .LVU171
+ 595              	.LBB93:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 596              		.loc 3 288 5 view .LVU172
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 597              		.loc 3 289 5 view .LVU173
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 598              		.loc 3 289 13 is_stmt 0 view .LVU174
+ 599 028e 8DF80650 		strb	r5, [sp, #6]
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 600              		.loc 3 290 5 is_stmt 1 view .LVU175
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 601              		.loc 3 290 15 is_stmt 0 view .LVU176
+ 602 0292 8DF80550 		strb	r5, [sp, #5]
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 603              		.loc 3 291 5 is_stmt 1 view .LVU177
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 604              		.loc 3 291 14 is_stmt 0 view .LVU178
+ 605 0296 8DF80450 		strb	r5, [sp, #4]
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 606              		.loc 3 292 5 is_stmt 1 view .LVU179
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 607              		.loc 3 292 12 is_stmt 0 view .LVU180
+ 608 029a 019B     		ldr	r3, [sp, #4]
+ 609 029c ADF8D830 		strh	r3, [sp, #216]	@ movhi
+ 610 02a0 1B0C     		lsrs	r3, r3, #16
+ 611 02a2 8DF8DA30 		strb	r3, [sp, #218]
+ 612 02a6 369B     		ldr	r3, [sp, #216]
+ 613 02a8 ADF8DC30 		strh	r3, [sp, #220]	@ movhi
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 26
+
+
+ 614 02ac 1B0C     		lsrs	r3, r3, #16
+ 615 02ae 8DF8DE30 		strb	r3, [sp, #222]
+ 616              	.LVL37:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 617              		.loc 3 292 12 view .LVU181
+ 618 02b2 379B     		ldr	r3, [sp, #220]
+ 619 02b4 ADF88C30 		strh	r3, [sp, #140]	@ movhi
+ 620 02b8 1B0C     		lsrs	r3, r3, #16
+ 621 02ba 8DF88E30 		strb	r3, [sp, #142]
+ 622 02be BDF85220 		ldrh	r2, [sp, #82]	@ unaligned
+ 623 02c2 9DF85430 		ldrb	r3, [sp, #84]	@ zero_extendqisi2
+ 624 02c6 ADF80420 		strh	r2, [sp, #4]	@ unaligned
+ 625 02ca 8DF80630 		strb	r3, [sp, #6]
+ 626              	.LBE93:
+ 627              	.LBE92:
+ 628              	.LBE91:
+ 629              	.LBB94:
+ 630              	.LBI94:
+  89:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** {
+ 631              		.loc 2 89 23 is_stmt 1 view .LVU182
+ 632              	.LBB95:
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 633              		.loc 2 91 5 view .LVU183
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 634              		.loc 2 91 40 is_stmt 0 view .LVU184
+ 635 02ce DAB2     		uxtb	r2, r3
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 636              		.loc 2 91 37 view .LVU185
+ 637 02d0 02EB4202 		add	r2, r2, r2, lsl #1
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 638              		.loc 2 91 63 view .LVU186
+ 639 02d4 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 640              		.loc 2 91 55 view .LVU187
+ 641 02d8 02EB8302 		add	r2, r2, r3, lsl #2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 642              		.loc 2 91 48 view .LVU188
+ 643 02dc 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
+  91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
+ 644              		.loc 2 91 14 view .LVU189
+ 645 02e0 1A44     		add	r2, r2, r3
+ 646              	.LVL38:
+ 647              		.loc 2 92 5 is_stmt 1 view .LVU190
+ 648              		.loc 2 92 5 is_stmt 0 view .LVU191
+ 649              	.LBE95:
+ 650              	.LBE94:
+ 160:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 651              		.loc 1 160 34 view .LVU192
+ 652 02e2 C2F3C702 		ubfx	r2, r2, #3, #8
+ 653 02e6 2399     		ldr	r1, [sp, #140]
+ 654 02e8 F06A     		ldr	r0, [r6, #44]
+ 655 02ea FFF7FEFF 		bl	lv_color_mix
+ 656              	.LVL39:
+ 657 02ee 8DF85200 		strb	r0, [sp, #82]
+ 658 02f2 C0F30723 		ubfx	r3, r0, #8, #8
+ 659 02f6 8DF85330 		strb	r3, [sp, #83]
+ 660 02fa C0F30740 		ubfx	r0, r0, #16, #8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 27
+
+
+ 661 02fe 8DF85400 		strb	r0, [sp, #84]
+ 163:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[0].color   = lv_color_mix(rect_dsc.bg_grad.stops[0].color, lv_color_
+ 662              		.loc 1 163 9 is_stmt 1 view .LVU193
+ 663              	.LBB96:
+ 664              	.LBI96:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 665              		.loc 3 422 26 view .LVU194
+ 666              		.loc 3 424 5 view .LVU195
+ 667              	.LVL40:
+ 668              	.LBB97:
+ 669              	.LBI97:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 670              		.loc 3 286 26 view .LVU196
+ 671              	.LBB98:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 672              		.loc 3 288 5 view .LVU197
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 673              		.loc 3 289 5 view .LVU198
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 674              		.loc 3 289 13 is_stmt 0 view .LVU199
+ 675 0302 8DF80650 		strb	r5, [sp, #6]
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 676              		.loc 3 290 5 is_stmt 1 view .LVU200
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 677              		.loc 3 290 15 is_stmt 0 view .LVU201
+ 678 0306 8DF80550 		strb	r5, [sp, #5]
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 679              		.loc 3 291 5 is_stmt 1 view .LVU202
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 680              		.loc 3 291 14 is_stmt 0 view .LVU203
+ 681 030a 8DF80450 		strb	r5, [sp, #4]
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 682              		.loc 3 292 5 is_stmt 1 view .LVU204
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 683              		.loc 3 292 12 is_stmt 0 view .LVU205
+ 684 030e 019D     		ldr	r5, [sp, #4]
+ 685 0310 ADF8D050 		strh	r5, [sp, #208]	@ movhi
+ 686 0314 2F0C     		lsrs	r7, r5, #16
+ 687 0316 8DF8D270 		strb	r7, [sp, #210]
+ 688 031a 349B     		ldr	r3, [sp, #208]
+ 689 031c ADF8D430 		strh	r3, [sp, #212]	@ movhi
+ 690 0320 1B0C     		lsrs	r3, r3, #16
+ 691 0322 8DF8D630 		strb	r3, [sp, #214]
+ 692              	.LVL41:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 693              		.loc 3 292 12 view .LVU206
+ 694 0326 359B     		ldr	r3, [sp, #212]
+ 695 0328 ADF89030 		strh	r3, [sp, #144]	@ movhi
+ 696 032c 1B0C     		lsrs	r3, r3, #16
+ 697 032e 8DF89230 		strb	r3, [sp, #146]
+ 698              	.LBE98:
+ 699              	.LBE97:
+ 700              	.LBE96:
+ 163:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[0].color   = lv_color_mix(rect_dsc.bg_grad.stops[0].color, lv_color_
+ 701              		.loc 1 163 29 view .LVU207
+ 702 0332 96F82F80 		ldrb	r8, [r6, #47]	@ zero_extendqisi2
+ 703 0336 9DF82930 		ldrb	r3, [sp, #41]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 28
+
+
+ 704 033a 9DF82A20 		ldrb	r2, [sp, #42]	@ zero_extendqisi2
+ 705 033e 43EA0223 		orr	r3, r3, r2, lsl #8
+ 706 0342 9DF82B00 		ldrb	r0, [sp, #43]	@ zero_extendqisi2
+ 707 0346 4246     		mov	r2, r8
+ 708 0348 2499     		ldr	r1, [sp, #144]
+ 709 034a 43EA0040 		orr	r0, r3, r0, lsl #16
+ 710 034e FFF7FEFF 		bl	lv_color_mix
+ 711              	.LVL42:
+ 712 0352 8DF82900 		strb	r0, [sp, #41]
+ 713 0356 C0F30723 		ubfx	r3, r0, #8, #8
+ 714 035a 8DF82A30 		strb	r3, [sp, #42]
+ 715 035e C0F30740 		ubfx	r0, r0, #16, #8
+ 716 0362 8DF82B00 		strb	r0, [sp, #43]
+ 164:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[1].color   = lv_color_mix(rect_dsc.bg_grad.stops[1].color, lv_color_
+ 717              		.loc 1 164 9 is_stmt 1 view .LVU208
+ 718              	.LBB99:
+ 719              	.LBI99:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 720              		.loc 3 422 26 view .LVU209
+ 721              		.loc 3 424 5 view .LVU210
+ 722              	.LVL43:
+ 723              	.LBB100:
+ 724              	.LBI100:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 725              		.loc 3 286 26 view .LVU211
+ 726              	.LBB101:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 727              		.loc 3 288 5 view .LVU212
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 728              		.loc 3 289 5 view .LVU213
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 729              		.loc 3 290 5 view .LVU214
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 730              		.loc 3 291 5 view .LVU215
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 731              		.loc 3 292 5 view .LVU216
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 732              		.loc 3 292 12 is_stmt 0 view .LVU217
+ 733 0366 ADF8C850 		strh	r5, [sp, #200]	@ movhi
+ 734 036a 8DF8CA70 		strb	r7, [sp, #202]
+ 735 036e 329B     		ldr	r3, [sp, #200]
+ 736 0370 ADF8CC30 		strh	r3, [sp, #204]	@ movhi
+ 737 0374 1B0C     		lsrs	r3, r3, #16
+ 738 0376 8DF8CE30 		strb	r3, [sp, #206]
+ 739              	.LVL44:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 740              		.loc 3 292 12 view .LVU218
+ 741 037a 339B     		ldr	r3, [sp, #204]
+ 742 037c ADF89430 		strh	r3, [sp, #148]	@ movhi
+ 743 0380 1B0C     		lsrs	r3, r3, #16
+ 744 0382 8DF89630 		strb	r3, [sp, #150]
+ 745              	.LBE101:
+ 746              	.LBE100:
+ 747              	.LBE99:
+ 164:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[1].color   = lv_color_mix(rect_dsc.bg_grad.stops[1].color, lv_color_
+ 748              		.loc 1 164 45 view .LVU219
+ 749 0386 4246     		mov	r2, r8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 29
+
+
+ 750 0388 2599     		ldr	r1, [sp, #148]
+ 751 038a 0B98     		ldr	r0, [sp, #44]
+ 752 038c FFF7FEFF 		bl	lv_color_mix
+ 753              	.LVL45:
+ 754 0390 8DF82C00 		strb	r0, [sp, #44]
+ 755 0394 C0F30723 		ubfx	r3, r0, #8, #8
+ 756 0398 8DF82D30 		strb	r3, [sp, #45]
+ 757 039c C0F30740 		ubfx	r0, r0, #16, #8
+ 758 03a0 8DF82E00 		strb	r0, [sp, #46]
+ 165:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.border_color = lv_color_mix(rect_dsc.border_color, lv_color_black(), led->bright);
+ 759              		.loc 1 165 9 is_stmt 1 view .LVU220
+ 760              	.LBB102:
+ 761              	.LBI102:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 762              		.loc 3 422 26 view .LVU221
+ 763              		.loc 3 424 5 view .LVU222
+ 764              	.LVL46:
+ 765              	.LBB103:
+ 766              	.LBI103:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 767              		.loc 3 286 26 view .LVU223
+ 768              	.LBB104:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 769              		.loc 3 288 5 view .LVU224
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 770              		.loc 3 289 5 view .LVU225
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 771              		.loc 3 290 5 view .LVU226
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 772              		.loc 3 291 5 view .LVU227
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 773              		.loc 3 292 5 view .LVU228
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 774              		.loc 3 292 12 is_stmt 0 view .LVU229
+ 775 03a4 ADF8C050 		strh	r5, [sp, #192]	@ movhi
+ 776 03a8 8DF8C270 		strb	r7, [sp, #194]
+ 777 03ac 309B     		ldr	r3, [sp, #192]
+ 778 03ae ADF8C430 		strh	r3, [sp, #196]	@ movhi
+ 779 03b2 1B0C     		lsrs	r3, r3, #16
+ 780 03b4 8DF8C630 		strb	r3, [sp, #198]
+ 781              	.LVL47:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 782              		.loc 3 292 12 view .LVU230
+ 783 03b8 319B     		ldr	r3, [sp, #196]
+ 784 03ba ADF89830 		strh	r3, [sp, #152]	@ movhi
+ 785 03be 1B0C     		lsrs	r3, r3, #16
+ 786 03c0 8DF89A30 		strb	r3, [sp, #154]
+ 787              	.LBE104:
+ 788              	.LBE103:
+ 789              	.LBE102:
+ 165:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.border_color = lv_color_mix(rect_dsc.border_color, lv_color_black(), led->bright);
+ 790              		.loc 1 165 45 view .LVU231
+ 791 03c4 9DF83130 		ldrb	r3, [sp, #49]	@ zero_extendqisi2
+ 792 03c8 9DF83220 		ldrb	r2, [sp, #50]	@ zero_extendqisi2
+ 793 03cc 43EA0223 		orr	r3, r3, r2, lsl #8
+ 794 03d0 9DF83300 		ldrb	r0, [sp, #51]	@ zero_extendqisi2
+ 795 03d4 4246     		mov	r2, r8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 30
+
+
+ 796 03d6 2699     		ldr	r1, [sp, #152]
+ 797 03d8 43EA0040 		orr	r0, r3, r0, lsl #16
+ 798 03dc FFF7FEFF 		bl	lv_color_mix
+ 799              	.LVL48:
+ 800 03e0 8DF83100 		strb	r0, [sp, #49]
+ 801 03e4 C0F30723 		ubfx	r3, r0, #8, #8
+ 802 03e8 8DF83230 		strb	r3, [sp, #50]
+ 803 03ec C0F30740 		ubfx	r0, r0, #16, #8
+ 804 03f0 8DF83300 		strb	r0, [sp, #51]
+ 166:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.shadow_color = lv_color_mix(rect_dsc.shadow_color, lv_color_black(), led->bright);
+ 805              		.loc 1 166 9 is_stmt 1 view .LVU232
+ 806              	.LBB105:
+ 807              	.LBI105:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 808              		.loc 3 422 26 view .LVU233
+ 809              		.loc 3 424 5 view .LVU234
+ 810              	.LVL49:
+ 811              	.LBB106:
+ 812              	.LBI106:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 813              		.loc 3 286 26 view .LVU235
+ 814              	.LBB107:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 815              		.loc 3 288 5 view .LVU236
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 816              		.loc 3 289 5 view .LVU237
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 817              		.loc 3 290 5 view .LVU238
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 818              		.loc 3 291 5 view .LVU239
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 819              		.loc 3 292 5 view .LVU240
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 820              		.loc 3 292 12 is_stmt 0 view .LVU241
+ 821 03f4 ADF8B850 		strh	r5, [sp, #184]	@ movhi
+ 822 03f8 8DF8BA70 		strb	r7, [sp, #186]
+ 823 03fc 2E9B     		ldr	r3, [sp, #184]
+ 824 03fe ADF8BC30 		strh	r3, [sp, #188]	@ movhi
+ 825 0402 1B0C     		lsrs	r3, r3, #16
+ 826 0404 8DF8BE30 		strb	r3, [sp, #190]
+ 827              	.LVL50:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 828              		.loc 3 292 12 view .LVU242
+ 829 0408 2F9B     		ldr	r3, [sp, #188]
+ 830 040a ADF89C30 		strh	r3, [sp, #156]	@ movhi
+ 831 040e 1B0C     		lsrs	r3, r3, #16
+ 832 0410 8DF89E30 		strb	r3, [sp, #158]
+ 833              	.LBE107:
+ 834              	.LBE106:
+ 835              	.LBE105:
+ 166:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.shadow_color = lv_color_mix(rect_dsc.shadow_color, lv_color_black(), led->bright);
+ 836              		.loc 1 166 33 view .LVU243
+ 837 0414 BDF84630 		ldrh	r3, [sp, #70]
+ 838 0418 9DF84800 		ldrb	r0, [sp, #72]	@ zero_extendqisi2
+ 839 041c 4246     		mov	r2, r8
+ 840 041e 2799     		ldr	r1, [sp, #156]
+ 841 0420 43EA0040 		orr	r0, r3, r0, lsl #16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 31
+
+
+ 842 0424 FFF7FEFF 		bl	lv_color_mix
+ 843              	.LVL51:
+ 844 0428 8DF84600 		strb	r0, [sp, #70]
+ 845 042c C0F30723 		ubfx	r3, r0, #8, #8
+ 846 0430 8DF84730 		strb	r3, [sp, #71]
+ 847 0434 C0F30740 		ubfx	r0, r0, #16, #8
+ 848 0438 8DF84800 		strb	r0, [sp, #72]
+ 167:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.outline_color = lv_color_mix(rect_dsc.outline_color, lv_color_black(), led->bright
+ 849              		.loc 1 167 9 is_stmt 1 view .LVU244
+ 850              	.LBB108:
+ 851              	.LBI108:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 852              		.loc 3 422 26 view .LVU245
+ 853              		.loc 3 424 5 view .LVU246
+ 854              	.LVL52:
+ 855              	.LBB109:
+ 856              	.LBI109:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 857              		.loc 3 286 26 view .LVU247
+ 858              	.LBB110:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 859              		.loc 3 288 5 view .LVU248
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 860              		.loc 3 289 5 view .LVU249
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 861              		.loc 3 290 5 view .LVU250
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 862              		.loc 3 291 5 view .LVU251
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 863              		.loc 3 292 5 view .LVU252
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 864              		.loc 3 292 12 is_stmt 0 view .LVU253
+ 865 043c ADF8B050 		strh	r5, [sp, #176]	@ movhi
+ 866 0440 8DF8B270 		strb	r7, [sp, #178]
+ 867 0444 2C9B     		ldr	r3, [sp, #176]
+ 868 0446 ADF8B430 		strh	r3, [sp, #180]	@ movhi
+ 869 044a 1B0C     		lsrs	r3, r3, #16
+ 870 044c 8DF8B630 		strb	r3, [sp, #182]
+ 871              	.LVL53:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 872              		.loc 3 292 12 view .LVU254
+ 873 0450 2D9B     		ldr	r3, [sp, #180]
+ 874 0452 ADF8A030 		strh	r3, [sp, #160]	@ movhi
+ 875 0456 1B0C     		lsrs	r3, r3, #16
+ 876 0458 8DF8A230 		strb	r3, [sp, #162]
+ 877              	.LBE110:
+ 878              	.LBE109:
+ 879              	.LBE108:
+ 167:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.outline_color = lv_color_mix(rect_dsc.outline_color, lv_color_black(), led->bright
+ 880              		.loc 1 167 33 view .LVU255
+ 881 045c 9DF86130 		ldrb	r3, [sp, #97]	@ zero_extendqisi2
+ 882 0460 9DF86220 		ldrb	r2, [sp, #98]	@ zero_extendqisi2
+ 883 0464 43EA0223 		orr	r3, r3, r2, lsl #8
+ 884 0468 9DF86300 		ldrb	r0, [sp, #99]	@ zero_extendqisi2
+ 885 046c 96F82F20 		ldrb	r2, [r6, #47]	@ zero_extendqisi2
+ 886 0470 2899     		ldr	r1, [sp, #160]
+ 887 0472 43EA0040 		orr	r0, r3, r0, lsl #16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 32
+
+
+ 888 0476 FFF7FEFF 		bl	lv_color_mix
+ 889              	.LVL54:
+ 890 047a 8DF86100 		strb	r0, [sp, #97]
+ 891 047e C0F30723 		ubfx	r3, r0, #8, #8
+ 892 0482 8DF86230 		strb	r3, [sp, #98]
+ 893 0486 C0F30740 		ubfx	r0, r0, #16, #8
+ 894 048a 8DF86300 		strb	r0, [sp, #99]
+ 168:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 895              		.loc 1 168 9 is_stmt 1 view .LVU256
+ 896              	.LBB111:
+ 897              	.LBI111:
+ 422:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 898              		.loc 3 422 26 view .LVU257
+ 899              		.loc 3 424 5 view .LVU258
+ 900              	.LVL55:
+ 901              	.LBB112:
+ 902              	.LBI112:
+ 286:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
+ 903              		.loc 3 286 26 view .LVU259
+ 904              	.LBB113:
+ 288:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.red = r;
+ 905              		.loc 3 288 5 view .LVU260
+ 289:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
+ 906              		.loc 3 289 5 view .LVU261
+ 290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
+ 907              		.loc 3 290 5 view .LVU262
+ 291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
+ 908              		.loc 3 291 5 view .LVU263
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 909              		.loc 3 292 5 view .LVU264
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 910              		.loc 3 292 12 is_stmt 0 view .LVU265
+ 911 048e ADF8A850 		strh	r5, [sp, #168]	@ movhi
+ 912 0492 8DF8AA70 		strb	r7, [sp, #170]
+ 913 0496 2A9B     		ldr	r3, [sp, #168]
+ 914 0498 ADF8AC30 		strh	r3, [sp, #172]	@ movhi
+ 915 049c 1B0C     		lsrs	r3, r3, #16
+ 916 049e 8DF8AE30 		strb	r3, [sp, #174]
+ 917              	.LVL56:
+ 292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
+ 918              		.loc 3 292 12 view .LVU266
+ 919 04a2 2B9B     		ldr	r3, [sp, #172]
+ 920 04a4 ADF8A430 		strh	r3, [sp, #164]	@ movhi
+ 921 04a8 1B0C     		lsrs	r3, r3, #16
+ 922 04aa 8DF8A630 		strb	r3, [sp, #166]
+ 923              	.LBE113:
+ 924              	.LBE112:
+ 925              	.LBE111:
+ 168:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 926              		.loc 1 168 34 view .LVU267
+ 927 04ae BDF85230 		ldrh	r3, [sp, #82]
+ 928 04b2 9DF85400 		ldrb	r0, [sp, #84]	@ zero_extendqisi2
+ 929 04b6 96F82F20 		ldrb	r2, [r6, #47]	@ zero_extendqisi2
+ 930 04ba 2999     		ldr	r1, [sp, #164]
+ 931 04bc 43EA0040 		orr	r0, r3, r0, lsl #16
+ 932 04c0 FFF7FEFF 		bl	lv_color_mix
+ 933              	.LVL57:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 33
+
+
+ 934 04c4 8DF85200 		strb	r0, [sp, #82]
+ 935 04c8 C0F30723 		ubfx	r3, r0, #8, #8
+ 936 04cc 8DF85330 		strb	r3, [sp, #83]
+ 937 04d0 C0F30740 		ubfx	r0, r0, #16, #8
+ 938 04d4 8DF85400 		strb	r0, [sp, #84]
+ 172:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 939              		.loc 1 172 9 is_stmt 1 view .LVU268
+ 172:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 940              		.loc 1 172 38 is_stmt 0 view .LVU269
+ 941 04d8 96F82F30 		ldrb	r3, [r6, #47]	@ zero_extendqisi2
+ 172:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 942              		.loc 1 172 47 view .LVU270
+ 943 04dc 503B     		subs	r3, r3, #80
+ 172:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 944              		.loc 1 172 78 view .LVU271
+ 945 04de 199A     		ldr	r2, [sp, #100]
+ 172:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 946              		.loc 1 172 68 view .LVU272
+ 947 04e0 02FB03F3 		mul	r3, r2, r3
+ 172:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 948              		.loc 1 172 93 view .LVU273
+ 949 04e4 0D4A     		ldr	r2, .L10
+ 950 04e6 82FB0301 		smull	r0, r1, r2, r3
+ 951 04ea DB17     		asrs	r3, r3, #31
+ 952 04ec C3EBA113 		rsb	r3, r3, r1, asr #6
+ 172:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 953              		.loc 1 172 31 view .LVU274
+ 954 04f0 1993     		str	r3, [sp, #100]
+ 174:Lib/lvgl/src/widgets/led/lv_led.c ****                                  (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 955              		.loc 1 174 9 is_stmt 1 view .LVU275
+ 174:Lib/lvgl/src/widgets/led/lv_led.c ****                                  (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 956              		.loc 1 174 39 is_stmt 0 view .LVU276
+ 957 04f2 96F82F30 		ldrb	r3, [r6, #47]	@ zero_extendqisi2
+ 174:Lib/lvgl/src/widgets/led/lv_led.c ****                                  (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 958              		.loc 1 174 48 view .LVU277
+ 959 04f6 503B     		subs	r3, r3, #80
+ 174:Lib/lvgl/src/widgets/led/lv_led.c ****                                  (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 960              		.loc 1 174 79 view .LVU278
+ 961 04f8 1C99     		ldr	r1, [sp, #112]
+ 174:Lib/lvgl/src/widgets/led/lv_led.c ****                                  (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 962              		.loc 1 174 69 view .LVU279
+ 963 04fa 01FB03F3 		mul	r3, r1, r3
+ 174:Lib/lvgl/src/widgets/led/lv_led.c ****                                  (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 964              		.loc 1 174 95 view .LVU280
+ 965 04fe 82FB0312 		smull	r1, r2, r2, r3
+ 966 0502 DB17     		asrs	r3, r3, #31
+ 967 0504 C3EBA213 		rsb	r3, r3, r2, asr #6
+ 174:Lib/lvgl/src/widgets/led/lv_led.c ****                                  (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
+ 968              		.loc 1 174 32 view .LVU281
+ 969 0508 1C93     		str	r3, [sp, #112]
+ 177:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 970              		.loc 1 177 9 is_stmt 1 view .LVU282
+ 177:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 971              		.loc 1 177 30 is_stmt 0 view .LVU283
+ 972 050a 2046     		mov	r0, r4
+ 973 050c FFF7FEFF 		bl	lv_event_get_layer
+ 974              	.LVL58:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 34
+
+
+ 179:Lib/lvgl/src/widgets/led/lv_led.c ****     }
+ 975              		.loc 1 179 9 is_stmt 1 view .LVU284
+ 976 0510 06F11402 		add	r2, r6, #20
+ 977 0514 02A9     		add	r1, sp, #8
+ 978 0516 FFF7FEFF 		bl	lv_draw_rect
+ 979              	.LVL59:
+ 179:Lib/lvgl/src/widgets/led/lv_led.c ****     }
+ 980              		.loc 1 179 9 is_stmt 0 view .LVU285
+ 981 051a 8AE5     		b	.L3
+ 982              	.L11:
+ 983              		.align	2
+ 984              	.L10:
+ 985 051c 91739F5D 		.word	1570730897
+ 986              	.LBE65:
+ 987              		.cfi_endproc
+ 988              	.LFE241:
+ 990              		.section	.text.lv_led_constructor,"ax",%progbits
+ 991              		.align	1
+ 992              		.syntax unified
+ 993              		.thumb
+ 994              		.thumb_func
+ 996              	lv_led_constructor:
+ 997              	.LVL60:
+ 998              	.LFB240:
+ 123:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_UNUSED(class_p);
+ 999              		.loc 1 123 1 is_stmt 1 view -0
+ 1000              		.cfi_startproc
+ 1001              		@ args = 0, pretend = 0, frame = 0
+ 1002              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_UNUSED(class_p);
+ 1003              		.loc 1 123 1 is_stmt 0 view .LVU287
+ 1004 0000 10B5     		push	{r4, lr}
+ 1005              	.LCFI6:
+ 1006              		.cfi_def_cfa_offset 8
+ 1007              		.cfi_offset 4, -8
+ 1008              		.cfi_offset 14, -4
+ 1009 0002 0C46     		mov	r4, r1
+ 124:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_t * led = (lv_led_t *)obj;
+ 1010              		.loc 1 124 5 is_stmt 1 view .LVU288
+ 125:Lib/lvgl/src/widgets/led/lv_led.c ****     led->color = lv_theme_get_color_primary(obj);
+ 1011              		.loc 1 125 5 view .LVU289
+ 1012              	.LVL61:
+ 126:Lib/lvgl/src/widgets/led/lv_led.c ****     led->bright = LV_LED_BRIGHT_MAX;
+ 1013              		.loc 1 126 5 view .LVU290
+ 126:Lib/lvgl/src/widgets/led/lv_led.c ****     led->bright = LV_LED_BRIGHT_MAX;
+ 1014              		.loc 1 126 18 is_stmt 0 view .LVU291
+ 1015 0004 0846     		mov	r0, r1
+ 1016              	.LVL62:
+ 126:Lib/lvgl/src/widgets/led/lv_led.c ****     led->bright = LV_LED_BRIGHT_MAX;
+ 1017              		.loc 1 126 18 view .LVU292
+ 1018 0006 FFF7FEFF 		bl	lv_theme_get_color_primary
+ 1019              	.LVL63:
+ 126:Lib/lvgl/src/widgets/led/lv_led.c ****     led->bright = LV_LED_BRIGHT_MAX;
+ 1020              		.loc 1 126 18 view .LVU293
+ 1021 000a 84F82C00 		strb	r0, [r4, #44]
+ 1022 000e C0F30723 		ubfx	r3, r0, #8, #8
+ 1023 0012 84F82D30 		strb	r3, [r4, #45]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 35
+
+
+ 1024 0016 C0F30740 		ubfx	r0, r0, #16, #8
+ 1025 001a 84F82E00 		strb	r0, [r4, #46]
+ 127:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1026              		.loc 1 127 5 is_stmt 1 view .LVU294
+ 127:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1027              		.loc 1 127 17 is_stmt 0 view .LVU295
+ 1028 001e FF23     		movs	r3, #255
+ 1029 0020 84F82F30 		strb	r3, [r4, #47]
+ 128:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1030              		.loc 1 128 1 view .LVU296
+ 1031 0024 10BD     		pop	{r4, pc}
+ 128:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1032              		.loc 1 128 1 view .LVU297
+ 1033              		.cfi_endproc
+ 1034              	.LFE240:
+ 1036              		.section	.text.lv_led_create,"ax",%progbits
+ 1037              		.align	1
+ 1038              		.global	lv_led_create
+ 1039              		.syntax unified
+ 1040              		.thumb
+ 1041              		.thumb_func
+ 1043              	lv_led_create:
+ 1044              	.LVL64:
+ 1045              	.LFB233:
+  54:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_LOG_INFO("begin");
+ 1046              		.loc 1 54 1 is_stmt 1 view -0
+ 1047              		.cfi_startproc
+ 1048              		@ args = 0, pretend = 0, frame = 0
+ 1049              		@ frame_needed = 0, uses_anonymous_args = 0
+  54:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_LOG_INFO("begin");
+ 1050              		.loc 1 54 1 is_stmt 0 view .LVU299
+ 1051 0000 10B5     		push	{r4, lr}
+ 1052              	.LCFI7:
+ 1053              		.cfi_def_cfa_offset 8
+ 1054              		.cfi_offset 4, -8
+ 1055              		.cfi_offset 14, -4
+ 1056 0002 0146     		mov	r1, r0
+  55:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 1057              		.loc 1 55 5 is_stmt 1 view .LVU300
+  55:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 1058              		.loc 1 55 5 view .LVU301
+  55:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
+ 1059              		.loc 1 55 5 view .LVU302
+  56:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_class_init_obj(obj);
+ 1060              		.loc 1 56 5 view .LVU303
+  56:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_class_init_obj(obj);
+ 1061              		.loc 1 56 22 is_stmt 0 view .LVU304
+ 1062 0004 0348     		ldr	r0, .L16
+ 1063              	.LVL65:
+  56:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_class_init_obj(obj);
+ 1064              		.loc 1 56 22 view .LVU305
+ 1065 0006 FFF7FEFF 		bl	lv_obj_class_create_obj
+ 1066              	.LVL66:
+  56:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_class_init_obj(obj);
+ 1067              		.loc 1 56 22 view .LVU306
+ 1068 000a 0446     		mov	r4, r0
+ 1069              	.LVL67:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 36
+
+
+  57:Lib/lvgl/src/widgets/led/lv_led.c ****     return obj;
+ 1070              		.loc 1 57 5 is_stmt 1 view .LVU307
+ 1071 000c FFF7FEFF 		bl	lv_obj_class_init_obj
+ 1072              	.LVL68:
+  58:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1073              		.loc 1 58 5 view .LVU308
+  59:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1074              		.loc 1 59 1 is_stmt 0 view .LVU309
+ 1075 0010 2046     		mov	r0, r4
+ 1076 0012 10BD     		pop	{r4, pc}
+ 1077              	.LVL69:
+ 1078              	.L17:
+  59:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1079              		.loc 1 59 1 view .LVU310
+ 1080              		.align	2
+ 1081              	.L16:
+ 1082 0014 00000000 		.word	lv_led_class
+ 1083              		.cfi_endproc
+ 1084              	.LFE233:
+ 1086              		.section	.text.lv_led_set_color,"ax",%progbits
+ 1087              		.align	1
+ 1088              		.global	lv_led_set_color
+ 1089              		.syntax unified
+ 1090              		.thumb
+ 1091              		.thumb_func
+ 1093              	lv_led_set_color:
+ 1094              	.LVL70:
+ 1095              	.LFB234:
+  66:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1096              		.loc 1 66 1 is_stmt 1 view -0
+ 1097              		.cfi_startproc
+ 1098              		@ args = 0, pretend = 0, frame = 8
+ 1099              		@ frame_needed = 0, uses_anonymous_args = 0
+  66:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1100              		.loc 1 66 1 is_stmt 0 view .LVU312
+ 1101 0000 00B5     		push	{lr}
+ 1102              	.LCFI8:
+ 1103              		.cfi_def_cfa_offset 4
+ 1104              		.cfi_offset 14, -4
+ 1105 0002 83B0     		sub	sp, sp, #12
+ 1106              	.LCFI9:
+ 1107              		.cfi_def_cfa_offset 16
+ 1108 0004 0191     		str	r1, [sp, #4]
+  67:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1109              		.loc 1 67 5 is_stmt 1 view .LVU313
+  67:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1110              		.loc 1 67 5 view .LVU314
+  67:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1111              		.loc 1 67 5 view .LVU315
+  69:Lib/lvgl/src/widgets/led/lv_led.c ****     led->color = color;
+ 1112              		.loc 1 69 5 view .LVU316
+ 1113              	.LVL71:
+  70:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_invalidate(obj);
+ 1114              		.loc 1 70 5 view .LVU317
+  70:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_invalidate(obj);
+ 1115              		.loc 1 70 16 is_stmt 0 view .LVU318
+ 1116 0006 8185     		strh	r1, [r0, #44]	@ movhi
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 37
+
+
+ 1117 0008 0A0C     		lsrs	r2, r1, #16
+ 1118 000a 80F82E20 		strb	r2, [r0, #46]
+  71:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1119              		.loc 1 71 5 is_stmt 1 view .LVU319
+ 1120 000e FFF7FEFF 		bl	lv_obj_invalidate
+ 1121              	.LVL72:
+  72:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1122              		.loc 1 72 1 is_stmt 0 view .LVU320
+ 1123 0012 03B0     		add	sp, sp, #12
+ 1124              	.LCFI10:
+ 1125              		.cfi_def_cfa_offset 4
+ 1126              		@ sp needed
+ 1127 0014 5DF804FB 		ldr	pc, [sp], #4
+ 1128              		.cfi_endproc
+ 1129              	.LFE234:
+ 1131              		.section	.text.lv_led_set_brightness,"ax",%progbits
+ 1132              		.align	1
+ 1133              		.global	lv_led_set_brightness
+ 1134              		.syntax unified
+ 1135              		.thumb
+ 1136              		.thumb_func
+ 1138              	lv_led_set_brightness:
+ 1139              	.LVL73:
+ 1140              	.LFB235:
+  75:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1141              		.loc 1 75 1 is_stmt 1 view -0
+ 1142              		.cfi_startproc
+ 1143              		@ args = 0, pretend = 0, frame = 0
+ 1144              		@ frame_needed = 0, uses_anonymous_args = 0
+  75:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1145              		.loc 1 75 1 is_stmt 0 view .LVU322
+ 1146 0000 08B5     		push	{r3, lr}
+ 1147              	.LCFI11:
+ 1148              		.cfi_def_cfa_offset 8
+ 1149              		.cfi_offset 3, -8
+ 1150              		.cfi_offset 14, -4
+  76:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1151              		.loc 1 76 5 is_stmt 1 view .LVU323
+  76:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1152              		.loc 1 76 5 view .LVU324
+  76:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1153              		.loc 1 76 5 view .LVU325
+  78:Lib/lvgl/src/widgets/led/lv_led.c ****     if(led->bright == bright) return;
+ 1154              		.loc 1 78 5 view .LVU326
+ 1155              	.LVL74:
+  79:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1156              		.loc 1 79 5 view .LVU327
+  79:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1157              		.loc 1 79 11 is_stmt 0 view .LVU328
+ 1158 0002 90F82F30 		ldrb	r3, [r0, #47]	@ zero_extendqisi2
+  79:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1159              		.loc 1 79 7 view .LVU329
+ 1160 0006 8B42     		cmp	r3, r1
+ 1161 0008 06D0     		beq	.L20
+  81:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1162              		.loc 1 81 5 is_stmt 1 view .LVU330
+  81:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 38
+
+
+ 1163              		.loc 1 81 19 is_stmt 0 view .LVU331
+ 1164 000a 5029     		cmp	r1, #80
+ 1165 000c 38BF     		it	cc
+ 1166 000e 5021     		movcc	r1, #80
+ 1167              	.LVL75:
+  81:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1168              		.loc 1 81 17 view .LVU332
+ 1169 0010 80F82F10 		strb	r1, [r0, #47]
+  84:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1170              		.loc 1 84 5 is_stmt 1 view .LVU333
+ 1171 0014 FFF7FEFF 		bl	lv_obj_invalidate
+ 1172              	.LVL76:
+ 1173              	.L20:
+  85:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1174              		.loc 1 85 1 is_stmt 0 view .LVU334
+ 1175 0018 08BD     		pop	{r3, pc}
+ 1176              		.cfi_endproc
+ 1177              	.LFE235:
+ 1179              		.section	.text.lv_led_on,"ax",%progbits
+ 1180              		.align	1
+ 1181              		.global	lv_led_on
+ 1182              		.syntax unified
+ 1183              		.thumb
+ 1184              		.thumb_func
+ 1186              	lv_led_on:
+ 1187              	.LVL77:
+ 1188              	.LFB236:
+  88:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_set_brightness(led, LV_LED_BRIGHT_MAX);
+ 1189              		.loc 1 88 1 is_stmt 1 view -0
+ 1190              		.cfi_startproc
+ 1191              		@ args = 0, pretend = 0, frame = 0
+ 1192              		@ frame_needed = 0, uses_anonymous_args = 0
+  88:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_set_brightness(led, LV_LED_BRIGHT_MAX);
+ 1193              		.loc 1 88 1 is_stmt 0 view .LVU336
+ 1194 0000 08B5     		push	{r3, lr}
+ 1195              	.LCFI12:
+ 1196              		.cfi_def_cfa_offset 8
+ 1197              		.cfi_offset 3, -8
+ 1198              		.cfi_offset 14, -4
+  89:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1199              		.loc 1 89 5 is_stmt 1 view .LVU337
+ 1200 0002 FF21     		movs	r1, #255
+ 1201 0004 FFF7FEFF 		bl	lv_led_set_brightness
+ 1202              	.LVL78:
+  90:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1203              		.loc 1 90 1 is_stmt 0 view .LVU338
+ 1204 0008 08BD     		pop	{r3, pc}
+ 1205              		.cfi_endproc
+ 1206              	.LFE236:
+ 1208              		.section	.text.lv_led_off,"ax",%progbits
+ 1209              		.align	1
+ 1210              		.global	lv_led_off
+ 1211              		.syntax unified
+ 1212              		.thumb
+ 1213              		.thumb_func
+ 1215              	lv_led_off:
+ 1216              	.LVL79:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 39
+
+
+ 1217              	.LFB237:
+  93:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_set_brightness(led, LV_LED_BRIGHT_MIN);
+ 1218              		.loc 1 93 1 is_stmt 1 view -0
+ 1219              		.cfi_startproc
+ 1220              		@ args = 0, pretend = 0, frame = 0
+ 1221              		@ frame_needed = 0, uses_anonymous_args = 0
+  93:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_led_set_brightness(led, LV_LED_BRIGHT_MIN);
+ 1222              		.loc 1 93 1 is_stmt 0 view .LVU340
+ 1223 0000 08B5     		push	{r3, lr}
+ 1224              	.LCFI13:
+ 1225              		.cfi_def_cfa_offset 8
+ 1226              		.cfi_offset 3, -8
+ 1227              		.cfi_offset 14, -4
+  94:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1228              		.loc 1 94 5 is_stmt 1 view .LVU341
+ 1229 0002 5021     		movs	r1, #80
+ 1230 0004 FFF7FEFF 		bl	lv_led_set_brightness
+ 1231              	.LVL80:
+  95:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1232              		.loc 1 95 1 is_stmt 0 view .LVU342
+ 1233 0008 08BD     		pop	{r3, pc}
+ 1234              		.cfi_endproc
+ 1235              	.LFE237:
+ 1237              		.section	.text.lv_led_get_brightness,"ax",%progbits
+ 1238              		.align	1
+ 1239              		.global	lv_led_get_brightness
+ 1240              		.syntax unified
+ 1241              		.thumb
+ 1242              		.thumb_func
+ 1244              	lv_led_get_brightness:
+ 1245              	.LVL81:
+ 1246              	.LFB239:
+ 111:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1247              		.loc 1 111 1 is_stmt 1 view -0
+ 1248              		.cfi_startproc
+ 1249              		@ args = 0, pretend = 0, frame = 0
+ 1250              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1251              		@ link register save eliminated.
+ 112:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1252              		.loc 1 112 5 view .LVU344
+ 112:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1253              		.loc 1 112 5 view .LVU345
+ 112:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1254              		.loc 1 112 5 view .LVU346
+ 114:Lib/lvgl/src/widgets/led/lv_led.c ****     return led->bright;
+ 1255              		.loc 1 114 5 view .LVU347
+ 115:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1256              		.loc 1 115 5 view .LVU348
+ 116:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1257              		.loc 1 116 1 is_stmt 0 view .LVU349
+ 1258 0000 90F82F00 		ldrb	r0, [r0, #47]	@ zero_extendqisi2
+ 1259              	.LVL82:
+ 116:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1260              		.loc 1 116 1 view .LVU350
+ 1261 0004 7047     		bx	lr
+ 1262              		.cfi_endproc
+ 1263              	.LFE239:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 40
+
+
+ 1265              		.section	.text.lv_led_toggle,"ax",%progbits
+ 1266              		.align	1
+ 1267              		.global	lv_led_toggle
+ 1268              		.syntax unified
+ 1269              		.thumb
+ 1270              		.thumb_func
+ 1272              	lv_led_toggle:
+ 1273              	.LVL83:
+ 1274              	.LFB238:
+  98:Lib/lvgl/src/widgets/led/lv_led.c ****     uint8_t bright = lv_led_get_brightness(obj);
+ 1275              		.loc 1 98 1 is_stmt 1 view -0
+ 1276              		.cfi_startproc
+ 1277              		@ args = 0, pretend = 0, frame = 0
+ 1278              		@ frame_needed = 0, uses_anonymous_args = 0
+  98:Lib/lvgl/src/widgets/led/lv_led.c ****     uint8_t bright = lv_led_get_brightness(obj);
+ 1279              		.loc 1 98 1 is_stmt 0 view .LVU352
+ 1280 0000 10B5     		push	{r4, lr}
+ 1281              	.LCFI14:
+ 1282              		.cfi_def_cfa_offset 8
+ 1283              		.cfi_offset 4, -8
+ 1284              		.cfi_offset 14, -4
+ 1285 0002 0446     		mov	r4, r0
+  99:Lib/lvgl/src/widgets/led/lv_led.c ****     if(bright > (LV_LED_BRIGHT_MIN + LV_LED_BRIGHT_MAX) >> 1)
+ 1286              		.loc 1 99 5 is_stmt 1 view .LVU353
+  99:Lib/lvgl/src/widgets/led/lv_led.c ****     if(bright > (LV_LED_BRIGHT_MIN + LV_LED_BRIGHT_MAX) >> 1)
+ 1287              		.loc 1 99 22 is_stmt 0 view .LVU354
+ 1288 0004 FFF7FEFF 		bl	lv_led_get_brightness
+ 1289              	.LVL84:
+ 100:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_led_off(obj);
+ 1290              		.loc 1 100 5 is_stmt 1 view .LVU355
+ 100:Lib/lvgl/src/widgets/led/lv_led.c ****         lv_led_off(obj);
+ 1291              		.loc 1 100 7 is_stmt 0 view .LVU356
+ 1292 0008 A728     		cmp	r0, #167
+ 1293 000a 03D9     		bls	.L29
+ 101:Lib/lvgl/src/widgets/led/lv_led.c ****     else
+ 1294              		.loc 1 101 9 is_stmt 1 view .LVU357
+ 1295 000c 2046     		mov	r0, r4
+ 1296              	.LVL85:
+ 101:Lib/lvgl/src/widgets/led/lv_led.c ****     else
+ 1297              		.loc 1 101 9 is_stmt 0 view .LVU358
+ 1298 000e FFF7FEFF 		bl	lv_led_off
+ 1299              	.LVL86:
+ 1300              	.L28:
+ 104:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ 1301              		.loc 1 104 1 view .LVU359
+ 1302 0012 10BD     		pop	{r4, pc}
+ 1303              	.LVL87:
+ 1304              	.L29:
+ 103:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1305              		.loc 1 103 9 is_stmt 1 view .LVU360
+ 1306 0014 2046     		mov	r0, r4
+ 1307              	.LVL88:
+ 103:Lib/lvgl/src/widgets/led/lv_led.c **** }
+ 1308              		.loc 1 103 9 is_stmt 0 view .LVU361
+ 1309 0016 FFF7FEFF 		bl	lv_led_on
+ 1310              	.LVL89:
+ 104:Lib/lvgl/src/widgets/led/lv_led.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 41
+
+
+ 1311              		.loc 1 104 1 view .LVU362
+ 1312 001a FAE7     		b	.L28
+ 1313              		.cfi_endproc
+ 1314              	.LFE238:
+ 1316              		.global	lv_led_class
+ 1317              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1318              		.align	2
+ 1319              	.LC0:
+ 1320 0000 6C656400 		.ascii	"led\000"
+ 1321              		.section	.rodata.lv_led_class,"a"
+ 1322              		.align	2
+ 1325              	lv_led_class:
+ 1326 0000 00000000 		.word	lv_obj_class
+ 1327 0004 00000000 		.word	lv_led_constructor
+ 1328 0008 00000000 		.space	4
+ 1329 000c 00000000 		.word	lv_led_event
+ 1330 0010 00000000 		.space	4
+ 1331 0014 00000000 		.word	.LC0
+ 1332 0018 1A000000 		.word	26
+ 1333 001c 1A000000 		.word	26
+ 1334 0020 00       		.byte	0
+ 1335 0021 03       		.byte	3
+ 1336 0022 00       		.byte	0
+ 1337 0023 00       		.space	1
+ 1338              		.text
+ 1339              	.Letext0:
+ 1340              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1341              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1342              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1343              		.file 7 "Lib/lvgl/src/widgets/led/../../core/../misc/lv_types.h"
+ 1344              		.file 8 "Lib/lvgl/src/widgets/led/../../core/lv_obj.h"
+ 1345              		.file 9 "Lib/lvgl/src/widgets/led/../../core/lv_obj_class.h"
+ 1346              		.file 10 "Lib/lvgl/src/widgets/led/../../core/../indev/../core/lv_group.h"
+ 1347              		.file 11 "Lib/lvgl/src/widgets/led/../../core/../display/../draw/lv_draw.h"
+ 1348              		.file 12 "Lib/lvgl/src/widgets/led/../../core/../display/../misc/lv_event.h"
+ 1349              		.file 13 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 1350              		.file 14 "Lib/lvgl/src/widgets/led/../../core/../misc/../font/../draw/lv_image_buf.h"
+ 1351              		.file 15 "Lib/lvgl/src/widgets/led/../../core/../misc/../font/../draw/lv_draw_buf.h"
+ 1352              		.file 16 "Lib/lvgl/src/widgets/led/../../core/../misc/lv_ll.h"
+ 1353              		.file 17 "Lib/lvgl/src/widgets/led/../../core/../misc/lv_style.h"
+ 1354              		.file 18 "Lib/lvgl/src/widgets/led/../../core/../display/../misc/lv_array.h"
+ 1355              		.file 19 "Lib/lvgl/src/widgets/led/../../core/../display/../draw/lv_draw_rect.h"
+ 1356              		.file 20 "Lib/lvgl/src/widgets/led/../../core/lv_obj_style.h"
+ 1357              		.file 21 "Lib/lvgl/src/widgets/led/lv_led.h"
+ 1358              		.file 22 "Lib/lvgl/src/widgets/led/../../core/lv_obj_pos.h"
+ 1359              		.file 23 "Lib/lvgl/src/widgets/led/../../themes/lv_theme.h"
+ 1360              		.file 24 "Lib/lvgl/src/widgets/led/../../core/lv_obj_event.h"
+ 1361              		.file 25 "Lib/lvgl/src/widgets/led/../../core/lv_obj_draw.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s 			page 42
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_led.c
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:21     .text.lv_color_mix:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:26     .text.lv_color_mix:00000000 lv_color_mix
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:101    .text.lv_led_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:106    .text.lv_led_event:00000000 lv_led_event
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:185    .text.lv_led_event:00000038 $d
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1325   .rodata.lv_led_class:00000000 lv_led_class
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:194    .text.lv_led_event:0000003c $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:985    .text.lv_led_event:0000051c $d
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:991    .text.lv_led_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:996    .text.lv_led_constructor:00000000 lv_led_constructor
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1037   .text.lv_led_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1043   .text.lv_led_create:00000000 lv_led_create
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1082   .text.lv_led_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1087   .text.lv_led_set_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1093   .text.lv_led_set_color:00000000 lv_led_set_color
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1132   .text.lv_led_set_brightness:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1138   .text.lv_led_set_brightness:00000000 lv_led_set_brightness
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1180   .text.lv_led_on:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1186   .text.lv_led_on:00000000 lv_led_on
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1209   .text.lv_led_off:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1215   .text.lv_led_off:00000000 lv_led_off
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1238   .text.lv_led_get_brightness:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1244   .text.lv_led_get_brightness:00000000 lv_led_get_brightness
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1266   .text.lv_led_toggle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1272   .text.lv_led_toggle:00000000 lv_led_toggle
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1318   .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccsorl7N.s:1322   .rodata.lv_led_class:00000000 $d
+
+UNDEFINED SYMBOLS
+lv_event_get_code
+lv_obj_event_base
+lv_event_get_current_target
+lv_draw_rect_dsc_init
+lv_obj_init_draw_rect_dsc
+lv_event_get_layer
+lv_draw_rect
+lv_theme_get_color_primary
+lv_obj_class_create_obj
+lv_obj_class_init_obj
+lv_obj_invalidate
+lv_obj_class

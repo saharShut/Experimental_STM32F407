@@ -1,0 +1,2626 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_keyboard.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/widgets/keyboard/lv_keyboard.c"
+  20              		.section	.text.lv_keyboard_update_ctrl_map,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_keyboard_update_ctrl_map:
+  27              	.LVL0:
+  28              	.LFB247:
+   1:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+   2:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**
+   3:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  * @file lv_keyboard.c
+   4:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *
+   5:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  */
+   6:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+   7:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /*********************
+   8:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *      INCLUDES
+   9:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *********************/
+  10:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #include "lv_keyboard.h"
+  11:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_KEYBOARD
+  12:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  13:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #include "../textarea/lv_textarea.h"
+  14:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #include "../../misc/lv_assert.h"
+  15:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #include "../../stdlib/lv_string.h"
+  16:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  17:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #include <stdlib.h>
+  18:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  19:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /*********************
+  20:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *      DEFINES
+  21:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *********************/
+  22:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #define MY_CLASS    &lv_keyboard_class
+  23:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #define LV_KB_BTN(width) LV_BUTTONMATRIX_CTRL_POPOVER | width
+  24:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  25:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**********************
+  26:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *      TYPEDEFS
+  27:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  **********************/
+  28:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  29:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**********************
+  30:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *  STATIC PROTOTYPES
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 2
+
+
+  31:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  **********************/
+  32:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static void lv_keyboard_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
+  33:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  34:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static void lv_keyboard_update_map(lv_obj_t * obj);
+  35:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  36:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static void lv_keyboard_update_ctrl_map(lv_obj_t * obj);
+  37:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  38:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**********************
+  39:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *  STATIC VARIABLES
+  40:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  **********************/
+  41:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  42:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** const lv_obj_class_t lv_keyboard_class = {
+  43:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     .constructor_cb = lv_keyboard_constructor,
+  44:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     .width_def = LV_PCT(100),
+  45:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     .height_def = LV_PCT(50),
+  46:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     .instance_size = sizeof(lv_keyboard_t),
+  47:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     .editable = 1,
+  48:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     .base_class = &lv_buttonmatrix_class,
+  49:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     .name = "keyboard",
+  50:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+  51:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  52:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const char * const default_kb_map_lc[] = {"1#", "q", "w", "e", "r", "t", "y", "u", "i", "o",
+  53:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  "ABC", "a", "s", "d", "f", "g", "h", "j", "k", "l"
+  54:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  "_", "-", "z", "x", "c", "v", "b", "n", "m", ".", 
+  55:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  LV_SYMBOL_KEYBOARD,
+  56:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+  57:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  "أب",
+  58:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+  59:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, LV_SYMBOL_OK
+  60:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                 };
+  61:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  62:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const lv_buttonmatrix_ctrl_t default_kb_ctrl_lc_map[] = {
+  63:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 5, LV_KB_BTN(4), LV_KB_BTN(4), LV_KB_BTN(4), LV_KB_BTN(4), LV_K
+  64:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 6, LV_KB_BTN(3), LV_KB_BTN(3), LV_KB_BTN(3), LV_KB_BTN(3), LV_K
+  65:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_BUTTONMATRIX_CTRL_CHECKED | LV_KB_BTN(1), LV_BUTTONMATRIX_CTRL_CHECKED | LV_KB_BTN(1), LV_KB
+  66:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2,
+  67:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+  68:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2,
+  69:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+  70:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_BUTTONMATRIX_CTRL_CHECKED | 2, 6, LV_BUTTONMATRIX_CTRL_CHECKED | 2, LV_KEYBOARD_CTRL_BUTTON_
+  71:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+  72:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  73:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const char * const default_kb_map_uc[] = {"1#", "Q", "W", "E", "R", "T", "Y", "U", "I", "O",
+  74:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  "abc", "A", "S", "D", "F", "G", "H", "J", "K", "L"
+  75:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  "_", "-", "Z", "X", "C", "V", "B", "N", "M", ".", 
+  76:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  LV_SYMBOL_CLOSE,
+  77:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+  78:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  "أب",
+  79:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+  80:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, LV_SYMBOL_OK
+  81:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                 };
+  82:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  83:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const lv_buttonmatrix_ctrl_t default_kb_ctrl_uc_map[] = {
+  84:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 5, LV_KB_BTN(4), LV_KB_BTN(4), LV_KB_BTN(4), LV_KB_BTN(4), LV_K
+  85:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 6, LV_KB_BTN(3), LV_KB_BTN(3), LV_KB_BTN(3), LV_KB_BTN(3), LV_K
+  86:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_BUTTONMATRIX_CTRL_CHECKED | LV_KB_BTN(1), LV_BUTTONMATRIX_CTRL_CHECKED | LV_KB_BTN(1), LV_KB
+  87:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 3
+
+
+  88:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+  89:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2,
+  90:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+  91:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_BUTTONMATRIX_CTRL_CHECKED | 2, 6, LV_BUTTONMATRIX_CTRL_CHECKED | 2, LV_KEYBOARD_CTRL_BUTTON_
+  92:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+  93:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+  94:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const char * const default_kb_map_ar[] = {
+  95:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     "1#", "ض", "ص", "ث", "ق", "ف", "غ", "ع", "ه", "خ", "ح", "ج", "\n",
+  96:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     "ش", "س", "ي", "ب", "ل", "ا", "ت", "ن", "م", "ك", "ط", LV_SYMBOL_BACKSPACE, "\n",
+  97:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     "ذ", "ء", "ؤ", "ر", "ى", "ة", "و", "ز", "ظ", "د", "ز", "ظ", "د", "\n",
+  98:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_SYMBOL_CLOSE, "abc", LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, LV_SYMBOL_NEW_LINE, LV_SYMBOL_OK,
+  99:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+ 100:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 101:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const lv_buttonmatrix_ctrl_t default_kb_ctrl_ar_map[] = {
+ 102:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+ 103:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7,
+ 104:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+ 105:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2, LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2, 2, 6, 2, 3, LV_KEYBOARD_C
+ 106:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+ 107:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+ 108:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 109:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const char * const default_kb_map_spec[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
+ 110:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                    "abc", "+", "&", "/", "*", "=", "%", "!", "?", "
+ 111:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                    "\\",  "@", "$", "(", ")", "{", "}", "[", "]", "
+ 112:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                    LV_SYMBOL_KEYBOARD,
+ 113:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+ 114:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                    "أب",
+ 115:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+ 116:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                    LV_SYMBOL_LEFT, " ", LV_SYMBOL_RIGHT, LV_SYMBOL_
+ 117:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                   };
+ 118:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 119:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const lv_buttonmatrix_ctrl_t default_kb_ctrl_spec_map[] = {
+ 120:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1
+ 121:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2, LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_K
+ 122:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1), LV_KB_BTN(1
+ 123:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2,
+ 124:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+ 125:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2,
+ 126:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+ 127:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_BUTTONMATRIX_CTRL_CHECKED | 2, 6, LV_BUTTONMATRIX_CTRL_CHECKED | 2, LV_KEYBOARD_CTRL_BUTTON_
+ 128:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+ 129:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 130:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const char * const default_kb_map_num[] = {"1", "2", "3", LV_SYMBOL_KEYBOARD, "\n",
+ 131:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                   "4", "5", "6", LV_SYMBOL_OK, "\n",
+ 132:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                   "7", "8", "9", LV_SYMBOL_BACKSPACE, "\n",
+ 133:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                   "+/-", "0", ".", LV_SYMBOL_LEFT, LV_SYMBOL_RIGHT,
+ 134:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                                                  };
+ 135:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 136:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const lv_buttonmatrix_ctrl_t default_kb_ctrl_num_map[] = {
+ 137:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     1, 1, 1, LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2,
+ 138:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     1, 1, 1, LV_KEYBOARD_CTRL_BUTTON_FLAGS | 2,
+ 139:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     1, 1, 1, 2,
+ 140:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     1, 1, 1, 1, 1
+ 141:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+ 142:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 143:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const char * * kb_map[10] = {
+ 144:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_lc,
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 4
+
+
+ 145:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_uc,
+ 146:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_spec,
+ 147:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_num,
+ 148:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_lc,
+ 149:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_lc,
+ 150:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_lc,
+ 151:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_lc,
+ 152:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+ 153:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)default_kb_map_ar,
+ 154:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+ 155:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     (const char * *)NULL
+ 156:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+ 157:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static const lv_buttonmatrix_ctrl_t * kb_ctrl[10] = {
+ 158:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_lc_map,
+ 159:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_uc_map,
+ 160:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_spec_map,
+ 161:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_num_map,
+ 162:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_lc_map,
+ 163:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_lc_map,
+ 164:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_lc_map,
+ 165:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_lc_map,
+ 166:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+ 167:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     default_kb_ctrl_ar_map,
+ 168:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+ 169:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     NULL
+ 170:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** };
+ 171:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 172:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**********************
+ 173:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *      MACROS
+ 174:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  **********************/
+ 175:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 176:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**********************
+ 177:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *   GLOBAL FUNCTIONS
+ 178:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  **********************/
+ 179:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 180:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** lv_obj_t * lv_keyboard_create(lv_obj_t * parent)
+ 181:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 182:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_LOG_INFO("begin");
+ 183:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_keyboard_class, parent);
+ 184:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_class_init_obj(obj);
+ 185:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     return obj;
+ 186:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 187:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 188:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /*=====================
+ 189:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  * Setter functions
+ 190:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *====================*/
+ 191:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 192:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** void lv_keyboard_set_textarea(lv_obj_t * obj, lv_obj_t * ta)
+ 193:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 194:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(ta) {
+ 195:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         LV_ASSERT_OBJ(ta, &lv_textarea_class);
+ 196:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 197:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 198:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 199:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 200:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 201:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     /*Hide the cursor of the old Text area if cursor management is enabled*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 5
+
+
+ 202:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(keyboard->ta) {
+ 203:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_obj_remove_state(obj, LV_STATE_FOCUSED);
+ 204:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 205:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 206:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->ta = ta;
+ 207:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 208:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     /*Show the cursor of the new Text area if cursor management is enabled*/
+ 209:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(keyboard->ta) {
+ 210:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_obj_add_flag(obj, LV_STATE_FOCUSED);
+ 211:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 212:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 213:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 214:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** void lv_keyboard_set_mode(lv_obj_t * obj, lv_keyboard_mode_t mode)
+ 215:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 216:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 217:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 218:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(keyboard->mode == mode) return;
+ 219:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 220:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->mode = mode;
+ 221:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_map(obj);
+ 222:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 223:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 224:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** void lv_keyboard_set_popovers(lv_obj_t * obj, bool en)
+ 225:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 226:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 227:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 228:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(keyboard->popovers == en) {
+ 229:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 230:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 231:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 232:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->popovers = en;
+ 233:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_ctrl_map(obj);
+ 234:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 235:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 236:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** void lv_keyboard_set_map(lv_obj_t * obj, lv_keyboard_mode_t mode, const char * map[],
+ 237:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****                          const lv_buttonmatrix_ctrl_t ctrl_map[])
+ 238:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 239:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 240:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     kb_map[mode] = map;
+ 241:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     kb_ctrl[mode] = ctrl_map;
+ 242:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_map(obj);
+ 243:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 244:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 245:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /*=====================
+ 246:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  * Getter functions
+ 247:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *====================*/
+ 248:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 249:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** lv_obj_t * lv_keyboard_get_textarea(const lv_obj_t * obj)
+ 250:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 251:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 252:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 253:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     return keyboard->ta;
+ 254:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 255:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 256:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** lv_keyboard_mode_t lv_keyboard_get_mode(const lv_obj_t * obj)
+ 257:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 258:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 6
+
+
+ 259:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 260:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     return keyboard->mode;
+ 261:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 262:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 263:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** bool lv_buttonmatrix_get_popovers(const lv_obj_t * obj)
+ 264:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 265:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 266:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     return keyboard->popovers;
+ 267:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 268:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 269:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /*=====================
+ 270:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  * Other functions
+ 271:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *====================*/
+ 272:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 273:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** void lv_keyboard_def_event_cb(lv_event_t * e)
+ 274:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 275:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 276:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 277:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 278:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 279:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     uint32_t btn_id = lv_buttonmatrix_get_selected_button(obj);
+ 280:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(btn_id == LV_BUTTONMATRIX_BUTTON_NONE) return;
+ 281:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 282:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     const char * txt = lv_buttonmatrix_get_button_text(obj, btn_id);
+ 283:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(txt == NULL) return;
+ 284:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 285:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(lv_strcmp(txt, "abc") == 0) {
+ 286:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_LOWER;
+ 287:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_TEXT_LOWER]);
+ 288:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_keyboard_update_ctrl_map(obj);
+ 289:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 290:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 291:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #if LV_USE_ARABIC_PERSIAN_CHARS == 1
+ 292:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, "أب") == 0) {
+ 293:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_ARABIC;
+ 294:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_TEXT_ARABIC]);
+ 295:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_keyboard_update_ctrl_map(obj);
+ 296:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 297:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 298:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** #endif
+ 299:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, "ABC") == 0) {
+ 300:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_UPPER;
+ 301:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_TEXT_UPPER]);
+ 302:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_keyboard_update_ctrl_map(obj);
+ 303:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 304:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 305:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, "1#") == 0) {
+ 306:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_SPECIAL;
+ 307:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_SPECIAL]);
+ 308:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_keyboard_update_ctrl_map(obj);
+ 309:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 310:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 311:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, LV_SYMBOL_CLOSE) == 0 || lv_strcmp(txt, LV_SYMBOL_KEYBOARD) == 0) {
+ 312:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_CANCEL, NULL);
+ 313:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(res != LV_RESULT_OK) return;
+ 314:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 315:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(keyboard->ta) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 7
+
+
+ 316:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             res = lv_obj_send_event(keyboard->ta, LV_EVENT_CANCEL, NULL);
+ 317:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 318:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 319:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 320:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 321:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, LV_SYMBOL_OK) == 0) {
+ 322:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_READY, NULL);
+ 323:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(res != LV_RESULT_OK) return;
+ 324:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 325:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(keyboard->ta) {
+ 326:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             res = lv_obj_send_event(keyboard->ta, LV_EVENT_READY, NULL);
+ 327:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 328:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 329:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 330:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 331:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 332:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     /*Add the characters to the text area if set*/
+ 333:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(keyboard->ta == NULL) return;
+ 334:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 335:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(lv_strcmp(txt, "Enter") == 0 || lv_strcmp(txt, LV_SYMBOL_NEW_LINE) == 0) {
+ 336:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_add_char(keyboard->ta, '\n');
+ 337:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(lv_textarea_get_one_line(keyboard->ta)) {
+ 338:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_result_t res = lv_obj_send_event(keyboard->ta, LV_EVENT_READY, NULL);
+ 339:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 340:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 341:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 342:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, LV_SYMBOL_LEFT) == 0) {
+ 343:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_cursor_left(keyboard->ta);
+ 344:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 345:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, LV_SYMBOL_RIGHT) == 0) {
+ 346:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_cursor_right(keyboard->ta);
+ 347:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 348:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, LV_SYMBOL_BACKSPACE) == 0) {
+ 349:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_delete_char(keyboard->ta);
+ 350:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 351:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else if(lv_strcmp(txt, "+/-") == 0) {
+ 352:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         uint32_t cur        = lv_textarea_get_cursor_pos(keyboard->ta);
+ 353:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         const char * ta_txt = lv_textarea_get_text(keyboard->ta);
+ 354:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(ta_txt[0] == '-') {
+ 355:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, 1);
+ 356:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_delete_char(keyboard->ta);
+ 357:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_add_char(keyboard->ta, '+');
+ 358:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, cur);
+ 359:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 360:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         else if(ta_txt[0] == '+') {
+ 361:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, 1);
+ 362:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_delete_char(keyboard->ta);
+ 363:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_add_char(keyboard->ta, '-');
+ 364:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, cur);
+ 365:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 366:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         else {
+ 367:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, 0);
+ 368:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_add_char(keyboard->ta, '-');
+ 369:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, cur + 1);
+ 370:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 371:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 372:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 8
+
+
+ 373:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_add_text(keyboard->ta, txt);
+ 374:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 375:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 376:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 377:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**********************
+ 378:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  *   STATIC FUNCTIONS
+ 379:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  **********************/
+ 380:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 381:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static void lv_keyboard_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
+ 382:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 383:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_UNUSED(class_p);
+ 384:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE);
+ 385:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 386:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 387:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->ta         = NULL;
+ 388:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->mode       = LV_KEYBOARD_MODE_TEXT_LOWER;
+ 389:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->popovers   = 0;
+ 390:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 391:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_align(obj, LV_ALIGN_BOTTOM_MID, 0, 0);
+ 392:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_add_event_cb(obj, lv_keyboard_def_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+ 393:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_set_style_base_dir(obj, LV_BASE_DIR_LTR, 0);
+ 394:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 395:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_map(obj);
+ 396:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 397:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 398:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**
+ 399:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  * Update the key and control map for the current mode
+ 400:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  * @param obj pointer to a keyboard object
+ 401:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  */
+ 402:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static void lv_keyboard_update_map(lv_obj_t * obj)
+ 403:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+ 404:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 405:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_buttonmatrix_set_map(obj, kb_map[keyboard->mode]);
+ 406:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_ctrl_map(obj);
+ 407:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 408:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 409:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** /**
+ 410:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  * Update the control map for the current mode
+ 411:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  * @param obj pointer to a keyboard object
+ 412:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****  */
+ 413:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** static void lv_keyboard_update_ctrl_map(lv_obj_t * obj)
+ 414:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** {
+  29              		.loc 1 414 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 414 1 is_stmt 0 view .LVU1
+  34 0000 38B5     		push	{r3, r4, r5, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 3, -16
+  38              		.cfi_offset 4, -12
+  39              		.cfi_offset 5, -8
+  40              		.cfi_offset 14, -4
+  41 0002 0446     		mov	r4, r0
+ 415:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+  42              		.loc 1 415 5 is_stmt 1 view .LVU2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 9
+
+
+  43              	.LVL1:
+ 416:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 417:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(keyboard->popovers) {
+  44              		.loc 1 417 5 view .LVU3
+  45              		.loc 1 417 8 is_stmt 0 view .LVU4
+  46 0004 90F84D30 		ldrb	r3, [r0, #77]	@ zero_extendqisi2
+  47              		.loc 1 417 7 view .LVU5
+  48 0008 13F0010F 		tst	r3, #1
+  49 000c 07D0     		beq	.L2
+ 418:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         /*Apply the current control map (already includes LV_BUTTONMATRIX_CTRL_POPOVER flags)*/
+ 419:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_ctrl_map(obj, kb_ctrl[keyboard->mode]);
+  50              		.loc 1 419 9 is_stmt 1 view .LVU6
+  51              		.loc 1 419 59 is_stmt 0 view .LVU7
+  52 000e 90F84C20 		ldrb	r2, [r0, #76]	@ zero_extendqisi2
+  53              		.loc 1 419 9 view .LVU8
+  54 0012 144B     		ldr	r3, .L7
+  55 0014 53F82210 		ldr	r1, [r3, r2, lsl #2]
+  56 0018 FFF7FEFF 		bl	lv_buttonmatrix_set_ctrl_map
+  57              	.LVL2:
+  58              	.L1:
+ 420:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 421:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     else {
+ 422:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         /*Make a copy of the current control map*/
+ 423:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_t * btnm = (lv_buttonmatrix_t *)obj;
+ 424:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_ctrl_t * ctrl_map = lv_malloc(btnm->btn_cnt * sizeof(lv_buttonmatrix_ctrl_t
+ 425:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_memcpy(ctrl_map, kb_ctrl[keyboard->mode], sizeof(lv_buttonmatrix_ctrl_t) * btnm->btn_cnt
+ 426:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 427:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         /*Remove all LV_BUTTONMATRIX_CTRL_POPOVER flags*/
+ 428:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         uint32_t i;
+ 429:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         for(i = 0; i < btnm->btn_cnt; i++) {
+ 430:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             ctrl_map[i] &= (~LV_BUTTONMATRIX_CTRL_POPOVER);
+ 431:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 432:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 433:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         /*Apply new control map and clean up*/
+ 434:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_ctrl_map(obj, ctrl_map);
+ 435:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_free(ctrl_map);
+ 436:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 437:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+  59              		.loc 1 437 1 view .LVU9
+  60 001c 38BD     		pop	{r3, r4, r5, pc}
+  61              	.LVL3:
+  62              	.L2:
+  63              	.LBB2:
+ 423:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_ctrl_t * ctrl_map = lv_malloc(btnm->btn_cnt * sizeof(lv_buttonmatrix_ctrl_t
+  64              		.loc 1 423 9 is_stmt 1 view .LVU10
+ 424:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_memcpy(ctrl_map, kb_ctrl[keyboard->mode], sizeof(lv_buttonmatrix_ctrl_t) * btnm->btn_cnt
+  65              		.loc 1 424 9 view .LVU11
+ 424:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_memcpy(ctrl_map, kb_ctrl[keyboard->mode], sizeof(lv_buttonmatrix_ctrl_t) * btnm->btn_cnt
+  66              		.loc 1 424 59 is_stmt 0 view .LVU12
+  67 001e 806B     		ldr	r0, [r0, #56]
+  68              	.LVL4:
+ 424:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_memcpy(ctrl_map, kb_ctrl[keyboard->mode], sizeof(lv_buttonmatrix_ctrl_t) * btnm->btn_cnt
+  69              		.loc 1 424 45 view .LVU13
+  70 0020 8000     		lsls	r0, r0, #2
+  71 0022 FFF7FEFF 		bl	lv_malloc
+  72              	.LVL5:
+  73 0026 0546     		mov	r5, r0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 10
+
+
+  74              	.LVL6:
+ 425:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  75              		.loc 1 425 9 is_stmt 1 view .LVU14
+ 425:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  76              		.loc 1 425 45 is_stmt 0 view .LVU15
+  77 0028 94F84C10 		ldrb	r1, [r4, #76]	@ zero_extendqisi2
+ 425:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  78              		.loc 1 425 91 view .LVU16
+  79 002c A26B     		ldr	r2, [r4, #56]
+ 425:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+  80              		.loc 1 425 9 view .LVU17
+  81 002e 9200     		lsls	r2, r2, #2
+  82 0030 0C4B     		ldr	r3, .L7
+  83 0032 53F82110 		ldr	r1, [r3, r1, lsl #2]
+  84 0036 FFF7FEFF 		bl	lv_memcpy
+  85              	.LVL7:
+ 428:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         for(i = 0; i < btnm->btn_cnt; i++) {
+  86              		.loc 1 428 9 is_stmt 1 view .LVU18
+ 429:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             ctrl_map[i] &= (~LV_BUTTONMATRIX_CTRL_POPOVER);
+  87              		.loc 1 429 9 view .LVU19
+ 429:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             ctrl_map[i] &= (~LV_BUTTONMATRIX_CTRL_POPOVER);
+  88              		.loc 1 429 15 is_stmt 0 view .LVU20
+  89 003a 0023     		movs	r3, #0
+ 429:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             ctrl_map[i] &= (~LV_BUTTONMATRIX_CTRL_POPOVER);
+  90              		.loc 1 429 9 view .LVU21
+  91 003c 06E0     		b	.L4
+  92              	.LVL8:
+  93              	.L5:
+ 430:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+  94              		.loc 1 430 13 is_stmt 1 discriminator 3 view .LVU22
+ 430:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+  95              		.loc 1 430 21 is_stmt 0 discriminator 3 view .LVU23
+  96 003e 55F82320 		ldr	r2, [r5, r3, lsl #2]
+ 430:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+  97              		.loc 1 430 25 discriminator 3 view .LVU24
+  98 0042 22F48062 		bic	r2, r2, #1024
+  99 0046 45F82320 		str	r2, [r5, r3, lsl #2]
+ 429:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             ctrl_map[i] &= (~LV_BUTTONMATRIX_CTRL_POPOVER);
+ 100              		.loc 1 429 40 is_stmt 1 discriminator 3 view .LVU25
+ 101 004a 0133     		adds	r3, r3, #1
+ 102              	.LVL9:
+ 103              	.L4:
+ 429:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             ctrl_map[i] &= (~LV_BUTTONMATRIX_CTRL_POPOVER);
+ 104              		.loc 1 429 22 discriminator 1 view .LVU26
+ 429:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             ctrl_map[i] &= (~LV_BUTTONMATRIX_CTRL_POPOVER);
+ 105              		.loc 1 429 28 is_stmt 0 discriminator 1 view .LVU27
+ 106 004c A26B     		ldr	r2, [r4, #56]
+ 429:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             ctrl_map[i] &= (~LV_BUTTONMATRIX_CTRL_POPOVER);
+ 107              		.loc 1 429 22 discriminator 1 view .LVU28
+ 108 004e 9A42     		cmp	r2, r3
+ 109 0050 F5D8     		bhi	.L5
+ 434:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_free(ctrl_map);
+ 110              		.loc 1 434 9 is_stmt 1 view .LVU29
+ 111 0052 2946     		mov	r1, r5
+ 112 0054 2046     		mov	r0, r4
+ 113 0056 FFF7FEFF 		bl	lv_buttonmatrix_set_ctrl_map
+ 114              	.LVL10:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 11
+
+
+ 435:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 115              		.loc 1 435 9 view .LVU30
+ 116 005a 2846     		mov	r0, r5
+ 117 005c FFF7FEFF 		bl	lv_free
+ 118              	.LVL11:
+ 119              	.LBE2:
+ 120              		.loc 1 437 1 is_stmt 0 view .LVU31
+ 121 0060 DCE7     		b	.L1
+ 122              	.L8:
+ 123 0062 00BF     		.align	2
+ 124              	.L7:
+ 125 0064 00000000 		.word	kb_ctrl
+ 126              		.cfi_endproc
+ 127              	.LFE247:
+ 129              		.section	.text.lv_keyboard_update_map,"ax",%progbits
+ 130              		.align	1
+ 131              		.syntax unified
+ 132              		.thumb
+ 133              		.thumb_func
+ 135              	lv_keyboard_update_map:
+ 136              	.LVL12:
+ 137              	.LFB246:
+ 403:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 138              		.loc 1 403 1 is_stmt 1 view -0
+ 139              		.cfi_startproc
+ 140              		@ args = 0, pretend = 0, frame = 0
+ 141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 403:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 142              		.loc 1 403 1 is_stmt 0 view .LVU33
+ 143 0000 10B5     		push	{r4, lr}
+ 144              	.LCFI1:
+ 145              		.cfi_def_cfa_offset 8
+ 146              		.cfi_offset 4, -8
+ 147              		.cfi_offset 14, -4
+ 148 0002 0446     		mov	r4, r0
+ 404:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_buttonmatrix_set_map(obj, kb_map[keyboard->mode]);
+ 149              		.loc 1 404 5 is_stmt 1 view .LVU34
+ 150              	.LVL13:
+ 405:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_ctrl_map(obj);
+ 151              		.loc 1 405 5 view .LVU35
+ 405:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_ctrl_map(obj);
+ 152              		.loc 1 405 49 is_stmt 0 view .LVU36
+ 153 0004 90F84C20 		ldrb	r2, [r0, #76]	@ zero_extendqisi2
+ 405:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_ctrl_map(obj);
+ 154              		.loc 1 405 5 view .LVU37
+ 155 0008 044B     		ldr	r3, .L11
+ 156 000a 53F82210 		ldr	r1, [r3, r2, lsl #2]
+ 157 000e FFF7FEFF 		bl	lv_buttonmatrix_set_map
+ 158              	.LVL14:
+ 406:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 159              		.loc 1 406 5 is_stmt 1 view .LVU38
+ 160 0012 2046     		mov	r0, r4
+ 161 0014 FFF7FEFF 		bl	lv_keyboard_update_ctrl_map
+ 162              	.LVL15:
+ 407:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 163              		.loc 1 407 1 is_stmt 0 view .LVU39
+ 164 0018 10BD     		pop	{r4, pc}
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 12
+
+
+ 165              	.LVL16:
+ 166              	.L12:
+ 407:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 167              		.loc 1 407 1 view .LVU40
+ 168 001a 00BF     		.align	2
+ 169              	.L11:
+ 170 001c 00000000 		.word	kb_map
+ 171              		.cfi_endproc
+ 172              	.LFE246:
+ 174              		.section	.text.lv_keyboard_constructor,"ax",%progbits
+ 175              		.align	1
+ 176              		.syntax unified
+ 177              		.thumb
+ 178              		.thumb_func
+ 180              	lv_keyboard_constructor:
+ 181              	.LVL17:
+ 182              	.LFB245:
+ 382:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_UNUSED(class_p);
+ 183              		.loc 1 382 1 is_stmt 1 view -0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 0
+ 186              		@ frame_needed = 0, uses_anonymous_args = 0
+ 382:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_UNUSED(class_p);
+ 187              		.loc 1 382 1 is_stmt 0 view .LVU42
+ 188 0000 38B5     		push	{r3, r4, r5, lr}
+ 189              	.LCFI2:
+ 190              		.cfi_def_cfa_offset 16
+ 191              		.cfi_offset 3, -16
+ 192              		.cfi_offset 4, -12
+ 193              		.cfi_offset 5, -8
+ 194              		.cfi_offset 14, -4
+ 195 0002 0C46     		mov	r4, r1
+ 383:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_remove_flag(obj, LV_OBJ_FLAG_CLICK_FOCUSABLE);
+ 196              		.loc 1 383 5 is_stmt 1 view .LVU43
+ 384:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 197              		.loc 1 384 5 view .LVU44
+ 198 0004 0421     		movs	r1, #4
+ 199              	.LVL18:
+ 384:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 200              		.loc 1 384 5 is_stmt 0 view .LVU45
+ 201 0006 2046     		mov	r0, r4
+ 202              	.LVL19:
+ 384:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 203              		.loc 1 384 5 view .LVU46
+ 204 0008 FFF7FEFF 		bl	lv_obj_remove_flag
+ 205              	.LVL20:
+ 386:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->ta         = NULL;
+ 206              		.loc 1 386 5 is_stmt 1 view .LVU47
+ 387:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->mode       = LV_KEYBOARD_MODE_TEXT_LOWER;
+ 207              		.loc 1 387 5 view .LVU48
+ 387:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->mode       = LV_KEYBOARD_MODE_TEXT_LOWER;
+ 208              		.loc 1 387 26 is_stmt 0 view .LVU49
+ 209 000c 0025     		movs	r5, #0
+ 210 000e A564     		str	r5, [r4, #72]
+ 388:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->popovers   = 0;
+ 211              		.loc 1 388 5 is_stmt 1 view .LVU50
+ 388:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     keyboard->popovers   = 0;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 13
+
+
+ 212              		.loc 1 388 26 is_stmt 0 view .LVU51
+ 213 0010 84F84C50 		strb	r5, [r4, #76]
+ 389:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 214              		.loc 1 389 5 is_stmt 1 view .LVU52
+ 389:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 215              		.loc 1 389 26 is_stmt 0 view .LVU53
+ 216 0014 94F84D30 		ldrb	r3, [r4, #77]	@ zero_extendqisi2
+ 217 0018 65F30003 		bfi	r3, r5, #0, #1
+ 218 001c 84F84D30 		strb	r3, [r4, #77]
+ 391:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_add_event_cb(obj, lv_keyboard_def_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+ 219              		.loc 1 391 5 is_stmt 1 view .LVU54
+ 220 0020 2B46     		mov	r3, r5
+ 221 0022 2A46     		mov	r2, r5
+ 222 0024 0521     		movs	r1, #5
+ 223 0026 2046     		mov	r0, r4
+ 224 0028 FFF7FEFF 		bl	lv_obj_align
+ 225              	.LVL21:
+ 392:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_set_style_base_dir(obj, LV_BASE_DIR_LTR, 0);
+ 226              		.loc 1 392 5 view .LVU55
+ 227 002c 2B46     		mov	r3, r5
+ 228 002e 1D22     		movs	r2, #29
+ 229 0030 0649     		ldr	r1, .L15
+ 230 0032 2046     		mov	r0, r4
+ 231 0034 FFF7FEFF 		bl	lv_obj_add_event_cb
+ 232              	.LVL22:
+ 393:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 233              		.loc 1 393 5 view .LVU56
+ 234 0038 2A46     		mov	r2, r5
+ 235 003a 2946     		mov	r1, r5
+ 236 003c 2046     		mov	r0, r4
+ 237 003e FFF7FEFF 		bl	lv_obj_set_style_base_dir
+ 238              	.LVL23:
+ 395:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 239              		.loc 1 395 5 view .LVU57
+ 240 0042 2046     		mov	r0, r4
+ 241 0044 FFF7FEFF 		bl	lv_keyboard_update_map
+ 242              	.LVL24:
+ 396:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 243              		.loc 1 396 1 is_stmt 0 view .LVU58
+ 244 0048 38BD     		pop	{r3, r4, r5, pc}
+ 245              	.LVL25:
+ 246              	.L16:
+ 396:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 247              		.loc 1 396 1 view .LVU59
+ 248 004a 00BF     		.align	2
+ 249              	.L15:
+ 250 004c 00000000 		.word	lv_keyboard_def_event_cb
+ 251              		.cfi_endproc
+ 252              	.LFE245:
+ 254              		.section	.rodata.lv_keyboard_def_event_cb.str1.4,"aMS",%progbits,1
+ 255              		.align	2
+ 256              	.LC0:
+ 257 0000 61626300 		.ascii	"abc\000"
+ 258              		.align	2
+ 259              	.LC1:
+ 260 0004 41424300 		.ascii	"ABC\000"
+ 261              		.align	2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 14
+
+
+ 262              	.LC2:
+ 263 0008 312300   		.ascii	"1#\000"
+ 264 000b 00       		.align	2
+ 265              	.LC3:
+ 266 000c EF808D00 		.ascii	"\357\200\215\000"
+ 267              		.align	2
+ 268              	.LC4:
+ 269 0010 EF849C00 		.ascii	"\357\204\234\000"
+ 270              		.align	2
+ 271              	.LC5:
+ 272 0014 EF808C00 		.ascii	"\357\200\214\000"
+ 273              		.align	2
+ 274              	.LC6:
+ 275 0018 456E7465 		.ascii	"Enter\000"
+ 275      7200
+ 276 001e 0000     		.align	2
+ 277              	.LC7:
+ 278 0020 EFA2A200 		.ascii	"\357\242\242\000"
+ 279              		.align	2
+ 280              	.LC8:
+ 281 0024 EF819300 		.ascii	"\357\201\223\000"
+ 282              		.align	2
+ 283              	.LC9:
+ 284 0028 EF819400 		.ascii	"\357\201\224\000"
+ 285              		.align	2
+ 286              	.LC10:
+ 287 002c EF959A00 		.ascii	"\357\225\232\000"
+ 288              		.align	2
+ 289              	.LC11:
+ 290 0030 2B2F2D00 		.ascii	"+/-\000"
+ 291              		.section	.text.lv_keyboard_def_event_cb,"ax",%progbits
+ 292              		.align	1
+ 293              		.global	lv_keyboard_def_event_cb
+ 294              		.syntax unified
+ 295              		.thumb
+ 296              		.thumb_func
+ 298              	lv_keyboard_def_event_cb:
+ 299              	.LVL26:
+ 300              	.LFB244:
+ 274:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 301              		.loc 1 274 1 is_stmt 1 view -0
+ 302              		.cfi_startproc
+ 303              		@ args = 0, pretend = 0, frame = 0
+ 304              		@ frame_needed = 0, uses_anonymous_args = 0
+ 274:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_t * obj = lv_event_get_current_target(e);
+ 305              		.loc 1 274 1 is_stmt 0 view .LVU61
+ 306 0000 38B5     		push	{r3, r4, r5, lr}
+ 307              	.LCFI3:
+ 308              		.cfi_def_cfa_offset 16
+ 309              		.cfi_offset 3, -16
+ 310              		.cfi_offset 4, -12
+ 311              		.cfi_offset 5, -8
+ 312              		.cfi_offset 14, -4
+ 275:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 313              		.loc 1 275 5 is_stmt 1 view .LVU62
+ 275:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 314              		.loc 1 275 22 is_stmt 0 view .LVU63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 15
+
+
+ 315 0002 FFF7FEFF 		bl	lv_event_get_current_target
+ 316              	.LVL27:
+ 275:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 317              		.loc 1 275 22 view .LVU64
+ 318 0006 0446     		mov	r4, r0
+ 319              	.LVL28:
+ 277:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 320              		.loc 1 277 5 is_stmt 1 view .LVU65
+ 277:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 321              		.loc 1 277 5 view .LVU66
+ 277:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 322              		.loc 1 277 5 view .LVU67
+ 278:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     uint32_t btn_id = lv_buttonmatrix_get_selected_button(obj);
+ 323              		.loc 1 278 5 view .LVU68
+ 279:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(btn_id == LV_BUTTONMATRIX_BUTTON_NONE) return;
+ 324              		.loc 1 279 5 view .LVU69
+ 279:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(btn_id == LV_BUTTONMATRIX_BUTTON_NONE) return;
+ 325              		.loc 1 279 23 is_stmt 0 view .LVU70
+ 326 0008 FFF7FEFF 		bl	lv_buttonmatrix_get_selected_button
+ 327              	.LVL29:
+ 280:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 328              		.loc 1 280 5 is_stmt 1 view .LVU71
+ 280:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 329              		.loc 1 280 7 is_stmt 0 view .LVU72
+ 330 000c 4FF6FF73 		movw	r3, #65535
+ 331 0010 9842     		cmp	r0, r3
+ 332 0012 36D0     		beq	.L17
+ 333 0014 0146     		mov	r1, r0
+ 282:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(txt == NULL) return;
+ 334              		.loc 1 282 5 is_stmt 1 view .LVU73
+ 282:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(txt == NULL) return;
+ 335              		.loc 1 282 24 is_stmt 0 view .LVU74
+ 336 0016 2046     		mov	r0, r4
+ 337              	.LVL30:
+ 282:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(txt == NULL) return;
+ 338              		.loc 1 282 24 view .LVU75
+ 339 0018 FFF7FEFF 		bl	lv_buttonmatrix_get_button_text
+ 340              	.LVL31:
+ 283:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 341              		.loc 1 283 5 is_stmt 1 view .LVU76
+ 283:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 342              		.loc 1 283 7 is_stmt 0 view .LVU77
+ 343 001c 0546     		mov	r5, r0
+ 344 001e 80B3     		cbz	r0, .L17
+ 285:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_LOWER;
+ 345              		.loc 1 285 5 is_stmt 1 view .LVU78
+ 285:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_LOWER;
+ 346              		.loc 1 285 8 is_stmt 0 view .LVU79
+ 347 0020 6C49     		ldr	r1, .L42
+ 348 0022 FFF7FEFF 		bl	lv_strcmp
+ 349              	.LVL32:
+ 285:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_LOWER;
+ 350              		.loc 1 285 7 view .LVU80
+ 351 0026 08B3     		cbz	r0, .L36
+ 299:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_UPPER;
+ 352              		.loc 1 299 10 is_stmt 1 view .LVU81
+ 299:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_UPPER;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 16
+
+
+ 353              		.loc 1 299 13 is_stmt 0 view .LVU82
+ 354 0028 6B49     		ldr	r1, .L42+4
+ 355 002a 2846     		mov	r0, r5
+ 356 002c FFF7FEFF 		bl	lv_strcmp
+ 357              	.LVL33:
+ 299:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_TEXT_UPPER;
+ 358              		.loc 1 299 12 view .LVU83
+ 359 0030 40B3     		cbz	r0, .L37
+ 305:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_SPECIAL;
+ 360              		.loc 1 305 10 is_stmt 1 view .LVU84
+ 305:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_SPECIAL;
+ 361              		.loc 1 305 13 is_stmt 0 view .LVU85
+ 362 0032 6A49     		ldr	r1, .L42+8
+ 363 0034 2846     		mov	r0, r5
+ 364 0036 FFF7FEFF 		bl	lv_strcmp
+ 365              	.LVL34:
+ 305:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         keyboard->mode = LV_KEYBOARD_MODE_SPECIAL;
+ 366              		.loc 1 305 12 view .LVU86
+ 367 003a 78B3     		cbz	r0, .L38
+ 311:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_CANCEL, NULL);
+ 368              		.loc 1 311 10 is_stmt 1 view .LVU87
+ 311:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_CANCEL, NULL);
+ 369              		.loc 1 311 13 is_stmt 0 view .LVU88
+ 370 003c 6849     		ldr	r1, .L42+12
+ 371 003e 2846     		mov	r0, r5
+ 372 0040 FFF7FEFF 		bl	lv_strcmp
+ 373              	.LVL35:
+ 311:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_CANCEL, NULL);
+ 374              		.loc 1 311 12 view .LVU89
+ 375 0044 20B1     		cbz	r0, .L22
+ 311:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_CANCEL, NULL);
+ 376              		.loc 1 311 53 discriminator 1 view .LVU90
+ 377 0046 6749     		ldr	r1, .L42+16
+ 378 0048 2846     		mov	r0, r5
+ 379 004a FFF7FEFF 		bl	lv_strcmp
+ 380              	.LVL36:
+ 311:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_CANCEL, NULL);
+ 381              		.loc 1 311 50 discriminator 1 view .LVU91
+ 382 004e 88BB     		cbnz	r0, .L23
+ 383              	.L22:
+ 384              	.LBB3:
+ 312:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(res != LV_RESULT_OK) return;
+ 385              		.loc 1 312 9 is_stmt 1 view .LVU92
+ 312:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(res != LV_RESULT_OK) return;
+ 386              		.loc 1 312 27 is_stmt 0 view .LVU93
+ 387 0050 0022     		movs	r2, #0
+ 388 0052 2121     		movs	r1, #33
+ 389 0054 2046     		mov	r0, r4
+ 390 0056 FFF7FEFF 		bl	lv_obj_send_event
+ 391              	.LVL37:
+ 313:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 392              		.loc 1 313 9 is_stmt 1 view .LVU94
+ 313:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 393              		.loc 1 313 11 is_stmt 0 view .LVU95
+ 394 005a 0128     		cmp	r0, #1
+ 395 005c 11D1     		bne	.L17
+ 315:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             res = lv_obj_send_event(keyboard->ta, LV_EVENT_CANCEL, NULL);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 17
+
+
+ 396              		.loc 1 315 9 is_stmt 1 view .LVU96
+ 315:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             res = lv_obj_send_event(keyboard->ta, LV_EVENT_CANCEL, NULL);
+ 397              		.loc 1 315 20 is_stmt 0 view .LVU97
+ 398 005e A06C     		ldr	r0, [r4, #72]
+ 399              	.LVL38:
+ 315:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             res = lv_obj_send_event(keyboard->ta, LV_EVENT_CANCEL, NULL);
+ 400              		.loc 1 315 11 view .LVU98
+ 401 0060 78B1     		cbz	r0, .L17
+ 316:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 402              		.loc 1 316 13 is_stmt 1 view .LVU99
+ 316:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 403              		.loc 1 316 19 is_stmt 0 view .LVU100
+ 404 0062 0022     		movs	r2, #0
+ 405 0064 2121     		movs	r1, #33
+ 406 0066 FFF7FEFF 		bl	lv_obj_send_event
+ 407              	.LVL39:
+ 317:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 408              		.loc 1 317 13 is_stmt 1 view .LVU101
+ 409 006a 0AE0     		b	.L17
+ 410              	.LVL40:
+ 411              	.L36:
+ 317:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 412              		.loc 1 317 13 is_stmt 0 view .LVU102
+ 413              	.LBE3:
+ 286:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_TEXT_LOWER]);
+ 414              		.loc 1 286 9 is_stmt 1 view .LVU103
+ 286:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_TEXT_LOWER]);
+ 415              		.loc 1 286 24 is_stmt 0 view .LVU104
+ 416 006c 0023     		movs	r3, #0
+ 417 006e 84F84C30 		strb	r3, [r4, #76]
+ 287:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_keyboard_update_ctrl_map(obj);
+ 418              		.loc 1 287 9 is_stmt 1 view .LVU105
+ 419 0072 5D4B     		ldr	r3, .L42+20
+ 420 0074 1968     		ldr	r1, [r3]
+ 421 0076 2046     		mov	r0, r4
+ 422 0078 FFF7FEFF 		bl	lv_buttonmatrix_set_map
+ 423              	.LVL41:
+ 288:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 424              		.loc 1 288 9 view .LVU106
+ 425 007c 2046     		mov	r0, r4
+ 426 007e FFF7FEFF 		bl	lv_keyboard_update_ctrl_map
+ 427              	.LVL42:
+ 289:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 428              		.loc 1 289 9 view .LVU107
+ 429              	.L17:
+ 375:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 430              		.loc 1 375 1 is_stmt 0 view .LVU108
+ 431 0082 38BD     		pop	{r3, r4, r5, pc}
+ 432              	.LVL43:
+ 433              	.L37:
+ 300:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_TEXT_UPPER]);
+ 434              		.loc 1 300 9 is_stmt 1 view .LVU109
+ 300:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_TEXT_UPPER]);
+ 435              		.loc 1 300 24 is_stmt 0 view .LVU110
+ 436 0084 0123     		movs	r3, #1
+ 437 0086 84F84C30 		strb	r3, [r4, #76]
+ 301:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_keyboard_update_ctrl_map(obj);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 18
+
+
+ 438              		.loc 1 301 9 is_stmt 1 view .LVU111
+ 439 008a 574B     		ldr	r3, .L42+20
+ 440 008c 5968     		ldr	r1, [r3, #4]
+ 441 008e 2046     		mov	r0, r4
+ 442 0090 FFF7FEFF 		bl	lv_buttonmatrix_set_map
+ 443              	.LVL44:
+ 302:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 444              		.loc 1 302 9 view .LVU112
+ 445 0094 2046     		mov	r0, r4
+ 446 0096 FFF7FEFF 		bl	lv_keyboard_update_ctrl_map
+ 447              	.LVL45:
+ 303:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 448              		.loc 1 303 9 view .LVU113
+ 449 009a F2E7     		b	.L17
+ 450              	.L38:
+ 306:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_SPECIAL]);
+ 451              		.loc 1 306 9 view .LVU114
+ 306:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_buttonmatrix_set_map(obj, kb_map[LV_KEYBOARD_MODE_SPECIAL]);
+ 452              		.loc 1 306 24 is_stmt 0 view .LVU115
+ 453 009c 0223     		movs	r3, #2
+ 454 009e 84F84C30 		strb	r3, [r4, #76]
+ 307:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_keyboard_update_ctrl_map(obj);
+ 455              		.loc 1 307 9 is_stmt 1 view .LVU116
+ 456 00a2 514B     		ldr	r3, .L42+20
+ 457 00a4 9968     		ldr	r1, [r3, #8]
+ 458 00a6 2046     		mov	r0, r4
+ 459 00a8 FFF7FEFF 		bl	lv_buttonmatrix_set_map
+ 460              	.LVL46:
+ 308:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 461              		.loc 1 308 9 view .LVU117
+ 462 00ac 2046     		mov	r0, r4
+ 463 00ae FFF7FEFF 		bl	lv_keyboard_update_ctrl_map
+ 464              	.LVL47:
+ 309:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 465              		.loc 1 309 9 view .LVU118
+ 466 00b2 E6E7     		b	.L17
+ 467              	.L23:
+ 321:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_READY, NULL);
+ 468              		.loc 1 321 10 view .LVU119
+ 321:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_READY, NULL);
+ 469              		.loc 1 321 13 is_stmt 0 view .LVU120
+ 470 00b4 4D49     		ldr	r1, .L42+24
+ 471 00b6 2846     		mov	r0, r5
+ 472 00b8 FFF7FEFF 		bl	lv_strcmp
+ 473              	.LVL48:
+ 321:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_result_t res = lv_obj_send_event(obj, LV_EVENT_READY, NULL);
+ 474              		.loc 1 321 12 view .LVU121
+ 475 00bc D8B1     		cbz	r0, .L39
+ 333:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 476              		.loc 1 333 5 is_stmt 1 view .LVU122
+ 333:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 477              		.loc 1 333 16 is_stmt 0 view .LVU123
+ 478 00be A36C     		ldr	r3, [r4, #72]
+ 333:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 479              		.loc 1 333 7 view .LVU124
+ 480 00c0 002B     		cmp	r3, #0
+ 481 00c2 DED0     		beq	.L17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 19
+
+
+ 335:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_add_char(keyboard->ta, '\n');
+ 482              		.loc 1 335 5 is_stmt 1 view .LVU125
+ 335:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_add_char(keyboard->ta, '\n');
+ 483              		.loc 1 335 8 is_stmt 0 view .LVU126
+ 484 00c4 4A49     		ldr	r1, .L42+28
+ 485 00c6 2846     		mov	r0, r5
+ 486 00c8 FFF7FEFF 		bl	lv_strcmp
+ 487              	.LVL49:
+ 335:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_add_char(keyboard->ta, '\n');
+ 488              		.loc 1 335 7 view .LVU127
+ 489 00cc 20B1     		cbz	r0, .L27
+ 335:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_add_char(keyboard->ta, '\n');
+ 490              		.loc 1 335 40 discriminator 1 view .LVU128
+ 491 00ce 4949     		ldr	r1, .L42+32
+ 492 00d0 2846     		mov	r0, r5
+ 493 00d2 FFF7FEFF 		bl	lv_strcmp
+ 494              	.LVL50:
+ 335:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_add_char(keyboard->ta, '\n');
+ 495              		.loc 1 335 37 discriminator 1 view .LVU129
+ 496 00d6 E8B9     		cbnz	r0, .L28
+ 497              	.L27:
+ 336:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(lv_textarea_get_one_line(keyboard->ta)) {
+ 498              		.loc 1 336 9 is_stmt 1 view .LVU130
+ 499 00d8 0A21     		movs	r1, #10
+ 500 00da A06C     		ldr	r0, [r4, #72]
+ 501 00dc FFF7FEFF 		bl	lv_textarea_add_char
+ 502              	.LVL51:
+ 337:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_result_t res = lv_obj_send_event(keyboard->ta, LV_EVENT_READY, NULL);
+ 503              		.loc 1 337 9 view .LVU131
+ 337:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_result_t res = lv_obj_send_event(keyboard->ta, LV_EVENT_READY, NULL);
+ 504              		.loc 1 337 12 is_stmt 0 view .LVU132
+ 505 00e0 A06C     		ldr	r0, [r4, #72]
+ 506 00e2 FFF7FEFF 		bl	lv_textarea_get_one_line
+ 507              	.LVL52:
+ 337:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_result_t res = lv_obj_send_event(keyboard->ta, LV_EVENT_READY, NULL);
+ 508              		.loc 1 337 11 view .LVU133
+ 509 00e6 0028     		cmp	r0, #0
+ 510 00e8 CBD0     		beq	.L17
+ 511              	.LBB4:
+ 338:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 512              		.loc 1 338 13 is_stmt 1 view .LVU134
+ 338:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 513              		.loc 1 338 31 is_stmt 0 view .LVU135
+ 514 00ea 0022     		movs	r2, #0
+ 515 00ec 2021     		movs	r1, #32
+ 516 00ee A06C     		ldr	r0, [r4, #72]
+ 517 00f0 FFF7FEFF 		bl	lv_obj_send_event
+ 518              	.LVL53:
+ 339:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 519              		.loc 1 339 13 is_stmt 1 view .LVU136
+ 520 00f4 C5E7     		b	.L17
+ 521              	.L39:
+ 339:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 522              		.loc 1 339 13 is_stmt 0 view .LVU137
+ 523              	.LBE4:
+ 524              	.LBB5:
+ 322:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(res != LV_RESULT_OK) return;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 20
+
+
+ 525              		.loc 1 322 9 is_stmt 1 view .LVU138
+ 322:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(res != LV_RESULT_OK) return;
+ 526              		.loc 1 322 27 is_stmt 0 view .LVU139
+ 527 00f6 0022     		movs	r2, #0
+ 528 00f8 2021     		movs	r1, #32
+ 529 00fa 2046     		mov	r0, r4
+ 530 00fc FFF7FEFF 		bl	lv_obj_send_event
+ 531              	.LVL54:
+ 323:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 532              		.loc 1 323 9 is_stmt 1 view .LVU140
+ 323:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 533              		.loc 1 323 11 is_stmt 0 view .LVU141
+ 534 0100 0128     		cmp	r0, #1
+ 535 0102 BED1     		bne	.L17
+ 325:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             res = lv_obj_send_event(keyboard->ta, LV_EVENT_READY, NULL);
+ 536              		.loc 1 325 9 is_stmt 1 view .LVU142
+ 325:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             res = lv_obj_send_event(keyboard->ta, LV_EVENT_READY, NULL);
+ 537              		.loc 1 325 20 is_stmt 0 view .LVU143
+ 538 0104 A06C     		ldr	r0, [r4, #72]
+ 539              	.LVL55:
+ 325:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             res = lv_obj_send_event(keyboard->ta, LV_EVENT_READY, NULL);
+ 540              		.loc 1 325 11 view .LVU144
+ 541 0106 0028     		cmp	r0, #0
+ 542 0108 BBD0     		beq	.L17
+ 326:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 543              		.loc 1 326 13 is_stmt 1 view .LVU145
+ 326:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             if(res != LV_RESULT_OK) return;
+ 544              		.loc 1 326 19 is_stmt 0 view .LVU146
+ 545 010a 0022     		movs	r2, #0
+ 546 010c 2021     		movs	r1, #32
+ 547 010e FFF7FEFF 		bl	lv_obj_send_event
+ 548              	.LVL56:
+ 327:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 549              		.loc 1 327 13 is_stmt 1 view .LVU147
+ 550 0112 B6E7     		b	.L17
+ 551              	.LVL57:
+ 552              	.L28:
+ 327:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 553              		.loc 1 327 13 is_stmt 0 view .LVU148
+ 554              	.LBE5:
+ 342:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_cursor_left(keyboard->ta);
+ 555              		.loc 1 342 10 is_stmt 1 view .LVU149
+ 342:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_cursor_left(keyboard->ta);
+ 556              		.loc 1 342 13 is_stmt 0 view .LVU150
+ 557 0114 3849     		ldr	r1, .L42+36
+ 558 0116 2846     		mov	r0, r5
+ 559 0118 FFF7FEFF 		bl	lv_strcmp
+ 560              	.LVL58:
+ 342:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_cursor_left(keyboard->ta);
+ 561              		.loc 1 342 12 view .LVU151
+ 562 011c 18B9     		cbnz	r0, .L29
+ 343:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 563              		.loc 1 343 9 is_stmt 1 view .LVU152
+ 564 011e A06C     		ldr	r0, [r4, #72]
+ 565 0120 FFF7FEFF 		bl	lv_textarea_cursor_left
+ 566              	.LVL59:
+ 567 0124 ADE7     		b	.L17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 21
+
+
+ 568              	.L29:
+ 345:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_cursor_right(keyboard->ta);
+ 569              		.loc 1 345 10 view .LVU153
+ 345:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_cursor_right(keyboard->ta);
+ 570              		.loc 1 345 13 is_stmt 0 view .LVU154
+ 571 0126 3549     		ldr	r1, .L42+40
+ 572 0128 2846     		mov	r0, r5
+ 573 012a FFF7FEFF 		bl	lv_strcmp
+ 574              	.LVL60:
+ 345:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_cursor_right(keyboard->ta);
+ 575              		.loc 1 345 12 view .LVU155
+ 576 012e 18B9     		cbnz	r0, .L30
+ 346:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 577              		.loc 1 346 9 is_stmt 1 view .LVU156
+ 578 0130 A06C     		ldr	r0, [r4, #72]
+ 579 0132 FFF7FEFF 		bl	lv_textarea_cursor_right
+ 580              	.LVL61:
+ 581 0136 A4E7     		b	.L17
+ 582              	.L30:
+ 348:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_delete_char(keyboard->ta);
+ 583              		.loc 1 348 10 view .LVU157
+ 348:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_delete_char(keyboard->ta);
+ 584              		.loc 1 348 13 is_stmt 0 view .LVU158
+ 585 0138 3149     		ldr	r1, .L42+44
+ 586 013a 2846     		mov	r0, r5
+ 587 013c FFF7FEFF 		bl	lv_strcmp
+ 588              	.LVL62:
+ 348:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_textarea_delete_char(keyboard->ta);
+ 589              		.loc 1 348 12 view .LVU159
+ 590 0140 18B9     		cbnz	r0, .L31
+ 349:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 591              		.loc 1 349 9 is_stmt 1 view .LVU160
+ 592 0142 A06C     		ldr	r0, [r4, #72]
+ 593 0144 FFF7FEFF 		bl	lv_textarea_delete_char
+ 594              	.LVL63:
+ 595 0148 9BE7     		b	.L17
+ 596              	.L31:
+ 351:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         uint32_t cur        = lv_textarea_get_cursor_pos(keyboard->ta);
+ 597              		.loc 1 351 10 view .LVU161
+ 351:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         uint32_t cur        = lv_textarea_get_cursor_pos(keyboard->ta);
+ 598              		.loc 1 351 13 is_stmt 0 view .LVU162
+ 599 014a 2E49     		ldr	r1, .L42+48
+ 600 014c 2846     		mov	r0, r5
+ 601 014e FFF7FEFF 		bl	lv_strcmp
+ 602              	.LVL64:
+ 351:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         uint32_t cur        = lv_textarea_get_cursor_pos(keyboard->ta);
+ 603              		.loc 1 351 12 view .LVU163
+ 604 0152 0028     		cmp	r0, #0
+ 605 0154 38D1     		bne	.L32
+ 606              	.LBB6:
+ 352:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         const char * ta_txt = lv_textarea_get_text(keyboard->ta);
+ 607              		.loc 1 352 9 is_stmt 1 view .LVU164
+ 352:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         const char * ta_txt = lv_textarea_get_text(keyboard->ta);
+ 608              		.loc 1 352 31 is_stmt 0 view .LVU165
+ 609 0156 A06C     		ldr	r0, [r4, #72]
+ 610 0158 FFF7FEFF 		bl	lv_textarea_get_cursor_pos
+ 611              	.LVL65:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 22
+
+
+ 612 015c 0546     		mov	r5, r0
+ 613              	.LVL66:
+ 353:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(ta_txt[0] == '-') {
+ 614              		.loc 1 353 9 is_stmt 1 view .LVU166
+ 353:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(ta_txt[0] == '-') {
+ 615              		.loc 1 353 31 is_stmt 0 view .LVU167
+ 616 015e A06C     		ldr	r0, [r4, #72]
+ 617              	.LVL67:
+ 353:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         if(ta_txt[0] == '-') {
+ 618              		.loc 1 353 31 view .LVU168
+ 619 0160 FFF7FEFF 		bl	lv_textarea_get_text
+ 620              	.LVL68:
+ 354:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, 1);
+ 621              		.loc 1 354 9 is_stmt 1 view .LVU169
+ 354:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, 1);
+ 622              		.loc 1 354 18 is_stmt 0 view .LVU170
+ 623 0164 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 354:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, 1);
+ 624              		.loc 1 354 11 view .LVU171
+ 625 0166 2D2B     		cmp	r3, #45
+ 626 0168 0ED0     		beq	.L40
+ 360:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, 1);
+ 627              		.loc 1 360 14 is_stmt 1 view .LVU172
+ 360:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, 1);
+ 628              		.loc 1 360 16 is_stmt 0 view .LVU173
+ 629 016a 2B2B     		cmp	r3, #43
+ 630 016c 1CD0     		beq	.L41
+ 367:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_add_char(keyboard->ta, '-');
+ 631              		.loc 1 367 13 is_stmt 1 view .LVU174
+ 632 016e 0021     		movs	r1, #0
+ 633 0170 A06C     		ldr	r0, [r4, #72]
+ 634              	.LVL69:
+ 367:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_add_char(keyboard->ta, '-');
+ 635              		.loc 1 367 13 is_stmt 0 view .LVU175
+ 636 0172 FFF7FEFF 		bl	lv_textarea_set_cursor_pos
+ 637              	.LVL70:
+ 368:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, cur + 1);
+ 638              		.loc 1 368 13 is_stmt 1 view .LVU176
+ 639 0176 2D21     		movs	r1, #45
+ 640 0178 A06C     		ldr	r0, [r4, #72]
+ 641 017a FFF7FEFF 		bl	lv_textarea_add_char
+ 642              	.LVL71:
+ 369:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 643              		.loc 1 369 13 view .LVU177
+ 644 017e 691C     		adds	r1, r5, #1
+ 645 0180 A06C     		ldr	r0, [r4, #72]
+ 646 0182 FFF7FEFF 		bl	lv_textarea_set_cursor_pos
+ 647              	.LVL72:
+ 648 0186 7CE7     		b	.L17
+ 649              	.LVL73:
+ 650              	.L40:
+ 355:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_delete_char(keyboard->ta);
+ 651              		.loc 1 355 13 view .LVU178
+ 652 0188 0121     		movs	r1, #1
+ 653 018a A06C     		ldr	r0, [r4, #72]
+ 654              	.LVL74:
+ 355:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_delete_char(keyboard->ta);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 23
+
+
+ 655              		.loc 1 355 13 is_stmt 0 view .LVU179
+ 656 018c FFF7FEFF 		bl	lv_textarea_set_cursor_pos
+ 657              	.LVL75:
+ 356:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_add_char(keyboard->ta, '+');
+ 658              		.loc 1 356 13 is_stmt 1 view .LVU180
+ 659 0190 A06C     		ldr	r0, [r4, #72]
+ 660 0192 FFF7FEFF 		bl	lv_textarea_delete_char
+ 661              	.LVL76:
+ 357:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, cur);
+ 662              		.loc 1 357 13 view .LVU181
+ 663 0196 2B21     		movs	r1, #43
+ 664 0198 A06C     		ldr	r0, [r4, #72]
+ 665 019a FFF7FEFF 		bl	lv_textarea_add_char
+ 666              	.LVL77:
+ 358:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 667              		.loc 1 358 13 view .LVU182
+ 668 019e 2946     		mov	r1, r5
+ 669 01a0 A06C     		ldr	r0, [r4, #72]
+ 670 01a2 FFF7FEFF 		bl	lv_textarea_set_cursor_pos
+ 671              	.LVL78:
+ 672 01a6 6CE7     		b	.L17
+ 673              	.LVL79:
+ 674              	.L41:
+ 361:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_delete_char(keyboard->ta);
+ 675              		.loc 1 361 13 view .LVU183
+ 676 01a8 0121     		movs	r1, #1
+ 677 01aa A06C     		ldr	r0, [r4, #72]
+ 678              	.LVL80:
+ 361:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_delete_char(keyboard->ta);
+ 679              		.loc 1 361 13 is_stmt 0 view .LVU184
+ 680 01ac FFF7FEFF 		bl	lv_textarea_set_cursor_pos
+ 681              	.LVL81:
+ 362:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_add_char(keyboard->ta, '-');
+ 682              		.loc 1 362 13 is_stmt 1 view .LVU185
+ 683 01b0 A06C     		ldr	r0, [r4, #72]
+ 684 01b2 FFF7FEFF 		bl	lv_textarea_delete_char
+ 685              	.LVL82:
+ 363:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****             lv_textarea_set_cursor_pos(keyboard->ta, cur);
+ 686              		.loc 1 363 13 view .LVU186
+ 687 01b6 2D21     		movs	r1, #45
+ 688 01b8 A06C     		ldr	r0, [r4, #72]
+ 689 01ba FFF7FEFF 		bl	lv_textarea_add_char
+ 690              	.LVL83:
+ 364:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 691              		.loc 1 364 13 view .LVU187
+ 692 01be 2946     		mov	r1, r5
+ 693 01c0 A06C     		ldr	r0, [r4, #72]
+ 694 01c2 FFF7FEFF 		bl	lv_textarea_set_cursor_pos
+ 695              	.LVL84:
+ 696 01c6 5CE7     		b	.L17
+ 697              	.LVL85:
+ 698              	.L32:
+ 364:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         }
+ 699              		.loc 1 364 13 is_stmt 0 view .LVU188
+ 700              	.LBE6:
+ 373:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 701              		.loc 1 373 9 is_stmt 1 view .LVU189
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 24
+
+
+ 702 01c8 2946     		mov	r1, r5
+ 703 01ca A06C     		ldr	r0, [r4, #72]
+ 704 01cc FFF7FEFF 		bl	lv_textarea_add_text
+ 705              	.LVL86:
+ 706 01d0 57E7     		b	.L17
+ 707              	.L43:
+ 708 01d2 00BF     		.align	2
+ 709              	.L42:
+ 710 01d4 00000000 		.word	.LC0
+ 711 01d8 04000000 		.word	.LC1
+ 712 01dc 08000000 		.word	.LC2
+ 713 01e0 0C000000 		.word	.LC3
+ 714 01e4 10000000 		.word	.LC4
+ 715 01e8 00000000 		.word	kb_map
+ 716 01ec 14000000 		.word	.LC5
+ 717 01f0 18000000 		.word	.LC6
+ 718 01f4 20000000 		.word	.LC7
+ 719 01f8 24000000 		.word	.LC8
+ 720 01fc 28000000 		.word	.LC9
+ 721 0200 2C000000 		.word	.LC10
+ 722 0204 30000000 		.word	.LC11
+ 723              		.cfi_endproc
+ 724              	.LFE244:
+ 726              		.section	.text.lv_keyboard_create,"ax",%progbits
+ 727              		.align	1
+ 728              		.global	lv_keyboard_create
+ 729              		.syntax unified
+ 730              		.thumb
+ 731              		.thumb_func
+ 733              	lv_keyboard_create:
+ 734              	.LVL87:
+ 735              	.LFB236:
+ 181:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_LOG_INFO("begin");
+ 736              		.loc 1 181 1 view -0
+ 737              		.cfi_startproc
+ 738              		@ args = 0, pretend = 0, frame = 0
+ 739              		@ frame_needed = 0, uses_anonymous_args = 0
+ 181:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_LOG_INFO("begin");
+ 740              		.loc 1 181 1 is_stmt 0 view .LVU191
+ 741 0000 10B5     		push	{r4, lr}
+ 742              	.LCFI4:
+ 743              		.cfi_def_cfa_offset 8
+ 744              		.cfi_offset 4, -8
+ 745              		.cfi_offset 14, -4
+ 746 0002 0146     		mov	r1, r0
+ 182:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_keyboard_class, parent);
+ 747              		.loc 1 182 5 is_stmt 1 view .LVU192
+ 182:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_keyboard_class, parent);
+ 748              		.loc 1 182 5 view .LVU193
+ 182:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_t * obj = lv_obj_class_create_obj(&lv_keyboard_class, parent);
+ 749              		.loc 1 182 5 view .LVU194
+ 183:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_class_init_obj(obj);
+ 750              		.loc 1 183 5 view .LVU195
+ 183:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_class_init_obj(obj);
+ 751              		.loc 1 183 22 is_stmt 0 view .LVU196
+ 752 0004 0348     		ldr	r0, .L46
+ 753              	.LVL88:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 25
+
+
+ 183:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_class_init_obj(obj);
+ 754              		.loc 1 183 22 view .LVU197
+ 755 0006 FFF7FEFF 		bl	lv_obj_class_create_obj
+ 756              	.LVL89:
+ 183:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_obj_class_init_obj(obj);
+ 757              		.loc 1 183 22 view .LVU198
+ 758 000a 0446     		mov	r4, r0
+ 759              	.LVL90:
+ 184:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     return obj;
+ 760              		.loc 1 184 5 is_stmt 1 view .LVU199
+ 761 000c FFF7FEFF 		bl	lv_obj_class_init_obj
+ 762              	.LVL91:
+ 185:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 763              		.loc 1 185 5 view .LVU200
+ 186:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 764              		.loc 1 186 1 is_stmt 0 view .LVU201
+ 765 0010 2046     		mov	r0, r4
+ 766 0012 10BD     		pop	{r4, pc}
+ 767              	.LVL92:
+ 768              	.L47:
+ 186:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 769              		.loc 1 186 1 view .LVU202
+ 770              		.align	2
+ 771              	.L46:
+ 772 0014 00000000 		.word	lv_keyboard_class
+ 773              		.cfi_endproc
+ 774              	.LFE236:
+ 776              		.section	.text.lv_keyboard_set_textarea,"ax",%progbits
+ 777              		.align	1
+ 778              		.global	lv_keyboard_set_textarea
+ 779              		.syntax unified
+ 780              		.thumb
+ 781              		.thumb_func
+ 783              	lv_keyboard_set_textarea:
+ 784              	.LVL93:
+ 785              	.LFB237:
+ 193:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(ta) {
+ 786              		.loc 1 193 1 is_stmt 1 view -0
+ 787              		.cfi_startproc
+ 788              		@ args = 0, pretend = 0, frame = 0
+ 789              		@ frame_needed = 0, uses_anonymous_args = 0
+ 193:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(ta) {
+ 790              		.loc 1 193 1 is_stmt 0 view .LVU204
+ 791 0000 38B5     		push	{r3, r4, r5, lr}
+ 792              	.LCFI5:
+ 793              		.cfi_def_cfa_offset 16
+ 794              		.cfi_offset 3, -16
+ 795              		.cfi_offset 4, -12
+ 796              		.cfi_offset 5, -8
+ 797              		.cfi_offset 14, -4
+ 798 0002 0446     		mov	r4, r0
+ 799 0004 0D46     		mov	r5, r1
+ 194:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         LV_ASSERT_OBJ(ta, &lv_textarea_class);
+ 800              		.loc 1 194 5 is_stmt 1 view .LVU205
+ 195:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 801              		.loc 1 195 9 view .LVU206
+ 195:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 26
+
+
+ 802              		.loc 1 195 9 view .LVU207
+ 195:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 803              		.loc 1 195 9 view .LVU208
+ 198:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 804              		.loc 1 198 5 view .LVU209
+ 198:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 805              		.loc 1 198 5 view .LVU210
+ 198:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 806              		.loc 1 198 5 view .LVU211
+ 199:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 807              		.loc 1 199 5 view .LVU212
+ 808              	.LVL94:
+ 202:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_obj_remove_state(obj, LV_STATE_FOCUSED);
+ 809              		.loc 1 202 5 view .LVU213
+ 202:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_obj_remove_state(obj, LV_STATE_FOCUSED);
+ 810              		.loc 1 202 16 is_stmt 0 view .LVU214
+ 811 0006 836C     		ldr	r3, [r0, #72]
+ 202:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_obj_remove_state(obj, LV_STATE_FOCUSED);
+ 812              		.loc 1 202 7 view .LVU215
+ 813 0008 13B1     		cbz	r3, .L49
+ 203:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 814              		.loc 1 203 9 is_stmt 1 view .LVU216
+ 815 000a 0221     		movs	r1, #2
+ 816              	.LVL95:
+ 203:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 817              		.loc 1 203 9 is_stmt 0 view .LVU217
+ 818 000c FFF7FEFF 		bl	lv_obj_remove_state
+ 819              	.LVL96:
+ 820              	.L49:
+ 206:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 821              		.loc 1 206 5 is_stmt 1 view .LVU218
+ 206:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 822              		.loc 1 206 18 is_stmt 0 view .LVU219
+ 823 0010 A564     		str	r5, [r4, #72]
+ 209:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_obj_add_flag(obj, LV_STATE_FOCUSED);
+ 824              		.loc 1 209 5 is_stmt 1 view .LVU220
+ 209:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         lv_obj_add_flag(obj, LV_STATE_FOCUSED);
+ 825              		.loc 1 209 7 is_stmt 0 view .LVU221
+ 826 0012 1DB1     		cbz	r5, .L48
+ 210:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     }
+ 827              		.loc 1 210 9 is_stmt 1 view .LVU222
+ 828 0014 0221     		movs	r1, #2
+ 829 0016 2046     		mov	r0, r4
+ 830 0018 FFF7FEFF 		bl	lv_obj_add_flag
+ 831              	.LVL97:
+ 832              	.L48:
+ 212:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 833              		.loc 1 212 1 is_stmt 0 view .LVU223
+ 834 001c 38BD     		pop	{r3, r4, r5, pc}
+ 212:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 835              		.loc 1 212 1 view .LVU224
+ 836              		.cfi_endproc
+ 837              	.LFE237:
+ 839              		.section	.text.lv_keyboard_set_mode,"ax",%progbits
+ 840              		.align	1
+ 841              		.global	lv_keyboard_set_mode
+ 842              		.syntax unified
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 27
+
+
+ 843              		.thumb
+ 844              		.thumb_func
+ 846              	lv_keyboard_set_mode:
+ 847              	.LVL98:
+ 848              	.LFB238:
+ 215:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 849              		.loc 1 215 1 is_stmt 1 view -0
+ 850              		.cfi_startproc
+ 851              		@ args = 0, pretend = 0, frame = 0
+ 852              		@ frame_needed = 0, uses_anonymous_args = 0
+ 215:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 853              		.loc 1 215 1 is_stmt 0 view .LVU226
+ 854 0000 08B5     		push	{r3, lr}
+ 855              	.LCFI6:
+ 856              		.cfi_def_cfa_offset 8
+ 857              		.cfi_offset 3, -8
+ 858              		.cfi_offset 14, -4
+ 216:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 859              		.loc 1 216 5 is_stmt 1 view .LVU227
+ 216:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 860              		.loc 1 216 5 view .LVU228
+ 216:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 861              		.loc 1 216 5 view .LVU229
+ 217:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     if(keyboard->mode == mode) return;
+ 862              		.loc 1 217 5 view .LVU230
+ 863              	.LVL99:
+ 218:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 864              		.loc 1 218 5 view .LVU231
+ 218:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 865              		.loc 1 218 16 is_stmt 0 view .LVU232
+ 866 0002 90F84C30 		ldrb	r3, [r0, #76]	@ zero_extendqisi2
+ 218:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 867              		.loc 1 218 7 view .LVU233
+ 868 0006 8B42     		cmp	r3, r1
+ 869 0008 03D0     		beq	.L52
+ 220:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_map(obj);
+ 870              		.loc 1 220 5 is_stmt 1 view .LVU234
+ 220:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_map(obj);
+ 871              		.loc 1 220 20 is_stmt 0 view .LVU235
+ 872 000a 80F84C10 		strb	r1, [r0, #76]
+ 221:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 873              		.loc 1 221 5 is_stmt 1 view .LVU236
+ 874 000e FFF7FEFF 		bl	lv_keyboard_update_map
+ 875              	.LVL100:
+ 876              	.L52:
+ 222:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 877              		.loc 1 222 1 is_stmt 0 view .LVU237
+ 878 0012 08BD     		pop	{r3, pc}
+ 879              		.cfi_endproc
+ 880              	.LFE238:
+ 882              		.section	.text.lv_keyboard_set_popovers,"ax",%progbits
+ 883              		.align	1
+ 884              		.global	lv_keyboard_set_popovers
+ 885              		.syntax unified
+ 886              		.thumb
+ 887              		.thumb_func
+ 889              	lv_keyboard_set_popovers:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 28
+
+
+ 890              	.LVL101:
+ 891              	.LFB239:
+ 225:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 892              		.loc 1 225 1 is_stmt 1 view -0
+ 893              		.cfi_startproc
+ 894              		@ args = 0, pretend = 0, frame = 0
+ 895              		@ frame_needed = 0, uses_anonymous_args = 0
+ 225:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 896              		.loc 1 225 1 is_stmt 0 view .LVU239
+ 897 0000 08B5     		push	{r3, lr}
+ 898              	.LCFI7:
+ 899              		.cfi_def_cfa_offset 8
+ 900              		.cfi_offset 3, -8
+ 901              		.cfi_offset 14, -4
+ 226:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 902              		.loc 1 226 5 is_stmt 1 view .LVU240
+ 903              	.LVL102:
+ 228:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 904              		.loc 1 228 5 view .LVU241
+ 228:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 905              		.loc 1 228 16 is_stmt 0 view .LVU242
+ 906 0002 90F84D30 		ldrb	r3, [r0, #77]	@ zero_extendqisi2
+ 907 0006 03F00103 		and	r3, r3, #1
+ 228:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****         return;
+ 908              		.loc 1 228 7 view .LVU243
+ 909 000a 8B42     		cmp	r3, r1
+ 910 000c 07D0     		beq	.L55
+ 232:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_ctrl_map(obj);
+ 911              		.loc 1 232 5 is_stmt 1 view .LVU244
+ 232:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_ctrl_map(obj);
+ 912              		.loc 1 232 24 is_stmt 0 view .LVU245
+ 913 000e 90F84D30 		ldrb	r3, [r0, #77]	@ zero_extendqisi2
+ 914 0012 61F30003 		bfi	r3, r1, #0, #1
+ 915 0016 80F84D30 		strb	r3, [r0, #77]
+ 233:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 916              		.loc 1 233 5 is_stmt 1 view .LVU246
+ 917 001a FFF7FEFF 		bl	lv_keyboard_update_ctrl_map
+ 918              	.LVL103:
+ 919              	.L55:
+ 234:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 920              		.loc 1 234 1 is_stmt 0 view .LVU247
+ 921 001e 08BD     		pop	{r3, pc}
+ 922              		.cfi_endproc
+ 923              	.LFE239:
+ 925              		.section	.text.lv_keyboard_set_map,"ax",%progbits
+ 926              		.align	1
+ 927              		.global	lv_keyboard_set_map
+ 928              		.syntax unified
+ 929              		.thumb
+ 930              		.thumb_func
+ 932              	lv_keyboard_set_map:
+ 933              	.LVL104:
+ 934              	.LFB240:
+ 238:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 935              		.loc 1 238 1 is_stmt 1 view -0
+ 936              		.cfi_startproc
+ 937              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 29
+
+
+ 938              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 939              		.loc 1 238 1 is_stmt 0 view .LVU249
+ 940 0000 10B5     		push	{r4, lr}
+ 941              	.LCFI8:
+ 942              		.cfi_def_cfa_offset 8
+ 943              		.cfi_offset 4, -8
+ 944              		.cfi_offset 14, -4
+ 239:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     kb_map[mode] = map;
+ 945              		.loc 1 239 5 is_stmt 1 view .LVU250
+ 239:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     kb_map[mode] = map;
+ 946              		.loc 1 239 5 view .LVU251
+ 239:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     kb_map[mode] = map;
+ 947              		.loc 1 239 5 view .LVU252
+ 240:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     kb_ctrl[mode] = ctrl_map;
+ 948              		.loc 1 240 5 view .LVU253
+ 240:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     kb_ctrl[mode] = ctrl_map;
+ 949              		.loc 1 240 18 is_stmt 0 view .LVU254
+ 950 0002 044C     		ldr	r4, .L60
+ 951 0004 44F82120 		str	r2, [r4, r1, lsl #2]
+ 241:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_map(obj);
+ 952              		.loc 1 241 5 is_stmt 1 view .LVU255
+ 241:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_map(obj);
+ 953              		.loc 1 241 19 is_stmt 0 view .LVU256
+ 954 0008 034A     		ldr	r2, .L60+4
+ 955              	.LVL105:
+ 241:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_update_map(obj);
+ 956              		.loc 1 241 19 view .LVU257
+ 957 000a 42F82130 		str	r3, [r2, r1, lsl #2]
+ 242:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 958              		.loc 1 242 5 is_stmt 1 view .LVU258
+ 959 000e FFF7FEFF 		bl	lv_keyboard_update_map
+ 960              	.LVL106:
+ 243:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 961              		.loc 1 243 1 is_stmt 0 view .LVU259
+ 962 0012 10BD     		pop	{r4, pc}
+ 963              	.L61:
+ 964              		.align	2
+ 965              	.L60:
+ 966 0014 00000000 		.word	kb_map
+ 967 0018 00000000 		.word	kb_ctrl
+ 968              		.cfi_endproc
+ 969              	.LFE240:
+ 971              		.section	.text.lv_keyboard_get_textarea,"ax",%progbits
+ 972              		.align	1
+ 973              		.global	lv_keyboard_get_textarea
+ 974              		.syntax unified
+ 975              		.thumb
+ 976              		.thumb_func
+ 978              	lv_keyboard_get_textarea:
+ 979              	.LVL107:
+ 980              	.LFB241:
+ 250:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 981              		.loc 1 250 1 is_stmt 1 view -0
+ 982              		.cfi_startproc
+ 983              		@ args = 0, pretend = 0, frame = 0
+ 984              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 30
+
+
+ 985              		@ link register save eliminated.
+ 251:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 986              		.loc 1 251 5 view .LVU261
+ 251:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 987              		.loc 1 251 5 view .LVU262
+ 251:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 988              		.loc 1 251 5 view .LVU263
+ 252:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     return keyboard->ta;
+ 989              		.loc 1 252 5 view .LVU264
+ 253:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 990              		.loc 1 253 5 view .LVU265
+ 254:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 991              		.loc 1 254 1 is_stmt 0 view .LVU266
+ 992 0000 806C     		ldr	r0, [r0, #72]
+ 993              	.LVL108:
+ 254:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 994              		.loc 1 254 1 view .LVU267
+ 995 0002 7047     		bx	lr
+ 996              		.cfi_endproc
+ 997              	.LFE241:
+ 999              		.section	.text.lv_keyboard_get_mode,"ax",%progbits
+ 1000              		.align	1
+ 1001              		.global	lv_keyboard_get_mode
+ 1002              		.syntax unified
+ 1003              		.thumb
+ 1004              		.thumb_func
+ 1006              	lv_keyboard_get_mode:
+ 1007              	.LVL109:
+ 1008              	.LFB242:
+ 257:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
+ 1009              		.loc 1 257 1 is_stmt 1 view -0
+ 1010              		.cfi_startproc
+ 1011              		@ args = 0, pretend = 0, frame = 0
+ 1012              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1013              		@ link register save eliminated.
+ 258:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 1014              		.loc 1 258 5 view .LVU269
+ 258:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 1015              		.loc 1 258 5 view .LVU270
+ 258:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 1016              		.loc 1 258 5 view .LVU271
+ 259:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     return keyboard->mode;
+ 1017              		.loc 1 259 5 view .LVU272
+ 260:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 1018              		.loc 1 260 5 view .LVU273
+ 261:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 1019              		.loc 1 261 1 is_stmt 0 view .LVU274
+ 1020 0000 90F84C00 		ldrb	r0, [r0, #76]	@ zero_extendqisi2
+ 1021              	.LVL110:
+ 261:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 1022              		.loc 1 261 1 view .LVU275
+ 1023 0004 7047     		bx	lr
+ 1024              		.cfi_endproc
+ 1025              	.LFE242:
+ 1027              		.section	.text.lv_buttonmatrix_get_popovers,"ax",%progbits
+ 1028              		.align	1
+ 1029              		.global	lv_buttonmatrix_get_popovers
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 31
+
+
+ 1030              		.syntax unified
+ 1031              		.thumb
+ 1032              		.thumb_func
+ 1034              	lv_buttonmatrix_get_popovers:
+ 1035              	.LVL111:
+ 1036              	.LFB243:
+ 264:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     lv_keyboard_t * keyboard = (lv_keyboard_t *)obj;
+ 1037              		.loc 1 264 1 is_stmt 1 view -0
+ 1038              		.cfi_startproc
+ 1039              		@ args = 0, pretend = 0, frame = 0
+ 1040              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1041              		@ link register save eliminated.
+ 265:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c ****     return keyboard->popovers;
+ 1042              		.loc 1 265 5 view .LVU277
+ 266:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 1043              		.loc 1 266 5 view .LVU278
+ 266:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** }
+ 1044              		.loc 1 266 20 is_stmt 0 view .LVU279
+ 1045 0000 90F84D00 		ldrb	r0, [r0, #77]	@ zero_extendqisi2
+ 1046              	.LVL112:
+ 267:Lib/lvgl/src/widgets/keyboard/lv_keyboard.c **** 
+ 1047              		.loc 1 267 1 view .LVU280
+ 1048 0004 00F00100 		and	r0, r0, #1
+ 1049 0008 7047     		bx	lr
+ 1050              		.cfi_endproc
+ 1051              	.LFE243:
+ 1053              		.section	.data.kb_ctrl,"aw"
+ 1054              		.align	2
+ 1057              	kb_ctrl:
+ 1058 0000 00000000 		.word	default_kb_ctrl_lc_map
+ 1059 0004 00000000 		.word	default_kb_ctrl_uc_map
+ 1060 0008 00000000 		.word	default_kb_ctrl_spec_map
+ 1061 000c 00000000 		.word	default_kb_ctrl_num_map
+ 1062 0010 00000000 		.word	default_kb_ctrl_lc_map
+ 1063 0014 00000000 		.word	default_kb_ctrl_lc_map
+ 1064 0018 00000000 		.word	default_kb_ctrl_lc_map
+ 1065 001c 00000000 		.word	default_kb_ctrl_lc_map
+ 1066 0020 00000000 		.word	0
+ 1067 0024 00000000 		.space	4
+ 1068              		.section	.data.kb_map,"aw"
+ 1069              		.align	2
+ 1072              	kb_map:
+ 1073 0000 00000000 		.word	default_kb_map_lc
+ 1074 0004 00000000 		.word	default_kb_map_uc
+ 1075 0008 00000000 		.word	default_kb_map_spec
+ 1076 000c 00000000 		.word	default_kb_map_num
+ 1077 0010 00000000 		.word	default_kb_map_lc
+ 1078 0014 00000000 		.word	default_kb_map_lc
+ 1079 0018 00000000 		.word	default_kb_map_lc
+ 1080 001c 00000000 		.word	default_kb_map_lc
+ 1081 0020 00000000 		.word	0
+ 1082 0024 00000000 		.space	4
+ 1083              		.section	.rodata.default_kb_ctrl_num_map,"a"
+ 1084              		.align	2
+ 1087              	default_kb_ctrl_num_map:
+ 1088 0000 01000000 		.word	1
+ 1089 0004 01000000 		.word	1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 32
+
+
+ 1090 0008 01000000 		.word	1
+ 1091 000c 22030000 		.word	802
+ 1092 0010 01000000 		.word	1
+ 1093 0014 01000000 		.word	1
+ 1094 0018 01000000 		.word	1
+ 1095 001c 22030000 		.word	802
+ 1096 0020 01000000 		.word	1
+ 1097 0024 01000000 		.word	1
+ 1098 0028 01000000 		.word	1
+ 1099 002c 02000000 		.word	2
+ 1100 0030 01000000 		.word	1
+ 1101 0034 01000000 		.word	1
+ 1102 0038 01000000 		.word	1
+ 1103 003c 01000000 		.word	1
+ 1104 0040 01000000 		.word	1
+ 1105              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1106              		.align	2
+ 1107              	.LC12:
+ 1108 0000 3100     		.ascii	"1\000"
+ 1109 0002 0000     		.align	2
+ 1110              	.LC13:
+ 1111 0004 3200     		.ascii	"2\000"
+ 1112 0006 0000     		.align	2
+ 1113              	.LC14:
+ 1114 0008 3300     		.ascii	"3\000"
+ 1115 000a 0000     		.align	2
+ 1116              	.LC15:
+ 1117 000c 0A00     		.ascii	"\012\000"
+ 1118 000e 0000     		.align	2
+ 1119              	.LC16:
+ 1120 0010 3400     		.ascii	"4\000"
+ 1121 0012 0000     		.align	2
+ 1122              	.LC17:
+ 1123 0014 3500     		.ascii	"5\000"
+ 1124 0016 0000     		.align	2
+ 1125              	.LC18:
+ 1126 0018 3600     		.ascii	"6\000"
+ 1127 001a 0000     		.align	2
+ 1128              	.LC19:
+ 1129 001c 3700     		.ascii	"7\000"
+ 1130 001e 0000     		.align	2
+ 1131              	.LC20:
+ 1132 0020 3800     		.ascii	"8\000"
+ 1133 0022 0000     		.align	2
+ 1134              	.LC21:
+ 1135 0024 3900     		.ascii	"9\000"
+ 1136 0026 0000     		.align	2
+ 1137              	.LC22:
+ 1138 0028 3000     		.ascii	"0\000"
+ 1139 002a 0000     		.align	2
+ 1140              	.LC23:
+ 1141 002c 2E00     		.ascii	".\000"
+ 1142 002e 0000     		.align	2
+ 1143              	.LC24:
+ 1144 0030 00       		.ascii	"\000"
+ 1145              		.section	.rodata.default_kb_map_num,"a"
+ 1146              		.align	2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 33
+
+
+ 1149              	default_kb_map_num:
+ 1150 0000 00000000 		.word	.LC12
+ 1151 0004 04000000 		.word	.LC13
+ 1152 0008 08000000 		.word	.LC14
+ 1153 000c 10000000 		.word	.LC4
+ 1154 0010 0C000000 		.word	.LC15
+ 1155 0014 10000000 		.word	.LC16
+ 1156 0018 14000000 		.word	.LC17
+ 1157 001c 18000000 		.word	.LC18
+ 1158 0020 14000000 		.word	.LC5
+ 1159 0024 0C000000 		.word	.LC15
+ 1160 0028 1C000000 		.word	.LC19
+ 1161 002c 20000000 		.word	.LC20
+ 1162 0030 24000000 		.word	.LC21
+ 1163 0034 2C000000 		.word	.LC10
+ 1164 0038 0C000000 		.word	.LC15
+ 1165 003c 30000000 		.word	.LC11
+ 1166 0040 28000000 		.word	.LC22
+ 1167 0044 2C000000 		.word	.LC23
+ 1168 0048 24000000 		.word	.LC8
+ 1169 004c 28000000 		.word	.LC9
+ 1170 0050 30000000 		.word	.LC24
+ 1171              		.section	.rodata.default_kb_ctrl_spec_map,"a"
+ 1172              		.align	2
+ 1175              	default_kb_ctrl_spec_map:
+ 1176 0000 01040000 		.word	1025
+ 1177 0004 01040000 		.word	1025
+ 1178 0008 01040000 		.word	1025
+ 1179 000c 01040000 		.word	1025
+ 1180 0010 01040000 		.word	1025
+ 1181 0014 01040000 		.word	1025
+ 1182 0018 01040000 		.word	1025
+ 1183 001c 01040000 		.word	1025
+ 1184 0020 01040000 		.word	1025
+ 1185 0024 01040000 		.word	1025
+ 1186 0028 02010000 		.word	258
+ 1187 002c 22030000 		.word	802
+ 1188 0030 01040000 		.word	1025
+ 1189 0034 01040000 		.word	1025
+ 1190 0038 01040000 		.word	1025
+ 1191 003c 01040000 		.word	1025
+ 1192 0040 01040000 		.word	1025
+ 1193 0044 01040000 		.word	1025
+ 1194 0048 01040000 		.word	1025
+ 1195 004c 01040000 		.word	1025
+ 1196 0050 01040000 		.word	1025
+ 1197 0054 01040000 		.word	1025
+ 1198 0058 01040000 		.word	1025
+ 1199 005c 01040000 		.word	1025
+ 1200 0060 01040000 		.word	1025
+ 1201 0064 01040000 		.word	1025
+ 1202 0068 01040000 		.word	1025
+ 1203 006c 01040000 		.word	1025
+ 1204 0070 01040000 		.word	1025
+ 1205 0074 01040000 		.word	1025
+ 1206 0078 01040000 		.word	1025
+ 1207 007c 01040000 		.word	1025
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 34
+
+
+ 1208 0080 01040000 		.word	1025
+ 1209 0084 01040000 		.word	1025
+ 1210 0088 01040000 		.word	1025
+ 1211 008c 22030000 		.word	802
+ 1212 0090 02010000 		.word	258
+ 1213 0094 06000000 		.word	6
+ 1214 0098 02010000 		.word	258
+ 1215 009c 22030000 		.word	802
+ 1216              		.section	.rodata.str1.4
+ 1217 0031 000000   		.align	2
+ 1218              	.LC25:
+ 1219 0034 2B00     		.ascii	"+\000"
+ 1220 0036 0000     		.align	2
+ 1221              	.LC26:
+ 1222 0038 2600     		.ascii	"&\000"
+ 1223 003a 0000     		.align	2
+ 1224              	.LC27:
+ 1225 003c 2F00     		.ascii	"/\000"
+ 1226 003e 0000     		.align	2
+ 1227              	.LC28:
+ 1228 0040 2A00     		.ascii	"*\000"
+ 1229 0042 0000     		.align	2
+ 1230              	.LC29:
+ 1231 0044 3D00     		.ascii	"=\000"
+ 1232 0046 0000     		.align	2
+ 1233              	.LC30:
+ 1234 0048 2500     		.ascii	"%\000"
+ 1235 004a 0000     		.align	2
+ 1236              	.LC31:
+ 1237 004c 2100     		.ascii	"!\000"
+ 1238 004e 0000     		.align	2
+ 1239              	.LC32:
+ 1240 0050 3F00     		.ascii	"?\000"
+ 1241 0052 0000     		.align	2
+ 1242              	.LC33:
+ 1243 0054 2300     		.ascii	"#\000"
+ 1244 0056 0000     		.align	2
+ 1245              	.LC34:
+ 1246 0058 3C00     		.ascii	"<\000"
+ 1247 005a 0000     		.align	2
+ 1248              	.LC35:
+ 1249 005c 3E00     		.ascii	">\000"
+ 1250 005e 0000     		.align	2
+ 1251              	.LC36:
+ 1252 0060 5C00     		.ascii	"\\\000"
+ 1253 0062 0000     		.align	2
+ 1254              	.LC37:
+ 1255 0064 4000     		.ascii	"@\000"
+ 1256 0066 0000     		.align	2
+ 1257              	.LC38:
+ 1258 0068 2400     		.ascii	"$\000"
+ 1259 006a 0000     		.align	2
+ 1260              	.LC39:
+ 1261 006c 2800     		.ascii	"(\000"
+ 1262 006e 0000     		.align	2
+ 1263              	.LC40:
+ 1264 0070 2900     		.ascii	")\000"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 35
+
+
+ 1265 0072 0000     		.align	2
+ 1266              	.LC41:
+ 1267 0074 7B00     		.ascii	"{\000"
+ 1268 0076 0000     		.align	2
+ 1269              	.LC42:
+ 1270 0078 7D00     		.ascii	"}\000"
+ 1271 007a 0000     		.align	2
+ 1272              	.LC43:
+ 1273 007c 5B00     		.ascii	"[\000"
+ 1274 007e 0000     		.align	2
+ 1275              	.LC44:
+ 1276 0080 5D00     		.ascii	"]\000"
+ 1277 0082 0000     		.align	2
+ 1278              	.LC45:
+ 1279 0084 3B00     		.ascii	";\000"
+ 1280 0086 0000     		.align	2
+ 1281              	.LC46:
+ 1282 0088 2200     		.ascii	"\"\000"
+ 1283 008a 0000     		.align	2
+ 1284              	.LC47:
+ 1285 008c 2700     		.ascii	"'\000"
+ 1286 008e 0000     		.align	2
+ 1287              	.LC48:
+ 1288 0090 2000     		.ascii	" \000"
+ 1289              		.section	.rodata.default_kb_map_spec,"a"
+ 1290              		.align	2
+ 1293              	default_kb_map_spec:
+ 1294 0000 00000000 		.word	.LC12
+ 1295 0004 04000000 		.word	.LC13
+ 1296 0008 08000000 		.word	.LC14
+ 1297 000c 10000000 		.word	.LC16
+ 1298 0010 14000000 		.word	.LC17
+ 1299 0014 18000000 		.word	.LC18
+ 1300 0018 1C000000 		.word	.LC19
+ 1301 001c 20000000 		.word	.LC20
+ 1302 0020 24000000 		.word	.LC21
+ 1303 0024 28000000 		.word	.LC22
+ 1304 0028 2C000000 		.word	.LC10
+ 1305 002c 0C000000 		.word	.LC15
+ 1306 0030 00000000 		.word	.LC0
+ 1307 0034 34000000 		.word	.LC25
+ 1308 0038 38000000 		.word	.LC26
+ 1309 003c 3C000000 		.word	.LC27
+ 1310 0040 40000000 		.word	.LC28
+ 1311 0044 44000000 		.word	.LC29
+ 1312 0048 48000000 		.word	.LC30
+ 1313 004c 4C000000 		.word	.LC31
+ 1314 0050 50000000 		.word	.LC32
+ 1315 0054 54000000 		.word	.LC33
+ 1316 0058 58000000 		.word	.LC34
+ 1317 005c 5C000000 		.word	.LC35
+ 1318 0060 0C000000 		.word	.LC15
+ 1319 0064 60000000 		.word	.LC36
+ 1320 0068 64000000 		.word	.LC37
+ 1321 006c 68000000 		.word	.LC38
+ 1322 0070 6C000000 		.word	.LC39
+ 1323 0074 70000000 		.word	.LC40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 36
+
+
+ 1324 0078 74000000 		.word	.LC41
+ 1325 007c 78000000 		.word	.LC42
+ 1326 0080 7C000000 		.word	.LC43
+ 1327 0084 80000000 		.word	.LC44
+ 1328 0088 84000000 		.word	.LC45
+ 1329 008c 88000000 		.word	.LC46
+ 1330 0090 8C000000 		.word	.LC47
+ 1331 0094 0C000000 		.word	.LC15
+ 1332 0098 10000000 		.word	.LC4
+ 1333 009c 24000000 		.word	.LC8
+ 1334 00a0 90000000 		.word	.LC48
+ 1335 00a4 28000000 		.word	.LC9
+ 1336 00a8 14000000 		.word	.LC5
+ 1337 00ac 30000000 		.word	.LC24
+ 1338              		.section	.rodata.default_kb_ctrl_uc_map,"a"
+ 1339              		.align	2
+ 1342              	default_kb_ctrl_uc_map:
+ 1343 0000 25030000 		.word	805
+ 1344 0004 04040000 		.word	1028
+ 1345 0008 04040000 		.word	1028
+ 1346 000c 04040000 		.word	1028
+ 1347 0010 04040000 		.word	1028
+ 1348 0014 04040000 		.word	1028
+ 1349 0018 04040000 		.word	1028
+ 1350 001c 04040000 		.word	1028
+ 1351 0020 04040000 		.word	1028
+ 1352 0024 04040000 		.word	1028
+ 1353 0028 04040000 		.word	1028
+ 1354 002c 07010000 		.word	263
+ 1355 0030 26030000 		.word	806
+ 1356 0034 03040000 		.word	1027
+ 1357 0038 03040000 		.word	1027
+ 1358 003c 03040000 		.word	1027
+ 1359 0040 03040000 		.word	1027
+ 1360 0044 03040000 		.word	1027
+ 1361 0048 03040000 		.word	1027
+ 1362 004c 03040000 		.word	1027
+ 1363 0050 03040000 		.word	1027
+ 1364 0054 03040000 		.word	1027
+ 1365 0058 07010000 		.word	263
+ 1366 005c 01050000 		.word	1281
+ 1367 0060 01050000 		.word	1281
+ 1368 0064 01040000 		.word	1025
+ 1369 0068 01040000 		.word	1025
+ 1370 006c 01040000 		.word	1025
+ 1371 0070 01040000 		.word	1025
+ 1372 0074 01040000 		.word	1025
+ 1373 0078 01040000 		.word	1025
+ 1374 007c 01040000 		.word	1025
+ 1375 0080 01050000 		.word	1281
+ 1376 0084 01050000 		.word	1281
+ 1377 0088 01050000 		.word	1281
+ 1378 008c 22030000 		.word	802
+ 1379 0090 02010000 		.word	258
+ 1380 0094 06000000 		.word	6
+ 1381 0098 02010000 		.word	258
+ 1382 009c 22030000 		.word	802
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 37
+
+
+ 1383              		.section	.rodata.str1.4
+ 1384 0092 0000     		.align	2
+ 1385              	.LC49:
+ 1386 0094 5100     		.ascii	"Q\000"
+ 1387 0096 0000     		.align	2
+ 1388              	.LC50:
+ 1389 0098 5700     		.ascii	"W\000"
+ 1390 009a 0000     		.align	2
+ 1391              	.LC51:
+ 1392 009c 4500     		.ascii	"E\000"
+ 1393 009e 0000     		.align	2
+ 1394              	.LC52:
+ 1395 00a0 5200     		.ascii	"R\000"
+ 1396 00a2 0000     		.align	2
+ 1397              	.LC53:
+ 1398 00a4 5400     		.ascii	"T\000"
+ 1399 00a6 0000     		.align	2
+ 1400              	.LC54:
+ 1401 00a8 5900     		.ascii	"Y\000"
+ 1402 00aa 0000     		.align	2
+ 1403              	.LC55:
+ 1404 00ac 5500     		.ascii	"U\000"
+ 1405 00ae 0000     		.align	2
+ 1406              	.LC56:
+ 1407 00b0 4900     		.ascii	"I\000"
+ 1408 00b2 0000     		.align	2
+ 1409              	.LC57:
+ 1410 00b4 4F00     		.ascii	"O\000"
+ 1411 00b6 0000     		.align	2
+ 1412              	.LC58:
+ 1413 00b8 5000     		.ascii	"P\000"
+ 1414 00ba 0000     		.align	2
+ 1415              	.LC59:
+ 1416 00bc 4100     		.ascii	"A\000"
+ 1417 00be 0000     		.align	2
+ 1418              	.LC60:
+ 1419 00c0 5300     		.ascii	"S\000"
+ 1420 00c2 0000     		.align	2
+ 1421              	.LC61:
+ 1422 00c4 4400     		.ascii	"D\000"
+ 1423 00c6 0000     		.align	2
+ 1424              	.LC62:
+ 1425 00c8 4600     		.ascii	"F\000"
+ 1426 00ca 0000     		.align	2
+ 1427              	.LC63:
+ 1428 00cc 4700     		.ascii	"G\000"
+ 1429 00ce 0000     		.align	2
+ 1430              	.LC64:
+ 1431 00d0 4800     		.ascii	"H\000"
+ 1432 00d2 0000     		.align	2
+ 1433              	.LC65:
+ 1434 00d4 4A00     		.ascii	"J\000"
+ 1435 00d6 0000     		.align	2
+ 1436              	.LC66:
+ 1437 00d8 4B00     		.ascii	"K\000"
+ 1438 00da 0000     		.align	2
+ 1439              	.LC67:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 38
+
+
+ 1440 00dc 4C00     		.ascii	"L\000"
+ 1441 00de 0000     		.align	2
+ 1442              	.LC68:
+ 1443 00e0 5F00     		.ascii	"_\000"
+ 1444 00e2 0000     		.align	2
+ 1445              	.LC69:
+ 1446 00e4 2D00     		.ascii	"-\000"
+ 1447 00e6 0000     		.align	2
+ 1448              	.LC70:
+ 1449 00e8 5A00     		.ascii	"Z\000"
+ 1450 00ea 0000     		.align	2
+ 1451              	.LC71:
+ 1452 00ec 5800     		.ascii	"X\000"
+ 1453 00ee 0000     		.align	2
+ 1454              	.LC72:
+ 1455 00f0 4300     		.ascii	"C\000"
+ 1456 00f2 0000     		.align	2
+ 1457              	.LC73:
+ 1458 00f4 5600     		.ascii	"V\000"
+ 1459 00f6 0000     		.align	2
+ 1460              	.LC74:
+ 1461 00f8 4200     		.ascii	"B\000"
+ 1462 00fa 0000     		.align	2
+ 1463              	.LC75:
+ 1464 00fc 4E00     		.ascii	"N\000"
+ 1465 00fe 0000     		.align	2
+ 1466              	.LC76:
+ 1467 0100 4D00     		.ascii	"M\000"
+ 1468 0102 0000     		.align	2
+ 1469              	.LC77:
+ 1470 0104 2C00     		.ascii	",\000"
+ 1471 0106 0000     		.align	2
+ 1472              	.LC78:
+ 1473 0108 3A00     		.ascii	":\000"
+ 1474              		.section	.rodata.default_kb_map_uc,"a"
+ 1475              		.align	2
+ 1478              	default_kb_map_uc:
+ 1479 0000 08000000 		.word	.LC2
+ 1480 0004 94000000 		.word	.LC49
+ 1481 0008 98000000 		.word	.LC50
+ 1482 000c 9C000000 		.word	.LC51
+ 1483 0010 A0000000 		.word	.LC52
+ 1484 0014 A4000000 		.word	.LC53
+ 1485 0018 A8000000 		.word	.LC54
+ 1486 001c AC000000 		.word	.LC55
+ 1487 0020 B0000000 		.word	.LC56
+ 1488 0024 B4000000 		.word	.LC57
+ 1489 0028 B8000000 		.word	.LC58
+ 1490 002c 2C000000 		.word	.LC10
+ 1491 0030 0C000000 		.word	.LC15
+ 1492 0034 00000000 		.word	.LC0
+ 1493 0038 BC000000 		.word	.LC59
+ 1494 003c C0000000 		.word	.LC60
+ 1495 0040 C4000000 		.word	.LC61
+ 1496 0044 C8000000 		.word	.LC62
+ 1497 0048 CC000000 		.word	.LC63
+ 1498 004c D0000000 		.word	.LC64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 39
+
+
+ 1499 0050 D4000000 		.word	.LC65
+ 1500 0054 D8000000 		.word	.LC66
+ 1501 0058 DC000000 		.word	.LC67
+ 1502 005c 20000000 		.word	.LC7
+ 1503 0060 0C000000 		.word	.LC15
+ 1504 0064 E0000000 		.word	.LC68
+ 1505 0068 E4000000 		.word	.LC69
+ 1506 006c E8000000 		.word	.LC70
+ 1507 0070 EC000000 		.word	.LC71
+ 1508 0074 F0000000 		.word	.LC72
+ 1509 0078 F4000000 		.word	.LC73
+ 1510 007c F8000000 		.word	.LC74
+ 1511 0080 FC000000 		.word	.LC75
+ 1512 0084 00010000 		.word	.LC76
+ 1513 0088 2C000000 		.word	.LC23
+ 1514 008c 04010000 		.word	.LC77
+ 1515 0090 08010000 		.word	.LC78
+ 1516 0094 0C000000 		.word	.LC15
+ 1517 0098 0C000000 		.word	.LC3
+ 1518 009c 24000000 		.word	.LC8
+ 1519 00a0 90000000 		.word	.LC48
+ 1520 00a4 28000000 		.word	.LC9
+ 1521 00a8 14000000 		.word	.LC5
+ 1522 00ac 30000000 		.word	.LC24
+ 1523              		.section	.rodata.default_kb_ctrl_lc_map,"a"
+ 1524              		.align	2
+ 1527              	default_kb_ctrl_lc_map:
+ 1528 0000 25030000 		.word	805
+ 1529 0004 04040000 		.word	1028
+ 1530 0008 04040000 		.word	1028
+ 1531 000c 04040000 		.word	1028
+ 1532 0010 04040000 		.word	1028
+ 1533 0014 04040000 		.word	1028
+ 1534 0018 04040000 		.word	1028
+ 1535 001c 04040000 		.word	1028
+ 1536 0020 04040000 		.word	1028
+ 1537 0024 04040000 		.word	1028
+ 1538 0028 04040000 		.word	1028
+ 1539 002c 07010000 		.word	263
+ 1540 0030 26030000 		.word	806
+ 1541 0034 03040000 		.word	1027
+ 1542 0038 03040000 		.word	1027
+ 1543 003c 03040000 		.word	1027
+ 1544 0040 03040000 		.word	1027
+ 1545 0044 03040000 		.word	1027
+ 1546 0048 03040000 		.word	1027
+ 1547 004c 03040000 		.word	1027
+ 1548 0050 03040000 		.word	1027
+ 1549 0054 03040000 		.word	1027
+ 1550 0058 07010000 		.word	263
+ 1551 005c 01050000 		.word	1281
+ 1552 0060 01050000 		.word	1281
+ 1553 0064 01040000 		.word	1025
+ 1554 0068 01040000 		.word	1025
+ 1555 006c 01040000 		.word	1025
+ 1556 0070 01040000 		.word	1025
+ 1557 0074 01040000 		.word	1025
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 40
+
+
+ 1558 0078 01040000 		.word	1025
+ 1559 007c 01040000 		.word	1025
+ 1560 0080 01050000 		.word	1281
+ 1561 0084 01050000 		.word	1281
+ 1562 0088 01050000 		.word	1281
+ 1563 008c 22030000 		.word	802
+ 1564 0090 02010000 		.word	258
+ 1565 0094 06000000 		.word	6
+ 1566 0098 02010000 		.word	258
+ 1567 009c 22030000 		.word	802
+ 1568              		.section	.rodata.str1.4
+ 1569 010a 0000     		.align	2
+ 1570              	.LC79:
+ 1571 010c 7100     		.ascii	"q\000"
+ 1572 010e 0000     		.align	2
+ 1573              	.LC80:
+ 1574 0110 7700     		.ascii	"w\000"
+ 1575 0112 0000     		.align	2
+ 1576              	.LC81:
+ 1577 0114 6500     		.ascii	"e\000"
+ 1578 0116 0000     		.align	2
+ 1579              	.LC82:
+ 1580 0118 7200     		.ascii	"r\000"
+ 1581 011a 0000     		.align	2
+ 1582              	.LC83:
+ 1583 011c 7400     		.ascii	"t\000"
+ 1584 011e 0000     		.align	2
+ 1585              	.LC84:
+ 1586 0120 7900     		.ascii	"y\000"
+ 1587 0122 0000     		.align	2
+ 1588              	.LC85:
+ 1589 0124 7500     		.ascii	"u\000"
+ 1590 0126 0000     		.align	2
+ 1591              	.LC86:
+ 1592 0128 6900     		.ascii	"i\000"
+ 1593 012a 0000     		.align	2
+ 1594              	.LC87:
+ 1595 012c 6F00     		.ascii	"o\000"
+ 1596 012e 0000     		.align	2
+ 1597              	.LC88:
+ 1598 0130 7000     		.ascii	"p\000"
+ 1599 0132 0000     		.align	2
+ 1600              	.LC89:
+ 1601 0134 6100     		.ascii	"a\000"
+ 1602 0136 0000     		.align	2
+ 1603              	.LC90:
+ 1604 0138 7300     		.ascii	"s\000"
+ 1605 013a 0000     		.align	2
+ 1606              	.LC91:
+ 1607 013c 6400     		.ascii	"d\000"
+ 1608 013e 0000     		.align	2
+ 1609              	.LC92:
+ 1610 0140 6600     		.ascii	"f\000"
+ 1611 0142 0000     		.align	2
+ 1612              	.LC93:
+ 1613 0144 6700     		.ascii	"g\000"
+ 1614 0146 0000     		.align	2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 41
+
+
+ 1615              	.LC94:
+ 1616 0148 6800     		.ascii	"h\000"
+ 1617 014a 0000     		.align	2
+ 1618              	.LC95:
+ 1619 014c 6A00     		.ascii	"j\000"
+ 1620 014e 0000     		.align	2
+ 1621              	.LC96:
+ 1622 0150 6B00     		.ascii	"k\000"
+ 1623 0152 0000     		.align	2
+ 1624              	.LC97:
+ 1625 0154 6C00     		.ascii	"l\000"
+ 1626 0156 0000     		.align	2
+ 1627              	.LC98:
+ 1628 0158 7A00     		.ascii	"z\000"
+ 1629 015a 0000     		.align	2
+ 1630              	.LC99:
+ 1631 015c 7800     		.ascii	"x\000"
+ 1632 015e 0000     		.align	2
+ 1633              	.LC100:
+ 1634 0160 6300     		.ascii	"c\000"
+ 1635 0162 0000     		.align	2
+ 1636              	.LC101:
+ 1637 0164 7600     		.ascii	"v\000"
+ 1638 0166 0000     		.align	2
+ 1639              	.LC102:
+ 1640 0168 6200     		.ascii	"b\000"
+ 1641 016a 0000     		.align	2
+ 1642              	.LC103:
+ 1643 016c 6E00     		.ascii	"n\000"
+ 1644 016e 0000     		.align	2
+ 1645              	.LC104:
+ 1646 0170 6D00     		.ascii	"m\000"
+ 1647              		.section	.rodata.default_kb_map_lc,"a"
+ 1648              		.align	2
+ 1651              	default_kb_map_lc:
+ 1652 0000 08000000 		.word	.LC2
+ 1653 0004 0C010000 		.word	.LC79
+ 1654 0008 10010000 		.word	.LC80
+ 1655 000c 14010000 		.word	.LC81
+ 1656 0010 18010000 		.word	.LC82
+ 1657 0014 1C010000 		.word	.LC83
+ 1658 0018 20010000 		.word	.LC84
+ 1659 001c 24010000 		.word	.LC85
+ 1660 0020 28010000 		.word	.LC86
+ 1661 0024 2C010000 		.word	.LC87
+ 1662 0028 30010000 		.word	.LC88
+ 1663 002c 2C000000 		.word	.LC10
+ 1664 0030 0C000000 		.word	.LC15
+ 1665 0034 04000000 		.word	.LC1
+ 1666 0038 34010000 		.word	.LC89
+ 1667 003c 38010000 		.word	.LC90
+ 1668 0040 3C010000 		.word	.LC91
+ 1669 0044 40010000 		.word	.LC92
+ 1670 0048 44010000 		.word	.LC93
+ 1671 004c 48010000 		.word	.LC94
+ 1672 0050 4C010000 		.word	.LC95
+ 1673 0054 50010000 		.word	.LC96
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 42
+
+
+ 1674 0058 54010000 		.word	.LC97
+ 1675 005c 20000000 		.word	.LC7
+ 1676 0060 0C000000 		.word	.LC15
+ 1677 0064 E0000000 		.word	.LC68
+ 1678 0068 E4000000 		.word	.LC69
+ 1679 006c 58010000 		.word	.LC98
+ 1680 0070 5C010000 		.word	.LC99
+ 1681 0074 60010000 		.word	.LC100
+ 1682 0078 64010000 		.word	.LC101
+ 1683 007c 68010000 		.word	.LC102
+ 1684 0080 6C010000 		.word	.LC103
+ 1685 0084 70010000 		.word	.LC104
+ 1686 0088 2C000000 		.word	.LC23
+ 1687 008c 04010000 		.word	.LC77
+ 1688 0090 08010000 		.word	.LC78
+ 1689 0094 0C000000 		.word	.LC15
+ 1690 0098 10000000 		.word	.LC4
+ 1691 009c 24000000 		.word	.LC8
+ 1692 00a0 90000000 		.word	.LC48
+ 1693 00a4 28000000 		.word	.LC9
+ 1694 00a8 14000000 		.word	.LC5
+ 1695 00ac 30000000 		.word	.LC24
+ 1696              		.global	lv_keyboard_class
+ 1697              		.section	.rodata.str1.4
+ 1698 0172 0000     		.align	2
+ 1699              	.LC105:
+ 1700 0174 6B657962 		.ascii	"keyboard\000"
+ 1700      6F617264 
+ 1700      00
+ 1701              		.section	.rodata.lv_keyboard_class,"a"
+ 1702              		.align	2
+ 1705              	lv_keyboard_class:
+ 1706 0000 00000000 		.word	lv_buttonmatrix_class
+ 1707 0004 00000000 		.word	lv_keyboard_constructor
+ 1708 0008 00000000 		.space	12
+ 1708      00000000 
+ 1708      00000000 
+ 1709 0014 74010000 		.word	.LC105
+ 1710 0018 64000020 		.word	536871012
+ 1711 001c 32000020 		.word	536870962
+ 1712 0020 01       		.byte	1
+ 1713 0021 05       		.byte	5
+ 1714 0022 00       		.byte	0
+ 1715 0023 00       		.space	1
+ 1716              		.text
+ 1717              	.Letext0:
+ 1718              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1719              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1720              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1721              		.file 5 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_types.h"
+ 1722              		.file 6 "Lib/lvgl/src/widgets/keyboard/../buttonmatrix/../../core/lv_obj.h"
+ 1723              		.file 7 "Lib/lvgl/src/widgets/keyboard/../buttonmatrix/../../core/lv_obj_class.h"
+ 1724              		.file 8 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 1725              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_event.h"
+ 1726              		.file 10 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 1727              		.file 11 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_ll.h"
+ 1728              		.file 12 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_bidi.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 43
+
+
+ 1729              		.file 13 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_style.h"
+ 1730              		.file 14 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_array.h"
+ 1731              		.file 15 "Lib/lvgl/src/widgets/keyboard/../buttonmatrix/../../core/lv_obj_style.h"
+ 1732              		.file 16 "Lib/lvgl/src/widgets/keyboard/../buttonmatrix/lv_buttonmatrix.h"
+ 1733              		.file 17 "Lib/lvgl/src/widgets/keyboard/lv_keyboard.h"
+ 1734              		.file 18 "Lib/lvgl/src/widgets/keyboard/../textarea/lv_textarea.h"
+ 1735              		.file 19 "Lib/lvgl/src/widgets/keyboard/../buttonmatrix/../../core/lv_obj_event.h"
+ 1736              		.file 20 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_string.h"
+ 1737              		.file 21 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
+ 1738              		.file 22 "Lib/lvgl/src/widgets/keyboard/../buttonmatrix/../../core/lv_obj_style_gen.h"
+ 1739              		.file 23 "Lib/lvgl/src/widgets/keyboard/../buttonmatrix/../../core/lv_obj_pos.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 44
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_keyboard.c
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:21     .text.lv_keyboard_update_ctrl_map:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:26     .text.lv_keyboard_update_ctrl_map:00000000 lv_keyboard_update_ctrl_map
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:125    .text.lv_keyboard_update_ctrl_map:00000064 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1057   .data.kb_ctrl:00000000 kb_ctrl
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:130    .text.lv_keyboard_update_map:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:135    .text.lv_keyboard_update_map:00000000 lv_keyboard_update_map
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:170    .text.lv_keyboard_update_map:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1072   .data.kb_map:00000000 kb_map
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:175    .text.lv_keyboard_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:180    .text.lv_keyboard_constructor:00000000 lv_keyboard_constructor
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:250    .text.lv_keyboard_constructor:0000004c $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:298    .text.lv_keyboard_def_event_cb:00000000 lv_keyboard_def_event_cb
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:255    .rodata.lv_keyboard_def_event_cb.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:292    .text.lv_keyboard_def_event_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:710    .text.lv_keyboard_def_event_cb:000001d4 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:727    .text.lv_keyboard_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:733    .text.lv_keyboard_create:00000000 lv_keyboard_create
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:772    .text.lv_keyboard_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1705   .rodata.lv_keyboard_class:00000000 lv_keyboard_class
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:777    .text.lv_keyboard_set_textarea:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:783    .text.lv_keyboard_set_textarea:00000000 lv_keyboard_set_textarea
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:840    .text.lv_keyboard_set_mode:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:846    .text.lv_keyboard_set_mode:00000000 lv_keyboard_set_mode
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:883    .text.lv_keyboard_set_popovers:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:889    .text.lv_keyboard_set_popovers:00000000 lv_keyboard_set_popovers
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:926    .text.lv_keyboard_set_map:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:932    .text.lv_keyboard_set_map:00000000 lv_keyboard_set_map
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:966    .text.lv_keyboard_set_map:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:972    .text.lv_keyboard_get_textarea:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:978    .text.lv_keyboard_get_textarea:00000000 lv_keyboard_get_textarea
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1000   .text.lv_keyboard_get_mode:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1006   .text.lv_keyboard_get_mode:00000000 lv_keyboard_get_mode
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1028   .text.lv_buttonmatrix_get_popovers:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1034   .text.lv_buttonmatrix_get_popovers:00000000 lv_buttonmatrix_get_popovers
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1054   .data.kb_ctrl:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1527   .rodata.default_kb_ctrl_lc_map:00000000 default_kb_ctrl_lc_map
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1342   .rodata.default_kb_ctrl_uc_map:00000000 default_kb_ctrl_uc_map
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1175   .rodata.default_kb_ctrl_spec_map:00000000 default_kb_ctrl_spec_map
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1087   .rodata.default_kb_ctrl_num_map:00000000 default_kb_ctrl_num_map
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1069   .data.kb_map:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1651   .rodata.default_kb_map_lc:00000000 default_kb_map_lc
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1478   .rodata.default_kb_map_uc:00000000 default_kb_map_uc
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1293   .rodata.default_kb_map_spec:00000000 default_kb_map_spec
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1149   .rodata.default_kb_map_num:00000000 default_kb_map_num
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1084   .rodata.default_kb_ctrl_num_map:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1106   .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1146   .rodata.default_kb_map_num:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1172   .rodata.default_kb_ctrl_spec_map:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1290   .rodata.default_kb_map_spec:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1339   .rodata.default_kb_ctrl_uc_map:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1475   .rodata.default_kb_map_uc:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1524   .rodata.default_kb_ctrl_lc_map:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1648   .rodata.default_kb_map_lc:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s:1702   .rodata.lv_keyboard_class:00000000 $d
+
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccATxzyO.s 			page 45
+
+
+UNDEFINED SYMBOLS
+lv_buttonmatrix_set_ctrl_map
+lv_malloc
+lv_memcpy
+lv_free
+lv_buttonmatrix_set_map
+lv_obj_remove_flag
+lv_obj_align
+lv_obj_add_event_cb
+lv_obj_set_style_base_dir
+lv_event_get_current_target
+lv_buttonmatrix_get_selected_button
+lv_buttonmatrix_get_button_text
+lv_strcmp
+lv_obj_send_event
+lv_textarea_add_char
+lv_textarea_get_one_line
+lv_textarea_cursor_left
+lv_textarea_cursor_right
+lv_textarea_delete_char
+lv_textarea_get_cursor_pos
+lv_textarea_get_text
+lv_textarea_set_cursor_pos
+lv_textarea_add_text
+lv_obj_class_create_obj
+lv_obj_class_init_obj
+lv_obj_remove_state
+lv_obj_add_flag
+lv_buttonmatrix_class

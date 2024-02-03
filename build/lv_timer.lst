@@ -1,0 +1,2420 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lv_timer.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lvgl/src/misc/lv_timer.c"
+  20              		.section	.text.lv_timer_handler_resume,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	lv_timer_handler_resume:
+  27              	.LFB256:
+   1:Lib/lvgl/src/misc/lv_timer.c **** /**
+   2:Lib/lvgl/src/misc/lv_timer.c ****  * @file lv_timer.c
+   3:Lib/lvgl/src/misc/lv_timer.c ****  */
+   4:Lib/lvgl/src/misc/lv_timer.c **** 
+   5:Lib/lvgl/src/misc/lv_timer.c **** /*********************
+   6:Lib/lvgl/src/misc/lv_timer.c ****  *      INCLUDES
+   7:Lib/lvgl/src/misc/lv_timer.c ****  *********************/
+   8:Lib/lvgl/src/misc/lv_timer.c **** #include "lv_timer.h"
+   9:Lib/lvgl/src/misc/lv_timer.c **** #include "../core/lv_global.h"
+  10:Lib/lvgl/src/misc/lv_timer.c **** #include "../tick/lv_tick.h"
+  11:Lib/lvgl/src/misc/lv_timer.c **** #include "../stdlib/lv_mem.h"
+  12:Lib/lvgl/src/misc/lv_timer.c **** #include "../stdlib/lv_sprintf.h"
+  13:Lib/lvgl/src/misc/lv_timer.c **** #include "lv_assert.h"
+  14:Lib/lvgl/src/misc/lv_timer.c **** #include "lv_ll.h"
+  15:Lib/lvgl/src/misc/lv_timer.c **** #include "lv_profiler.h"
+  16:Lib/lvgl/src/misc/lv_timer.c **** 
+  17:Lib/lvgl/src/misc/lv_timer.c **** /*********************
+  18:Lib/lvgl/src/misc/lv_timer.c ****  *      DEFINES
+  19:Lib/lvgl/src/misc/lv_timer.c ****  *********************/
+  20:Lib/lvgl/src/misc/lv_timer.c **** 
+  21:Lib/lvgl/src/misc/lv_timer.c **** #define IDLE_MEAS_PERIOD 500 /*[ms]*/
+  22:Lib/lvgl/src/misc/lv_timer.c **** #define DEF_PERIOD 500
+  23:Lib/lvgl/src/misc/lv_timer.c **** 
+  24:Lib/lvgl/src/misc/lv_timer.c **** #define state LV_GLOBAL_DEFAULT()->timer_state
+  25:Lib/lvgl/src/misc/lv_timer.c **** #define timer_ll_p &(state.timer_ll)
+  26:Lib/lvgl/src/misc/lv_timer.c **** 
+  27:Lib/lvgl/src/misc/lv_timer.c **** /**********************
+  28:Lib/lvgl/src/misc/lv_timer.c ****  *      TYPEDEFS
+  29:Lib/lvgl/src/misc/lv_timer.c ****  **********************/
+  30:Lib/lvgl/src/misc/lv_timer.c **** 
+  31:Lib/lvgl/src/misc/lv_timer.c **** /**********************
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 2
+
+
+  32:Lib/lvgl/src/misc/lv_timer.c ****  *  STATIC PROTOTYPES
+  33:Lib/lvgl/src/misc/lv_timer.c ****  **********************/
+  34:Lib/lvgl/src/misc/lv_timer.c **** static bool lv_timer_exec(lv_timer_t * timer);
+  35:Lib/lvgl/src/misc/lv_timer.c **** static uint32_t lv_timer_time_remaining(lv_timer_t * timer);
+  36:Lib/lvgl/src/misc/lv_timer.c **** static void lv_timer_handler_resume(void);
+  37:Lib/lvgl/src/misc/lv_timer.c **** 
+  38:Lib/lvgl/src/misc/lv_timer.c **** /**********************
+  39:Lib/lvgl/src/misc/lv_timer.c ****  *  STATIC VARIABLES
+  40:Lib/lvgl/src/misc/lv_timer.c ****  **********************/
+  41:Lib/lvgl/src/misc/lv_timer.c **** 
+  42:Lib/lvgl/src/misc/lv_timer.c **** /**********************
+  43:Lib/lvgl/src/misc/lv_timer.c ****  *      MACROS
+  44:Lib/lvgl/src/misc/lv_timer.c ****  **********************/
+  45:Lib/lvgl/src/misc/lv_timer.c **** #if LV_USE_LOG && LV_LOG_TRACE_TIMER
+  46:Lib/lvgl/src/misc/lv_timer.c ****     #define LV_TRACE_TIMER(...) LV_LOG_TRACE(__VA_ARGS__)
+  47:Lib/lvgl/src/misc/lv_timer.c **** #else
+  48:Lib/lvgl/src/misc/lv_timer.c ****     #define LV_TRACE_TIMER(...)
+  49:Lib/lvgl/src/misc/lv_timer.c **** #endif
+  50:Lib/lvgl/src/misc/lv_timer.c **** 
+  51:Lib/lvgl/src/misc/lv_timer.c **** /**********************
+  52:Lib/lvgl/src/misc/lv_timer.c ****  *   GLOBAL FUNCTIONS
+  53:Lib/lvgl/src/misc/lv_timer.c ****  **********************/
+  54:Lib/lvgl/src/misc/lv_timer.c **** 
+  55:Lib/lvgl/src/misc/lv_timer.c **** void _lv_timer_core_init(void)
+  56:Lib/lvgl/src/misc/lv_timer.c **** {
+  57:Lib/lvgl/src/misc/lv_timer.c ****     _lv_ll_init(timer_ll_p, sizeof(lv_timer_t));
+  58:Lib/lvgl/src/misc/lv_timer.c **** 
+  59:Lib/lvgl/src/misc/lv_timer.c ****     /*Initially enable the lv_timer handling*/
+  60:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_enable(true);
+  61:Lib/lvgl/src/misc/lv_timer.c **** }
+  62:Lib/lvgl/src/misc/lv_timer.c **** 
+  63:Lib/lvgl/src/misc/lv_timer.c **** LV_ATTRIBUTE_TIMER_HANDLER uint32_t lv_timer_handler(void)
+  64:Lib/lvgl/src/misc/lv_timer.c **** {
+  65:Lib/lvgl/src/misc/lv_timer.c ****     LV_TRACE_TIMER("begin");
+  66:Lib/lvgl/src/misc/lv_timer.c **** 
+  67:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_state_t * state_p = &state;
+  68:Lib/lvgl/src/misc/lv_timer.c ****     /*Avoid concurrent running of the timer handler*/
+  69:Lib/lvgl/src/misc/lv_timer.c ****     if(state_p->already_running) {
+  70:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("already running, concurrent calls are not allow, returning");
+  71:Lib/lvgl/src/misc/lv_timer.c ****         return 1;
+  72:Lib/lvgl/src/misc/lv_timer.c ****     }
+  73:Lib/lvgl/src/misc/lv_timer.c ****     state_p->already_running = true;
+  74:Lib/lvgl/src/misc/lv_timer.c **** 
+  75:Lib/lvgl/src/misc/lv_timer.c ****     if(state_p->lv_timer_run == false) {
+  76:Lib/lvgl/src/misc/lv_timer.c ****         state_p->already_running = false; /*Release mutex*/
+  77:Lib/lvgl/src/misc/lv_timer.c ****         return 1;
+  78:Lib/lvgl/src/misc/lv_timer.c ****     }
+  79:Lib/lvgl/src/misc/lv_timer.c **** 
+  80:Lib/lvgl/src/misc/lv_timer.c ****     LV_PROFILER_BEGIN;
+  81:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t handler_start = lv_tick_get();
+  82:Lib/lvgl/src/misc/lv_timer.c **** 
+  83:Lib/lvgl/src/misc/lv_timer.c ****     if(handler_start == 0) {
+  84:Lib/lvgl/src/misc/lv_timer.c ****         state.run_cnt++;
+  85:Lib/lvgl/src/misc/lv_timer.c ****         if(state.run_cnt > 100) {
+  86:Lib/lvgl/src/misc/lv_timer.c ****             state.run_cnt = 0;
+  87:Lib/lvgl/src/misc/lv_timer.c ****             LV_LOG_WARN("It seems lv_tick_inc() is not called.");
+  88:Lib/lvgl/src/misc/lv_timer.c ****         }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 3
+
+
+  89:Lib/lvgl/src/misc/lv_timer.c ****     }
+  90:Lib/lvgl/src/misc/lv_timer.c **** 
+  91:Lib/lvgl/src/misc/lv_timer.c ****     /*Run all timer from the list*/
+  92:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_t * next;
+  93:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_t * timer_active;
+  94:Lib/lvgl/src/misc/lv_timer.c ****     lv_ll_t * timer_head = timer_ll_p;
+  95:Lib/lvgl/src/misc/lv_timer.c ****     do {
+  96:Lib/lvgl/src/misc/lv_timer.c ****         state_p->timer_deleted             = false;
+  97:Lib/lvgl/src/misc/lv_timer.c ****         state_p->timer_created             = false;
+  98:Lib/lvgl/src/misc/lv_timer.c **** 
+  99:Lib/lvgl/src/misc/lv_timer.c ****         timer_active = _lv_ll_get_head(timer_head);
+ 100:Lib/lvgl/src/misc/lv_timer.c ****         while(timer_active) {
+ 101:Lib/lvgl/src/misc/lv_timer.c ****             /*The timer might be deleted if it runs only once ('repeat_count = 1')
+ 102:Lib/lvgl/src/misc/lv_timer.c ****              *So get next element until the current is surely valid*/
+ 103:Lib/lvgl/src/misc/lv_timer.c ****             next = _lv_ll_get_next(timer_head, timer_active);
+ 104:Lib/lvgl/src/misc/lv_timer.c **** 
+ 105:Lib/lvgl/src/misc/lv_timer.c ****             if(lv_timer_exec(timer_active)) {
+ 106:Lib/lvgl/src/misc/lv_timer.c ****                 /*If a timer was created or deleted then this or the next item might be corrupted*/
+ 107:Lib/lvgl/src/misc/lv_timer.c ****                 if(state_p->timer_created || state_p->timer_deleted) {
+ 108:Lib/lvgl/src/misc/lv_timer.c ****                     LV_TRACE_TIMER("Start from the first timer again because a timer was created or
+ 109:Lib/lvgl/src/misc/lv_timer.c ****                     break;
+ 110:Lib/lvgl/src/misc/lv_timer.c ****                 }
+ 111:Lib/lvgl/src/misc/lv_timer.c ****             }
+ 112:Lib/lvgl/src/misc/lv_timer.c **** 
+ 113:Lib/lvgl/src/misc/lv_timer.c ****             timer_active = next; /*Load the next timer*/
+ 114:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 115:Lib/lvgl/src/misc/lv_timer.c ****     } while(timer_active);
+ 116:Lib/lvgl/src/misc/lv_timer.c **** 
+ 117:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t time_until_next = LV_NO_TIMER_READY;
+ 118:Lib/lvgl/src/misc/lv_timer.c ****     next = _lv_ll_get_head(timer_head);
+ 119:Lib/lvgl/src/misc/lv_timer.c ****     while(next) {
+ 120:Lib/lvgl/src/misc/lv_timer.c ****         if(!next->paused) {
+ 121:Lib/lvgl/src/misc/lv_timer.c ****             uint32_t delay = lv_timer_time_remaining(next);
+ 122:Lib/lvgl/src/misc/lv_timer.c ****             if(delay < time_until_next)
+ 123:Lib/lvgl/src/misc/lv_timer.c ****                 time_until_next = delay;
+ 124:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 125:Lib/lvgl/src/misc/lv_timer.c **** 
+ 126:Lib/lvgl/src/misc/lv_timer.c ****         next = _lv_ll_get_next(timer_head, next); /*Find the next timer*/
+ 127:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 128:Lib/lvgl/src/misc/lv_timer.c **** 
+ 129:Lib/lvgl/src/misc/lv_timer.c ****     state_p->busy_time += lv_tick_elaps(handler_start);
+ 130:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t idle_period_time = lv_tick_elaps(state_p->idle_period_start);
+ 131:Lib/lvgl/src/misc/lv_timer.c ****     if(idle_period_time >= IDLE_MEAS_PERIOD) {
+ 132:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = (state_p->busy_time * 100) / idle_period_time;  /*Calculate th
+ 133:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = state_p->idle_last > 100 ? 0 : 100 - state_p->idle_last; /*But
+ 134:Lib/lvgl/src/misc/lv_timer.c ****         state_p->busy_time         = 0;
+ 135:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_period_start = lv_tick_get();
+ 136:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 137:Lib/lvgl/src/misc/lv_timer.c **** 
+ 138:Lib/lvgl/src/misc/lv_timer.c ****     state_p->timer_time_until_next = time_until_next;
+ 139:Lib/lvgl/src/misc/lv_timer.c ****     state_p->already_running = false; /*Release the mutex*/
+ 140:Lib/lvgl/src/misc/lv_timer.c **** 
+ 141:Lib/lvgl/src/misc/lv_timer.c ****     LV_TRACE_TIMER("finished (%" LV_PRIu32 " ms until the next timer call)", time_until_next);
+ 142:Lib/lvgl/src/misc/lv_timer.c ****     LV_PROFILER_END;
+ 143:Lib/lvgl/src/misc/lv_timer.c ****     return time_until_next;
+ 144:Lib/lvgl/src/misc/lv_timer.c **** }
+ 145:Lib/lvgl/src/misc/lv_timer.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 4
+
+
+ 146:Lib/lvgl/src/misc/lv_timer.c **** LV_ATTRIBUTE_TIMER_HANDLER void lv_timer_periodic_handler(void)
+ 147:Lib/lvgl/src/misc/lv_timer.c **** {
+ 148:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_state_t * state_p = &state;
+ 149:Lib/lvgl/src/misc/lv_timer.c ****     if(lv_tick_elaps(state_p->periodic_last_tick) >= state_p->timer_time_until_next) {
+ 150:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling lv_timer_handler()");
+ 151:Lib/lvgl/src/misc/lv_timer.c ****         lv_timer_handler();
+ 152:Lib/lvgl/src/misc/lv_timer.c ****         state_p->periodic_last_tick = lv_tick_get();
+ 153:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 154:Lib/lvgl/src/misc/lv_timer.c **** }
+ 155:Lib/lvgl/src/misc/lv_timer.c **** 
+ 156:Lib/lvgl/src/misc/lv_timer.c **** lv_timer_t * lv_timer_create_basic(void)
+ 157:Lib/lvgl/src/misc/lv_timer.c **** {
+ 158:Lib/lvgl/src/misc/lv_timer.c ****     return lv_timer_create(NULL, DEF_PERIOD, NULL);
+ 159:Lib/lvgl/src/misc/lv_timer.c **** }
+ 160:Lib/lvgl/src/misc/lv_timer.c **** 
+ 161:Lib/lvgl/src/misc/lv_timer.c **** lv_timer_t * lv_timer_create(lv_timer_cb_t timer_xcb, uint32_t period, void * user_data)
+ 162:Lib/lvgl/src/misc/lv_timer.c **** {
+ 163:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_t * new_timer = NULL;
+ 164:Lib/lvgl/src/misc/lv_timer.c **** 
+ 165:Lib/lvgl/src/misc/lv_timer.c ****     new_timer = _lv_ll_ins_head(timer_ll_p);
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_MALLOC(new_timer);
+ 167:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 168:Lib/lvgl/src/misc/lv_timer.c **** 
+ 169:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->period = period;
+ 170:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->timer_cb = timer_xcb;
+ 171:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->repeat_count = -1;
+ 172:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->paused = 0;
+ 173:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->last_run = lv_tick_get();
+ 174:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->user_data = user_data;
+ 175:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->auto_delete = true;
+ 176:Lib/lvgl/src/misc/lv_timer.c **** 
+ 177:Lib/lvgl/src/misc/lv_timer.c ****     state.timer_created = true;
+ 178:Lib/lvgl/src/misc/lv_timer.c **** 
+ 179:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_handler_resume();
+ 180:Lib/lvgl/src/misc/lv_timer.c **** 
+ 181:Lib/lvgl/src/misc/lv_timer.c ****     return new_timer;
+ 182:Lib/lvgl/src/misc/lv_timer.c **** }
+ 183:Lib/lvgl/src/misc/lv_timer.c **** 
+ 184:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_set_cb(lv_timer_t * timer, lv_timer_cb_t timer_cb)
+ 185:Lib/lvgl/src/misc/lv_timer.c **** {
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 187:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 188:Lib/lvgl/src/misc/lv_timer.c **** }
+ 189:Lib/lvgl/src/misc/lv_timer.c **** 
+ 190:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_delete(lv_timer_t * timer)
+ 191:Lib/lvgl/src/misc/lv_timer.c **** {
+ 192:Lib/lvgl/src/misc/lv_timer.c ****     _lv_ll_remove(timer_ll_p, timer);
+ 193:Lib/lvgl/src/misc/lv_timer.c ****     state.timer_deleted = true;
+ 194:Lib/lvgl/src/misc/lv_timer.c **** 
+ 195:Lib/lvgl/src/misc/lv_timer.c ****     lv_free(timer);
+ 196:Lib/lvgl/src/misc/lv_timer.c **** }
+ 197:Lib/lvgl/src/misc/lv_timer.c **** 
+ 198:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_pause(lv_timer_t * timer)
+ 199:Lib/lvgl/src/misc/lv_timer.c **** {
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 201:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 202:Lib/lvgl/src/misc/lv_timer.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 5
+
+
+ 203:Lib/lvgl/src/misc/lv_timer.c **** 
+ 204:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_resume(lv_timer_t * timer)
+ 205:Lib/lvgl/src/misc/lv_timer.c **** {
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 207:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 208:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_handler_resume();
+ 209:Lib/lvgl/src/misc/lv_timer.c **** }
+ 210:Lib/lvgl/src/misc/lv_timer.c **** 
+ 211:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_set_period(lv_timer_t * timer, uint32_t period)
+ 212:Lib/lvgl/src/misc/lv_timer.c **** {
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 214:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 215:Lib/lvgl/src/misc/lv_timer.c **** }
+ 216:Lib/lvgl/src/misc/lv_timer.c **** 
+ 217:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_ready(lv_timer_t * timer)
+ 218:Lib/lvgl/src/misc/lv_timer.c **** {
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 220:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 221:Lib/lvgl/src/misc/lv_timer.c **** }
+ 222:Lib/lvgl/src/misc/lv_timer.c **** 
+ 223:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_set_repeat_count(lv_timer_t * timer, int32_t repeat_count)
+ 224:Lib/lvgl/src/misc/lv_timer.c **** {
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 226:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 227:Lib/lvgl/src/misc/lv_timer.c **** }
+ 228:Lib/lvgl/src/misc/lv_timer.c **** 
+ 229:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_set_auto_delete(lv_timer_t * timer, bool auto_delete)
+ 230:Lib/lvgl/src/misc/lv_timer.c **** {
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 232:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 233:Lib/lvgl/src/misc/lv_timer.c **** }
+ 234:Lib/lvgl/src/misc/lv_timer.c **** 
+ 235:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_set_user_data(lv_timer_t * timer, void * user_data)
+ 236:Lib/lvgl/src/misc/lv_timer.c **** {
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 238:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 239:Lib/lvgl/src/misc/lv_timer.c **** }
+ 240:Lib/lvgl/src/misc/lv_timer.c **** 
+ 241:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_reset(lv_timer_t * timer)
+ 242:Lib/lvgl/src/misc/lv_timer.c **** {
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 244:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 245:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_handler_resume();
+ 246:Lib/lvgl/src/misc/lv_timer.c **** }
+ 247:Lib/lvgl/src/misc/lv_timer.c **** 
+ 248:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_enable(bool en)
+ 249:Lib/lvgl/src/misc/lv_timer.c **** {
+ 250:Lib/lvgl/src/misc/lv_timer.c ****     state.lv_timer_run = en;
+ 251:Lib/lvgl/src/misc/lv_timer.c ****     if(en) lv_timer_handler_resume();
+ 252:Lib/lvgl/src/misc/lv_timer.c **** }
+ 253:Lib/lvgl/src/misc/lv_timer.c **** 
+ 254:Lib/lvgl/src/misc/lv_timer.c **** void _lv_timer_core_deinit(void)
+ 255:Lib/lvgl/src/misc/lv_timer.c **** {
+ 256:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_enable(false);
+ 257:Lib/lvgl/src/misc/lv_timer.c **** 
+ 258:Lib/lvgl/src/misc/lv_timer.c ****     _lv_ll_clear(timer_ll_p);
+ 259:Lib/lvgl/src/misc/lv_timer.c **** }
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 6
+
+
+ 260:Lib/lvgl/src/misc/lv_timer.c **** 
+ 261:Lib/lvgl/src/misc/lv_timer.c **** uint8_t lv_timer_get_idle(void)
+ 262:Lib/lvgl/src/misc/lv_timer.c **** {
+ 263:Lib/lvgl/src/misc/lv_timer.c ****     return state.idle_last;
+ 264:Lib/lvgl/src/misc/lv_timer.c **** }
+ 265:Lib/lvgl/src/misc/lv_timer.c **** 
+ 266:Lib/lvgl/src/misc/lv_timer.c **** uint32_t lv_timer_get_time_until_next(void)
+ 267:Lib/lvgl/src/misc/lv_timer.c **** {
+ 268:Lib/lvgl/src/misc/lv_timer.c ****     return state.timer_time_until_next;
+ 269:Lib/lvgl/src/misc/lv_timer.c **** }
+ 270:Lib/lvgl/src/misc/lv_timer.c **** 
+ 271:Lib/lvgl/src/misc/lv_timer.c **** lv_timer_t * lv_timer_get_next(lv_timer_t * timer)
+ 272:Lib/lvgl/src/misc/lv_timer.c **** {
+ 273:Lib/lvgl/src/misc/lv_timer.c ****     if(timer == NULL) return _lv_ll_get_head(timer_ll_p);
+ 274:Lib/lvgl/src/misc/lv_timer.c ****     else return _lv_ll_get_next(timer_ll_p, timer);
+ 275:Lib/lvgl/src/misc/lv_timer.c **** }
+ 276:Lib/lvgl/src/misc/lv_timer.c **** 
+ 277:Lib/lvgl/src/misc/lv_timer.c **** /**********************
+ 278:Lib/lvgl/src/misc/lv_timer.c ****  *   STATIC FUNCTIONS
+ 279:Lib/lvgl/src/misc/lv_timer.c ****  **********************/
+ 280:Lib/lvgl/src/misc/lv_timer.c **** 
+ 281:Lib/lvgl/src/misc/lv_timer.c **** /**
+ 282:Lib/lvgl/src/misc/lv_timer.c ****  * Execute timer if its remaining time is zero
+ 283:Lib/lvgl/src/misc/lv_timer.c ****  * @param timer pointer to lv_timer
+ 284:Lib/lvgl/src/misc/lv_timer.c ****  * @return true: execute, false: not executed
+ 285:Lib/lvgl/src/misc/lv_timer.c ****  */
+ 286:Lib/lvgl/src/misc/lv_timer.c **** static bool lv_timer_exec(lv_timer_t * timer)
+ 287:Lib/lvgl/src/misc/lv_timer.c **** {
+ 288:Lib/lvgl/src/misc/lv_timer.c ****     if(timer->paused) return false;
+ 289:Lib/lvgl/src/misc/lv_timer.c **** 
+ 290:Lib/lvgl/src/misc/lv_timer.c ****     bool exec = false;
+ 291:Lib/lvgl/src/misc/lv_timer.c ****     if(lv_timer_time_remaining(timer) == 0) {
+ 292:Lib/lvgl/src/misc/lv_timer.c ****         /* Decrement the repeat count before executing the timer_cb.
+ 293:Lib/lvgl/src/misc/lv_timer.c ****          * If any timer is deleted `if(timer->repeat_count == 0)` is not executed below
+ 294:Lib/lvgl/src/misc/lv_timer.c ****          * but at least the repeat count is zero and the timer can be deleted in the next round*/
+ 295:Lib/lvgl/src/misc/lv_timer.c ****         int32_t original_repeat_count = timer->repeat_count;
+ 296:Lib/lvgl/src/misc/lv_timer.c ****         if(timer->repeat_count > 0) timer->repeat_count--;
+ 297:Lib/lvgl/src/misc/lv_timer.c ****         timer->last_run = lv_tick_get();
+ 298:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling timer callback: %p", *((void **)&timer->timer_cb));
+ 299:Lib/lvgl/src/misc/lv_timer.c **** 
+ 300:Lib/lvgl/src/misc/lv_timer.c ****         if(timer->timer_cb && original_repeat_count != 0) timer->timer_cb(timer);
+ 301:Lib/lvgl/src/misc/lv_timer.c **** 
+ 302:Lib/lvgl/src/misc/lv_timer.c ****         if(!state.timer_deleted) {
+ 303:Lib/lvgl/src/misc/lv_timer.c ****             LV_TRACE_TIMER("timer callback %p finished", *((void **)&timer->timer_cb));
+ 304:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 305:Lib/lvgl/src/misc/lv_timer.c ****         else {
+ 306:Lib/lvgl/src/misc/lv_timer.c ****             LV_TRACE_TIMER("timer callback finished");
+ 307:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 308:Lib/lvgl/src/misc/lv_timer.c **** 
+ 309:Lib/lvgl/src/misc/lv_timer.c ****         LV_ASSERT_MEM_INTEGRITY();
+ 310:Lib/lvgl/src/misc/lv_timer.c ****         exec = true;
+ 311:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 312:Lib/lvgl/src/misc/lv_timer.c **** 
+ 313:Lib/lvgl/src/misc/lv_timer.c ****     if(state.timer_deleted == false) { /*The timer might be deleted by itself as well*/
+ 314:Lib/lvgl/src/misc/lv_timer.c ****         if(timer->repeat_count == 0) { /*The repeat count is over, delete the timer*/
+ 315:Lib/lvgl/src/misc/lv_timer.c ****             if(timer->auto_delete) {
+ 316:Lib/lvgl/src/misc/lv_timer.c ****                 LV_TRACE_TIMER("deleting timer with %p callback because the repeat count is over", 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 7
+
+
+ 317:Lib/lvgl/src/misc/lv_timer.c ****                 lv_timer_delete(timer);
+ 318:Lib/lvgl/src/misc/lv_timer.c ****             }
+ 319:Lib/lvgl/src/misc/lv_timer.c ****             else {
+ 320:Lib/lvgl/src/misc/lv_timer.c ****                 LV_TRACE_TIMER("pausing timer with %p callback because the repeat count is over", *
+ 321:Lib/lvgl/src/misc/lv_timer.c ****                 lv_timer_pause(timer);
+ 322:Lib/lvgl/src/misc/lv_timer.c ****             }
+ 323:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 324:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 325:Lib/lvgl/src/misc/lv_timer.c **** 
+ 326:Lib/lvgl/src/misc/lv_timer.c ****     return exec;
+ 327:Lib/lvgl/src/misc/lv_timer.c **** }
+ 328:Lib/lvgl/src/misc/lv_timer.c **** 
+ 329:Lib/lvgl/src/misc/lv_timer.c **** /**
+ 330:Lib/lvgl/src/misc/lv_timer.c ****  * Find out how much time remains before a timer must be run.
+ 331:Lib/lvgl/src/misc/lv_timer.c ****  * @param timer pointer to lv_timer
+ 332:Lib/lvgl/src/misc/lv_timer.c ****  * @return the time remaining, or 0 if it needs to be run again
+ 333:Lib/lvgl/src/misc/lv_timer.c ****  */
+ 334:Lib/lvgl/src/misc/lv_timer.c **** static uint32_t lv_timer_time_remaining(lv_timer_t * timer)
+ 335:Lib/lvgl/src/misc/lv_timer.c **** {
+ 336:Lib/lvgl/src/misc/lv_timer.c ****     /*Check if at least 'period' time elapsed*/
+ 337:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t elp = lv_tick_elaps(timer->last_run);
+ 338:Lib/lvgl/src/misc/lv_timer.c ****     if(elp >= timer->period)
+ 339:Lib/lvgl/src/misc/lv_timer.c ****         return 0;
+ 340:Lib/lvgl/src/misc/lv_timer.c ****     return timer->period - elp;
+ 341:Lib/lvgl/src/misc/lv_timer.c **** }
+ 342:Lib/lvgl/src/misc/lv_timer.c **** 
+ 343:Lib/lvgl/src/misc/lv_timer.c **** /**
+ 344:Lib/lvgl/src/misc/lv_timer.c ****  * Call the ready lv_timer
+ 345:Lib/lvgl/src/misc/lv_timer.c ****  */
+ 346:Lib/lvgl/src/misc/lv_timer.c **** static void lv_timer_handler_resume(void)
+ 347:Lib/lvgl/src/misc/lv_timer.c **** {
+  28              		.loc 1 347 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+ 348:Lib/lvgl/src/misc/lv_timer.c ****     /*If there is a timer which is ready to run then resume the timer loop*/
+ 349:Lib/lvgl/src/misc/lv_timer.c ****     state.timer_time_until_next = 0;
+  37              		.loc 1 349 5 view .LVU1
+  38              		.loc 1 349 33 is_stmt 0 view .LVU2
+  39 0002 064B     		ldr	r3, .L4
+  40 0004 0022     		movs	r2, #0
+  41 0006 C3F89020 		str	r2, [r3, #144]
+ 350:Lib/lvgl/src/misc/lv_timer.c ****     if(state.resume_cb) {
+  42              		.loc 1 350 5 is_stmt 1 view .LVU3
+  43              		.loc 1 350 13 is_stmt 0 view .LVU4
+  44 000a D3F8A830 		ldr	r3, [r3, #168]
+  45              		.loc 1 350 7 view .LVU5
+  46 000e 1BB1     		cbz	r3, .L1
+ 351:Lib/lvgl/src/misc/lv_timer.c ****         state.resume_cb(state.resume_data);
+  47              		.loc 1 351 9 is_stmt 1 view .LVU6
+  48 0010 024A     		ldr	r2, .L4
+  49 0012 D2F8AC00 		ldr	r0, [r2, #172]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 8
+
+
+  50 0016 9847     		blx	r3
+  51              	.LVL0:
+  52              	.L1:
+ 352:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 353:Lib/lvgl/src/misc/lv_timer.c **** }
+  53              		.loc 1 353 1 is_stmt 0 view .LVU7
+  54 0018 08BD     		pop	{r3, pc}
+  55              	.L5:
+  56 001a 00BF     		.align	2
+  57              	.L4:
+  58 001c 00000000 		.word	lv_global
+  59              		.cfi_endproc
+  60              	.LFE256:
+  62              		.section	.text.lv_timer_time_remaining,"ax",%progbits
+  63              		.align	1
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+  68              	lv_timer_time_remaining:
+  69              	.LVL1:
+  70              	.LFB255:
+ 335:Lib/lvgl/src/misc/lv_timer.c ****     /*Check if at least 'period' time elapsed*/
+  71              		.loc 1 335 1 is_stmt 1 view -0
+  72              		.cfi_startproc
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+ 335:Lib/lvgl/src/misc/lv_timer.c ****     /*Check if at least 'period' time elapsed*/
+  75              		.loc 1 335 1 is_stmt 0 view .LVU9
+  76 0000 10B5     		push	{r4, lr}
+  77              	.LCFI1:
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 4, -8
+  80              		.cfi_offset 14, -4
+  81 0002 0446     		mov	r4, r0
+ 337:Lib/lvgl/src/misc/lv_timer.c ****     if(elp >= timer->period)
+  82              		.loc 1 337 5 is_stmt 1 view .LVU10
+ 337:Lib/lvgl/src/misc/lv_timer.c ****     if(elp >= timer->period)
+  83              		.loc 1 337 20 is_stmt 0 view .LVU11
+  84 0004 4068     		ldr	r0, [r0, #4]
+  85              	.LVL2:
+ 337:Lib/lvgl/src/misc/lv_timer.c ****     if(elp >= timer->period)
+  86              		.loc 1 337 20 view .LVU12
+  87 0006 FFF7FEFF 		bl	lv_tick_elaps
+  88              	.LVL3:
+ 338:Lib/lvgl/src/misc/lv_timer.c ****         return 0;
+  89              		.loc 1 338 5 is_stmt 1 view .LVU13
+ 338:Lib/lvgl/src/misc/lv_timer.c ****         return 0;
+  90              		.loc 1 338 20 is_stmt 0 view .LVU14
+  91 000a 2368     		ldr	r3, [r4]
+ 338:Lib/lvgl/src/misc/lv_timer.c ****         return 0;
+  92              		.loc 1 338 7 view .LVU15
+  93 000c 8342     		cmp	r3, r0
+  94 000e 01D9     		bls	.L8
+ 340:Lib/lvgl/src/misc/lv_timer.c **** }
+  95              		.loc 1 340 5 is_stmt 1 view .LVU16
+ 340:Lib/lvgl/src/misc/lv_timer.c **** }
+  96              		.loc 1 340 26 is_stmt 0 view .LVU17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 9
+
+
+  97 0010 181A     		subs	r0, r3, r0
+  98              	.LVL4:
+  99              	.L6:
+ 341:Lib/lvgl/src/misc/lv_timer.c **** 
+ 100              		.loc 1 341 1 view .LVU18
+ 101 0012 10BD     		pop	{r4, pc}
+ 102              	.LVL5:
+ 103              	.L8:
+ 339:Lib/lvgl/src/misc/lv_timer.c ****     return timer->period - elp;
+ 104              		.loc 1 339 16 view .LVU19
+ 105 0014 0020     		movs	r0, #0
+ 106              	.LVL6:
+ 339:Lib/lvgl/src/misc/lv_timer.c ****     return timer->period - elp;
+ 107              		.loc 1 339 16 view .LVU20
+ 108 0016 FCE7     		b	.L6
+ 109              		.cfi_endproc
+ 110              	.LFE255:
+ 112              		.section	.text.lv_timer_create,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	lv_timer_create
+ 115              		.syntax unified
+ 116              		.thumb
+ 117              		.thumb_func
+ 119              	lv_timer_create:
+ 120              	.LVL7:
+ 121              	.LFB238:
+ 162:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_t * new_timer = NULL;
+ 122              		.loc 1 162 1 is_stmt 1 view -0
+ 123              		.cfi_startproc
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_t * new_timer = NULL;
+ 126              		.loc 1 162 1 is_stmt 0 view .LVU22
+ 127 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 128              	.LCFI2:
+ 129              		.cfi_def_cfa_offset 24
+ 130              		.cfi_offset 3, -24
+ 131              		.cfi_offset 4, -20
+ 132              		.cfi_offset 5, -16
+ 133              		.cfi_offset 6, -12
+ 134              		.cfi_offset 7, -8
+ 135              		.cfi_offset 14, -4
+ 136 0002 0646     		mov	r6, r0
+ 137 0004 0F46     		mov	r7, r1
+ 138 0006 1546     		mov	r5, r2
+ 163:Lib/lvgl/src/misc/lv_timer.c **** 
+ 139              		.loc 1 163 5 is_stmt 1 view .LVU23
+ 140              	.LVL8:
+ 165:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_MALLOC(new_timer);
+ 141              		.loc 1 165 5 view .LVU24
+ 165:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_MALLOC(new_timer);
+ 142              		.loc 1 165 17 is_stmt 0 view .LVU25
+ 143 0008 0F48     		ldr	r0, .L14
+ 144              	.LVL9:
+ 165:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_MALLOC(new_timer);
+ 145              		.loc 1 165 17 view .LVU26
+ 146 000a FFF7FEFF 		bl	_lv_ll_ins_head
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 10
+
+
+ 147              	.LVL10:
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 148              		.loc 1 166 5 is_stmt 1 view .LVU27
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 149              		.loc 1 166 5 view .LVU28
+ 150 000e C8B1     		cbz	r0, .L12
+ 151 0010 0446     		mov	r4, r0
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 152              		.loc 1 166 5 view .LVU29
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 153              		.loc 1 166 32 view .LVU30
+ 167:Lib/lvgl/src/misc/lv_timer.c **** 
+ 154              		.loc 1 167 5 view .LVU31
+ 169:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->timer_cb = timer_xcb;
+ 155              		.loc 1 169 5 view .LVU32
+ 169:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->timer_cb = timer_xcb;
+ 156              		.loc 1 169 23 is_stmt 0 view .LVU33
+ 157 0012 0760     		str	r7, [r0]
+ 170:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->repeat_count = -1;
+ 158              		.loc 1 170 5 is_stmt 1 view .LVU34
+ 170:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->repeat_count = -1;
+ 159              		.loc 1 170 25 is_stmt 0 view .LVU35
+ 160 0014 8660     		str	r6, [r0, #8]
+ 171:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->paused = 0;
+ 161              		.loc 1 171 5 is_stmt 1 view .LVU36
+ 171:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->paused = 0;
+ 162              		.loc 1 171 29 is_stmt 0 view .LVU37
+ 163 0016 4FF0FF33 		mov	r3, #-1
+ 164 001a 0361     		str	r3, [r0, #16]
+ 172:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->last_run = lv_tick_get();
+ 165              		.loc 1 172 5 is_stmt 1 view .LVU38
+ 172:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->last_run = lv_tick_get();
+ 166              		.loc 1 172 23 is_stmt 0 view .LVU39
+ 167 001c 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 168 001e 6FF30003 		bfc	r3, #0, #1
+ 169 0022 0375     		strb	r3, [r0, #20]
+ 173:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->user_data = user_data;
+ 170              		.loc 1 173 5 is_stmt 1 view .LVU40
+ 173:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->user_data = user_data;
+ 171              		.loc 1 173 27 is_stmt 0 view .LVU41
+ 172 0024 FFF7FEFF 		bl	lv_tick_get
+ 173              	.LVL11:
+ 173:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->user_data = user_data;
+ 174              		.loc 1 173 25 view .LVU42
+ 175 0028 6060     		str	r0, [r4, #4]
+ 174:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->auto_delete = true;
+ 176              		.loc 1 174 5 is_stmt 1 view .LVU43
+ 174:Lib/lvgl/src/misc/lv_timer.c ****     new_timer->auto_delete = true;
+ 177              		.loc 1 174 26 is_stmt 0 view .LVU44
+ 178 002a E560     		str	r5, [r4, #12]
+ 175:Lib/lvgl/src/misc/lv_timer.c **** 
+ 179              		.loc 1 175 5 is_stmt 1 view .LVU45
+ 175:Lib/lvgl/src/misc/lv_timer.c **** 
+ 180              		.loc 1 175 28 is_stmt 0 view .LVU46
+ 181 002c 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 182 002e 43F00203 		orr	r3, r3, #2
+ 183 0032 2375     		strb	r3, [r4, #20]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 11
+
+
+ 177:Lib/lvgl/src/misc/lv_timer.c **** 
+ 184              		.loc 1 177 5 is_stmt 1 view .LVU47
+ 177:Lib/lvgl/src/misc/lv_timer.c **** 
+ 185              		.loc 1 177 25 is_stmt 0 view .LVU48
+ 186 0034 054B     		ldr	r3, .L14+4
+ 187 0036 0122     		movs	r2, #1
+ 188 0038 83F88F20 		strb	r2, [r3, #143]
+ 179:Lib/lvgl/src/misc/lv_timer.c **** 
+ 189              		.loc 1 179 5 is_stmt 1 view .LVU49
+ 190 003c FFF7FEFF 		bl	lv_timer_handler_resume
+ 191              	.LVL12:
+ 181:Lib/lvgl/src/misc/lv_timer.c **** }
+ 192              		.loc 1 181 5 view .LVU50
+ 182:Lib/lvgl/src/misc/lv_timer.c **** 
+ 193              		.loc 1 182 1 is_stmt 0 view .LVU51
+ 194 0040 2046     		mov	r0, r4
+ 195 0042 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 196              	.LVL13:
+ 197              	.L12:
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 198              		.loc 1 166 5 is_stmt 1 discriminator 1 view .LVU52
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 199              		.loc 1 166 5 discriminator 1 view .LVU53
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 200              		.loc 1 166 5 discriminator 1 view .LVU54
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 201              		.loc 1 166 5 discriminator 1 view .LVU55
+ 166:Lib/lvgl/src/misc/lv_timer.c ****     if(new_timer == NULL) return NULL;
+ 202              		.loc 1 166 5 discriminator 1 view .LVU56
+ 203 0044 FEE7     		b	.L12
+ 204              	.L15:
+ 205 0046 00BF     		.align	2
+ 206              	.L14:
+ 207 0048 80000000 		.word	lv_global+128
+ 208 004c 00000000 		.word	lv_global
+ 209              		.cfi_endproc
+ 210              	.LFE238:
+ 212              		.section	.text.lv_timer_create_basic,"ax",%progbits
+ 213              		.align	1
+ 214              		.global	lv_timer_create_basic
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 219              	lv_timer_create_basic:
+ 220              	.LFB237:
+ 157:Lib/lvgl/src/misc/lv_timer.c ****     return lv_timer_create(NULL, DEF_PERIOD, NULL);
+ 221              		.loc 1 157 1 view -0
+ 222              		.cfi_startproc
+ 223              		@ args = 0, pretend = 0, frame = 0
+ 224              		@ frame_needed = 0, uses_anonymous_args = 0
+ 225 0000 08B5     		push	{r3, lr}
+ 226              	.LCFI3:
+ 227              		.cfi_def_cfa_offset 8
+ 228              		.cfi_offset 3, -8
+ 229              		.cfi_offset 14, -4
+ 158:Lib/lvgl/src/misc/lv_timer.c **** }
+ 230              		.loc 1 158 5 view .LVU58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 12
+
+
+ 158:Lib/lvgl/src/misc/lv_timer.c **** }
+ 231              		.loc 1 158 12 is_stmt 0 view .LVU59
+ 232 0002 0022     		movs	r2, #0
+ 233 0004 4FF4FA71 		mov	r1, #500
+ 234 0008 1046     		mov	r0, r2
+ 235 000a FFF7FEFF 		bl	lv_timer_create
+ 236              	.LVL14:
+ 159:Lib/lvgl/src/misc/lv_timer.c **** 
+ 237              		.loc 1 159 1 view .LVU60
+ 238 000e 08BD     		pop	{r3, pc}
+ 239              		.cfi_endproc
+ 240              	.LFE237:
+ 242              		.section	.text.lv_timer_set_cb,"ax",%progbits
+ 243              		.align	1
+ 244              		.global	lv_timer_set_cb
+ 245              		.syntax unified
+ 246              		.thumb
+ 247              		.thumb_func
+ 249              	lv_timer_set_cb:
+ 250              	.LVL15:
+ 251              	.LFB239:
+ 185:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 252              		.loc 1 185 1 is_stmt 1 view -0
+ 253              		.cfi_startproc
+ 254              		@ args = 0, pretend = 0, frame = 0
+ 255              		@ frame_needed = 0, uses_anonymous_args = 0
+ 256              		@ link register save eliminated.
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 257              		.loc 1 186 5 view .LVU62
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 258              		.loc 1 186 5 view .LVU63
+ 259 0000 08B1     		cbz	r0, .L20
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 260              		.loc 1 186 5 discriminator 2 view .LVU64
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 261              		.loc 1 186 26 discriminator 2 view .LVU65
+ 187:Lib/lvgl/src/misc/lv_timer.c **** }
+ 262              		.loc 1 187 5 discriminator 2 view .LVU66
+ 187:Lib/lvgl/src/misc/lv_timer.c **** }
+ 263              		.loc 1 187 21 is_stmt 0 discriminator 2 view .LVU67
+ 264 0002 8160     		str	r1, [r0, #8]
+ 188:Lib/lvgl/src/misc/lv_timer.c **** 
+ 265              		.loc 1 188 1 discriminator 2 view .LVU68
+ 266 0004 7047     		bx	lr
+ 267              	.L20:
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 268              		.loc 1 186 5 is_stmt 1 discriminator 1 view .LVU69
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 269              		.loc 1 186 5 discriminator 1 view .LVU70
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 270              		.loc 1 186 5 discriminator 1 view .LVU71
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 271              		.loc 1 186 5 discriminator 1 view .LVU72
+ 186:Lib/lvgl/src/misc/lv_timer.c ****     timer->timer_cb = timer_cb;
+ 272              		.loc 1 186 5 discriminator 1 view .LVU73
+ 273 0006 FEE7     		b	.L20
+ 274              		.cfi_endproc
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 13
+
+
+ 275              	.LFE239:
+ 277              		.section	.text.lv_timer_delete,"ax",%progbits
+ 278              		.align	1
+ 279              		.global	lv_timer_delete
+ 280              		.syntax unified
+ 281              		.thumb
+ 282              		.thumb_func
+ 284              	lv_timer_delete:
+ 285              	.LVL16:
+ 286              	.LFB240:
+ 191:Lib/lvgl/src/misc/lv_timer.c ****     _lv_ll_remove(timer_ll_p, timer);
+ 287              		.loc 1 191 1 view -0
+ 288              		.cfi_startproc
+ 289              		@ args = 0, pretend = 0, frame = 0
+ 290              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191:Lib/lvgl/src/misc/lv_timer.c ****     _lv_ll_remove(timer_ll_p, timer);
+ 291              		.loc 1 191 1 is_stmt 0 view .LVU75
+ 292 0000 38B5     		push	{r3, r4, r5, lr}
+ 293              	.LCFI4:
+ 294              		.cfi_def_cfa_offset 16
+ 295              		.cfi_offset 3, -16
+ 296              		.cfi_offset 4, -12
+ 297              		.cfi_offset 5, -8
+ 298              		.cfi_offset 14, -4
+ 299 0002 0446     		mov	r4, r0
+ 192:Lib/lvgl/src/misc/lv_timer.c ****     state.timer_deleted = true;
+ 300              		.loc 1 192 5 is_stmt 1 view .LVU76
+ 301 0004 054D     		ldr	r5, .L23
+ 302 0006 0146     		mov	r1, r0
+ 303 0008 2846     		mov	r0, r5
+ 304              	.LVL17:
+ 192:Lib/lvgl/src/misc/lv_timer.c ****     state.timer_deleted = true;
+ 305              		.loc 1 192 5 is_stmt 0 view .LVU77
+ 306 000a FFF7FEFF 		bl	_lv_ll_remove
+ 307              	.LVL18:
+ 193:Lib/lvgl/src/misc/lv_timer.c **** 
+ 308              		.loc 1 193 5 is_stmt 1 view .LVU78
+ 193:Lib/lvgl/src/misc/lv_timer.c **** 
+ 309              		.loc 1 193 25 is_stmt 0 view .LVU79
+ 310 000e 0123     		movs	r3, #1
+ 311 0010 AB73     		strb	r3, [r5, #14]
+ 195:Lib/lvgl/src/misc/lv_timer.c **** }
+ 312              		.loc 1 195 5 is_stmt 1 view .LVU80
+ 313 0012 2046     		mov	r0, r4
+ 314 0014 FFF7FEFF 		bl	lv_free
+ 315              	.LVL19:
+ 196:Lib/lvgl/src/misc/lv_timer.c **** 
+ 316              		.loc 1 196 1 is_stmt 0 view .LVU81
+ 317 0018 38BD     		pop	{r3, r4, r5, pc}
+ 318              	.LVL20:
+ 319              	.L24:
+ 196:Lib/lvgl/src/misc/lv_timer.c **** 
+ 320              		.loc 1 196 1 view .LVU82
+ 321 001a 00BF     		.align	2
+ 322              	.L23:
+ 323 001c 80000000 		.word	lv_global+128
+ 324              		.cfi_endproc
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 14
+
+
+ 325              	.LFE240:
+ 327              		.section	.text.lv_timer_pause,"ax",%progbits
+ 328              		.align	1
+ 329              		.global	lv_timer_pause
+ 330              		.syntax unified
+ 331              		.thumb
+ 332              		.thumb_func
+ 334              	lv_timer_pause:
+ 335              	.LVL21:
+ 336              	.LFB241:
+ 199:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 337              		.loc 1 199 1 is_stmt 1 view -0
+ 338              		.cfi_startproc
+ 339              		@ args = 0, pretend = 0, frame = 0
+ 340              		@ frame_needed = 0, uses_anonymous_args = 0
+ 341              		@ link register save eliminated.
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 342              		.loc 1 200 5 view .LVU84
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 343              		.loc 1 200 5 view .LVU85
+ 344 0000 20B1     		cbz	r0, .L27
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 345              		.loc 1 200 5 discriminator 2 view .LVU86
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 346              		.loc 1 200 26 discriminator 2 view .LVU87
+ 201:Lib/lvgl/src/misc/lv_timer.c **** }
+ 347              		.loc 1 201 5 discriminator 2 view .LVU88
+ 201:Lib/lvgl/src/misc/lv_timer.c **** }
+ 348              		.loc 1 201 19 is_stmt 0 discriminator 2 view .LVU89
+ 349 0002 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 350 0004 43F00103 		orr	r3, r3, #1
+ 351 0008 0375     		strb	r3, [r0, #20]
+ 202:Lib/lvgl/src/misc/lv_timer.c **** 
+ 352              		.loc 1 202 1 discriminator 2 view .LVU90
+ 353 000a 7047     		bx	lr
+ 354              	.L27:
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 355              		.loc 1 200 5 is_stmt 1 discriminator 1 view .LVU91
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 356              		.loc 1 200 5 discriminator 1 view .LVU92
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 357              		.loc 1 200 5 discriminator 1 view .LVU93
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 358              		.loc 1 200 5 discriminator 1 view .LVU94
+ 200:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = true;
+ 359              		.loc 1 200 5 discriminator 1 view .LVU95
+ 360 000c FEE7     		b	.L27
+ 361              		.cfi_endproc
+ 362              	.LFE241:
+ 364              		.section	.text.lv_timer_exec,"ax",%progbits
+ 365              		.align	1
+ 366              		.syntax unified
+ 367              		.thumb
+ 368              		.thumb_func
+ 370              	lv_timer_exec:
+ 371              	.LVL22:
+ 372              	.LFB254:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 15
+
+
+ 287:Lib/lvgl/src/misc/lv_timer.c ****     if(timer->paused) return false;
+ 373              		.loc 1 287 1 view -0
+ 374              		.cfi_startproc
+ 375              		@ args = 0, pretend = 0, frame = 0
+ 376              		@ frame_needed = 0, uses_anonymous_args = 0
+ 287:Lib/lvgl/src/misc/lv_timer.c ****     if(timer->paused) return false;
+ 377              		.loc 1 287 1 is_stmt 0 view .LVU97
+ 378 0000 38B5     		push	{r3, r4, r5, lr}
+ 379              	.LCFI5:
+ 380              		.cfi_def_cfa_offset 16
+ 381              		.cfi_offset 3, -16
+ 382              		.cfi_offset 4, -12
+ 383              		.cfi_offset 5, -8
+ 384              		.cfi_offset 14, -4
+ 288:Lib/lvgl/src/misc/lv_timer.c **** 
+ 385              		.loc 1 288 5 is_stmt 1 view .LVU98
+ 288:Lib/lvgl/src/misc/lv_timer.c **** 
+ 386              		.loc 1 288 8 is_stmt 0 view .LVU99
+ 387 0002 037D     		ldrb	r3, [r0, #20]	@ zero_extendqisi2
+ 288:Lib/lvgl/src/misc/lv_timer.c **** 
+ 388              		.loc 1 288 7 view .LVU100
+ 389 0004 13F0010F 		tst	r3, #1
+ 390 0008 02D0     		beq	.L37
+ 288:Lib/lvgl/src/misc/lv_timer.c **** 
+ 391              		.loc 1 288 30 view .LVU101
+ 392 000a 0025     		movs	r5, #0
+ 393              	.LVL23:
+ 394              	.L29:
+ 327:Lib/lvgl/src/misc/lv_timer.c **** 
+ 395              		.loc 1 327 1 view .LVU102
+ 396 000c 2846     		mov	r0, r5
+ 397 000e 38BD     		pop	{r3, r4, r5, pc}
+ 398              	.LVL24:
+ 399              	.L37:
+ 327:Lib/lvgl/src/misc/lv_timer.c **** 
+ 400              		.loc 1 327 1 view .LVU103
+ 401 0010 0446     		mov	r4, r0
+ 290:Lib/lvgl/src/misc/lv_timer.c ****     if(lv_timer_time_remaining(timer) == 0) {
+ 402              		.loc 1 290 5 is_stmt 1 view .LVU104
+ 403              	.LVL25:
+ 291:Lib/lvgl/src/misc/lv_timer.c ****         /* Decrement the repeat count before executing the timer_cb.
+ 404              		.loc 1 291 5 view .LVU105
+ 291:Lib/lvgl/src/misc/lv_timer.c ****         /* Decrement the repeat count before executing the timer_cb.
+ 405              		.loc 1 291 8 is_stmt 0 view .LVU106
+ 406 0012 FFF7FEFF 		bl	lv_timer_time_remaining
+ 407              	.LVL26:
+ 291:Lib/lvgl/src/misc/lv_timer.c ****         /* Decrement the repeat count before executing the timer_cb.
+ 408              		.loc 1 291 7 view .LVU107
+ 409 0016 E8B9     		cbnz	r0, .L35
+ 410              	.LBB4:
+ 295:Lib/lvgl/src/misc/lv_timer.c ****         if(timer->repeat_count > 0) timer->repeat_count--;
+ 411              		.loc 1 295 9 is_stmt 1 view .LVU108
+ 295:Lib/lvgl/src/misc/lv_timer.c ****         if(timer->repeat_count > 0) timer->repeat_count--;
+ 412              		.loc 1 295 17 is_stmt 0 view .LVU109
+ 413 0018 2569     		ldr	r5, [r4, #16]
+ 414              	.LVL27:
+ 296:Lib/lvgl/src/misc/lv_timer.c ****         timer->last_run = lv_tick_get();
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 16
+
+
+ 415              		.loc 1 296 9 is_stmt 1 view .LVU110
+ 296:Lib/lvgl/src/misc/lv_timer.c ****         timer->last_run = lv_tick_get();
+ 416              		.loc 1 296 11 is_stmt 0 view .LVU111
+ 417 001a 002D     		cmp	r5, #0
+ 418 001c 01DD     		ble	.L31
+ 296:Lib/lvgl/src/misc/lv_timer.c ****         timer->last_run = lv_tick_get();
+ 419              		.loc 1 296 37 is_stmt 1 discriminator 1 view .LVU112
+ 296:Lib/lvgl/src/misc/lv_timer.c ****         timer->last_run = lv_tick_get();
+ 420              		.loc 1 296 56 is_stmt 0 discriminator 1 view .LVU113
+ 421 001e 6B1E     		subs	r3, r5, #1
+ 422 0020 2361     		str	r3, [r4, #16]
+ 423              	.L31:
+ 297:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling timer callback: %p", *((void **)&timer->timer_cb));
+ 424              		.loc 1 297 9 is_stmt 1 view .LVU114
+ 297:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling timer callback: %p", *((void **)&timer->timer_cb));
+ 425              		.loc 1 297 27 is_stmt 0 view .LVU115
+ 426 0022 FFF7FEFF 		bl	lv_tick_get
+ 427              	.LVL28:
+ 297:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling timer callback: %p", *((void **)&timer->timer_cb));
+ 428              		.loc 1 297 25 view .LVU116
+ 429 0026 6060     		str	r0, [r4, #4]
+ 298:Lib/lvgl/src/misc/lv_timer.c **** 
+ 430              		.loc 1 298 83 is_stmt 1 view .LVU117
+ 300:Lib/lvgl/src/misc/lv_timer.c **** 
+ 431              		.loc 1 300 9 view .LVU118
+ 300:Lib/lvgl/src/misc/lv_timer.c **** 
+ 432              		.loc 1 300 17 is_stmt 0 view .LVU119
+ 433 0028 A368     		ldr	r3, [r4, #8]
+ 300:Lib/lvgl/src/misc/lv_timer.c **** 
+ 434              		.loc 1 300 11 view .LVU120
+ 435 002a 13B1     		cbz	r3, .L32
+ 300:Lib/lvgl/src/misc/lv_timer.c **** 
+ 436              		.loc 1 300 28 discriminator 1 view .LVU121
+ 437 002c 0DB1     		cbz	r5, .L32
+ 300:Lib/lvgl/src/misc/lv_timer.c **** 
+ 438              		.loc 1 300 59 is_stmt 1 discriminator 2 view .LVU122
+ 439 002e 2046     		mov	r0, r4
+ 440 0030 9847     		blx	r3
+ 441              	.LVL29:
+ 442              	.L32:
+ 302:Lib/lvgl/src/misc/lv_timer.c ****             LV_TRACE_TIMER("timer callback %p finished", *((void **)&timer->timer_cb));
+ 443              		.loc 1 302 9 view .LVU123
+ 306:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 444              		.loc 1 306 54 view .LVU124
+ 309:Lib/lvgl/src/misc/lv_timer.c ****         exec = true;
+ 445              		.loc 1 309 34 view .LVU125
+ 310:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 446              		.loc 1 310 9 view .LVU126
+ 310:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 447              		.loc 1 310 14 is_stmt 0 view .LVU127
+ 448 0032 0125     		movs	r5, #1
+ 449              	.LVL30:
+ 450              	.L30:
+ 310:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 451              		.loc 1 310 14 view .LVU128
+ 452              	.LBE4:
+ 313:Lib/lvgl/src/misc/lv_timer.c ****         if(timer->repeat_count == 0) { /*The repeat count is over, delete the timer*/
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 17
+
+
+ 453              		.loc 1 313 5 is_stmt 1 view .LVU129
+ 313:Lib/lvgl/src/misc/lv_timer.c ****         if(timer->repeat_count == 0) { /*The repeat count is over, delete the timer*/
+ 454              		.loc 1 313 13 is_stmt 0 view .LVU130
+ 455 0034 0A4B     		ldr	r3, .L38
+ 456 0036 93F88E30 		ldrb	r3, [r3, #142]	@ zero_extendqisi2
+ 313:Lib/lvgl/src/misc/lv_timer.c ****         if(timer->repeat_count == 0) { /*The repeat count is over, delete the timer*/
+ 457              		.loc 1 313 7 view .LVU131
+ 458 003a 002B     		cmp	r3, #0
+ 459 003c E6D1     		bne	.L29
+ 314:Lib/lvgl/src/misc/lv_timer.c ****             if(timer->auto_delete) {
+ 460              		.loc 1 314 9 is_stmt 1 view .LVU132
+ 314:Lib/lvgl/src/misc/lv_timer.c ****             if(timer->auto_delete) {
+ 461              		.loc 1 314 17 is_stmt 0 view .LVU133
+ 462 003e 2369     		ldr	r3, [r4, #16]
+ 314:Lib/lvgl/src/misc/lv_timer.c ****             if(timer->auto_delete) {
+ 463              		.loc 1 314 11 view .LVU134
+ 464 0040 002B     		cmp	r3, #0
+ 465 0042 E3D1     		bne	.L29
+ 315:Lib/lvgl/src/misc/lv_timer.c ****                 LV_TRACE_TIMER("deleting timer with %p callback because the repeat count is over", 
+ 466              		.loc 1 315 13 is_stmt 1 view .LVU135
+ 315:Lib/lvgl/src/misc/lv_timer.c ****                 LV_TRACE_TIMER("deleting timer with %p callback because the repeat count is over", 
+ 467              		.loc 1 315 16 is_stmt 0 view .LVU136
+ 468 0044 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 315:Lib/lvgl/src/misc/lv_timer.c ****                 LV_TRACE_TIMER("deleting timer with %p callback because the repeat count is over", 
+ 469              		.loc 1 315 15 view .LVU137
+ 470 0046 13F0020F 		tst	r3, #2
+ 471 004a 05D0     		beq	.L33
+ 316:Lib/lvgl/src/misc/lv_timer.c ****                 lv_timer_delete(timer);
+ 472              		.loc 1 316 129 is_stmt 1 view .LVU138
+ 317:Lib/lvgl/src/misc/lv_timer.c ****             }
+ 473              		.loc 1 317 17 view .LVU139
+ 474 004c 2046     		mov	r0, r4
+ 475 004e FFF7FEFF 		bl	lv_timer_delete
+ 476              	.LVL31:
+ 477 0052 DBE7     		b	.L29
+ 478              	.LVL32:
+ 479              	.L35:
+ 290:Lib/lvgl/src/misc/lv_timer.c ****     if(lv_timer_time_remaining(timer) == 0) {
+ 480              		.loc 1 290 10 is_stmt 0 view .LVU140
+ 481 0054 0025     		movs	r5, #0
+ 482 0056 EDE7     		b	.L30
+ 483              	.LVL33:
+ 484              	.L33:
+ 320:Lib/lvgl/src/misc/lv_timer.c ****                 lv_timer_pause(timer);
+ 485              		.loc 1 320 128 is_stmt 1 view .LVU141
+ 321:Lib/lvgl/src/misc/lv_timer.c ****             }
+ 486              		.loc 1 321 17 view .LVU142
+ 487 0058 2046     		mov	r0, r4
+ 488 005a FFF7FEFF 		bl	lv_timer_pause
+ 489              	.LVL34:
+ 490 005e D5E7     		b	.L29
+ 491              	.L39:
+ 492              		.align	2
+ 493              	.L38:
+ 494 0060 00000000 		.word	lv_global
+ 495              		.cfi_endproc
+ 496              	.LFE254:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 18
+
+
+ 498              		.section	.text.lv_timer_handler,"ax",%progbits
+ 499              		.align	1
+ 500              		.global	lv_timer_handler
+ 501              		.syntax unified
+ 502              		.thumb
+ 503              		.thumb_func
+ 505              	lv_timer_handler:
+ 506              	.LFB235:
+  64:Lib/lvgl/src/misc/lv_timer.c ****     LV_TRACE_TIMER("begin");
+ 507              		.loc 1 64 1 view -0
+ 508              		.cfi_startproc
+ 509              		@ args = 0, pretend = 0, frame = 0
+ 510              		@ frame_needed = 0, uses_anonymous_args = 0
+ 511 0000 70B5     		push	{r4, r5, r6, lr}
+ 512              	.LCFI6:
+ 513              		.cfi_def_cfa_offset 16
+ 514              		.cfi_offset 4, -16
+ 515              		.cfi_offset 5, -12
+ 516              		.cfi_offset 6, -8
+ 517              		.cfi_offset 14, -4
+  65:Lib/lvgl/src/misc/lv_timer.c **** 
+ 518              		.loc 1 65 28 view .LVU144
+  67:Lib/lvgl/src/misc/lv_timer.c ****     /*Avoid concurrent running of the timer handler*/
+ 519              		.loc 1 67 5 view .LVU145
+ 520              	.LVL35:
+  69:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("already running, concurrent calls are not allow, returning");
+ 521              		.loc 1 69 5 view .LVU146
+  69:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("already running, concurrent calls are not allow, returning");
+ 522              		.loc 1 69 15 is_stmt 0 view .LVU147
+ 523 0002 474B     		ldr	r3, .L60
+ 524 0004 93F89430 		ldrb	r3, [r3, #148]	@ zero_extendqisi2
+  69:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("already running, concurrent calls are not allow, returning");
+ 525              		.loc 1 69 7 view .LVU148
+ 526 0008 002B     		cmp	r3, #0
+ 527 000a 40F08680 		bne	.L53
+  73:Lib/lvgl/src/misc/lv_timer.c **** 
+ 528              		.loc 1 73 5 is_stmt 1 view .LVU149
+  73:Lib/lvgl/src/misc/lv_timer.c **** 
+ 529              		.loc 1 73 30 is_stmt 0 view .LVU150
+ 530 000e 444B     		ldr	r3, .L60
+ 531 0010 0122     		movs	r2, #1
+ 532 0012 83F89420 		strb	r2, [r3, #148]
+  75:Lib/lvgl/src/misc/lv_timer.c ****         state_p->already_running = false; /*Release mutex*/
+ 533              		.loc 1 75 5 is_stmt 1 view .LVU151
+  75:Lib/lvgl/src/misc/lv_timer.c ****         state_p->already_running = false; /*Release mutex*/
+ 534              		.loc 1 75 15 is_stmt 0 view .LVU152
+ 535 0016 93F88C30 		ldrb	r3, [r3, #140]	@ zero_extendqisi2
+  75:Lib/lvgl/src/misc/lv_timer.c ****         state_p->already_running = false; /*Release mutex*/
+ 536              		.loc 1 75 7 view .LVU153
+ 537 001a 2BB9     		cbnz	r3, .L42
+  76:Lib/lvgl/src/misc/lv_timer.c ****         return 1;
+ 538              		.loc 1 76 9 is_stmt 1 view .LVU154
+  76:Lib/lvgl/src/misc/lv_timer.c ****         return 1;
+ 539              		.loc 1 76 34 is_stmt 0 view .LVU155
+ 540 001c 404B     		ldr	r3, .L60
+ 541 001e 0022     		movs	r2, #0
+ 542 0020 83F89420 		strb	r2, [r3, #148]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 19
+
+
+  77:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 543              		.loc 1 77 9 is_stmt 1 view .LVU156
+  77:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 544              		.loc 1 77 16 is_stmt 0 view .LVU157
+ 545 0024 0125     		movs	r5, #1
+ 546 0026 79E0     		b	.L40
+ 547              	.L42:
+  80:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t handler_start = lv_tick_get();
+ 548              		.loc 1 80 22 is_stmt 1 view .LVU158
+  81:Lib/lvgl/src/misc/lv_timer.c **** 
+ 549              		.loc 1 81 5 view .LVU159
+  81:Lib/lvgl/src/misc/lv_timer.c **** 
+ 550              		.loc 1 81 30 is_stmt 0 view .LVU160
+ 551 0028 FFF7FEFF 		bl	lv_tick_get
+ 552              	.LVL36:
+  83:Lib/lvgl/src/misc/lv_timer.c ****         state.run_cnt++;
+ 553              		.loc 1 83 5 is_stmt 1 view .LVU161
+  83:Lib/lvgl/src/misc/lv_timer.c ****         state.run_cnt++;
+ 554              		.loc 1 83 7 is_stmt 0 view .LVU162
+ 555 002c 0646     		mov	r6, r0
+ 556 002e F8B9     		cbnz	r0, .L47
+  84:Lib/lvgl/src/misc/lv_timer.c ****         if(state.run_cnt > 100) {
+ 557              		.loc 1 84 9 is_stmt 1 view .LVU163
+  84:Lib/lvgl/src/misc/lv_timer.c ****         if(state.run_cnt > 100) {
+ 558              		.loc 1 84 14 is_stmt 0 view .LVU164
+ 559 0030 3B4A     		ldr	r2, .L60
+ 560 0032 D2F8A430 		ldr	r3, [r2, #164]
+  84:Lib/lvgl/src/misc/lv_timer.c ****         if(state.run_cnt > 100) {
+ 561              		.loc 1 84 22 view .LVU165
+ 562 0036 0133     		adds	r3, r3, #1
+ 563 0038 C2F8A430 		str	r3, [r2, #164]
+  85:Lib/lvgl/src/misc/lv_timer.c ****             state.run_cnt = 0;
+ 564              		.loc 1 85 9 is_stmt 1 view .LVU166
+  85:Lib/lvgl/src/misc/lv_timer.c ****             state.run_cnt = 0;
+ 565              		.loc 1 85 11 is_stmt 0 view .LVU167
+ 566 003c 642B     		cmp	r3, #100
+ 567 003e 17D9     		bls	.L47
+  86:Lib/lvgl/src/misc/lv_timer.c ****             LV_LOG_WARN("It seems lv_tick_inc() is not called.");
+ 568              		.loc 1 86 13 is_stmt 1 view .LVU168
+  86:Lib/lvgl/src/misc/lv_timer.c ****             LV_LOG_WARN("It seems lv_tick_inc() is not called.");
+ 569              		.loc 1 86 27 is_stmt 0 view .LVU169
+ 570 0040 1346     		mov	r3, r2
+ 571 0042 0022     		movs	r2, #0
+ 572 0044 C3F8A420 		str	r2, [r3, #164]
+ 573 0048 12E0     		b	.L47
+ 574              	.LVL37:
+ 575              	.L54:
+  86:Lib/lvgl/src/misc/lv_timer.c ****             LV_LOG_WARN("It seems lv_tick_inc() is not called.");
+ 576              		.loc 1 86 27 view .LVU170
+ 577 004a 2C46     		mov	r4, r5
+ 578              	.LVL38:
+ 579              	.L44:
+ 100:Lib/lvgl/src/misc/lv_timer.c ****             /*The timer might be deleted if it runs only once ('repeat_count = 1')
+ 580              		.loc 1 100 15 is_stmt 1 view .LVU171
+ 581 004c 7CB1     		cbz	r4, .L45
+ 103:Lib/lvgl/src/misc/lv_timer.c **** 
+ 582              		.loc 1 103 13 view .LVU172
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 20
+
+
+ 103:Lib/lvgl/src/misc/lv_timer.c **** 
+ 583              		.loc 1 103 20 is_stmt 0 view .LVU173
+ 584 004e 2146     		mov	r1, r4
+ 585 0050 3448     		ldr	r0, .L60+4
+ 586              	.LVL39:
+ 103:Lib/lvgl/src/misc/lv_timer.c **** 
+ 587              		.loc 1 103 20 view .LVU174
+ 588 0052 FFF7FEFF 		bl	_lv_ll_get_next
+ 589              	.LVL40:
+ 103:Lib/lvgl/src/misc/lv_timer.c **** 
+ 590              		.loc 1 103 20 view .LVU175
+ 591 0056 0546     		mov	r5, r0
+ 592              	.LVL41:
+ 105:Lib/lvgl/src/misc/lv_timer.c ****                 /*If a timer was created or deleted then this or the next item might be corrupted*/
+ 593              		.loc 1 105 13 is_stmt 1 view .LVU176
+ 105:Lib/lvgl/src/misc/lv_timer.c ****                 /*If a timer was created or deleted then this or the next item might be corrupted*/
+ 594              		.loc 1 105 16 is_stmt 0 view .LVU177
+ 595 0058 2046     		mov	r0, r4
+ 596              	.LVL42:
+ 105:Lib/lvgl/src/misc/lv_timer.c ****                 /*If a timer was created or deleted then this or the next item might be corrupted*/
+ 597              		.loc 1 105 16 view .LVU178
+ 598 005a FFF7FEFF 		bl	lv_timer_exec
+ 599              	.LVL43:
+ 105:Lib/lvgl/src/misc/lv_timer.c ****                 /*If a timer was created or deleted then this or the next item might be corrupted*/
+ 600              		.loc 1 105 15 view .LVU179
+ 601 005e 0028     		cmp	r0, #0
+ 602 0060 F3D0     		beq	.L54
+ 107:Lib/lvgl/src/misc/lv_timer.c ****                     LV_TRACE_TIMER("Start from the first timer again because a timer was created or
+ 603              		.loc 1 107 17 is_stmt 1 view .LVU180
+ 107:Lib/lvgl/src/misc/lv_timer.c ****                     LV_TRACE_TIMER("Start from the first timer again because a timer was created or
+ 604              		.loc 1 107 43 is_stmt 0 view .LVU181
+ 605 0062 2F4B     		ldr	r3, .L60
+ 606 0064 B3F88E30 		ldrh	r3, [r3, #142]
+ 107:Lib/lvgl/src/misc/lv_timer.c ****                     LV_TRACE_TIMER("Start from the first timer again because a timer was created or
+ 607              		.loc 1 107 19 view .LVU182
+ 608 0068 0BB9     		cbnz	r3, .L45
+ 609 006a 2C46     		mov	r4, r5
+ 610              	.LVL44:
+ 107:Lib/lvgl/src/misc/lv_timer.c ****                     LV_TRACE_TIMER("Start from the first timer again because a timer was created or
+ 611              		.loc 1 107 19 view .LVU183
+ 612 006c EEE7     		b	.L44
+ 613              	.LVL45:
+ 614              	.L45:
+ 115:Lib/lvgl/src/misc/lv_timer.c **** 
+ 615              		.loc 1 115 13 is_stmt 1 view .LVU184
+ 616 006e 54B1     		cbz	r4, .L58
+ 617              	.LVL46:
+ 618              	.L47:
+  95:Lib/lvgl/src/misc/lv_timer.c ****         state_p->timer_deleted             = false;
+ 619              		.loc 1 95 5 view .LVU185
+  96:Lib/lvgl/src/misc/lv_timer.c ****         state_p->timer_created             = false;
+ 620              		.loc 1 96 9 view .LVU186
+  96:Lib/lvgl/src/misc/lv_timer.c ****         state_p->timer_created             = false;
+ 621              		.loc 1 96 44 is_stmt 0 view .LVU187
+ 622 0070 2B48     		ldr	r0, .L60
+ 623 0072 0023     		movs	r3, #0
+ 624 0074 80F88E30 		strb	r3, [r0, #142]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 21
+
+
+  97:Lib/lvgl/src/misc/lv_timer.c **** 
+ 625              		.loc 1 97 9 is_stmt 1 view .LVU188
+  97:Lib/lvgl/src/misc/lv_timer.c **** 
+ 626              		.loc 1 97 44 is_stmt 0 view .LVU189
+ 627 0078 80F88F30 		strb	r3, [r0, #143]
+  99:Lib/lvgl/src/misc/lv_timer.c ****         while(timer_active) {
+ 628              		.loc 1 99 9 is_stmt 1 view .LVU190
+  99:Lib/lvgl/src/misc/lv_timer.c ****         while(timer_active) {
+ 629              		.loc 1 99 24 is_stmt 0 view .LVU191
+ 630 007c 8030     		adds	r0, r0, #128
+ 631 007e FFF7FEFF 		bl	_lv_ll_get_head
+ 632              	.LVL47:
+ 633 0082 0446     		mov	r4, r0
+ 634              	.LVL48:
+ 100:Lib/lvgl/src/misc/lv_timer.c ****             /*The timer might be deleted if it runs only once ('repeat_count = 1')
+ 635              		.loc 1 100 9 is_stmt 1 view .LVU192
+ 100:Lib/lvgl/src/misc/lv_timer.c ****             /*The timer might be deleted if it runs only once ('repeat_count = 1')
+ 636              		.loc 1 100 14 is_stmt 0 view .LVU193
+ 637 0084 E2E7     		b	.L44
+ 638              	.LVL49:
+ 639              	.L58:
+ 117:Lib/lvgl/src/misc/lv_timer.c ****     next = _lv_ll_get_head(timer_head);
+ 640              		.loc 1 117 5 is_stmt 1 view .LVU194
+ 118:Lib/lvgl/src/misc/lv_timer.c ****     while(next) {
+ 641              		.loc 1 118 5 view .LVU195
+ 118:Lib/lvgl/src/misc/lv_timer.c ****     while(next) {
+ 642              		.loc 1 118 12 is_stmt 0 view .LVU196
+ 643 0086 2748     		ldr	r0, .L60+4
+ 644              	.LVL50:
+ 118:Lib/lvgl/src/misc/lv_timer.c ****     while(next) {
+ 645              		.loc 1 118 12 view .LVU197
+ 646 0088 FFF7FEFF 		bl	_lv_ll_get_head
+ 647              	.LVL51:
+ 118:Lib/lvgl/src/misc/lv_timer.c ****     while(next) {
+ 648              		.loc 1 118 12 view .LVU198
+ 649 008c 0446     		mov	r4, r0
+ 650              	.LVL52:
+ 119:Lib/lvgl/src/misc/lv_timer.c ****         if(!next->paused) {
+ 651              		.loc 1 119 5 is_stmt 1 view .LVU199
+ 117:Lib/lvgl/src/misc/lv_timer.c ****     next = _lv_ll_get_head(timer_head);
+ 652              		.loc 1 117 14 is_stmt 0 view .LVU200
+ 653 008e 4FF0FF35 		mov	r5, #-1
+ 119:Lib/lvgl/src/misc/lv_timer.c ****         if(!next->paused) {
+ 654              		.loc 1 119 10 view .LVU201
+ 655 0092 04E0     		b	.L48
+ 656              	.LVL53:
+ 657              	.L49:
+ 126:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 658              		.loc 1 126 9 is_stmt 1 view .LVU202
+ 126:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 659              		.loc 1 126 16 is_stmt 0 view .LVU203
+ 660 0094 2146     		mov	r1, r4
+ 661 0096 2348     		ldr	r0, .L60+4
+ 662              	.LVL54:
+ 126:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 663              		.loc 1 126 16 view .LVU204
+ 664 0098 FFF7FEFF 		bl	_lv_ll_get_next
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 22
+
+
+ 665              	.LVL55:
+ 126:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 666              		.loc 1 126 16 view .LVU205
+ 667 009c 0446     		mov	r4, r0
+ 668              	.LVL56:
+ 669              	.L48:
+ 119:Lib/lvgl/src/misc/lv_timer.c ****         if(!next->paused) {
+ 670              		.loc 1 119 11 is_stmt 1 view .LVU206
+ 671 009e 54B1     		cbz	r4, .L59
+ 120:Lib/lvgl/src/misc/lv_timer.c ****             uint32_t delay = lv_timer_time_remaining(next);
+ 672              		.loc 1 120 9 view .LVU207
+ 120:Lib/lvgl/src/misc/lv_timer.c ****             uint32_t delay = lv_timer_time_remaining(next);
+ 673              		.loc 1 120 12 is_stmt 0 view .LVU208
+ 674 00a0 237D     		ldrb	r3, [r4, #20]	@ zero_extendqisi2
+ 120:Lib/lvgl/src/misc/lv_timer.c ****             uint32_t delay = lv_timer_time_remaining(next);
+ 675              		.loc 1 120 11 view .LVU209
+ 676 00a2 13F0010F 		tst	r3, #1
+ 677 00a6 F5D1     		bne	.L49
+ 678              	.LBB5:
+ 121:Lib/lvgl/src/misc/lv_timer.c ****             if(delay < time_until_next)
+ 679              		.loc 1 121 13 is_stmt 1 view .LVU210
+ 121:Lib/lvgl/src/misc/lv_timer.c ****             if(delay < time_until_next)
+ 680              		.loc 1 121 30 is_stmt 0 view .LVU211
+ 681 00a8 2046     		mov	r0, r4
+ 121:Lib/lvgl/src/misc/lv_timer.c ****             if(delay < time_until_next)
+ 682              		.loc 1 121 30 view .LVU212
+ 683 00aa FFF7FEFF 		bl	lv_timer_time_remaining
+ 684              	.LVL57:
+ 122:Lib/lvgl/src/misc/lv_timer.c ****                 time_until_next = delay;
+ 685              		.loc 1 122 13 is_stmt 1 view .LVU213
+ 122:Lib/lvgl/src/misc/lv_timer.c ****                 time_until_next = delay;
+ 686              		.loc 1 122 15 is_stmt 0 view .LVU214
+ 687 00ae 8542     		cmp	r5, r0
+ 688 00b0 F0D9     		bls	.L49
+ 123:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 689              		.loc 1 123 33 view .LVU215
+ 690 00b2 0546     		mov	r5, r0
+ 691              	.LVL58:
+ 123:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 692              		.loc 1 123 33 view .LVU216
+ 693 00b4 EEE7     		b	.L49
+ 694              	.LVL59:
+ 695              	.L59:
+ 123:Lib/lvgl/src/misc/lv_timer.c ****         }
+ 696              		.loc 1 123 33 view .LVU217
+ 697              	.LBE5:
+ 129:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t idle_period_time = lv_tick_elaps(state_p->idle_period_start);
+ 698              		.loc 1 129 5 is_stmt 1 view .LVU218
+ 129:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t idle_period_time = lv_tick_elaps(state_p->idle_period_start);
+ 699              		.loc 1 129 27 is_stmt 0 view .LVU219
+ 700 00b6 3046     		mov	r0, r6
+ 701              	.LVL60:
+ 129:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t idle_period_time = lv_tick_elaps(state_p->idle_period_start);
+ 702              		.loc 1 129 27 view .LVU220
+ 703 00b8 FFF7FEFF 		bl	lv_tick_elaps
+ 704              	.LVL61:
+ 129:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t idle_period_time = lv_tick_elaps(state_p->idle_period_start);
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 23
+
+
+ 705              		.loc 1 129 12 view .LVU221
+ 706 00bc 184B     		ldr	r3, .L60
+ 707 00be D3F89C20 		ldr	r2, [r3, #156]
+ 129:Lib/lvgl/src/misc/lv_timer.c ****     uint32_t idle_period_time = lv_tick_elaps(state_p->idle_period_start);
+ 708              		.loc 1 129 24 view .LVU222
+ 709 00c2 0244     		add	r2, r2, r0
+ 710 00c4 C3F89C20 		str	r2, [r3, #156]
+ 130:Lib/lvgl/src/misc/lv_timer.c ****     if(idle_period_time >= IDLE_MEAS_PERIOD) {
+ 711              		.loc 1 130 5 is_stmt 1 view .LVU223
+ 130:Lib/lvgl/src/misc/lv_timer.c ****     if(idle_period_time >= IDLE_MEAS_PERIOD) {
+ 712              		.loc 1 130 33 is_stmt 0 view .LVU224
+ 713 00c8 D3F8A000 		ldr	r0, [r3, #160]
+ 714 00cc FFF7FEFF 		bl	lv_tick_elaps
+ 715              	.LVL62:
+ 131:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = (state_p->busy_time * 100) / idle_period_time;  /*Calculate th
+ 716              		.loc 1 131 5 is_stmt 1 view .LVU225
+ 131:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = (state_p->busy_time * 100) / idle_period_time;  /*Calculate th
+ 717              		.loc 1 131 7 is_stmt 0 view .LVU226
+ 718 00d0 B0F5FA7F 		cmp	r0, #500
+ 719 00d4 18D3     		bcc	.L51
+ 132:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = state_p->idle_last > 100 ? 0 : 100 - state_p->idle_last; /*But
+ 720              		.loc 1 132 9 is_stmt 1 view .LVU227
+ 132:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = state_p->idle_last > 100 ? 0 : 100 - state_p->idle_last; /*But
+ 721              		.loc 1 132 46 is_stmt 0 view .LVU228
+ 722 00d6 124A     		ldr	r2, .L60
+ 723 00d8 D2F89C30 		ldr	r3, [r2, #156]
+ 132:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = state_p->idle_last > 100 ? 0 : 100 - state_p->idle_last; /*But
+ 724              		.loc 1 132 58 view .LVU229
+ 725 00dc 6421     		movs	r1, #100
+ 726 00de 01FB03F3 		mul	r3, r1, r3
+ 132:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = state_p->idle_last > 100 ? 0 : 100 - state_p->idle_last; /*But
+ 727              		.loc 1 132 65 view .LVU230
+ 728 00e2 B3FBF0F3 		udiv	r3, r3, r0
+ 132:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_last         = state_p->idle_last > 100 ? 0 : 100 - state_p->idle_last; /*But
+ 729              		.loc 1 132 36 view .LVU231
+ 730 00e6 DBB2     		uxtb	r3, r3
+ 731 00e8 82F88D30 		strb	r3, [r2, #141]
+ 133:Lib/lvgl/src/misc/lv_timer.c ****         state_p->busy_time         = 0;
+ 732              		.loc 1 133 9 is_stmt 1 view .LVU232
+ 133:Lib/lvgl/src/misc/lv_timer.c ****         state_p->busy_time         = 0;
+ 733              		.loc 1 133 36 is_stmt 0 view .LVU233
+ 734 00ec 8B42     		cmp	r3, r1
+ 735 00ee 12D8     		bhi	.L56
+ 133:Lib/lvgl/src/misc/lv_timer.c ****         state_p->busy_time         = 0;
+ 736              		.loc 1 133 36 discriminator 1 view .LVU234
+ 737 00f0 CB1A     		subs	r3, r1, r3
+ 738 00f2 DBB2     		uxtb	r3, r3
+ 739              	.L52:
+ 133:Lib/lvgl/src/misc/lv_timer.c ****         state_p->busy_time         = 0;
+ 740              		.loc 1 133 36 discriminator 4 view .LVU235
+ 741 00f4 0A4C     		ldr	r4, .L60
+ 742              	.LVL63:
+ 133:Lib/lvgl/src/misc/lv_timer.c ****         state_p->busy_time         = 0;
+ 743              		.loc 1 133 36 discriminator 4 view .LVU236
+ 744 00f6 84F88D30 		strb	r3, [r4, #141]
+ 134:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_period_start = lv_tick_get();
+ 745              		.loc 1 134 9 is_stmt 1 discriminator 4 view .LVU237
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 24
+
+
+ 134:Lib/lvgl/src/misc/lv_timer.c ****         state_p->idle_period_start = lv_tick_get();
+ 746              		.loc 1 134 36 is_stmt 0 discriminator 4 view .LVU238
+ 747 00fa 0023     		movs	r3, #0
+ 748 00fc C4F89C30 		str	r3, [r4, #156]
+ 135:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 749              		.loc 1 135 9 is_stmt 1 discriminator 4 view .LVU239
+ 135:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 750              		.loc 1 135 38 is_stmt 0 discriminator 4 view .LVU240
+ 751 0100 FFF7FEFF 		bl	lv_tick_get
+ 752              	.LVL64:
+ 135:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 753              		.loc 1 135 36 discriminator 4 view .LVU241
+ 754 0104 C4F8A000 		str	r0, [r4, #160]
+ 755              	.L51:
+ 138:Lib/lvgl/src/misc/lv_timer.c ****     state_p->already_running = false; /*Release the mutex*/
+ 756              		.loc 1 138 5 is_stmt 1 view .LVU242
+ 138:Lib/lvgl/src/misc/lv_timer.c ****     state_p->already_running = false; /*Release the mutex*/
+ 757              		.loc 1 138 36 is_stmt 0 view .LVU243
+ 758 0108 054B     		ldr	r3, .L60
+ 759 010a C3F89050 		str	r5, [r3, #144]
+ 139:Lib/lvgl/src/misc/lv_timer.c **** 
+ 760              		.loc 1 139 5 is_stmt 1 view .LVU244
+ 139:Lib/lvgl/src/misc/lv_timer.c **** 
+ 761              		.loc 1 139 30 is_stmt 0 view .LVU245
+ 762 010e 0022     		movs	r2, #0
+ 763 0110 83F89420 		strb	r2, [r3, #148]
+ 141:Lib/lvgl/src/misc/lv_timer.c ****     LV_PROFILER_END;
+ 764              		.loc 1 141 94 is_stmt 1 view .LVU246
+ 142:Lib/lvgl/src/misc/lv_timer.c ****     return time_until_next;
+ 765              		.loc 1 142 20 view .LVU247
+ 143:Lib/lvgl/src/misc/lv_timer.c **** }
+ 766              		.loc 1 143 5 view .LVU248
+ 143:Lib/lvgl/src/misc/lv_timer.c **** }
+ 767              		.loc 1 143 12 is_stmt 0 view .LVU249
+ 768 0114 02E0     		b	.L40
+ 769              	.LVL65:
+ 770              	.L56:
+ 133:Lib/lvgl/src/misc/lv_timer.c ****         state_p->busy_time         = 0;
+ 771              		.loc 1 133 36 view .LVU250
+ 772 0116 0023     		movs	r3, #0
+ 773 0118 ECE7     		b	.L52
+ 774              	.LVL66:
+ 775              	.L53:
+  71:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 776              		.loc 1 71 16 view .LVU251
+ 777 011a 0125     		movs	r5, #1
+ 778              	.L40:
+ 144:Lib/lvgl/src/misc/lv_timer.c **** 
+ 779              		.loc 1 144 1 view .LVU252
+ 780 011c 2846     		mov	r0, r5
+ 781 011e 70BD     		pop	{r4, r5, r6, pc}
+ 782              	.L61:
+ 783              		.align	2
+ 784              	.L60:
+ 785 0120 00000000 		.word	lv_global
+ 786 0124 80000000 		.word	lv_global+128
+ 787              		.cfi_endproc
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 25
+
+
+ 788              	.LFE235:
+ 790              		.section	.text.lv_timer_periodic_handler,"ax",%progbits
+ 791              		.align	1
+ 792              		.global	lv_timer_periodic_handler
+ 793              		.syntax unified
+ 794              		.thumb
+ 795              		.thumb_func
+ 797              	lv_timer_periodic_handler:
+ 798              	.LFB236:
+ 147:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_state_t * state_p = &state;
+ 799              		.loc 1 147 1 is_stmt 1 view -0
+ 800              		.cfi_startproc
+ 801              		@ args = 0, pretend = 0, frame = 0
+ 802              		@ frame_needed = 0, uses_anonymous_args = 0
+ 803 0000 10B5     		push	{r4, lr}
+ 804              	.LCFI7:
+ 805              		.cfi_def_cfa_offset 8
+ 806              		.cfi_offset 4, -8
+ 807              		.cfi_offset 14, -4
+ 148:Lib/lvgl/src/misc/lv_timer.c ****     if(lv_tick_elaps(state_p->periodic_last_tick) >= state_p->timer_time_until_next) {
+ 808              		.loc 1 148 5 view .LVU254
+ 809              	.LVL67:
+ 149:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling lv_timer_handler()");
+ 810              		.loc 1 149 5 view .LVU255
+ 149:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling lv_timer_handler()");
+ 811              		.loc 1 149 8 is_stmt 0 view .LVU256
+ 812 0002 084C     		ldr	r4, .L66
+ 813 0004 D4F89800 		ldr	r0, [r4, #152]
+ 814 0008 FFF7FEFF 		bl	lv_tick_elaps
+ 815              	.LVL68:
+ 149:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling lv_timer_handler()");
+ 816              		.loc 1 149 61 view .LVU257
+ 817 000c D4F89030 		ldr	r3, [r4, #144]
+ 149:Lib/lvgl/src/misc/lv_timer.c ****         LV_TRACE_TIMER("calling lv_timer_handler()");
+ 818              		.loc 1 149 7 view .LVU258
+ 819 0010 9842     		cmp	r0, r3
+ 820 0012 00D2     		bcs	.L65
+ 821              	.L62:
+ 154:Lib/lvgl/src/misc/lv_timer.c **** 
+ 822              		.loc 1 154 1 view .LVU259
+ 823 0014 10BD     		pop	{r4, pc}
+ 824              	.L65:
+ 150:Lib/lvgl/src/misc/lv_timer.c ****         lv_timer_handler();
+ 825              		.loc 1 150 53 is_stmt 1 view .LVU260
+ 151:Lib/lvgl/src/misc/lv_timer.c ****         state_p->periodic_last_tick = lv_tick_get();
+ 826              		.loc 1 151 9 view .LVU261
+ 827 0016 FFF7FEFF 		bl	lv_timer_handler
+ 828              	.LVL69:
+ 152:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 829              		.loc 1 152 9 view .LVU262
+ 152:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 830              		.loc 1 152 39 is_stmt 0 view .LVU263
+ 831 001a FFF7FEFF 		bl	lv_tick_get
+ 832              	.LVL70:
+ 152:Lib/lvgl/src/misc/lv_timer.c ****     }
+ 833              		.loc 1 152 37 view .LVU264
+ 834 001e C4F89800 		str	r0, [r4, #152]
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 26
+
+
+ 154:Lib/lvgl/src/misc/lv_timer.c **** 
+ 835              		.loc 1 154 1 view .LVU265
+ 836 0022 F7E7     		b	.L62
+ 837              	.L67:
+ 838              		.align	2
+ 839              	.L66:
+ 840 0024 00000000 		.word	lv_global
+ 841              		.cfi_endproc
+ 842              	.LFE236:
+ 844              		.section	.text.lv_timer_resume,"ax",%progbits
+ 845              		.align	1
+ 846              		.global	lv_timer_resume
+ 847              		.syntax unified
+ 848              		.thumb
+ 849              		.thumb_func
+ 851              	lv_timer_resume:
+ 852              	.LVL71:
+ 853              	.LFB242:
+ 205:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 854              		.loc 1 205 1 is_stmt 1 view -0
+ 855              		.cfi_startproc
+ 856              		@ args = 0, pretend = 0, frame = 0
+ 857              		@ frame_needed = 0, uses_anonymous_args = 0
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 858              		.loc 1 206 5 view .LVU267
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 859              		.loc 1 206 5 view .LVU268
+ 860 0000 38B1     		cbz	r0, .L70
+ 205:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 861              		.loc 1 205 1 is_stmt 0 discriminator 2 view .LVU269
+ 862 0002 08B5     		push	{r3, lr}
+ 863              	.LCFI8:
+ 864              		.cfi_def_cfa_offset 8
+ 865              		.cfi_offset 3, -8
+ 866              		.cfi_offset 14, -4
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 867              		.loc 1 206 5 is_stmt 1 discriminator 2 view .LVU270
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 868              		.loc 1 206 26 discriminator 2 view .LVU271
+ 207:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_handler_resume();
+ 869              		.loc 1 207 5 discriminator 2 view .LVU272
+ 207:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_handler_resume();
+ 870              		.loc 1 207 19 is_stmt 0 discriminator 2 view .LVU273
+ 871 0004 027D     		ldrb	r2, [r0, #20]	@ zero_extendqisi2
+ 872 0006 6FF30002 		bfc	r2, #0, #1
+ 873 000a 0275     		strb	r2, [r0, #20]
+ 208:Lib/lvgl/src/misc/lv_timer.c **** }
+ 874              		.loc 1 208 5 is_stmt 1 discriminator 2 view .LVU274
+ 875 000c FFF7FEFF 		bl	lv_timer_handler_resume
+ 876              	.LVL72:
+ 209:Lib/lvgl/src/misc/lv_timer.c **** 
+ 877              		.loc 1 209 1 is_stmt 0 discriminator 2 view .LVU275
+ 878 0010 08BD     		pop	{r3, pc}
+ 879              	.LVL73:
+ 880              	.L70:
+ 881              	.LCFI9:
+ 882              		.cfi_def_cfa_offset 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 27
+
+
+ 883              		.cfi_restore 3
+ 884              		.cfi_restore 14
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 885              		.loc 1 206 5 is_stmt 1 discriminator 1 view .LVU276
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 886              		.loc 1 206 5 discriminator 1 view .LVU277
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 887              		.loc 1 206 5 discriminator 1 view .LVU278
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 888              		.loc 1 206 5 discriminator 1 view .LVU279
+ 206:Lib/lvgl/src/misc/lv_timer.c ****     timer->paused = false;
+ 889              		.loc 1 206 5 discriminator 1 view .LVU280
+ 890 0012 FEE7     		b	.L70
+ 891              		.cfi_endproc
+ 892              	.LFE242:
+ 894              		.section	.text.lv_timer_set_period,"ax",%progbits
+ 895              		.align	1
+ 896              		.global	lv_timer_set_period
+ 897              		.syntax unified
+ 898              		.thumb
+ 899              		.thumb_func
+ 901              	lv_timer_set_period:
+ 902              	.LVL74:
+ 903              	.LFB243:
+ 212:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 904              		.loc 1 212 1 view -0
+ 905              		.cfi_startproc
+ 906              		@ args = 0, pretend = 0, frame = 0
+ 907              		@ frame_needed = 0, uses_anonymous_args = 0
+ 908              		@ link register save eliminated.
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 909              		.loc 1 213 5 view .LVU282
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 910              		.loc 1 213 5 view .LVU283
+ 911 0000 08B1     		cbz	r0, .L75
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 912              		.loc 1 213 5 discriminator 2 view .LVU284
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 913              		.loc 1 213 26 discriminator 2 view .LVU285
+ 214:Lib/lvgl/src/misc/lv_timer.c **** }
+ 914              		.loc 1 214 5 discriminator 2 view .LVU286
+ 214:Lib/lvgl/src/misc/lv_timer.c **** }
+ 915              		.loc 1 214 19 is_stmt 0 discriminator 2 view .LVU287
+ 916 0002 0160     		str	r1, [r0]
+ 215:Lib/lvgl/src/misc/lv_timer.c **** 
+ 917              		.loc 1 215 1 discriminator 2 view .LVU288
+ 918 0004 7047     		bx	lr
+ 919              	.L75:
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 920              		.loc 1 213 5 is_stmt 1 discriminator 1 view .LVU289
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 921              		.loc 1 213 5 discriminator 1 view .LVU290
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 922              		.loc 1 213 5 discriminator 1 view .LVU291
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ 923              		.loc 1 213 5 discriminator 1 view .LVU292
+ 213:Lib/lvgl/src/misc/lv_timer.c ****     timer->period = period;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 28
+
+
+ 924              		.loc 1 213 5 discriminator 1 view .LVU293
+ 925 0006 FEE7     		b	.L75
+ 926              		.cfi_endproc
+ 927              	.LFE243:
+ 929              		.section	.text.lv_timer_ready,"ax",%progbits
+ 930              		.align	1
+ 931              		.global	lv_timer_ready
+ 932              		.syntax unified
+ 933              		.thumb
+ 934              		.thumb_func
+ 936              	lv_timer_ready:
+ 937              	.LVL75:
+ 938              	.LFB244:
+ 218:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 939              		.loc 1 218 1 view -0
+ 940              		.cfi_startproc
+ 941              		@ args = 0, pretend = 0, frame = 0
+ 942              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 943              		.loc 1 219 5 view .LVU295
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 944              		.loc 1 219 5 view .LVU296
+ 945 0000 40B1     		cbz	r0, .L78
+ 218:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 946              		.loc 1 218 1 is_stmt 0 discriminator 2 view .LVU297
+ 947 0002 10B5     		push	{r4, lr}
+ 948              	.LCFI10:
+ 949              		.cfi_def_cfa_offset 8
+ 950              		.cfi_offset 4, -8
+ 951              		.cfi_offset 14, -4
+ 952 0004 0446     		mov	r4, r0
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 953              		.loc 1 219 5 is_stmt 1 discriminator 2 view .LVU298
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 954              		.loc 1 219 26 discriminator 2 view .LVU299
+ 220:Lib/lvgl/src/misc/lv_timer.c **** }
+ 955              		.loc 1 220 5 discriminator 2 view .LVU300
+ 220:Lib/lvgl/src/misc/lv_timer.c **** }
+ 956              		.loc 1 220 23 is_stmt 0 discriminator 2 view .LVU301
+ 957 0006 FFF7FEFF 		bl	lv_tick_get
+ 958              	.LVL76:
+ 220:Lib/lvgl/src/misc/lv_timer.c **** }
+ 959              		.loc 1 220 44 discriminator 2 view .LVU302
+ 960 000a 2368     		ldr	r3, [r4]
+ 220:Lib/lvgl/src/misc/lv_timer.c **** }
+ 961              		.loc 1 220 37 discriminator 2 view .LVU303
+ 962 000c C31A     		subs	r3, r0, r3
+ 220:Lib/lvgl/src/misc/lv_timer.c **** }
+ 963              		.loc 1 220 53 discriminator 2 view .LVU304
+ 964 000e 013B     		subs	r3, r3, #1
+ 220:Lib/lvgl/src/misc/lv_timer.c **** }
+ 965              		.loc 1 220 21 discriminator 2 view .LVU305
+ 966 0010 6360     		str	r3, [r4, #4]
+ 221:Lib/lvgl/src/misc/lv_timer.c **** 
+ 967              		.loc 1 221 1 discriminator 2 view .LVU306
+ 968 0012 10BD     		pop	{r4, pc}
+ 969              	.LVL77:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 29
+
+
+ 970              	.L78:
+ 971              	.LCFI11:
+ 972              		.cfi_def_cfa_offset 0
+ 973              		.cfi_restore 4
+ 974              		.cfi_restore 14
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 975              		.loc 1 219 5 is_stmt 1 discriminator 1 view .LVU307
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 976              		.loc 1 219 5 discriminator 1 view .LVU308
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 977              		.loc 1 219 5 discriminator 1 view .LVU309
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 978              		.loc 1 219 5 discriminator 1 view .LVU310
+ 219:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get() - timer->period - 1;
+ 979              		.loc 1 219 5 discriminator 1 view .LVU311
+ 980 0014 FEE7     		b	.L78
+ 981              		.cfi_endproc
+ 982              	.LFE244:
+ 984              		.section	.text.lv_timer_set_repeat_count,"ax",%progbits
+ 985              		.align	1
+ 986              		.global	lv_timer_set_repeat_count
+ 987              		.syntax unified
+ 988              		.thumb
+ 989              		.thumb_func
+ 991              	lv_timer_set_repeat_count:
+ 992              	.LVL78:
+ 993              	.LFB245:
+ 224:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 994              		.loc 1 224 1 view -0
+ 995              		.cfi_startproc
+ 996              		@ args = 0, pretend = 0, frame = 0
+ 997              		@ frame_needed = 0, uses_anonymous_args = 0
+ 998              		@ link register save eliminated.
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 999              		.loc 1 225 5 view .LVU313
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 1000              		.loc 1 225 5 view .LVU314
+ 1001 0000 08B1     		cbz	r0, .L83
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 1002              		.loc 1 225 5 discriminator 2 view .LVU315
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 1003              		.loc 1 225 26 discriminator 2 view .LVU316
+ 226:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1004              		.loc 1 226 5 discriminator 2 view .LVU317
+ 226:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1005              		.loc 1 226 25 is_stmt 0 discriminator 2 view .LVU318
+ 1006 0002 0161     		str	r1, [r0, #16]
+ 227:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1007              		.loc 1 227 1 discriminator 2 view .LVU319
+ 1008 0004 7047     		bx	lr
+ 1009              	.L83:
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 1010              		.loc 1 225 5 is_stmt 1 discriminator 1 view .LVU320
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 1011              		.loc 1 225 5 discriminator 1 view .LVU321
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 1012              		.loc 1 225 5 discriminator 1 view .LVU322
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 30
+
+
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 1013              		.loc 1 225 5 discriminator 1 view .LVU323
+ 225:Lib/lvgl/src/misc/lv_timer.c ****     timer->repeat_count = repeat_count;
+ 1014              		.loc 1 225 5 discriminator 1 view .LVU324
+ 1015 0006 FEE7     		b	.L83
+ 1016              		.cfi_endproc
+ 1017              	.LFE245:
+ 1019              		.section	.text.lv_timer_set_auto_delete,"ax",%progbits
+ 1020              		.align	1
+ 1021              		.global	lv_timer_set_auto_delete
+ 1022              		.syntax unified
+ 1023              		.thumb
+ 1024              		.thumb_func
+ 1026              	lv_timer_set_auto_delete:
+ 1027              	.LVL79:
+ 1028              	.LFB246:
+ 230:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 1029              		.loc 1 230 1 view -0
+ 1030              		.cfi_startproc
+ 1031              		@ args = 0, pretend = 0, frame = 0
+ 1032              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1033              		@ link register save eliminated.
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1034              		.loc 1 231 5 view .LVU326
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1035              		.loc 1 231 5 view .LVU327
+ 1036 0000 20B1     		cbz	r0, .L86
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1037              		.loc 1 231 5 discriminator 2 view .LVU328
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1038              		.loc 1 231 26 discriminator 2 view .LVU329
+ 232:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1039              		.loc 1 232 5 discriminator 2 view .LVU330
+ 232:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1040              		.loc 1 232 24 is_stmt 0 discriminator 2 view .LVU331
+ 1041 0002 027D     		ldrb	r2, [r0, #20]	@ zero_extendqisi2
+ 1042 0004 61F34102 		bfi	r2, r1, #1, #1
+ 1043 0008 0275     		strb	r2, [r0, #20]
+ 233:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1044              		.loc 1 233 1 discriminator 2 view .LVU332
+ 1045 000a 7047     		bx	lr
+ 1046              	.L86:
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1047              		.loc 1 231 5 is_stmt 1 discriminator 1 view .LVU333
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1048              		.loc 1 231 5 discriminator 1 view .LVU334
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1049              		.loc 1 231 5 discriminator 1 view .LVU335
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1050              		.loc 1 231 5 discriminator 1 view .LVU336
+ 231:Lib/lvgl/src/misc/lv_timer.c ****     timer->auto_delete = auto_delete;
+ 1051              		.loc 1 231 5 discriminator 1 view .LVU337
+ 1052 000c FEE7     		b	.L86
+ 1053              		.cfi_endproc
+ 1054              	.LFE246:
+ 1056              		.section	.text.lv_timer_set_user_data,"ax",%progbits
+ 1057              		.align	1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 31
+
+
+ 1058              		.global	lv_timer_set_user_data
+ 1059              		.syntax unified
+ 1060              		.thumb
+ 1061              		.thumb_func
+ 1063              	lv_timer_set_user_data:
+ 1064              	.LVL80:
+ 1065              	.LFB247:
+ 236:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 1066              		.loc 1 236 1 view -0
+ 1067              		.cfi_startproc
+ 1068              		@ args = 0, pretend = 0, frame = 0
+ 1069              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1070              		@ link register save eliminated.
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1071              		.loc 1 237 5 view .LVU339
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1072              		.loc 1 237 5 view .LVU340
+ 1073 0000 08B1     		cbz	r0, .L89
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1074              		.loc 1 237 5 discriminator 2 view .LVU341
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1075              		.loc 1 237 26 discriminator 2 view .LVU342
+ 238:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1076              		.loc 1 238 5 discriminator 2 view .LVU343
+ 238:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1077              		.loc 1 238 22 is_stmt 0 discriminator 2 view .LVU344
+ 1078 0002 C160     		str	r1, [r0, #12]
+ 239:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1079              		.loc 1 239 1 discriminator 2 view .LVU345
+ 1080 0004 7047     		bx	lr
+ 1081              	.L89:
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1082              		.loc 1 237 5 is_stmt 1 discriminator 1 view .LVU346
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1083              		.loc 1 237 5 discriminator 1 view .LVU347
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1084              		.loc 1 237 5 discriminator 1 view .LVU348
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1085              		.loc 1 237 5 discriminator 1 view .LVU349
+ 237:Lib/lvgl/src/misc/lv_timer.c ****     timer->user_data = user_data;
+ 1086              		.loc 1 237 5 discriminator 1 view .LVU350
+ 1087 0006 FEE7     		b	.L89
+ 1088              		.cfi_endproc
+ 1089              	.LFE247:
+ 1091              		.section	.text.lv_timer_reset,"ax",%progbits
+ 1092              		.align	1
+ 1093              		.global	lv_timer_reset
+ 1094              		.syntax unified
+ 1095              		.thumb
+ 1096              		.thumb_func
+ 1098              	lv_timer_reset:
+ 1099              	.LVL81:
+ 1100              	.LFB248:
+ 242:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 1101              		.loc 1 242 1 view -0
+ 1102              		.cfi_startproc
+ 1103              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 32
+
+
+ 1104              		@ frame_needed = 0, uses_anonymous_args = 0
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1105              		.loc 1 243 5 view .LVU352
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1106              		.loc 1 243 5 view .LVU353
+ 1107 0000 38B1     		cbz	r0, .L92
+ 242:Lib/lvgl/src/misc/lv_timer.c ****     LV_ASSERT_NULL(timer);
+ 1108              		.loc 1 242 1 is_stmt 0 discriminator 2 view .LVU354
+ 1109 0002 10B5     		push	{r4, lr}
+ 1110              	.LCFI12:
+ 1111              		.cfi_def_cfa_offset 8
+ 1112              		.cfi_offset 4, -8
+ 1113              		.cfi_offset 14, -4
+ 1114 0004 0446     		mov	r4, r0
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1115              		.loc 1 243 5 is_stmt 1 discriminator 2 view .LVU355
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1116              		.loc 1 243 26 discriminator 2 view .LVU356
+ 244:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_handler_resume();
+ 1117              		.loc 1 244 5 discriminator 2 view .LVU357
+ 244:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_handler_resume();
+ 1118              		.loc 1 244 23 is_stmt 0 discriminator 2 view .LVU358
+ 1119 0006 FFF7FEFF 		bl	lv_tick_get
+ 1120              	.LVL82:
+ 244:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_handler_resume();
+ 1121              		.loc 1 244 21 discriminator 2 view .LVU359
+ 1122 000a 6060     		str	r0, [r4, #4]
+ 245:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1123              		.loc 1 245 5 is_stmt 1 discriminator 2 view .LVU360
+ 1124 000c FFF7FEFF 		bl	lv_timer_handler_resume
+ 1125              	.LVL83:
+ 246:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1126              		.loc 1 246 1 is_stmt 0 discriminator 2 view .LVU361
+ 1127 0010 10BD     		pop	{r4, pc}
+ 1128              	.LVL84:
+ 1129              	.L92:
+ 1130              	.LCFI13:
+ 1131              		.cfi_def_cfa_offset 0
+ 1132              		.cfi_restore 4
+ 1133              		.cfi_restore 14
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1134              		.loc 1 243 5 is_stmt 1 discriminator 1 view .LVU362
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1135              		.loc 1 243 5 discriminator 1 view .LVU363
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1136              		.loc 1 243 5 discriminator 1 view .LVU364
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1137              		.loc 1 243 5 discriminator 1 view .LVU365
+ 243:Lib/lvgl/src/misc/lv_timer.c ****     timer->last_run = lv_tick_get();
+ 1138              		.loc 1 243 5 discriminator 1 view .LVU366
+ 1139 0012 FEE7     		b	.L92
+ 1140              		.cfi_endproc
+ 1141              	.LFE248:
+ 1143              		.section	.text.lv_timer_enable,"ax",%progbits
+ 1144              		.align	1
+ 1145              		.global	lv_timer_enable
+ 1146              		.syntax unified
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 33
+
+
+ 1147              		.thumb
+ 1148              		.thumb_func
+ 1150              	lv_timer_enable:
+ 1151              	.LVL85:
+ 1152              	.LFB249:
+ 249:Lib/lvgl/src/misc/lv_timer.c ****     state.lv_timer_run = en;
+ 1153              		.loc 1 249 1 view -0
+ 1154              		.cfi_startproc
+ 1155              		@ args = 0, pretend = 0, frame = 0
+ 1156              		@ frame_needed = 0, uses_anonymous_args = 0
+ 249:Lib/lvgl/src/misc/lv_timer.c ****     state.lv_timer_run = en;
+ 1157              		.loc 1 249 1 is_stmt 0 view .LVU368
+ 1158 0000 08B5     		push	{r3, lr}
+ 1159              	.LCFI14:
+ 1160              		.cfi_def_cfa_offset 8
+ 1161              		.cfi_offset 3, -8
+ 1162              		.cfi_offset 14, -4
+ 250:Lib/lvgl/src/misc/lv_timer.c ****     if(en) lv_timer_handler_resume();
+ 1163              		.loc 1 250 5 is_stmt 1 view .LVU369
+ 250:Lib/lvgl/src/misc/lv_timer.c ****     if(en) lv_timer_handler_resume();
+ 1164              		.loc 1 250 24 is_stmt 0 view .LVU370
+ 1165 0002 044B     		ldr	r3, .L99
+ 1166 0004 83F88C00 		strb	r0, [r3, #140]
+ 251:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1167              		.loc 1 251 5 is_stmt 1 view .LVU371
+ 251:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1168              		.loc 1 251 7 is_stmt 0 view .LVU372
+ 1169 0008 00B9     		cbnz	r0, .L98
+ 1170              	.LVL86:
+ 1171              	.L95:
+ 252:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1172              		.loc 1 252 1 view .LVU373
+ 1173 000a 08BD     		pop	{r3, pc}
+ 1174              	.LVL87:
+ 1175              	.L98:
+ 251:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1176              		.loc 1 251 12 is_stmt 1 discriminator 1 view .LVU374
+ 1177 000c FFF7FEFF 		bl	lv_timer_handler_resume
+ 1178              	.LVL88:
+ 252:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1179              		.loc 1 252 1 is_stmt 0 discriminator 1 view .LVU375
+ 1180 0010 FBE7     		b	.L95
+ 1181              	.L100:
+ 1182 0012 00BF     		.align	2
+ 1183              	.L99:
+ 1184 0014 00000000 		.word	lv_global
+ 1185              		.cfi_endproc
+ 1186              	.LFE249:
+ 1188              		.section	.text._lv_timer_core_init,"ax",%progbits
+ 1189              		.align	1
+ 1190              		.global	_lv_timer_core_init
+ 1191              		.syntax unified
+ 1192              		.thumb
+ 1193              		.thumb_func
+ 1195              	_lv_timer_core_init:
+ 1196              	.LFB234:
+  56:Lib/lvgl/src/misc/lv_timer.c ****     _lv_ll_init(timer_ll_p, sizeof(lv_timer_t));
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 34
+
+
+ 1197              		.loc 1 56 1 is_stmt 1 view -0
+ 1198              		.cfi_startproc
+ 1199              		@ args = 0, pretend = 0, frame = 0
+ 1200              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1201 0000 08B5     		push	{r3, lr}
+ 1202              	.LCFI15:
+ 1203              		.cfi_def_cfa_offset 8
+ 1204              		.cfi_offset 3, -8
+ 1205              		.cfi_offset 14, -4
+  57:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1206              		.loc 1 57 5 view .LVU377
+ 1207 0002 1821     		movs	r1, #24
+ 1208 0004 0348     		ldr	r0, .L103
+ 1209 0006 FFF7FEFF 		bl	_lv_ll_init
+ 1210              	.LVL89:
+  60:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1211              		.loc 1 60 5 view .LVU378
+ 1212 000a 0120     		movs	r0, #1
+ 1213 000c FFF7FEFF 		bl	lv_timer_enable
+ 1214              	.LVL90:
+  61:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1215              		.loc 1 61 1 is_stmt 0 view .LVU379
+ 1216 0010 08BD     		pop	{r3, pc}
+ 1217              	.L104:
+ 1218 0012 00BF     		.align	2
+ 1219              	.L103:
+ 1220 0014 80000000 		.word	lv_global+128
+ 1221              		.cfi_endproc
+ 1222              	.LFE234:
+ 1224              		.section	.text._lv_timer_core_deinit,"ax",%progbits
+ 1225              		.align	1
+ 1226              		.global	_lv_timer_core_deinit
+ 1227              		.syntax unified
+ 1228              		.thumb
+ 1229              		.thumb_func
+ 1231              	_lv_timer_core_deinit:
+ 1232              	.LFB250:
+ 255:Lib/lvgl/src/misc/lv_timer.c ****     lv_timer_enable(false);
+ 1233              		.loc 1 255 1 is_stmt 1 view -0
+ 1234              		.cfi_startproc
+ 1235              		@ args = 0, pretend = 0, frame = 0
+ 1236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1237 0000 08B5     		push	{r3, lr}
+ 1238              	.LCFI16:
+ 1239              		.cfi_def_cfa_offset 8
+ 1240              		.cfi_offset 3, -8
+ 1241              		.cfi_offset 14, -4
+ 256:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1242              		.loc 1 256 5 view .LVU381
+ 1243 0002 0020     		movs	r0, #0
+ 1244 0004 FFF7FEFF 		bl	lv_timer_enable
+ 1245              	.LVL91:
+ 258:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1246              		.loc 1 258 5 view .LVU382
+ 1247              	.LBB6:
+ 1248              	.LBI6:
+ 1249              		.file 2 "Lib/lvgl/src/misc/lv_ll.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 35
+
+
+   1:Lib/lvgl/src/misc/lv_ll.h **** /**
+   2:Lib/lvgl/src/misc/lv_ll.h ****  * @file lv_ll.h
+   3:Lib/lvgl/src/misc/lv_ll.h ****  * Handle linked lists. The nodes are dynamically allocated by the 'lv_mem' module.
+   4:Lib/lvgl/src/misc/lv_ll.h ****  */
+   5:Lib/lvgl/src/misc/lv_ll.h **** 
+   6:Lib/lvgl/src/misc/lv_ll.h **** #ifndef LV_LL_H
+   7:Lib/lvgl/src/misc/lv_ll.h **** #define LV_LL_H
+   8:Lib/lvgl/src/misc/lv_ll.h **** 
+   9:Lib/lvgl/src/misc/lv_ll.h **** #ifdef __cplusplus
+  10:Lib/lvgl/src/misc/lv_ll.h **** extern "C" {
+  11:Lib/lvgl/src/misc/lv_ll.h **** #endif
+  12:Lib/lvgl/src/misc/lv_ll.h **** 
+  13:Lib/lvgl/src/misc/lv_ll.h **** /*********************
+  14:Lib/lvgl/src/misc/lv_ll.h ****  *      INCLUDES
+  15:Lib/lvgl/src/misc/lv_ll.h ****  *********************/
+  16:Lib/lvgl/src/misc/lv_ll.h **** #include <stdint.h>
+  17:Lib/lvgl/src/misc/lv_ll.h **** #include <stddef.h>
+  18:Lib/lvgl/src/misc/lv_ll.h **** #include <stdbool.h>
+  19:Lib/lvgl/src/misc/lv_ll.h **** 
+  20:Lib/lvgl/src/misc/lv_ll.h **** /*********************
+  21:Lib/lvgl/src/misc/lv_ll.h ****  *      DEFINES
+  22:Lib/lvgl/src/misc/lv_ll.h ****  *********************/
+  23:Lib/lvgl/src/misc/lv_ll.h **** 
+  24:Lib/lvgl/src/misc/lv_ll.h **** /**********************
+  25:Lib/lvgl/src/misc/lv_ll.h ****  *      TYPEDEFS
+  26:Lib/lvgl/src/misc/lv_ll.h ****  **********************/
+  27:Lib/lvgl/src/misc/lv_ll.h **** 
+  28:Lib/lvgl/src/misc/lv_ll.h **** /** Dummy type to make handling easier*/
+  29:Lib/lvgl/src/misc/lv_ll.h **** typedef uint8_t lv_ll_node_t;
+  30:Lib/lvgl/src/misc/lv_ll.h **** 
+  31:Lib/lvgl/src/misc/lv_ll.h **** /** Description of a linked list*/
+  32:Lib/lvgl/src/misc/lv_ll.h **** typedef struct {
+  33:Lib/lvgl/src/misc/lv_ll.h ****     uint32_t n_size;
+  34:Lib/lvgl/src/misc/lv_ll.h ****     lv_ll_node_t * head;
+  35:Lib/lvgl/src/misc/lv_ll.h ****     lv_ll_node_t * tail;
+  36:Lib/lvgl/src/misc/lv_ll.h **** } lv_ll_t;
+  37:Lib/lvgl/src/misc/lv_ll.h **** 
+  38:Lib/lvgl/src/misc/lv_ll.h **** /**********************
+  39:Lib/lvgl/src/misc/lv_ll.h ****  * GLOBAL PROTOTYPES
+  40:Lib/lvgl/src/misc/lv_ll.h ****  **********************/
+  41:Lib/lvgl/src/misc/lv_ll.h **** 
+  42:Lib/lvgl/src/misc/lv_ll.h **** /**
+  43:Lib/lvgl/src/misc/lv_ll.h ****  * Initialize linked list
+  44:Lib/lvgl/src/misc/lv_ll.h ****  * @param ll_p pointer to lv_ll_t variable
+  45:Lib/lvgl/src/misc/lv_ll.h ****  * @param node_size the size of 1 node in bytes
+  46:Lib/lvgl/src/misc/lv_ll.h ****  */
+  47:Lib/lvgl/src/misc/lv_ll.h **** void _lv_ll_init(lv_ll_t * ll_p, uint32_t node_size);
+  48:Lib/lvgl/src/misc/lv_ll.h **** 
+  49:Lib/lvgl/src/misc/lv_ll.h **** /**
+  50:Lib/lvgl/src/misc/lv_ll.h ****  * Add a new head to a linked list
+  51:Lib/lvgl/src/misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  52:Lib/lvgl/src/misc/lv_ll.h ****  * @return pointer to the new head
+  53:Lib/lvgl/src/misc/lv_ll.h ****  */
+  54:Lib/lvgl/src/misc/lv_ll.h **** void * _lv_ll_ins_head(lv_ll_t * ll_p);
+  55:Lib/lvgl/src/misc/lv_ll.h **** 
+  56:Lib/lvgl/src/misc/lv_ll.h **** /**
+  57:Lib/lvgl/src/misc/lv_ll.h ****  * Insert a new node in front of the n_act node
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 36
+
+
+  58:Lib/lvgl/src/misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  59:Lib/lvgl/src/misc/lv_ll.h ****  * @param n_act pointer a node
+  60:Lib/lvgl/src/misc/lv_ll.h ****  * @return pointer to the new node
+  61:Lib/lvgl/src/misc/lv_ll.h ****  */
+  62:Lib/lvgl/src/misc/lv_ll.h **** void * _lv_ll_ins_prev(lv_ll_t * ll_p, void * n_act);
+  63:Lib/lvgl/src/misc/lv_ll.h **** 
+  64:Lib/lvgl/src/misc/lv_ll.h **** /**
+  65:Lib/lvgl/src/misc/lv_ll.h ****  * Add a new tail to a linked list
+  66:Lib/lvgl/src/misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  67:Lib/lvgl/src/misc/lv_ll.h ****  * @return pointer to the new tail
+  68:Lib/lvgl/src/misc/lv_ll.h ****  */
+  69:Lib/lvgl/src/misc/lv_ll.h **** void * _lv_ll_ins_tail(lv_ll_t * ll_p);
+  70:Lib/lvgl/src/misc/lv_ll.h **** 
+  71:Lib/lvgl/src/misc/lv_ll.h **** /**
+  72:Lib/lvgl/src/misc/lv_ll.h ****  * Remove the node 'node_p' from 'll_p' linked list.
+  73:Lib/lvgl/src/misc/lv_ll.h ****  * It does not free the memory of node.
+  74:Lib/lvgl/src/misc/lv_ll.h ****  * @param ll_p pointer to the linked list of 'node_p'
+  75:Lib/lvgl/src/misc/lv_ll.h ****  * @param node_p pointer to node in 'll_p' linked list
+  76:Lib/lvgl/src/misc/lv_ll.h ****  */
+  77:Lib/lvgl/src/misc/lv_ll.h **** void _lv_ll_remove(lv_ll_t * ll_p, void * node_p);
+  78:Lib/lvgl/src/misc/lv_ll.h **** 
+  79:Lib/lvgl/src/misc/lv_ll.h **** void _lv_ll_clear_custom(lv_ll_t * ll_p, void(*cleanup)(void *));
+  80:Lib/lvgl/src/misc/lv_ll.h **** 
+  81:Lib/lvgl/src/misc/lv_ll.h **** /**
+  82:Lib/lvgl/src/misc/lv_ll.h ****  * Remove and free all elements from a linked list. The list remain valid but become empty.
+  83:Lib/lvgl/src/misc/lv_ll.h ****  * @param ll_p pointer to linked list
+  84:Lib/lvgl/src/misc/lv_ll.h ****  */
+  85:Lib/lvgl/src/misc/lv_ll.h **** static inline void _lv_ll_clear(lv_ll_t * ll_p)
+ 1250              		.loc 2 85 20 view .LVU383
+ 1251              	.LBB7:
+  86:Lib/lvgl/src/misc/lv_ll.h **** {
+  87:Lib/lvgl/src/misc/lv_ll.h ****     _lv_ll_clear_custom(ll_p, NULL);
+ 1252              		.loc 2 87 5 view .LVU384
+ 1253 0008 0021     		movs	r1, #0
+ 1254 000a 0248     		ldr	r0, .L107
+ 1255              	.LVL92:
+ 1256              		.loc 2 87 5 is_stmt 0 view .LVU385
+ 1257 000c FFF7FEFF 		bl	_lv_ll_clear_custom
+ 1258              	.LVL93:
+ 1259              		.loc 2 87 5 view .LVU386
+ 1260              	.LBE7:
+ 1261              	.LBE6:
+ 259:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1262              		.loc 1 259 1 view .LVU387
+ 1263 0010 08BD     		pop	{r3, pc}
+ 1264              	.L108:
+ 1265 0012 00BF     		.align	2
+ 1266              	.L107:
+ 1267 0014 80000000 		.word	lv_global+128
+ 1268              		.cfi_endproc
+ 1269              	.LFE250:
+ 1271              		.section	.text.lv_timer_get_idle,"ax",%progbits
+ 1272              		.align	1
+ 1273              		.global	lv_timer_get_idle
+ 1274              		.syntax unified
+ 1275              		.thumb
+ 1276              		.thumb_func
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 37
+
+
+ 1278              	lv_timer_get_idle:
+ 1279              	.LFB251:
+ 262:Lib/lvgl/src/misc/lv_timer.c ****     return state.idle_last;
+ 1280              		.loc 1 262 1 is_stmt 1 view -0
+ 1281              		.cfi_startproc
+ 1282              		@ args = 0, pretend = 0, frame = 0
+ 1283              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1284              		@ link register save eliminated.
+ 263:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1285              		.loc 1 263 5 view .LVU389
+ 264:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1286              		.loc 1 264 1 is_stmt 0 view .LVU390
+ 1287 0000 014B     		ldr	r3, .L110
+ 1288 0002 93F88D00 		ldrb	r0, [r3, #141]	@ zero_extendqisi2
+ 1289 0006 7047     		bx	lr
+ 1290              	.L111:
+ 1291              		.align	2
+ 1292              	.L110:
+ 1293 0008 00000000 		.word	lv_global
+ 1294              		.cfi_endproc
+ 1295              	.LFE251:
+ 1297              		.section	.text.lv_timer_get_time_until_next,"ax",%progbits
+ 1298              		.align	1
+ 1299              		.global	lv_timer_get_time_until_next
+ 1300              		.syntax unified
+ 1301              		.thumb
+ 1302              		.thumb_func
+ 1304              	lv_timer_get_time_until_next:
+ 1305              	.LFB252:
+ 267:Lib/lvgl/src/misc/lv_timer.c ****     return state.timer_time_until_next;
+ 1306              		.loc 1 267 1 is_stmt 1 view -0
+ 1307              		.cfi_startproc
+ 1308              		@ args = 0, pretend = 0, frame = 0
+ 1309              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1310              		@ link register save eliminated.
+ 268:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1311              		.loc 1 268 5 view .LVU392
+ 269:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1312              		.loc 1 269 1 is_stmt 0 view .LVU393
+ 1313 0000 014B     		ldr	r3, .L113
+ 1314 0002 D3F89000 		ldr	r0, [r3, #144]
+ 1315 0006 7047     		bx	lr
+ 1316              	.L114:
+ 1317              		.align	2
+ 1318              	.L113:
+ 1319 0008 00000000 		.word	lv_global
+ 1320              		.cfi_endproc
+ 1321              	.LFE252:
+ 1323              		.section	.text.lv_timer_get_next,"ax",%progbits
+ 1324              		.align	1
+ 1325              		.global	lv_timer_get_next
+ 1326              		.syntax unified
+ 1327              		.thumb
+ 1328              		.thumb_func
+ 1330              	lv_timer_get_next:
+ 1331              	.LVL94:
+ 1332              	.LFB253:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 38
+
+
+ 272:Lib/lvgl/src/misc/lv_timer.c ****     if(timer == NULL) return _lv_ll_get_head(timer_ll_p);
+ 1333              		.loc 1 272 1 is_stmt 1 view -0
+ 1334              		.cfi_startproc
+ 1335              		@ args = 0, pretend = 0, frame = 0
+ 1336              		@ frame_needed = 0, uses_anonymous_args = 0
+ 272:Lib/lvgl/src/misc/lv_timer.c ****     if(timer == NULL) return _lv_ll_get_head(timer_ll_p);
+ 1337              		.loc 1 272 1 is_stmt 0 view .LVU395
+ 1338 0000 08B5     		push	{r3, lr}
+ 1339              	.LCFI17:
+ 1340              		.cfi_def_cfa_offset 8
+ 1341              		.cfi_offset 3, -8
+ 1342              		.cfi_offset 14, -4
+ 273:Lib/lvgl/src/misc/lv_timer.c ****     else return _lv_ll_get_next(timer_ll_p, timer);
+ 1343              		.loc 1 273 5 is_stmt 1 view .LVU396
+ 273:Lib/lvgl/src/misc/lv_timer.c ****     else return _lv_ll_get_next(timer_ll_p, timer);
+ 1344              		.loc 1 273 7 is_stmt 0 view .LVU397
+ 1345 0002 20B1     		cbz	r0, .L119
+ 1346 0004 0146     		mov	r1, r0
+ 274:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1347              		.loc 1 274 10 is_stmt 1 view .LVU398
+ 274:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1348              		.loc 1 274 17 is_stmt 0 view .LVU399
+ 1349 0006 0448     		ldr	r0, .L120
+ 1350              	.LVL95:
+ 274:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1351              		.loc 1 274 17 view .LVU400
+ 1352 0008 FFF7FEFF 		bl	_lv_ll_get_next
+ 1353              	.LVL96:
+ 1354              	.L115:
+ 275:Lib/lvgl/src/misc/lv_timer.c **** 
+ 1355              		.loc 1 275 1 view .LVU401
+ 1356 000c 08BD     		pop	{r3, pc}
+ 1357              	.LVL97:
+ 1358              	.L119:
+ 273:Lib/lvgl/src/misc/lv_timer.c ****     else return _lv_ll_get_next(timer_ll_p, timer);
+ 1359              		.loc 1 273 23 is_stmt 1 discriminator 1 view .LVU402
+ 273:Lib/lvgl/src/misc/lv_timer.c ****     else return _lv_ll_get_next(timer_ll_p, timer);
+ 1360              		.loc 1 273 30 is_stmt 0 discriminator 1 view .LVU403
+ 1361 000e 0248     		ldr	r0, .L120
+ 1362              	.LVL98:
+ 273:Lib/lvgl/src/misc/lv_timer.c ****     else return _lv_ll_get_next(timer_ll_p, timer);
+ 1363              		.loc 1 273 30 discriminator 1 view .LVU404
+ 1364 0010 FFF7FEFF 		bl	_lv_ll_get_head
+ 1365              	.LVL99:
+ 1366 0014 FAE7     		b	.L115
+ 1367              	.L121:
+ 1368 0016 00BF     		.align	2
+ 1369              	.L120:
+ 1370 0018 80000000 		.word	lv_global+128
+ 1371              		.cfi_endproc
+ 1372              	.LFE253:
+ 1374              		.section	.text.lv_timer_handler_set_resume_cb,"ax",%progbits
+ 1375              		.align	1
+ 1376              		.global	lv_timer_handler_set_resume_cb
+ 1377              		.syntax unified
+ 1378              		.thumb
+ 1379              		.thumb_func
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 39
+
+
+ 1381              	lv_timer_handler_set_resume_cb:
+ 1382              	.LVL100:
+ 1383              	.LFB257:
+ 354:Lib/lvgl/src/misc/lv_timer.c **** 
+ 355:Lib/lvgl/src/misc/lv_timer.c **** void lv_timer_handler_set_resume_cb(lv_timer_handler_resume_cb_t cb, void * data)
+ 356:Lib/lvgl/src/misc/lv_timer.c **** {
+ 1384              		.loc 1 356 1 is_stmt 1 view -0
+ 1385              		.cfi_startproc
+ 1386              		@ args = 0, pretend = 0, frame = 0
+ 1387              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1388              		@ link register save eliminated.
+ 357:Lib/lvgl/src/misc/lv_timer.c ****     state.resume_cb = cb;
+ 1389              		.loc 1 357 5 view .LVU406
+ 1390              		.loc 1 357 21 is_stmt 0 view .LVU407
+ 1391 0000 024B     		ldr	r3, .L123
+ 1392 0002 C3F8A800 		str	r0, [r3, #168]
+ 358:Lib/lvgl/src/misc/lv_timer.c ****     state.resume_data = data;
+ 1393              		.loc 1 358 5 is_stmt 1 view .LVU408
+ 1394              		.loc 1 358 23 is_stmt 0 view .LVU409
+ 1395 0006 C3F8AC10 		str	r1, [r3, #172]
+ 359:Lib/lvgl/src/misc/lv_timer.c **** }
+ 1396              		.loc 1 359 1 view .LVU410
+ 1397 000a 7047     		bx	lr
+ 1398              	.L124:
+ 1399              		.align	2
+ 1400              	.L123:
+ 1401 000c 00000000 		.word	lv_global
+ 1402              		.cfi_endproc
+ 1403              	.LFE257:
+ 1405              		.text
+ 1406              	.Letext0:
+ 1407              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1408              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 1409              		.file 5 "Lib/lvgl/src/misc/../tick/lv_tick.h"
+ 1410              		.file 6 "Lib/lvgl/src/misc/lv_types.h"
+ 1411              		.file 7 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj.h"
+ 1412              		.file 8 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_class.h"
+ 1413              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 1414              		.file 10 "Lib/lvgl/src/misc/../core/../draw/lv_draw.h"
+ 1415              		.file 11 "Lib/lvgl/src/misc/../core/../draw/sw/../../display/../misc/lv_event.h"
+ 1416              		.file 12 "Lib/lvgl/src/misc/lv_timer.h"
+ 1417              		.file 13 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64
+ 1418              		.file 14 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_area.h"
+ 1419              		.file 15 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_color.h"
+ 1420              		.file 16 "Lib/lvgl/src/misc/../core/../draw/../misc/../font/../draw/lv_image_buf.h"
+ 1421              		.file 17 "Lib/lvgl/src/misc/../core/../draw/../misc/../font/../draw/lv_draw_buf.h"
+ 1422              		.file 18 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\osal\\lv_os_none.h"
+ 1423              		.file 19 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_anim.h"
+ 1424              		.file 20 "Lib/lvgl/src/misc/../core/../draw/../misc/../layouts/lv_layout.h"
+ 1425              		.file 21 "Lib/lvgl/src/misc/../core/../draw/../misc/lv_style.h"
+ 1426              		.file 22 "Lib/lvgl/src/misc/../core/../draw/sw/../../display/../misc/lv_array.h"
+ 1427              		.file 23 "Lib/lvgl/src/misc/../core/../draw/sw/blend/../lv_draw_sw_mask.h"
+ 1428              		.file 24 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
+ 1429              		.file 25 "Lib/lvgl/src/misc/../core/../stdlib/builtin/lv_tlsf.h"
+ 1430              		.file 26 "Lib/lvgl/src/misc/../core/lv_global.h"
+ 1431              		.file 27 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 40
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lv_timer.c
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:21     .text.lv_timer_handler_resume:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:26     .text.lv_timer_handler_resume:00000000 lv_timer_handler_resume
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:58     .text.lv_timer_handler_resume:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:63     .text.lv_timer_time_remaining:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:68     .text.lv_timer_time_remaining:00000000 lv_timer_time_remaining
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:113    .text.lv_timer_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:119    .text.lv_timer_create:00000000 lv_timer_create
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:207    .text.lv_timer_create:00000048 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:213    .text.lv_timer_create_basic:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:219    .text.lv_timer_create_basic:00000000 lv_timer_create_basic
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:243    .text.lv_timer_set_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:249    .text.lv_timer_set_cb:00000000 lv_timer_set_cb
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:278    .text.lv_timer_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:284    .text.lv_timer_delete:00000000 lv_timer_delete
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:323    .text.lv_timer_delete:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:328    .text.lv_timer_pause:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:334    .text.lv_timer_pause:00000000 lv_timer_pause
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:365    .text.lv_timer_exec:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:370    .text.lv_timer_exec:00000000 lv_timer_exec
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:494    .text.lv_timer_exec:00000060 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:499    .text.lv_timer_handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:505    .text.lv_timer_handler:00000000 lv_timer_handler
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:785    .text.lv_timer_handler:00000120 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:791    .text.lv_timer_periodic_handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:797    .text.lv_timer_periodic_handler:00000000 lv_timer_periodic_handler
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:840    .text.lv_timer_periodic_handler:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:845    .text.lv_timer_resume:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:851    .text.lv_timer_resume:00000000 lv_timer_resume
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:895    .text.lv_timer_set_period:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:901    .text.lv_timer_set_period:00000000 lv_timer_set_period
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:930    .text.lv_timer_ready:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:936    .text.lv_timer_ready:00000000 lv_timer_ready
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:985    .text.lv_timer_set_repeat_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:991    .text.lv_timer_set_repeat_count:00000000 lv_timer_set_repeat_count
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1020   .text.lv_timer_set_auto_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1026   .text.lv_timer_set_auto_delete:00000000 lv_timer_set_auto_delete
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1057   .text.lv_timer_set_user_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1063   .text.lv_timer_set_user_data:00000000 lv_timer_set_user_data
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1092   .text.lv_timer_reset:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1098   .text.lv_timer_reset:00000000 lv_timer_reset
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1144   .text.lv_timer_enable:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1150   .text.lv_timer_enable:00000000 lv_timer_enable
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1184   .text.lv_timer_enable:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1189   .text._lv_timer_core_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1195   .text._lv_timer_core_init:00000000 _lv_timer_core_init
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1220   .text._lv_timer_core_init:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1225   .text._lv_timer_core_deinit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1231   .text._lv_timer_core_deinit:00000000 _lv_timer_core_deinit
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1267   .text._lv_timer_core_deinit:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1272   .text.lv_timer_get_idle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1278   .text.lv_timer_get_idle:00000000 lv_timer_get_idle
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1293   .text.lv_timer_get_idle:00000008 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1298   .text.lv_timer_get_time_until_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1304   .text.lv_timer_get_time_until_next:00000000 lv_timer_get_time_until_next
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1319   .text.lv_timer_get_time_until_next:00000008 $d
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s 			page 41
+
+
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1324   .text.lv_timer_get_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1330   .text.lv_timer_get_next:00000000 lv_timer_get_next
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1370   .text.lv_timer_get_next:00000018 $d
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1375   .text.lv_timer_handler_set_resume_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1381   .text.lv_timer_handler_set_resume_cb:00000000 lv_timer_handler_set_resume_cb
+C:\Users\Alex\AppData\Local\Temp\ccQ4Ta6X.s:1401   .text.lv_timer_handler_set_resume_cb:0000000c $d
+
+UNDEFINED SYMBOLS
+lv_global
+lv_tick_elaps
+_lv_ll_ins_head
+lv_tick_get
+_lv_ll_remove
+lv_free
+_lv_ll_get_next
+_lv_ll_get_head
+_lv_ll_init
+_lv_ll_clear_custom
