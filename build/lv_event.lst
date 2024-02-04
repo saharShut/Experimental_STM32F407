@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
   27:Lib/lvgl/src/misc/lv_event.c ****  *  STATIC PROTOTYPES
   28:Lib/lvgl/src/misc/lv_event.c ****  **********************/
   29:Lib/lvgl/src/misc/lv_event.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 2
 
 
   30:Lib/lvgl/src/misc/lv_event.c **** /**********************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
   58              		.thumb_func
   60              	_lv_event_pop:
   61              	.LVL1:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 3
 
 
   62              	.LFB235:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  108              		.cfi_offset 7, -16
  109              		.cfi_offset 8, -12
  110              		.cfi_offset 9, -8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 4
 
 
  111              		.cfi_offset 14, -4
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  153 0024 13F00200 		ands	r0, r3, #2
  154 0028 21D1     		bne	.L14
   78:Lib/lvgl/src/misc/lv_event.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 5
 
 
   79:Lib/lvgl/src/misc/lv_event.c ****             /*Stop if the object is deleted*/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
   35:Lib/lvgl/src/misc/lv_array.h ****     uint32_t capacity;
   36:Lib/lvgl/src/misc/lv_array.h ****     uint32_t element_size;
   37:Lib/lvgl/src/misc/lv_array.h **** } lv_array_t;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 6
 
 
   38:Lib/lvgl/src/misc/lv_array.h **** 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  187 003e 9A00     		lsls	r2, r3, #2
  188 0040 06EB8303 		add	r3, r6, r3, lsl #2
   70:Lib/lvgl/src/misc/lv_event.c ****         bool is_preprocessed = (dsc[i].filter & LV_EVENT_PREPROCESS) != 0;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 7
 
 
  189              		.loc 1 70 18 view .LVU45
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
   85:Lib/lvgl/src/misc/lv_event.c **** }
  226              		.loc 1 85 1 view .LVU60
  227 0066 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 8
 
 
  228              	.LVL18:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  278              		@ frame_needed = 0, uses_anonymous_args = 0
  279              		.loc 1 89 1 is_stmt 0 view .LVU65
  280 0000 10B5     		push	{r4, lr}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 9
 
 
  281              	.LCFI3:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  323              		.loc 1 100 5 is_stmt 1 view .LVU81
  324 0018 01A9     		add	r1, sp, #4
  325 001a 2046     		mov	r0, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 10
 
 
  326 001c FFF7FEFF 		bl	lv_array_push_back
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  373              		.loc 1 105 25 view .LVU91
  106:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_size(list);
  374              		.loc 1 106 5 view .LVU92
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 11
 
 
  375              	.LVL32:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  419              	.LCFI7:
  420              		.cfi_def_cfa_offset 8
  421              		.cfi_offset 3, -8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 12
 
 
  422              		.cfi_offset 14, -4
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  466              		.loc 1 118 5 discriminator 2 view .LVU122
  119:Lib/lvgl/src/misc/lv_event.c **** }
  467              		.loc 1 119 1 is_stmt 0 discriminator 2 view .LVU123
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 13
 
 
  468 0002 0068     		ldr	r0, [r0]
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  511              		.loc 1 123 5 is_stmt 1 discriminator 1 view .LVU138
  123:Lib/lvgl/src/misc/lv_event.c ****     return dsc->user_data;
  512              		.loc 1 123 5 discriminator 1 view .LVU139
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 14
 
 
  123:Lib/lvgl/src/misc/lv_event.c ****     return dsc->user_data;
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  559              		.cfi_restore 14
  130:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_remove(list, index);
  560              		.loc 1 130 5 is_stmt 1 discriminator 1 view .LVU152
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 15
 
 
  130:Lib/lvgl/src/misc/lv_event.c ****     return lv_array_remove(list, index);
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  605              		.loc 1 136 5 is_stmt 1 discriminator 1 view .LVU165
  136:Lib/lvgl/src/misc/lv_event.c ****     lv_array_deinit(list);
  606              		.loc 1 136 5 discriminator 1 view .LVU166
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 16
 
 
  136:Lib/lvgl/src/misc/lv_event.c ****     lv_array_deinit(list);
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  653              		.loc 1 147 5 view .LVU175
  148:Lib/lvgl/src/misc/lv_event.c **** }
  654              		.loc 1 148 1 is_stmt 0 view .LVU176
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 17
 
 
  655 0000 4068     		ldr	r0, [r0, #4]
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  703              		.loc 1 158 1 is_stmt 0 view .LVU184
  704 0000 0069     		ldr	r0, [r0, #16]
  705              	.LVL57:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 18
 
 
  706              		.loc 1 158 1 view .LVU185
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  168:Lib/lvgl/src/misc/lv_event.c **** }
  755              		.loc 1 168 1 view .LVU193
  756 0008 7047     		bx	lr
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 19
 
 
  757              		.cfi_endproc
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  805              		.loc 1 178 5 is_stmt 1 view .LVU201
  179:Lib/lvgl/src/misc/lv_event.c **** }
  806              		.loc 1 179 1 is_stmt 0 view .LVU202
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 20
 
 
  807 0008 7047     		bx	lr
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  186:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
  853              		.loc 1 186 13 is_stmt 0 view .LVU214
  854 0012 5A68     		ldr	r2, [r3, #4]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 21
 
 
  186:Lib/lvgl/src/misc/lv_event.c ****         if(e->original_target == target || e->current_target == target) e->deleted = 1;
@@ -1250,53 +1250,53 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 1
  897              		.file 24 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
  898              		.file 25 "Lib/lvgl/src/misc/../core/../stdlib/builtin/lv_tlsf.h"
  899              		.file 26 "Lib/lvgl/src/misc/../core/lv_global.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cclaqF93.s 			page 22
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_event.c
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:21     .text._lv_event_push:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:27     .text._lv_event_push:00000000 _lv_event_push
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:49     .text._lv_event_push:0000000c $d
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:54     .text._lv_event_pop:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:60     .text._lv_event_pop:00000000 _lv_event_pop
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:79     .text._lv_event_pop:00000008 $d
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:84     .text.lv_event_send:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:90     .text.lv_event_send:00000000 lv_event_send
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:266    .text.lv_event_add:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:272    .text.lv_event_add:00000000 lv_event_add
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:355    .text.lv_event_get_count:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:361    .text.lv_event_get_count:00000000 lv_event_get_count
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:401    .text.lv_event_get_dsc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:407    .text.lv_event_get_dsc:00000000 lv_event_get_dsc
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:447    .text.lv_event_dsc_get_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:453    .text.lv_event_dsc_get_cb:00000000 lv_event_dsc_get_cb
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:484    .text.lv_event_dsc_get_user_data:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:490    .text.lv_event_dsc_get_user_data:00000000 lv_event_dsc_get_user_data
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:521    .text.lv_event_remove:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:527    .text.lv_event_remove:00000000 lv_event_remove
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:570    .text.lv_event_remove_all:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:576    .text.lv_event_remove_all:00000000 lv_event_remove_all
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:615    .text.lv_event_get_current_target:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:621    .text.lv_event_get_current_target:00000000 lv_event_get_current_target
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:639    .text.lv_event_get_target:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:645    .text.lv_event_get_target:00000000 lv_event_get_target
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:663    .text.lv_event_get_code:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:669    .text.lv_event_get_code:00000000 lv_event_get_code
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:688    .text.lv_event_get_param:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:694    .text.lv_event_get_param:00000000 lv_event_get_param
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:712    .text.lv_event_get_user_data:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:718    .text.lv_event_get_user_data:00000000 lv_event_get_user_data
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:736    .text.lv_event_stop_bubbling:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:742    .text.lv_event_stop_bubbling:00000000 lv_event_stop_bubbling
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:761    .text.lv_event_stop_processing:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:767    .text.lv_event_stop_processing:00000000 lv_event_stop_processing
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:786    .text.lv_event_register_id:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:792    .text.lv_event_register_id:00000000 lv_event_register_id
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:811    .text.lv_event_register_id:0000000c $d
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:816    .text._lv_event_mark_deleted:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:822    .text._lv_event_mark_deleted:00000000 _lv_event_mark_deleted
-C:\Users\Alex\AppData\Local\Temp\cctSTpHz.s:870    .text._lv_event_mark_deleted:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:21     .text._lv_event_push:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:27     .text._lv_event_push:00000000 _lv_event_push
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:49     .text._lv_event_push:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:54     .text._lv_event_pop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:60     .text._lv_event_pop:00000000 _lv_event_pop
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:79     .text._lv_event_pop:00000008 $d
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:84     .text.lv_event_send:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:90     .text.lv_event_send:00000000 lv_event_send
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:266    .text.lv_event_add:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:272    .text.lv_event_add:00000000 lv_event_add
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:355    .text.lv_event_get_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:361    .text.lv_event_get_count:00000000 lv_event_get_count
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:401    .text.lv_event_get_dsc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:407    .text.lv_event_get_dsc:00000000 lv_event_get_dsc
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:447    .text.lv_event_dsc_get_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:453    .text.lv_event_dsc_get_cb:00000000 lv_event_dsc_get_cb
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:484    .text.lv_event_dsc_get_user_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:490    .text.lv_event_dsc_get_user_data:00000000 lv_event_dsc_get_user_data
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:521    .text.lv_event_remove:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:527    .text.lv_event_remove:00000000 lv_event_remove
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:570    .text.lv_event_remove_all:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:576    .text.lv_event_remove_all:00000000 lv_event_remove_all
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:615    .text.lv_event_get_current_target:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:621    .text.lv_event_get_current_target:00000000 lv_event_get_current_target
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:639    .text.lv_event_get_target:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:645    .text.lv_event_get_target:00000000 lv_event_get_target
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:663    .text.lv_event_get_code:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:669    .text.lv_event_get_code:00000000 lv_event_get_code
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:688    .text.lv_event_get_param:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:694    .text.lv_event_get_param:00000000 lv_event_get_param
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:712    .text.lv_event_get_user_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:718    .text.lv_event_get_user_data:00000000 lv_event_get_user_data
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:736    .text.lv_event_stop_bubbling:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:742    .text.lv_event_stop_bubbling:00000000 lv_event_stop_bubbling
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:761    .text.lv_event_stop_processing:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:767    .text.lv_event_stop_processing:00000000 lv_event_stop_processing
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:786    .text.lv_event_register_id:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:792    .text.lv_event_register_id:00000000 lv_event_register_id
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:811    .text.lv_event_register_id:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:816    .text._lv_event_mark_deleted:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:822    .text._lv_event_mark_deleted:00000000 _lv_event_mark_deleted
+C:\Users\Alex\AppData\Local\Temp\cclaqF93.s:870    .text._lv_event_mark_deleted:00000024 $d
 
 UNDEFINED SYMBOLS
 lv_global

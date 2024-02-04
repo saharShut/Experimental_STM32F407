@@ -229,24 +229,39 @@ int main(void)
   lv_display_set_rotation(disp_drv, LV_DISPLAY_ROTATION_0); 
 
   // Some example here
-  static lv_style_t style;
-  lv_style_init(&style);
-  /*Set a background color and a radius*/
-  lv_style_set_radius(&style, 5);
-  lv_style_set_bg_opa(&style, LV_OPA_COVER);
-  lv_style_set_bg_color(&style, lv_palette_lighten(LV_PALETTE_GREY, 3));
-  lv_style_set_border_width(&style, 2);
-  lv_style_set_border_color(&style, lv_palette_main(LV_PALETTE_BLUE));
-  lv_style_set_img_recolor(&style, lv_palette_main(LV_PALETTE_BLUE));
-  lv_style_set_img_recolor_opa(&style, LV_OPA_50);
-  // lv_style_set_transform_angle(&style, 300);
-  lv_obj_t * obj = lv_img_create(lv_scr_act());
-  lv_obj_add_style(obj, &style, 0);
-  LV_IMG_DECLARE(img_cogwheel_argb);
-  lv_img_set_src(obj, &img_cogwheel_argb);
-  lv_obj_center(obj);
-
-
+  lv_obj_t * btn;
+lv_obj_t * label;
+/*Normal button*/
+btn = lv_btn_create(lv_scr_act());
+lv_obj_set_size(btn, 100, 40);
+lv_obj_align(btn, LV_ALIGN_CENTER, 0, -70);
+label = lv_label_create(btn);
+lv_label_set_text(label, "Normal");
+lv_obj_center(label);
+/*Set opacity
+*The button and the label is rendered to a layer first and that layer is␣
+,→blended*/
+btn = lv_btn_create(lv_scr_act());
+lv_obj_set_size(btn, 100, 40);
+lv_obj_set_style_opa(btn, LV_OPA_50, 0);
+lv_obj_align(btn, LV_ALIGN_CENTER, 0, 0);
+label = lv_label_create(btn);
+lv_label_set_text(label, "Opa:50%");
+lv_obj_center(label);
+/*Set transformations
+*The button and the label is rendered to a layer first and that layer is␣
+,→transformed*/
+btn = lv_btn_create(lv_scr_act());
+lv_obj_set_size(btn, 100, 40);
+lv_obj_set_style_transform_angle(btn, 150, 0); /*15 deg*/
+lv_obj_set_style_transform_zoom(btn, 256 + 64, 0); /*1.25x*/
+lv_obj_set_style_transform_pivot_x(btn, 50, 0);
+lv_obj_set_style_transform_pivot_y(btn, 20, 0);
+lv_obj_set_style_opa(btn, LV_OPA_50, 0);
+lv_obj_align(btn, LV_ALIGN_CENTER, 0, 70);
+label = lv_label_create(btn);
+lv_label_set_text(label, "Transf.");
+lv_obj_center(label);
 
   while (1)
   {

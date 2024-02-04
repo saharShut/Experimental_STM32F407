@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
   27:Lib/lvgl/src/widgets/list/lv_list.c **** /**********************
   28:Lib/lvgl/src/widgets/list/lv_list.c ****  *  STATIC PROTOTYPES
   29:Lib/lvgl/src/widgets/list/lv_list.c ****  **********************/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 2
 
 
   30:Lib/lvgl/src/widgets/list/lv_list.c **** const lv_obj_class_t lv_list_class = {
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
   47              	.LVL1:
   48              		.loc 1 66 22 view .LVU7
   49 0006 FFF7FEFF 		bl	lv_obj_class_create_obj
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 3
 
 
   50              	.LVL2:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
   98              		.loc 1 74 5 is_stmt 1 view .LVU16
   99              		.loc 1 74 5 view .LVU17
  100              		.loc 1 74 5 view .LVU18
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 4
 
 
   75:Lib/lvgl/src/widgets/list/lv_list.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
  148              		@ frame_needed = 0, uses_anonymous_args = 0
  149              		.loc 1 83 1 is_stmt 0 view .LVU30
  150 0000 70B5     		push	{r4, r5, r6, lr}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 5
 
 
  151              	.LCFI2:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
  196              	.L10:
  197              		.loc 1 92 9 is_stmt 0 view .LVU46
  198              	.LBE2:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 6
 
 
   93:Lib/lvgl/src/widgets/list/lv_list.c ****     }
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
  242 0000 00       		.ascii	"\000"
  243              		.section	.text.lv_list_get_button_text,"ax",%progbits
  244              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 7
 
 
  245              		.global	lv_list_get_button_text
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
  293 0018 FFF7FEFF 		bl	lv_obj_get_child
  294              	.LVL35:
  295 001c 0546     		mov	r5, r0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 8
 
 
  296              	.LVL36:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
  341              		.cfi_startproc
  342              		@ args = 0, pretend = 0, frame = 0
  343              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 9
 
 
  344              		.loc 1 122 1 is_stmt 0 view .LVU80
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
  393 0026 0028     		cmp	r0, #0
  394 0028 EFD0     		beq	.L26
  128:Lib/lvgl/src/widgets/list/lv_list.c ****             lv_label_set_text(child, txt);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 10
 
 
  395              		.loc 1 128 13 is_stmt 1 view .LVU95
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
  442      00000000 
  442      00000000 
  442      00000000 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 11
 
 
  443 0014 0C000000 		.word	.LC2
@@ -643,34 +643,34 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 1
  480              		.file 17 "Lib/lvgl/src/widgets/list/../button/lv_button.h"
  481              		.file 18 "Lib/lvgl/src/widgets/list/../../core/lv_obj_tree.h"
  482              		.file 19 "Lib/lvgl/src/widgets/list/../image/lv_image.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cce8xumd.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s 			page 12
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_list.c
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:21     .text.lv_list_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:27     .text.lv_list_create:00000000 lv_list_create
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:71     .text.lv_list_create:0000001c $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:456    .rodata.lv_list_class:00000000 lv_list_class
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:76     .text.lv_list_add_text:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:82     .text.lv_list_add_text:00000000 lv_list_add_text
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:131    .text.lv_list_add_text:00000020 $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:424    .rodata.lv_list_text_class:00000000 lv_list_text_class
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:136    .text.lv_list_add_button:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:142    .text.lv_list_add_button:00000000 lv_list_add_button
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:235    .text.lv_list_add_button:00000050 $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:440    .rodata.lv_list_button_class:00000000 lv_list_button_class
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:240    .rodata.lv_list_get_button_text.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:244    .text.lv_list_get_button_text:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:250    .text.lv_list_get_button_text:00000000 lv_list_get_button_text
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:325    .text.lv_list_get_button_text:00000034 $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:331    .text.lv_list_set_button_text:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:337    .text.lv_list_set_button_text:00000000 lv_list_set_button_text
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:411    .text.lv_list_set_button_text:00000034 $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:417    .rodata.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:421    .rodata.lv_list_text_class:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:437    .rodata.lv_list_button_class:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\cce8xumd.s:453    .rodata.lv_list_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:21     .text.lv_list_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:27     .text.lv_list_create:00000000 lv_list_create
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:71     .text.lv_list_create:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:456    .rodata.lv_list_class:00000000 lv_list_class
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:76     .text.lv_list_add_text:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:82     .text.lv_list_add_text:00000000 lv_list_add_text
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:131    .text.lv_list_add_text:00000020 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:424    .rodata.lv_list_text_class:00000000 lv_list_text_class
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:136    .text.lv_list_add_button:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:142    .text.lv_list_add_button:00000000 lv_list_add_button
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:235    .text.lv_list_add_button:00000050 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:440    .rodata.lv_list_button_class:00000000 lv_list_button_class
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:240    .rodata.lv_list_get_button_text.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:244    .text.lv_list_get_button_text:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:250    .text.lv_list_get_button_text:00000000 lv_list_get_button_text
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:325    .text.lv_list_get_button_text:00000034 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:331    .text.lv_list_set_button_text:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:337    .text.lv_list_set_button_text:00000000 lv_list_set_button_text
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:411    .text.lv_list_set_button_text:00000034 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:417    .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:421    .rodata.lv_list_text_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:437    .rodata.lv_list_button_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccoBSZ7c.s:453    .rodata.lv_list_class:00000000 $d
 
 UNDEFINED SYMBOLS
 lv_obj_class_create_obj

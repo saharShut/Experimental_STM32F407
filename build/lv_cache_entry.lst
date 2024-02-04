@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
   27:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     bool is_invalid;
   28:Lib/lvgl/src/misc/cache/lv_cache_entry.c **** };
   29:Lib/lvgl/src/misc/cache/lv_cache_entry.c **** /**********************
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 2
 
 
   30:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****  *  STATIC PROTOTYPES
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
   56              		.section	.text.lv_cache_entry_inc_ref,"ax",%progbits
   57              		.align	1
   58              		.global	lv_cache_entry_inc_ref
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 3
 
 
   59              		.syntax unified
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  104              		.loc 1 60 1 view -0
  105              		.cfi_startproc
  106              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 4
 
 
  107              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  144              		.cfi_endproc
  145              	.LFE2:
  147              		.section	.text.lv_cache_entry_get_ref,"ax",%progbits
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 5
 
 
  148              		.align	1
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
   74:Lib/lvgl/src/misc/cache/lv_cache_entry.c **** {
  194              		.loc 1 74 1 view -0
  195              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 6
 
 
  196              		@ args = 0, pretend = 0, frame = 0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  240              		.cfi_endproc
  241              	.LFE5:
  243              		.section	.text.lv_cache_entry_set_invalid,"ax",%progbits
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 7
 
 
  244              		.align	1
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  289              		.cfi_startproc
  290              		@ args = 0, pretend = 0, frame = 0
  291              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 8
 
 
  292              		@ link register save eliminated.
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  336              		.loc 1 95 5 discriminator 2 view .LVU110
  337              		.loc 1 95 36 is_stmt 0 discriminator 2 view .LVU111
  338 0004 8068     		ldr	r0, [r0, #8]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 9
 
 
  339              	.LVL14:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  102:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     return lv_cache_entry_get_data(entry);
  383              		.loc 1 102 5 discriminator 2 view .LVU125
  384              		.loc 1 102 12 is_stmt 0 discriminator 2 view .LVU126
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 10
 
 
  385 000a 2046     		mov	r0, r4
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  429 0004 0446     		mov	r4, r0
  430              		.loc 1 108 5 is_stmt 1 discriminator 2 view .LVU138
  431              		.loc 1 108 26 discriminator 2 view .LVU139
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 11
 
 
  109:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     if(lv_cache_entry_get_ref(entry) == 0) {
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  475              	.LVL25:
  476              	.LFB11:
  116:Lib/lvgl/src/misc/cache/lv_cache_entry.c **** lv_cache_entry_t * lv_cache_entry_get_entry(void * data, const uint32_t node_size)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 12
 
 
  117:Lib/lvgl/src/misc/cache/lv_cache_entry.c **** {
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  521 0000 08B1     		cbz	r0, .L45
  522              		.loc 1 123 5 discriminator 2 view .LVU166
  523              		.loc 1 123 26 discriminator 2 view .LVU167
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 13
 
 
  124:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     entry->cache = cache;
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  567              		.loc 1 128 5 is_stmt 1 discriminator 1 view .LVU184
  128:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     LV_ASSERT_NULL(entry);
  568              		.loc 1 128 5 discriminator 1 view .LVU185
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 14
 
 
  128:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     LV_ASSERT_NULL(entry);
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  145:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     lv_cache_entry_init(entry, cache, node_size);
  146:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     return (lv_cache_entry_t *)((uint8_t *)entry + node_size);
  147:Lib/lvgl/src/misc/cache/lv_cache_entry.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 15
 
 
  148:Lib/lvgl/src/misc/cache/lv_cache_entry.c **** void lv_cache_entry_init(lv_cache_entry_t * entry, const lv_cache_t * cache, const uint32_t node_si
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  649 0010 FEE7     		b	.L52
  650              	.L54:
  151:Lib/lvgl/src/misc/cache/lv_cache_entry.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 16
 
 
  651              		.loc 1 151 5 discriminator 2 view .LVU217
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  695              		.loc 1 139 5 view .LVU229
  140:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****         LV_LOG_ERROR("malloc failed");
  696              		.loc 1 140 5 view .LVU230
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 17
 
 
  144:Lib/lvgl/src/misc/cache/lv_cache_entry.c ****     lv_cache_entry_init(entry, cache, node_size);
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  740              		.cfi_offset 3, -8
  741              		.cfi_offset 14, -4
  742              		.loc 1 160 5 is_stmt 1 discriminator 2 view .LVU244
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 18
 
 
  743              		.loc 1 160 26 discriminator 2 view .LVU245
@@ -1062,47 +1062,47 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 1
  773              		.file 5 "Lib/lvgl/src/misc/cache/../../osal/lv_os_none.h"
  774              		.file 6 "Lib/lvgl/src/misc/cache/lv_cache_private.h"
  775              		.file 7 "Lib/lvgl/src/misc/cache/../../stdlib/lv_mem.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s 			page 19
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_cache_entry.c
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:21     .text.lv_cache_entry_reset_ref:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:27     .text.lv_cache_entry_reset_ref:00000000 lv_cache_entry_reset_ref
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:57     .text.lv_cache_entry_inc_ref:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:63     .text.lv_cache_entry_inc_ref:00000000 lv_cache_entry_inc_ref
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:95     .text.lv_cache_entry_dec_ref:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:101    .text.lv_cache_entry_dec_ref:00000000 lv_cache_entry_dec_ref
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:148    .text.lv_cache_entry_get_ref:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:154    .text.lv_cache_entry_get_ref:00000000 lv_cache_entry_get_ref
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:185    .text.lv_cache_entry_get_node_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:191    .text.lv_cache_entry_get_node_size:00000000 lv_cache_entry_get_node_size
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:209    .text.lv_cache_entry_set_node_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:215    .text.lv_cache_entry_set_node_size:00000000 lv_cache_entry_set_node_size
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:244    .text.lv_cache_entry_set_invalid:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:250    .text.lv_cache_entry_set_invalid:00000000 lv_cache_entry_set_invalid
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:279    .text.lv_cache_entry_is_invalid:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:285    .text.lv_cache_entry_is_invalid:00000000 lv_cache_entry_is_invalid
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:316    .text.lv_cache_entry_get_data:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:322    .text.lv_cache_entry_get_data:00000000 lv_cache_entry_get_data
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:355    .text.lv_cache_entry_acquire_data:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:361    .text.lv_cache_entry_acquire_data:00000000 lv_cache_entry_acquire_data
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:406    .text.lv_cache_entry_release_data:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:412    .text.lv_cache_entry_release_data:00000000 lv_cache_entry_release_data
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:468    .text.lv_cache_entry_get_entry:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:474    .text.lv_cache_entry_get_entry:00000000 lv_cache_entry_get_entry
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:505    .text.lv_cache_entry_set_cache:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:511    .text.lv_cache_entry_set_cache:00000000 lv_cache_entry_set_cache
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:540    .text.lv_cache_entry_get_cache:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:546    .text.lv_cache_entry_get_cache:00000000 lv_cache_entry_get_cache
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:577    .text.lv_cache_entry_get_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:583    .text.lv_cache_entry_get_size:00000000 lv_cache_entry_get_size
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:601    .text.lv_cache_entry_init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:607    .text.lv_cache_entry_init:00000000 lv_cache_entry_init
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:661    .text.lv_cache_entry_alloc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:667    .text.lv_cache_entry_alloc:00000000 lv_cache_entry_alloc
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:720    .text.lv_cache_entry_delete:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccVd24aL.s:726    .text.lv_cache_entry_delete:00000000 lv_cache_entry_delete
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:21     .text.lv_cache_entry_reset_ref:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:27     .text.lv_cache_entry_reset_ref:00000000 lv_cache_entry_reset_ref
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:57     .text.lv_cache_entry_inc_ref:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:63     .text.lv_cache_entry_inc_ref:00000000 lv_cache_entry_inc_ref
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:95     .text.lv_cache_entry_dec_ref:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:101    .text.lv_cache_entry_dec_ref:00000000 lv_cache_entry_dec_ref
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:148    .text.lv_cache_entry_get_ref:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:154    .text.lv_cache_entry_get_ref:00000000 lv_cache_entry_get_ref
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:185    .text.lv_cache_entry_get_node_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:191    .text.lv_cache_entry_get_node_size:00000000 lv_cache_entry_get_node_size
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:209    .text.lv_cache_entry_set_node_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:215    .text.lv_cache_entry_set_node_size:00000000 lv_cache_entry_set_node_size
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:244    .text.lv_cache_entry_set_invalid:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:250    .text.lv_cache_entry_set_invalid:00000000 lv_cache_entry_set_invalid
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:279    .text.lv_cache_entry_is_invalid:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:285    .text.lv_cache_entry_is_invalid:00000000 lv_cache_entry_is_invalid
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:316    .text.lv_cache_entry_get_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:322    .text.lv_cache_entry_get_data:00000000 lv_cache_entry_get_data
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:355    .text.lv_cache_entry_acquire_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:361    .text.lv_cache_entry_acquire_data:00000000 lv_cache_entry_acquire_data
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:406    .text.lv_cache_entry_release_data:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:412    .text.lv_cache_entry_release_data:00000000 lv_cache_entry_release_data
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:468    .text.lv_cache_entry_get_entry:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:474    .text.lv_cache_entry_get_entry:00000000 lv_cache_entry_get_entry
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:505    .text.lv_cache_entry_set_cache:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:511    .text.lv_cache_entry_set_cache:00000000 lv_cache_entry_set_cache
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:540    .text.lv_cache_entry_get_cache:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:546    .text.lv_cache_entry_get_cache:00000000 lv_cache_entry_get_cache
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:577    .text.lv_cache_entry_get_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:583    .text.lv_cache_entry_get_size:00000000 lv_cache_entry_get_size
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:601    .text.lv_cache_entry_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:607    .text.lv_cache_entry_init:00000000 lv_cache_entry_init
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:661    .text.lv_cache_entry_alloc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:667    .text.lv_cache_entry_alloc:00000000 lv_cache_entry_alloc
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:720    .text.lv_cache_entry_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccVrvEc5.s:726    .text.lv_cache_entry_delete:00000000 lv_cache_entry_delete
 
 UNDEFINED SYMBOLS
 lv_malloc_zeroed

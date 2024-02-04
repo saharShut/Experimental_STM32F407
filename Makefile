@@ -193,7 +193,6 @@ Lib/lvgl/src/widgets/tileview/lv_tileview.c \
 Lib/lvgl/src/widgets/win/lv_win.c \
 Lib/lvgl/src/libs/bin_decoder/lv_bin_decoder.c \
 Lib/lvgl/src/osal/lv_os_none.c \
-Lib/lvgl/examples/assets/img_cogwheel_argb.c \
 
 
 

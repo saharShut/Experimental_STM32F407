@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
   28:Lib/lvgl/src/widgets/spinner/lv_spinner.c **** 
   29:Lib/lvgl/src/widgets/spinner/lv_spinner.c **** /**********************
   30:Lib/lvgl/src/widgets/spinner/lv_spinner.c ****  *  STATIC VARIABLES
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 2
 
 
   31:Lib/lvgl/src/widgets/spinner/lv_spinner.c ****  **********************/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
   85:Lib/lvgl/src/widgets/spinner/lv_spinner.c ****     LV_TRACE_OBJ_CREATE("begin");
   86:Lib/lvgl/src/widgets/spinner/lv_spinner.c **** 
   87:Lib/lvgl/src/widgets/spinner/lv_spinner.c ****     LV_UNUSED(class_p);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 3
 
 
   88:Lib/lvgl/src/widgets/spinner/lv_spinner.c **** 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
   70 0006 08BD     		pop	{r3, pc}
   71              		.cfi_endproc
   72              	.LFE260:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 4
 
 
   74              		.section	.text.lv_spinner_create,"ax",%progbits
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  119              	.LFE256:
  121              		.section	.text.lv_spinner_set_anim_params,"ax",%progbits
  122              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 5
 
 
  123              		.global	lv_spinner_set_anim_params
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
    8:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** 
    9:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** #ifdef __cplusplus
   10:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** extern "C" {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 6
 
 
   11:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** #endif
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
   65:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_QUART(a) _PARA(a, 0.76, 0, 0.24, 1)
   66:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_QUINT(a) _PARA(a, 0.64, 0, 0.78, 0)
   67:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** #define LV_ANIM_SET_EASE_OUT_QUINT(a) _PARA(a, 0.22, 1, 0.36, 1)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 7
 
 
   68:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** #define LV_ANIM_SET_EASE_IN_OUT_QUINT(a) _PARA(a, 0.83, 0, 0.17, 1)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  122:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** 
  123:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** /** Callback used when the animation is deleted*/
  124:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** typedef void (*lv_anim_deleted_cb_t)(lv_anim_t *);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 8
 
 
  125:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** 
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  179:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** void _lv_anim_core_deinit(void);
  180:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** 
  181:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** /**
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 9
 
 
  182:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h ****  * Initialize an animation variable.
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  186              		.loc 1 63 5 is_stmt 1 view .LVU34
  187              	.LBB24:
  188              	.LBI24:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 10
 
 
  212:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** }
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  266:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** }
  267:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** 
  268:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** /**
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 11
 
 
  269:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h ****  * Set the path (curve) of the animation.
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  323:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h ****  */
  324:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** static inline void lv_anim_set_playback_duration(lv_anim_t * a, uint32_t duration)
  325:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 12
 
 
  326:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h ****     a->playback_duration = duration;
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  209              	.LBE27:
  210              	.LBE26:
   65:Lib/lvgl/src/widgets/spinner/lv_spinner.c ****     lv_anim_start(&a);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 13
 
 
  211              		.loc 1 65 5 is_stmt 1 view .LVU44
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  249              		.loc 2 275 16 view .LVU60
  250              	.LBE31:
  251              	.LBE30:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 14
 
 
   69:Lib/lvgl/src/widgets/spinner/lv_spinner.c ****                               LV_BEZIER_VAL_FLOAT(0), LV_BEZIER_VAL_FLOAT(1));
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  260 003e 4FF4D773 		mov	r3, #430
  261 0042 ADF84630 		strh	r3, [sp, #70]	@ movhi
  400:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h ****     para->x2 = x2;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 15
 
 
  262              		.loc 2 400 5 is_stmt 1 view .LVU66
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  303              	.LBB37:
  211:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** }
  304              		.loc 2 211 5 view .LVU85
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 16
 
 
  211:Lib/lvgl/src/widgets/spinner/../../../src/misc/lv_anim.h **** }
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  353              		.loc 1 84 1 is_stmt 1 view -0
  354              		.cfi_startproc
  355              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 17
 
 
  356              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  401 0018 00000000 		.space	12
  401      00000000 
  401      00000000 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 18
 
 
  402              		.text
@@ -1039,26 +1039,26 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 1
  417              		.file 16 "Lib/lvgl/src/widgets/spinner/../../../src/widgets/imagebutton/lv_imagebutton.h"
  418              		.file 17 "Lib/lvgl/src/widgets/spinner/../../../src/widgets/arc/lv_arc.h"
  419              		.file 18 "Lib/lvgl/src/widgets/spinner/lv_spinner.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s 			page 19
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_spinner.c
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:21     .text.arc_anim_start_angle:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:26     .text.arc_anim_start_angle:00000000 arc_anim_start_angle
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:48     .text.arc_anim_end_angle:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:53     .text.arc_anim_end_angle:00000000 arc_anim_end_angle
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:75     .text.lv_spinner_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:81     .text.lv_spinner_create:00000000 lv_spinner_create
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:117    .text.lv_spinner_create:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:396    .rodata.lv_spinner_class:00000000 lv_spinner_class
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:122    .text.lv_spinner_set_anim_params:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:128    .text.lv_spinner_set_anim_params:00000000 lv_spinner_set_anim_params
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:338    .text.lv_spinner_set_anim_params:00000088 $d
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:345    .text.lv_spinner_constructor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:350    .text.lv_spinner_constructor:00000000 lv_spinner_constructor
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:389    .rodata.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccsBU5gb.s:393    .rodata.lv_spinner_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:21     .text.arc_anim_start_angle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:26     .text.arc_anim_start_angle:00000000 arc_anim_start_angle
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:48     .text.arc_anim_end_angle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:53     .text.arc_anim_end_angle:00000000 arc_anim_end_angle
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:75     .text.lv_spinner_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:81     .text.lv_spinner_create:00000000 lv_spinner_create
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:117    .text.lv_spinner_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:396    .rodata.lv_spinner_class:00000000 lv_spinner_class
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:122    .text.lv_spinner_set_anim_params:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:128    .text.lv_spinner_set_anim_params:00000000 lv_spinner_set_anim_params
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:338    .text.lv_spinner_set_anim_params:00000088 $d
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:345    .text.lv_spinner_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:350    .text.lv_spinner_constructor:00000000 lv_spinner_constructor
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:389    .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccaMLKLQ.s:393    .rodata.lv_spinner_class:00000000 $d
 
 UNDEFINED SYMBOLS
 lv_arc_set_start_angle

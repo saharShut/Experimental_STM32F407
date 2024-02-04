@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
   49              		.cfi_endproc
   50              	.LFE130:
   52              		.section	.text.ILI9341_Reset,"ax",%progbits
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 2
 
 
   53              		.align	1
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
   99              		.thumb_func
  101              	ILI9341_WriteCommand:
  102              	.LVL4:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 3
 
 
  103              	.LFB133:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  154              	.LFB134:
   23:Lib/ili9341/ili9341.c **** 
   24:Lib/ili9341/ili9341.c **** static void ILI9341_WriteData(uint8_t* buff, size_t buff_size) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 4
 
 
  155              		.loc 1 24 64 is_stmt 1 view -0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  202 0030 2644     		add	r6, r6, r4
  203              	.LVL14:
   32:Lib/ili9341/ili9341.c ****         buff_size -= chunk_size;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 5
 
 
  204              		.loc 1 32 9 is_stmt 1 view .LVU27
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
   37:Lib/ili9341/ili9341.c ****     // column address set
   38:Lib/ili9341/ili9341.c ****     ILI9341_WriteCommand(0x2A); // CASET
  255              		.loc 1 38 5 is_stmt 1 view .LVU35
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 6
 
 
  256 000c 2A20     		movs	r0, #42
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  296 0054 2C20     		movs	r0, #44
  297 0056 FFF7FEFF 		bl	ILI9341_WriteCommand
  298              	.LVL23:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 7
 
 
   53:Lib/ili9341/ili9341.c **** }
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
   91:Lib/ili9341/ili9341.c ****     }
   92:Lib/ili9341/ili9341.c **** 
   93:Lib/ili9341/ili9341.c ****     // POWER ON SEQUENCE CONTROL
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 8
 
 
   94:Lib/ili9341/ili9341.c ****     ILI9341_WriteCommand(0xED);
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  148:Lib/ili9341/ili9341.c **** 
  149:Lib/ili9341/ili9341.c ****     // FRAME RATIO CONTROL, STANDARD RGB COLOR
  150:Lib/ili9341/ili9341.c ****     ILI9341_WriteCommand(0xB1);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 9
 
 
  151:Lib/ili9341/ili9341.c ****     {
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  205:Lib/ili9341/ili9341.c ****     }
  206:Lib/ili9341/ili9341.c **** 
  207:Lib/ili9341/ili9341.c ****     ILI9341_Unselect();
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 10
 
 
  208:Lib/ili9341/ili9341.c **** }
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  352 001a 92B2     		uxth	r2, r2
  353              		.loc 1 226 58 view .LVU53
  354 001c 9DF835A0 		ldrb	r10, [sp, #53]	@ zero_extendqisi2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 11
 
 
  355              		.loc 1 226 53 view .LVU54
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  395 0050 06FA04F3 		lsl	r3, r6, r4
  231:Lib/ili9341/ili9341.c ****                 uint8_t data[] = { color >> 8, color & 0xFF };
  396              		.loc 1 231 15 view .LVU67
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 12
 
 
  397 0054 13F4004F 		tst	r3, #32768
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  240:Lib/ili9341/ili9341.c **** }
  436              		.loc 1 240 1 view .LVU80
  437 008a 03B0     		add	sp, sp, #12
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 13
 
 
  438              	.LCFI12:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  491 0010 00040240 		.word	1073873920
  492              		.cfi_endproc
  493              	.LFE131:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 14
 
 
  495              		.section	.rodata.ILI9341_Init.str1.4,"aMS",%progbits,1
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  541              	.LVL40:
  542              	.LBB7:
   68:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 15
 
 
  543              		.loc 1 68 9 view .LVU91
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  587              	.LVL45:
  588              	.LBE9:
   87:Lib/ili9341/ili9341.c ****     {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 16
 
 
  589              		.loc 1 87 5 view .LVU102
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  632              	.LVL51:
  633              	.LBE12:
  108:Lib/ili9341/ili9341.c ****     {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 17
 
 
  634              		.loc 1 108 5 view .LVU114
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  677              	.LVL57:
  678              	.LBE15:
  129:Lib/ili9341/ili9341.c ****     {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 18
 
 
  679              		.loc 1 129 5 view .LVU126
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  722              	.LVL63:
  723              	.LBE18:
  150:Lib/ili9341/ili9341.c ****     {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 19
 
 
  724              		.loc 1 150 5 view .LVU138
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  767 015a 6846     		mov	r0, sp
  768 015c FFF7FEFF 		bl	ILI9341_WriteData
  769              	.LVL69:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 20
 
 
  770              	.LBE21:
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  813 019c EC46     		mov	ip, sp
  814 019e 1034     		adds	r4, r4, #16
  815 01a0 94E80F00 		ldm	r4, {r0, r1, r2, r3}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 21
 
 
  816 01a4 ACE80700 		stmia	ip!, {r0, r1, r2}
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  860              		@ sp needed
  861 01e6 30BD     		pop	{r4, r5, pc}
  862              	.L38:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 22
 
 
  863              		.align	2
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  913              		.cfi_def_cfa_offset 16
  914              		@ sp needed
  915 0016 70BD     		pop	{r4, r5, r6, pc}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 23
 
 
  916              	.LVL84:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  964              		.thumb_func
  966              	ILI9341_WriteString:
  967              	.LVL90:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 24
 
 
  968              	.LFB139:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1007              	.LVL93:
  256:Lib/ili9341/ili9341.c ****                 continue;
  1008              		.loc 1 256 17 is_stmt 1 discriminator 1 view .LVU191
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 25
 
 
  247:Lib/ili9341/ili9341.c ****             y += font.height;
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  248:Lib/ili9341/ili9341.c ****             if(y + font.height >= ILI9341_HEIGHT) {
  1049              		.loc 1 248 22 is_stmt 0 view .LVU206
  1050 0050 9DF83530 		ldrb	r3, [sp, #53]	@ zero_extendqisi2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 26
 
 
  248:Lib/ili9341/ili9341.c ****             if(y + font.height >= ILI9341_HEIGHT) {
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1093              	.LCFI29:
  1094              		.cfi_def_cfa_offset 0
  1095 0072 7047     		bx	lr
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 27
 
 
  1096              		.cfi_endproc
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1147 0024 C0F5A076 		rsb	r6, r0, #320
  1148 0028 B6B2     		uxth	r6, r6
  1149              	.LVL106:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 28
 
 
  1150              	.L61:
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1196              	.LVL111:
  1197              	.L64:
  280:Lib/ili9341/ili9341.c ****         for(x = w; x > 0; x--) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 29
 
 
  281:Lib/ili9341/ili9341.c ****             HAL_SPI_Transmit(&ILI9341_SPI_PORT, data, sizeof(data), HAL_MAX_DELAY);
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1239              	.L70:
  1240              		.loc 1 286 1 view .LVU253
  1241 0096 00BF     		.align	2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 30
 
 
  1242              	.L69:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1296              	ILI9341_DrawImage:
  1297              	.LVL122:
  1298              	.LFB142:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 31
 
 
  291:Lib/ili9341/ili9341.c **** 
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1341              	.LVL125:
  1342              	.L79:
  297:Lib/ili9341/ili9341.c ****     ILI9341_SetAddressWindow(x, y, x+w-1, y+h-1);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 32
 
 
  1343              		.loc 1 297 5 is_stmt 1 view .LVU271
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1389              		.section	.text.ILI9341_InvertColors,"ax",%progbits
  1390              		.align	1
  1391              		.global	ILI9341_InvertColors
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 33
 
 
  1392              		.syntax unified
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1440 000b 00       		.space	1
  1441              	.LC2:
  1442 000c 850078   		.ascii	"\205\000x"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 34
 
 
  1443 000f 00       		.space	1
@@ -2000,48 +2000,48 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
  1456              		.file 10 "Lib/ili9341/fonts.h"
  1457              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
  1458              		.file 12 "Lib/ili9341/ili9341.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s 			page 35
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 ili9341.c
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:21     .text.ILI9341_Select:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:26     .text.ILI9341_Select:00000000 ILI9341_Select
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:48     .text.ILI9341_Select:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:53     .text.ILI9341_Reset:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:58     .text.ILI9341_Reset:00000000 ILI9341_Reset
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:91     .text.ILI9341_Reset:00000020 $d
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:96     .text.ILI9341_WriteCommand:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:101    .text.ILI9341_WriteCommand:00000000 ILI9341_WriteCommand
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:141    .text.ILI9341_WriteCommand:0000002c $d
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:147    .text.ILI9341_WriteData:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:152    .text.ILI9341_WriteData:00000000 ILI9341_WriteData
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:221    .text.ILI9341_WriteData:0000003c $d
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:227    .text.ILI9341_SetAddressWindow:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:232    .text.ILI9341_SetAddressWindow:00000000 ILI9341_SetAddressWindow
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:309    .text.ILI9341_WriteChar:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:314    .text.ILI9341_WriteChar:00000000 ILI9341_WriteChar
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:463    .text.ILI9341_Unselect:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:469    .text.ILI9341_Unselect:00000000 ILI9341_Unselect
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:491    .text.ILI9341_Unselect:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:496    .rodata.ILI9341_Init.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:503    .text.ILI9341_Init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:509    .text.ILI9341_Init:00000000 ILI9341_Init
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:865    .text.ILI9341_Init:000001e8 $d
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:873    .text.ILI9341_DrawPixel:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:879    .text.ILI9341_DrawPixel:00000000 ILI9341_DrawPixel
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:960    .text.ILI9341_WriteString:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:966    .text.ILI9341_WriteString:00000000 ILI9341_WriteString
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1100   .text.ILI9341_FillRectangle:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1106   .text.ILI9341_FillRectangle:00000000 ILI9341_FillRectangle
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1243   .text.ILI9341_FillRectangle:00000098 $d
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1249   .text.ILI9341_FillScreen:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1255   .text.ILI9341_FillScreen:00000000 ILI9341_FillScreen
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1290   .text.ILI9341_DrawImage:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1296   .text.ILI9341_DrawImage:00000000 ILI9341_DrawImage
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1390   .text.ILI9341_InvertColors:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1396   .text.ILI9341_InvertColors:00000000 ILI9341_InvertColors
-C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1433   .rodata:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:21     .text.ILI9341_Select:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:26     .text.ILI9341_Select:00000000 ILI9341_Select
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:48     .text.ILI9341_Select:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:53     .text.ILI9341_Reset:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:58     .text.ILI9341_Reset:00000000 ILI9341_Reset
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:91     .text.ILI9341_Reset:00000020 $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:96     .text.ILI9341_WriteCommand:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:101    .text.ILI9341_WriteCommand:00000000 ILI9341_WriteCommand
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:141    .text.ILI9341_WriteCommand:0000002c $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:147    .text.ILI9341_WriteData:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:152    .text.ILI9341_WriteData:00000000 ILI9341_WriteData
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:221    .text.ILI9341_WriteData:0000003c $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:227    .text.ILI9341_SetAddressWindow:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:232    .text.ILI9341_SetAddressWindow:00000000 ILI9341_SetAddressWindow
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:309    .text.ILI9341_WriteChar:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:314    .text.ILI9341_WriteChar:00000000 ILI9341_WriteChar
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:463    .text.ILI9341_Unselect:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:469    .text.ILI9341_Unselect:00000000 ILI9341_Unselect
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:491    .text.ILI9341_Unselect:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:496    .rodata.ILI9341_Init.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:503    .text.ILI9341_Init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:509    .text.ILI9341_Init:00000000 ILI9341_Init
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:865    .text.ILI9341_Init:000001e8 $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:873    .text.ILI9341_DrawPixel:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:879    .text.ILI9341_DrawPixel:00000000 ILI9341_DrawPixel
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:960    .text.ILI9341_WriteString:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:966    .text.ILI9341_WriteString:00000000 ILI9341_WriteString
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1100   .text.ILI9341_FillRectangle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1106   .text.ILI9341_FillRectangle:00000000 ILI9341_FillRectangle
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1243   .text.ILI9341_FillRectangle:00000098 $d
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1249   .text.ILI9341_FillScreen:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1255   .text.ILI9341_FillScreen:00000000 ILI9341_FillScreen
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1290   .text.ILI9341_DrawImage:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1296   .text.ILI9341_DrawImage:00000000 ILI9341_DrawImage
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1390   .text.ILI9341_InvertColors:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1396   .text.ILI9341_InvertColors:00000000 ILI9341_InvertColors
+C:\Users\Alex\AppData\Local\Temp\ccn0Xqfh.s:1433   .rodata:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin
