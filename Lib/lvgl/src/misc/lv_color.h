@@ -87,21 +87,21 @@ typedef uint8_t lv_opa_t;
  **********************/
 
 typedef struct {
-    uint8_t blue;
-    uint8_t green;
     uint8_t red;
+    uint8_t green;
+    uint8_t blue;
 } lv_color_t;
 
 typedef struct {
-    uint16_t blue : 5;
-    uint16_t green : 6;
     uint16_t red : 5;
+    uint16_t green : 6;
+    uint16_t blue : 5;
 } lv_color16_t;
 
 typedef struct {
-    uint8_t blue;
-    uint8_t green;
     uint8_t red;
+    uint8_t green;
+    uint8_t blue;
     uint8_t alpha;
 } lv_color32_t;
 

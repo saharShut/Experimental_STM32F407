@@ -1,6 +1,6 @@
 #include "../../lvgl.h"
 
-#if LV_BUILD_EXAMPLES
+
 
 #ifndef LV_ATTRIBUTE_MEM_ALIGN
     #define LV_ATTRIBUTE_MEM_ALIGN
@@ -122,4 +122,3 @@ const lv_image_dsc_t img_cogwheel_argb = {
     .data = img_cogwheel_argb_map,
 };
 
-#endif /* LV_BUILD_EXAMPLES */

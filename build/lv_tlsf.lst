@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
   28:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** TLSF achieves O(1) cost for malloc and free operations by limiting
   29:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** the search for a free block to a free list of guaranteed size
   30:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** adequate to fulfill the request, combined with efficient free list
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 2
 
 
   31:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** queries using bitmasks and architecture-specific bit-manipulation
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
   85:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** tlsf_decl int tlsf_ffs(unsigned int word)
   86:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** {
   87:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     const unsigned int reverse = word & (~word + 1);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 3
 
 
   88:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     const int bit = 32 - __builtin_clz(reverse);
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  142:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     return bit - 1;
  143:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
  144:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 4
 
 
  145:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** #elif defined (__ARMCC_VERSION)
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  199:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** {
  200:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     int high = (int)(size >> 32);
  201:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     int bits = 0;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 5
 
 
  202:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     if(high) {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  256:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     ** TODO: We can increase this to support larger sizes, at the expense
  257:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     ** of more overhead in the TLSF structure.
  258:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     */
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 6
 
 
  259:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     FL_INDEX_MAX = 32,
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  313:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** **
  314:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** There are several implementation subtleties involved:
  315:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** - The prev_phys_block field is only valid if the previous block is free.
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 7
 
 
  316:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** - The prev_phys_block field is actually stored at the end of the
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  370:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     /* Head of free lists. */
  371:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block_header_t * blocks[FL_INDEX_COUNT][SL_INDEX_COUNT];
  372:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** } control_t;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 8
 
 
  373:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
   68              		.loc 1 389 17 view .LVU10
   69 0008 4360     		str	r3, [r0, #4]
   70              	.LVL5:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 9
 
 
  390:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  399:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     return tlsf_cast(int, block->size & block_header_free_bit);
  120              		.loc 1 399 5 view .LVU18
  121              		.loc 1 399 12 is_stmt 0 view .LVU19
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 10
 
 
  122 0000 4068     		ldr	r0, [r0, #4]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  170              		.loc 1 409 10 is_stmt 0 view .LVU28
  171 0000 4368     		ldr	r3, [r0, #4]
  172              		.loc 1 409 17 view .LVU29
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 11
 
 
  173 0002 23F00103 		bic	r3, r3, #1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  221              		.loc 1 419 17 view .LVU38
  222 0002 43F00203 		orr	r3, r3, #2
  223 0006 4360     		str	r3, [r0, #4]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 12
 
 
  420:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  270 0000 0838     		subs	r0, r0, #8
  271              	.LVL17:
  272              		.loc 1 431 1 view .LVU48
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 13
 
 
  273 0002 7047     		bx	lr
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  319 0002 7047     		bx	lr
  320              		.cfi_endproc
  321              	.LFE15:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 14
 
 
  323              		.section	.text.block_prev,"ax",%progbits
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  373              	.LVL24:
  374              	.LFB17:
  451:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 15
 
 
  452:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** /* Return location of next existing block. */
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  459:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
  421              		.loc 1 459 1 is_stmt 0 view .LVU86
  422 0024 2846     		mov	r0, r5
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 16
 
 
  423 0026 38BD     		pop	{r3, r4, r5, pc}
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  470:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** {
  471              		.loc 1 470 1 is_stmt 1 view -0
  472              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 17
 
 
  473              		@ args = 0, pretend = 0, frame = 0
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  520              		.loc 1 479 29 is_stmt 0 view .LVU108
  521 0004 FFF7FEFF 		bl	block_next
  522              	.LVL38:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 18
 
 
  480:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block_set_prev_used(next);
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  571 000c 4942     		rsbs	r1, r1, #0
  572              	.LVL43:
  488:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 19
 
 
  573              		.loc 1 488 1 discriminator 2 view .LVU126
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  625              	align_ptr:
  626              	.LVL47:
  627              	.LFB23:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 20
 
 
  495:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  506:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** than internal minimum.
  507:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** */
  508:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** static size_t adjust_request_size(size_t size, size_t align)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 21
 
 
  509:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** {
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  709              	.LVL55:
  516:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         }
  710              		.loc 1 516 20 view .LVU169
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 22
 
 
  711 0016 F5E7     		b	.L38
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  552:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
  553:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
  554:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** static block_header_t * search_suitable_block(control_t * control, int * fli, int * sli)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 23
 
 
  555:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** {
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  589:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     tlsf_assert(prev && "prev_free field can not be null");
  753              		.loc 1 589 5 is_stmt 1 view .LVU179
  754              		.loc 1 589 5 view .LVU180
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 24
 
 
  755 000a 6BB1     		cbz	r3, .L44
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  786              		.loc 1 589 5 discriminator 1 view .LVU196
  589:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     tlsf_assert(next && "next_free field can not be null");
  787              		.loc 1 589 5 discriminator 1 view .LVU197
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 25
 
 
  788 0028 FEE7     		b	.L44
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  604:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             }
  825              		.loc 1 604 17 is_stmt 1 view .LVU215
  604:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 26
 
 
  826              		.loc 1 604 24 is_stmt 0 view .LVU216
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  874 001a 0C46     		mov	r4, r1
  875 001c 1646     		mov	r6, r2
  876              		.loc 1 614 5 discriminator 2 view .LVU226
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 27
 
 
  615:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     tlsf_assert(block && "cannot insert a null entry into the free list");
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  615:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block->next_free = current;
  920              		.loc 1 615 5 discriminator 2 view .LVU250
  615:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block->next_free = current;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 28
 
 
  921              		.loc 1 615 5 discriminator 2 view .LVU251
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  964              		.section	.text.block_can_split,"ax",%progbits
  965              		.align	1
  966              		.syntax unified
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 29
 
 
  967              		.thumb
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1002              		.align	1
  1003              		.syntax unified
  1004              		.thumb
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 30
 
 
  1005              		.thumb_func
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  660:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
  661:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     tlsf_assert(block_to_ptr(remaining) == align_ptr(block_to_ptr(remaining), ALIGN_SIZE)
  1051              		.loc 1 661 5 is_stmt 1 view .LVU287
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 31
 
 
  1052              		.loc 1 661 5 view .LVU288
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1101              		.loc 1 666 5 discriminator 3 view .LVU308
  1102              		.loc 1 666 5 discriminator 3 view .LVU309
  1103              		.loc 1 666 5 discriminator 3 view .LVU310
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 32
 
 
  1104 0054 FEE7     		b	.L66
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1149 0006 FFF7FEFF 		bl	block_is_last
  1150              	.LVL94:
  1151              		.loc 1 677 5 is_stmt 0 view .LVU321
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 33
 
 
  1152 000a 00B1     		cbz	r0, .L69
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  691:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         block_remove(control, prev);
  692:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         block = block_absorb(prev, block);
  693:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 34
 
 
  694:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  748:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         block_insert(control, block);
  749:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     }
  750:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 35
 
 
  751:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     return remaining_block;
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1201              		.loc 1 798 5 view .LVU339
  1202              		.loc 1 798 35 is_stmt 0 view .LVU340
  1203 0000 8060     		str	r0, [r0, #8]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 36
 
 
  799:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     control->block_null.prev_free = &control->block_null;
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1244              	.LVL102:
  804:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             control->blocks[i][j] = &control->block_null;
  1245              		.loc 1 804 9 is_stmt 0 view .LVU356
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 37
 
 
  1246 002c F4E7     		b	.L74
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1284 000c 0446     		mov	r4, r0
  1285              	.LVL106:
  824:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     integrity_t * integ = tlsf_cast(integrity_t *, user);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 38
 
 
  1286              		.loc 1 824 5 is_stmt 1 view .LVU363
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1332 0038 00D0     		beq	.L81
  1333              	.L82:
  1334              		.loc 1 832 5 discriminator 2 view .LVU386
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 39
 
 
  1335              		.loc 1 832 5 discriminator 2 view .LVU387
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  861:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             }
  862:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
  863:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             /* Check that there is at least one free block. */
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 40
 
 
  864:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             tlsf_insist(sl_list && "no free blocks in second-level map");
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1390              		@ link register save eliminated.
  103:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     return bit - 1;
  1391              		.loc 1 103 5 view .LVU406
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 41
 
 
  103:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     return bit - 1;
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1438 0002 0446     		mov	r4, r0
  1439 0004 0D46     		mov	r5, r1
  1440 0006 1646     		mov	r6, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 42
 
 
  529:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     if(size < SMALL_BLOCK_SIZE) {
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1479              	.LVL125:
  537:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         fl -= (FL_INDEX_SHIFT - 1);
  1480              		.loc 1 537 9 is_stmt 1 view .LVU433
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 43
 
 
  537:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         fl -= (FL_INDEX_SHIFT - 1);
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1527 000a FFF7FEFF 		bl	block_size
  1528              	.LVL131:
  643:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     insert_free_block(control, block, fl, sl);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 44
 
 
  1529              		.loc 1 643 5 view .LVU444
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1578              	.LVL135:
  716:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     if(block_can_split(block, size)) {
  1579              		.loc 1 716 5 is_stmt 0 view .LVU452
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 45
 
 
  1580 000a FFF7FEFF 		bl	block_is_free
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1619              		.loc 1 719 9 is_stmt 0 view .LVU467
  1620 002a FFF7FEFF 		bl	block_link_next
  1621              	.LVL143:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 46
 
 
  720:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         block_insert(control, remaining_block);
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  785:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         block_trim_free(control, block, size);
  1667              		.loc 1 785 9 discriminator 1 view .LVU479
  785:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         block_trim_free(control, block, size);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 47
 
 
  1668              		.loc 1 785 9 discriminator 1 view .LVU480
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1712              		@ frame_needed = 0, uses_anonymous_args = 0
  740:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block_header_t * remaining_block = block;
  1713              		.loc 1 740 1 is_stmt 0 view .LVU493
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 48
 
 
  1714 0000 70B5     		push	{r4, r5, r6, lr}
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  747:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         block_insert(control, block);
  1757              		.loc 1 747 9 view .LVU505
  1758 0024 2046     		mov	r0, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 49
 
 
  1759 0026 FFF7FEFF 		bl	block_link_next
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1806              		.loc 1 635 5 view .LVU514
  1807 000e 6A46     		mov	r2, sp
  1808 0010 01A9     		add	r1, sp, #4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 50
 
 
  1809 0012 FFF7FEFF 		bl	mapping_insert
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1857              	.LVL173:
  687:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         block_header_t * prev = block_prev(block);
  1858              		.loc 1 687 7 view .LVU523
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 51
 
 
  1859 000c 08B9     		cbnz	r0, .L121
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1895              		.loc 1 689 9 discriminator 1 view .LVU541
  689:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         tlsf_assert(block_is_free(prev) && "prev block is not free though marked as such");
  1896              		.loc 1 689 9 discriminator 1 view .LVU542
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 52
 
 
  689:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         tlsf_assert(block_is_free(prev) && "prev block is not free though marked as such");
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1944              		.loc 1 701 5 is_stmt 1 view .LVU551
  701:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     tlsf_assert(next && "next physical block can't be null");
  1945              		.loc 1 701 29 is_stmt 0 view .LVU552
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 53
 
 
  1946 0006 0846     		mov	r0, r1
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  1981              		.loc 1 702 5 discriminator 1 view .LVU571
  1982 0020 FEE7     		b	.L124
  1983              	.LVL188:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 54
 
 
  1984              	.L126:
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2031 0006 1546     		mov	r5, r2
  728:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     if(block_can_split(block, size)) {
  2032              		.loc 1 728 5 is_stmt 1 view .LVU581
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 55
 
 
  728:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     if(block_can_split(block, size)) {
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2072              	.LVL199:
  732:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
  2073              		.loc 1 732 9 is_stmt 1 view .LVU597
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 56
 
 
  2074 0028 FFF7FEFF 		bl	block_set_prev_used
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2121              		.loc 1 547 5 is_stmt 1 view .LVU606
  547:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         const size_t round = (1 << (tlsf_fls_sizet(size) - SL_INDEX_COUNT_LOG2)) - 1;
  2122              		.loc 1 547 7 is_stmt 0 view .LVU607
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 57
 
 
  2123 0008 7F28     		cmp	r0, #127
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2167              		.cfi_startproc
  2168              		@ args = 0, pretend = 0, frame = 0
  2169              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 58
 
 
  2170              		@ link register save eliminated.
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2216              		.loc 1 557 5 is_stmt 1 view .LVU629
  557:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
  2217              		.loc 1 557 9 is_stmt 0 view .LVU630
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 59
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 59
 
 
  2218 0008 1268     		ldr	r2, [r2]
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2257              		.loc 1 572 9 is_stmt 1 view .LVU645
  572:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         *fli = fl;
  2258              		.loc 1 572 14 is_stmt 0 view .LVU646
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 60
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 60
 
 
  2259 002c FFF7FEFF 		bl	tlsf_ffs
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  581:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
  2295              		.loc 1 581 5 is_stmt 1 discriminator 2 view .LVU665
  581:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 61
 
 
  2296              		.loc 1 581 31 is_stmt 0 discriminator 2 view .LVU666
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  756:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block_header_t * block = 0;
  2345              		.loc 1 756 5 is_stmt 1 view .LVU674
  756:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block_header_t * block = 0;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 62
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 62
 
 
  2346              		.loc 1 756 9 is_stmt 0 view .LVU675
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2385              		.loc 1 774 9 is_stmt 1 view .LVU690
  774:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         remove_free_block(control, block, fl, sl);
  2386              		.loc 1 774 9 view .LVU691
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 63
 
 
  2387 002e FFF7FEFF 		bl	block_size
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  778:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
  2430              		.loc 1 778 5 is_stmt 1 view .LVU703
  778:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 64
 
 
  2431              		.loc 1 778 12 is_stmt 0 view .LVU704
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2478              	.L178:
  2479              	.LVL248:
  847:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             const int fl_map = control->fl_bitmap & (1U << i);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 65
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 65
 
 
  2480              		.loc 1 847 22 is_stmt 1 discriminator 1 view .LVU714
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  858:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 tlsf_insist(block == &control->block_null && "block list must be null");
  2519              		.loc 1 858 15 is_stmt 0 discriminator 5 view .LVU730
  2520 003a 1BB9     		cbnz	r3, .L157
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 66
 
 
  859:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 continue;
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2555 004c 2BD0     		beq	.L158
  2556              	.LBB10:
  868:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 tlsf_insist(block_is_free(block) && "block should be free");
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 67
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 67
 
 
  2557              		.loc 1 868 17 view .LVU751
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  872:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 tlsf_insist(block_size(block) >= block_size_min && "block not minimum size");
  2594              		.loc 1 872 17 discriminator 9 view .LVU769
  872:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 tlsf_insist(block_size(block) >= block_size_min && "block not minimum size");
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 68
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 68
 
 
  2595              		.loc 1 872 17 discriminator 9 view .LVU770
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2632              		.loc 1 877 23 discriminator 9 view .LVU787
  2633              	.LBE10:
  864:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             tlsf_insist(block != &control->block_null && "block should not be null");
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 69
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 69
 
 
  2634              		.loc 1 864 13 is_stmt 1 discriminator 3 view .LVU788
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2666              		.loc 1 871 17 discriminator 7 view .LVU810
  871:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 tlsf_insist(block_is_prev_free(block_next(block)) && "block should be free");
  2667              		.loc 1 871 17 discriminator 7 view .LVU811
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 70
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 70
 
 
  871:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 tlsf_insist(block_is_prev_free(block_next(block)) && "block should be free");
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2702              		.loc 1 846 36 is_stmt 1 discriminator 2 view .LVU831
  2703 00aa 0136     		adds	r6, r6, #1
  2704              	.LVL267:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 71
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 71
 
 
  846:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         for(j = 0; j < SL_INDEX_COUNT; ++j) {
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2752              		.loc 1 896 5 is_stmt 1 discriminator 4 view .LVU840
  897:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         offset_to_block(pool, -(int)block_header_overhead);
  2753              		.loc 1 897 9 is_stmt 0 discriminator 4 view .LVU841
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 72
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 72
 
 
  2754 000a 6FF00301 		mvn	r1, #3
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2798 0046 0446     		mov	r4, r0
  2799              	.LVL281:
  2800              	.L185:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 73
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 73
 
 
  899:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         pool_walker(
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2845              		.cfi_offset 3, -8
  2846              		.cfi_offset 14, -4
  2847              	.LBB12:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 74
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 74
 
 
  913:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         const block_header_t * block = block_from_ptr(ptr);
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2894 0002 83B0     		sub	sp, sp, #12
  2895              	.LCFI39:
  2896              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 75
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 75
 
 
  921:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     /* Check that the blocks are physically correct. */
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2938 0000 40F23C50 		movw	r0, #1340
  2939 0004 7047     		bx	lr
  2940              		.cfi_endproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 76
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 76
 
 
  2941              	.LFE49:
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  2990              		.thumb_func
  2992              	lv_tlsf_block_size_max:
  2993              	.LFB52:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 77
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 77
 
 
  946:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  962:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** size_t lv_tlsf_alloc_overhead(void)
  963:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** {
  3036              		.loc 1 963 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 78
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 78
 
 
  3037              		.cfi_startproc
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3083 000c 0421     		movs	r1, #4
  3084 000e 281A     		subs	r0, r5, r0
  3085              	.LVL293:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 79
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 79
 
 
  3086              		.loc 1 973 31 view .LVU905
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3113 0034 2946     		mov	r1, r5
  3114 0036 FFF7FEFF 		bl	block_set_size
  3115              	.LVL299:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 80
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 80
 
 
 1001:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block_set_free(block);
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3157              		.loc 1 978 16 view .LVU926
  3158 006c 0020     		movs	r0, #0
  3159              	.LVL310:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 81
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 81
 
 
  978:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     }
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3208              		.loc 1 1017 30 view .LVU936
  3209 0010 0446     		mov	r4, r0
  3210              	.LVL317:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 82
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 82
 
 
 1018:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3259              		.loc 1 1023 5 discriminator 3 view .LVU961
  3260              		.loc 1 1023 5 discriminator 3 view .LVU962
  3261              		.loc 1 1023 5 discriminator 3 view .LVU963
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 83
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 83
 
 
  3262 0038 FEE7     		b	.L221
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
 1042:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     rv += (tlsf_ffs(0x80000000) == 31) ? 0 : 0x10;
 1043:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     rv += (tlsf_ffs(0x80008000) == 15) ? 0 : 0x20;
 1044:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     rv += (tlsf_fls(0x80000008) == 31) ? 0 : 0x40;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 84
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 84
 
 
 1045:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     rv += (tlsf_fls(0x7FFFFFFF) == 30) ? 0 : 0x80;
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
 1077:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
  3321              		.loc 1 1077 1 view .LVU976
  3322 0010 10BD     		pop	{r4, pc}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 85
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 85
 
 
  3323              	.LVL327:
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3373 0010 321A     		subs	r2, r6, r0
  3374 0012 2918     		adds	r1, r5, r0
  3375 0014 2046     		mov	r0, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 86
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 86
 
 
  3376 0016 FFF7FEFF 		bl	lv_tlsf_add_pool
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3423              	.LCFI48:
  3424              		.cfi_def_cfa_offset 8
  3425              		.cfi_offset 4, -8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 87
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 87
 
 
  3426              		.cfi_offset 14, -4
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
 1101:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block_header_t * block = block_locate_free(control, adjust);
  3475              		.loc 1 1101 5 is_stmt 1 view .LVU1006
  3476              		.loc 1 1101 30 is_stmt 0 view .LVU1007
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 88
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 88
 
 
  3477 000e 0146     		mov	r1, r0
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3527              	.LVL348:
 1108:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     const size_t adjust = adjust_request_size(size, ALIGN_SIZE);
  3528              		.loc 1 1108 5 view .LVU1018
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 89
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 89
 
 
  3529              		.loc 1 1108 27 is_stmt 0 view .LVU1019
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
 1126:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
 1127:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     block_header_t * block = block_locate_free(control, aligned_size);
  3566              		.loc 1 1127 5 is_stmt 1 discriminator 6 view .LVU1032
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 90
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 90
 
 
  3567              		.loc 1 1127 30 is_stmt 0 discriminator 6 view .LVU1033
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
 1145:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             aligned = align_ptr(next_aligned, align);
 1146:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             gap = tlsf_cast(size_t,
 1147:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                             tlsf_cast(tlsfptr_t, aligned) - tlsf_cast(tlsfptr_t, ptr));
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 91
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 91
 
 
 1148:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         }
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3644              	.L241:
 1146:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                             tlsf_cast(tlsfptr_t, aligned) - tlsf_cast(tlsfptr_t, ptr));
  3645              		.loc 1 1146 19 view .LVU1069
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 92
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 92
 
 
  3646              	.LBE14:
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3693              		.cfi_offset 4, -16
  3694              		.cfi_offset 5, -12
  3695              		.cfi_offset 6, -8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 93
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 93
 
 
  3696              		.cfi_offset 14, -4
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3741 0022 FFF7FEFF 		bl	block_merge_prev
  3742              	.LVL379:
  3743 0026 0146     		mov	r1, r0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 94
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 94
 
 
  3744              	.LVL380:
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
 1181:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** **
 1182:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** This routine handles the somewhat esoteric edge cases of realloc:
 1183:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** - a non-zero size with a null pointer will behave like malloc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 95
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 95
 
 
 1184:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** ** - a zero size with a non-null pointer will behave like free
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3821 000e 0846     		mov	r0, r1
  3822              	.LVL390:
  3823              		.loc 1 1204 34 view .LVU1124
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 96
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 96
 
 
  3824 0010 FFF7FEFF 		bl	block_from_ptr
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
 1211:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             /* The request is probably too large, fail */
 1212:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****             return NULL;
 1213:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****         }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 97
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 97
 
 
 1214:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
 1240:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     }
 1241:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** 
 1242:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****     return p;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 98
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 98
 
 
 1243:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c **** }
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3938              	.LVL414:
 1223:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 const size_t minsize = tlsf_min(cursize, size);
  3939              		.loc 1 1223 13 is_stmt 1 view .LVU1167
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 99
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 99
 
 
 1223:Lib/lvgl/src/stdlib/builtin/lv_tlsf.c ****                 const size_t minsize = tlsf_min(cursize, size);
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  3982              		.loc 1 1238 15 view .LVU1179
  3983 00a6 D3E7     		b	.L252
  3984              	.LVL422:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 100
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 100
 
 
  3985              	.L265:
@@ -5971,145 +5971,145 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 1
  4009              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  4010              		.file 3 "Lib/lvgl/src/stdlib/builtin/lv_tlsf.h"
  4011              		.file 4 "Lib/lvgl/src/stdlib/builtin/../../stdlib/lv_string.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 101
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 101
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_tlsf.c
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:21     .text.block_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:26     .text.block_size:00000000 block_size
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:45     .text.block_set_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:50     .text.block_set_size:00000000 block_set_size
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:77     .text.block_is_last:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:82     .text.block_is_last:00000000 block_is_last
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:107    .text.block_is_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:112    .text.block_is_free:00000000 block_is_free
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:131    .text.block_set_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:136    .text.block_set_free:00000000 block_set_free
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:156    .text.block_set_used:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:161    .text.block_set_used:00000000 block_set_used
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:181    .text.block_is_prev_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:186    .text.block_is_prev_free:00000000 block_is_prev_free
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:205    .text.block_set_prev_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:210    .text.block_set_prev_free:00000000 block_set_prev_free
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:230    .text.block_set_prev_used:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:235    .text.block_set_prev_used:00000000 block_set_prev_used
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:255    .text.block_from_ptr:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:260    .text.block_from_ptr:00000000 block_from_ptr
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:278    .text.block_to_ptr:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:283    .text.block_to_ptr:00000000 block_to_ptr
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:301    .text.offset_to_block:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:306    .text.offset_to_block:00000000 offset_to_block
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:324    .text.block_prev:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:329    .text.block_prev:00000000 block_prev
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:367    .text.block_next:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:372    .text.block_next:00000000 block_next
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:429    .text.block_link_next:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:434    .text.block_link_next:00000000 block_link_next
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:463    .text.block_mark_as_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:468    .text.block_mark_as_free:00000000 block_mark_as_free
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:500    .text.block_mark_as_used:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:505    .text.block_mark_as_used:00000000 block_mark_as_used
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:537    .text.align_up:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:542    .text.align_up:00000000 align_up
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:580    .text.align_down:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:585    .text.align_down:00000000 align_down
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:620    .text.align_ptr:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:625    .text.align_ptr:00000000 align_ptr
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:665    .text.adjust_request_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:670    .text.adjust_request_size:00000000 adjust_request_size
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:725    .text.remove_free_block:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:730    .text.remove_free_block:00000000 remove_free_block
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:840    .text.insert_free_block:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:845    .text.insert_free_block:00000000 insert_free_block
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:965    .text.block_can_split:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:970    .text.block_can_split:00000000 block_can_split
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1002   .text.block_split:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1007   .text.block_split:00000000 block_split
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1125   .text.block_absorb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1130   .text.block_absorb:00000000 block_absorb
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1187   .text.control_constructor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1192   .text.control_constructor:00000000 control_constructor
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1255   .text.integrity_walker:00000000 $t
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 102
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:21     .text.block_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:26     .text.block_size:00000000 block_size
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:45     .text.block_set_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:50     .text.block_set_size:00000000 block_set_size
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:77     .text.block_is_last:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:82     .text.block_is_last:00000000 block_is_last
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:107    .text.block_is_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:112    .text.block_is_free:00000000 block_is_free
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:131    .text.block_set_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:136    .text.block_set_free:00000000 block_set_free
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:156    .text.block_set_used:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:161    .text.block_set_used:00000000 block_set_used
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:181    .text.block_is_prev_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:186    .text.block_is_prev_free:00000000 block_is_prev_free
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:205    .text.block_set_prev_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:210    .text.block_set_prev_free:00000000 block_set_prev_free
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:230    .text.block_set_prev_used:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:235    .text.block_set_prev_used:00000000 block_set_prev_used
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:255    .text.block_from_ptr:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:260    .text.block_from_ptr:00000000 block_from_ptr
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:278    .text.block_to_ptr:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:283    .text.block_to_ptr:00000000 block_to_ptr
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:301    .text.offset_to_block:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:306    .text.offset_to_block:00000000 offset_to_block
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:324    .text.block_prev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:329    .text.block_prev:00000000 block_prev
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:367    .text.block_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:372    .text.block_next:00000000 block_next
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:429    .text.block_link_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:434    .text.block_link_next:00000000 block_link_next
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:463    .text.block_mark_as_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:468    .text.block_mark_as_free:00000000 block_mark_as_free
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:500    .text.block_mark_as_used:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:505    .text.block_mark_as_used:00000000 block_mark_as_used
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:537    .text.align_up:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:542    .text.align_up:00000000 align_up
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:580    .text.align_down:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:585    .text.align_down:00000000 align_down
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:620    .text.align_ptr:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:625    .text.align_ptr:00000000 align_ptr
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:665    .text.adjust_request_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:670    .text.adjust_request_size:00000000 adjust_request_size
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:725    .text.remove_free_block:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:730    .text.remove_free_block:00000000 remove_free_block
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:840    .text.insert_free_block:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:845    .text.insert_free_block:00000000 insert_free_block
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:965    .text.block_can_split:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:970    .text.block_can_split:00000000 block_can_split
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1002   .text.block_split:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1007   .text.block_split:00000000 block_split
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1125   .text.block_absorb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1130   .text.block_absorb:00000000 block_absorb
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1187   .text.control_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1192   .text.control_constructor:00000000 control_constructor
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1255   .text.integrity_walker:00000000 $t
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 102
 
 
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1260   .text.integrity_walker:00000000 integrity_walker
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1355   .text.default_walker:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1360   .text.default_walker:00000000 default_walker
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1378   .text.tlsf_fls:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1383   .text.tlsf_fls:00000000 tlsf_fls
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1418   .text.mapping_insert:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1423   .text.mapping_insert:00000000 mapping_insert
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1498   .text.block_insert:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1503   .text.block_insert:00000000 block_insert
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1552   .text.block_trim_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1557   .text.block_trim_free:00000000 block_trim_free
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1638   .text.block_prepare_used:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1643   .text.block_prepare_used:00000000 block_prepare_used
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1701   .text.block_trim_free_leading:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1706   .text.block_trim_free_leading:00000000 block_trim_free_leading
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1775   .text.block_remove:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1780   .text.block_remove:00000000 block_remove
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1829   .text.block_merge_prev:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1834   .text.block_merge_prev:00000000 block_merge_prev
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1922   .text.block_merge_next:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:1927   .text.block_merge_next:00000000 block_merge_next
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2009   .text.block_trim_used:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2014   .text.block_trim_used:00000000 block_trim_used
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2098   .text.mapping_search:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2103   .text.mapping_search:00000000 mapping_search
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2158   .text.tlsf_ffs:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2163   .text.tlsf_ffs:00000000 tlsf_ffs
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2188   .text.search_suitable_block:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2193   .text.search_suitable_block:00000000 search_suitable_block
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2322   .text.block_locate_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2327   .text.block_locate_free:00000000 block_locate_free
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2437   .text.lv_tlsf_check:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2443   .text.lv_tlsf_check:00000000 lv_tlsf_check
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2722   .text.lv_tlsf_walk_pool:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2728   .text.lv_tlsf_walk_pool:00000000 lv_tlsf_walk_pool
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2819   .text.lv_tlsf_walk_pool:00000058 $d
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2824   .text.lv_tlsf_block_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2830   .text.lv_tlsf_block_size:00000000 lv_tlsf_block_size
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2876   .text.lv_tlsf_check_pool:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2882   .text.lv_tlsf_check_pool:00000000 lv_tlsf_check_pool
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2918   .text.lv_tlsf_check_pool:0000001c $d
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2923   .text.lv_tlsf_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2929   .text.lv_tlsf_size:00000000 lv_tlsf_size
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2944   .text.lv_tlsf_align_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2950   .text.lv_tlsf_align_size:00000000 lv_tlsf_align_size
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2965   .text.lv_tlsf_block_size_min:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2971   .text.lv_tlsf_block_size_min:00000000 lv_tlsf_block_size_min
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2986   .text.lv_tlsf_block_size_max:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:2992   .text.lv_tlsf_block_size_max:00000000 lv_tlsf_block_size_max
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3007   .text.lv_tlsf_pool_overhead:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3013   .text.lv_tlsf_pool_overhead:00000000 lv_tlsf_pool_overhead
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3028   .text.lv_tlsf_alloc_overhead:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3034   .text.lv_tlsf_alloc_overhead:00000000 lv_tlsf_alloc_overhead
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3049   .text.lv_tlsf_add_pool:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3055   .text.lv_tlsf_add_pool:00000000 lv_tlsf_add_pool
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3173   .text.lv_tlsf_remove_pool:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3179   .text.lv_tlsf_remove_pool:00000000 lv_tlsf_remove_pool
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s 			page 103
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1260   .text.integrity_walker:00000000 integrity_walker
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1355   .text.default_walker:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1360   .text.default_walker:00000000 default_walker
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1378   .text.tlsf_fls:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1383   .text.tlsf_fls:00000000 tlsf_fls
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1418   .text.mapping_insert:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1423   .text.mapping_insert:00000000 mapping_insert
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1498   .text.block_insert:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1503   .text.block_insert:00000000 block_insert
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1552   .text.block_trim_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1557   .text.block_trim_free:00000000 block_trim_free
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1638   .text.block_prepare_used:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1643   .text.block_prepare_used:00000000 block_prepare_used
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1701   .text.block_trim_free_leading:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1706   .text.block_trim_free_leading:00000000 block_trim_free_leading
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1775   .text.block_remove:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1780   .text.block_remove:00000000 block_remove
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1829   .text.block_merge_prev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1834   .text.block_merge_prev:00000000 block_merge_prev
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1922   .text.block_merge_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:1927   .text.block_merge_next:00000000 block_merge_next
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2009   .text.block_trim_used:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2014   .text.block_trim_used:00000000 block_trim_used
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2098   .text.mapping_search:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2103   .text.mapping_search:00000000 mapping_search
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2158   .text.tlsf_ffs:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2163   .text.tlsf_ffs:00000000 tlsf_ffs
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2188   .text.search_suitable_block:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2193   .text.search_suitable_block:00000000 search_suitable_block
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2322   .text.block_locate_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2327   .text.block_locate_free:00000000 block_locate_free
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2437   .text.lv_tlsf_check:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2443   .text.lv_tlsf_check:00000000 lv_tlsf_check
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2722   .text.lv_tlsf_walk_pool:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2728   .text.lv_tlsf_walk_pool:00000000 lv_tlsf_walk_pool
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2819   .text.lv_tlsf_walk_pool:00000058 $d
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2824   .text.lv_tlsf_block_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2830   .text.lv_tlsf_block_size:00000000 lv_tlsf_block_size
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2876   .text.lv_tlsf_check_pool:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2882   .text.lv_tlsf_check_pool:00000000 lv_tlsf_check_pool
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2918   .text.lv_tlsf_check_pool:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2923   .text.lv_tlsf_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2929   .text.lv_tlsf_size:00000000 lv_tlsf_size
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2944   .text.lv_tlsf_align_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2950   .text.lv_tlsf_align_size:00000000 lv_tlsf_align_size
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2965   .text.lv_tlsf_block_size_min:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2971   .text.lv_tlsf_block_size_min:00000000 lv_tlsf_block_size_min
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2986   .text.lv_tlsf_block_size_max:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:2992   .text.lv_tlsf_block_size_max:00000000 lv_tlsf_block_size_max
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3007   .text.lv_tlsf_pool_overhead:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3013   .text.lv_tlsf_pool_overhead:00000000 lv_tlsf_pool_overhead
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3028   .text.lv_tlsf_alloc_overhead:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3034   .text.lv_tlsf_alloc_overhead:00000000 lv_tlsf_alloc_overhead
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3049   .text.lv_tlsf_add_pool:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3055   .text.lv_tlsf_add_pool:00000000 lv_tlsf_add_pool
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3173   .text.lv_tlsf_remove_pool:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3179   .text.lv_tlsf_remove_pool:00000000 lv_tlsf_remove_pool
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s 			page 103
 
 
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3291   .text.lv_tlsf_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3297   .text.lv_tlsf_create:00000000 lv_tlsf_create
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3338   .text.lv_tlsf_create_with_pool:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3344   .text.lv_tlsf_create_with_pool:00000000 lv_tlsf_create_with_pool
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3387   .text.lv_tlsf_destroy:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3393   .text.lv_tlsf_destroy:00000000 lv_tlsf_destroy
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3408   .text.lv_tlsf_get_pool:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3414   .text.lv_tlsf_get_pool:00000000 lv_tlsf_get_pool
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3440   .text.lv_tlsf_malloc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3446   .text.lv_tlsf_malloc:00000000 lv_tlsf_malloc
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3501   .text.lv_tlsf_memalign:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3507   .text.lv_tlsf_memalign:00000000 lv_tlsf_memalign
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3676   .text.lv_tlsf_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3682   .text.lv_tlsf_free:00000000 lv_tlsf_free
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3779   .text.lv_tlsf_realloc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccbKOCIJ.s:3785   .text.lv_tlsf_realloc:00000000 lv_tlsf_realloc
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3291   .text.lv_tlsf_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3297   .text.lv_tlsf_create:00000000 lv_tlsf_create
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3338   .text.lv_tlsf_create_with_pool:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3344   .text.lv_tlsf_create_with_pool:00000000 lv_tlsf_create_with_pool
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3387   .text.lv_tlsf_destroy:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3393   .text.lv_tlsf_destroy:00000000 lv_tlsf_destroy
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3408   .text.lv_tlsf_get_pool:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3414   .text.lv_tlsf_get_pool:00000000 lv_tlsf_get_pool
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3440   .text.lv_tlsf_malloc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3446   .text.lv_tlsf_malloc:00000000 lv_tlsf_malloc
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3501   .text.lv_tlsf_memalign:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3507   .text.lv_tlsf_memalign:00000000 lv_tlsf_memalign
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3676   .text.lv_tlsf_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3682   .text.lv_tlsf_free:00000000 lv_tlsf_free
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3779   .text.lv_tlsf_realloc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccidNXSu.s:3785   .text.lv_tlsf_realloc:00000000 lv_tlsf_realloc
 
 UNDEFINED SYMBOLS
 lv_memcpy

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   27:Lib/lvgl/src/draw/../misc/lv_color.h **** 
   28:Lib/lvgl/src/draw/../misc/lv_color.h **** #if LV_COLOR_DEPTH == 8
   29:Lib/lvgl/src/draw/../misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 2
 
 
   30:Lib/lvgl/src/draw/../misc/lv_color.h **** #elif LV_COLOR_DEPTH == 16
@@ -118,27 +118,27 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   84:Lib/lvgl/src/draw/../misc/lv_color.h **** 
   85:Lib/lvgl/src/draw/../misc/lv_color.h **** /**********************
   86:Lib/lvgl/src/draw/../misc/lv_color.h ****  *      TYPEDEFS
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 3
 
 
   87:Lib/lvgl/src/draw/../misc/lv_color.h ****  **********************/
   88:Lib/lvgl/src/draw/../misc/lv_color.h **** 
   89:Lib/lvgl/src/draw/../misc/lv_color.h **** typedef struct {
-  90:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t blue;
+  90:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t red;
   91:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t green;
-  92:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t red;
+  92:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t blue;
   93:Lib/lvgl/src/draw/../misc/lv_color.h **** } lv_color_t;
   94:Lib/lvgl/src/draw/../misc/lv_color.h **** 
   95:Lib/lvgl/src/draw/../misc/lv_color.h **** typedef struct {
-  96:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint16_t blue : 5;
+  96:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint16_t red : 5;
   97:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint16_t green : 6;
-  98:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint16_t red : 5;
+  98:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint16_t blue : 5;
   99:Lib/lvgl/src/draw/../misc/lv_color.h **** } lv_color16_t;
  100:Lib/lvgl/src/draw/../misc/lv_color.h **** 
  101:Lib/lvgl/src/draw/../misc/lv_color.h **** typedef struct {
- 102:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t blue;
+ 102:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t red;
  103:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t green;
- 104:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t red;
+ 104:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t blue;
  105:Lib/lvgl/src/draw/../misc/lv_color.h ****     uint8_t alpha;
  106:Lib/lvgl/src/draw/../misc/lv_color.h **** } lv_color32_t;
  107:Lib/lvgl/src/draw/../misc/lv_color.h **** 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  141:Lib/lvgl/src/draw/../misc/lv_color.h **** 
  142:Lib/lvgl/src/draw/../misc/lv_color.h ****     /* reference to https://wiki.videolan.org/YUV/ */
  143:Lib/lvgl/src/draw/../misc/lv_color.h ****     /*YUV planar formats*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 4
 
 
  144:Lib/lvgl/src/draw/../misc/lv_color.h ****     LV_COLOR_FORMAT_YUV_START         = 0x20,
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  198:Lib/lvgl/src/draw/../misc/lv_color.h ****  **********************/
  199:Lib/lvgl/src/draw/../misc/lv_color.h **** 
  200:Lib/lvgl/src/draw/../misc/lv_color.h **** /**
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 5
 
 
  201:Lib/lvgl/src/draw/../misc/lv_color.h ****  * Get the pixel size of a color format in bits, bpp
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  255:Lib/lvgl/src/draw/../misc/lv_color.h ****  * Check if two ARGB8888 color are equal
  256:Lib/lvgl/src/draw/../misc/lv_color.h ****  * @param c1    the first color
  257:Lib/lvgl/src/draw/../misc/lv_color.h ****  * @param c2    the second color
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 6
 
 
  258:Lib/lvgl/src/draw/../misc/lv_color.h ****  * @return      true: equal
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  312:Lib/lvgl/src/draw/../misc/lv_color.h **** 
  313:Lib/lvgl/src/draw/../misc/lv_color.h **** /**
  314:Lib/lvgl/src/draw/../misc/lv_color.h ****  * Create a color from 0x000..0xfff input
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 7
 
 
  315:Lib/lvgl/src/draw/../misc/lv_color.h ****  * @param c     the hex input (e.g. 0x123 will be 0x112233)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  369:Lib/lvgl/src/draw/../misc/lv_color.h ****  * @param lvl   the intensity of white (0: no change, 255: fully white)
  370:Lib/lvgl/src/draw/../misc/lv_color.h ****  * @return      the mixed color
  371:Lib/lvgl/src/draw/../misc/lv_color.h ****  */
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 8
 
 
  372:Lib/lvgl/src/draw/../misc/lv_color.h **** lv_color_t lv_color_lighten(lv_color_t c, lv_opa_t lvl);
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  426:Lib/lvgl/src/draw/../misc/lv_color.h **** 
  427:Lib/lvgl/src/draw/../misc/lv_color.h **** static inline void lv_color_premultiply(lv_color32_t * c)
  428:Lib/lvgl/src/draw/../misc/lv_color.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 9
 
 
   30              		.loc 2 428 1 view -0
@@ -489,12 +489,12 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  429:Lib/lvgl/src/draw/../misc/lv_color.h ****     c->red = LV_OPA_MIX2(c->red, c->alpha);
   35              		.loc 2 429 5 view .LVU1
   36              		.loc 2 429 14 is_stmt 0 view .LVU2
-  37 0000 8278     		ldrb	r2, [r0, #2]	@ zero_extendqisi2
+  37 0000 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
   38 0002 C378     		ldrb	r3, [r0, #3]	@ zero_extendqisi2
   39 0004 03FB02F2 		mul	r2, r3, r2
   40 0008 1212     		asrs	r2, r2, #8
   41              		.loc 2 429 12 view .LVU3
-  42 000a 8270     		strb	r2, [r0, #2]
+  42 000a 0270     		strb	r2, [r0]
  430:Lib/lvgl/src/draw/../misc/lv_color.h ****     c->green = LV_OPA_MIX2(c->green, c->alpha);
   43              		.loc 2 430 5 is_stmt 1 view .LVU4
   44              		.loc 2 430 16 is_stmt 0 view .LVU5
@@ -506,11 +506,11 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  431:Lib/lvgl/src/draw/../misc/lv_color.h ****     c->blue = LV_OPA_MIX2(c->blue, c->alpha);
   50              		.loc 2 431 5 is_stmt 1 view .LVU7
   51              		.loc 2 431 15 is_stmt 0 view .LVU8
-  52 0016 0278     		ldrb	r2, [r0]	@ zero_extendqisi2
+  52 0016 8278     		ldrb	r2, [r0, #2]	@ zero_extendqisi2
   53 0018 02FB03F3 		mul	r3, r2, r3
   54 001c 1B12     		asrs	r3, r3, #8
   55              		.loc 2 431 13 view .LVU9
-  56 001e 0370     		strb	r3, [r0]
+  56 001e 8370     		strb	r3, [r0, #2]
  432:Lib/lvgl/src/draw/../misc/lv_color.h **** }
   57              		.loc 2 432 1 view .LVU10
   58 0020 7047     		bx	lr
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   12:Lib/lvgl/src/draw/lv_draw_buf.c **** #include "../core/lv_global.h"
   13:Lib/lvgl/src/draw/lv_draw_buf.c **** 
   14:Lib/lvgl/src/draw/lv_draw_buf.c **** /*********************
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 10
 
 
   15:Lib/lvgl/src/draw/lv_draw_buf.c ****  *      DEFINES
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   69:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(handlers.align_pointer_cb) return handlers.align_pointer_cb(data, color_format);
   70:Lib/lvgl/src/draw/lv_draw_buf.c ****     else return NULL;
   71:Lib/lvgl/src/draw/lv_draw_buf.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 11
 
 
   72:Lib/lvgl/src/draw/lv_draw_buf.c **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  126:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(dest_area) dest_bufc = lv_draw_buf_goto_xy(dest, dest_area->x1, dest_area->y1);
  127:Lib/lvgl/src/draw/lv_draw_buf.c ****     else dest_bufc = dest->data;
  128:Lib/lvgl/src/draw/lv_draw_buf.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 12
 
 
  129:Lib/lvgl/src/draw/lv_draw_buf.c ****     int32_t start_y, end_y;
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  183:Lib/lvgl/src/draw/lv_draw_buf.c ****     void * buf = draw_buf_malloc(size, cf);
  184:Lib/lvgl/src/draw/lv_draw_buf.c ****     /*Do not assert here as LVGL or the app might just want to try creating a draw_buf*/
  185:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(buf == NULL) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 13
 
 
  186:Lib/lvgl/src/draw/lv_draw_buf.c ****         LV_LOG_WARN("No memory: %"LV_PRIu32"x%"LV_PRIu32", cf: %d, stride: %"LV_PRIu32", %"LV_PRIu3
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  240:Lib/lvgl/src/draw/lv_draw_buf.c ****     draw_buf->header.stride = stride;
  241:Lib/lvgl/src/draw/lv_draw_buf.c **** 
  242:Lib/lvgl/src/draw/lv_draw_buf.c ****     return draw_buf;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 14
 
 
  243:Lib/lvgl/src/draw/lv_draw_buf.c **** }
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  297:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(dst == NULL) return NULL;
  298:Lib/lvgl/src/draw/lv_draw_buf.c **** 
  299:Lib/lvgl/src/draw/lv_draw_buf.c ****     uint8_t * dst_data = dst->data;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 15
 
 
  300:Lib/lvgl/src/draw/lv_draw_buf.c ****     const uint8_t * src_data = src->data;
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  354:Lib/lvgl/src/draw/lv_draw_buf.c ****                 lv_color16_premultiply(pixel, alpha[x]);
  355:Lib/lvgl/src/draw/lv_draw_buf.c ****                 pixel++;
  356:Lib/lvgl/src/draw/lv_draw_buf.c ****             }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 16
 
 
  357:Lib/lvgl/src/draw/lv_draw_buf.c ****             line += stride;
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   84 0004 0333     		adds	r3, r3, #3
   85              	.LVL2:
  398:Lib/lvgl/src/draw/lv_draw_buf.c ****         buf_u8 = (uint8_t *)((lv_uintptr_t) buf_u8 & ~(LV_DRAW_BUF_ALIGN - 1));
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 17
 
 
   86              		.loc 1 398 9 is_stmt 1 view .LVU18
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  127 000a 9847     		blx	r3
  128              	.LVL6:
  129              	.L5:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 18
 
 
  414:Lib/lvgl/src/draw/lv_draw_buf.c ****     else return NULL;
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  177              	.L15:
  178 000e 00BF     		.align	2
  179              	.L14:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 19
 
 
  180 0010 00000000 		.word	lv_global
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  224 0012 10BD     		pop	{r4, pc}
  409:Lib/lvgl/src/draw/lv_draw_buf.c **** 
  225              		.loc 1 409 1 view .LVU52
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 20
 
 
  226              		.cfi_endproc
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  276              		.loc 1 382 5 view .LVU60
  277              	.LVL20:
  383:Lib/lvgl/src/draw/lv_draw_buf.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 21
 
 
  278              		.loc 1 383 5 view .LVU61
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   17:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #include <stdint.h>
   18:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #include <stddef.h>
   19:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 22
 
 
   20:Lib/lvgl/src/draw/../stdlib/lv_string.h **** /*********************
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  319 0004 1422     		movs	r2, #20
  320 0006 0021     		movs	r1, #0
  321 0008 2046     		mov	r0, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 23
 
 
  322 000a FFF7FEFF 		bl	lv_memset
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  366              		.thumb_func
  368              	lv_draw_buf_get_handlers:
  369              	.LFB235:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 24
 
 
   57:Lib/lvgl/src/draw/lv_draw_buf.c ****     return &handlers;
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  416              	.L29:
   65:Lib/lvgl/src/draw/lv_draw_buf.c **** 
  417              		.loc 1 65 1 view .LVU92
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 25
 
 
  418 000c 08BD     		pop	{r3, pc}
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  463              	.LVL32:
  464              	.L36:
  430:Lib/lvgl/src/draw/lv_draw_buf.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 26
 
 
  431:Lib/lvgl/src/draw/lv_draw_buf.c ****     size = stride * h;
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  433:Lib/lvgl/src/draw/lv_draw_buf.c ****         size += (stride / 2) * h; /*A8 mask*/
  507              		.loc 1 433 9 is_stmt 1 view .LVU114
  433:Lib/lvgl/src/draw/lv_draw_buf.c ****         size += (stride / 2) * h; /*A8 mask*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 27
 
 
  508              		.loc 1 433 25 is_stmt 0 view .LVU115
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  554              		.cfi_startproc
  555              		@ args = 0, pretend = 0, frame = 0
  556              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 28
 
 
   68:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(handlers.align_pointer_cb) return handlers.align_pointer_cb(data, color_format);
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  603              		@ frame_needed = 0, uses_anonymous_args = 0
   74:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(handlers.invalidate_cache_cb) handlers.invalidate_cache_cb(buf, stride, color_format, area);
  604              		.loc 1 74 1 is_stmt 0 view .LVU133
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 29
 
 
  605 0000 10B5     		push	{r4, lr}
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  153:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(draw_buf == NULL) return LV_RESULT_INVALID;
  654              		.loc 1 153 5 is_stmt 1 view .LVU141
  153:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(draw_buf == NULL) return LV_RESULT_INVALID;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 30
 
 
  655              		.loc 1 153 5 view .LVU142
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  698              		.file 4 "Lib/lvgl/src/draw/lv_image_buf.h"
    1:Lib/lvgl/src/draw/lv_image_buf.h **** /**
    2:Lib/lvgl/src/draw/lv_image_buf.h ****  * @file lv_image_buf.h
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 31
 
 
    3:Lib/lvgl/src/draw/lv_image_buf.h ****  *
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   57:Lib/lvgl/src/draw/lv_image_buf.h ****      * If this flag is set, the whole image will be decompressed upon decode, and
   58:Lib/lvgl/src/draw/lv_image_buf.h ****      * `get_area_cb` won't be necessary.
   59:Lib/lvgl/src/draw/lv_image_buf.h ****      */
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 32
 
 
   60:Lib/lvgl/src/draw/lv_image_buf.h ****     LV_IMAGE_FLAGS_COMPRESSED       = (1 << 3),
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  114:Lib/lvgl/src/draw/lv_image_buf.h **** typedef union {
  115:Lib/lvgl/src/draw/lv_image_buf.h ****     lv_yuv_plane_t yuv;         /*packed format*/
  116:Lib/lvgl/src/draw/lv_image_buf.h ****     struct {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 33
 
 
  117:Lib/lvgl/src/draw/lv_image_buf.h ****         lv_yuv_plane_t y;
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  171:Lib/lvgl/src/draw/lv_image_buf.h ****  */
  172:Lib/lvgl/src/draw/lv_image_buf.h **** void _lv_image_buf_get_transformed_area(lv_area_t * res, int32_t w, int32_t h, int32_t angle, uint1
  173:Lib/lvgl/src/draw/lv_image_buf.h ****                                         uint16_t scale_y,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 34
 
 
  174:Lib/lvgl/src/draw/lv_image_buf.h ****                                         const lv_point_t * pivot);
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  165:Lib/lvgl/src/draw/lv_draw_buf.c ****     draw_buf->unaligned_data = data;
  740              		.loc 1 165 5 is_stmt 1 view .LVU177
  165:Lib/lvgl/src/draw/lv_draw_buf.c ****     draw_buf->unaligned_data = data;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 35
 
 
  741              		.loc 1 165 22 is_stmt 0 view .LVU178
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  157:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(stride * h > data_size) {
  777              		.loc 1 157 30 is_stmt 0 discriminator 1 view .LVU197
  778 0058 2146     		mov	r1, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 36
 
 
  779 005a 4046     		mov	r0, r8
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  825              		.cfi_offset 4, -32
  826              		.cfi_offset 5, -28
  827              		.cfi_offset 6, -24
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 37
 
 
  828              		.cfi_offset 7, -20
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  868 0026 2946     		mov	r1, r5
  869 0028 FFF7FEFF 		bl	draw_buf_malloc
  870              	.LVL72:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 38
 
 
  185:Lib/lvgl/src/draw/lv_draw_buf.c ****         LV_LOG_WARN("No memory: %"LV_PRIu32"x%"LV_PRIu32", cf: %d, stride: %"LV_PRIu32", %"LV_PRIu3
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  905              		.loc 1 200 5 is_stmt 1 view .LVU241
  200:Lib/lvgl/src/draw/lv_draw_buf.c ****     return draw_buf;
  906              		.loc 1 200 25 is_stmt 0 view .LVU242
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 39
 
 
  907 004e C4F80C90 		str	r9, [r4, #12]
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  945              	.LVL81:
  189:Lib/lvgl/src/draw/lv_draw_buf.c ****     }
  946              		.loc 1 189 9 is_stmt 1 view .LVU259
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 40
 
 
  189:Lib/lvgl/src/draw/lv_draw_buf.c ****     }
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  993 0012 68B1     		cbz	r0, .L79
  210:Lib/lvgl/src/draw/lv_draw_buf.c ****     new_buf->header.flags |= LV_IMAGE_FLAGS_MODIFIABLE | LV_IMAGE_FLAGS_ALLOCATED;
  994              		.loc 1 210 5 is_stmt 1 view .LVU270
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 41
 
 
  210:Lib/lvgl/src/draw/lv_draw_buf.c ****     new_buf->header.flags |= LV_IMAGE_FLAGS_MODIFIABLE | LV_IMAGE_FLAGS_ALLOCATED;
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  223:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(draw_buf == NULL) return NULL;
  1039              		.loc 1 223 1 is_stmt 1 view -0
  1040              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 42
 
 
  1041              		@ args = 4, pretend = 0, frame = 0
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1083              		.loc 1 232 5 is_stmt 1 view .LVU295
  232:Lib/lvgl/src/draw/lv_draw_buf.c ****         LV_LOG_INFO("Draw buf too small for new shape");
  1084              		.loc 1 232 23 is_stmt 0 view .LVU296
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 43
 
 
  1085 0028 E368     		ldr	r3, [r4, #12]
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1122 0048 E8E7     		b	.L85
  1123              	.LVL100:
  1124              	.L87:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 44
 
 
  234:Lib/lvgl/src/draw/lv_draw_buf.c ****     }
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1168              		.loc 1 257 1 view .LVU326
  1169 000e 10BD     		pop	{r4, pc}
  1170              	.LVL104:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 45
 
 
  1171              	.L92:
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1215              		.cfi_startproc
  1216              		@ args = 0, pretend = 0, frame = 0
  1217              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 46
 
 
  261:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(buf == NULL) return NULL;
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1258              		.cfi_restore 5
  1259              		.cfi_restore 14
  261:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(buf == NULL) return NULL;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 47
 
 
  1260              		.loc 1 261 5 is_stmt 1 discriminator 1 view .LVU353
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1300              	.LFE246:
  1302              		.section	.text.lv_draw_buf_clear,"ax",%progbits
  1303              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 48
 
 
  1304              		.global	lv_draw_buf_clear
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   12:Lib/lvgl/src/draw/../misc/lv_area.h **** 
   13:Lib/lvgl/src/draw/../misc/lv_area.h **** /*********************
   14:Lib/lvgl/src/draw/../misc/lv_area.h ****  *      INCLUDES
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 49
 
 
   15:Lib/lvgl/src/draw/../misc/lv_area.h ****  *********************/
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
   69:Lib/lvgl/src/draw/../misc/lv_area.h ****     LV_ALIGN_OUT_BOTTOM_RIGHT,
   70:Lib/lvgl/src/draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_TOP,
   71:Lib/lvgl/src/draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_MID,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 50
 
 
   72:Lib/lvgl/src/draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_BOTTOM,
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  126:Lib/lvgl/src/draw/../misc/lv_area.h **** inline static void lv_area_copy(lv_area_t * dest, const lv_area_t * src)
  127:Lib/lvgl/src/draw/../misc/lv_area.h **** {
  128:Lib/lvgl/src/draw/../misc/lv_area.h ****     dest->x1 = src->x1;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 51
 
 
  129:Lib/lvgl/src/draw/../misc/lv_area.h ****     dest->y1 = src->y1;
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1369              	.LVL123:
  1370              		.loc 5 151 33 view .LVU389
  1371              	.LBE60:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 52
 
 
  1372              	.LBE59:
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1408              		.loc 1 95 16 is_stmt 0 view .LVU407
  1409 0032 6268     		ldr	r2, [r4, #4]
  1410 0034 2168     		ldr	r1, [r4]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 53
 
 
  1411 0036 2846     		mov	r0, r5
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1451              		.cfi_restore 4
  1452              		.cfi_restore 5
  1453              		.cfi_restore 6
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 54
 
 
  1454              		.cfi_restore 7
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1494 005a 0021     		movs	r1, #0
  1495              	.LVL140:
  1496              		.loc 3 67 5 view .LVU438
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 55
 
 
  1497 005c 0069     		ldr	r0, [r0, #16]
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1540 0076 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
  1541              		.cfi_endproc
  1542              	.LFE239:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 56
 
 
  1544              		.section	.text.lv_draw_buf_copy,"ax",%progbits
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1588              		.loc 5 141 28 is_stmt 0 view .LVU462
  1589 000c 8A68     		ldr	r2, [r1, #8]
  1590              	.LVL150:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 57
 
 
  141:Lib/lvgl/src/draw/../misc/lv_area.h **** }
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  119:Lib/lvgl/src/draw/lv_draw_buf.c ****         return;
  1630              		.loc 1 119 9 discriminator 1 view .LVU478
  119:Lib/lvgl/src/draw/lv_draw_buf.c ****         return;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 58
 
 
  1631              		.loc 1 119 9 discriminator 1 view .LVU479
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1669              		.loc 1 123 29 view .LVU495
  1670 003e 0646     		mov	r6, r0
  1671              	.LVL164:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 59
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 59
 
 
  1672              	.L122:
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  214:Lib/lvgl/src/draw/../misc/lv_color.h **** }
  1710              		.loc 2 214 5 view .LVU512
  214:Lib/lvgl/src/draw/../misc/lv_color.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 60
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 60
 
 
  1711              		.loc 2 214 13 is_stmt 0 view .LVU513
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1751 008e 2846     		mov	r0, r5
  1752 0090 FFF7FEFF 		bl	lv_memcpy
  1753              	.LVL179:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 61
 
 
  145:Lib/lvgl/src/draw/lv_draw_buf.c ****         src_bufc += src_stride;
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1798              		.cfi_offset 5, -24
  1799              		.cfi_offset 6, -20
  1800              		.cfi_offset 7, -16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 62
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 62
 
 
  1801              		.cfi_offset 8, -12
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  290:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(stride < min_stride) {
  1837              		.loc 1 290 38 view .LVU558
  1838 001e 00FB06F3 		mul	r3, r0, r6
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 63
 
 
  290:Lib/lvgl/src/draw/lv_draw_buf.c ****     if(stride < min_stride) {
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  301:Lib/lvgl/src/draw/lv_draw_buf.c ****         lv_memcpy(dst_data, src_data, min_stride);
  1877              		.loc 1 301 26 is_stmt 1 discriminator 1 view .LVU575
  301:Lib/lvgl/src/draw/lv_draw_buf.c ****         lv_memcpy(dst_data, src_data, min_stride);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 64
 
 
  1878              		.loc 1 301 39 is_stmt 0 discriminator 1 view .LVU576
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1920              		.loc 1 275 5 is_stmt 1 discriminator 1 view .LVU588
  275:Lib/lvgl/src/draw/lv_draw_buf.c ****     LV_ASSERT_NULL(src->data);
  1921              		.loc 1 275 5 discriminator 1 view .LVU589
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 65
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 65
 
 
  275:Lib/lvgl/src/draw/lv_draw_buf.c ****     LV_ASSERT_NULL(src->data);
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  1962 0072 4FF00009 		mov	r9, #0
  1963 0076 01E0     		b	.L131
  1964              	.LVL204:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 66
 
 
  1965              	.L141:
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  2011              		.loc 1 313 5 view .LVU613
  315:Lib/lvgl/src/draw/lv_draw_buf.c ****     if((draw_buf->header.flags & LV_IMAGE_FLAGS_MODIFIABLE) == 0) {
  2012              		.loc 1 315 5 view .LVU614
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 67
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 67
 
 
  315:Lib/lvgl/src/draw/lv_draw_buf.c ****     if((draw_buf->header.flags & LV_IMAGE_FLAGS_MODIFIABLE) == 0) {
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  2056              		.cfi_restore 8
  2057              		.cfi_restore 9
  2058              		.cfi_restore 10
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 68
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 68
 
 
  2059              		.cfi_restore 11
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  326:Lib/lvgl/src/draw/lv_draw_buf.c ****             lv_color_premultiply(&palette[i]);
  2104              		.loc 1 326 9 is_stmt 1 discriminator 16 view .LVU635
  2105              	.LBB79:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 69
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 69
 
 
  326:Lib/lvgl/src/draw/lv_draw_buf.c ****             lv_color_premultiply(&palette[i]);
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  2144 0062 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
  2145              	.LVL218:
  2146              	.L149:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 70
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 70
 
 
  330:Lib/lvgl/src/draw/lv_draw_buf.c ****         uint32_t h = draw_buf->header.h;
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  351:Lib/lvgl/src/draw/lv_draw_buf.c ****             lv_color16_t * pixel = (lv_color16_t *)line;
  2183              		.loc 1 351 22 is_stmt 0 view .LVU670
  2184 0082 0025     		movs	r5, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 71
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 71
 
 
  351:Lib/lvgl/src/draw/lv_draw_buf.c ****             lv_color16_t * pixel = (lv_color16_t *)line;
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  339:Lib/lvgl/src/draw/lv_draw_buf.c ****             }
  2224              		.loc 1 339 17 discriminator 3 view .LVU686
  339:Lib/lvgl/src/draw/lv_draw_buf.c ****             }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 72
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 72
 
 
  2225              		.loc 1 339 22 is_stmt 0 discriminator 3 view .LVU687
@@ -4315,10 +4315,10 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  2266              	.LBB84:
  354:Lib/lvgl/src/draw/lv_draw_buf.c ****                 pixel++;
  2267              		.loc 1 354 17 is_stmt 1 discriminator 3 view .LVU698
- 2268 00b8 1CF80030 		ldrb	r3, [ip, r0]	@ zero_extendqisi2
+ 2268 00b8 1CF80020 		ldrb	r2, [ip, r0]	@ zero_extendqisi2
  2269              	.LVL237:
  2270              	.LBB85:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 73
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 73
 
 
  2271              	.LBI85:
@@ -4330,206 +4330,210 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 1
  436:Lib/lvgl/src/draw/../misc/lv_color.h ****     c->red = LV_OPA_MIX2(c->red, a);
  2274              		.loc 2 436 5 discriminator 3 view .LVU700
  2275              		.loc 2 436 14 is_stmt 0 discriminator 3 view .LVU701
- 2276 00bc 5178     		ldrb	r1, [r2, #1]	@ zero_extendqisi2
- 2277 00be 4FEAD10A 		lsr	r10, r1, #3
- 2278 00c2 03FB0AFA 		mul	r10, r3, r10
+ 2276 00bc 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 2277 00be 01F01F0A 		and	r10, r1, #31
+ 2278 00c2 02FB0AFA 		mul	r10, r2, r10
  2279 00c6 4FEA1A2A 		lsr	r10, r10, #8
  2280              		.loc 2 436 12 discriminator 3 view .LVU702
- 2281 00ca 6AF3C701 		bfi	r1, r10, #3, #5
- 2282 00ce 5170     		strb	r1, [r2, #1]
+ 2281 00ca 6AF30401 		bfi	r1, r10, #0, #5
+ 2282 00ce 1970     		strb	r1, [r3]
  437:Lib/lvgl/src/draw/../misc/lv_color.h ****     c->green = LV_OPA_MIX2(c->green, a);
  2283              		.loc 2 437 5 is_stmt 1 discriminator 3 view .LVU703
  2284              		.loc 2 437 16 is_stmt 0 discriminator 3 view .LVU704
- 2285 00d0 1188     		ldrh	r1, [r2]
+ 2285 00d0 1988     		ldrh	r1, [r3]
  2286 00d2 C1F3451A 		ubfx	r10, r1, #5, #6
- 2287 00d6 0AFB03FA 		mul	r10, r10, r3
+ 2287 00d6 0AFB02FA 		mul	r10, r10, r2
  2288 00da CAF3052A 		ubfx	r10, r10, #8, #6
  2289              		.loc 2 437 14 discriminator 3 view .LVU705
  2290 00de 6AF34A11 		bfi	r1, r10, #5, #6
- 2291 00e2 1180     		strh	r1, [r2]	@ movhi
+ 2291 00e2 1980     		strh	r1, [r3]	@ movhi
  438:Lib/lvgl/src/draw/../misc/lv_color.h ****     c->blue = LV_OPA_MIX2(c->blue, a);
  2292              		.loc 2 438 5 is_stmt 1 discriminator 3 view .LVU706
  2293              		.loc 2 438 15 is_stmt 0 discriminator 3 view .LVU707
- 2294 00e4 1178     		ldrb	r1, [r2]	@ zero_extendqisi2
- 2295 00e6 01F01F0A 		and	r10, r1, #31
- 2296 00ea 0AFB03F3 		mul	r3, r10, r3
+ 2294 00e4 5978     		ldrb	r1, [r3, #1]	@ zero_extendqisi2
+ 2295 00e6 4FEAD10A 		lsr	r10, r1, #3
+ 2296 00ea 0AFB02F2 		mul	r2, r10, r2
  2297              	.LVL238:
  2298              		.loc 2 438 15 discriminator 3 view .LVU708
- 2299 00ee 1B0A     		lsrs	r3, r3, #8
+ 2299 00ee 120A     		lsrs	r2, r2, #8
  2300              		.loc 2 438 13 discriminator 3 view .LVU709
- 2301 00f0 63F30401 		bfi	r1, r3, #0, #5
- 2302 00f4 02F8021B 		strb	r1, [r2], #2
+ 2301 00f0 62F3C701 		bfi	r1, r2, #3, #5
+ 2302 00f4 5970     		strb	r1, [r3, #1]
  2303              	.LVL239:
  2304              		.loc 2 438 13 discriminator 3 view .LVU710
  2305              	.LBE86:
  2306              	.LBE85:
  355:Lib/lvgl/src/draw/lv_draw_buf.c ****             }
  2307              		.loc 1 355 17 is_stmt 1 discriminator 3 view .LVU711
- 353:Lib/lvgl/src/draw/lv_draw_buf.c ****                 lv_color16_premultiply(pixel, alpha[x]);
- 2308              		.loc 1 353 41 discriminator 3 view .LVU712
- 2309 00f8 0130     		adds	r0, r0, #1
+ 355:Lib/lvgl/src/draw/lv_draw_buf.c ****             }
+ 2308              		.loc 1 355 22 is_stmt 0 discriminator 3 view .LVU712
+ 2309 00f6 0233     		adds	r3, r3, #2
  2310              	.LVL240:
- 2311              	.L165:
  353:Lib/lvgl/src/draw/lv_draw_buf.c ****                 lv_color16_premultiply(pixel, alpha[x]);
- 2312              		.loc 1 353 35 discriminator 1 view .LVU713
- 2313 00fa 7045     		cmp	r0, lr
- 2314 00fc DCD3     		bcc	.L164
- 2315              	.LBE84:
- 357:Lib/lvgl/src/draw/lv_draw_buf.c ****             alpha += alpha_stride;
- 2316              		.loc 1 357 13 discriminator 2 view .LVU714
- 357:Lib/lvgl/src/draw/lv_draw_buf.c ****             alpha += alpha_stride;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 74
+ 2311              		.loc 1 353 41 is_stmt 1 discriminator 3 view .LVU713
+ 2312 00f8 0130     		adds	r0, r0, #1
+ 2313              	.LVL241:
+ 2314              	.L165:
+ 353:Lib/lvgl/src/draw/lv_draw_buf.c ****                 lv_color16_premultiply(pixel, alpha[x]);
+ 2315              		.loc 1 353 35 discriminator 1 view .LVU714
+ 2316 00fa 7045     		cmp	r0, lr
+ 2317 00fc DCD3     		bcc	.L164
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 74
 
 
- 2317              		.loc 1 357 18 is_stmt 0 discriminator 2 view .LVU715
- 2318 00fe 4644     		add	r6, r6, r8
- 2319              	.LVL241:
+ 2318              	.LBE84:
+ 357:Lib/lvgl/src/draw/lv_draw_buf.c ****             alpha += alpha_stride;
+ 2319              		.loc 1 357 13 discriminator 2 view .LVU715
+ 357:Lib/lvgl/src/draw/lv_draw_buf.c ****             alpha += alpha_stride;
+ 2320              		.loc 1 357 18 is_stmt 0 discriminator 2 view .LVU716
+ 2321 00fe 4644     		add	r6, r6, r8
+ 2322              	.LVL242:
  358:Lib/lvgl/src/draw/lv_draw_buf.c ****         }
- 2320              		.loc 1 358 13 is_stmt 1 discriminator 2 view .LVU716
+ 2323              		.loc 1 358 13 is_stmt 1 discriminator 2 view .LVU717
  358:Lib/lvgl/src/draw/lv_draw_buf.c ****         }
- 2321              		.loc 1 358 19 is_stmt 0 discriminator 2 view .LVU717
- 2322 0100 CC44     		add	ip, ip, r9
- 2323              	.LVL242:
+ 2324              		.loc 1 358 19 is_stmt 0 discriminator 2 view .LVU718
+ 2325 0100 CC44     		add	ip, ip, r9
+ 2326              	.LVL243:
  358:Lib/lvgl/src/draw/lv_draw_buf.c ****         }
- 2324              		.loc 1 358 19 discriminator 2 view .LVU718
- 2325              	.LBE83:
+ 2327              		.loc 1 358 19 discriminator 2 view .LVU719
+ 2328              	.LBE83:
  351:Lib/lvgl/src/draw/lv_draw_buf.c ****             lv_color16_t * pixel = (lv_color16_t *)line;
- 2326              		.loc 1 351 37 is_stmt 1 discriminator 2 view .LVU719
- 2327 0102 0135     		adds	r5, r5, #1
- 2328              	.LVL243:
- 2329              	.L163:
+ 2329              		.loc 1 351 37 is_stmt 1 discriminator 2 view .LVU720
+ 2330 0102 0135     		adds	r5, r5, #1
+ 2331              	.LVL244:
+ 2332              	.L163:
  351:Lib/lvgl/src/draw/lv_draw_buf.c ****             lv_color16_t * pixel = (lv_color16_t *)line;
- 2330              		.loc 1 351 31 discriminator 1 view .LVU720
- 2331 0104 BD42     		cmp	r5, r7
- 2332 0106 A7D2     		bcs	.L158
- 2333              	.LBB88:
+ 2333              		.loc 1 351 31 discriminator 1 view .LVU721
+ 2334 0104 BD42     		cmp	r5, r7
+ 2335 0106 A7D2     		bcs	.L158
+ 2336              	.LBB88:
  352:Lib/lvgl/src/draw/lv_draw_buf.c ****             for(uint32_t x = 0; x < w; x++) {
- 2334              		.loc 1 352 28 is_stmt 0 view .LVU721
- 2335 0108 3246     		mov	r2, r6
- 2336              	.LBB87:
+ 2337              		.loc 1 352 28 is_stmt 0 view .LVU722
+ 2338 0108 3346     		mov	r3, r6
+ 2339              	.LBB87:
  353:Lib/lvgl/src/draw/lv_draw_buf.c ****                 lv_color16_premultiply(pixel, alpha[x]);
- 2337              		.loc 1 353 26 view .LVU722
- 2338 010a 0020     		movs	r0, #0
- 2339 010c F5E7     		b	.L165
- 2340              	.LVL244:
- 2341              	.L166:
+ 2340              		.loc 1 353 26 view .LVU723
+ 2341 010a 0020     		movs	r0, #0
+ 2342 010c F5E7     		b	.L165
+ 2343              	.LVL245:
+ 2344              	.L166:
  353:Lib/lvgl/src/draw/lv_draw_buf.c ****                 lv_color16_premultiply(pixel, alpha[x]);
- 2342              		.loc 1 353 26 view .LVU723
- 2343              	.LBE87:
- 2344              	.LBE88:
- 2345              	.LBE89:
- 2346              	.LBE96:
- 315:Lib/lvgl/src/draw/lv_draw_buf.c ****     if((draw_buf->header.flags & LV_IMAGE_FLAGS_MODIFIABLE) == 0) {
- 2347              		.loc 1 315 70 view .LVU724
- 2348 010e 0020     		movs	r0, #0
- 2349              	.LVL245:
+ 2345              		.loc 1 353 26 view .LVU724
+ 2346              	.LBE87:
+ 2347              	.LBE88:
+ 2348              	.LBE89:
+ 2349              	.LBE96:
  315:Lib/lvgl/src/draw/lv_draw_buf.c ****     if((draw_buf->header.flags & LV_IMAGE_FLAGS_MODIFIABLE) == 0) {
  2350              		.loc 1 315 70 view .LVU725
- 2351 0110 A7E7     		b	.L148
+ 2351 010e 0020     		movs	r0, #0
  2352              	.LVL246:
- 2353              	.L167:
- 318:Lib/lvgl/src/draw/lv_draw_buf.c ****     }
- 2354              		.loc 1 318 16 view .LVU726
- 2355 0112 0020     		movs	r0, #0
- 2356              	.LVL247:
+ 315:Lib/lvgl/src/draw/lv_draw_buf.c ****     if((draw_buf->header.flags & LV_IMAGE_FLAGS_MODIFIABLE) == 0) {
+ 2353              		.loc 1 315 70 view .LVU726
+ 2354 0110 A7E7     		b	.L148
+ 2355              	.LVL247:
+ 2356              	.L167:
  318:Lib/lvgl/src/draw/lv_draw_buf.c ****     }
  2357              		.loc 1 318 16 view .LVU727
- 2358 0114 A5E7     		b	.L148
- 2359              		.cfi_endproc
- 2360              	.LFE248:
- 2362              		.text
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 75
+ 2358 0112 0020     		movs	r0, #0
+ 2359              	.LVL248:
+ 318:Lib/lvgl/src/draw/lv_draw_buf.c ****     }
+ 2360              		.loc 1 318 16 view .LVU728
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 75
 
 
- 2363              	.Letext0:
- 2364              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
- 2365              		.file 7 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
- 2366              		.file 8 "Lib/lvgl/src/draw/../misc/lv_types.h"
- 2367              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj.h"
- 2368              		.file 10 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_class.h"
- 2369              		.file 11 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
- 2370              		.file 12 "Lib/lvgl/src/draw/../core/../draw/lv_draw.h"
- 2371              		.file 13 "Lib/lvgl/src/draw/../core/../draw/sw/../../display/../misc/lv_event.h"
- 2372              		.file 14 "Lib/lvgl/src/draw/../core/../draw/../misc/lv_timer.h"
- 2373              		.file 15 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64
- 2374              		.file 16 "Lib/lvgl/src/draw/lv_draw_buf.h"
- 2375              		.file 17 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\osal\\lv_os_none.h"
- 2376              		.file 18 "Lib/lvgl/src/draw/../core/../draw/../misc/../tick/lv_tick.h"
- 2377              		.file 19 "Lib/lvgl/src/draw/../core/../draw/../misc/lv_ll.h"
- 2378              		.file 20 "Lib/lvgl/src/draw/../core/../draw/../misc/lv_anim.h"
- 2379              		.file 21 "Lib/lvgl/src/draw/../core/../draw/../misc/../layouts/lv_layout.h"
- 2380              		.file 22 "Lib/lvgl/src/draw/../core/../draw/../misc/lv_style.h"
- 2381              		.file 23 "Lib/lvgl/src/draw/../core/../draw/sw/../../display/../misc/lv_array.h"
- 2382              		.file 24 "Lib/lvgl/src/draw/../core/../draw/sw/blend/../lv_draw_sw_mask.h"
- 2383              		.file 25 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
- 2384              		.file 26 "Lib/lvgl/src/draw/../core/../stdlib/builtin/lv_tlsf.h"
- 2385              		.file 27 "Lib/lvgl/src/draw/../core/lv_global.h"
- 2386              		.file 28 "Lib/lvgl/src/draw/../misc/../stdlib/lv_mem.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 76
+ 2361 0114 A5E7     		b	.L148
+ 2362              		.cfi_endproc
+ 2363              	.LFE248:
+ 2365              		.text
+ 2366              	.Letext0:
+ 2367              		.file 6 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 2368              		.file 7 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 2369              		.file 8 "Lib/lvgl/src/draw/../misc/lv_types.h"
+ 2370              		.file 9 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj.h"
+ 2371              		.file 10 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_class.h"
+ 2372              		.file 11 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_group.h"
+ 2373              		.file 12 "Lib/lvgl/src/draw/../core/../draw/lv_draw.h"
+ 2374              		.file 13 "Lib/lvgl/src/draw/../core/../draw/sw/../../display/../misc/lv_event.h"
+ 2375              		.file 14 "Lib/lvgl/src/draw/../core/../draw/../misc/lv_timer.h"
+ 2376              		.file 15 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64
+ 2377              		.file 16 "Lib/lvgl/src/draw/lv_draw_buf.h"
+ 2378              		.file 17 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\osal\\lv_os_none.h"
+ 2379              		.file 18 "Lib/lvgl/src/draw/../core/../draw/../misc/../tick/lv_tick.h"
+ 2380              		.file 19 "Lib/lvgl/src/draw/../core/../draw/../misc/lv_ll.h"
+ 2381              		.file 20 "Lib/lvgl/src/draw/../core/../draw/../misc/lv_anim.h"
+ 2382              		.file 21 "Lib/lvgl/src/draw/../core/../draw/../misc/../layouts/lv_layout.h"
+ 2383              		.file 22 "Lib/lvgl/src/draw/../core/../draw/../misc/lv_style.h"
+ 2384              		.file 23 "Lib/lvgl/src/draw/../core/../draw/sw/../../display/../misc/lv_array.h"
+ 2385              		.file 24 "Lib/lvgl/src/draw/../core/../draw/sw/blend/../lv_draw_sw_mask.h"
+ 2386              		.file 25 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
+ 2387              		.file 26 "Lib/lvgl/src/draw/../core/../stdlib/builtin/lv_tlsf.h"
+ 2388              		.file 27 "Lib/lvgl/src/draw/../core/lv_global.h"
+ 2389              		.file 28 "Lib/lvgl/src/draw/../misc/../stdlib/lv_mem.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 76
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_draw_buf.c
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:21     .text.lv_color_premultiply:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:26     .text.lv_color_premultiply:00000000 lv_color_premultiply
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:63     .text.buf_align:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:68     .text.buf_align:00000000 buf_align
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:101    .text.draw_buf_malloc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:106    .text.draw_buf_malloc:00000000 draw_buf_malloc
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:142    .text.draw_buf_malloc:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:147    .text.draw_buf_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:152    .text.draw_buf_free:00000000 draw_buf_free
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:180    .text.draw_buf_free:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:185    .text.width_to_stride:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:190    .text.width_to_stride:00000000 width_to_stride
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:230    .text.buf_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:235    .text.buf_free:00000000 buf_free
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:257    .text.buf_malloc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:262    .text.buf_malloc:00000000 buf_malloc
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:291    .text._lv_draw_buf_init_handlers:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:297    .text._lv_draw_buf_init_handlers:00000000 _lv_draw_buf_init_handlers
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:353    .text._lv_draw_buf_init_handlers:00000030 $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:362    .text.lv_draw_buf_get_handlers:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:368    .text.lv_draw_buf_get_handlers:00000000 lv_draw_buf_get_handlers
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:382    .text.lv_draw_buf_get_handlers:00000004 $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:387    .text.lv_draw_buf_width_to_stride:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:393    .text.lv_draw_buf_width_to_stride:00000000 lv_draw_buf_width_to_stride
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:429    .text.lv_draw_buf_width_to_stride:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:434    .text._calculate_draw_buf_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:439    .text._calculate_draw_buf_size:00000000 _calculate_draw_buf_size
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:486    .text._calculate_draw_buf_size:00000024 $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:491    .text._calculate_draw_buf_size:00000028 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:544    .text.lv_draw_buf_align:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:550    .text.lv_draw_buf_align:00000000 lv_draw_buf_align
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:586    .text.lv_draw_buf_align:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:591    .text.lv_draw_buf_invalidate_cache:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:597    .text.lv_draw_buf_invalidate_cache:00000000 lv_draw_buf_invalidate_cache
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:625    .text.lv_draw_buf_invalidate_cache:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:630    .text.lv_draw_buf_init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:636    .text.lv_draw_buf_init:00000000 lv_draw_buf_init
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:808    .text.lv_draw_buf_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:814    .text.lv_draw_buf_create:00000000 lv_draw_buf_create
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:956    .text.lv_draw_buf_dup:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:962    .text.lv_draw_buf_dup:00000000 lv_draw_buf_dup
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1030   .text.lv_draw_buf_reshape:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1036   .text.lv_draw_buf_reshape:00000000 lv_draw_buf_reshape
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1134   .text.lv_draw_buf_destroy:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1140   .text.lv_draw_buf_destroy:00000000 lv_draw_buf_destroy
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1205   .text.lv_draw_buf_goto_xy:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1211   .text.lv_draw_buf_goto_xy:00000000 lv_draw_buf_goto_xy
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1303   .text.lv_draw_buf_clear:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1309   .text.lv_draw_buf_clear:00000000 lv_draw_buf_clear
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1545   .text.lv_draw_buf_copy:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1551   .text.lv_draw_buf_copy:00000000 lv_draw_buf_copy
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1776   .text.lv_draw_buf_adjust_stride:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1782   .text.lv_draw_buf_adjust_stride:00000000 lv_draw_buf_adjust_stride
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1978   .text.lv_draw_buf_premultiply:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:1984   .text.lv_draw_buf_premultiply:00000000 lv_draw_buf_premultiply
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s 			page 77
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:21     .text.lv_color_premultiply:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:26     .text.lv_color_premultiply:00000000 lv_color_premultiply
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:63     .text.buf_align:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:68     .text.buf_align:00000000 buf_align
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:101    .text.draw_buf_malloc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:106    .text.draw_buf_malloc:00000000 draw_buf_malloc
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:142    .text.draw_buf_malloc:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:147    .text.draw_buf_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:152    .text.draw_buf_free:00000000 draw_buf_free
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:180    .text.draw_buf_free:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:185    .text.width_to_stride:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:190    .text.width_to_stride:00000000 width_to_stride
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:230    .text.buf_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:235    .text.buf_free:00000000 buf_free
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:257    .text.buf_malloc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:262    .text.buf_malloc:00000000 buf_malloc
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:291    .text._lv_draw_buf_init_handlers:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:297    .text._lv_draw_buf_init_handlers:00000000 _lv_draw_buf_init_handlers
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:353    .text._lv_draw_buf_init_handlers:00000030 $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:362    .text.lv_draw_buf_get_handlers:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:368    .text.lv_draw_buf_get_handlers:00000000 lv_draw_buf_get_handlers
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:382    .text.lv_draw_buf_get_handlers:00000004 $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:387    .text.lv_draw_buf_width_to_stride:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:393    .text.lv_draw_buf_width_to_stride:00000000 lv_draw_buf_width_to_stride
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:429    .text.lv_draw_buf_width_to_stride:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:434    .text._calculate_draw_buf_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:439    .text._calculate_draw_buf_size:00000000 _calculate_draw_buf_size
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:486    .text._calculate_draw_buf_size:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:491    .text._calculate_draw_buf_size:00000028 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:544    .text.lv_draw_buf_align:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:550    .text.lv_draw_buf_align:00000000 lv_draw_buf_align
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:586    .text.lv_draw_buf_align:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:591    .text.lv_draw_buf_invalidate_cache:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:597    .text.lv_draw_buf_invalidate_cache:00000000 lv_draw_buf_invalidate_cache
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:625    .text.lv_draw_buf_invalidate_cache:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:630    .text.lv_draw_buf_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:636    .text.lv_draw_buf_init:00000000 lv_draw_buf_init
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:808    .text.lv_draw_buf_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:814    .text.lv_draw_buf_create:00000000 lv_draw_buf_create
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:956    .text.lv_draw_buf_dup:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:962    .text.lv_draw_buf_dup:00000000 lv_draw_buf_dup
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1030   .text.lv_draw_buf_reshape:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1036   .text.lv_draw_buf_reshape:00000000 lv_draw_buf_reshape
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1134   .text.lv_draw_buf_destroy:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1140   .text.lv_draw_buf_destroy:00000000 lv_draw_buf_destroy
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1205   .text.lv_draw_buf_goto_xy:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1211   .text.lv_draw_buf_goto_xy:00000000 lv_draw_buf_goto_xy
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1303   .text.lv_draw_buf_clear:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1309   .text.lv_draw_buf_clear:00000000 lv_draw_buf_clear
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1545   .text.lv_draw_buf_copy:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1551   .text.lv_draw_buf_copy:00000000 lv_draw_buf_copy
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1776   .text.lv_draw_buf_adjust_stride:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1782   .text.lv_draw_buf_adjust_stride:00000000 lv_draw_buf_adjust_stride
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1978   .text.lv_draw_buf_premultiply:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:1984   .text.lv_draw_buf_premultiply:00000000 lv_draw_buf_premultiply
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s 			page 77
 
 
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:2042   .text.lv_draw_buf_premultiply:0000002a $d
-C:\Users\Alex\AppData\Local\Temp\cc6dQLQa.s:2047   .text.lv_draw_buf_premultiply:0000002e $t
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:2042   .text.lv_draw_buf_premultiply:0000002a $d
+C:\Users\Alex\AppData\Local\Temp\ccm5Fmba.s:2047   .text.lv_draw_buf_premultiply:0000002e $t
 
 UNDEFINED SYMBOLS
 lv_global

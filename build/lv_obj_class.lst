@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
   28:Lib/lvgl/src/core/lv_obj_class.c **** /**********************
   29:Lib/lvgl/src/core/lv_obj_class.c ****  *  STATIC PROTOTYPES
   30:Lib/lvgl/src/core/lv_obj_class.c ****  **********************/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 2
 
 
   31:Lib/lvgl/src/core/lv_obj_class.c **** static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj);
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
   85:Lib/lvgl/src/core/lv_obj_class.c ****         }
   86:Lib/lvgl/src/core/lv_obj_class.c **** 
   87:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->child_cnt++;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 3
 
 
   88:Lib/lvgl/src/core/lv_obj_class.c ****         parent->spec_attr->children = lv_realloc(parent->spec_attr->children,
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  142:Lib/lvgl/src/core/lv_obj_class.c **** 
  143:Lib/lvgl/src/core/lv_obj_class.c ****     /*Find a base in which editable is set*/
  144:Lib/lvgl/src/core/lv_obj_class.c ****     while(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->base_cl
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 4
 
 
  145:Lib/lvgl/src/core/lv_obj_class.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
   54              		.loc 1 173 22 is_stmt 0 view .LVU8
   55 000c 0B60     		str	r3, [r1]
  174:Lib/lvgl/src/core/lv_obj_class.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 5
 
 
  175:Lib/lvgl/src/core/lv_obj_class.c ****         /*Construct the base first*/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  188:Lib/lvgl/src/core/lv_obj_class.c ****     const lv_obj_class_t * base = class_p;
   99              		.loc 1 188 5 view .LVU21
  189:Lib/lvgl/src/core/lv_obj_class.c ****     while(base && base->instance_size == 0) base = base->base_class;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 6
 
 
  100              		.loc 1 189 5 view .LVU22
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  149              		.thumb_func
  151              	lv_obj_class_create_obj:
  152              	.LVL11:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 7
 
 
  153              	.LFB233:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
   82:Lib/lvgl/src/core/lv_obj_class.c ****         if(parent->spec_attr == NULL) {
  191              		.loc 1 82 9 view .LVU52
   82:Lib/lvgl/src/core/lv_obj_class.c ****         if(parent->spec_attr == NULL) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 8
 
 
  192              		.loc 1 82 9 view .LVU53
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  229 0038 1B8D     		ldrh	r3, [r3, #40]
   90:Lib/lvgl/src/core/lv_obj_class.c ****     }
  230              		.loc 1 90 36 view .LVU71
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 9
 
 
  231 003a 03F18043 		add	r3, r3, #1073741824
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  269 0060 8900     		lsls	r1, r1, #2
  270 0062 FFF7FEFF 		bl	lv_realloc
  271              	.LVL22:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 10
 
 
   70:Lib/lvgl/src/core/lv_obj_class.c ****         disp->screens[disp->screen_cnt - 1] = obj;
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  308 0090 2862     		str	r0, [r5, #32]
  309              	.LBE3:
  310 0092 D7E7     		b	.L13
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 11
 
 
  311              	.LVL26:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  353              		.syntax unified
  354              		.thumb
  355              		.thumb_func
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 12
 
 
  357              	_lv_obj_destruct:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  397              	.LVL37:
  398              	.L24:
  137:Lib/lvgl/src/core/lv_obj_class.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 13
 
 
  399              		.loc 1 137 1 is_stmt 0 view .LVU133
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  442              		.loc 1 146 7 is_stmt 0 view .LVU146
  443 0012 43B1     		cbz	r3, .L33
  148:Lib/lvgl/src/core/lv_obj_class.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 14
 
 
  444              		.loc 1 148 5 is_stmt 1 view .LVU147
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  489              		.loc 1 156 84 is_stmt 0 discriminator 3 view .LVU158
  490 0004 1B68     		ldr	r3, [r3]
  491              	.LVL46:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 15
 
 
  492              	.L35:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  537              		@ args = 0, pretend = 0, frame = 0
  538              		@ frame_needed = 0, uses_anonymous_args = 0
   97:Lib/lvgl/src/core/lv_obj_class.c ****     lv_obj_mark_layout_as_dirty(obj);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 16
 
 
  539              		.loc 1 97 1 is_stmt 0 view .LVU170
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  110:Lib/lvgl/src/core/lv_obj_class.c ****         lv_group_add_obj(def_group, obj);
  583              		.loc 1 110 7 is_stmt 0 view .LVU181
  584 0038 20B1     		cbz	r0, .L41
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 17
 
 
  585 003a 0546     		mov	r5, r0
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  627 006a 2846     		mov	r0, r5
  628 006c FFF7FEFF 		bl	lv_group_add_obj
  629              	.LVL67:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 18
 
 
  630 0070 E8E7     		b	.L41
@@ -1053,26 +1053,26 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 1
  660              		.file 26 "Lib/lvgl/src/core/lv_obj_tree.h"
  661              		.file 27 "Lib/lvgl/src/core/lv_obj_pos.h"
  662              		.file 28 "Lib/lvgl/src/core/../misc/../font/../draw/../misc/../stdlib/lv_mem.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s 			page 19
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_obj_class.c
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:21     .text.lv_obj_construct:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:26     .text.lv_obj_construct:00000000 lv_obj_construct
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:86     .text.get_instance_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:91     .text.get_instance_size:00000000 get_instance_size
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:140    .text.get_instance_size:00000020 $d
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:145    .text.lv_obj_class_create_obj:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:151    .text.lv_obj_class_create_obj:00000000 lv_obj_class_create_obj
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:351    .text._lv_obj_destruct:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:357    .text._lv_obj_destruct:00000000 _lv_obj_destruct
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:406    .text.lv_obj_is_editable:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:412    .text.lv_obj_is_editable:00000000 lv_obj_is_editable
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:466    .text.lv_obj_is_group_def:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:472    .text.lv_obj_is_group_def:00000000 lv_obj_is_group_def
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:526    .text.lv_obj_class_init_obj:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cczdqFKe.s:532    .text.lv_obj_class_init_obj:00000000 lv_obj_class_init_obj
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:21     .text.lv_obj_construct:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:26     .text.lv_obj_construct:00000000 lv_obj_construct
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:86     .text.get_instance_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:91     .text.get_instance_size:00000000 get_instance_size
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:140    .text.get_instance_size:00000020 $d
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:145    .text.lv_obj_class_create_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:151    .text.lv_obj_class_create_obj:00000000 lv_obj_class_create_obj
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:351    .text._lv_obj_destruct:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:357    .text._lv_obj_destruct:00000000 _lv_obj_destruct
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:406    .text.lv_obj_is_editable:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:412    .text.lv_obj_is_editable:00000000 lv_obj_is_editable
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:466    .text.lv_obj_is_group_def:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:472    .text.lv_obj_is_group_def:00000000 lv_obj_is_group_def
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:526    .text.lv_obj_class_init_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccUUsTb4.s:532    .text.lv_obj_class_init_obj:00000000 lv_obj_class_init_obj
 
 UNDEFINED SYMBOLS
 lv_malloc_zeroed

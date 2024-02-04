@@ -193,7 +193,7 @@ Lib/lvgl/src/widgets/tileview/lv_tileview.c \
 Lib/lvgl/src/widgets/win/lv_win.c \
 Lib/lvgl/src/libs/bin_decoder/lv_bin_decoder.c \
 Lib/lvgl/src/osal/lv_os_none.c \
-
+Lib/lvgl/examples/assets/img_cogwheel_argb.c \
 
 
 
@@ -285,7 +285,7 @@ LDSCRIPT = STM32F407VETx_FLASH.ld
 # libraries
 LIBS = -lc -lm -lnosys 
 LIBDIR = 
-LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+LDFLAGS = $(MCU) -specs=nosys.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin

@@ -163,21 +163,19 @@ void my_disp_flush(lv_disp_t * disp, const lv_area_t * area, lv_color_t * color_
     uint16_t w = (uint16_t)area->x2 - x + 1;
     uint16_t y = (uint16_t)area->y1;
     uint16_t h = (uint16_t)area->y2 - y + 1;
+        /// 2024-02-04 convert data for transmit
+    for(int i = 0; i < w*h; i++)
+    {
+        uint16_t temp = *((uint16_t*)color_p + i);
+        *((uint16_t*)color_p + i) = ((temp & 0xFF00) >> 8) | ((temp & 0xFF) << 8);
+    }
     ILI9341_DrawImage(x, y, w, h, (const uint16_t*)color_p);
 
     lv_disp_flush_ready(disp);         /* Indicate you are ready with the flushing*/
 }
 
 
-static void anim_x_cb(void * var, int32_t v)
-{
-    lv_obj_set_x(var, v);
-}
 
-static void anim_size_cb(void * var, int32_t v)
-{
-    lv_obj_set_size(var, v, v);
-}
 /* USER CODE END 0 */
 
 /**
@@ -220,10 +218,10 @@ int main(void)
 
   static lv_draw_buf_t draw_buf;
   static lv_color_t buf1[240 * 320 / 10];                        /*Declare a buffer for 1/10 screen size*/
-  lv_draw_buf_init(&draw_buf, 240, 320, LV_COLOR_FORMAT_NATIVE, 20,
+  lv_draw_buf_init(&draw_buf, 320, 240, LV_COLOR_FORMAT_NATIVE, 20,
                              buf1, sizeof(buf1));  /*Initialize the display buffer.*/
   
-  lv_display_t* disp_drv = lv_display_create(240, 320);        /*Basic initialization*/
+  lv_display_t* disp_drv = lv_display_create(320, 240);        /*Basic initialization*/
   lv_display_set_flush_cb(disp_drv, my_disp_flush);    /*Set your driver function*/
   lv_display_set_draw_buffers(disp_drv, &draw_buf, NULL);
   //lv_disp_drv_register(&disp_drv);      /*Finally register the driver*/
@@ -231,12 +229,24 @@ int main(void)
   lv_display_set_rotation(disp_drv, LV_DISPLAY_ROTATION_0); 
 
   // Some example here
-  lv_obj_set_style_bg_color(lv_scr_act(), lv_color_hex(0x003a57), LV_PART_MAIN);
+  static lv_style_t style;
+  lv_style_init(&style);
+  /*Set a background color and a radius*/
+  lv_style_set_radius(&style, 5);
+  lv_style_set_bg_opa(&style, LV_OPA_COVER);
+  lv_style_set_bg_color(&style, lv_palette_lighten(LV_PALETTE_GREY, 3));
+  lv_style_set_border_width(&style, 2);
+  lv_style_set_border_color(&style, lv_palette_main(LV_PALETTE_BLUE));
+  lv_style_set_img_recolor(&style, lv_palette_main(LV_PALETTE_BLUE));
+  lv_style_set_img_recolor_opa(&style, LV_OPA_50);
+  // lv_style_set_transform_angle(&style, 300);
+  lv_obj_t * obj = lv_img_create(lv_scr_act());
+  lv_obj_add_style(obj, &style, 0);
+  LV_IMG_DECLARE(img_cogwheel_argb);
+  lv_img_set_src(obj, &img_cogwheel_argb);
+  lv_obj_center(obj);
 
-  lv_obj_t* label = lv_label_create(lv_scr_act());
-  lv_label_set_text(label, "Hello, world!");
-  lv_obj_set_style_text_color(lv_scr_act(), lv_color_hex(0xffffff), LV_PART_MAIN);
-  lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+
 
   while (1)
   {

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
   27:Lib/lvgl/src/misc/lv_palette.c **** /**********************
   28:Lib/lvgl/src/misc/lv_palette.c ****  *      MACROS
   29:Lib/lvgl/src/misc/lv_palette.c ****  **********************/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 2
 
 
   30:Lib/lvgl/src/misc/lv_palette.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
   61 0028 63F30F20 		bfi	r0, r3, #8, #8
   62 002c 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
   63 0030 63F31740 		bfi	r0, r3, #16, #8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 3
 
 
   64 0034 04B0     		add	sp, sp, #16
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
   34:Lib/lvgl/src/misc/lv_color.h **** #elif LV_COLOR_DEPTH == 32
   35:Lib/lvgl/src/misc/lv_color.h **** #define _LV_COLOR_NATIVE_WITH_ALPHA_SIZE 4
   36:Lib/lvgl/src/misc/lv_color.h **** #endif
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 4
 
 
   37:Lib/lvgl/src/misc/lv_color.h **** 
@@ -234,24 +234,24 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
   87:Lib/lvgl/src/misc/lv_color.h ****  **********************/
   88:Lib/lvgl/src/misc/lv_color.h **** 
   89:Lib/lvgl/src/misc/lv_color.h **** typedef struct {
-  90:Lib/lvgl/src/misc/lv_color.h ****     uint8_t blue;
+  90:Lib/lvgl/src/misc/lv_color.h ****     uint8_t red;
   91:Lib/lvgl/src/misc/lv_color.h ****     uint8_t green;
-  92:Lib/lvgl/src/misc/lv_color.h ****     uint8_t red;
+  92:Lib/lvgl/src/misc/lv_color.h ****     uint8_t blue;
   93:Lib/lvgl/src/misc/lv_color.h **** } lv_color_t;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 5
 
 
   94:Lib/lvgl/src/misc/lv_color.h **** 
   95:Lib/lvgl/src/misc/lv_color.h **** typedef struct {
-  96:Lib/lvgl/src/misc/lv_color.h ****     uint16_t blue : 5;
+  96:Lib/lvgl/src/misc/lv_color.h ****     uint16_t red : 5;
   97:Lib/lvgl/src/misc/lv_color.h ****     uint16_t green : 6;
-  98:Lib/lvgl/src/misc/lv_color.h ****     uint16_t red : 5;
+  98:Lib/lvgl/src/misc/lv_color.h ****     uint16_t blue : 5;
   99:Lib/lvgl/src/misc/lv_color.h **** } lv_color16_t;
  100:Lib/lvgl/src/misc/lv_color.h **** 
  101:Lib/lvgl/src/misc/lv_color.h **** typedef struct {
- 102:Lib/lvgl/src/misc/lv_color.h ****     uint8_t blue;
+ 102:Lib/lvgl/src/misc/lv_color.h ****     uint8_t red;
  103:Lib/lvgl/src/misc/lv_color.h ****     uint8_t green;
- 104:Lib/lvgl/src/misc/lv_color.h ****     uint8_t red;
+ 104:Lib/lvgl/src/misc/lv_color.h ****     uint8_t blue;
  105:Lib/lvgl/src/misc/lv_color.h ****     uint8_t alpha;
  106:Lib/lvgl/src/misc/lv_color.h **** } lv_color32_t;
  107:Lib/lvgl/src/misc/lv_color.h **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  148:Lib/lvgl/src/misc/lv_color.h ****     LV_COLOR_FORMAT_I400              = 0x23,  /*YUV400 no chroma channel*/
  149:Lib/lvgl/src/misc/lv_color.h ****     LV_COLOR_FORMAT_NV21              = 0x24,  /*YUV420 planar(2 plane), UV plane in 'V, U, V, U'*/
  150:Lib/lvgl/src/misc/lv_color.h ****     LV_COLOR_FORMAT_NV12              = 0x25,  /*YUV420 planar(2 plane), UV plane in 'U, V, U, V'*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 6
 
 
  151:Lib/lvgl/src/misc/lv_color.h **** 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  205:Lib/lvgl/src/misc/lv_color.h **** uint8_t lv_color_format_get_bpp(lv_color_format_t cf);
  206:Lib/lvgl/src/misc/lv_color.h **** 
  207:Lib/lvgl/src/misc/lv_color.h **** /**
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 7
 
 
  208:Lib/lvgl/src/misc/lv_color.h ****  * Get the pixel size of a color format in bytes
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  262:Lib/lvgl/src/misc/lv_color.h ****     return *((uint32_t *)&c1) == *((uint32_t *)&c2);
  263:Lib/lvgl/src/misc/lv_color.h **** }
  264:Lib/lvgl/src/misc/lv_color.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 8
 
 
  265:Lib/lvgl/src/misc/lv_color.h **** /**
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  319:Lib/lvgl/src/misc/lv_color.h **** {
  320:Lib/lvgl/src/misc/lv_color.h ****     return lv_color_make((uint8_t)(((c >> 4) & 0xF0) | ((c >> 8) & 0xF)), (uint8_t)((c & 0xF0) | ((
  321:Lib/lvgl/src/misc/lv_color.h ****                          (uint8_t)((c & 0xF) | ((c & 0xF) << 4)));
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 9
 
 
  322:Lib/lvgl/src/misc/lv_color.h **** }
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  376:Lib/lvgl/src/misc/lv_color.h ****  * @param c     the base color
  377:Lib/lvgl/src/misc/lv_color.h ****  * @param lvl   the intensity of black (0: no change, 255: fully black)
  378:Lib/lvgl/src/misc/lv_color.h ****  * @return      the mixed color
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 10
 
 
  379:Lib/lvgl/src/misc/lv_color.h ****  */
@@ -598,13 +598,13 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
   87              		.loc 2 288 5 view .LVU16
  289:Lib/lvgl/src/misc/lv_color.h ****     ret.green = g;
   88              		.loc 2 289 5 view .LVU17
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 11
 
 
  289:Lib/lvgl/src/misc/lv_color.h ****     ret.green = g;
   89              		.loc 2 289 13 is_stmt 0 view .LVU18
   90 0038 0023     		movs	r3, #0
-  91 003a 8DF80230 		strb	r3, [sp, #2]
+  91 003a 8DF80030 		strb	r3, [sp]
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
   92              		.loc 2 290 5 is_stmt 1 view .LVU19
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
@@ -614,7 +614,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
   95              		.loc 2 291 5 is_stmt 1 view .LVU21
  291:Lib/lvgl/src/misc/lv_color.h ****     return ret;
   96              		.loc 2 291 14 is_stmt 0 view .LVU22
-  97 0042 8DF80030 		strb	r3, [sp]
+  97 0042 8DF80230 		strb	r3, [sp, #2]
  292:Lib/lvgl/src/misc/lv_color.h **** }
   98              		.loc 2 292 5 is_stmt 1 view .LVU23
  292:Lib/lvgl/src/misc/lv_color.h **** }
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
   53:Lib/lvgl/src/misc/lv_palette.c **** 
   54:Lib/lvgl/src/misc/lv_palette.c **** lv_color_t lv_palette_lighten(lv_palette_t p, uint8_t lvl)
   55:Lib/lvgl/src/misc/lv_palette.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 12
 
 
  136              		.loc 1 55 1 is_stmt 1 view -0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
   87:Lib/lvgl/src/misc/lv_palette.c **** 
   88:Lib/lvgl/src/misc/lv_palette.c ****     lvl--;
  159              		.loc 1 88 5 is_stmt 1 view .LVU36
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 13
 
 
  160              	.LVL6:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  286:Lib/lvgl/src/misc/lv_color.h **** {
  206              		.loc 2 286 26 view .LVU48
  207              	.LBB29:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 14
 
 
  288:Lib/lvgl/src/misc/lv_color.h ****     ret.red = r;
@@ -788,7 +788,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  289:Lib/lvgl/src/misc/lv_color.h ****     ret.green = g;
  210              		.loc 2 289 13 is_stmt 0 view .LVU51
  211 0046 0023     		movs	r3, #0
- 212 0048 8DF80230 		strb	r3, [sp, #2]
+ 212 0048 8DF80030 		strb	r3, [sp]
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
  213              		.loc 2 290 5 is_stmt 1 view .LVU52
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
@@ -798,7 +798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  216              		.loc 2 291 5 is_stmt 1 view .LVU54
  291:Lib/lvgl/src/misc/lv_color.h ****     return ret;
  217              		.loc 2 291 14 is_stmt 0 view .LVU55
- 218 0050 8DF80030 		strb	r3, [sp]
+ 218 0050 8DF80230 		strb	r3, [sp, #2]
  292:Lib/lvgl/src/misc/lv_color.h **** }
  219              		.loc 2 292 5 is_stmt 1 view .LVU56
  292:Lib/lvgl/src/misc/lv_color.h **** }
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  247              	.LBI30:
  422:Lib/lvgl/src/misc/lv_color.h **** {
  248              		.loc 2 422 26 view .LVU64
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 15
 
 
  249              		.loc 2 424 5 view .LVU65
@@ -854,7 +854,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  289:Lib/lvgl/src/misc/lv_color.h ****     ret.green = g;
  256              		.loc 2 289 13 is_stmt 0 view .LVU69
  257 007a 0023     		movs	r3, #0
- 258 007c 8DF80230 		strb	r3, [sp, #2]
+ 258 007c 8DF80030 		strb	r3, [sp]
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
  259              		.loc 2 290 5 is_stmt 1 view .LVU70
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
@@ -864,7 +864,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  262              		.loc 2 291 5 is_stmt 1 view .LVU72
  291:Lib/lvgl/src/misc/lv_color.h ****     return ret;
  263              		.loc 2 291 14 is_stmt 0 view .LVU73
- 264 0084 8DF80030 		strb	r3, [sp]
+ 264 0084 8DF80230 		strb	r3, [sp, #2]
  292:Lib/lvgl/src/misc/lv_color.h **** }
  265              		.loc 2 292 5 is_stmt 1 view .LVU74
  292:Lib/lvgl/src/misc/lv_color.h **** }
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  291              	.LFE20:
  293              		.section	.text.lv_palette_darken,"ax",%progbits
  294              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 16
 
 
  295              		.global	lv_palette_darken
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  319 0006 0139     		subs	r1, r1, #1
  320              	.LVL15:
  321              		.loc 1 122 17 view .LVU85
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 17
 
 
  322 0008 C9B2     		uxtb	r1, r1
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  365              		.loc 1 118 9 view .LVU95
  119:Lib/lvgl/src/misc/lv_palette.c ****     }
  366              		.loc 1 119 9 view .LVU96
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 18
 
 
  367              	.LBB33:
@@ -1038,7 +1038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  289:Lib/lvgl/src/misc/lv_color.h ****     ret.green = g;
  377              		.loc 2 289 13 is_stmt 0 view .LVU102
  378 0048 0023     		movs	r3, #0
- 379 004a 8DF80230 		strb	r3, [sp, #2]
+ 379 004a 8DF80030 		strb	r3, [sp]
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
  380              		.loc 2 290 5 is_stmt 1 view .LVU103
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
@@ -1048,7 +1048,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  383              		.loc 2 291 5 is_stmt 1 view .LVU105
  291:Lib/lvgl/src/misc/lv_color.h ****     return ret;
  384              		.loc 2 291 14 is_stmt 0 view .LVU106
- 385 0052 8DF80030 		strb	r3, [sp]
+ 385 0052 8DF80230 		strb	r3, [sp, #2]
  292:Lib/lvgl/src/misc/lv_color.h **** }
  386              		.loc 2 292 5 is_stmt 1 view .LVU107
  292:Lib/lvgl/src/misc/lv_color.h **** }
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  408              	.L23:
  123:Lib/lvgl/src/misc/lv_palette.c ****         return lv_color_black();
  409              		.loc 1 123 9 is_stmt 1 view .LVU111
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 19
 
 
  123:Lib/lvgl/src/misc/lv_palette.c ****         return lv_color_black();
@@ -1104,7 +1104,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  289:Lib/lvgl/src/misc/lv_color.h ****     ret.green = g;
  423              		.loc 2 289 13 is_stmt 0 view .LVU120
  424 007c 0023     		movs	r3, #0
- 425 007e 8DF80230 		strb	r3, [sp, #2]
+ 425 007e 8DF80030 		strb	r3, [sp]
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
  426              		.loc 2 290 5 is_stmt 1 view .LVU121
  290:Lib/lvgl/src/misc/lv_color.h ****     ret.blue = b;
@@ -1114,7 +1114,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  429              		.loc 2 291 5 is_stmt 1 view .LVU123
  291:Lib/lvgl/src/misc/lv_color.h ****     return ret;
  430              		.loc 2 291 14 is_stmt 0 view .LVU124
- 431 0086 8DF80030 		strb	r3, [sp]
+ 431 0086 8DF80230 		strb	r3, [sp, #2]
  292:Lib/lvgl/src/misc/lv_color.h **** }
  432              		.loc 2 292 5 is_stmt 1 view .LVU125
  292:Lib/lvgl/src/misc/lv_color.h **** }
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  449              	.LBE37:
  450              	.LBE36:
  124:Lib/lvgl/src/misc/lv_palette.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 20
 
 
  451              		.loc 1 124 16 view .LVU128
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  508 002b 27       		.byte	39
  509 002c 45       		.byte	69
  510 002d 92       		.byte	-110
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 21
 
 
  511 002e 1B       		.byte	27
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  565 0064 79       		.byte	121
  566 0065 00       		.byte	0
  567 0066 5C       		.byte	92
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 22
 
 
  568 0067 69       		.byte	105
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  622 009d B3       		.byte	-77
  623 009e FF       		.byte	-1
  624 009f 00       		.byte	0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 23
 
 
  625 00a0 A0       		.byte	-96
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  679 00d6 32       		.byte	50
  680 00d7 26       		.byte	38
  681 00d8 75       		.byte	117
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 24
 
 
  682 00d9 75       		.byte	117
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  738 0028 BE       		.byte	-66
  739 0029 E1       		.byte	-31
  740 002a F5       		.byte	-11
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 25
 
 
  741 002b E5       		.byte	-27
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  795 0061 D4       		.byte	-44
  796 0062 81       		.byte	-127
  797 0063 FC       		.byte	-4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 26
 
 
  798 0064 E5       		.byte	-27
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  852 009a D5       		.byte	-43
  853 009b AE       		.byte	-82
  854 009c A5       		.byte	-91
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 27
 
 
  855 009d E1       		.byte	-31
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  909 00d3 A7       		.byte	-89
  910 00d4 FF       		.byte	-1
  911 00d5 4D       		.byte	77
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 28
 
 
  912 00d6 B7       		.byte	-73
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  966 010c EF       		.byte	-17
  967 010d EC       		.byte	-20
  968 010e BD       		.byte	-67
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 29
 
 
  969 010f BD       		.byte	-67
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  1025 0025 EB       		.byte	-21
  1026 0026 FF       		.byte	-1
  1027 0027 07       		.byte	7
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 30
 
 
  1028 0028 C1       		.byte	-63
@@ -1763,25 +1763,25 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 1
  1047              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  1048              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  1049              		.file 5 "Lib/lvgl/src/misc/lv_palette.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s 			page 31
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_palette.c
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:21     .text.lv_palette_main:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:27     .text.lv_palette_main:00000000 lv_palette_main
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:122    .text.lv_palette_main:0000006c $d
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:987    .rodata.colors.2:00000000 colors.2
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:127    .text.lv_palette_lighten:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:133    .text.lv_palette_lighten:00000000 lv_palette_lighten
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:289    .text.lv_palette_lighten:000000b0 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:697    .rodata.colors.1:00000000 colors.1
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:294    .text.lv_palette_darken:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:300    .text.lv_palette_darken:00000000 lv_palette_darken
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:456    .text.lv_palette_darken:000000b0 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:464    .rodata.colors.0:00000000 colors.0
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:461    .rodata.colors.0:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:694    .rodata.colors.1:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHrLHG.s:984    .rodata.colors.2:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:21     .text.lv_palette_main:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:27     .text.lv_palette_main:00000000 lv_palette_main
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:122    .text.lv_palette_main:0000006c $d
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:987    .rodata.colors.2:00000000 colors.2
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:127    .text.lv_palette_lighten:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:133    .text.lv_palette_lighten:00000000 lv_palette_lighten
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:289    .text.lv_palette_lighten:000000b0 $d
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:697    .rodata.colors.1:00000000 colors.1
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:294    .text.lv_palette_darken:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:300    .text.lv_palette_darken:00000000 lv_palette_darken
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:456    .text.lv_palette_darken:000000b0 $d
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:464    .rodata.colors.0:00000000 colors.0
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:461    .rodata.colors.0:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:694    .rodata.colors.1:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccWkRO0E.s:984    .rodata.colors.2:00000000 $d
 
 NO UNDEFINED SYMBOLS

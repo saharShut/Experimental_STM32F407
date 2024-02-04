@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
   27:Lib/lvgl/src/stdlib/lv_mem.c **** 
   28:Lib/lvgl/src/stdlib/lv_mem.c **** /**********************
   29:Lib/lvgl/src/stdlib/lv_mem.c ****  *      TYPEDEFS
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 2
 
 
   30:Lib/lvgl/src/stdlib/lv_mem.c ****  **********************/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
   73:Lib/lvgl/src/stdlib/lv_mem.c ****         LV_LOG_INFO("couldn't allocate memory (%lu bytes)", (unsigned long)size);
   74:Lib/lvgl/src/stdlib/lv_mem.c **** #if LV_LOG_LEVEL <= LV_LOG_LEVEL_INFO
   75:Lib/lvgl/src/stdlib/lv_mem.c ****         lv_mem_monitor_t mon;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 3
 
 
   76:Lib/lvgl/src/stdlib/lv_mem.c ****         lv_mem_monitor(&mon);
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
   75              		.loc 1 93 1 is_stmt 1 view -0
   76              		.cfi_startproc
   77              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 4
 
 
   78              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
  101:Lib/lvgl/src/stdlib/lv_mem.c ****         LV_LOG_INFO("couldn't allocate memory (%lu bytes)", (unsigned long)size);
  106              		.loc 1 101 5 is_stmt 1 view .LVU21
  101:Lib/lvgl/src/stdlib/lv_mem.c ****         LV_LOG_INFO("couldn't allocate memory (%lu bytes)", (unsigned long)size);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 5
 
 
  107              		.loc 1 101 7 is_stmt 0 view .LVU22
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
   45:Lib/lvgl/src/stdlib/lv_string.h ****  * @param v Value to be set. The value is passed as an int, but the function fills
   46:Lib/lvgl/src/stdlib/lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
   47:Lib/lvgl/src/stdlib/lv_string.h ****  * @param len Number of bytes to be set to the value.
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 6
 
 
   48:Lib/lvgl/src/stdlib/lv_string.h ****  */
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
  120:Lib/lvgl/src/stdlib/lv_mem.c **** {
  147              		.loc 1 120 1 is_stmt 1 view -0
  148              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 7
 
 
  149              		@ args = 0, pretend = 0, frame = 0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
  196              		.cfi_def_cfa_offset 8
  197              		.cfi_offset 3, -8
  198              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 8
 
 
  130:Lib/lvgl/src/stdlib/lv_mem.c ****     LV_TRACE_MEM("reallocating %p with %lu size", data_p, (unsigned long)new_size);
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
  137:Lib/lvgl/src/stdlib/lv_mem.c **** 
  229              		.loc 1 137 36 is_stmt 0 discriminator 1 view .LVU55
  230 0018 0846     		mov	r0, r1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 9
 
 
  231              	.LVL17:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
  275              	.L36:
  157:Lib/lvgl/src/stdlib/lv_mem.c **** }
  276              		.loc 1 157 5 is_stmt 1 view .LVU64
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 10
 
 
  157:Lib/lvgl/src/stdlib/lv_mem.c **** }
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
  326 000e FFF7FEFF 		bl	lv_mem_monitor_core
  327              	.LVL23:
  164:Lib/lvgl/src/stdlib/lv_mem.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 11
 
 
  328              		.loc 1 164 1 is_stmt 0 view .LVU73
@@ -634,28 +634,28 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 1
  359              		.file 26 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_style.h"
  360              		.file 27 "Lib/lvgl/src/stdlib/../core/../stdlib/builtin/lv_tlsf.h"
  361              		.file 28 "Lib/lvgl/src/stdlib/../core/lv_global.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s 			page 12
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_mem.c
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:21     .text.lv_malloc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:27     .text.lv_malloc:00000000 lv_malloc
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:61     .text.lv_malloc:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:66     .text.lv_malloc_zeroed:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:72     .text.lv_malloc_zeroed:00000000 lv_malloc_zeroed
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:133    .text.lv_malloc_zeroed:00000020 $d
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:138    .text.lv_free:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:144    .text.lv_free:00000000 lv_free
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:175    .text.lv_free:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:180    .text.lv_realloc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:186    .text.lv_realloc:00000000 lv_realloc
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:240    .text.lv_realloc:00000020 $d
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:245    .text.lv_mem_test:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:251    .text.lv_mem_test:00000000 lv_mem_test
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:284    .text.lv_mem_test:00000018 $d
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:290    .text.lv_mem_monitor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc57UyJ5.s:296    .text.lv_mem_monitor:00000000 lv_mem_monitor
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:21     .text.lv_malloc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:27     .text.lv_malloc:00000000 lv_malloc
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:61     .text.lv_malloc:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:66     .text.lv_malloc_zeroed:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:72     .text.lv_malloc_zeroed:00000000 lv_malloc_zeroed
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:133    .text.lv_malloc_zeroed:00000020 $d
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:138    .text.lv_free:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:144    .text.lv_free:00000000 lv_free
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:175    .text.lv_free:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:180    .text.lv_realloc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:186    .text.lv_realloc:00000000 lv_realloc
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:240    .text.lv_realloc:00000020 $d
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:245    .text.lv_mem_test:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:251    .text.lv_mem_test:00000000 lv_mem_test
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:284    .text.lv_mem_test:00000018 $d
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:290    .text.lv_mem_monitor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc481ImQ.s:296    .text.lv_mem_monitor:00000000 lv_mem_monitor
 
 UNDEFINED SYMBOLS
 lv_malloc_core

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
   24:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****  *      TYPEDEFS
   25:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****  **********************/
   26:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 2
 
 
   27:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** /**********************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
   81:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** {
   82:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
   83:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     lv_spinbox_t * spinbox = (lv_spinbox_t *)obj;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 3
 
 
   84:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  138:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     const int32_t new_step = lv_pow(10, pos);
  139:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
  140:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     if(pos <= 0) spinbox->step = 1;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 4
 
 
  141:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     else if(new_step <= step_limit) spinbox->step = new_step;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  195:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     const int32_t new_step = spinbox->step * 10;
  196:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     if(new_step <= step_limit) spinbox->step = new_step;
  197:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 5
 
 
  198:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     lv_spinbox_updatevalue(obj);
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  252:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     }
  253:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     else {
  254:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         /*Rollover?*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 6
 
 
  255:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         if((spinbox->rollover) && (spinbox->value == spinbox->range_min))
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  309:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         /*If released with an ENCODER then move to the next digit*/
  310:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         lv_indev_t * indev = lv_indev_active();
  311:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         if(lv_indev_get_type(indev) == LV_INDEV_TYPE_ENCODER && lv_group_get_editing(lv_obj_get_gro
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 7
 
 
  312:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****             if(spinbox->digit_count > 1) {
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  366:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****             for(i = 0; i < pos; i++) spinbox->step *= 10;
  367:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         }
  368:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 8
 
 
  369:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     else if(code == LV_EVENT_KEY) {
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
   53              		.loc 1 402 10 is_stmt 0 view .LVU4
   54 0006 0023     		movs	r3, #0
   55 0008 0593     		str	r3, [sp, #20]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 9
 
 
   56 000a 0693     		str	r3, [sp, #24]
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
   90              		.loc 1 421 5 is_stmt 1 view .LVU17
  422:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     const size_t digits_len = lv_strlen(digits);
   91              		.loc 1 422 5 view .LVU18
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 10
 
 
   92              		.loc 1 422 31 is_stmt 0 view .LVU19
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  408:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         buf_p++;
  129              		.loc 1 408 18 view .LVU34
  130 0052 002B     		cmp	r3, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 11
 
 
  131 0054 06DB     		blt	.L20
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  172 0084 06E0     		b	.L7
  173              	.LVL17:
  174              	.L8:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 12
 
 
  431:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         }
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  215 00b6 0F2A     		cmp	r2, #15
  216 00b8 13D9     		bls	.L13
  444:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         (*buf_p) = '.';
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 13
 
 
  217              		.loc 1 444 9 is_stmt 1 view .LVU62
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  455:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
  456:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     /*Set the cursor position*/
  457:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     int32_t step = spinbox->step;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 14
 
 
  255              		.loc 1 457 5 view .LVU76
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  297              	.LVL32:
  298              		.loc 1 468 5 is_stmt 0 view .LVU94
  299 0112 2046     		mov	r0, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 15
 
 
  300 0114 FFF7FEFF 		bl	lv_textarea_set_cursor_pos
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  279:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     spinbox->dec_point_pos      = 0;
  347              		.loc 1 279 33 is_stmt 0 view .LVU105
  348 0004 0023     		movs	r3, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 16
 
 
  349 0006 4B67     		str	r3, [r1, #116]
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  387 0046 2946     		mov	r1, r5
  388 0048 2046     		mov	r0, r4
  389              	.LVL38:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 17
 
 
  288:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     lv_textarea_set_cursor_click_pos(obj, true);
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  436              		.cfi_offset 14, -4
  437 0002 0146     		mov	r1, r0
   57:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 18
 
 
  438              		.loc 1 57 5 is_stmt 1 view .LVU132
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  482 0000 08B5     		push	{r3, lr}
  483              	.LCFI5:
  484              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 19
 
 
  485              		.cfi_offset 3, -8
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  526              		.thumb_func
  528              	lv_spinbox_set_rollover:
  529              	.LVL54:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 20
 
 
  530              	.LFB235:
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  575 0004 0D46     		mov	r5, r1
  576 0006 1646     		mov	r6, r2
   90:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     lv_spinbox_t * spinbox = (lv_spinbox_t *)obj;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 21
 
 
  577              		.loc 1 90 5 is_stmt 1 view .LVU170
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  615 002e 2046     		mov	r0, r4
  616 0030 FFF7FEFF 		bl	lv_spinbox_updatevalue
  617              	.LVL61:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 22
 
 
  107:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  100:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     }
  658              		.loc 1 100 48 is_stmt 1 discriminator 1 view .LVU201
  100:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 23
 
 
  659              		.loc 1 100 67 is_stmt 0 discriminator 1 view .LVU202
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  706              		.thumb
  707              		.thumb_func
  709              	lv_spinbox_set_range:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 24
 
 
  710              	.LVL69:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  746              		.loc 1 127 7 view .LVU230
  747 0010 8B42     		cmp	r3, r1
  748 0012 00DA     		bge	.L51
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 25
 
 
  127:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  793 0008 002B     		cmp	r3, #0
  794 000a B8BF     		it	lt
  795 000c 5B42     		rsblt	r3, r3, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 26
 
 
  796 000e 826F     		ldr	r2, [r0, #120]
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  141:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
  836              		.loc 1 141 37 is_stmt 1 discriminator 1 view .LVU257
  141:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 27
 
 
  837              		.loc 1 141 51 is_stmt 0 discriminator 1 view .LVU258
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  883              		.section	.text.lv_spinbox_get_value,"ax",%progbits
  884              		.align	1
  885              		.global	lv_spinbox_get_value
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 28
 
 
  886              		.syntax unified
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  171:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** }
  930              		.loc 1 171 5 view .LVU283
  172:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 29
 
 
  931              		.loc 1 172 1 is_stmt 0 view .LVU284
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  975 0012 012B     		cmp	r3, #1
  976 0014 B8BF     		it	lt
  977 0016 0123     		movlt	r3, #1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 30
 
 
  978              	.LVL92:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1023 0006 B8BF     		it	lt
  1024 0008 5B42     		rsblt	r3, r3, #0
  1025 000a 826F     		ldr	r2, [r0, #120]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 31
 
 
  194:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     const int32_t new_step = spinbox->step * 10;
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  203:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     lv_spinbox_t * spinbox = (lv_spinbox_t *)obj;
  1071              		.loc 1 203 5 view .LVU319
  203:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     lv_spinbox_t * spinbox = (lv_spinbox_t *)obj;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 32
 
 
  1072              		.loc 1 203 5 view .LVU320
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1114              		.loc 1 217 5 is_stmt 1 view .LVU334
  217:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         v = -(spinbox->step + spinbox->value);
  1115              		.loc 1 217 7 is_stmt 0 view .LVU335
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 33
 
 
  1116 0004 002A     		cmp	r2, #0
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  218:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     }
  1155              		.loc 1 218 11 is_stmt 0 view .LVU351
  1156 0032 4942     		rsbs	r1, r1, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 34
 
 
  1157              	.LVL110:
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1198              	.LFE246:
  1200              		.section	.text.lv_spinbox_decrement,"ax",%progbits
  1201              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 35
 
 
  1202              		.global	lv_spinbox_decrement
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1243              	.L90:
  247:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     }
  1244              		.loc 1 247 9 is_stmt 1 view .LVU379
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 36
 
 
  247:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****     }
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  256:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         else
  1284              		.loc 1 256 15 view .LVU395
  1285 003c 00E0     		b	.L83
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 37
 
 
  1286              	.LVL127:
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1332              		.cfi_offset 6, -8
  1333              		.cfi_offset 14, -4
  1334 0002 0C46     		mov	r4, r1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 38
 
 
  298:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1373              		.loc 1 308 7 is_stmt 0 view .LVU421
  1374 0020 082E     		cmp	r6, #8
  1375 0022 1AD0     		beq	.L115
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 39
 
 
  369:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         lv_indev_type_t indev_type = lv_indev_get_type(lv_indev_active());
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  392:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         }
  1414              		.loc 1 392 13 is_stmt 1 view .LVU438
  1415 0052 2846     		mov	r0, r5
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 40
 
 
  1416 0054 FFF7FEFF 		bl	lv_textarea_add_char
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1455 0076 2E2A     		cmp	r2, #46
  1456 0078 62D0     		beq	.L121
  347:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****                 lv_textarea_set_cursor_pos(obj, txt_len - 1);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 41
 
 
  1457              		.loc 1 347 18 is_stmt 1 view .LVU454
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1495              	.LVL158:
  360:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
  1496              		.loc 1 360 13 is_stmt 1 view .LVU471
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 42
 
 
  360:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c **** 
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  366:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         }
  1536              		.loc 1 366 34 discriminator 3 view .LVU487
  1537              	.LBE5:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 43
 
 
  311:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****             if(spinbox->digit_count > 1) {
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1577 0100 0A20     		movs	r0, #10
  1578 0102 0021     		movs	r1, #0
  1579 0104 FFF7FEFF 		bl	lv_pow
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 44
 
 
  1580              	.LVL168:
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1623              	.LBB6:
  344:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****             }
  1624              		.loc 1 344 17 view .LVU514
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 45
 
 
  1625 0140 2846     		mov	r0, r5
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1667              		.loc 1 374 15 is_stmt 0 view .LVU526
  1668 0160 042E     		cmp	r6, #4
  1669 0162 03D0     		beq	.L125
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 46
 
 
  377:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         }
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1712              	.LVL196:
  1713              	.L119:
  389:Lib/lvgl/src/widgets/spinbox/lv_spinbox.c ****         }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 47
 
 
  1714              		.loc 1 389 13 is_stmt 1 view .LVU539
@@ -2818,59 +2818,59 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 1
  1769              		.file 19 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_string.h"
  1770              		.file 20 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_math.h"
  1771              		.file 21 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\core\\lv_obj_event.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 48
 
 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 49
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_spinbox.c
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:21     .rodata.lv_spinbox_updatevalue.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:25     .text.lv_spinbox_updatevalue:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:30     .text.lv_spinbox_updatevalue:00000000 lv_spinbox_updatevalue
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:313    .text.lv_spinbox_updatevalue:0000011c $d
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:319    .text.lv_spinbox_constructor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:324    .text.lv_spinbox_constructor:00000000 lv_spinbox_constructor
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:412    .text.lv_spinbox_constructor:00000060 $d
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:418    .text.lv_spinbox_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:424    .text.lv_spinbox_create:00000000 lv_spinbox_create
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:463    .text.lv_spinbox_create:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1737   .rodata.lv_spinbox_class:00000000 lv_spinbox_class
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:468    .text.lv_spinbox_set_value:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:474    .text.lv_spinbox_set_value:00000000 lv_spinbox_set_value
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:522    .text.lv_spinbox_set_rollover:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:528    .text.lv_spinbox_set_rollover:00000000 lv_spinbox_set_rollover
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:553    .text.lv_spinbox_set_digit_format:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:559    .text.lv_spinbox_set_digit_format:00000000 lv_spinbox_set_digit_format
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:667    .text.lv_spinbox_set_step:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:673    .text.lv_spinbox_set_step:00000000 lv_spinbox_set_step
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:703    .text.lv_spinbox_set_range:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:709    .text.lv_spinbox_set_range:00000000 lv_spinbox_set_range
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:762    .text.lv_spinbox_set_cursor_pos:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:768    .text.lv_spinbox_set_cursor_pos:00000000 lv_spinbox_set_cursor_pos
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:844    .text.lv_spinbox_set_digit_step_direction:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:850    .text.lv_spinbox_set_digit_step_direction:00000000 lv_spinbox_set_digit_step_direction
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:884    .text.lv_spinbox_get_value:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:890    .text.lv_spinbox_get_value:00000000 lv_spinbox_get_value
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:912    .text.lv_spinbox_get_step:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:918    .text.lv_spinbox_get_step:00000000 lv_spinbox_get_step
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:940    .text.lv_spinbox_step_next:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:946    .text.lv_spinbox_step_next:00000000 lv_spinbox_step_next
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:990    .text.lv_spinbox_step_next:00000024 $d
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:995    .text.lv_spinbox_step_prev:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1001   .text.lv_spinbox_step_prev:00000000 lv_spinbox_step_prev
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1057   .text.lv_spinbox_get_rollover:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1063   .text.lv_spinbox_get_rollover:00000000 lv_spinbox_get_rollover
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1086   .text.lv_spinbox_increment:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1092   .text.lv_spinbox_increment:00000000 lv_spinbox_increment
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1201   .text.lv_spinbox_decrement:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1207   .text.lv_spinbox_decrement:00000000 lv_spinbox_decrement
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1314   .text.lv_spinbox_event:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1319   .text.lv_spinbox_event:00000000 lv_spinbox_event
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1723   .text.lv_spinbox_event:00000198 $d
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1730   .rodata.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s:1734   .rodata.lv_spinbox_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:21     .rodata.lv_spinbox_updatevalue.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:25     .text.lv_spinbox_updatevalue:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:30     .text.lv_spinbox_updatevalue:00000000 lv_spinbox_updatevalue
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:313    .text.lv_spinbox_updatevalue:0000011c $d
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:319    .text.lv_spinbox_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:324    .text.lv_spinbox_constructor:00000000 lv_spinbox_constructor
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:412    .text.lv_spinbox_constructor:00000060 $d
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:418    .text.lv_spinbox_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:424    .text.lv_spinbox_create:00000000 lv_spinbox_create
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:463    .text.lv_spinbox_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1737   .rodata.lv_spinbox_class:00000000 lv_spinbox_class
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:468    .text.lv_spinbox_set_value:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:474    .text.lv_spinbox_set_value:00000000 lv_spinbox_set_value
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:522    .text.lv_spinbox_set_rollover:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:528    .text.lv_spinbox_set_rollover:00000000 lv_spinbox_set_rollover
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:553    .text.lv_spinbox_set_digit_format:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:559    .text.lv_spinbox_set_digit_format:00000000 lv_spinbox_set_digit_format
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:667    .text.lv_spinbox_set_step:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:673    .text.lv_spinbox_set_step:00000000 lv_spinbox_set_step
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:703    .text.lv_spinbox_set_range:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:709    .text.lv_spinbox_set_range:00000000 lv_spinbox_set_range
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:762    .text.lv_spinbox_set_cursor_pos:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:768    .text.lv_spinbox_set_cursor_pos:00000000 lv_spinbox_set_cursor_pos
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:844    .text.lv_spinbox_set_digit_step_direction:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:850    .text.lv_spinbox_set_digit_step_direction:00000000 lv_spinbox_set_digit_step_direction
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:884    .text.lv_spinbox_get_value:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:890    .text.lv_spinbox_get_value:00000000 lv_spinbox_get_value
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:912    .text.lv_spinbox_get_step:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:918    .text.lv_spinbox_get_step:00000000 lv_spinbox_get_step
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:940    .text.lv_spinbox_step_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:946    .text.lv_spinbox_step_next:00000000 lv_spinbox_step_next
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:990    .text.lv_spinbox_step_next:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:995    .text.lv_spinbox_step_prev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1001   .text.lv_spinbox_step_prev:00000000 lv_spinbox_step_prev
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1057   .text.lv_spinbox_get_rollover:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1063   .text.lv_spinbox_get_rollover:00000000 lv_spinbox_get_rollover
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1086   .text.lv_spinbox_increment:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1092   .text.lv_spinbox_increment:00000000 lv_spinbox_increment
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1201   .text.lv_spinbox_decrement:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1207   .text.lv_spinbox_decrement:00000000 lv_spinbox_decrement
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1314   .text.lv_spinbox_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1319   .text.lv_spinbox_event:00000000 lv_spinbox_event
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1723   .text.lv_spinbox_event:00000198 $d
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1730   .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s:1734   .rodata.lv_spinbox_class:00000000 $d
 
 UNDEFINED SYMBOLS
 lv_snprintf
@@ -2881,7 +2881,7 @@ lv_textarea_set_one_line
 lv_textarea_set_cursor_click_pos
 lv_obj_class_create_obj
 lv_obj_class_init_obj
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccKnEmbc.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccaKml5c.s 			page 50
 
 
 lv_pow

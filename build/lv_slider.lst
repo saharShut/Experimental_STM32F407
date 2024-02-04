@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   28:Lib/lvgl/src/widgets/slider/lv_slider.c **** #define LV_SLIDER_KNOB_COORD_VERTICAL(is_reversed, area) (is_reversed ? area.y2 : area.y1)
   29:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
   30:Lib/lvgl/src/widgets/slider/lv_slider.c **** /**********************
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 2
 
 
   31:Lib/lvgl/src/widgets/slider/lv_slider.c ****  *      TYPEDEFS
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   85:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
   86:Lib/lvgl/src/widgets/slider/lv_slider.c **** static void lv_slider_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
   87:Lib/lvgl/src/widgets/slider/lv_slider.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 3
 
 
   88:Lib/lvgl/src/widgets/slider/lv_slider.c ****     LV_UNUSED(class_p);
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  142:Lib/lvgl/src/widgets/slider/lv_slider.c ****     }
  143:Lib/lvgl/src/widgets/slider/lv_slider.c ****     else if(code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST) {
  144:Lib/lvgl/src/widgets/slider/lv_slider.c ****         update_knob_pos(obj, false);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 4
 
 
  145:Lib/lvgl/src/widgets/slider/lv_slider.c ****         slider->dragging = false;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  199:Lib/lvgl/src/widgets/slider/lv_slider.c ****         int32_t knob_size = LV_MIN(lv_obj_get_width(obj) + 2 * trans_w, lv_obj_get_height(obj) + 2 
  200:Lib/lvgl/src/widgets/slider/lv_slider.c ****         knob_size += LV_MAX(LV_MAX(knob_left, knob_right), LV_MAX(knob_bottom, knob_top));
  201:Lib/lvgl/src/widgets/slider/lv_slider.c ****         knob_size += 2;         /*For rounding error*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 5
 
 
  202:Lib/lvgl/src/widgets/slider/lv_slider.c ****         knob_size += lv_obj_calculate_ext_draw_size(obj, LV_PART_KNOB);
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  256:Lib/lvgl/src/widgets/slider/lv_slider.c ****         else knob_area.y1 = LV_SLIDER_KNOB_COORD_VERTICAL(is_reversed, slider->bar.indic_area);
  257:Lib/lvgl/src/widgets/slider/lv_slider.c ****     }
  258:Lib/lvgl/src/widgets/slider/lv_slider.c ****     lv_draw_rect_dsc_t knob_rect_dsc;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 6
 
 
  259:Lib/lvgl/src/widgets/slider/lv_slider.c ****     lv_draw_rect_dsc_init(&knob_rect_dsc);
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  313:Lib/lvgl/src/widgets/slider/lv_slider.c ****     int32_t transf_w = lv_obj_get_style_transform_width(obj, LV_PART_KNOB);
  314:Lib/lvgl/src/widgets/slider/lv_slider.c ****     int32_t transf_h = lv_obj_get_style_transform_height(obj, LV_PART_KNOB);
  315:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 7
 
 
  316:Lib/lvgl/src/widgets/slider/lv_slider.c ****     /*Apply the paddings on the knob area*/
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   73              		@ args = 0, pretend = 0, frame = 8
   74              		@ frame_needed = 0, uses_anonymous_args = 0
  294:Lib/lvgl/src/widgets/slider/lv_slider.c ****     if(hor) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 8
 
 
   75              		.loc 1 294 1 is_stmt 0 view .LVU9
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  299:Lib/lvgl/src/widgets/slider/lv_slider.c ****     }
  116              		.loc 1 299 36 is_stmt 0 view .LVU23
  117 0020 036A     		ldr	r3, [r0, #32]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 9
 
 
  299:Lib/lvgl/src/widgets/slider/lv_slider.c ****     }
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   45:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** 
   46:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_max_height(const lv_obj_t * obj, uint32_t part)
   47:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 10
 
 
   48:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MAX_HEIGHT);
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  102:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_SCALE_X);
  103:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  104:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 11
 
 
  105:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  128              		.loc 2 156 5 view .LVU27
  129              		.loc 2 156 26 is_stmt 0 view .LVU28
  130 0024 1222     		movs	r2, #18
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 12
 
 
  131              	.LVL6:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  144:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  175              		.loc 2 144 5 view .LVU44
  144:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 13
 
 
  176              		.loc 2 144 26 is_stmt 0 view .LVU45
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  217              		.loc 2 78 5 view .LVU58
   78:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  218              		.loc 2 78 26 is_stmt 0 view .LVU59
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 14
 
 
  219 0064 6822     		movs	r2, #104
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  259              		.loc 1 317 19 view .LVU73
  260 0086 921B     		subs	r2, r2, r6
  261 0088 2260     		str	r2, [r4]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 15
 
 
  318:Lib/lvgl/src/widgets/slider/lv_slider.c ****     knob_area->y1 -= knob_top + transf_h;
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  301 00ac 4B68     		ldr	r3, [r1, #4]
  302              	.LVL30:
  302:Lib/lvgl/src/widgets/slider/lv_slider.c ****         knob_area->y2 = knob_area->y1 + knob_size - 1;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 16
 
 
  303              		.loc 1 302 23 view .LVU89
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   13:Lib/lvgl/src/widgets/slider/lv_slider.h **** /*********************
   14:Lib/lvgl/src/widgets/slider/lv_slider.h ****  *      INCLUDES
   15:Lib/lvgl/src/widgets/slider/lv_slider.h ****  *********************/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 17
 
 
   16:Lib/lvgl/src/widgets/slider/lv_slider.h **** #include "../bar/lv_bar.h"
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   70:Lib/lvgl/src/widgets/slider/lv_slider.h **** 
   71:Lib/lvgl/src/widgets/slider/lv_slider.h **** /**
   72:Lib/lvgl/src/widgets/slider/lv_slider.h ****  * Set a new value on the slider
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 18
 
 
   73:Lib/lvgl/src/widgets/slider/lv_slider.h ****  * @param obj       pointer to a slider object
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  127:Lib/lvgl/src/widgets/slider/lv_slider.h **** 
  128:Lib/lvgl/src/widgets/slider/lv_slider.h **** /**
  129:Lib/lvgl/src/widgets/slider/lv_slider.h ****  * Get the value of the left knob of a slider
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 19
 
 
  130:Lib/lvgl/src/widgets/slider/lv_slider.h ****  * @param obj       pointer to a slider object
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  348              		.loc 3 172 26 is_stmt 0 view .LVU103
  349 0002 FFF7FEFF 		bl	lv_bar_get_mode
  350              	.LVL32:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 20
 
 
  173:Lib/lvgl/src/widgets/slider/lv_slider.h ****     if(mode == LV_BAR_MODE_SYMMETRICAL) return LV_SLIDER_MODE_SYMMETRICAL;
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  332:Lib/lvgl/src/widgets/slider/lv_slider.c ****     lv_point_t p;
  398              		.loc 1 332 5 is_stmt 1 view .LVU115
  333:Lib/lvgl/src/widgets/slider/lv_slider.c ****     slider->dragging = true;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 21
 
 
  399              		.loc 1 333 5 view .LVU116
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  373:Lib/lvgl/src/widgets/slider/lv_slider.c ****             else {
  374:Lib/lvgl/src/widgets/slider/lv_slider.c ****                 /*Calculate the distance from each knob*/
  375:Lib/lvgl/src/widgets/slider/lv_slider.c ****                 dist_left = LV_ABS((slider->left_knob_area.y1 + (slider->left_knob_area.y2 - slider
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 22
 
 
  376:Lib/lvgl/src/widgets/slider/lv_slider.c ****                 dist_right = LV_ABS((slider->right_knob_area.y1 + (slider->right_knob_area.y2 - sli
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  446 003e FFF7FEFF 		bl	lv_obj_transform_point
  447              	.LVL41:
  340:Lib/lvgl/src/widgets/slider/lv_slider.c ****         const bool is_horizontal = is_slider_horizontal(obj);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 23
 
 
  448              		.loc 1 340 9 view .LVU130
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  215:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
  216:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_OPA);
  217:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 24
 
 
  218:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** }
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  272:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (const void *)v.ptr;
  273:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** }
  274:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 25
 
 
  275:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_bg_image_opa(const lv_obj_t * obj, uint32_t part)
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  329:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** }
  330:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** 
  331:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** static inline lv_border_side_t lv_obj_get_style_border_side(const lv_obj_t * obj, uint32_t part)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 26
 
 
  332:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  386:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_shadow_offset_y(const lv_obj_t * obj, uint32_t part)
  387:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
  388:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_OFFSET_Y);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 27
 
 
  389:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  443:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
  444:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_LINE_WIDTH);
  445:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 28
 
 
  446:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** }
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  500:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** }
  501:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** 
  502:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_arc_color_filtered(const lv_obj_t * obj, uint32_t part)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 29
 
 
  503:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  557:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
  558:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TEXT_DECOR);
  559:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (lv_text_decor_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 30
 
 
  560:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** }
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  614:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** }
  615:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** 
  616:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** static inline const lv_style_transition_dsc_t * lv_obj_get_style_transition(const lv_obj_t * obj, u
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 31
 
 
  617:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  479 005e 0022     		movs	r2, #0
  480              	.L14:
  481              	.LVL45:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 32
 
 
  343:Lib/lvgl/src/widgets/slider/lv_slider.c ****         if(is_horizontal) {
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  522              		.loc 1 345 62 discriminator 1 view .LVU155
  523 008a D4F88C10 		ldr	r1, [r4, #140]
  345:Lib/lvgl/src/widgets/slider/lv_slider.c ****                 slider->value_to_set = &slider->bar.cur_value;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 33
 
 
  524              		.loc 1 345 30 discriminator 1 view .LVU156
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  566              	.L21:
  353:Lib/lvgl/src/widgets/slider/lv_slider.c ****                 dist_right = LV_ABS((slider->right_knob_area.x1 + (slider->right_knob_area.x2 - sli
  567              		.loc 1 353 17 is_stmt 1 view .LVU169
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 34
 
 
  353:Lib/lvgl/src/widgets/slider/lv_slider.c ****                 dist_right = LV_ABS((slider->right_knob_area.x1 + (slider->right_knob_area.x2 - sli
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  610              	.LVL58:
  611              	.L22:
  361:Lib/lvgl/src/widgets/slider/lv_slider.c ****                     slider->left_knob_focus = 1;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 35
 
 
  612              		.loc 1 361 21 is_stmt 1 view .LVU182
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  367:Lib/lvgl/src/widgets/slider/lv_slider.c ****                 slider->value_to_set = &slider->bar.cur_value;
  653              		.loc 1 367 30 discriminator 1 view .LVU196
  654 013c 0398     		ldr	r0, [sp, #12]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 36
 
 
  655              	.LVL64:
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  696              		.loc 1 375 17 is_stmt 1 view .LVU209
  375:Lib/lvgl/src/widgets/slider/lv_slider.c ****                 dist_right = LV_ABS((slider->right_knob_area.y1 + (slider->right_knob_area.y2 - sli
  697              		.loc 1 375 29 is_stmt 0 view .LVU210
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 37
 
 
  698 016a A36F     		ldr	r3, [r4, #120]
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  384:Lib/lvgl/src/widgets/slider/lv_slider.c ****                     slider->left_knob_focus = 1;
  741              		.loc 1 384 21 is_stmt 1 view .LVU222
  384:Lib/lvgl/src/widgets/slider/lv_slider.c ****                     slider->left_knob_focus = 1;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 38
 
 
  742              		.loc 1 384 44 is_stmt 0 view .LVU223
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  790              		.loc 1 395 5 view .LVU231
  791              		.loc 1 395 26 is_stmt 0 view .LVU232
  792 000a FFF7FEFF 		bl	lv_indev_active
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 39
 
 
  793              	.LVL76:
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  437:Lib/lvgl/src/widgets/slider/lv_slider.c ****         else {
  438:Lib/lvgl/src/widgets/slider/lv_slider.c ****             /*Make the point relative to the indicator*/
  439:Lib/lvgl/src/widgets/slider/lv_slider.c ****             new_value = p.x - (obj->coords.x1 + bg_left);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 40
 
 
  440:Lib/lvgl/src/widgets/slider/lv_slider.c ****         }
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  811              		@ sp needed
  812 001a BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
  813              	.LVL80:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 41
 
 
  814              	.L62:
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  408:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
  855              		.loc 1 408 64 is_stmt 0 view .LVU251
  856 0050 0028     		cmp	r0, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 42
 
 
  857 0052 49D0     		beq	.L43
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  896              	.LVL90:
  423:Lib/lvgl/src/widgets/slider/lv_slider.c ****     const bool is_horizontal = is_slider_horizontal(obj);
  897              		.loc 1 423 5 is_stmt 1 view .LVU267
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 43
 
 
  898              	.LBB93:
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  940              		.loc 2 154 23 view .LVU282
  941              	.LBB97:
  156:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 44
 
 
  942              		.loc 2 156 5 view .LVU283
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  982              		.loc 1 430 27 is_stmt 0 view .LVU297
  983 00b8 2046     		mov	r0, r4
  984              	.LVL103:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 45
 
 
  430:Lib/lvgl/src/widgets/slider/lv_slider.c ****         const int32_t indic_w = w - bg_left - bg_right;
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1022              	.LVL108:
  443:Lib/lvgl/src/widgets/slider/lv_slider.c ****         }
  1023              		.loc 1 443 13 is_stmt 1 view .LVU315
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 46
 
 
  443:Lib/lvgl/src/widgets/slider/lv_slider.c ****         }
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  439:Lib/lvgl/src/widgets/slider/lv_slider.c ****         }
  1066              		.loc 1 439 43 is_stmt 0 view .LVU328
  1067 0108 6369     		ldr	r3, [r4, #20]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 47
 
 
  439:Lib/lvgl/src/widgets/slider/lv_slider.c ****         }
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1108              	.LBB106:
  150:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  1109              		.loc 2 150 5 view .LVU343
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 48
 
 
  150:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1148 0144 0399     		ldr	r1, [sp, #12]
  1149 0146 891A     		subs	r1, r1, r2
  1150              	.LVL127:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 49
 
 
  1151              	.L52:
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1188              		.loc 1 472 9 is_stmt 1 view .LVU376
  472:Lib/lvgl/src/widgets/slider/lv_slider.c ****     }
  1189              		.loc 1 472 24 is_stmt 0 view .LVU377
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 50
 
 
  1190 016a A16B     		ldr	r1, [r4, #56]
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1230              		.loc 1 484 9 view .LVU391
  484:Lib/lvgl/src/widgets/slider/lv_slider.c ****         if(res != LV_RESULT_OK)
  1231              		.loc 1 484 27 is_stmt 0 view .LVU392
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 51
 
 
  1232 0194 0022     		movs	r2, #0
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1273              	.LVL148:
  481:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
  1274              		.loc 1 481 13 is_stmt 0 view .LVU406
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 52
 
 
  1275 01b4 FFF7FEFF 		bl	lv_obj_remove_flag
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1322 000e 2846     		mov	r0, r5
  1323              	.LVL153:
  236:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 53
 
 
  1324              		.loc 1 236 26 view .LVU416
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1367              		.loc 1 242 5 is_stmt 1 discriminator 6 view .LVU430
  243:Lib/lvgl/src/widgets/slider/lv_slider.c ****     bool is_symmetrical = lv_slider_is_symmetrical(obj);
  1368              		.loc 1 243 5 discriminator 6 view .LVU431
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 54
 
 
  244:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1405 0056 34DB     		blt	.L92
  1406              	.L69:
  250:Lib/lvgl/src/widgets/slider/lv_slider.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 55
 
 
  1407              		.loc 1 250 14 is_stmt 1 view .LVU446
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   10:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** extern "C" {
   11:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** #endif
   12:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 56
 
 
   13:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** /*********************
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   67:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_LEFT,
   68:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_MID,
   69:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_BOTTOM_RIGHT,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 57
 
 
   70:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     LV_ALIGN_OUT_LEFT_TOP,
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  124:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  * @param src pointer to the source area
  125:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****  */
  126:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h **** inline static void lv_area_copy(lv_area_t * dest, const lv_area_t * src)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 58
 
 
  1443              		.loc 4 126 20 view .LVU456
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1487              		.cfi_remember_state
  1488              		.cfi_def_cfa_offset 32
  1489              		@ sp needed
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 59
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 59
 
 
  1490 00b0 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  254:Lib/lvgl/src/widgets/slider/lv_slider.c ****            slider->bar.cur_value < 0) knob_area.y1 =  LV_SLIDER_KNOB_COORD_VERTICAL(!is_reversed, s
  1533              		.loc 1 254 11 is_stmt 0 view .LVU486
  1534 00dc B8F1000F 		cmp	r8, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 60
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 60
 
 
  1535 00e0 02D0     		beq	.L75
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1575              		.loc 1 272 9 view .LVU500
  1576 0104 7022     		movs	r2, #112
  1577 0106 0DEB0201 		add	r1, sp, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 61
 
 
  1578 010a 6846     		mov	r0, sp
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  129:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->x2 = src->x2;
  1619              		.loc 4 129 5 is_stmt 1 view .LVU514
  129:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->x2 = src->x2;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 62
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 62
 
 
  1620              		.loc 4 129 19 is_stmt 0 view .LVU515
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  282:Lib/lvgl/src/widgets/slider/lv_slider.c ****         }
  1664              		.loc 1 282 28 discriminator 2 view .LVU530
  1665 0166 236C     		ldr	r3, [r4, #64]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 63
 
 
  1666              	.L87:
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  109:Lib/lvgl/src/widgets/slider/lv_slider.c ****     if(res != LV_RESULT_OK) return;
  1714              		.loc 1 109 11 view .LVU539
  1715 000a FFF7FEFF 		bl	lv_obj_event_base
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 64
 
 
  1716              	.LVL191:
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  118:Lib/lvgl/src/widgets/slider/lv_slider.c ****         lv_hit_test_info_t * info = lv_event_get_param(e);
  1758              		.loc 1 118 5 is_stmt 1 view .LVU552
  118:Lib/lvgl/src/widgets/slider/lv_slider.c ****         lv_hit_test_info_t * info = lv_event_get_param(e);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 65
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 65
 
 
  1759              		.loc 1 118 7 is_stmt 0 view .LVU553
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1811 00dc 13000000 		.word	.L98+1
  1812 00e0 13000000 		.word	.L98+1
  1813 00e4 13000000 		.word	.L98+1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 66
 
 
  1814 00e8 4F020000 		.word	.L103+1
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1852              		.loc 4 130 5 is_stmt 1 discriminator 4 view .LVU571
  130:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->y2 = src->y2;
  1853              		.loc 4 130 19 is_stmt 0 discriminator 4 view .LVU572
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 67
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 67
 
 
  1854 0108 D5F88C30 		ldr	r3, [r5, #140]
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1896              		.loc 4 128 5 view .LVU588
  128:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_area.h ****     dest->y1 = src->y1;
  1897              		.loc 4 128 19 is_stmt 0 view .LVU589
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 68
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 68
 
 
  1898 0136 6B6F     		ldr	r3, [r5, #116]
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  1940              	.LVL215:
  120:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
  1941              		.loc 1 120 81 view .LVU606
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 69
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 69
 
 
  1942 0162 CBE7     		b	.L101
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  146:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
  1986              		.loc 1 146 9 is_stmt 1 view .LVU617
  146:Lib/lvgl/src/widgets/slider/lv_slider.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 70
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 70
 
 
  1987              		.loc 1 146 30 is_stmt 0 view .LVU618
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2026              	.LVL231:
  169:Lib/lvgl/src/widgets/slider/lv_slider.c ****             else  lv_obj_add_flag(obj, LV_OBJ_FLAG_SCROLL_CHAIN_HOR);
  2027              		.loc 1 169 16 view .LVU634
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 71
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 71
 
 
  2028 01cc FFF7FEFF 		bl	is_slider_horizontal
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2067              		.loc 1 159 49 is_stmt 0 view .LVU649
  2068 0202 95F8A030 		ldrb	r3, [r5, #160]	@ zero_extendqisi2
  2069 0206 6FF34103 		bfc	r3, #1, #1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 72
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 72
 
 
  2070 020a 85F8A030 		strb	r3, [r5, #160]
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2112              		.loc 1 176 37 is_stmt 0 view .LVU661
  2113 0240 95F8A030 		ldrb	r3, [r5, #160]	@ zero_extendqisi2
  2114 0244 6FF34103 		bfc	r3, #1, #1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 73
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 73
 
 
  2115 0248 85F8A030 		strb	r3, [r5, #160]
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2159              	.LVL250:
  2160              	.LBB128:
  2161              	.LBI128:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 74
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 74
 
 
  154:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2202              		.loc 2 142 23 view .LVU685
  2203              	.LBB133:
  144:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 75
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 75
 
 
  2204              		.loc 2 144 5 view .LVU686
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2245              	.LBI136:
   76:Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_style_gen.h **** {
  2246              		.loc 2 76 23 view .LVU700
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 76
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 76
 
 
  2247              	.LBB137:
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2287 02e8 2846     		mov	r0, r5
  2288              	.LVL269:
  199:Lib/lvgl/src/widgets/slider/lv_slider.c ****         knob_size += LV_MAX(LV_MAX(knob_left, knob_right), LV_MAX(knob_bottom, knob_top));
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 77
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 77
 
 
  2289              		.loc 1 199 29 view .LVU715
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  201:Lib/lvgl/src/widgets/slider/lv_slider.c ****         knob_size += lv_obj_calculate_ext_draw_size(obj, LV_PART_KNOB);
  2334              		.loc 1 201 19 is_stmt 0 discriminator 4 view .LVU725
  2335 032e 0236     		adds	r6, r6, #2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 78
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 78
 
 
  2336              	.LVL277:
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  199:Lib/lvgl/src/widgets/slider/lv_slider.c ****         knob_size += LV_MAX(LV_MAX(knob_left, knob_right), LV_MAX(knob_bottom, knob_top));
  2380              		.loc 1 199 111 discriminator 2 view .LVU736
  2381              	.LBE140:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 79
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 79
 
 
  2382              	.LBB141:
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2420 0384 FFF7FEFF 		bl	lv_bar_get_value
  2421              	.LVL288:
  125:Lib/lvgl/src/widgets/slider/lv_slider.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 80
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 80
 
 
  2422              		.loc 3 125 12 view .LVU753
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  125:Lib/lvgl/src/widgets/slider/lv_slider.h **** }
  2463              		.loc 3 125 12 view .LVU767
  2464              	.LBE147:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 81
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 81
 
 
  2465              	.LBE146:
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2506              	.LBE151:
  2507              	.LBE150:
  2508              	.LBB152:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 82
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 82
 
 
  2509              	.LBI152:
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   90:Lib/lvgl/src/widgets/slider/lv_slider.h **** }
  2550              		.loc 3 90 5 is_stmt 0 view .LVU794
  2551 03d6 2846     		mov	r0, r5
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 83
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 83
 
 
  2552 03d8 FFF7FEFF 		bl	lv_bar_set_start_value
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   93:Lib/lvgl/src/widgets/slider/lv_slider.c ****     slider->left_knob_focus = 0U;
  2599              		.loc 1 93 5 is_stmt 1 view .LVU804
   93:Lib/lvgl/src/widgets/slider/lv_slider.c ****     slider->left_knob_focus = 0U;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 84
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 84
 
 
  2600              		.loc 1 93 22 is_stmt 0 view .LVU805
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2642              		.loc 1 100 1 discriminator 4 view .LVU817
  2643 004e 38BD     		pop	{r3, r4, r5, pc}
  2644              	.LVL319:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 85
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 85
 
 
  2645              	.L139:
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
   69:Lib/lvgl/src/widgets/slider/lv_slider.c ****     lv_obj_class_init_obj(obj);
  2692              		.loc 1 69 22 view .LVU827
  2693 0006 FFF7FEFF 		bl	lv_obj_class_create_obj
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 86
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 86
 
 
  2694              	.LVL323:
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2737              		.loc 1 80 1 view .LVU840
  2738 0004 00F00100 		and	r0, r0, #1
  2739 0008 7047     		bx	lr
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 87
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 87
 
 
  2740              		.cfi_endproc
@@ -5214,40 +5214,40 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 1
  2791              		.file 30 "Lib/lvgl/src/widgets/slider/../bar/../../core/../display/lv_display.h"
  2792              		.file 31 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_string.h"
  2793              		.file 32 "Lib/lvgl/src/widgets/slider/../bar/../../core/lv_obj_draw.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 88
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 88
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_slider.c
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:21     .text.is_slider_horizontal:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:26     .text.is_slider_horizontal:00000000 is_slider_horizontal
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:63     .text.position_knob:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:68     .text.position_knob:00000000 position_knob
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:328    .text.lv_slider_get_mode:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:333    .text.lv_slider_get_mode:00000000 lv_slider_get_mode
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:369    .text.drag_start:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:374    .text.drag_start:00000000 drag_start
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:759    .text.update_knob_pos:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:764    .text.update_knob_pos:00000000 update_knob_pos
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:1284   .text.draw_knob:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:1289   .text.draw_knob:00000000 draw_knob
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:1679   .text.lv_slider_event:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:1684   .text.lv_slider_event:00000000 lv_slider_event
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:1772   .text.lv_slider_event:00000040 $d
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:1816   .text.lv_slider_event:000000ec $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2377   .text.lv_slider_event:0000035c $d
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2752   .rodata.lv_slider_class:00000000 lv_slider_class
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2385   .text.lv_slider_event:00000360 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2571   .text.lv_slider_constructor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2576   .text.lv_slider_constructor:00000000 lv_slider_constructor
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2660   .text.lv_slider_constructor:00000068 $d
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2665   .text.lv_slider_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2671   .text.lv_slider_create:00000000 lv_slider_create
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2710   .text.lv_slider_create:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2715   .text.lv_slider_is_dragged:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2721   .text.lv_slider_is_dragged:00000000 lv_slider_is_dragged
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2745   .rodata.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s:2749   .rodata.lv_slider_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:21     .text.is_slider_horizontal:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:26     .text.is_slider_horizontal:00000000 is_slider_horizontal
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:63     .text.position_knob:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:68     .text.position_knob:00000000 position_knob
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:328    .text.lv_slider_get_mode:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:333    .text.lv_slider_get_mode:00000000 lv_slider_get_mode
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:369    .text.drag_start:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:374    .text.drag_start:00000000 drag_start
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:759    .text.update_knob_pos:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:764    .text.update_knob_pos:00000000 update_knob_pos
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:1284   .text.draw_knob:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:1289   .text.draw_knob:00000000 draw_knob
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:1679   .text.lv_slider_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:1684   .text.lv_slider_event:00000000 lv_slider_event
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:1772   .text.lv_slider_event:00000040 $d
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:1816   .text.lv_slider_event:000000ec $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2377   .text.lv_slider_event:0000035c $d
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2752   .rodata.lv_slider_class:00000000 lv_slider_class
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2385   .text.lv_slider_event:00000360 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2571   .text.lv_slider_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2576   .text.lv_slider_constructor:00000000 lv_slider_constructor
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2660   .text.lv_slider_constructor:00000068 $d
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2665   .text.lv_slider_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2671   .text.lv_slider_create:00000000 lv_slider_create
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2710   .text.lv_slider_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2715   .text.lv_slider_is_dragged:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2721   .text.lv_slider_is_dragged:00000000 lv_slider_is_dragged
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2745   .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s:2749   .rodata.lv_slider_class:00000000 $d
 
 UNDEFINED SYMBOLS
 lv_obj_get_width
@@ -5274,7 +5274,7 @@ lv_event_get_code
 lv_event_get_param
 lv_area_increase
 _lv_area_is_point_on
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc4ILQF3.s 			page 89
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5sC9Na.s 			page 89
 
 
 lv_obj_get_group

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
   49              		.cfi_endproc
   50              	.LFE130:
   52              		.section	.text.ILI9341_Reset,"ax",%progbits
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 2
 
 
   53              		.align	1
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
   99              		.thumb_func
  101              	ILI9341_WriteCommand:
  102              	.LVL4:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 3
 
 
  103              	.LFB133:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  154              	.LFB134:
   23:Lib/ili9341/ili9341.c **** 
   24:Lib/ili9341/ili9341.c **** static void ILI9341_WriteData(uint8_t* buff, size_t buff_size) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 4
 
 
  155              		.loc 1 24 64 is_stmt 1 view -0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  202 0030 2644     		add	r6, r6, r4
  203              	.LVL14:
   32:Lib/ili9341/ili9341.c ****         buff_size -= chunk_size;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 5
 
 
  204              		.loc 1 32 9 is_stmt 1 view .LVU27
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
   37:Lib/ili9341/ili9341.c ****     // column address set
   38:Lib/ili9341/ili9341.c ****     ILI9341_WriteCommand(0x2A); // CASET
  255              		.loc 1 38 5 is_stmt 1 view .LVU35
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 6
 
 
  256 000c 2A20     		movs	r0, #42
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  296 0054 2C20     		movs	r0, #44
  297 0056 FFF7FEFF 		bl	ILI9341_WriteCommand
  298              	.LVL23:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 7
 
 
   53:Lib/ili9341/ili9341.c **** }
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
   91:Lib/ili9341/ili9341.c ****     }
   92:Lib/ili9341/ili9341.c **** 
   93:Lib/ili9341/ili9341.c ****     // POWER ON SEQUENCE CONTROL
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 8
 
 
   94:Lib/ili9341/ili9341.c ****     ILI9341_WriteCommand(0xED);
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  148:Lib/ili9341/ili9341.c **** 
  149:Lib/ili9341/ili9341.c ****     // FRAME RATIO CONTROL, STANDARD RGB COLOR
  150:Lib/ili9341/ili9341.c ****     ILI9341_WriteCommand(0xB1);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 9
 
 
  151:Lib/ili9341/ili9341.c ****     {
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  205:Lib/ili9341/ili9341.c ****     }
  206:Lib/ili9341/ili9341.c **** 
  207:Lib/ili9341/ili9341.c ****     ILI9341_Unselect();
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 10
 
 
  208:Lib/ili9341/ili9341.c **** }
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  352 001a 92B2     		uxth	r2, r2
  353              		.loc 1 226 58 view .LVU53
  354 001c 9DF835A0 		ldrb	r10, [sp, #53]	@ zero_extendqisi2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 11
 
 
  355              		.loc 1 226 53 view .LVU54
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  395 0050 06FA04F3 		lsl	r3, r6, r4
  231:Lib/ili9341/ili9341.c ****                 uint8_t data[] = { color >> 8, color & 0xFF };
  396              		.loc 1 231 15 view .LVU67
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 12
 
 
  397 0054 13F4004F 		tst	r3, #32768
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  240:Lib/ili9341/ili9341.c **** }
  436              		.loc 1 240 1 view .LVU80
  437 008a 03B0     		add	sp, sp, #12
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 13
 
 
  438              	.LCFI12:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  491 0010 00040240 		.word	1073873920
  492              		.cfi_endproc
  493              	.LFE131:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 14
 
 
  495              		.section	.rodata.ILI9341_Init.str1.4,"aMS",%progbits,1
@@ -804,464 +804,464 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  512              		.cfi_startproc
  513              		@ args = 0, pretend = 0, frame = 16
  514              		@ frame_needed = 0, uses_anonymous_args = 0
- 515 0000 70B5     		push	{r4, r5, r6, lr}
+ 515 0000 30B5     		push	{r4, r5, lr}
  516              	.LCFI16:
- 517              		.cfi_def_cfa_offset 16
- 518              		.cfi_offset 4, -16
- 519              		.cfi_offset 5, -12
- 520              		.cfi_offset 6, -8
- 521              		.cfi_offset 14, -4
- 522 0002 84B0     		sub	sp, sp, #16
- 523              	.LCFI17:
- 524              		.cfi_def_cfa_offset 32
+ 517              		.cfi_def_cfa_offset 12
+ 518              		.cfi_offset 4, -12
+ 519              		.cfi_offset 5, -8
+ 520              		.cfi_offset 14, -4
+ 521 0002 85B0     		sub	sp, sp, #20
+ 522              	.LCFI17:
+ 523              		.cfi_def_cfa_offset 32
   56:Lib/ili9341/ili9341.c ****     ILI9341_Reset();
- 525              		.loc 1 56 5 view .LVU86
- 526 0004 FFF7FEFF 		bl	ILI9341_Select
- 527              	.LVL36:
+ 524              		.loc 1 56 5 view .LVU86
+ 525 0004 FFF7FEFF 		bl	ILI9341_Select
+ 526              	.LVL36:
   57:Lib/ili9341/ili9341.c **** 
- 528              		.loc 1 57 5 view .LVU87
- 529 0008 FFF7FEFF 		bl	ILI9341_Reset
- 530              	.LVL37:
+ 527              		.loc 1 57 5 view .LVU87
+ 528 0008 FFF7FEFF 		bl	ILI9341_Reset
+ 529              	.LVL37:
   62:Lib/ili9341/ili9341.c ****     HAL_Delay(1000);
- 531              		.loc 1 62 5 view .LVU88
- 532 000c 0120     		movs	r0, #1
- 533 000e FFF7FEFF 		bl	ILI9341_WriteCommand
- 534              	.LVL38:
+ 530              		.loc 1 62 5 view .LVU88
+ 531 000c 0120     		movs	r0, #1
+ 532 000e FFF7FEFF 		bl	ILI9341_WriteCommand
+ 533              	.LVL38:
   63:Lib/ili9341/ili9341.c ****         
- 535              		.loc 1 63 5 view .LVU89
- 536 0012 4FF47A70 		mov	r0, #1000
- 537 0016 FFF7FEFF 		bl	HAL_Delay
- 538              	.LVL39:
+ 534              		.loc 1 63 5 view .LVU89
+ 535 0012 4FF47A70 		mov	r0, #1000
+ 536 0016 FFF7FEFF 		bl	HAL_Delay
+ 537              	.LVL39:
   66:Lib/ili9341/ili9341.c ****     {
- 539              		.loc 1 66 5 view .LVU90
- 540 001a CB20     		movs	r0, #203
- 541 001c FFF7FEFF 		bl	ILI9341_WriteCommand
- 542              	.LVL40:
- 543              	.LBB7:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 15
+ 538              		.loc 1 66 5 view .LVU90
+ 539 001a CB20     		movs	r0, #203
+ 540 001c FFF7FEFF 		bl	ILI9341_WriteCommand
+ 541              	.LVL40:
+ 542              	.LBB7:
+  68:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 15
 
 
+ 543              		.loc 1 68 9 view .LVU91
   68:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 544              		.loc 1 68 9 view .LVU91
-  68:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 545              		.loc 1 68 17 is_stmt 0 view .LVU92
- 546 0020 714C     		ldr	r4, .L37
- 547 0022 94E80300 		ldm	r4, {r0, r1}
- 548 0026 0090     		str	r0, [sp]
- 549 0028 8DF80410 		strb	r1, [sp, #4]
+ 544              		.loc 1 68 17 is_stmt 0 view .LVU92
+ 545 0020 714C     		ldr	r4, .L37
+ 546 0022 94E80300 		ldm	r4, {r0, r1}
+ 547 0026 0090     		str	r0, [sp]
+ 548 0028 8DF80410 		strb	r1, [sp, #4]
   69:Lib/ili9341/ili9341.c ****     }
- 550              		.loc 1 69 9 is_stmt 1 view .LVU93
- 551 002c 0521     		movs	r1, #5
- 552 002e 6846     		mov	r0, sp
- 553 0030 FFF7FEFF 		bl	ILI9341_WriteData
- 554              	.LVL41:
- 555              	.LBE7:
+ 549              		.loc 1 69 9 is_stmt 1 view .LVU93
+ 550 002c 0521     		movs	r1, #5
+ 551 002e 6846     		mov	r0, sp
+ 552 0030 FFF7FEFF 		bl	ILI9341_WriteData
+ 553              	.LVL41:
+ 554              	.LBE7:
   73:Lib/ili9341/ili9341.c ****     {
- 556              		.loc 1 73 5 view .LVU94
- 557 0034 CF20     		movs	r0, #207
- 558 0036 FFF7FEFF 		bl	ILI9341_WriteCommand
- 559              	.LVL42:
- 560              	.LBB8:
+ 555              		.loc 1 73 5 view .LVU94
+ 556 0034 CF20     		movs	r0, #207
+ 557 0036 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 558              	.LVL42:
+ 559              	.LBB8:
   75:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 561              		.loc 1 75 9 view .LVU95
+ 560              		.loc 1 75 9 view .LVU95
   75:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 562              		.loc 1 75 17 is_stmt 0 view .LVU96
- 563 003a A368     		ldr	r3, [r4, #8]
- 564 003c ADF80030 		strh	r3, [sp]	@ movhi
- 565 0040 1B0C     		lsrs	r3, r3, #16
- 566 0042 8DF80230 		strb	r3, [sp, #2]
+ 561              		.loc 1 75 17 is_stmt 0 view .LVU96
+ 562 003a A368     		ldr	r3, [r4, #8]
+ 563 003c ADF80030 		strh	r3, [sp]	@ movhi
+ 564 0040 1B0C     		lsrs	r3, r3, #16
+ 565 0042 8DF80230 		strb	r3, [sp, #2]
   76:Lib/ili9341/ili9341.c ****     }
- 567              		.loc 1 76 9 is_stmt 1 view .LVU97
- 568 0046 0321     		movs	r1, #3
- 569 0048 6846     		mov	r0, sp
- 570 004a FFF7FEFF 		bl	ILI9341_WriteData
- 571              	.LVL43:
- 572              	.LBE8:
+ 566              		.loc 1 76 9 is_stmt 1 view .LVU97
+ 567 0046 0321     		movs	r1, #3
+ 568 0048 6846     		mov	r0, sp
+ 569 004a FFF7FEFF 		bl	ILI9341_WriteData
+ 570              	.LVL43:
+ 571              	.LBE8:
   80:Lib/ili9341/ili9341.c ****     {
- 573              		.loc 1 80 5 view .LVU98
- 574 004e E820     		movs	r0, #232
- 575 0050 FFF7FEFF 		bl	ILI9341_WriteCommand
- 576              	.LVL44:
- 577              	.LBB9:
+ 572              		.loc 1 80 5 view .LVU98
+ 573 004e E820     		movs	r0, #232
+ 574 0050 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 575              	.LVL44:
+ 576              	.LBB9:
   82:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 578              		.loc 1 82 9 view .LVU99
+ 577              		.loc 1 82 9 view .LVU99
   82:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 579              		.loc 1 82 17 is_stmt 0 view .LVU100
- 580 0054 E368     		ldr	r3, [r4, #12]
- 581 0056 ADF80030 		strh	r3, [sp]	@ movhi
- 582 005a 1B0C     		lsrs	r3, r3, #16
- 583 005c 8DF80230 		strb	r3, [sp, #2]
+ 578              		.loc 1 82 17 is_stmt 0 view .LVU100
+ 579 0054 E368     		ldr	r3, [r4, #12]
+ 580 0056 ADF80030 		strh	r3, [sp]	@ movhi
+ 581 005a 1B0C     		lsrs	r3, r3, #16
+ 582 005c 8DF80230 		strb	r3, [sp, #2]
   83:Lib/ili9341/ili9341.c ****     }
- 584              		.loc 1 83 9 is_stmt 1 view .LVU101
- 585 0060 0321     		movs	r1, #3
- 586 0062 6846     		mov	r0, sp
- 587 0064 FFF7FEFF 		bl	ILI9341_WriteData
- 588              	.LVL45:
- 589              	.LBE9:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 16
-
-
+ 583              		.loc 1 83 9 is_stmt 1 view .LVU101
+ 584 0060 0321     		movs	r1, #3
+ 585 0062 6846     		mov	r0, sp
+ 586 0064 FFF7FEFF 		bl	ILI9341_WriteData
+ 587              	.LVL45:
+ 588              	.LBE9:
   87:Lib/ili9341/ili9341.c ****     {
- 590              		.loc 1 87 5 view .LVU102
- 591 0068 EA20     		movs	r0, #234
- 592 006a FFF7FEFF 		bl	ILI9341_WriteCommand
- 593              	.LVL46:
- 594              	.LBB10:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 16
+
+
+ 589              		.loc 1 87 5 view .LVU102
+ 590 0068 EA20     		movs	r0, #234
+ 591 006a FFF7FEFF 		bl	ILI9341_WriteCommand
+ 592              	.LVL46:
+ 593              	.LBB10:
   89:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 595              		.loc 1 89 9 view .LVU103
+ 594              		.loc 1 89 9 view .LVU103
   89:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 596              		.loc 1 89 17 is_stmt 0 view .LVU104
- 597 006e 0026     		movs	r6, #0
- 598 0070 ADF80060 		strh	r6, [sp]	@ movhi
+ 595              		.loc 1 89 17 is_stmt 0 view .LVU104
+ 596 006e 0025     		movs	r5, #0
+ 597 0070 ADF80050 		strh	r5, [sp]	@ movhi
   90:Lib/ili9341/ili9341.c ****     }
- 599              		.loc 1 90 9 is_stmt 1 view .LVU105
- 600 0074 0221     		movs	r1, #2
- 601 0076 6846     		mov	r0, sp
- 602 0078 FFF7FEFF 		bl	ILI9341_WriteData
- 603              	.LVL47:
- 604              	.LBE10:
+ 598              		.loc 1 90 9 is_stmt 1 view .LVU105
+ 599 0074 0221     		movs	r1, #2
+ 600 0076 6846     		mov	r0, sp
+ 601 0078 FFF7FEFF 		bl	ILI9341_WriteData
+ 602              	.LVL47:
+ 603              	.LBE10:
   94:Lib/ili9341/ili9341.c ****     {
- 605              		.loc 1 94 5 view .LVU106
- 606 007c ED20     		movs	r0, #237
- 607 007e FFF7FEFF 		bl	ILI9341_WriteCommand
- 608              	.LVL48:
- 609              	.LBB11:
+ 604              		.loc 1 94 5 view .LVU106
+ 605 007c ED20     		movs	r0, #237
+ 606 007e FFF7FEFF 		bl	ILI9341_WriteCommand
+ 607              	.LVL48:
+ 608              	.LBB11:
   96:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 610              		.loc 1 96 9 view .LVU107
+ 609              		.loc 1 96 9 view .LVU107
   96:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 611              		.loc 1 96 17 is_stmt 0 view .LVU108
- 612 0082 5A4B     		ldr	r3, .L37+4
- 613 0084 0093     		str	r3, [sp]
+ 610              		.loc 1 96 17 is_stmt 0 view .LVU108
+ 611 0082 5A4B     		ldr	r3, .L37+4
+ 612 0084 0093     		str	r3, [sp]
   97:Lib/ili9341/ili9341.c ****     }
- 614              		.loc 1 97 9 is_stmt 1 view .LVU109
- 615 0086 0421     		movs	r1, #4
- 616 0088 6846     		mov	r0, sp
- 617 008a FFF7FEFF 		bl	ILI9341_WriteData
- 618              	.LVL49:
- 619              	.LBE11:
+ 613              		.loc 1 97 9 is_stmt 1 view .LVU109
+ 614 0086 0421     		movs	r1, #4
+ 615 0088 6846     		mov	r0, sp
+ 616 008a FFF7FEFF 		bl	ILI9341_WriteData
+ 617              	.LVL49:
+ 618              	.LBE11:
  101:Lib/ili9341/ili9341.c ****     {
- 620              		.loc 1 101 5 view .LVU110
- 621 008e F720     		movs	r0, #247
- 622 0090 FFF7FEFF 		bl	ILI9341_WriteCommand
- 623              	.LVL50:
- 624              	.LBB12:
+ 619              		.loc 1 101 5 view .LVU110
+ 620 008e F720     		movs	r0, #247
+ 621 0090 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 622              	.LVL50:
+ 623              	.LBB12:
  103:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 625              		.loc 1 103 9 view .LVU111
+ 624              		.loc 1 103 9 view .LVU111
  103:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 626              		.loc 1 103 17 is_stmt 0 view .LVU112
- 627 0094 2023     		movs	r3, #32
- 628 0096 8DF80030 		strb	r3, [sp]
+ 625              		.loc 1 103 17 is_stmt 0 view .LVU112
+ 626 0094 2023     		movs	r3, #32
+ 627 0096 8DF80030 		strb	r3, [sp]
  104:Lib/ili9341/ili9341.c ****     }
- 629              		.loc 1 104 9 is_stmt 1 view .LVU113
- 630 009a 0121     		movs	r1, #1
- 631 009c 6846     		mov	r0, sp
- 632 009e FFF7FEFF 		bl	ILI9341_WriteData
- 633              	.LVL51:
- 634              	.LBE12:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 17
-
-
+ 628              		.loc 1 104 9 is_stmt 1 view .LVU113
+ 629 009a 0121     		movs	r1, #1
+ 630 009c 6846     		mov	r0, sp
+ 631 009e FFF7FEFF 		bl	ILI9341_WriteData
+ 632              	.LVL51:
+ 633              	.LBE12:
  108:Lib/ili9341/ili9341.c ****     {
- 635              		.loc 1 108 5 view .LVU114
- 636 00a2 C020     		movs	r0, #192
- 637 00a4 FFF7FEFF 		bl	ILI9341_WriteCommand
- 638              	.LVL52:
- 639              	.LBB13:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 17
+
+
+ 634              		.loc 1 108 5 view .LVU114
+ 635 00a2 C020     		movs	r0, #192
+ 636 00a4 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 637              	.LVL52:
+ 638              	.LBB13:
  110:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 640              		.loc 1 110 9 view .LVU115
+ 639              		.loc 1 110 9 view .LVU115
  110:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 641              		.loc 1 110 17 is_stmt 0 view .LVU116
- 642 00a8 2323     		movs	r3, #35
- 643 00aa 8DF80030 		strb	r3, [sp]
+ 640              		.loc 1 110 17 is_stmt 0 view .LVU116
+ 641 00a8 2323     		movs	r3, #35
+ 642 00aa 8DF80030 		strb	r3, [sp]
  111:Lib/ili9341/ili9341.c ****     }
- 644              		.loc 1 111 9 is_stmt 1 view .LVU117
- 645 00ae 0121     		movs	r1, #1
- 646 00b0 6846     		mov	r0, sp
- 647 00b2 FFF7FEFF 		bl	ILI9341_WriteData
- 648              	.LVL53:
- 649              	.LBE13:
+ 643              		.loc 1 111 9 is_stmt 1 view .LVU117
+ 644 00ae 0121     		movs	r1, #1
+ 645 00b0 6846     		mov	r0, sp
+ 646 00b2 FFF7FEFF 		bl	ILI9341_WriteData
+ 647              	.LVL53:
+ 648              	.LBE13:
  115:Lib/ili9341/ili9341.c ****     {
- 650              		.loc 1 115 5 view .LVU118
- 651 00b6 C120     		movs	r0, #193
- 652 00b8 FFF7FEFF 		bl	ILI9341_WriteCommand
- 653              	.LVL54:
- 654              	.LBB14:
+ 649              		.loc 1 115 5 view .LVU118
+ 650 00b6 C120     		movs	r0, #193
+ 651 00b8 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 652              	.LVL54:
+ 653              	.LBB14:
  117:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 655              		.loc 1 117 9 view .LVU119
+ 654              		.loc 1 117 9 view .LVU119
  117:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 656              		.loc 1 117 17 is_stmt 0 view .LVU120
- 657 00bc 1023     		movs	r3, #16
- 658 00be 8DF80030 		strb	r3, [sp]
+ 655              		.loc 1 117 17 is_stmt 0 view .LVU120
+ 656 00bc 1023     		movs	r3, #16
+ 657 00be 8DF80030 		strb	r3, [sp]
  118:Lib/ili9341/ili9341.c ****     }
- 659              		.loc 1 118 9 is_stmt 1 view .LVU121
- 660 00c2 0121     		movs	r1, #1
- 661 00c4 6846     		mov	r0, sp
- 662 00c6 FFF7FEFF 		bl	ILI9341_WriteData
- 663              	.LVL55:
- 664              	.LBE14:
+ 658              		.loc 1 118 9 is_stmt 1 view .LVU121
+ 659 00c2 0121     		movs	r1, #1
+ 660 00c4 6846     		mov	r0, sp
+ 661 00c6 FFF7FEFF 		bl	ILI9341_WriteData
+ 662              	.LVL55:
+ 663              	.LBE14:
  122:Lib/ili9341/ili9341.c ****     {
- 665              		.loc 1 122 5 view .LVU122
- 666 00ca C520     		movs	r0, #197
- 667 00cc FFF7FEFF 		bl	ILI9341_WriteCommand
- 668              	.LVL56:
- 669              	.LBB15:
+ 664              		.loc 1 122 5 view .LVU122
+ 665 00ca C520     		movs	r0, #197
+ 666 00cc FFF7FEFF 		bl	ILI9341_WriteCommand
+ 667              	.LVL56:
+ 668              	.LBB15:
  124:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 670              		.loc 1 124 9 view .LVU123
+ 669              		.loc 1 124 9 view .LVU123
  124:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 671              		.loc 1 124 17 is_stmt 0 view .LVU124
- 672 00d0 42F63E03 		movw	r3, #10302
- 673 00d4 ADF80030 		strh	r3, [sp]	@ movhi
+ 670              		.loc 1 124 17 is_stmt 0 view .LVU124
+ 671 00d0 42F63E03 		movw	r3, #10302
+ 672 00d4 ADF80030 		strh	r3, [sp]	@ movhi
  125:Lib/ili9341/ili9341.c ****     }
- 674              		.loc 1 125 9 is_stmt 1 view .LVU125
- 675 00d8 0221     		movs	r1, #2
- 676 00da 6846     		mov	r0, sp
- 677 00dc FFF7FEFF 		bl	ILI9341_WriteData
- 678              	.LVL57:
- 679              	.LBE15:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 18
-
-
+ 673              		.loc 1 125 9 is_stmt 1 view .LVU125
+ 674 00d8 0221     		movs	r1, #2
+ 675 00da 6846     		mov	r0, sp
+ 676 00dc FFF7FEFF 		bl	ILI9341_WriteData
+ 677              	.LVL57:
+ 678              	.LBE15:
  129:Lib/ili9341/ili9341.c ****     {
- 680              		.loc 1 129 5 view .LVU126
- 681 00e0 C720     		movs	r0, #199
- 682 00e2 FFF7FEFF 		bl	ILI9341_WriteCommand
- 683              	.LVL58:
- 684              	.LBB16:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 18
+
+
+ 679              		.loc 1 129 5 view .LVU126
+ 680 00e0 C720     		movs	r0, #199
+ 681 00e2 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 682              	.LVL58:
+ 683              	.LBB16:
  131:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 685              		.loc 1 131 9 view .LVU127
+ 684              		.loc 1 131 9 view .LVU127
  131:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 686              		.loc 1 131 17 is_stmt 0 view .LVU128
- 687 00e6 8623     		movs	r3, #134
- 688 00e8 8DF80030 		strb	r3, [sp]
+ 685              		.loc 1 131 17 is_stmt 0 view .LVU128
+ 686 00e6 8623     		movs	r3, #134
+ 687 00e8 8DF80030 		strb	r3, [sp]
  132:Lib/ili9341/ili9341.c ****     }
- 689              		.loc 1 132 9 is_stmt 1 view .LVU129
- 690 00ec 0121     		movs	r1, #1
- 691 00ee 6846     		mov	r0, sp
- 692 00f0 FFF7FEFF 		bl	ILI9341_WriteData
- 693              	.LVL59:
- 694              	.LBE16:
+ 688              		.loc 1 132 9 is_stmt 1 view .LVU129
+ 689 00ec 0121     		movs	r1, #1
+ 690 00ee 6846     		mov	r0, sp
+ 691 00f0 FFF7FEFF 		bl	ILI9341_WriteData
+ 692              	.LVL59:
+ 693              	.LBE16:
  136:Lib/ili9341/ili9341.c ****     {
- 695              		.loc 1 136 5 view .LVU130
- 696 00f4 3620     		movs	r0, #54
- 697 00f6 FFF7FEFF 		bl	ILI9341_WriteCommand
- 698              	.LVL60:
- 699              	.LBB17:
+ 694              		.loc 1 136 5 view .LVU130
+ 695 00f4 3620     		movs	r0, #54
+ 696 00f6 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 697              	.LVL60:
+ 698              	.LBB17:
  138:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 700              		.loc 1 138 9 view .LVU131
+ 699              		.loc 1 138 9 view .LVU131
  138:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 701              		.loc 1 138 17 is_stmt 0 view .LVU132
- 702 00fa 4825     		movs	r5, #72
- 703 00fc 8DF80050 		strb	r5, [sp]
+ 700              		.loc 1 138 17 is_stmt 0 view .LVU132
+ 701 00fa 4823     		movs	r3, #72
+ 702 00fc 8DF80030 		strb	r3, [sp]
  139:Lib/ili9341/ili9341.c ****     }
- 704              		.loc 1 139 9 is_stmt 1 view .LVU133
- 705 0100 0121     		movs	r1, #1
- 706 0102 6846     		mov	r0, sp
- 707 0104 FFF7FEFF 		bl	ILI9341_WriteData
- 708              	.LVL61:
- 709              	.LBE17:
+ 703              		.loc 1 139 9 is_stmt 1 view .LVU133
+ 704 0100 0121     		movs	r1, #1
+ 705 0102 6846     		mov	r0, sp
+ 706 0104 FFF7FEFF 		bl	ILI9341_WriteData
+ 707              	.LVL61:
+ 708              	.LBE17:
  143:Lib/ili9341/ili9341.c ****     {
- 710              		.loc 1 143 5 view .LVU134
- 711 0108 3A20     		movs	r0, #58
- 712 010a FFF7FEFF 		bl	ILI9341_WriteCommand
- 713              	.LVL62:
- 714              	.LBB18:
+ 709              		.loc 1 143 5 view .LVU134
+ 710 0108 3A20     		movs	r0, #58
+ 711 010a FFF7FEFF 		bl	ILI9341_WriteCommand
+ 712              	.LVL62:
+ 713              	.LBB18:
  145:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 715              		.loc 1 145 9 view .LVU135
+ 714              		.loc 1 145 9 view .LVU135
  145:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 716              		.loc 1 145 17 is_stmt 0 view .LVU136
- 717 010e 5523     		movs	r3, #85
- 718 0110 8DF80030 		strb	r3, [sp]
+ 715              		.loc 1 145 17 is_stmt 0 view .LVU136
+ 716 010e 5523     		movs	r3, #85
+ 717 0110 8DF80030 		strb	r3, [sp]
  146:Lib/ili9341/ili9341.c ****     }
- 719              		.loc 1 146 9 is_stmt 1 view .LVU137
- 720 0114 0121     		movs	r1, #1
- 721 0116 6846     		mov	r0, sp
- 722 0118 FFF7FEFF 		bl	ILI9341_WriteData
- 723              	.LVL63:
- 724              	.LBE18:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 19
-
-
+ 718              		.loc 1 146 9 is_stmt 1 view .LVU137
+ 719 0114 0121     		movs	r1, #1
+ 720 0116 6846     		mov	r0, sp
+ 721 0118 FFF7FEFF 		bl	ILI9341_WriteData
+ 722              	.LVL63:
+ 723              	.LBE18:
  150:Lib/ili9341/ili9341.c ****     {
- 725              		.loc 1 150 5 view .LVU138
- 726 011c B120     		movs	r0, #177
- 727 011e FFF7FEFF 		bl	ILI9341_WriteCommand
- 728              	.LVL64:
- 729              	.LBB19:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 19
+
+
+ 724              		.loc 1 150 5 view .LVU138
+ 725 011c B120     		movs	r0, #177
+ 726 011e FFF7FEFF 		bl	ILI9341_WriteCommand
+ 727              	.LVL64:
+ 728              	.LBB19:
  152:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 730              		.loc 1 152 9 view .LVU139
+ 729              		.loc 1 152 9 view .LVU139
  152:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 731              		.loc 1 152 17 is_stmt 0 view .LVU140
- 732 0122 4FF4C053 		mov	r3, #6144
- 733 0126 ADF80030 		strh	r3, [sp]	@ movhi
+ 730              		.loc 1 152 17 is_stmt 0 view .LVU140
+ 731 0122 4FF4C053 		mov	r3, #6144
+ 732 0126 ADF80030 		strh	r3, [sp]	@ movhi
  153:Lib/ili9341/ili9341.c ****     }
- 734              		.loc 1 153 9 is_stmt 1 view .LVU141
- 735 012a 0221     		movs	r1, #2
- 736 012c 6846     		mov	r0, sp
- 737 012e FFF7FEFF 		bl	ILI9341_WriteData
- 738              	.LVL65:
- 739              	.LBE19:
+ 733              		.loc 1 153 9 is_stmt 1 view .LVU141
+ 734 012a 0221     		movs	r1, #2
+ 735 012c 6846     		mov	r0, sp
+ 736 012e FFF7FEFF 		bl	ILI9341_WriteData
+ 737              	.LVL65:
+ 738              	.LBE19:
  157:Lib/ili9341/ili9341.c ****     {
- 740              		.loc 1 157 5 view .LVU142
- 741 0132 B620     		movs	r0, #182
- 742 0134 FFF7FEFF 		bl	ILI9341_WriteCommand
- 743              	.LVL66:
- 744              	.LBB20:
+ 739              		.loc 1 157 5 view .LVU142
+ 740 0132 B620     		movs	r0, #182
+ 741 0134 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 742              	.LVL66:
+ 743              	.LBB20:
  159:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 745              		.loc 1 159 9 view .LVU143
+ 744              		.loc 1 159 9 view .LVU143
  159:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 746              		.loc 1 159 17 is_stmt 0 view .LVU144
- 747 0138 2D4B     		ldr	r3, .L37+8
- 748 013a 1B68     		ldr	r3, [r3]
- 749 013c ADF80030 		strh	r3, [sp]	@ movhi
- 750 0140 1B0C     		lsrs	r3, r3, #16
- 751 0142 8DF80230 		strb	r3, [sp, #2]
+ 745              		.loc 1 159 17 is_stmt 0 view .LVU144
+ 746 0138 2D4B     		ldr	r3, .L37+8
+ 747 013a 1B68     		ldr	r3, [r3]
+ 748 013c ADF80030 		strh	r3, [sp]	@ movhi
+ 749 0140 1B0C     		lsrs	r3, r3, #16
+ 750 0142 8DF80230 		strb	r3, [sp, #2]
  160:Lib/ili9341/ili9341.c ****     }
- 752              		.loc 1 160 9 is_stmt 1 view .LVU145
- 753 0146 0321     		movs	r1, #3
- 754 0148 6846     		mov	r0, sp
- 755 014a FFF7FEFF 		bl	ILI9341_WriteData
- 756              	.LVL67:
- 757              	.LBE20:
+ 751              		.loc 1 160 9 is_stmt 1 view .LVU145
+ 752 0146 0321     		movs	r1, #3
+ 753 0148 6846     		mov	r0, sp
+ 754 014a FFF7FEFF 		bl	ILI9341_WriteData
+ 755              	.LVL67:
+ 756              	.LBE20:
  164:Lib/ili9341/ili9341.c ****     {
- 758              		.loc 1 164 5 view .LVU146
- 759 014e F220     		movs	r0, #242
- 760 0150 FFF7FEFF 		bl	ILI9341_WriteCommand
- 761              	.LVL68:
- 762              	.LBB21:
+ 757              		.loc 1 164 5 view .LVU146
+ 758 014e F220     		movs	r0, #242
+ 759 0150 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 760              	.LVL68:
+ 761              	.LBB21:
  166:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 763              		.loc 1 166 9 view .LVU147
+ 762              		.loc 1 166 9 view .LVU147
  166:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 764              		.loc 1 166 17 is_stmt 0 view .LVU148
- 765 0154 8DF80060 		strb	r6, [sp]
+ 763              		.loc 1 166 17 is_stmt 0 view .LVU148
+ 764 0154 8DF80050 		strb	r5, [sp]
  167:Lib/ili9341/ili9341.c ****     }
- 766              		.loc 1 167 9 is_stmt 1 view .LVU149
- 767 0158 0121     		movs	r1, #1
- 768 015a 6846     		mov	r0, sp
- 769 015c FFF7FEFF 		bl	ILI9341_WriteData
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 20
+ 765              		.loc 1 167 9 is_stmt 1 view .LVU149
+ 766 0158 0121     		movs	r1, #1
+ 767 015a 6846     		mov	r0, sp
+ 768 015c FFF7FEFF 		bl	ILI9341_WriteData
+ 769              	.LVL69:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 20
 
 
- 770              	.LVL69:
- 771              	.LBE21:
+ 770              	.LBE21:
  171:Lib/ili9341/ili9341.c ****     {
- 772              		.loc 1 171 5 view .LVU150
- 773 0160 2620     		movs	r0, #38
- 774 0162 FFF7FEFF 		bl	ILI9341_WriteCommand
- 775              	.LVL70:
- 776              	.LBB22:
+ 771              		.loc 1 171 5 view .LVU150
+ 772 0160 2620     		movs	r0, #38
+ 773 0162 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 774              	.LVL70:
+ 775              	.LBB22:
  173:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 777              		.loc 1 173 9 view .LVU151
+ 776              		.loc 1 173 9 view .LVU151
  173:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 778              		.loc 1 173 17 is_stmt 0 view .LVU152
- 779 0166 0126     		movs	r6, #1
- 780 0168 8DF80060 		strb	r6, [sp]
+ 777              		.loc 1 173 17 is_stmt 0 view .LVU152
+ 778 0166 0125     		movs	r5, #1
+ 779 0168 8DF80050 		strb	r5, [sp]
  174:Lib/ili9341/ili9341.c ****     }
- 781              		.loc 1 174 9 is_stmt 1 view .LVU153
- 782 016c 3146     		mov	r1, r6
- 783 016e 6846     		mov	r0, sp
- 784 0170 FFF7FEFF 		bl	ILI9341_WriteData
- 785              	.LVL71:
- 786              	.LBE22:
+ 780              		.loc 1 174 9 is_stmt 1 view .LVU153
+ 781 016c 2946     		mov	r1, r5
+ 782 016e 6846     		mov	r0, sp
+ 783 0170 FFF7FEFF 		bl	ILI9341_WriteData
+ 784              	.LVL71:
+ 785              	.LBE22:
  178:Lib/ili9341/ili9341.c ****     {
- 787              		.loc 1 178 5 view .LVU154
- 788 0174 E020     		movs	r0, #224
- 789 0176 FFF7FEFF 		bl	ILI9341_WriteCommand
- 790              	.LVL72:
- 791              	.LBB23:
+ 786              		.loc 1 178 5 view .LVU154
+ 787 0174 E020     		movs	r0, #224
+ 788 0176 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 789              	.LVL72:
+ 790              	.LBB23:
  180:Lib/ili9341/ili9341.c ****                            0x37, 0x07, 0x10, 0x03, 0x0E, 0x09, 0x00 };
- 792              		.loc 1 180 9 view .LVU155
+ 791              		.loc 1 180 9 view .LVU155
  180:Lib/ili9341/ili9341.c ****                            0x37, 0x07, 0x10, 0x03, 0x0E, 0x09, 0x00 };
- 793              		.loc 1 180 17 is_stmt 0 view .LVU156
- 794 017a 1E4B     		ldr	r3, .L37+12
- 795 017c EC46     		mov	ip, sp
- 796 017e 0FCB     		ldm	r3, {r0, r1, r2, r3}
- 797 0180 ACE80700 		stmia	ip!, {r0, r1, r2}
- 798 0184 2CF8023B 		strh	r3, [ip], #2	@ movhi
- 799 0188 1B0C     		lsrs	r3, r3, #16
- 800 018a 8CF80030 		strb	r3, [ip]
+ 792              		.loc 1 180 17 is_stmt 0 view .LVU156
+ 793 017a 1E4B     		ldr	r3, .L37+12
+ 794 017c EC46     		mov	ip, sp
+ 795 017e 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 796 0180 ACE80700 		stmia	ip!, {r0, r1, r2}
+ 797 0184 2CF8023B 		strh	r3, [ip], #2	@ movhi
+ 798 0188 1B0C     		lsrs	r3, r3, #16
+ 799 018a 8CF80030 		strb	r3, [ip]
  182:Lib/ili9341/ili9341.c ****     }
- 801              		.loc 1 182 9 is_stmt 1 view .LVU157
- 802 018e 0F21     		movs	r1, #15
- 803 0190 6846     		mov	r0, sp
- 804 0192 FFF7FEFF 		bl	ILI9341_WriteData
- 805              	.LVL73:
- 806              	.LBE23:
+ 800              		.loc 1 182 9 is_stmt 1 view .LVU157
+ 801 018e 0F21     		movs	r1, #15
+ 802 0190 6846     		mov	r0, sp
+ 803 0192 FFF7FEFF 		bl	ILI9341_WriteData
+ 804              	.LVL73:
+ 805              	.LBE23:
  186:Lib/ili9341/ili9341.c ****     {
- 807              		.loc 1 186 5 view .LVU158
- 808 0196 E120     		movs	r0, #225
- 809 0198 FFF7FEFF 		bl	ILI9341_WriteCommand
- 810              	.LVL74:
- 811              	.LBB24:
+ 806              		.loc 1 186 5 view .LVU158
+ 807 0196 E120     		movs	r0, #225
+ 808 0198 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 809              	.LVL74:
+ 810              	.LBB24:
  188:Lib/ili9341/ili9341.c ****                            0x48, 0x08, 0x0F, 0x0C, 0x31, 0x36, 0x0F };
- 812              		.loc 1 188 9 view .LVU159
+ 811              		.loc 1 188 9 view .LVU159
  188:Lib/ili9341/ili9341.c ****                            0x48, 0x08, 0x0F, 0x0C, 0x31, 0x36, 0x0F };
- 813              		.loc 1 188 17 is_stmt 0 view .LVU160
- 814 019c EC46     		mov	ip, sp
- 815 019e 1034     		adds	r4, r4, #16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 21
+ 812              		.loc 1 188 17 is_stmt 0 view .LVU160
+ 813 019c EC46     		mov	ip, sp
+ 814 019e 1034     		adds	r4, r4, #16
+ 815 01a0 94E80F00 		ldm	r4, {r0, r1, r2, r3}
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 21
 
 
- 816 01a0 94E80F00 		ldm	r4, {r0, r1, r2, r3}
- 817 01a4 ACE80700 		stmia	ip!, {r0, r1, r2}
- 818 01a8 2CF8023B 		strh	r3, [ip], #2	@ movhi
- 819 01ac 1B0C     		lsrs	r3, r3, #16
- 820 01ae 8CF80030 		strb	r3, [ip]
+ 816 01a4 ACE80700 		stmia	ip!, {r0, r1, r2}
+ 817 01a8 2CF8023B 		strh	r3, [ip], #2	@ movhi
+ 818 01ac 1B0C     		lsrs	r3, r3, #16
+ 819 01ae 8CF80030 		strb	r3, [ip]
  190:Lib/ili9341/ili9341.c ****     }
- 821              		.loc 1 190 9 is_stmt 1 view .LVU161
- 822 01b2 0F21     		movs	r1, #15
- 823 01b4 6846     		mov	r0, sp
- 824 01b6 FFF7FEFF 		bl	ILI9341_WriteData
- 825              	.LVL75:
- 826              	.LBE24:
+ 820              		.loc 1 190 9 is_stmt 1 view .LVU161
+ 821 01b2 0F21     		movs	r1, #15
+ 822 01b4 6846     		mov	r0, sp
+ 823 01b6 FFF7FEFF 		bl	ILI9341_WriteData
+ 824              	.LVL75:
+ 825              	.LBE24:
  194:Lib/ili9341/ili9341.c ****     HAL_Delay(120);
- 827              		.loc 1 194 5 view .LVU162
- 828 01ba 1120     		movs	r0, #17
- 829 01bc FFF7FEFF 		bl	ILI9341_WriteCommand
- 830              	.LVL76:
+ 826              		.loc 1 194 5 view .LVU162
+ 827 01ba 1120     		movs	r0, #17
+ 828 01bc FFF7FEFF 		bl	ILI9341_WriteCommand
+ 829              	.LVL76:
  195:Lib/ili9341/ili9341.c **** 
- 831              		.loc 1 195 5 view .LVU163
- 832 01c0 7820     		movs	r0, #120
- 833 01c2 FFF7FEFF 		bl	HAL_Delay
- 834              	.LVL77:
+ 830              		.loc 1 195 5 view .LVU163
+ 831 01c0 7820     		movs	r0, #120
+ 832 01c2 FFF7FEFF 		bl	HAL_Delay
+ 833              	.LVL77:
  198:Lib/ili9341/ili9341.c **** 
- 835              		.loc 1 198 5 view .LVU164
- 836 01c6 2920     		movs	r0, #41
- 837 01c8 FFF7FEFF 		bl	ILI9341_WriteCommand
- 838              	.LVL78:
+ 834              		.loc 1 198 5 view .LVU164
+ 835 01c6 2920     		movs	r0, #41
+ 836 01c8 FFF7FEFF 		bl	ILI9341_WriteCommand
+ 837              	.LVL78:
  201:Lib/ili9341/ili9341.c ****     {
- 839              		.loc 1 201 5 view .LVU165
- 840 01cc 3620     		movs	r0, #54
- 841 01ce FFF7FEFF 		bl	ILI9341_WriteCommand
- 842              	.LVL79:
- 843              	.LBB25:
+ 838              		.loc 1 201 5 view .LVU165
+ 839 01cc 3620     		movs	r0, #54
+ 840 01ce FFF7FEFF 		bl	ILI9341_WriteCommand
+ 841              	.LVL79:
+ 842              	.LBB25:
  203:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 844              		.loc 1 203 9 view .LVU166
+ 843              		.loc 1 203 9 view .LVU166
  203:Lib/ili9341/ili9341.c ****         ILI9341_WriteData(data, sizeof(data));
- 845              		.loc 1 203 17 is_stmt 0 view .LVU167
- 846 01d2 8DF80050 		strb	r5, [sp]
+ 844              		.loc 1 203 17 is_stmt 0 view .LVU167
+ 845 01d2 E823     		movs	r3, #232
+ 846 01d4 8DF80030 		strb	r3, [sp]
  204:Lib/ili9341/ili9341.c ****     }
  847              		.loc 1 204 9 is_stmt 1 view .LVU168
- 848 01d6 3146     		mov	r1, r6
- 849 01d8 6846     		mov	r0, sp
- 850 01da FFF7FEFF 		bl	ILI9341_WriteData
+ 848 01d8 2946     		mov	r1, r5
+ 849 01da 6846     		mov	r0, sp
+ 850 01dc FFF7FEFF 		bl	ILI9341_WriteData
  851              	.LVL80:
  852              	.LBE25:
  207:Lib/ili9341/ili9341.c **** }
  853              		.loc 1 207 5 view .LVU169
- 854 01de FFF7FEFF 		bl	ILI9341_Unselect
+ 854 01e0 FFF7FEFF 		bl	ILI9341_Unselect
  855              	.LVL81:
  208:Lib/ili9341/ili9341.c **** 
  856              		.loc 1 208 1 is_stmt 0 view .LVU170
- 857 01e2 04B0     		add	sp, sp, #16
+ 857 01e4 05B0     		add	sp, sp, #20
  858              	.LCFI18:
- 859              		.cfi_def_cfa_offset 16
+ 859              		.cfi_def_cfa_offset 12
  860              		@ sp needed
- 861 01e4 70BD     		pop	{r4, r5, r6, pc}
+ 861 01e6 30BD     		pop	{r4, r5, pc}
  862              	.L38:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 22
 
 
- 863 01e6 00BF     		.align	2
+ 863              		.align	2
  864              	.L37:
  865 01e8 00000000 		.word	.LANCHOR0
  866 01ec 64031281 		.word	-2129525916
@@ -1287,27 +1287,27 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  886              		.loc 1 211 5 view .LVU172
  211:Lib/ili9341/ili9341.c ****         return;
  887              		.loc 1 211 7 is_stmt 0 view .LVU173
- 888 0000 EF28     		cmp	r0, #239
- 889 0002 1FD8     		bhi	.L44
+ 888 0000 B0F5A07F 		cmp	r0, #320
+ 889 0004 1ED2     		bcs	.L44
  210:Lib/ili9341/ili9341.c ****     if((x >= ILI9341_WIDTH) || (y >= ILI9341_HEIGHT))
  890              		.loc 1 210 64 discriminator 1 view .LVU174
- 891 0004 70B5     		push	{r4, r5, r6, lr}
+ 891 0006 70B5     		push	{r4, r5, r6, lr}
  892              	.LCFI19:
  893              		.cfi_def_cfa_offset 16
  894              		.cfi_offset 4, -16
  895              		.cfi_offset 5, -12
  896              		.cfi_offset 6, -8
  897              		.cfi_offset 14, -4
- 898 0006 82B0     		sub	sp, sp, #8
+ 898 0008 82B0     		sub	sp, sp, #8
  899              	.LCFI20:
  900              		.cfi_def_cfa_offset 24
- 901 0008 0446     		mov	r4, r0
- 902 000a 0D46     		mov	r5, r1
- 903 000c 1646     		mov	r6, r2
+ 901 000a 0446     		mov	r4, r0
+ 902 000c 0D46     		mov	r5, r1
+ 903 000e 1646     		mov	r6, r2
  211:Lib/ili9341/ili9341.c ****         return;
  904              		.loc 1 211 29 discriminator 1 view .LVU175
- 905 000e B1F5A07F 		cmp	r1, #320
- 906 0012 01D3     		bcc	.L47
+ 905 0010 EF29     		cmp	r1, #239
+ 906 0012 01D9     		bls	.L47
  907              	.LVL83:
  908              	.L39:
  221:Lib/ili9341/ili9341.c **** 
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  913              		.cfi_def_cfa_offset 16
  914              		@ sp needed
  915 0016 70BD     		pop	{r4, r5, r6, pc}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 23
 
 
  916              	.LVL84:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  964              		.thumb_func
  966              	ILI9341_WriteString:
  967              	.LVL90:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 24
 
 
  968              	.LFB139:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1007              	.LVL93:
  256:Lib/ili9341/ili9341.c ****                 continue;
  1008              		.loc 1 256 17 is_stmt 1 discriminator 1 view .LVU191
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 25
 
 
  247:Lib/ili9341/ili9341.c ****             y += font.height;
@@ -1488,8 +1488,8 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1042 0048 3319     		adds	r3, r6, r4
  246:Lib/ili9341/ili9341.c ****             x = 0;
  1043              		.loc 1 246 11 view .LVU203
- 1044 004a EF2B     		cmp	r3, #239
- 1045 004c EADD     		ble	.L50
+ 1044 004a B3F5A07F 		cmp	r3, #320
+ 1045 004e E9DB     		blt	.L50
  247:Lib/ili9341/ili9341.c ****             y += font.height;
  1046              		.loc 1 247 13 is_stmt 1 view .LVU204
  1047              	.LVL98:
@@ -1497,27 +1497,27 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1048              		.loc 1 248 13 view .LVU205
  248:Lib/ili9341/ili9341.c ****             if(y + font.height >= ILI9341_HEIGHT) {
  1049              		.loc 1 248 22 is_stmt 0 view .LVU206
- 1050 004e 9DF83530 		ldrb	r3, [sp, #53]	@ zero_extendqisi2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 26
+ 1050 0050 9DF83530 		ldrb	r3, [sp, #53]	@ zero_extendqisi2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 26
 
 
  248:Lib/ili9341/ili9341.c ****             if(y + font.height >= ILI9341_HEIGHT) {
  1051              		.loc 1 248 15 view .LVU207
- 1052 0052 1D44     		add	r5, r5, r3
+ 1052 0054 1D44     		add	r5, r5, r3
  1053              	.LVL99:
  248:Lib/ili9341/ili9341.c ****             if(y + font.height >= ILI9341_HEIGHT) {
  1054              		.loc 1 248 15 view .LVU208
- 1055 0054 ADB2     		uxth	r5, r5
+ 1055 0056 ADB2     		uxth	r5, r5
  1056              	.LVL100:
  249:Lib/ili9341/ili9341.c ****                 break;
  1057              		.loc 1 249 13 is_stmt 1 view .LVU209
  249:Lib/ili9341/ili9341.c ****                 break;
  1058              		.loc 1 249 18 is_stmt 0 view .LVU210
- 1059 0056 2B44     		add	r3, r3, r5
+ 1059 0058 2B44     		add	r3, r3, r5
  249:Lib/ili9341/ili9341.c ****                 break;
  1060              		.loc 1 249 15 view .LVU211
- 1061 0058 B3F5A07F 		cmp	r3, #320
- 1062 005c 03DA     		bge	.L51
+ 1061 005a EF2B     		cmp	r3, #239
+ 1062 005c 03DC     		bgt	.L51
  253:Lib/ili9341/ili9341.c ****                 // skip spaces in the beginning of the new line
  1063              		.loc 1 253 13 is_stmt 1 view .LVU212
  253:Lib/ili9341/ili9341.c ****                 // skip spaces in the beginning of the new line
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1093              	.LCFI29:
  1094              		.cfi_def_cfa_offset 0
  1095 0072 7047     		bx	lr
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 27
 
 
  1096              		.cfi_endproc
@@ -1596,42 +1596,42 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  270:Lib/ili9341/ili9341.c ****     if((x >= ILI9341_WIDTH) || (y >= ILI9341_HEIGHT)) return;
  1127              		.loc 1 270 5 is_stmt 1 view .LVU220
  1128              		.loc 1 270 7 is_stmt 0 view .LVU221
- 1129 000a EF28     		cmp	r0, #239
- 1130 000c 40D8     		bhi	.L57
- 1131 000e 0446     		mov	r4, r0
- 1132 0010 0F46     		mov	r7, r1
- 1133 0012 1646     		mov	r6, r2
- 1134 0014 1D46     		mov	r5, r3
+ 1129 000a B0F5A07F 		cmp	r0, #320
+ 1130 000e 3FD2     		bcs	.L57
+ 1131 0010 0446     		mov	r4, r0
+ 1132 0012 0F46     		mov	r7, r1
+ 1133 0014 1646     		mov	r6, r2
+ 1134 0016 1D46     		mov	r5, r3
  1135              		.loc 1 270 29 discriminator 2 view .LVU222
- 1136 0016 B1F5A07F 		cmp	r1, #320
- 1137 001a 39D2     		bcs	.L57
+ 1136 0018 EF29     		cmp	r1, #239
+ 1137 001a 39D8     		bhi	.L57
  271:Lib/ili9341/ili9341.c ****     if((x + w - 1) >= ILI9341_WIDTH) w = ILI9341_WIDTH - x;
  1138              		.loc 1 271 5 is_stmt 1 view .LVU223
  1139              		.loc 1 271 11 is_stmt 0 view .LVU224
  1140 001c 8318     		adds	r3, r0, r2
  1141              	.LVL105:
  1142              		.loc 1 271 7 view .LVU225
- 1143 001e F02B     		cmp	r3, #240
- 1144 0020 02DD     		ble	.L61
+ 1143 001e B3F5A07F 		cmp	r3, #320
+ 1144 0022 02DD     		ble	.L61
  1145              		.loc 1 271 38 is_stmt 1 discriminator 1 view .LVU226
  1146              		.loc 1 271 40 is_stmt 0 discriminator 1 view .LVU227
- 1147 0022 C0F1F006 		rsb	r6, r0, #240
- 1148 0026 B6B2     		uxth	r6, r6
+ 1147 0024 C0F5A076 		rsb	r6, r0, #320
+ 1148 0028 B6B2     		uxth	r6, r6
  1149              	.LVL106:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 28
 
 
  1150              	.L61:
  272:Lib/ili9341/ili9341.c ****     if((y + h - 1) >= ILI9341_HEIGHT) h = ILI9341_HEIGHT - y;
  1151              		.loc 1 272 5 is_stmt 1 view .LVU228
  1152              		.loc 1 272 11 is_stmt 0 view .LVU229
- 1153 0028 7B19     		adds	r3, r7, r5
+ 1153 002a 7B19     		adds	r3, r7, r5
  1154              		.loc 1 272 7 view .LVU230
- 1155 002a B3F5A07F 		cmp	r3, #320
+ 1155 002c F02B     		cmp	r3, #240
  1156 002e 02DD     		ble	.L62
  1157              		.loc 1 272 39 is_stmt 1 discriminator 1 view .LVU231
  1158              		.loc 1 272 41 is_stmt 0 discriminator 1 view .LVU232
- 1159 0030 C7F5A075 		rsb	r5, r7, #320
+ 1159 0030 C7F1F005 		rsb	r5, r7, #240
  1160 0034 ADB2     		uxth	r5, r5
  1161              	.LVL107:
  1162              	.L62:
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1196              	.LVL111:
  1197              	.L64:
  280:Lib/ili9341/ili9341.c ****         for(x = w; x > 0; x--) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 29
 
 
  281:Lib/ili9341/ili9341.c ****             HAL_SPI_Transmit(&ILI9341_SPI_PORT, data, sizeof(data), HAL_MAX_DELAY);
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1239              	.L70:
  1240              		.loc 1 286 1 view .LVU253
  1241 0096 00BF     		.align	2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 30
 
 
  1242              	.L69:
@@ -1772,8 +1772,8 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  289:Lib/ili9341/ili9341.c ****     ILI9341_FillRectangle(0, 0, ILI9341_WIDTH, ILI9341_HEIGHT, color);
  1270              		.loc 1 289 5 is_stmt 1 view .LVU256
  1271 0004 0090     		str	r0, [sp]
- 1272 0006 4FF4A073 		mov	r3, #320
- 1273 000a F022     		movs	r2, #240
+ 1272 0006 F023     		movs	r3, #240
+ 1273 0008 4FF4A072 		mov	r2, #320
  1274 000c 0021     		movs	r1, #0
  1275 000e 0846     		mov	r0, r1
  1276              	.LVL120:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1296              	ILI9341_DrawImage:
  1297              	.LVL122:
  1298              	.LFB142:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 31
 
 
  291:Lib/ili9341/ili9341.c **** 
@@ -1810,11 +1810,11 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  293:Lib/ili9341/ili9341.c ****     if((x >= ILI9341_WIDTH) || (y >= ILI9341_HEIGHT)) return;
  1303              		.loc 1 293 5 view .LVU260
  1304              		.loc 1 293 7 is_stmt 0 view .LVU261
- 1305 0000 EF28     		cmp	r0, #239
- 1306 0002 26D8     		bhi	.L76
+ 1305 0000 B0F5A07F 		cmp	r0, #320
+ 1306 0004 25D2     		bcs	.L76
  292:Lib/ili9341/ili9341.c ****     if((x >= ILI9341_WIDTH) || (y >= ILI9341_HEIGHT)) return;
  1307              		.loc 1 292 94 discriminator 2 view .LVU262
- 1308 0004 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1308 0006 F8B5     		push	{r3, r4, r5, r6, r7, lr}
  1309              	.LCFI36:
  1310              		.cfi_def_cfa_offset 24
  1311              		.cfi_offset 3, -24
@@ -1823,27 +1823,27 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1314              		.cfi_offset 6, -12
  1315              		.cfi_offset 7, -8
  1316              		.cfi_offset 14, -4
- 1317 0006 0446     		mov	r4, r0
- 1318 0008 0D46     		mov	r5, r1
- 1319 000a 1746     		mov	r7, r2
- 1320 000c 1E46     		mov	r6, r3
+ 1317 0008 0446     		mov	r4, r0
+ 1318 000a 0D46     		mov	r5, r1
+ 1319 000c 1746     		mov	r7, r2
+ 1320 000e 1E46     		mov	r6, r3
  1321              		.loc 1 293 29 discriminator 2 view .LVU263
- 1322 000e B1F5A07F 		cmp	r1, #320
- 1323 0012 06D2     		bcs	.L73
+ 1322 0010 EF29     		cmp	r1, #239
+ 1323 0012 06D8     		bhi	.L73
  294:Lib/ili9341/ili9341.c ****     if((x + w - 1) >= ILI9341_WIDTH) return;
  1324              		.loc 1 294 5 is_stmt 1 view .LVU264
  1325              		.loc 1 294 11 is_stmt 0 view .LVU265
  1326 0014 8318     		adds	r3, r0, r2
  1327              	.LVL123:
  1328              		.loc 1 294 7 view .LVU266
- 1329 0016 F02B     		cmp	r3, #240
- 1330 0018 03DC     		bgt	.L73
+ 1329 0016 B3F5A07F 		cmp	r3, #320
+ 1330 001a 02DC     		bgt	.L73
  295:Lib/ili9341/ili9341.c ****     if((y + h - 1) >= ILI9341_HEIGHT) return;
  1331              		.loc 1 295 5 is_stmt 1 view .LVU267
  1332              		.loc 1 295 11 is_stmt 0 view .LVU268
- 1333 001a 8B19     		adds	r3, r1, r6
+ 1333 001c 8B19     		adds	r3, r1, r6
  1334              		.loc 1 295 7 view .LVU269
- 1335 001c B3F5A07F 		cmp	r3, #320
+ 1335 001e F02B     		cmp	r3, #240
  1336 0020 00DD     		ble	.L79
  1337              	.LVL124:
  1338              	.L73:
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1341              	.LVL125:
  1342              	.L79:
  297:Lib/ili9341/ili9341.c ****     ILI9341_SetAddressWindow(x, y, x+w-1, y+h-1);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 32
 
 
  1343              		.loc 1 297 5 is_stmt 1 view .LVU271
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1389              		.section	.text.ILI9341_InvertColors,"ax",%progbits
  1390              		.align	1
  1391              		.global	ILI9341_InvertColors
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 33
 
 
  1392              		.syntax unified
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1440 000b 00       		.space	1
  1441              	.LC2:
  1442 000c 850078   		.ascii	"\205\000x"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 34
 
 
  1443 000f 00       		.space	1
@@ -2000,48 +2000,48 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 1
  1456              		.file 10 "Lib/ili9341/fonts.h"
  1457              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
  1458              		.file 12 "Lib/ili9341/ili9341.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s 			page 35
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 ili9341.c
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:21     .text.ILI9341_Select:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:26     .text.ILI9341_Select:00000000 ILI9341_Select
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:48     .text.ILI9341_Select:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:53     .text.ILI9341_Reset:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:58     .text.ILI9341_Reset:00000000 ILI9341_Reset
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:91     .text.ILI9341_Reset:00000020 $d
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:96     .text.ILI9341_WriteCommand:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:101    .text.ILI9341_WriteCommand:00000000 ILI9341_WriteCommand
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:141    .text.ILI9341_WriteCommand:0000002c $d
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:147    .text.ILI9341_WriteData:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:152    .text.ILI9341_WriteData:00000000 ILI9341_WriteData
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:221    .text.ILI9341_WriteData:0000003c $d
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:227    .text.ILI9341_SetAddressWindow:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:232    .text.ILI9341_SetAddressWindow:00000000 ILI9341_SetAddressWindow
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:309    .text.ILI9341_WriteChar:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:314    .text.ILI9341_WriteChar:00000000 ILI9341_WriteChar
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:463    .text.ILI9341_Unselect:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:469    .text.ILI9341_Unselect:00000000 ILI9341_Unselect
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:491    .text.ILI9341_Unselect:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:496    .rodata.ILI9341_Init.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:503    .text.ILI9341_Init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:509    .text.ILI9341_Init:00000000 ILI9341_Init
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:865    .text.ILI9341_Init:000001e8 $d
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:873    .text.ILI9341_DrawPixel:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:879    .text.ILI9341_DrawPixel:00000000 ILI9341_DrawPixel
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:960    .text.ILI9341_WriteString:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:966    .text.ILI9341_WriteString:00000000 ILI9341_WriteString
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1100   .text.ILI9341_FillRectangle:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1106   .text.ILI9341_FillRectangle:00000000 ILI9341_FillRectangle
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1243   .text.ILI9341_FillRectangle:00000098 $d
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1249   .text.ILI9341_FillScreen:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1255   .text.ILI9341_FillScreen:00000000 ILI9341_FillScreen
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1290   .text.ILI9341_DrawImage:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1296   .text.ILI9341_DrawImage:00000000 ILI9341_DrawImage
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1390   .text.ILI9341_InvertColors:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1396   .text.ILI9341_InvertColors:00000000 ILI9341_InvertColors
-C:\Users\Alex\AppData\Local\Temp\ccoFJMDz.s:1433   .rodata:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:21     .text.ILI9341_Select:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:26     .text.ILI9341_Select:00000000 ILI9341_Select
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:48     .text.ILI9341_Select:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:53     .text.ILI9341_Reset:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:58     .text.ILI9341_Reset:00000000 ILI9341_Reset
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:91     .text.ILI9341_Reset:00000020 $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:96     .text.ILI9341_WriteCommand:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:101    .text.ILI9341_WriteCommand:00000000 ILI9341_WriteCommand
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:141    .text.ILI9341_WriteCommand:0000002c $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:147    .text.ILI9341_WriteData:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:152    .text.ILI9341_WriteData:00000000 ILI9341_WriteData
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:221    .text.ILI9341_WriteData:0000003c $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:227    .text.ILI9341_SetAddressWindow:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:232    .text.ILI9341_SetAddressWindow:00000000 ILI9341_SetAddressWindow
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:309    .text.ILI9341_WriteChar:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:314    .text.ILI9341_WriteChar:00000000 ILI9341_WriteChar
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:463    .text.ILI9341_Unselect:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:469    .text.ILI9341_Unselect:00000000 ILI9341_Unselect
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:491    .text.ILI9341_Unselect:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:496    .rodata.ILI9341_Init.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:503    .text.ILI9341_Init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:509    .text.ILI9341_Init:00000000 ILI9341_Init
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:865    .text.ILI9341_Init:000001e8 $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:873    .text.ILI9341_DrawPixel:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:879    .text.ILI9341_DrawPixel:00000000 ILI9341_DrawPixel
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:960    .text.ILI9341_WriteString:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:966    .text.ILI9341_WriteString:00000000 ILI9341_WriteString
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1100   .text.ILI9341_FillRectangle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1106   .text.ILI9341_FillRectangle:00000000 ILI9341_FillRectangle
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1243   .text.ILI9341_FillRectangle:00000098 $d
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1249   .text.ILI9341_FillScreen:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1255   .text.ILI9341_FillScreen:00000000 ILI9341_FillScreen
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1290   .text.ILI9341_DrawImage:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1296   .text.ILI9341_DrawImage:00000000 ILI9341_DrawImage
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1390   .text.ILI9341_InvertColors:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1396   .text.ILI9341_InvertColors:00000000 ILI9341_InvertColors
+C:\Users\Alex\AppData\Local\Temp\cczqBkNE.s:1433   .rodata:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin

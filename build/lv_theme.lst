@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
   28:Lib/lvgl/src/themes/lv_theme.c **** 
   29:Lib/lvgl/src/themes/lv_theme.c **** /**********************
   30:Lib/lvgl/src/themes/lv_theme.c ****  *      MACROS
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 2
 
 
   31:Lib/lvgl/src/themes/lv_theme.c ****  **********************/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
   85:Lib/lvgl/src/themes/lv_theme.c **** }
   86:Lib/lvgl/src/themes/lv_theme.c **** 
   87:Lib/lvgl/src/themes/lv_theme.c **** lv_color_t lv_theme_get_color_secondary(lv_obj_t * obj)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 3
 
 
   88:Lib/lvgl/src/themes/lv_theme.c **** {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
   70              		.section	.text.apply_theme_recursion,"ax",%progbits
   71              		.align	1
   72              		.syntax unified
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 4
 
 
   73              		.thumb
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  118:Lib/lvgl/src/themes/lv_theme.c ****     apply_theme(th, obj);
  112              		.loc 1 118 5 is_stmt 1 view .LVU23
  113 0018 2146     		mov	r1, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 5
 
 
  114 001a 2846     		mov	r0, r5
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  159              		.loc 1 40 5 is_stmt 1 discriminator 4 view .LVU34
   40:Lib/lvgl/src/themes/lv_theme.c **** }
  160              		.loc 1 40 12 is_stmt 0 discriminator 4 view .LVU35
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 6
 
 
  161 0008 FFF7FEFF 		bl	lv_display_get_theme
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  207 000c 2046     		mov	r0, r4
  208              	.LVL17:
   48:Lib/lvgl/src/themes/lv_theme.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 7
 
 
  209              		.loc 1 48 5 is_stmt 0 view .LVU46
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  259              		@ args = 0, pretend = 0, frame = 0
  260              		@ frame_needed = 0, uses_anonymous_args = 0
  261              		@ link register save eliminated.
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 8
 
 
   60:Lib/lvgl/src/themes/lv_theme.c **** }
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  306 000c 0048     		ldr	r0, .L22
  307              	.LVL26:
   66:Lib/lvgl/src/themes/lv_theme.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 9
 
 
  308              		.loc 1 66 32 view .LVU67
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
   72:Lib/lvgl/src/themes/lv_theme.c **** }
  355              		.loc 1 72 33 view .LVU77
  356 000e FCE7     		b	.L24
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 10
 
 
  357              	.L29:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  403 000e FCE7     		b	.L30
  404              	.L35:
  405              		.align	2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 11
 
 
  406              	.L34:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  454 002c 63F31740 		bfi	r0, r3, #16, #8
   85:Lib/lvgl/src/themes/lv_theme.c **** 
  455              		.loc 1 85 1 view .LVU96
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 12
 
 
  456 0030 03B0     		add	sp, sp, #12
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  506              	.LVL44:
   90:Lib/lvgl/src/themes/lv_theme.c **** }
  507              		.loc 1 90 5 is_stmt 1 view .LVU103
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 13
 
 
   90:Lib/lvgl/src/themes/lv_theme.c **** }
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  557              		.file 6 "Lib/lvgl/src/themes/../../src/core/lv_obj_class.h"
  558              		.file 7 "Lib/lvgl/src/themes/../../src/core/../indev/../core/lv_group.h"
  559              		.file 8 "Lib/lvgl/src/themes/../../src/display/lv_display_private.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 14
 
 
  560              		.file 9 "Lib/lvgl/src/themes/../../src/core/../display/../draw/lv_draw.h"
@@ -798,36 +798,36 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 1
  574              		.file 23 "Lib/lvgl/src/themes/../../src/core/../display/lv_display.h"
  575              		.file 24 "Lib/lvgl/src/themes/../../src/core/lv_obj_style.h"
  576              		.file 25 "Lib/lvgl/src/themes/../../src/core/lv_obj_tree.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_theme.c
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:21     .text.apply_theme:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:26     .text.apply_theme:00000000 apply_theme
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:71     .text.apply_theme_recursion:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:76     .text.apply_theme_recursion:00000000 apply_theme_recursion
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:133    .text.lv_theme_get_from_obj:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:139    .text.lv_theme_get_from_obj:00000000 lv_theme_get_from_obj
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:176    .text.lv_theme_apply:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:182    .text.lv_theme_apply:00000000 lv_theme_apply
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:225    .text.lv_theme_set_parent:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:231    .text.lv_theme_set_parent:00000000 lv_theme_set_parent
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:248    .text.lv_theme_set_apply_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:254    .text.lv_theme_set_apply_cb:00000000 lv_theme_set_apply_cb
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:271    .text.lv_theme_get_font_small:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:277    .text.lv_theme_get_font_small:00000000 lv_theme_get_font_small
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:313    .text.lv_theme_get_font_small:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:318    .text.lv_theme_get_font_normal:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:324    .text.lv_theme_get_font_normal:00000000 lv_theme_get_font_normal
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:360    .text.lv_theme_get_font_normal:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:365    .text.lv_theme_get_font_large:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:371    .text.lv_theme_get_font_large:00000000 lv_theme_get_font_large
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:407    .text.lv_theme_get_font_large:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:412    .text.lv_theme_get_color_primary:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:418    .text.lv_theme_get_color_primary:00000000 lv_theme_get_color_primary
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:482    .text.lv_theme_get_color_secondary:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccG5zYzx.s:488    .text.lv_theme_get_color_secondary:00000000 lv_theme_get_color_secondary
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:21     .text.apply_theme:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:26     .text.apply_theme:00000000 apply_theme
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:71     .text.apply_theme_recursion:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:76     .text.apply_theme_recursion:00000000 apply_theme_recursion
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:133    .text.lv_theme_get_from_obj:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:139    .text.lv_theme_get_from_obj:00000000 lv_theme_get_from_obj
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:176    .text.lv_theme_apply:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:182    .text.lv_theme_apply:00000000 lv_theme_apply
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:225    .text.lv_theme_set_parent:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:231    .text.lv_theme_set_parent:00000000 lv_theme_set_parent
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:248    .text.lv_theme_set_apply_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:254    .text.lv_theme_set_apply_cb:00000000 lv_theme_set_apply_cb
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:271    .text.lv_theme_get_font_small:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:277    .text.lv_theme_get_font_small:00000000 lv_theme_get_font_small
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:313    .text.lv_theme_get_font_small:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:318    .text.lv_theme_get_font_normal:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:324    .text.lv_theme_get_font_normal:00000000 lv_theme_get_font_normal
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:360    .text.lv_theme_get_font_normal:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:365    .text.lv_theme_get_font_large:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:371    .text.lv_theme_get_font_large:00000000 lv_theme_get_font_large
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:407    .text.lv_theme_get_font_large:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:412    .text.lv_theme_get_color_primary:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:418    .text.lv_theme_get_color_primary:00000000 lv_theme_get_color_primary
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:482    .text.lv_theme_get_color_secondary:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccLT6VZj.s:488    .text.lv_theme_get_color_secondary:00000000 lv_theme_get_color_secondary
 
 UNDEFINED SYMBOLS
 lv_obj_get_display
