@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
   27:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** static void lv_tabview_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj);
   28:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** static void lv_tabview_event(const lv_obj_class_t * class_p, lv_event_t * e);
   29:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** static void button_clicked_event_cb(lv_event_t * e);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 2
 
 
   30:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** static void cont_scroll_end_event_cb(lv_event_t * e);
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
   51              		.loc 1 62 22 view .LVU8
   52 000a 0446     		mov	r4, r0
   53              	.LVL3:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 3
 
 
   63:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     lv_obj_class_init_obj(obj);
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
   93:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     return page;
   94:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** }
   95:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 4
 
 
   96:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** void lv_tabview_rename_tab(lv_obj_t * obj, uint32_t idx, const char * new_name)
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  150:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** }
  151:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
  152:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** void lv_tabview_set_tab_bar_position(lv_obj_t * obj, lv_dir_t dir)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 5
 
 
  153:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  207:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     }
  208:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     tabview->tab_pos = dir;
  209:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 6
 
 
  210:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  238:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** }
  239:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
  240:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** lv_obj_t * lv_tabview_get_content(lv_obj_t * tv)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 7
 
 
  241:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** {
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  156              	.LFE265:
  158              		.section	.text.lv_tabview_rename_tab,"ax",%progbits
  159              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 8
 
 
  160              		.global	lv_tabview_rename_tab
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  203 001c FFF7FEFF 		bl	lv_label_set_text
  204              	.LVL16:
  104:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 9
 
 
  205              		.loc 1 104 1 is_stmt 0 view .LVU43
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  253              	.L17:
  254 0010 32       		.byte	(.L20-.L17)/2
  255 0011 36       		.byte	(.L19-.L17)/2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 10
 
 
  256 0012 07       		.byte	(.L15-.L17)/2
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  188:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****             lv_obj_set_flex_flow(tab_bar, LV_FLEX_FLOW_COLUMN);
  300              		.loc 1 188 13 view .LVU62
  301 0042 0121     		movs	r1, #1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 11
 
 
  302 0044 3046     		mov	r0, r6
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  345              		.loc 1 166 13 is_stmt 1 view .LVU73
  346 007a D0E7     		b	.L15
  347              	.LVL39:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 12
 
 
  348              	.L19:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  391 00b0 0021     		movs	r1, #0
  392 00b2 3046     		mov	r0, r6
  393 00b4 FFF7FEFF 		bl	lv_obj_set_scroll_snap_y
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 13
 
 
  394              	.LVL49:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  200:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****         if(now_ver) {
  434              		.loc 1 200 23 view .LVU99
  435 00e0 FFF7FEFF 		bl	lv_display_get_dpi
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 14
 
 
  436              	.LVL56:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  254:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** static void lv_tabview_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
  255:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** {
  480              		.loc 1 255 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 15
 
 
  481              		.cfi_startproc
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  524 0024 FFF7FEFF 		bl	lv_obj_set_flex_flow
  525              	.LVL71:
  267:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 16
 
 
  268:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     lv_obj_add_event_cb(cont, cont_scroll_end_event_cb, LV_EVENT_ALL, NULL);
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  212:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
  575              		.loc 1 212 1 is_stmt 1 view -0
  576              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 17
 
 
  577              		@ args = 0, pretend = 0, frame = 0
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  617              		.loc 1 224 1 is_stmt 0 view .LVU142
  618 0022 FAE7     		b	.L37
  619              		.cfi_endproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 18
 
 
  620              	.LFE261:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  667              		.thumb
  668              		.thumb_func
  670              	lv_tabview_set_active:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 19
 
 
  671              	.LVL87:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  713              	.LVL92:
  714 0018 0646     		mov	r6, r0
  715              	.LVL93:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 20
 
 
  114:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     if(idx >= tab_cnt) {
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
    2:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** /*
    3:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****  **********************************************************************
    4:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****  *                            DO NOT EDIT
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 21
 
 
    5:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****  * This file is automatically generated by "style_api_gen.py"
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
   59:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** {
   60:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_X);
   61:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     return (int32_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 22
 
 
   62:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** }
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  116:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** }
  117:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** 
  118:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_transform_pivot_x(const lv_obj_t * obj, uint32_t part)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 23
 
 
  119:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** {
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  754              		.loc 2 172 23 view .LVU180
  755              	.LBB34:
  173:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 24
 
 
  174:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_PAD_COLUMN);
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  198:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MARGIN_RIGHT);
  199:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  200:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 25
 
 
  201:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** 
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  255:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** }
  256:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** 
  257:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_bg_grad_opa(const lv_obj_t * obj, uint32_t part)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 26
 
 
  258:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** {
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  312:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_border_color_filtered(const lv_obj_t * obj, uint32_t part
  313:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** {
  314:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 27
 
 
  315:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****                                                                                            LV_STYLE
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  369:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** {
  370:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_OUTLINE_PAD);
  371:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     return (int32_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 28
 
 
  372:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** }
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  426:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     return v.color;
  427:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** }
  428:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 29
 
 
  429:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_image_recolor_filtered(const lv_obj_t * obj, uint32_t par
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  483:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** 
  484:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_arc_width(const lv_obj_t * obj, uint32_t part)
  485:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 30
 
 
  486:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_ARC_WIDTH);
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  540:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TEXT_FONT);
  541:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     return (const lv_font_t *)v.ptr;
  542:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 31
 
 
  543:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** 
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  597:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** 
  598:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_color_filter_opa(const lv_obj_t * obj, uint32_t part)
  599:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 32
 
 
  600:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_COLOR_FILTER_OPA);
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  798              		.loc 2 637 12 view .LVU195
  799              	.LBE36:
  800              	.LBE35:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 33
 
 
  127:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****             lv_obj_scroll_to_x(cont, idx * (gap + w), anim_en);
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  168:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  842              		.loc 2 168 26 is_stmt 0 view .LVU209
  843 0086 1422     		movs	r2, #20
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 34
 
 
  844 0088 0021     		movs	r1, #0
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  884              		.loc 1 143 5 is_stmt 1 view .LVU223
  141:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     lv_obj_t * button = lv_obj_get_child_by_type(tab_bar, i, &lv_button_class);
  885              		.loc 1 141 14 is_stmt 0 view .LVU224
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 35
 
 
  886 00b4 0024     		movs	r4, #0
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  929 00de 00BF     		.align	2
  930              	.L54:
  931 00e0 00000000 		.word	lv_button_class
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 36
 
 
  932              		.cfi_endproc
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  974              	.L59:
  282:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     lv_obj_t * target = lv_event_get_current_target(e);
  975              		.loc 1 282 5 is_stmt 1 view .LVU245
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 37
 
 
  282:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     lv_obj_t * target = lv_event_get_current_target(e);
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  292:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     lv_obj_t * button = lv_event_get_current_target(e);
  293:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
  294:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     lv_obj_t * tv = lv_obj_get_parent(lv_obj_get_parent(button));
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 38
 
 
  295:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     int32_t idx = lv_obj_get_index_by_type(button, &lv_button_class);
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1063 001c 2D2C     		cmp	r4, #45
  1064 001e 03D0     		beq	.L77
  307:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****         lv_tabview_set_active(tv, lv_tabview_get_tab_active(tv), LV_ANIM_OFF);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 39
 
 
  308:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     }
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1082              		.loc 1 307 9 is_stmt 1 view .LVU270
  1083 0028 FFF7FEFF 		bl	lv_tabview_get_tab_active
  1084              	.LVL148:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 40
 
 
  307:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****         lv_tabview_set_active(tv, lv_tabview_get_tab_active(tv), LV_ANIM_OFF);
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1124              		.loc 1 320 13 is_stmt 1 view .LVU285
  320:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****             if(lv_obj_get_style_base_dir(tv, LV_PART_MAIN) == LV_BASE_DIR_RTL)  t = -(p.x - w / 2) 
  1125              		.loc 1 320 25 is_stmt 0 view .LVU286
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 41
 
 
  1126 0056 2846     		mov	r0, r5
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  321:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****             else t = (p.x + w / 2) / w;
  1169              		.loc 1 321 81 is_stmt 1 discriminator 1 view .LVU301
  321:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****             else t = (p.x + w / 2) / w;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 42
 
 
  1170              		.loc 1 321 95 is_stmt 0 discriminator 1 view .LVU302
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1209              	.LVL166:
  1210              	.L69:
  330:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****         if(t != (int32_t)lv_tabview_get_tab_active(tv)) new_tab = true;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 43
 
 
  1211              		.loc 1 330 9 is_stmt 1 view .LVU318
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  329:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****         bool new_tab = false;
  1253              		.loc 1 329 21 is_stmt 0 view .LVU331
  1254 00d6 0024     		movs	r4, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 44
 
 
  1255              	.LVL174:
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  292:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
  1303              		.loc 1 292 25 view .LVU340
  1304 0006 0546     		mov	r5, r0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 45
 
 
  1305              	.LVL181:
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1351              	.LVL191:
  1352              	.LFB257:
   68:Lib/lvgl/src/widgets/tabview/lv_tabview.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 46
 
 
  1353              		.loc 1 68 1 is_stmt 1 view -0
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
   74:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
  1395              		.loc 1 74 24 is_stmt 0 view .LVU364
  1396 001e 2046     		mov	r0, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 47
 
 
  1397 0020 FFF7FEFF 		bl	lv_obj_get_child_count
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1438 0052 10B1     		cbz	r0, .L87
   83:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
  1439              		.loc 1 83 11 is_stmt 1 discriminator 1 view .LVU378
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 48
 
 
  1440 0054 2146     		mov	r1, r4
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
   32:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  * @param obj       pointer to an object
   33:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  * @param x         new x coordinate
   34:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  * @param y         new y coordinate
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 49
 
 
   35:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  * @note            With default alignment it's the distance from the top left corner
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
   89:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  *                  pixel               simple set the size accordingly
   90:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  *                  LV_SIZE_CONTENT     set the size to involve all children in the given direction
   91:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  *                  lv_pct(x)           to set size in percentage of the parent's content area size
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 50
 
 
   92:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  *                                      x should be in [0..1000]% range
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  146:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h **** void lv_obj_update_layout(const lv_obj_t * obj);
  147:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h **** 
  148:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h **** /**
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 51
 
 
  149:Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_pos.h ****  * Change the alignment of an object.
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1473 0074 B8F1010F 		cmp	r8, #1
  1474 0078 02D0     		beq	.L90
  1475              	.L86:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 52
 
 
   94:Lib/lvgl/src/widgets/tabview/lv_tabview.c **** 
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1528              		.file 10 "Lib/lvgl/src/widgets/tabview/../../../src/display/lv_display_private.h"
  1529              		.file 11 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\draw\\lv_draw.h"
  1530              		.file 12 "Lib/lvgl/src/widgets/tabview/../../indev/lv_indev_private.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 53
 
 
  1531              		.file 13 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\misc\\lv_event.h"
@@ -3147,53 +3147,53 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 1
  1554              		.file 36 "Lib/lvgl/src/widgets/tabview/lv_tabview.h"
  1555              		.file 37 "Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_tree.h"
  1556              		.file 38 "Lib/lvgl/src/widgets/tabview/../../../src/core/lv_obj_event.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 54
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_tabview.c
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:21     .text.lv_tabview_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:27     .text.lv_tabview_create:00000000 lv_tabview_create
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:66     .text.lv_tabview_create:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1507   .rodata.lv_tabview_class:00000000 lv_tabview_class
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:71     .text.lv_tabview_get_tab_active:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:77     .text.lv_tabview_get_tab_active:00000000 lv_tabview_get_tab_active
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:99     .text.lv_tabview_get_content:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:105    .text.lv_tabview_get_content:00000000 lv_tabview_get_content
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:129    .text.lv_tabview_get_tab_bar:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:135    .text.lv_tabview_get_tab_bar:00000000 lv_tabview_get_tab_bar
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:159    .text.lv_tabview_rename_tab:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:165    .text.lv_tabview_rename_tab:00000000 lv_tabview_rename_tab
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:212    .text.lv_tabview_rename_tab:00000024 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:218    .text.lv_tabview_set_tab_bar_position:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:224    .text.lv_tabview_set_tab_bar_position:00000000 lv_tabview_set_tab_bar_position
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:254    .text.lv_tabview_set_tab_bar_position:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:262    .text.lv_tabview_set_tab_bar_position:00000018 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:466    .text.lv_tabview_set_tab_bar_position:00000104 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:472    .text.lv_tabview_constructor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:477    .text.lv_tabview_constructor:00000000 lv_tabview_constructor
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:560    .text.lv_tabview_constructor:00000058 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1018   .text.cont_scroll_end_event_cb:00000000 cont_scroll_end_event_cb
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:566    .text.lv_tabview_set_tab_bar_size:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:572    .text.lv_tabview_set_tab_bar_size:00000000 lv_tabview_set_tab_bar_size
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:623    .text.lv_tabview_get_tab_count:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:629    .text.lv_tabview_get_tab_count:00000000 lv_tabview_get_tab_count
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:659    .text.lv_tabview_get_tab_count:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:664    .text.lv_tabview_set_active:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:670    .text.lv_tabview_set_active:00000000 lv_tabview_set_active
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:931    .text.lv_tabview_set_active:000000e0 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:936    .text.lv_tabview_event:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:941    .text.lv_tabview_event:00000000 lv_tabview_event
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1008   .text.lv_tabview_event:00000034 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1013   .text.cont_scroll_end_event_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1279   .text.button_clicked_event_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1284   .text.button_clicked_event_cb:00000000 button_clicked_event_cb
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1339   .text.button_clicked_event_cb:00000028 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1344   .text.lv_tabview_add_tab:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1350   .text.lv_tabview_add_tab:00000000 lv_tabview_add_tab
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1493   .text.lv_tabview_add_tab:0000008c $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1500   .rodata.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s:1504   .rodata.lv_tabview_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:21     .text.lv_tabview_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:27     .text.lv_tabview_create:00000000 lv_tabview_create
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:66     .text.lv_tabview_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1507   .rodata.lv_tabview_class:00000000 lv_tabview_class
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:71     .text.lv_tabview_get_tab_active:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:77     .text.lv_tabview_get_tab_active:00000000 lv_tabview_get_tab_active
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:99     .text.lv_tabview_get_content:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:105    .text.lv_tabview_get_content:00000000 lv_tabview_get_content
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:129    .text.lv_tabview_get_tab_bar:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:135    .text.lv_tabview_get_tab_bar:00000000 lv_tabview_get_tab_bar
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:159    .text.lv_tabview_rename_tab:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:165    .text.lv_tabview_rename_tab:00000000 lv_tabview_rename_tab
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:212    .text.lv_tabview_rename_tab:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:218    .text.lv_tabview_set_tab_bar_position:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:224    .text.lv_tabview_set_tab_bar_position:00000000 lv_tabview_set_tab_bar_position
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:254    .text.lv_tabview_set_tab_bar_position:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:262    .text.lv_tabview_set_tab_bar_position:00000018 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:466    .text.lv_tabview_set_tab_bar_position:00000104 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:472    .text.lv_tabview_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:477    .text.lv_tabview_constructor:00000000 lv_tabview_constructor
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:560    .text.lv_tabview_constructor:00000058 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1018   .text.cont_scroll_end_event_cb:00000000 cont_scroll_end_event_cb
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:566    .text.lv_tabview_set_tab_bar_size:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:572    .text.lv_tabview_set_tab_bar_size:00000000 lv_tabview_set_tab_bar_size
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:623    .text.lv_tabview_get_tab_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:629    .text.lv_tabview_get_tab_count:00000000 lv_tabview_get_tab_count
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:659    .text.lv_tabview_get_tab_count:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:664    .text.lv_tabview_set_active:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:670    .text.lv_tabview_set_active:00000000 lv_tabview_set_active
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:931    .text.lv_tabview_set_active:000000e0 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:936    .text.lv_tabview_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:941    .text.lv_tabview_event:00000000 lv_tabview_event
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1008   .text.lv_tabview_event:00000034 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1013   .text.cont_scroll_end_event_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1279   .text.button_clicked_event_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1284   .text.button_clicked_event_cb:00000000 button_clicked_event_cb
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1339   .text.button_clicked_event_cb:00000028 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1344   .text.lv_tabview_add_tab:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1350   .text.lv_tabview_add_tab:00000000 lv_tabview_add_tab
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1493   .text.lv_tabview_add_tab:0000008c $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1500   .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s:1504   .rodata.lv_tabview_class:00000000 $d
 
 UNDEFINED SYMBOLS
 lv_obj_class_create_obj
@@ -3207,7 +3207,7 @@ lv_obj_set_flex_flow
 lv_obj_set_height
 lv_obj_set_flex_grow
 lv_obj_set_scroll_snap_x
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccBm5uex.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc8SLSTg.s 			page 55
 
 
 lv_obj_set_scroll_snap_y

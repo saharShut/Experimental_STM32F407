@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   28:Lib/lvgl/src/widgets/roller/lv_roller.c ****  *      TYPEDEFS
   29:Lib/lvgl/src/widgets/roller/lv_roller.c ****  **********************/
   30:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 2
 
 
   31:Lib/lvgl/src/widgets/roller/lv_roller.c **** /**********************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   85:Lib/lvgl/src/widgets/roller/lv_roller.c **** }
   86:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
   87:Lib/lvgl/src/widgets/roller/lv_roller.c **** /*=====================
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 3
 
 
   88:Lib/lvgl/src/widgets/roller/lv_roller.c ****  * Setter functions
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  142:Lib/lvgl/src/widgets/roller/lv_roller.c ****     /*If the selected text has larger font the label needs some extra draw padding to draw it.*/
  143:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_obj_refresh_ext_draw_size(label);
  144:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 4
 
 
  145:Lib/lvgl/src/widgets/roller/lv_roller.c **** }
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  199:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_roller_t * roller = (lv_roller_t *)obj;
  200:Lib/lvgl/src/widgets/roller/lv_roller.c ****     if(roller->mode == LV_ROLLER_MODE_INFINITE) {
  201:Lib/lvgl/src/widgets/roller/lv_roller.c ****         uint32_t real_id_cnt = roller->option_cnt / roller->inf_page_cnt;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 5
 
 
  202:Lib/lvgl/src/widgets/roller/lv_roller.c ****         return roller->sel_opt_id % real_id_cnt;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  256:Lib/lvgl/src/widgets/roller/lv_roller.c ****     else {
  257:Lib/lvgl/src/widgets/roller/lv_roller.c ****         return roller->option_cnt;
  258:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 6
 
 
  259:Lib/lvgl/src/widgets/roller/lv_roller.c **** }
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  313:Lib/lvgl/src/widgets/roller/lv_roller.c ****         refr_position(obj, LV_ANIM_OFF);
  314:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
  315:Lib/lvgl/src/widgets/roller/lv_roller.c ****     else if(code == LV_EVENT_PRESSED) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 7
 
 
  316:Lib/lvgl/src/widgets/roller/lv_roller.c ****         roller->moved = 0;
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  370:Lib/lvgl/src/widgets/roller/lv_roller.c ****                 uint32_t ori_id = roller->sel_opt_id_ori; /*lv_roller_set_selected will overwrite t
  371:Lib/lvgl/src/widgets/roller/lv_roller.c ****                 lv_roller_set_selected(obj, roller->sel_opt_id + 1, LV_ANIM_ON);
  372:Lib/lvgl/src/widgets/roller/lv_roller.c ****                 roller->sel_opt_id_ori = ori_id;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 8
 
 
  373:Lib/lvgl/src/widgets/roller/lv_roller.c ****             }
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  427:Lib/lvgl/src/widgets/roller/lv_roller.c ****     if(code == LV_EVENT_DRAW_MAIN) {
  428:Lib/lvgl/src/widgets/roller/lv_roller.c ****         /*Draw the selected rectangle*/
  429:Lib/lvgl/src/widgets/roller/lv_roller.c ****         lv_layer_t * layer = lv_event_get_layer(e);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 9
 
 
  430:Lib/lvgl/src/widgets/roller/lv_roller.c ****         lv_area_t sel_area;
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  484:Lib/lvgl/src/widgets/roller/lv_roller.c ****             label_sel_area.x2 = obj->coords.x2 - pright - bwidth;
  485:Lib/lvgl/src/widgets/roller/lv_roller.c ****             label_sel_area.y2 = label_sel_area.y1 + res_p.y;
  486:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 10
 
 
  487:Lib/lvgl/src/widgets/roller/lv_roller.c ****             label_dsc.flag |= LV_TEXT_FLAG_EXPAND;
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  541:Lib/lvgl/src/widgets/roller/lv_roller.c ****         lv_draw_label(layer, &label_draw_dsc, &label_obj->coords);
  542:Lib/lvgl/src/widgets/roller/lv_roller.c ****         layer->_clip_area = clip_area_ori2;
  543:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 11
 
 
  544:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  598:Lib/lvgl/src/widgets/roller/lv_roller.c ****     const int32_t font_h = lv_font_get_line_height(font);
  599:Lib/lvgl/src/widgets/roller/lv_roller.c ****     const int32_t h = lv_obj_get_content_height(obj);
  600:Lib/lvgl/src/widgets/roller/lv_roller.c ****     uint32_t anim_time = lv_obj_get_style_anim_duration(obj, LV_PART_MAIN);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 12
 
 
  601:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  655:Lib/lvgl/src/widgets/roller/lv_roller.c ****         int16_t new_opt  = -1;
  656:Lib/lvgl/src/widgets/roller/lv_roller.c ****         if(roller->moved == 0) {
  657:Lib/lvgl/src/widgets/roller/lv_roller.c ****             new_opt = 0;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 13
 
 
  658:Lib/lvgl/src/widgets/roller/lv_roller.c ****             lv_point_t p;
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  712:Lib/lvgl/src/widgets/roller/lv_roller.c ****     uint32_t id  = roller->sel_opt_id; /*Just to use uint32_t in event data*/
  713:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_result_t res = lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, &id);
  714:Lib/lvgl/src/widgets/roller/lv_roller.c ****     return res;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 14
 
 
  715:Lib/lvgl/src/widgets/roller/lv_roller.c **** }
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  769:Lib/lvgl/src/widgets/roller/lv_roller.c ****     inf_normalize(obj);
  770:Lib/lvgl/src/widgets/roller/lv_roller.c **** }
  771:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 15
 
 
  772:Lib/lvgl/src/widgets/roller/lv_roller.c **** static void set_y_anim(void * obj, int32_t v)
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   25:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** /**********************
   26:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  *      TYPEDEFS
   27:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  **********************/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 16
 
 
   28:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** /*Can't include lv_obj.h because it includes this header file*/
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   82:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** /**
   83:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * Add a style to an object.
   84:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * @param obj       pointer to an object
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 17
 
 
   85:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * @param style     pointer to a style to add
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  139:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * Enable or disable automatic style refreshing when a new style is added/removed to/from an object
  140:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * or any other style change happens.
  141:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * @param en        true: enable refreshing; false: disable refreshing
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 18
 
 
  142:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  */
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  196:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * @param part
  197:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * @param prev_state
  198:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * @param new_state
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 19
 
 
  199:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****  * @param tr
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  253:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** }
  254:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** 
  255:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** static inline void lv_obj_set_style_pad_ver(lv_obj_t * obj, int32_t value, lv_style_selector_t sele
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 20
 
 
  256:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** {
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  310:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** {
  311:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****     int32_t padding = lv_obj_get_style_pad_right(obj, part);
  312:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****     int32_t border_width = lv_obj_get_style_border_width(obj, part);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 21
 
 
  313:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h ****     lv_border_side_t border_side = lv_obj_get_style_border_side(obj, part);
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   13:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** #include "../misc/lv_style.h"
   14:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** #include "../core/lv_obj_style.h"
   15:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 22
 
 
   16:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_width(const lv_obj_t * obj, uint32_t part)
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   70:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** static inline lv_align_t lv_obj_get_style_align(const lv_obj_t * obj, uint32_t part)
   71:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** {
   72:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_ALIGN);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 23
 
 
   73:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (lv_align_t)v.num;
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   96              	.L3:
  339:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style.h **** }
   97              		.loc 2 339 1 view .LVU16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 24
 
 
   98 0012 03B0     		add	sp, sp, #12
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  144              	.LBE91:
  145              	.LBE90:
  146              		.loc 2 343 13 view .LVU27
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 25
 
 
  147 000c 00B2     		sxth	r0, r0
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  781:Lib/lvgl/src/widgets/roller/lv_roller.c ****     int32_t scale_y = 256;
  196              		.loc 1 781 5 view .LVU36
  782:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_obj_t * parent = roller;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 26
 
 
  197              		.loc 1 782 5 view .LVU37
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  239 002c FFF7FEFF 		bl	lv_obj_get_style_transform_scale_x_safe
  240              	.LVL21:
  241 0030 0546     		mov	r5, r0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 27
 
 
  242              	.LVL22:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  794:Lib/lvgl/src/widgets/roller/lv_roller.c ****     scale_y = 256 * 256 / scale_y;
  287              		.loc 1 794 5 is_stmt 1 view .LVU71
  795:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_point_transform(vect, -angle, scale_x, scale_y, &pivot, false);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 28
 
 
  288              		.loc 1 795 5 view .LVU72
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  338              		.loc 1 751 1 view .LVU82
  339 0008 08BD     		pop	{r3, pc}
  340              		.cfi_endproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 29
 
 
  341              	.LFE250:
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  126:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_TRANSFORM_PIVOT_Y);
  127:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  128:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 30
 
 
  129:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** 
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  183:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** 
  184:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** static inline int32_t lv_obj_get_style_margin_bottom(const lv_obj_t * obj, uint32_t part)
  185:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 31
 
 
  186:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_MARGIN_BOTTOM);
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  240:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** {
  241:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_BG_MAIN_STOP);
  242:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 32
 
 
  243:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** }
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  297:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
  298:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** }
  299:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 33
 
 
  300:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** static inline bool lv_obj_get_style_bg_image_tiled(const lv_obj_t * obj, uint32_t part)
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  354:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** 
  355:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_outline_color_filtered(const lv_obj_t * obj, uint32_t par
  356:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 34
 
 
  357:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  411:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_shadow_opa(const lv_obj_t * obj, uint32_t part)
  412:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** {
  413:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_OPA);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 35
 
 
  414:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  468:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_LINE_COLOR);
  469:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return v.color;
  470:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 36
 
 
  471:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** 
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  525:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** 
  526:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** static inline lv_color_t lv_obj_get_style_text_color_filtered(const lv_obj_t * obj, uint32_t part)
  527:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 37
 
 
  528:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = _lv_obj_style_apply_color_filter(obj, part, lv_obj_get_style_prop(obj, par
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  414              		.loc 3 546 26 view .LVU101
  415 002c 0590     		str	r0, [sp, #20]
  547:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 38
 
 
  416              		.loc 3 547 5 is_stmt 1 view .LVU102
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  460              		.loc 1 756 30 view .LVU113
  461 0052 0020     		movs	r0, #0
  462              	.LVL55:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 39
 
 
  756:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  726:Lib/lvgl/src/widgets/roller/lv_roller.c ****         roller->sel_opt_id = roller->sel_opt_id % real_id_cnt;
  509              		.loc 1 726 18 view .LVU124
  510 0016 B1FBF2F1 		udiv	r1, r1, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 40
 
 
  511              	.LVL57:
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  547              		.loc 3 540 26 is_stmt 0 view .LVU142
  548 003e 5A22     		movs	r2, #90
  549 0040 0021     		movs	r1, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 41
 
 
  550              	.LVL60:
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
    5:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h **** 
    6:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h **** #ifndef LV_FONT_H
    7:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h **** #define LV_FONT_H
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 42
 
 
    8:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h **** 
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   62:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h ****     LV_FONT_SUBPX_HOR,
   63:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h ****     LV_FONT_SUBPX_VER,
   64:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h ****     LV_FONT_SUBPX_BOTH,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 43
 
 
   65:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h **** };
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  119:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h ****  * @return pointer to the glyph's data. It can be a draw buffer for bitmap fonts or an image source
  120:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h ****  */
  121:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h **** const void * lv_font_get_glyph_bitmap(lv_font_glyph_dsc_t * g_dsc, uint32_t letter,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 44
 
 
  122:Lib/lvgl/src/widgets/roller/../../core/../misc/../font/lv_font.h ****                                       lv_draw_buf_t * draw_buf);
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  739:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  607              		.loc 1 739 28 is_stmt 0 view .LVU163
  608 0064 2046     		mov	r0, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 45
 
 
  609              	.LVL70:
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  648              	.LFE249:
  650              		.section	.text.scroll_anim_completed_cb,"ax",%progbits
  651              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 46
 
 
  652              		.syntax unified
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  700              		.cfi_def_cfa_offset 32
  701              		.cfi_offset 4, -32
  702              		.cfi_offset 5, -28
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 47
 
 
  703              		.cfi_offset 6, -24
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  746              	.LVL87:
  596:Lib/lvgl/src/widgets/roller/lv_roller.c ****     const int32_t line_space = lv_obj_get_style_text_line_space(obj, LV_PART_MAIN);
  747              		.loc 1 596 5 view .LVU199
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 48
 
 
  748              	.LBB106:
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  790              		.loc 4 150 23 view .LVU213
  791              	.LBB111:
  792              		.loc 4 152 5 view .LVU214
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 49
 
 
  793              		.loc 4 152 16 is_stmt 0 view .LVU215
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  586:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** static inline lv_opa_t lv_obj_get_style_opa_layered(const lv_obj_t * obj, uint32_t part)
  587:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** {
  588:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     lv_style_value_t v = lv_obj_get_style_prop(obj, part, LV_STYLE_OPA_LAYERED);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 50
 
 
  589:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (lv_opa_t)v.num;
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  836 006a 4046     		mov	r0, r8
  837              	.LVL100:
  605:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 51
 
 
  838              		.loc 1 605 9 is_stmt 0 view .LVU231
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  876 0090 FFF7FEFF 		bl	lv_anim_delete
  877              	.LVL108:
  617:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 52
 
 
  878              		.loc 1 617 9 view .LVU248
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  921              		.loc 1 585 17 view .LVU259
  922 00bc FFF7FEFF 		bl	lv_obj_get_content_width
  923              	.LVL117:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 53
 
 
  924 00c0 0446     		mov	r4, r0
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   27:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****  *      DEFINES
   28:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****  *********************/
   29:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 54
 
 
   30:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** #define LV_ANIM_REPEAT_INFINITE      0xFFFF
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
   84:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****  **********************/
   85:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** 
   86:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** /** Can be used to indicate if animations are enabled or disabled in a case*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 55
 
 
   87:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** typedef enum {
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  141:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****     lv_anim_deleted_cb_t deleted_cb;     /**< Call it when the animation is deleted*/
  142:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****     lv_anim_get_value_cb_t get_value_cb; /**< Get the current value in relative mode*/
  143:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****     void * user_data;                    /**< Custom user data*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 56
 
 
  144:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****     lv_anim_path_cb_t path_cb;         /**< Describe the path (curve) of animations*/
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  946              		.loc 5 197 20 view .LVU266
  947              	.LBB116:
  198:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 57
 
 
  199:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****     a->var = var;
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  225:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****  * Legacy `lv_anim_set_time` API will be removed soon, use `lv_anim_set_duration` instead.
  226:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****  */
  227:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_time(lv_anim_t * a, uint32_t duration)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 58
 
 
  228:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** {
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  221:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** }
  999              		.loc 5 221 17 view .LVU288
  1000              	.LBE122:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 59
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 59
 
 
  1001              	.LBE121:
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  302:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****  * @param completed_cb  a function call when the animation is fully completed
  303:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h ****  */
  304:Lib/lvgl/src/widgets/roller/../../core/../misc/lv_anim.h **** static inline void lv_anim_set_completed_cb(lv_anim_t * a, lv_anim_completed_cb_t completed_cb)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 60
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 60
 
 
  1005              		.loc 5 304 20 view .LVU290
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1052              		.loc 1 549 1 view -0
  1053              		.cfi_startproc
  1054              		@ args = 0, pretend = 0, frame = 24
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 61
 
 
  1055              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1097              		.loc 3 540 5 view .LVU312
  540:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (const lv_font_t *)v.ptr;
  1098              		.loc 3 540 26 is_stmt 0 view .LVU313
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 62
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 62
 
 
  1099 0014 5A22     		movs	r2, #90
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1142              		.loc 3 552 26 is_stmt 0 view .LVU330
  1143 0026 5C22     		movs	r2, #92
  1144 0028 0021     		movs	r1, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 63
 
 
  1145 002a 3046     		mov	r0, r6
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  557:Lib/lvgl/src/widgets/roller/lv_roller.c ****     sel_area->y2 = sel_area->y1 + d;
  1183              		.loc 1 557 18 view .LVU347
  1184 0054 7B60     		str	r3, [r7, #4]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 64
 
 
  558:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_area_t roller_coords;
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1227              		@ args = 0, pretend = 0, frame = 184
  1228              		@ frame_needed = 0, uses_anonymous_args = 0
  424:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_event_code_t code = lv_event_get_code(e);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 65
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 65
 
 
  1229              		.loc 1 424 1 is_stmt 0 view .LVU362
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1273              		.cfi_def_cfa_offset 32
  1274              		@ sp needed
  1275 0020 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 66
 
 
  1276              	.LVL154:
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  439:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  1320              		.loc 1 439 9 view .LVU383
  439:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 67
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 67
 
 
  1321              		.loc 1 439 30 is_stmt 0 view .LVU384
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  452:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  1362              		.loc 1 452 13 is_stmt 1 view .LVU398
  452:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 68
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 68
 
 
  1363              		.loc 1 452 32 is_stmt 0 view .LVU399
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1406              	.LVL180:
  461:Lib/lvgl/src/widgets/roller/lv_roller.c ****                                                        obj->coords.y1); /*label offset from the mid
  1407              		.loc 1 461 65 view .LVU411
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 69
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 69
 
 
  1408 00c6 4510     		asrs	r5, r0, #1
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1447 00ec 1E9B     		ldr	r3, [sp, #120]
  468:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  1448              		.loc 1 468 43 view .LVU427
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 70
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 70
 
 
  1449 00ee DB68     		ldr	r3, [r3, #12]
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1485              		.loc 3 327 26 is_stmt 0 view .LVU445
  1486 0110 3022     		movs	r2, #48
  1487 0112 0021     		movs	r1, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 71
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 71
 
 
  1488 0114 3046     		mov	r0, r6
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1528              	.LBB147:
  162:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  1529              		.loc 3 162 5 view .LVU460
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 72
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 72
 
 
  162:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1566              		.loc 1 485 13 is_stmt 1 view .LVU478
  485:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  1567              		.loc 1 485 58 is_stmt 0 view .LVU479
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 73
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 73
 
 
  1568 014c 059B     		ldr	r3, [sp, #20]
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1606 017e 16A9     		add	r1, sp, #88
  1607 0180 2046     		mov	r0, r4
  1608 0182 FFF7FEFF 		bl	lv_draw_label
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 74
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 74
 
 
  1609              	.LVL206:
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  502:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_draw_label_dsc_t label_draw_dsc;
  1656              		.loc 1 502 25 is_stmt 0 view .LVU505
  1657 000e FFF7FEFF 		bl	lv_obj_get_parent
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 75
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 75
 
 
  1658              	.LVL210:
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1698              		.loc 1 514 7 view .LVU519
  1699 0048 10B9     		cbnz	r0, .L57
  1700              	.LVL219:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 76
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 76
 
 
  1701              	.L51:
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  524:Lib/lvgl/src/widgets/roller/lv_roller.c ****     if(_lv_area_intersect(&clip2, &layer->_clip_area, &clip2)) {
  1740              		.loc 1 524 5 is_stmt 1 view .LVU535
  524:Lib/lvgl/src/widgets/roller/lv_roller.c ****     if(_lv_area_intersect(&clip2, &layer->_clip_area, &clip2)) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 77
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 77
 
 
  1741              		.loc 1 524 24 is_stmt 0 view .LVU536
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1777 008c 05AA     		add	r2, sp, #20
  1778 008e 2946     		mov	r1, r5
  1779 0090 1046     		mov	r0, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 78
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 78
 
 
  1780 0092 FFF7FEFF 		bl	_lv_area_intersect
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1821              		.loc 1 530 9 view .LVU567
  530:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
  1822              		.loc 1 530 27 is_stmt 0 view .LVU568
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 79
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 79
 
 
  1823 00cc 98E80F00 		ldm	r8, {r0, r1, r2, r3}
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1866              		.align	1
  1867              		.syntax unified
  1868              		.thumb
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 80
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 80
 
 
  1869              		.thumb_func
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  403:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
  1911              		.loc 1 403 9 is_stmt 1 view .LVU594
  403:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 81
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 81
 
 
  1912              		.loc 1 403 11 is_stmt 0 view .LVU595
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  410:Lib/lvgl/src/widgets/roller/lv_roller.c ****         int32_t sel_w = get_selected_label_width(obj);
  1953              		.loc 1 410 26 is_stmt 0 view .LVU609
  1954 003a 3046     		mov	r0, r6
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 82
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 82
 
 
  1955              	.LVL246:
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  1996              	.LVL256:
  1997              	.L68:
  419:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 83
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 83
 
 
  1998              		.loc 1 419 9 is_stmt 1 view .LVU623
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2044 000a 0446     		mov	r4, r0
  2045              	.LVL262:
   83:Lib/lvgl/src/widgets/roller/lv_roller.c ****     return obj;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 84
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 84
 
 
  2046              		.loc 1 83 5 is_stmt 1 view .LVU634
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2092              		.cfi_offset 14, -4
  2093 0006 83B0     		sub	sp, sp, #12
  2094              	.LCFI37:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 85
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 85
 
 
  2095              		.cfi_def_cfa_offset 40
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2134              		.cfi_restore 9
  2135              		.cfi_restore 14
   94:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 86
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 86
 
 
  2136              		.loc 1 94 5 is_stmt 1 discriminator 1 view .LVU660
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2175              		.loc 1 108 11 is_stmt 0 view .LVU675
  2176 0032 E36A     		ldr	r3, [r4, #44]
  2177              	.LVL273:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 87
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 87
 
 
  108:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  115:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  2219              		.loc 1 115 22 is_stmt 0 view .LVU689
  2220 005e 94F83C30 		ldrb	r3, [r4, #60]	@ zero_extendqisi2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 88
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 88
 
 
  2221 0062 43F00103 		orr	r3, r3, #1
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2263              		.loc 3 546 5 view .LVU704
  546:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h ****     return (int32_t)v.num;
  2264              		.loc 3 546 26 is_stmt 0 view .LVU705
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 89
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 89
 
 
  2265 007c 5B22     		movs	r2, #91
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2305              		.loc 1 120 41 is_stmt 1 discriminator 1 view .LVU719
  120:Lib/lvgl/src/widgets/roller/lv_roller.c ****         LV_LOG_INFO("Using %" LV_PRIu32 " pages to make the roller look infinite", roller->inf_page
  2306              		.loc 1 120 61 is_stmt 0 discriminator 1 view .LVU720
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 90
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 90
 
 
  2307 00ac 0133     		adds	r3, r3, #1
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2345              		.loc 1 128 36 is_stmt 0 discriminator 3 view .LVU736
  2346 00d4 0135     		adds	r5, r5, #1
  2347              	.LVL295:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 91
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 91
 
 
  128:Lib/lvgl/src/widgets/roller/lv_roller.c ****         }
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  134:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  2386              		.loc 1 134 71 view .LVU753
  2387 0106 E16A     		ldr	r1, [r4, #44]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 92
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 92
 
 
  134:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2431              		.cfi_offset 14, -4
  2432 0002 0C46     		mov	r4, r1
  267:Lib/lvgl/src/widgets/roller/lv_roller.c ****     lv_roller_t * roller = (lv_roller_t *)obj;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 93
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 93
 
 
  2433              		.loc 1 267 5 is_stmt 1 view .LVU762
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2469              		.loc 1 279 24 is_stmt 0 view .LVU780
  2470 002a 2146     		mov	r1, r4
  2471 002c 0548     		ldr	r0, .L93
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 94
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 94
 
 
  2472 002e FFF7FEFF 		bl	lv_obj_class_create_obj
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2519              		.cfi_offset 14, -4
  2520 0002 0B46     		mov	r3, r1
  2521 0004 1146     		mov	r1, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 95
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 95
 
 
  2522              	.LVL311:
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2558              	.LVL315:
  165:Lib/lvgl/src/widgets/roller/lv_roller.c ****             /*Huge jump? Probably from last to first or first to last option.*/
  2559              		.loc 1 165 13 is_stmt 1 view .LVU808
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 96
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 96
 
 
  165:Lib/lvgl/src/widgets/roller/lv_roller.c ****             /*Huge jump? Probably from last to first or first to last option.*/
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2598 004e 00D8     		bhi	.L101
  175:Lib/lvgl/src/widgets/roller/lv_roller.c ****     roller->sel_opt_id_ori = roller->sel_opt_id;
  2599              		.loc 1 175 69 discriminator 1 view .LVU825
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 97
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 97
 
 
  2600 0050 531E     		subs	r3, r2, #1
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2645              		.loc 1 633 1 is_stmt 0 view .LVU836
  2646 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
  2647              	.LCFI44:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 98
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 98
 
 
  2648              		.cfi_def_cfa_offset 28
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  643:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  2689              		.loc 1 643 9 is_stmt 1 view .LVU850
  643:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 99
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 99
 
 
  2690              		.loc 1 643 40 is_stmt 0 view .LVU851
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2729 004a B269     		ldr	r2, [r6, #24]
  660:Lib/lvgl/src/widgets/roller/lv_roller.c ****             p.x -= label->coords.x1;
  2730              		.loc 1 660 17 view .LVU867
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 100
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 100
 
 
  2731 004c 029B     		ldr	r3, [sp, #8]
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2770              	.LVL340:
  667:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  2771              		.loc 1 667 22 view .LVU883
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 101
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 101
 
 
  2772 0074 A046     		mov	r8, r4
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2814 009a 53D1     		bne	.L109
  2815 009c CCE7     		b	.L108
  2816              	.LVL350:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 102
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 102
 
 
  2817              	.L112:
@@ -6118,7 +6118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2858              	.L110:
  674:Lib/lvgl/src/widgets/roller/lv_roller.c ****                 i_prev = i;
  2859              		.loc 1 674 65 discriminator 2 view .LVU909
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 103
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 103
 
 
  2860              	.LBE165:
@@ -6178,7 +6178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2901              	.LBE170:
  682:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  2902              		.loc 1 682 13 is_stmt 1 view .LVU923
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 104
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 104
 
 
  2903              	.LBB172:
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2944              	.LVL367:
  690:Lib/lvgl/src/widgets/roller/lv_roller.c ****             int32_t sum = 0;
  2945              		.loc 1 690 13 view .LVU940
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 105
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 105
 
 
  690:Lib/lvgl/src/widgets/roller/lv_roller.c ****             int32_t sum = 0;
@@ -6298,7 +6298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  2983              		.loc 1 698 45 is_stmt 0 view .LVU957
  2984 0126 B369     		ldr	r3, [r6, #24]
  698:Lib/lvgl/src/widgets/roller/lv_roller.c ****             int32_t id = (mid - label_y1) / label_unit;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 106
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 106
 
 
  2985              		.loc 1 698 21 view .LVU958
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3023              		.loc 1 707 11 is_stmt 0 view .LVU974
  3024 0140 002C     		cmp	r4, #0
  3025 0142 09DA     		bge	.L123
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 107
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 107
 
 
  3026              	.LVL381:
@@ -6418,7 +6418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3069              	.LVL386:
  635:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  3070              		.loc 1 635 30 view .LVU986
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 108
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 108
 
 
  3071 0166 F4E7     		b	.L105
@@ -6478,7 +6478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3118              	.LVL390:
  3119              	.L126:
  390:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 109
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 109
 
 
  3120              		.loc 1 390 1 view .LVU996
@@ -6538,7 +6538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3164 003c 73010000 		.word	.L137+1
  3165 0040 11000000 		.word	.L126+1
  3166 0044 11000000 		.word	.L126+1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 110
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 110
 
 
  3167 0048 11000000 		.word	.L126+1
@@ -6598,7 +6598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3218              	.LVL401:
  303:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
  3219              		.loc 1 303 9 is_stmt 1 view .LVU1010
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 111
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 111
 
 
  303:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
@@ -6658,7 +6658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  313:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
  3263              		.loc 1 313 9 is_stmt 0 view .LVU1022
  3264 011a 79E7     		b	.L126
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 112
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 112
 
 
  3265              	.LVL411:
@@ -6718,7 +6718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3305              		.loc 1 326 13 is_stmt 1 view .LVU1036
  326:Lib/lvgl/src/widgets/roller/lv_roller.c ****             lv_obj_set_y(label, lv_obj_get_y(label) + p.y);
  3306              		.loc 1 326 32 is_stmt 0 view .LVU1037
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 113
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 113
 
 
  3307 014e 3046     		mov	r0, r6
@@ -6778,7 +6778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  336:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  3349              		.loc 1 336 56 is_stmt 0 view .LVU1050
  3350 017e FFF7FEFF 		bl	lv_indev_active
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 114
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 114
 
 
  3351              	.LVL427:
@@ -6838,7 +6838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3388 01a0 736B     		ldr	r3, [r6, #52]
  347:Lib/lvgl/src/widgets/roller/lv_roller.c ****                     roller->sel_opt_id = roller->sel_opt_id_ori;
  3389              		.loc 1 347 19 view .LVU1068
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 115
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 115
 
 
  3390 01a2 9A42     		cmp	r2, r3
@@ -6898,7 +6898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3429              		.loc 1 367 22 is_stmt 0 view .LVU1083
  3430 01c8 2046     		mov	r0, r4
  3431              	.LVL436:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 116
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 116
 
 
  367:Lib/lvgl/src/widgets/roller/lv_roller.c ****         if(c == LV_KEY_RIGHT || c == LV_KEY_DOWN) {
@@ -6958,7 +6958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3470 01f4 7463     		str	r4, [r6, #52]
  3471 01f6 0BE7     		b	.L126
  3472              	.LVL441:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 117
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 117
 
 
  3473              	.L151:
@@ -7018,7 +7018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  385:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
  3512              		.loc 1 385 9 is_stmt 1 view .LVU1115
  3513 0216 FFF7FEFF 		bl	lv_obj_refresh_ext_draw_size
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 118
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 118
 
 
  3514              	.LVL447:
@@ -7078,7 +7078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  183:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  3564              		.loc 1 183 5 view .LVU1122
  183:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 119
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 119
 
 
  3565              		.loc 1 183 5 view .LVU1123
@@ -7138,7 +7138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3605              	.LVL458:
  553:Lib/lvgl/src/widgets/roller/../../core/lv_obj_style_gen.h **** }
  3606              		.loc 3 553 5 is_stmt 0 view .LVU1138
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 120
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 120
 
 
  3607              	.LBE190:
@@ -7198,7 +7198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  188:Lib/lvgl/src/widgets/roller/lv_roller.c **** }
  3649              		.loc 1 188 5 view .LVU1154
  3650 003a FFF7FEFF 		bl	lv_obj_set_height
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 121
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 121
 
 
  3651              	.LVL464:
@@ -7258,7 +7258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3693              		.loc 1 201 18 view .LVU1168
  3694 000e B3FBF2F3 		udiv	r3, r3, r2
  3695              	.LVL466:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 122
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 122
 
 
  202:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
@@ -7318,7 +7318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3743 0006 1546     		mov	r5, r2
  211:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  3744              		.loc 1 211 5 is_stmt 1 view .LVU1178
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 123
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 123
 
 
  211:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
@@ -7378,7 +7378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3781 0020 1FD2     		bcs	.L168
  220:Lib/lvgl/src/widgets/roller/lv_roller.c ****         if(opt_txt[i] == '\n') line++;
  3782              		.loc 1 220 45 is_stmt 0 discriminator 3 view .LVU1197
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 124
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 124
 
 
  3783 0022 3A6B     		ldr	r2, [r7, #48]
@@ -7438,7 +7438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3821              		.loc 1 225 28 discriminator 3 view .LVU1213
  3822 004a BEF10A0F 		cmp	lr, #10
  3823 004e 04D0     		beq	.L165
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 125
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 125
 
 
  226:Lib/lvgl/src/widgets/roller/lv_roller.c ****             LV_LOG_WARN("the buffer was too small");
@@ -7498,7 +7498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3869              		.cfi_offset 14, -4
  243:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
  3870              		.loc 1 243 5 is_stmt 1 view .LVU1225
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 126
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 126
 
 
  243:Lib/lvgl/src/widgets/roller/lv_roller.c **** 
@@ -7558,7 +7558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3911              		.loc 1 254 22 is_stmt 0 view .LVU1241
  3912 000a C36A     		ldr	r3, [r0, #44]
  254:Lib/lvgl/src/widgets/roller/lv_roller.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 127
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 127
 
 
  3913              		.loc 1 254 43 view .LVU1242
@@ -7618,7 +7618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  3962 0008 00000000 		.space	4
  3963 000c 00000000 		.word	lv_roller_event
  3964 0010 00000000 		.space	4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 128
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 128
 
 
  3965 0014 10000000 		.word	.LC2
@@ -7662,76 +7662,76 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 1
  4003              		.file 35 "Lib/lvgl/src/widgets/roller/../../core/lv_obj_draw.h"
  4004              		.file 36 "Lib/lvgl/src/widgets/roller/../../core/lv_obj_event.h"
  4005              		.file 37 "Lib/lvgl/src/widgets/roller/../../core/lv_obj_tree.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 129
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 129
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_roller.c
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:21     .text.set_y_anim:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:26     .text.set_y_anim:00000000 set_y_anim
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:48     .text.lv_obj_get_style_transform_scale_x_safe:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:53     .text.lv_obj_get_style_transform_scale_x_safe:00000000 lv_obj_get_style_transform_scale_x_safe
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:108    .text.lv_obj_get_style_transform_scale_y_safe:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:113    .text.lv_obj_get_style_transform_scale_y_safe:00000000 lv_obj_get_style_transform_scale_y_safe
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:166    .text.transform_vect_recursive:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:171    .text.transform_vect_recursive:00000000 transform_vect_recursive
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:315    .text.get_label:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:320    .text.get_label:00000000 get_label
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:344    .text.get_selected_label_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:349    .text.get_selected_label_width:00000000 get_selected_label_width
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:469    .text.inf_normalize:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:474    .text.inf_normalize:00000000 inf_normalize
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:651    .text.scroll_anim_completed_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:656    .text.scroll_anim_completed_cb:00000000 scroll_anim_completed_cb
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:685    .text.refr_position:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:690    .text.refr_position:00000000 refr_position
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1036   .text.refr_position:000000fc $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1044   .text.get_sel_area:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1049   .text.get_sel_area:00000000 get_sel_area
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1217   .text.draw_main:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1222   .text.draw_main:00000000 draw_main
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1622   .text.draw_label:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1627   .text.draw_label:00000000 draw_label
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1866   .text.lv_roller_label_event:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:1871   .text.lv_roller_label_event:00000000 lv_roller_label_event
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2008   .text.lv_roller_label_event:00000070 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3939   .rodata.lv_roller_label_class:00000000 lv_roller_label_class
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2013   .text.lv_roller_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2019   .text.lv_roller_create:00000000 lv_roller_create
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2058   .text.lv_roller_create:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3959   .rodata.lv_roller_class:00000000 lv_roller_class
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2063   .text.lv_roller_set_options:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2069   .text.lv_roller_set_options:00000000 lv_roller_set_options
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2407   .rodata.lv_roller_constructor.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2412   .text.lv_roller_constructor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2417   .text.lv_roller_constructor:00000000 lv_roller_constructor
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2493   .text.lv_roller_constructor:00000044 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2499   .text.lv_roller_set_selected:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2505   .text.lv_roller_set_selected:00000000 lv_roller_set_selected
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2633   .text.release_handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:2638   .text.release_handler:00000000 release_handler
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3075   .text.release_handler:00000168 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3081   .text.lv_roller_event:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3086   .text.lv_roller_event:00000000 lv_roller_event
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3162   .text.lv_roller_event:00000034 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3207   .text.lv_roller_event:000000e4 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3530   .text.lv_roller_event:00000224 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3536   .text.lv_roller_set_visible_row_count:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3542   .text.lv_roller_set_visible_row_count:00000000 lv_roller_set_visible_row_count
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3663   .text.lv_roller_get_selected:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3669   .text.lv_roller_get_selected:00000000 lv_roller_get_selected
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3718   .text.lv_roller_get_selected_str:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3724   .text.lv_roller_get_selected_str:00000000 lv_roller_get_selected_str
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 130
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:21     .text.set_y_anim:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:26     .text.set_y_anim:00000000 set_y_anim
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:48     .text.lv_obj_get_style_transform_scale_x_safe:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:53     .text.lv_obj_get_style_transform_scale_x_safe:00000000 lv_obj_get_style_transform_scale_x_safe
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:108    .text.lv_obj_get_style_transform_scale_y_safe:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:113    .text.lv_obj_get_style_transform_scale_y_safe:00000000 lv_obj_get_style_transform_scale_y_safe
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:166    .text.transform_vect_recursive:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:171    .text.transform_vect_recursive:00000000 transform_vect_recursive
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:315    .text.get_label:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:320    .text.get_label:00000000 get_label
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:344    .text.get_selected_label_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:349    .text.get_selected_label_width:00000000 get_selected_label_width
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:469    .text.inf_normalize:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:474    .text.inf_normalize:00000000 inf_normalize
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:651    .text.scroll_anim_completed_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:656    .text.scroll_anim_completed_cb:00000000 scroll_anim_completed_cb
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:685    .text.refr_position:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:690    .text.refr_position:00000000 refr_position
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1036   .text.refr_position:000000fc $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1044   .text.get_sel_area:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1049   .text.get_sel_area:00000000 get_sel_area
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1217   .text.draw_main:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1222   .text.draw_main:00000000 draw_main
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1622   .text.draw_label:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1627   .text.draw_label:00000000 draw_label
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1866   .text.lv_roller_label_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:1871   .text.lv_roller_label_event:00000000 lv_roller_label_event
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2008   .text.lv_roller_label_event:00000070 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3939   .rodata.lv_roller_label_class:00000000 lv_roller_label_class
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2013   .text.lv_roller_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2019   .text.lv_roller_create:00000000 lv_roller_create
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2058   .text.lv_roller_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3959   .rodata.lv_roller_class:00000000 lv_roller_class
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2063   .text.lv_roller_set_options:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2069   .text.lv_roller_set_options:00000000 lv_roller_set_options
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2407   .rodata.lv_roller_constructor.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2412   .text.lv_roller_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2417   .text.lv_roller_constructor:00000000 lv_roller_constructor
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2493   .text.lv_roller_constructor:00000044 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2499   .text.lv_roller_set_selected:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2505   .text.lv_roller_set_selected:00000000 lv_roller_set_selected
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2633   .text.release_handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:2638   .text.release_handler:00000000 release_handler
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3075   .text.release_handler:00000168 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3081   .text.lv_roller_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3086   .text.lv_roller_event:00000000 lv_roller_event
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3162   .text.lv_roller_event:00000034 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3207   .text.lv_roller_event:000000e4 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3530   .text.lv_roller_event:00000224 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3536   .text.lv_roller_set_visible_row_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3542   .text.lv_roller_set_visible_row_count:00000000 lv_roller_set_visible_row_count
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3663   .text.lv_roller_get_selected:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3669   .text.lv_roller_get_selected:00000000 lv_roller_get_selected
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3718   .text.lv_roller_get_selected_str:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3724   .text.lv_roller_get_selected_str:00000000 lv_roller_get_selected_str
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 130
 
 
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3851   .text.lv_roller_get_options:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3857   .text.lv_roller_get_options:00000000 lv_roller_get_options
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3886   .text.lv_roller_get_option_count:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3892   .text.lv_roller_get_option_count:00000000 lv_roller_get_option_count
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3932   .rodata.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3936   .rodata.lv_roller_label_class:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s:3956   .rodata.lv_roller_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3851   .text.lv_roller_get_options:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3857   .text.lv_roller_get_options:00000000 lv_roller_get_options
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3886   .text.lv_roller_get_option_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3892   .text.lv_roller_get_option_count:00000000 lv_roller_get_option_count
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3932   .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3936   .rodata.lv_roller_label_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s:3956   .rodata.lv_roller_class:00000000 $d
 
 UNDEFINED SYMBOLS
 lv_obj_set_y
@@ -7782,7 +7782,7 @@ lv_obj_get_group
 lv_group_get_editing
 lv_group_set_editing
 lv_obj_send_event
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYghWLh.s 			page 131
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccWqGdE8.s 			page 131
 
 
 _lv_text_encoded_next

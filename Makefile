@@ -82,6 +82,7 @@ Lib/lvgl/src/misc/lv_color.c \
 Lib/lvgl/src/misc/lv_utils.c \
 Lib/lvgl/src/misc/lv_palette.c \
 Lib/lvgl/src/misc/lv_math.c \
+Lib/lvgl/src/misc/cache/lv_anim_timeline.c \
 Lib/lvgl/src/misc/cache/lv_cache.c \
 Lib/lvgl/src/misc/cache/lv_cache_entry.c \
 Lib/lvgl/src/core/lv_obj_scroll.c \

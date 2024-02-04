@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
   28:Core/Src/stm32f4xx_hal_msp.c **** /* USER CODE BEGIN TD */
   29:Core/Src/stm32f4xx_hal_msp.c **** 
   30:Core/Src/stm32f4xx_hal_msp.c **** /* USER CODE END TD */
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 2
 
 
   31:Core/Src/stm32f4xx_hal_msp.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
   44 0008 5A6C     		ldr	r2, [r3, #68]
   45 000a 42F48042 		orr	r2, r2, #16384
   46 000e 5A64     		str	r2, [r3, #68]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 3
 
 
   47              		.loc 1 69 3 view .LVU4
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
   79:Core/Src/stm32f4xx_hal_msp.c **** /**
   80:Core/Src/stm32f4xx_hal_msp.c **** * @brief SPI MSP Initialization
   81:Core/Src/stm32f4xx_hal_msp.c **** * This function configures the hardware resources used in this example
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 4
 
 
   82:Core/Src/stm32f4xx_hal_msp.c **** * @param hspi: SPI handle pointer
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
  107:Core/Src/stm32f4xx_hal_msp.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
  108:Core/Src/stm32f4xx_hal_msp.c **** 
  109:Core/Src/stm32f4xx_hal_msp.c ****   /* USER CODE BEGIN SPI1_MspInit 1 */
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 5
 
 
  110:Core/Src/stm32f4xx_hal_msp.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
  158 003c 42F00102 		orr	r2, r2, #1
  159 0040 1A63     		str	r2, [r3, #48]
   96:Core/Src/stm32f4xx_hal_msp.c ****     /**SPI1 GPIO Configuration
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 6
 
 
  160              		.loc 1 96 5 view .LVU31
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
  202              		.section	.text.HAL_SPI_MspDeInit,"ax",%progbits
  203              		.align	1
  204              		.global	HAL_SPI_MspDeInit
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 7
 
 
  205              		.syntax unified
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
  149:Core/Src/stm32f4xx_hal_msp.c **** }
  231              		.loc 1 149 1 view .LVU51
  232 000a 08BD     		pop	{r3, pc}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 8
 
 
  233              	.LVL7:
@@ -457,20 +457,20 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 1
  264              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
  265              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
  266              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f4xx_hal_msp.c
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:21     .text.HAL_MspInit:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:27     .text.HAL_MspInit:00000000 HAL_MspInit
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:80     .text.HAL_MspInit:00000034 $d
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:85     .text.HAL_SPI_MspInit:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:91     .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:197    .text.HAL_SPI_MspInit:00000068 $d
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:203    .text.HAL_SPI_MspDeInit:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:209    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
-C:\Users\Alex\AppData\Local\Temp\ccTuNUjl.s:252    .text.HAL_SPI_MspDeInit:00000020 $d
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:21     .text.HAL_MspInit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:27     .text.HAL_MspInit:00000000 HAL_MspInit
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:80     .text.HAL_MspInit:00000034 $d
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:85     .text.HAL_SPI_MspInit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:91     .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:197    .text.HAL_SPI_MspInit:00000068 $d
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:203    .text.HAL_SPI_MspDeInit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:209    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
+C:\Users\Alex\AppData\Local\Temp\cc5yZSrI.s:252    .text.HAL_SPI_MspDeInit:00000020 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_Init

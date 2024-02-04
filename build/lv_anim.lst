@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
   28:Lib/lvgl/src/misc/lv_anim.c ****  *      TYPEDEFS
   29:Lib/lvgl/src/misc/lv_anim.c ****  **********************/
   30:Lib/lvgl/src/misc/lv_anim.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 2
 
 
   31:Lib/lvgl/src/misc/lv_anim.c **** /**********************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
   85:Lib/lvgl/src/misc/lv_anim.c **** 
   86:Lib/lvgl/src/misc/lv_anim.c **** lv_anim_t * lv_anim_start(const lv_anim_t * a)
   87:Lib/lvgl/src/misc/lv_anim.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 3
 
 
   88:Lib/lvgl/src/misc/lv_anim.c ****     LV_TRACE_ANIM("begin");
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  142:Lib/lvgl/src/misc/lv_anim.c ****     return playtime;
  143:Lib/lvgl/src/misc/lv_anim.c **** }
  144:Lib/lvgl/src/misc/lv_anim.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 4
 
 
  145:Lib/lvgl/src/misc/lv_anim.c **** bool lv_anim_delete(void * var, lv_anim_exec_xcb_t exec_cb)
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  199:Lib/lvgl/src/misc/lv_anim.c ****     speed = (speed + 5) / 10;
  200:Lib/lvgl/src/misc/lv_anim.c ****     min_time = (min_time + 5) / 10;
  201:Lib/lvgl/src/misc/lv_anim.c ****     max_time = (max_time + 5) / 10;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 5
 
 
  202:Lib/lvgl/src/misc/lv_anim.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  256:Lib/lvgl/src/misc/lv_anim.c **** {
  257:Lib/lvgl/src/misc/lv_anim.c ****     /*Calculate the current step*/
  258:Lib/lvgl/src/misc/lv_anim.c ****     int32_t t = lv_map(a->act_time, 0, a->duration, 0, LV_BEZIER_VAL_MAX);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 6
 
 
  259:Lib/lvgl/src/misc/lv_anim.c ****     int32_t diff = (a->end_value - a->start_value);
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  313:Lib/lvgl/src/misc/lv_anim.c **** 
  314:Lib/lvgl/src/misc/lv_anim.c **** int32_t lv_anim_path_custom_bezier3(const lv_anim_t * a)
  315:Lib/lvgl/src/misc/lv_anim.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 7
 
 
  316:Lib/lvgl/src/misc/lv_anim.c ****     const struct _lv_anim_bezier3_para_t * para = &a->parameter.bezier3;
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  370:Lib/lvgl/src/misc/lv_anim.c ****             }
  371:Lib/lvgl/src/misc/lv_anim.c **** 
  372:Lib/lvgl/src/misc/lv_anim.c ****             if(a->act_time >= 0) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 8
 
 
  373:Lib/lvgl/src/misc/lv_anim.c ****                 if(a->act_time > a->duration) a->act_time = a->duration;
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  427:Lib/lvgl/src/misc/lv_anim.c ****         if(a->deleted_cb != NULL) a->deleted_cb(a);
  428:Lib/lvgl/src/misc/lv_anim.c ****         lv_free(a);
  429:Lib/lvgl/src/misc/lv_anim.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 9
 
 
  430:Lib/lvgl/src/misc/lv_anim.c ****     /*If the animation is not deleted then restart it*/
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
   34              		.loc 1 478 5 view .LVU1
   35              		.loc 1 478 7 is_stmt 0 view .LVU2
   36 0000 0028     		cmp	r0, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 10
 
 
   37              		.loc 1 478 7 view .LVU3
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
   83 002e 03EB8303 		add	r3, r3, r3, lsl #2
   84              	.LVL12:
   85              		.loc 1 486 12 view .LVU22
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 11
 
 
   86 0032 5B00     		lsls	r3, r3, #1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  136 0018 E06B     		ldr	r0, [r4, #60]
  137 001a FFF7FEFF 		bl	convert_speed_to_time
  138              	.LVL17:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 12
 
 
  139              		.loc 1 492 26 view .LVU32
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  455:Lib/lvgl/src/misc/lv_anim.c ****         lv_timer_pause(state.timer);
  188              		.loc 1 455 8 is_stmt 0 view .LVU45
  189 000a B830     		adds	r0, r0, #184
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 13
 
 
  190 000c FFF7FEFF 		bl	_lv_ll_get_head
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  233              		.cfi_offset 4, -16
  234              		.cfi_offset 5, -12
  235              		.cfi_offset 6, -8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 14
 
 
  236              		.cfi_offset 14, -4
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  519:Lib/lvgl/src/misc/lv_anim.c ****             /*|| (a->custom_exec_cb && a->custom_exec_cb == a_current->custom_exec_cb)*/)) {
  520:Lib/lvgl/src/misc/lv_anim.c ****             _lv_ll_remove(anim_ll_p, a);
  521:Lib/lvgl/src/misc/lv_anim.c ****             if(a->deleted_cb != NULL) a->deleted_cb(a);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 15
 
 
  522:Lib/lvgl/src/misc/lv_anim.c ****             lv_free(a);
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  516:Lib/lvgl/src/misc/lv_anim.c ****            (a->var == a_current->var) &&
  304              		.loc 1 516 14 discriminator 1 view .LVU74
  305 003c 636B     		ldr	r3, [r4, #52]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 16
 
 
  515:Lib/lvgl/src/misc/lv_anim.c ****            (a->act_time >= 0 || a->early_apply) &&
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  524:Lib/lvgl/src/misc/lv_anim.c **** 
  346              		.loc 1 524 13 view .LVU89
  347 006c FFF7FEFF 		bl	anim_mark_list_change
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 17
 
 
  348              	.LVL38:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  394 000c 09D1     		bne	.L29
  410:Lib/lvgl/src/misc/lv_anim.c ****         a->repeat_cnt--;
  395              		.loc 1 410 33 discriminator 1 view .LVU100
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 18
 
 
  396 000e B0F84420 		ldrh	r2, [r0, #68]
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  434 003c 0BB1     		cbz	r3, .L32
  426:Lib/lvgl/src/misc/lv_anim.c ****         if(a->deleted_cb != NULL) a->deleted_cb(a);
  435              		.loc 1 426 37 is_stmt 1 discriminator 1 view .LVU117
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 19
 
 
  436 003e 2046     		mov	r0, r4
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  474              		.loc 1 436 64 is_stmt 0 discriminator 1 view .LVU133
  475 005e A16B     		ldr	r1, [r4, #56]
  436:Lib/lvgl/src/misc/lv_anim.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 20
 
 
  476              		.loc 1 436 52 discriminator 1 view .LVU134
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  512              		.loc 1 447 34 view .LVU152
  513              	.LBE10:
  450:Lib/lvgl/src/misc/lv_anim.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 21
 
 
  514              		.loc 1 450 1 view .LVU153
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  559 0010 B830     		adds	r0, r0, #184
  560 0012 FFF7FEFF 		bl	_lv_ll_get_head
  561              	.LVL55:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 22
 
 
  562 0016 0446     		mov	r4, r0
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  373:Lib/lvgl/src/misc/lv_anim.c **** 
  602              		.loc 1 373 35 is_stmt 0 view .LVU179
  603 0040 226B     		ldr	r2, [r4, #48]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 23
 
 
  373:Lib/lvgl/src/misc/lv_anim.c **** 
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  641              	.LVL64:
  642              	.L47:
  382:Lib/lvgl/src/misc/lv_anim.c ****                 }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 24
 
 
  643              		.loc 1 382 21 is_stmt 1 view .LVU197
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  682 008c 3CD0     		beq	.L48
  395:Lib/lvgl/src/misc/lv_anim.c ****         else
  683              		.loc 1 395 13 is_stmt 1 view .LVU213
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 25
 
 
  395:Lib/lvgl/src/misc/lv_anim.c ****         else
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  722              		.loc 1 351 13 is_stmt 0 view .LVU229
  723 00b4 94F85430 		ldrb	r3, [r4, #84]	@ zero_extendqisi2
  724 00b8 C3F34003 		ubfx	r3, r3, #1, #1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 26
 
 
  351:Lib/lvgl/src/misc/lv_anim.c ****             a->run_round = state.anim_run_round; /*The list readying might be reset so need to know
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  359:Lib/lvgl/src/misc/lv_anim.c ****                     a->end_value += v_ofs;
  763              		.loc 1 359 21 is_stmt 1 view .LVU246
  359:Lib/lvgl/src/misc/lv_anim.c ****                     a->end_value += v_ofs;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 27
 
 
  764              		.loc 1 359 22 is_stmt 0 view .LVU247
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  806              	.L55:
  807 0116 00BF     		.align	2
  808              	.L54:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 28
 
 
  809 0118 00000000 		.word	lv_global
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  857 0016 09E0     		b	.L57
  858              	.LVL84:
  859              	.L58:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 29
 
 
  860              	.LBB16:
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  894 0032 A268     		ldr	r2, [r4, #8]
  895              	.L59:
  896              	.LVL90:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 30
 
 
  546:Lib/lvgl/src/misc/lv_anim.c ****             _lv_ll_remove(anim_ll_p, a);
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  938              	.LVL96:
  552:Lib/lvgl/src/misc/lv_anim.c ****             del = true;
  939              		.loc 1 552 21 view .LVU297
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 31
 
 
  940 0062 4FF00108 		mov	r8, #1
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  987 000c 0023     		movs	r3, #0
  988 000e 026B     		ldr	r2, [r0, #48]
  989 0010 1946     		mov	r1, r3
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 32
 
 
  990 0012 406B     		ldr	r0, [r0, #52]
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1032              		.cfi_startproc
  1033              		@ args = 4, pretend = 0, frame = 0
  1034              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 33
 
 
  462:Lib/lvgl/src/misc/lv_anim.c ****     /*Calculate the current step*/
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  468:Lib/lvgl/src/misc/lv_anim.c ****     new_value = new_value >> LV_BEZIER_VAL_SHIFT;
  1079              		.loc 1 468 5 view .LVU330
  468:Lib/lvgl/src/misc/lv_anim.c ****     new_value = new_value >> LV_BEZIER_VAL_SHIFT;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 34
 
 
  1080              		.loc 1 468 26 is_stmt 0 view .LVU331
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1125 0004 5821     		movs	r1, #88
  1126 0006 2046     		mov	r0, r4
  1127 0008 FFF7FEFF 		bl	_lv_ll_init
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 35
 
 
  1128              	.LVL113:
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1173 0000 10B5     		push	{r4, lr}
  1174              	.LCFI13:
  1175              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 36
 
 
  1176              		.cfi_offset 4, -8
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
   46:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  *          the block of memory using the unsigned char conversion of this value.
   47:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  * @param len Number of bytes to be set to the value.
   48:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h ****  */
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 37
 
 
   49:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\stdlib\lv_string.h **** void lv_memset(void * dst, uint8_t v, size_t len);
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1210              		.loc 1 82 5 is_stmt 1 view .LVU366
   82:Lib/lvgl/src/misc/lv_anim.c ****     a->early_apply = 1;
  1211              		.loc 1 82 16 is_stmt 0 view .LVU367
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 38
 
 
  1212 0020 044B     		ldr	r3, .L80
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1258              		.loc 1 91 28 view .LVU377
  1259 0006 FFF7FEFF 		bl	_lv_ll_ins_head
  1260              	.LVL122:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 39
 
 
   92:Lib/lvgl/src/misc/lv_anim.c ****     if(new_anim == NULL) return NULL;
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  102:Lib/lvgl/src/misc/lv_anim.c ****         if(new_anim->get_value_cb) {
  1298              		.loc 1 102 7 view .LVU395
  1299 003a 13F0010F 		tst	r3, #1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 40
 
 
  1300 003e 1BD0     		beq	.L86
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  113:Lib/lvgl/src/misc/lv_anim.c **** 
  1338              		.loc 1 113 45 is_stmt 1 discriminator 3 view .LVU412
  1339 005e 2046     		mov	r0, r4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 41
 
 
  1340 0060 FFF7FEFF 		bl	remove_concurrent_anims
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1378              		.loc 1 92 5 discriminator 1 view .LVU428
   92:Lib/lvgl/src/misc/lv_anim.c ****     if(new_anim == NULL) return NULL;
  1379              		.loc 1 92 5 discriminator 1 view .LVU429
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 42
 
 
  1380 0080 FEE7     		b	.L84
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1426              		.loc 1 138 5 view .LVU439
  140:Lib/lvgl/src/misc/lv_anim.c ****     playtime = playtime * a->repeat_cnt;
  1427              		.loc 1 140 5 view .LVU440
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 43
 
 
  140:Lib/lvgl/src/misc/lv_anim.c ****     playtime = playtime * a->repeat_cnt;
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1470              		.loc 1 146 1 is_stmt 1 view -0
  1471              		.cfi_startproc
  1472              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 44
 
 
  1473              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
   11:Lib/lvgl/src/misc/lv_ll.h **** #endif
   12:Lib/lvgl/src/misc/lv_ll.h **** 
   13:Lib/lvgl/src/misc/lv_ll.h **** /*********************
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 45
 
 
   14:Lib/lvgl/src/misc/lv_ll.h ****  *      INCLUDES
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
   68:Lib/lvgl/src/misc/lv_ll.h ****  */
   69:Lib/lvgl/src/misc/lv_ll.h **** void * _lv_ll_ins_tail(lv_ll_t * ll_p);
   70:Lib/lvgl/src/misc/lv_ll.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 46
 
 
   71:Lib/lvgl/src/misc/lv_ll.h **** /**
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1549              		@ frame_needed = 0, uses_anonymous_args = 0
  1550 0000 08B5     		push	{r3, lr}
  1551              	.LCFI17:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 47
 
 
  1552              		.cfi_def_cfa_offset 8
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1599              	.L109:
  159:Lib/lvgl/src/misc/lv_anim.c ****         if(a->var == var && (a->exec_cb == exec_cb || exec_cb == NULL)) {
  1600              		.loc 1 159 5 is_stmt 1 discriminator 2 view .LVU477
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 48
 
 
  1601 0010 0748     		ldr	r0, .L113
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1644              		.syntax unified
  1645              		.thumb
  1646              		.thumb_func
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 49
 
 
  1648              	lv_anim_get_timer:
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  177:Lib/lvgl/src/misc/lv_anim.c **** 
  1696              		.loc 1 177 5 view .LVU498
  1697 000c 05E0     		b	.L119
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 50
 
 
  1698              	.LVL159:
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1743              	.LVL167:
  1744              	.LFB244:
  183:Lib/lvgl/src/misc/lv_anim.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 51
 
 
  1745              		.loc 1 183 1 is_stmt 1 view -0
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  200:Lib/lvgl/src/misc/lv_anim.c ****     max_time = (max_time + 5) / 10;
  1786              		.loc 1 200 26 is_stmt 0 view .LVU524
  1787 002c 481D     		adds	r0, r1, #5
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 52
 
 
  200:Lib/lvgl/src/misc/lv_anim.c ****     max_time = (max_time + 5) / 10;
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1832              		.loc 1 208 1 is_stmt 1 view -0
  1833              		.cfi_startproc
  1834              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 53
 
 
  1835              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1885              		.thumb_func
  1887              	lv_anim_path_ease_in:
  1888              	.LVL182:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 54
 
 
  1889              	.LFB248:
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  1938 0002 83B0     		sub	sp, sp, #12
  1939              	.LCFI26:
  1940              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 55
 
 
  240:Lib/lvgl/src/misc/lv_anim.c ****                                      LV_BEZIER_VAL_FLOAT(0.58), LV_BEZIER_VAL_FLOAT(1));
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  248:Lib/lvgl/src/misc/lv_anim.c **** 
  1990              		.loc 1 248 1 view .LVU558
  1991 0018 03B0     		add	sp, sp, #12
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 56
 
 
  1992              	.LCFI30:
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  2044              		.thumb_func
  2046              	lv_anim_path_bounce:
  2047              	.LVL190:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 57
 
 
  2048              	.LFB252:
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  2089              		.loc 1 265 16 is_stmt 0 view .LVU576
  2090 0024 40F6C413 		movw	r3, #2500
  2091 0028 00FB03F3 		mul	r3, r0, r3
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 58
 
 
  265:Lib/lvgl/src/misc/lv_anim.c ****     }
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  2129 004c 244A     		ldr	r2, .L155
  2130 004e 82FB0532 		smull	r3, r2, r2, r5
  2131 0052 EB17     		asrs	r3, r5, #31
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 59
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 59
 
 
  2132 0054 C3EBE205 		rsb	r5, r3, r2, asr #3
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  283:Lib/lvgl/src/misc/lv_anim.c ****         t    = LV_BEZIER_VAL_MAX - t;
  2170              		.loc 1 283 14 is_stmt 0 view .LVU610
  2171 0080 00EB8000 		add	r0, r0, r0, lsl #2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 60
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 60
 
 
  2172              	.LVL205:
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  2210 00ac 82FB0532 		smull	r3, r2, r2, r5
  2211 00b0 EB17     		asrs	r3, r5, #31
  2212 00b2 C3EB2215 		rsb	r5, r3, r2, asr #4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 61
 
 
  2213              	.LVL212:
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
   40:Lib/lvgl/src/misc/lv_math.h **** } lv_sqrt_res_t;
   41:Lib/lvgl/src/misc/lv_math.h **** 
   42:Lib/lvgl/src/misc/lv_math.h **** /**********************
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 62
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 62
 
 
   43:Lib/lvgl/src/misc/lv_math.h ****  * GLOBAL PROTOTYPES
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  2236 00ce FFF7FEFF 		bl	lv_cubic_bezier
  2237              	.LVL214:
  2238              		.loc 4 85 12 view .LVU635
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 63
 
 
  2239              	.LBE24:
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  2284              		@ link register save eliminated.
  308:Lib/lvgl/src/misc/lv_anim.c ****         return a->end_value;
  2285              		.loc 1 308 5 view .LVU647
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 64
 
 
  308:Lib/lvgl/src/misc/lv_anim.c ****         return a->end_value;
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  2331              		.cfi_def_cfa_offset 16
  316:Lib/lvgl/src/misc/lv_anim.c ****     return lv_anim_path_cubic_bezier(a, para->x1, para->y1, para->x2, para->y2);
  2332              		.loc 1 316 5 is_stmt 1 view .LVU659
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 65
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 65
 
 
  2333              	.LVL224:
@@ -3891,86 +3891,86 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 1
  2377              		.file 27 "Lib/lvgl/src/misc/../core/../stdlib/builtin/lv_tlsf.h"
  2378              		.file 28 "Lib/lvgl/src/misc/../core/lv_global.h"
  2379              		.file 29 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 66
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_anim.c
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:21     .text.convert_speed_to_time:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:26     .text.convert_speed_to_time:00000000 convert_speed_to_time
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:98     .text.resolve_time:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:103    .text.resolve_time:00000000 resolve_time
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:166    .text.anim_mark_list_change:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:171    .text.anim_mark_list_change:00000000 anim_mark_list_change
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:212    .text.anim_mark_list_change:0000002c $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:217    .text.remove_concurrent_anims:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:222    .text.remove_concurrent_anims:00000000 remove_concurrent_anims
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:364    .text.remove_concurrent_anims:0000007c $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:370    .text.anim_completed_handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:375    .text.anim_completed_handler:00000000 anim_completed_handler
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:521    .text.anim_completed_handler:00000084 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:526    .text.anim_timer:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:531    .text.anim_timer:00000000 anim_timer
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:809    .text.anim_timer:00000118 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:815    .text.delete_core:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:820    .text.delete_core:00000000 delete_core
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:955    .text.delete_core:00000070 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:960    .text.lv_anim_path_linear:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:966    .text.lv_anim_path_linear:00000000 lv_anim_path_linear
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1023   .text.lv_anim_path_cubic_bezier:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1028   .text.lv_anim_path_cubic_bezier:00000000 lv_anim_path_cubic_bezier
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1106   .text._lv_anim_core_init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1112   .text._lv_anim_core_init:00000000 _lv_anim_core_init
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1153   .text._lv_anim_core_init:0000002c $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1159   .text.lv_anim_init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1165   .text.lv_anim_init:00000000 lv_anim_init
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1226   .text.lv_anim_init:00000034 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1231   .text.lv_anim_start:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1237   .text.lv_anim_start:00000000 lv_anim_start
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1397   .text.lv_anim_start:00000090 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1403   .text.lv_anim_get_playtime:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1409   .text.lv_anim_get_playtime:00000000 lv_anim_get_playtime
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1461   .text.lv_anim_delete:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1467   .text.lv_anim_delete:00000000 lv_anim_delete
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1491   .text.lv_anim_delete_all:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1497   .text.lv_anim_delete_all:00000000 lv_anim_delete_all
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1533   .text.lv_anim_delete_all:00000010 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1538   .text._lv_anim_core_deinit:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1544   .text._lv_anim_core_deinit:00000000 _lv_anim_core_deinit
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1564   .text.lv_anim_get:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1570   .text.lv_anim_get:00000000 lv_anim_get
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1637   .text.lv_anim_get:00000030 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1642   .text.lv_anim_get_timer:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1648   .text.lv_anim_get_timer:00000000 lv_anim_get_timer
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1663   .text.lv_anim_get_timer:00000008 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1668   .text.lv_anim_count_running:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1674   .text.lv_anim_count_running:00000000 lv_anim_count_running
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1731   .text.lv_anim_count_running:00000024 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1736   .text.lv_anim_speed_clamped:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1742   .text.lv_anim_speed_clamped:00000000 lv_anim_speed_clamped
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1818   .text.lv_anim_speed_clamped:0000004c $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1823   .text.lv_anim_speed:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1829   .text.lv_anim_speed:00000000 lv_anim_speed
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s 			page 67
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:21     .text.convert_speed_to_time:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:26     .text.convert_speed_to_time:00000000 convert_speed_to_time
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:98     .text.resolve_time:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:103    .text.resolve_time:00000000 resolve_time
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:166    .text.anim_mark_list_change:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:171    .text.anim_mark_list_change:00000000 anim_mark_list_change
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:212    .text.anim_mark_list_change:0000002c $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:217    .text.remove_concurrent_anims:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:222    .text.remove_concurrent_anims:00000000 remove_concurrent_anims
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:364    .text.remove_concurrent_anims:0000007c $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:370    .text.anim_completed_handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:375    .text.anim_completed_handler:00000000 anim_completed_handler
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:521    .text.anim_completed_handler:00000084 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:526    .text.anim_timer:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:531    .text.anim_timer:00000000 anim_timer
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:809    .text.anim_timer:00000118 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:815    .text.delete_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:820    .text.delete_core:00000000 delete_core
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:955    .text.delete_core:00000070 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:960    .text.lv_anim_path_linear:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:966    .text.lv_anim_path_linear:00000000 lv_anim_path_linear
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1023   .text.lv_anim_path_cubic_bezier:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1028   .text.lv_anim_path_cubic_bezier:00000000 lv_anim_path_cubic_bezier
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1106   .text._lv_anim_core_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1112   .text._lv_anim_core_init:00000000 _lv_anim_core_init
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1153   .text._lv_anim_core_init:0000002c $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1159   .text.lv_anim_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1165   .text.lv_anim_init:00000000 lv_anim_init
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1226   .text.lv_anim_init:00000034 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1231   .text.lv_anim_start:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1237   .text.lv_anim_start:00000000 lv_anim_start
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1397   .text.lv_anim_start:00000090 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1403   .text.lv_anim_get_playtime:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1409   .text.lv_anim_get_playtime:00000000 lv_anim_get_playtime
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1461   .text.lv_anim_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1467   .text.lv_anim_delete:00000000 lv_anim_delete
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1491   .text.lv_anim_delete_all:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1497   .text.lv_anim_delete_all:00000000 lv_anim_delete_all
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1533   .text.lv_anim_delete_all:00000010 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1538   .text._lv_anim_core_deinit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1544   .text._lv_anim_core_deinit:00000000 _lv_anim_core_deinit
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1564   .text.lv_anim_get:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1570   .text.lv_anim_get:00000000 lv_anim_get
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1637   .text.lv_anim_get:00000030 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1642   .text.lv_anim_get_timer:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1648   .text.lv_anim_get_timer:00000000 lv_anim_get_timer
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1663   .text.lv_anim_get_timer:00000008 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1668   .text.lv_anim_count_running:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1674   .text.lv_anim_count_running:00000000 lv_anim_count_running
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1731   .text.lv_anim_count_running:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1736   .text.lv_anim_speed_clamped:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1742   .text.lv_anim_speed_clamped:00000000 lv_anim_speed_clamped
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1818   .text.lv_anim_speed_clamped:0000004c $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1823   .text.lv_anim_speed:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1829   .text.lv_anim_speed:00000000 lv_anim_speed
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s 			page 67
 
 
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1854   .text.lv_anim_refr_now:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1860   .text.lv_anim_refr_now:00000000 lv_anim_refr_now
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1881   .text.lv_anim_path_ease_in:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1887   .text.lv_anim_path_ease_in:00000000 lv_anim_path_ease_in
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1920   .text.lv_anim_path_ease_out:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1926   .text.lv_anim_path_ease_out:00000000 lv_anim_path_ease_out
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1960   .text.lv_anim_path_ease_in_out:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:1966   .text.lv_anim_path_ease_in_out:00000000 lv_anim_path_ease_in_out
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2000   .text.lv_anim_path_overshoot:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2006   .text.lv_anim_path_overshoot:00000000 lv_anim_path_overshoot
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2040   .text.lv_anim_path_bounce:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2046   .text.lv_anim_path_bounce:00000000 lv_anim_path_bounce
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2266   .text.lv_anim_path_bounce:000000e0 $d
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2271   .text.lv_anim_path_step:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2277   .text.lv_anim_path_step:00000000 lv_anim_path_step
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2311   .text.lv_anim_path_custom_bezier3:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwfxbti.s:2317   .text.lv_anim_path_custom_bezier3:00000000 lv_anim_path_custom_bezier3
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1854   .text.lv_anim_refr_now:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1860   .text.lv_anim_refr_now:00000000 lv_anim_refr_now
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1881   .text.lv_anim_path_ease_in:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1887   .text.lv_anim_path_ease_in:00000000 lv_anim_path_ease_in
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1920   .text.lv_anim_path_ease_out:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1926   .text.lv_anim_path_ease_out:00000000 lv_anim_path_ease_out
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1960   .text.lv_anim_path_ease_in_out:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:1966   .text.lv_anim_path_ease_in_out:00000000 lv_anim_path_ease_in_out
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2000   .text.lv_anim_path_overshoot:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2006   .text.lv_anim_path_overshoot:00000000 lv_anim_path_overshoot
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2040   .text.lv_anim_path_bounce:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2046   .text.lv_anim_path_bounce:00000000 lv_anim_path_bounce
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2266   .text.lv_anim_path_bounce:000000e0 $d
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2271   .text.lv_anim_path_step:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2277   .text.lv_anim_path_step:00000000 lv_anim_path_step
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2311   .text.lv_anim_path_custom_bezier3:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccs30FeZ.s:2317   .text.lv_anim_path_custom_bezier3:00000000 lv_anim_path_custom_bezier3
 
 UNDEFINED SYMBOLS
 _lv_ll_get_head

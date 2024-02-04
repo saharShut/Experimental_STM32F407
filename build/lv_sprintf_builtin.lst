@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
   28:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** //        Use this instead of the bloated standard/newlib printf cause these use
   29:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** //        malloc for printf (and may not be thread safe).
   30:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** //
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 2
 
 
   31:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** ///////////////////////////////////////////////////////////////////////////////
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
   85:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** #endif
   86:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** 
   87:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** // support for the ptrdiff_t type (%t)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 3
 
 
   88:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** // ptrdiff_t is normally defined in <stddef.h> as long or long long type
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  133:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         ((char *)buffer)[idx] = character;
   38              		.loc 1 133 9 is_stmt 1 view .LVU3
   39              		.loc 1 133 31 is_stmt 0 view .LVU4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 4
 
 
   40 0004 8854     		strb	r0, [r1, r2]
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  153:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** }
  154:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** 
  155:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** // internal test if char is a digit (0-9)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 5
 
 
  156:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** // \return true if char is a digit
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  117              	.LBB20:
  118              	.LBI20:
  157:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 6
 
 
  119              		.loc 1 157 20 is_stmt 1 view .LVU27
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  163              		.cfi_offset 14, -4
  164 0004 83B0     		sub	sp, sp, #12
  165              	.LCFI1:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 7
 
 
  166              		.cfi_def_cfa_offset 48
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  212 003c DDF804B0 		ldr	fp, [sp, #4]
  213 0040 08E0     		b	.L9
  214              	.LVL18:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 8
 
 
  215              	.L12:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  251              	.LVL24:
  252              	.L13:
  253              	.LCFI3:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 9
 
 
  254              		.cfi_restore_state
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  300              	.LCFI5:
  301              		.cfi_def_cfa_offset 48
  302 0006 9946     		mov	r9, r3
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 10
 
 
  303 0008 0C9D     		ldr	r5, [sp, #48]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  348              	.L27:
  212:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         }
  213:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         while((flags & FLAGS_ZEROPAD) && (len < width) && (len < PRINTF_NTOA_BUFFER_SIZE)) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 11
 
 
  349              		.loc 1 213 56 is_stmt 1 view .LVU77
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  390 0078 0F9B     		ldr	r3, [sp, #60]
  391 007a 102B     		cmp	r3, #16
  392 007c 36D0     		beq	.L41
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 12
 
 
  393              	.LVL35:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  431              	.L35:
  243:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         }
  244:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         else if(flags & FLAGS_PLUS) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 13
 
 
  245:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             buf[len++] = '+';  // ignore the space if the '+' exists
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  469              		.loc 1 229 14 is_stmt 1 view .LVU117
  229:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             buf[len++] = 'X';
  470              		.loc 1 229 16 is_stmt 0 view .LVU118
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 14
 
 
  471 00c8 0F9B     		ldr	r3, [sp, #60]
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  512              	.LVL52:
  227:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         }
  513              		.loc 1 227 24 is_stmt 0 view .LVU132
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 15
 
 
  514 00f6 4FF0780C 		mov	ip, #120
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  553              		.loc 1 247 16 is_stmt 0 view .LVU147
  554 0124 16F0080F 		tst	r6, #8
  555 0128 BDD0     		beq	.L35
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 16
 
 
  248:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         }
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  262:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****     // no hash for 0 values
  263:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****     if(!value) {
  600              		.loc 1 263 5 view .LVU156
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 17
 
 
  601              		.loc 1 263 7 is_stmt 0 view .LVU157
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  645              	.LBB25:
  271:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             value /= base;
  646              		.loc 1 271 20 view .LVU172
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 18
 
 
  647 0040 BE46     		mov	lr, r7
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  687              	.LVL73:
  688              	.L52:
  271:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             value /= base;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 19
 
 
  689              		.loc 1 271 91 view .LVU187
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  734              		.loc 1 283 1 is_stmt 0 view .LVU194
  735 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
  736              	.LCFI11:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 20
 
 
  737              		.cfi_def_cfa_offset 36
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  781 0034 19E0     		b	.L64
  782              	.LVL80:
  783              	.L71:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 21
 
 
  784              	.LBB27:
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  828              		.loc 1 295 13 view .LVU218
  295:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             buf[len++] = digit < 10 ? '0' + digit : (flags & FLAGS_UPPERCASE ? 'A' : 'a') + digit -
  829              		.loc 1 295 45 is_stmt 0 view .LVU219
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 22
 
 
  830 006a 2A46     		mov	r2, r5
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  871 0098 259B     		ldr	r3, [sp, #148]
  872 009a 0593     		str	r3, [sp, #20]
  873 009c 249B     		ldr	r3, [sp, #144]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 23
 
 
  874 009e 0493     		str	r3, [sp, #16]
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  326:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         return _out_rev(out, buffer, idx, maxlen, "nan", 3, width, flags);
  327:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****     if(value < -DBL_MAX)
  328:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         return _out_rev(out, buffer, idx, maxlen, "fni-", 4, width, flags);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 24
 
 
  329:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****     if(value > DBL_MAX)
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  383:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             // exactly 0.5 and ODD, then round up
  384:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             // 1.5 -> 2, but 2.5 -> 2
  385:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             ++whole;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 25
 
 
  386:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         }
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  440:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** 
  441:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** #if defined(PRINTF_SUPPORT_EXPONENTIAL)
  442:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** // internal ftoa variant for exponential floating-point type, contributed by Martijn Jasperse <m.ja
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 26
 
 
  443:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** static size_t _etoa(out_fct_type out, char * buffer, size_t idx, size_t maxlen, double value, unsig
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  497:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             else {
  498:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                 prec = 0;
  499:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 27
 
 
  500:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             flags |= FLAGS_PRECISION;   // make sure _ftoa respects precision
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  554:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** // internal vsnprintf
  555:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** static int _lv_vsnprintf(out_fct_type out, char * buffer, const size_t maxlen, const char * format,
  556:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 28
 
 
  906              		.loc 1 556 1 is_stmt 1 view -0
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  578:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         // evaluate flags
  579:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         flags = 0U;
  580:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****         do {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 29
 
 
  581:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             switch(*format) {
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  635:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             if(_is_digit(*format)) {
  636:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                 precision = _atoi(&format);
  637:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 30
 
 
  638:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             else if(*format == '*') {
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  692:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     // set the base
  693:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     unsigned int base;
  694:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     if(*format == 'x' || *format == 'X') {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 31
 
 
  695:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                         base = 16U;
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  749:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                         }
  750:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                         else {
  751:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             const int value = (flags & FLAGS_CHAR) ? (char)va_arg(va, int) : (flags
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 32
 
 
  752:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                                                                                                    
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  806:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     if(!(flags & FLAGS_LEFT)) {
  807:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                         while(l++ < width) {
  808:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             out(' ', buffer, idx++, maxlen);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 33
 
 
  809:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                         }
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  567:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             // no
  949              		.loc 1 567 11 is_stmt 0 view .LVU243
  950 0020 2528     		cmp	r0, #37
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 34
 
 
  951 0022 09D0     		beq	.L75
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  990 0044 0132     		adds	r2, r2, #1
  991 0046 0F92     		str	r2, [sp, #60]
  585:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     break;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 35
 
 
  992              		.loc 1 585 21 is_stmt 1 view .LVU259
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  595:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     break;
  1029              		.loc 1 595 23 is_stmt 0 view .LVU277
  1030 0060 0123     		movs	r3, #1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 36
 
 
  596:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                 case ' ':
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1068              	.L154:
  581:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                 case '0':
  1069              		.loc 1 581 13 view .LVU295
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 37
 
 
  1070 007c 0023     		movs	r3, #0
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1115              		.loc 1 615 12 is_stmt 0 view .LVU304
  1116 00d6 0F9B     		ldr	r3, [sp, #60]
  1117              	.LVL119:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 38
 
 
  615:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             width = _atoi(&format);
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1157 00f6 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
  646:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             case 'l' :
  1158              		.loc 1 646 9 view .LVU320
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 39
 
 
  1159 00f8 683B     		subs	r3, r3, #104
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1206 0128 002B     		cmp	r3, #0
  1207 012a 04DB     		blt	.L173
  625:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 40
 
 
  1208              		.loc 1 625 17 is_stmt 1 view .LVU328
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1247              	.LBB33:
  1248              	.LBI33:
  157:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 41
 
 
  1249              		.loc 1 157 20 is_stmt 1 view .LVU344
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1289              	.LBE35:
  636:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             }
  1290              		.loc 1 636 17 is_stmt 1 view .LVU359
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 42
 
 
  636:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             }
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  656:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                 format++;
  1330              		.loc 1 656 23 is_stmt 0 view .LVU375
  1331 0194 46F08001 		orr	r1, r6, #128
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 43
 
 
  1332              	.LVL144:
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1369 01b8 0F99     		ldr	r1, [sp, #60]
  1370 01ba 0878     		ldrb	r0, [r1]	@ zero_extendqisi2
  682:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             case 'd' :
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 44
 
 
  1371              		.loc 1 682 9 view .LVU393
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  671:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                 break;
  1414              		.loc 1 671 17 is_stmt 1 view .LVU404
  671:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                 break;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 45
 
 
  1415              		.loc 1 671 23 is_stmt 0 view .LVU405
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1455              	.LVL154:
  1456              	.L179:
  682:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****             case 'd' :
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 46
 
 
  1457              		.loc 1 682 9 view .LVU420
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1508 025f 00       		.p2align 1
  1509              	.L109:
  1510 0260 1022     		movs	r2, #16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 47
 
 
  1511 0262 11E0     		b	.L104
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1549              	.LVL159:
  717:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                         flags &= ~FLAGS_HASH;   // no hash for dec format
  1550              		.loc 1 717 30 view .LVU440
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 48
 
 
  1551 0282 0A22     		movs	r2, #10
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  732:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     }
  1591              		.loc 1 732 25 is_stmt 1 view .LVU455
  732:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 49
 
 
  1592              		.loc 1 732 31 is_stmt 0 view .LVU456
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1632 02e4 0391     		str	r1, [sp, #12]
  1633 02e6 0292     		str	r2, [sp, #8]
  1634 02e8 0022     		movs	r2, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 50
 
 
  1635              	.LVL166:
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1676 0316 191D     		adds	r1, r3, #4
  1677 0318 1C91     		str	r1, [sp, #112]
  1678 031a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 51
 
 
  1679              	.L121:
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1721              		.loc 1 740 45 is_stmt 0 view .LVU495
  1722 034c 1C9B     		ldr	r3, [sp, #112]
  1723 034e 0733     		adds	r3, r3, #7
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 52
 
 
  1724 0350 23F00703 		bic	r3, r3, #7
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  746:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned long)(value > 0 ? 
  1771              		.loc 1 746 29 is_stmt 1 view .LVU503
  746:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned long)(value > 0 ? 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 53
 
 
  1772              		.loc 1 746 40 is_stmt 0 view .LVU504
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1817              	.L122:
  752:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             idx = _ntoa_long(out, buffer, idx, maxlen, (unsigned int)(value > 0 ? v
  1818              		.loc 1 752 141 view .LVU514
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 54
 
 
  1819 03d8 1C9B     		ldr	r3, [sp, #112]
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1861 0406 0733     		adds	r3, r3, #7
  1862 0408 23F00703 		bic	r3, r3, #7
  1863 040c 03F10801 		add	r1, r3, #8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 55
 
 
  1864 0410 1C91     		str	r1, [sp, #112]
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1912 045e 5946     		mov	r1, fp
  1913 0460 4046     		mov	r0, r8
  1914 0462 FFF7FEFF 		bl	_ntoa_long
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 56
 
 
  1915              	.LVL195:
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  1957              		.loc 1 812 21 is_stmt 1 view .LVU544
  812:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                     // post padding
  1958              		.loc 1 812 31 is_stmt 0 view .LVU545
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 57
 
 
  1959 048c 1C98     		ldr	r0, [sp, #112]
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  807:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             out(' ', buffer, idx++, maxlen);
  2002              		.loc 1 807 35 is_stmt 1 view .LVU557
  807:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             out(' ', buffer, idx++, maxlen);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 58
 
 
  2003              		.loc 1 807 32 is_stmt 0 view .LVU558
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2046 04e2 F5D8     		bhi	.L134
  815:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             out(' ', buffer, idx++, maxlen);
  2047              		.loc 1 815 35 view .LVU570
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 59
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 59
 
 
  2048 04e4 9146     		mov	r9, r2
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2090 050a F8D1     		bne	.L139
  2091              	.LVL221:
  2092              	.L138:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 60
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 60
 
 
  152:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** }
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2133              		.loc 1 825 38 view .LVU596
  2134 0536 0B9A     		ldr	r2, [sp, #44]
  2135 0538 DFE7     		b	.L136
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 61
 
 
  2136              	.LVL228:
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  831:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                             out(' ', buffer, idx++, maxlen);
  2179              		.loc 1 831 32 view .LVU608
  2180 0564 07E0     		b	.L144
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 62
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 62
 
 
  2181              	.LVL237:
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2223              	.LVL245:
  840:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                         while(l++ < width) {
  2224              		.loc 1 840 21 is_stmt 1 view .LVU621
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 63
 
 
  840:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****                         while(l++ < width) {
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2266              	.LBE46:
  562:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c ****     }
  2267              		.loc 1 562 13 view .LVU635
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 64
 
 
  2268 05b2 DFF82080 		ldr	r8, .L191
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2314              	lv_snprintf:
  2315              	.LVL256:
  2316              	.LFB10:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 65
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 65
 
 
  867:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** 
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2358              		@ sp needed
  2359 001c BDE81040 		pop	{r4, lr}
  2360              	.LCFI22:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 66
 
 
  2361              		.cfi_restore 14
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2413              		.loc 1 883 12 view .LVU660
  2414 000e FFF7FEFF 		bl	_lv_vsnprintf
  2415              	.LVL265:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 67
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 67
 
 
  884:Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c **** }
@@ -3979,44 +3979,44 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 1
  2431              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  2432              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  2433              		.file 4 "<built-in>"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s 			page 68
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s 			page 68
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_sprintf_builtin.c
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:21     .text._out_buffer:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:26     .text._out_buffer:00000000 _out_buffer
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:48     .text._out_null:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:53     .text._out_null:00000000 _out_null
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:71     .text._atoi:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:76     .text._atoi:00000000 _atoi
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:139    .text._out_rev:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:144    .text._out_rev:00000000 _out_rev
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:276    .text._ntoa_format:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:281    .text._ntoa_format:00000000 _ntoa_format
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:570    .text._ntoa_long:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:575    .text._ntoa_long:00000000 _ntoa_long
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:722    .text._ntoa_long_long:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:727    .text._ntoa_long_long:00000000 _ntoa_long_long
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:898    .text._lv_vsnprintf:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:903    .text._lv_vsnprintf:00000000 _lv_vsnprintf
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1090   .text._lv_vsnprintf:00000090 $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1108   .text._lv_vsnprintf:000000d4 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1164   .text._lv_vsnprintf:00000102 $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1475   .text._lv_vsnprintf:0000023e $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1891   .text._lv_vsnprintf:0000043c $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1896   .text._lv_vsnprintf:00000440 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:2303   .text._lv_vsnprintf:000005d4 $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:2308   .text.lv_snprintf:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:2314   .text.lv_snprintf:00000000 lv_snprintf
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:2373   .text.lv_snprintf:00000024 $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:2378   .text.lv_vsnprintf:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:2384   .text.lv_vsnprintf:00000000 lv_vsnprintf
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:2425   .text.lv_vsnprintf:00000018 $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1184   .text._lv_vsnprintf:00000115 $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1184   .text._lv_vsnprintf:00000116 $t
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1508   .text._lv_vsnprintf:0000025f $d
-C:\Users\Alex\AppData\Local\Temp\ccwOIFNw.s:1508   .text._lv_vsnprintf:00000260 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:21     .text._out_buffer:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:26     .text._out_buffer:00000000 _out_buffer
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:48     .text._out_null:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:53     .text._out_null:00000000 _out_null
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:71     .text._atoi:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:76     .text._atoi:00000000 _atoi
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:139    .text._out_rev:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:144    .text._out_rev:00000000 _out_rev
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:276    .text._ntoa_format:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:281    .text._ntoa_format:00000000 _ntoa_format
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:570    .text._ntoa_long:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:575    .text._ntoa_long:00000000 _ntoa_long
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:722    .text._ntoa_long_long:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:727    .text._ntoa_long_long:00000000 _ntoa_long_long
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:898    .text._lv_vsnprintf:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:903    .text._lv_vsnprintf:00000000 _lv_vsnprintf
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1090   .text._lv_vsnprintf:00000090 $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1108   .text._lv_vsnprintf:000000d4 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1164   .text._lv_vsnprintf:00000102 $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1475   .text._lv_vsnprintf:0000023e $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1891   .text._lv_vsnprintf:0000043c $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1896   .text._lv_vsnprintf:00000440 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:2303   .text._lv_vsnprintf:000005d4 $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:2308   .text.lv_snprintf:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:2314   .text.lv_snprintf:00000000 lv_snprintf
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:2373   .text.lv_snprintf:00000024 $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:2378   .text.lv_vsnprintf:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:2384   .text.lv_vsnprintf:00000000 lv_vsnprintf
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:2425   .text.lv_vsnprintf:00000018 $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1184   .text._lv_vsnprintf:00000115 $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1184   .text._lv_vsnprintf:00000116 $t
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1508   .text._lv_vsnprintf:0000025f $d
+C:\Users\Alex\AppData\Local\Temp\ccatIcr9.s:1508   .text._lv_vsnprintf:00000260 $t
 
 UNDEFINED SYMBOLS
 __aeabi_uldivmod

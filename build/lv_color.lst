@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
   27:Lib/lvgl/src/misc/lv_color_op.h ****  **********************/
   28:Lib/lvgl/src/misc/lv_color_op.h **** 
   29:Lib/lvgl/src/misc/lv_color_op.h **** struct _lv_color_filter_dsc_t;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 2
 
 
   30:Lib/lvgl/src/misc/lv_color_op.h **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
   59 0034 00FB0211 		mla	r1, r0, r2, r1
   60 0038 01EB0120 		add	r0, r1, r1, lsl #8
   61 003c 01EBC011 		add	r1, r1, r0, lsl #7
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 3
 
 
   62 0040 C90D     		lsrs	r1, r1, #23
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
    6:Lib/lvgl/src/misc/lv_color.c **** /*********************
    7:Lib/lvgl/src/misc/lv_color.c ****  *      INCLUDES
    8:Lib/lvgl/src/misc/lv_color.c ****  *********************/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 4
 
 
    9:Lib/lvgl/src/misc/lv_color.c **** #include "lv_color.h"
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  126 000d 0A       		.byte	(.L10-.L6)/2
  127 000e 0C       		.byte	(.L9-.L6)/2
  128 000f 08       		.byte	(.L12-.L6)/2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 5
 
 
  129 0010 16       		.byte	(.L13-.L6)/2
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
   67:Lib/lvgl/src/misc/lv_color.c ****         case LV_COLOR_FORMAT_XRGB8888:
   68:Lib/lvgl/src/misc/lv_color.c ****             return 32;
  163              		.loc 1 68 13 is_stmt 1 view .LVU27
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 6
 
 
  164              		.loc 1 68 20 is_stmt 0 view .LVU28
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
   81:Lib/lvgl/src/misc/lv_color.c ****         case LV_COLOR_FORMAT_A4:
   82:Lib/lvgl/src/misc/lv_color.c ****         case LV_COLOR_FORMAT_A8:
   83:Lib/lvgl/src/misc/lv_color.c ****         case LV_COLOR_FORMAT_I1:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 7
 
 
   84:Lib/lvgl/src/misc/lv_color.c ****         case LV_COLOR_FORMAT_I2:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  246              		.loc 1 100 21 is_stmt 0 view .LVU48
  247 0014 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
  248              		.loc 1 100 14 view .LVU49
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 8
 
 
  249 0018 8DF80A30 		strb	r3, [sp, #10]
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  298 000a 00F47840 		and	r0, r0, #63488
  299 000e 00B2     		sxth	r0, r0
  300              		.loc 1 107 47 view .LVU59
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 9
 
 
  301 0010 9DF80530 		ldrb	r3, [sp, #5]	@ zero_extendqisi2
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  352 0016 1844     		add	r0, r0, r3
  113:Lib/lvgl/src/misc/lv_color.c **** }
  353              		.loc 1 113 1 view .LVU73
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 10
 
 
  354 0018 00F17F40 		add	r0, r0, #-16777216
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
   15:Lib/lvgl/src/misc/lv_color.h ****  *********************/
   16:Lib/lvgl/src/misc/lv_color.h **** #include "../lv_conf_internal.h"
   17:Lib/lvgl/src/misc/lv_color.h **** #include "lv_assert.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 11
 
 
   18:Lib/lvgl/src/misc/lv_color.h **** #include "lv_math.h"
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
   72:Lib/lvgl/src/misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_I4 ? 4 :        \
   73:Lib/lvgl/src/misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A4 ? 4 :        \
   74:Lib/lvgl/src/misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_L8 ? 8 :        \
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 12
 
 
   75:Lib/lvgl/src/misc/lv_color.h ****                                             (cf) == LV_COLOR_FORMAT_A8 ? 8 :        \
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  129:Lib/lvgl/src/misc/lv_color.h ****     LV_COLOR_FORMAT_RGB565            = 0x12,
  130:Lib/lvgl/src/misc/lv_color.h ****     LV_COLOR_FORMAT_RGB565A8          = 0x14    /**< Color array followed by Alpha array*/,
  131:Lib/lvgl/src/misc/lv_color.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 13
 
 
  132:Lib/lvgl/src/misc/lv_color.h ****     /*3 byte (+alpha) formats*/
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  186:Lib/lvgl/src/misc/lv_color.h **** 
  187:Lib/lvgl/src/misc/lv_color.h **** /**********************
  188:Lib/lvgl/src/misc/lv_color.h ****  * MACROS
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 14
 
 
  189:Lib/lvgl/src/misc/lv_color.h ****  **********************/
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  243:Lib/lvgl/src/misc/lv_color.h **** /**
  244:Lib/lvgl/src/misc/lv_color.h ****  * Check if two RGB888 color are equal
  245:Lib/lvgl/src/misc/lv_color.h ****  * @param c1    the first color
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 15
 
 
  246:Lib/lvgl/src/misc/lv_color.h ****  * @param c2    the second color
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  300:Lib/lvgl/src/misc/lv_color.h ****  * @param a     the alpha channel (0..255)
  301:Lib/lvgl/src/misc/lv_color.h ****  * @return      the color
  302:Lib/lvgl/src/misc/lv_color.h ****  */
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 16
 
 
  303:Lib/lvgl/src/misc/lv_color.h **** static inline lv_color32_t lv_color32_make(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  357:Lib/lvgl/src/misc/lv_color.h ****     /*0x7E0F81F = 0b00000111111000001111100000011111*/
  358:Lib/lvgl/src/misc/lv_color.h ****     uint32_t bg = (uint32_t)(c2 | ((uint32_t)c2 << 16)) & 0x7E0F81F;
  359:Lib/lvgl/src/misc/lv_color.h ****     uint32_t fg = (uint32_t)(c1 | ((uint32_t)c1 << 16)) & 0x7E0F81F;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 17
 
 
  360:Lib/lvgl/src/misc/lv_color.h ****     uint32_t result = ((((fg - bg) * mix) >> 5) + bg) & 0x7E0F81F;
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  391              		.loc 3 413 26 view .LVU77
  414:Lib/lvgl/src/misc/lv_color.h **** {
  415:Lib/lvgl/src/misc/lv_color.h ****     return lv_color_make(0xff, 0xff, 0xff);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 18
 
 
  392              		.loc 3 415 5 view .LVU78
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  435 0042 8DF81000 		strb	r0, [sp, #16]
  436 0046 C0F30723 		ubfx	r3, r0, #8, #8
  437 004a 8DF81130 		strb	r3, [sp, #17]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 19
 
 
  438 004e C0F30740 		ubfx	r0, r0, #16, #8
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  421:Lib/lvgl/src/misc/lv_color.h ****  */
  422:Lib/lvgl/src/misc/lv_color.h **** static inline lv_color_t lv_color_black(void)
  484              		.loc 3 422 26 view .LVU96
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 20
 
 
  423:Lib/lvgl/src/misc/lv_color.h **** {
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  526 003e FFF7FEFF 		bl	lv_color_mix
  527              	.LVL16:
  528 0042 8DF81000 		strb	r0, [sp, #16]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 21
 
 
  529 0046 C0F30723 		ubfx	r3, r0, #8, #8
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  151:Lib/lvgl/src/misc/lv_color.c ****             b = p;
  152:Lib/lvgl/src/misc/lv_color.c ****             break;
  153:Lib/lvgl/src/misc/lv_color.c ****         case 1:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 22
 
 
  154:Lib/lvgl/src/misc/lv_color.c ****             r = q;
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  208:Lib/lvgl/src/misc/lv_color.c ****         hsv.h = 0;
  209:Lib/lvgl/src/misc/lv_color.c ****         return hsv;
  210:Lib/lvgl/src/misc/lv_color.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 23
 
 
  211:Lib/lvgl/src/misc/lv_color.c **** 
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  565              		.cfi_def_cfa_offset 4
  566              		.cfi_offset 14, -4
  567 0002 85B0     		sub	sp, sp, #20
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 24
 
 
  568              	.LCFI15:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  616              		.loc 1 259 26 is_stmt 1 discriminator 1 view .LVU124
  259:Lib/lvgl/src/misc/lv_color.c ****     if(opa < LV_OPA_50) return lv_color_lighten(c, (LV_OPA_50 - opa) * 2);
  617              		.loc 1 259 33 is_stmt 0 discriminator 1 view .LVU125
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 25
 
 
  618 0052 ADF80C10 		strh	r1, [sp, #12]	@ movhi
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  128:Lib/lvgl/src/misc/lv_color.c ****     s = (uint16_t)((uint16_t)s * 255) / 100;
  667              		.loc 1 128 9 is_stmt 0 view .LVU133
  668 0004 C0EB0020 		rsb	r0, r0, r0, lsl #8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 26
 
 
  669              	.LVL26:
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  707 003a A1FB0010 		umull	r1, r0, r1, r0
  708              	.LVL32:
  140:Lib/lvgl/src/misc/lv_color.c ****     remainder = (h - (region * 43)) * 6;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 27
 
 
  709              		.loc 1 140 15 view .LVU150
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  747 007a 01FB03F3 		mul	r3, r1, r3
  748              	.LVL38:
  145:Lib/lvgl/src/misc/lv_color.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 28
 
 
  749              		.loc 1 145 46 view .LVU167
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  788 00a6 019B     		ldr	r3, [sp, #4]
  789              	.LVL41:
  292:Lib/lvgl/src/misc/lv_color.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 29
 
 
  790              		.loc 3 292 12 view .LVU183
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  829              		.loc 3 292 12 is_stmt 0 view .LVU198
  830 00d0 019B     		ldr	r3, [sp, #4]
  831 00d2 ADF81430 		strh	r3, [sp, #20]	@ movhi
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 30
 
 
  832 00d6 1B0C     		lsrs	r3, r3, #16
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  876 0116 9E46     		mov	lr, r3
  877              	.LVL50:
  162:Lib/lvgl/src/misc/lv_color.c ****         case 3:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 31
 
 
  878              		.loc 1 162 13 view .LVU209
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  916 012c CAE7     		b	.L41
  917              	.LVL60:
  918              	.L36:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 32
 
 
  174:Lib/lvgl/src/misc/lv_color.c ****             g = p;
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  965              		.cfi_offset 6, -8
  966              		.cfi_offset 14, -4
  967 0002 82B0     		sub	sp, sp, #8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 33
 
 
  968              	.LCFI23:
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  1006              		.loc 1 190 14 discriminator 1 view .LVU251
  1007 002c 6146     		mov	r1, ip
  1008 002e B445     		cmp	ip, r6
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 34
 
 
  1009 0030 28BF     		it	cs
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  1048 0062 9EFBF0FE 		sdiv	lr, lr, r0
  206:Lib/lvgl/src/misc/lv_color.c ****     if(hsv.s < 3) {
  1049              		.loc 1 206 11 view .LVU267
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 35
 
 
  1050 0066 5FFA8EFE 		uxtb	lr, lr
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  200:Lib/lvgl/src/misc/lv_color.c ****         hsv.s = 0;
  1092              		.loc 1 200 9 is_stmt 1 view .LVU280
  200:Lib/lvgl/src/misc/lv_color.c ****         hsv.s = 0;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 36
 
 
  1093              		.loc 1 200 15 is_stmt 0 view .LVU281
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  1132              	.L57:
  215:Lib/lvgl/src/misc/lv_color.c ****     else if(rgbMax == g)
  1133              		.loc 1 215 11 discriminator 4 view .LVU297
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 37
 
 
  1134 00cc 0B44     		add	r3, r3, r1
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  1176              		.cfi_restore_state
  215:Lib/lvgl/src/misc/lv_color.c ****     else if(rgbMax == g)
  1177              		.loc 1 215 60 view .LVU310
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 38
 
 
  1178 00f8 0023     		movs	r3, #0
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  224:Lib/lvgl/src/misc/lv_color.c **** 
  1217              		.loc 1 224 17 discriminator 1 view .LVU326
  1218 0124 D9E7     		b	.L60
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 39
 
 
  1219              	.L71:
@@ -2338,51 +2338,51 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 1
  1274              	lv_color_filter_shade:
  1275 0000 00000000 		.word	lv_color_filter_shade_cb
  1276 0004 00000000 		.space	4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 40
 
 
  1277              		.text
  1278              	.Letext0:
  1279              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  1280              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s 			page 41
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_color.c
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:21     .text.lv_color_mix:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:26     .text.lv_color_mix:00000000 lv_color_mix
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:101    .text.lv_color_format_get_bpp:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:107    .text.lv_color_format_get_bpp:00000000 lv_color_format_get_bpp
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:123    .text.lv_color_format_get_bpp:0000000a $d
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:181    .text.lv_color_format_has_alpha:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:187    .text.lv_color_format_has_alpha:00000000 lv_color_format_has_alpha
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:215    .text.lv_color_to_32:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:221    .text.lv_color_to_32:00000000 lv_color_to_32
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:276    .text.lv_color_to_u16:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:282    .text.lv_color_to_u16:00000000 lv_color_to_u16
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:323    .text.lv_color_to_u32:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:329    .text.lv_color_to_u32:00000000 lv_color_to_u32
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:364    .text.lv_color_lighten:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:370    .text.lv_color_lighten:00000000 lv_color_lighten
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:457    .text.lv_color_darken:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:463    .text.lv_color_darken:00000000 lv_color_darken
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:550    .text.lv_color_filter_shade_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:555    .text.lv_color_filter_shade_cb:00000000 lv_color_filter_shade_cb
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:645    .text.lv_color_hsv_to_rgb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:651    .text.lv_color_hsv_to_rgb:00000000 lv_color_hsv_to_rgb
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:763    .text.lv_color_hsv_to_rgb:00000094 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:939    .text.lv_color_hsv_to_rgb:00000138 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:946    .text.lv_color_rgb_to_hsv:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:952    .text.lv_color_rgb_to_hsv:00000000 lv_color_rgb_to_hsv
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:1222   .text.lv_color_rgb_to_hsv:00000128 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:1227   .text.lv_color_to_hsv:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:1233   .text.lv_color_to_hsv:00000000 lv_color_to_hsv
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:1274   .rodata.lv_color_filter_shade:00000000 lv_color_filter_shade
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:1271   .rodata.lv_color_filter_shade:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:138    .text.lv_color_format_get_bpp:00000019 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:138    .text.lv_color_format_get_bpp:0000001a $t
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:769    .text.lv_color_hsv_to_rgb:00000099 $d
-C:\Users\Alex\AppData\Local\Temp\ccIHAolo.s:769    .text.lv_color_hsv_to_rgb:0000009a $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:21     .text.lv_color_mix:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:26     .text.lv_color_mix:00000000 lv_color_mix
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:101    .text.lv_color_format_get_bpp:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:107    .text.lv_color_format_get_bpp:00000000 lv_color_format_get_bpp
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:123    .text.lv_color_format_get_bpp:0000000a $d
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:181    .text.lv_color_format_has_alpha:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:187    .text.lv_color_format_has_alpha:00000000 lv_color_format_has_alpha
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:215    .text.lv_color_to_32:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:221    .text.lv_color_to_32:00000000 lv_color_to_32
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:276    .text.lv_color_to_u16:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:282    .text.lv_color_to_u16:00000000 lv_color_to_u16
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:323    .text.lv_color_to_u32:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:329    .text.lv_color_to_u32:00000000 lv_color_to_u32
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:364    .text.lv_color_lighten:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:370    .text.lv_color_lighten:00000000 lv_color_lighten
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:457    .text.lv_color_darken:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:463    .text.lv_color_darken:00000000 lv_color_darken
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:550    .text.lv_color_filter_shade_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:555    .text.lv_color_filter_shade_cb:00000000 lv_color_filter_shade_cb
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:645    .text.lv_color_hsv_to_rgb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:651    .text.lv_color_hsv_to_rgb:00000000 lv_color_hsv_to_rgb
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:763    .text.lv_color_hsv_to_rgb:00000094 $d
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:939    .text.lv_color_hsv_to_rgb:00000138 $d
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:946    .text.lv_color_rgb_to_hsv:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:952    .text.lv_color_rgb_to_hsv:00000000 lv_color_rgb_to_hsv
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:1222   .text.lv_color_rgb_to_hsv:00000128 $d
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:1227   .text.lv_color_to_hsv:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:1233   .text.lv_color_to_hsv:00000000 lv_color_to_hsv
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:1274   .rodata.lv_color_filter_shade:00000000 lv_color_filter_shade
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:1271   .rodata.lv_color_filter_shade:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:138    .text.lv_color_format_get_bpp:00000019 $d
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:138    .text.lv_color_format_get_bpp:0000001a $t
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:769    .text.lv_color_hsv_to_rgb:00000099 $d
+C:\Users\Alex\AppData\Local\Temp\ccSCu7Xb.s:769    .text.lv_color_hsv_to_rgb:0000009a $t
 
 NO UNDEFINED SYMBOLS

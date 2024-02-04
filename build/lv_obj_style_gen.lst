@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
   42 0004 1346     		mov	r3, r2
   15:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
   43              		.loc 1 15 5 is_stmt 1 view .LVU2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 2
 
 
   44              		.loc 1 15 22 is_stmt 0 view .LVU3
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
   25:Lib/lvgl/src/core/lv_obj_style_gen.c ****     };
   26:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_MIN_WIDTH, v, selector);
   91              		.loc 1 26 5 is_stmt 1 view .LVU13
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 3
 
 
   92 0008 0A46     		mov	r2, r1
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  140 000a 0521     		movs	r1, #5
  141              	.LVL10:
  142              		.loc 1 34 5 view .LVU24
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 4
 
 
  143 000c FFF7FEFF 		bl	lv_obj_set_local_style_prop
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  190              		.loc 1 43 1 view .LVU34
  191 0010 03B0     		add	sp, sp, #12
  192              	.LCFI11:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 5
 
 
  193              		.cfi_def_cfa_offset 4
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  241              		.loc 1 51 1 view .LVU44
  242              		.cfi_endproc
  243              	.LFE237:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 6
 
 
  245              		.section	.text.lv_obj_set_style_max_height,"ax",%progbits
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  293              		.syntax unified
  294              		.thumb
  295              		.thumb_func
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 7
 
 
  297              	lv_obj_set_style_length:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
   68:Lib/lvgl/src/core/lv_obj_style_gen.c **** 
   69:Lib/lvgl/src/core/lv_obj_style_gen.c **** void lv_obj_set_style_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
   70:Lib/lvgl/src/core/lv_obj_style_gen.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 8
 
 
  345              		.loc 1 70 1 is_stmt 1 view -0
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  393              		@ frame_needed = 0, uses_anonymous_args = 0
  394              		.loc 1 78 1 is_stmt 0 view .LVU73
  395 0000 00B5     		push	{lr}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 9
 
 
  396              	.LCFI24:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  444 0002 83B0     		sub	sp, sp, #12
  445              	.LCFI28:
  446              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 10
 
 
  447 0004 1346     		mov	r3, r2
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  494 0006 0191     		str	r1, [sp, #4]
   96:Lib/lvgl/src/core/lv_obj_style_gen.c ****         .num = (int32_t)value
   97:Lib/lvgl/src/core/lv_obj_style_gen.c ****     };
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 11
 
 
   98:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_WIDTH, v, selector);
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  542              	.LVL45:
  543              		.loc 1 106 5 is_stmt 0 view .LVU103
  544 000a 6921     		movs	r1, #105
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 12
 
 
  545              	.LVL46:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  593              	.LVL51:
  115:Lib/lvgl/src/core/lv_obj_style_gen.c **** }
  594              		.loc 1 115 1 view .LVU114
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 13
 
 
  595 0010 03B0     		add	sp, sp, #12
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  643              		@ sp needed
  644 0012 5DF804FB 		ldr	pc, [sp], #4
  645              		.loc 1 123 1 view .LVU124
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 14
 
 
  646              		.cfi_endproc
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  695              		.align	1
  696              		.global	lv_obj_set_style_transform_scale_y
  697              		.syntax unified
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 15
 
 
  698              		.thumb
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  747              	.LVL64:
  748              	.LFB249:
  140:Lib/lvgl/src/core/lv_obj_style_gen.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 16
 
 
  141:Lib/lvgl/src/core/lv_obj_style_gen.c **** void lv_obj_set_style_transform_rotation(lv_obj_t * obj, int32_t value, lv_style_selector_t selecto
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  795              		.cfi_startproc
  796              		@ args = 0, pretend = 0, frame = 8
  797              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 17
 
 
  798              		.loc 1 150 1 is_stmt 0 view .LVU153
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  846              		.cfi_def_cfa_offset 4
  847              		.cfi_offset 14, -4
  848 0002 83B0     		sub	sp, sp, #12
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 18
 
 
  849              	.LCFI55:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  167:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
  897              		.loc 1 167 5 is_stmt 1 view .LVU172
  898              		.loc 1 167 22 is_stmt 0 view .LVU173
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 19
 
 
  899 0006 0191     		str	r1, [sp, #4]
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  178:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SKEW_Y, v, selector);
  945              		.loc 1 178 5 is_stmt 1 view .LVU183
  946 0008 0A46     		mov	r2, r1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 20
 
 
  947              	.LVL81:
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  995              	.LVL86:
  996              		.loc 1 186 5 view .LVU194
  997 000c FFF7FEFF 		bl	lv_obj_set_local_style_prop
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 21
 
 
  998              	.LVL87:
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1045 0010 03B0     		add	sp, sp, #12
  1046              	.LCFI68:
  1047              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 22
 
 
  1048              		@ sp needed
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1096              		.cfi_endproc
  1097              	.LFE256:
  1099              		.section	.text.lv_obj_set_style_pad_right,"ax",%progbits
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 23
 
 
  1100              		.align	1
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1148              		.thumb
  1149              		.thumb_func
  1151              	lv_obj_set_style_pad_row:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 24
 
 
  1152              	.LVL100:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  221:Lib/lvgl/src/core/lv_obj_style_gen.c **** void lv_obj_set_style_pad_column(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
  222:Lib/lvgl/src/core/lv_obj_style_gen.c **** {
  1199              		.loc 1 222 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 25
 
 
  1200              		.cfi_startproc
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1248              		.loc 1 230 1 is_stmt 0 view .LVU243
  1249 0000 00B5     		push	{lr}
  1250              	.LCFI81:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 26
 
 
  1251              		.cfi_def_cfa_offset 4
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1299              	.LCFI85:
  1300              		.cfi_def_cfa_offset 16
  1301 0004 1346     		mov	r3, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 27
 
 
  239:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1349 0006 0191     		str	r1, [sp, #4]
  248:Lib/lvgl/src/core/lv_obj_style_gen.c ****         .num = (int32_t)value
  249:Lib/lvgl/src/core/lv_obj_style_gen.c ****     };
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 28
 
 
  250:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_LEFT, v, selector);
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1397              	.LVL121:
  1398              		.loc 1 258 5 is_stmt 0 view .LVU274
  1399 000a 1B21     		movs	r1, #27
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 29
 
 
  1400              	.LVL122:
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1448 0016 039A     		ldr	r2, [sp, #12]
  1449 0018 1C21     		movs	r1, #28
  1450 001a FFF7FEFF 		bl	lv_obj_set_local_style_prop
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 30
 
 
  1451              	.LVL126:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1498              	.LCFI98:
  1499              		.cfi_def_cfa_offset 4
  1500              		@ sp needed
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 31
 
 
  1501 0012 5DF804FB 		ldr	pc, [sp], #4
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1549              		.cfi_endproc
  1550              	.LFE266:
  1552              		.section	.text.lv_obj_set_style_bg_grad_dir,"ax",%progbits
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 32
 
 
  1553              		.align	1
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1601              		.thumb_func
  1603              	lv_obj_set_style_bg_main_stop:
  1604              	.LVL138:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 33
 
 
  1605              	.LFB268:
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  302:Lib/lvgl/src/core/lv_obj_style_gen.c **** {
  1651              		.loc 1 302 1 is_stmt 1 view -0
  1652              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 34
 
 
  1653              		@ args = 0, pretend = 0, frame = 8
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1701 0000 00B5     		push	{lr}
  1702              	.LCFI111:
  1703              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 35
 
 
  1704              		.cfi_offset 14, -4
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1752 0004 1346     		mov	r3, r2
  319:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
  1753              		.loc 1 319 5 is_stmt 1 view .LVU336
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 36
 
 
  1754              		.loc 1 319 22 is_stmt 0 view .LVU337
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  330:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD, v, selector);
  1800              		.loc 1 330 5 is_stmt 1 view .LVU346
  1801 0008 0A46     		mov	r2, r1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 37
 
 
  1802              	.LVL155:
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1850              	.LVL160:
  1851              		.loc 1 338 5 view .LVU357
  1852 000c FFF7FEFF 		bl	lv_obj_set_local_style_prop
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 38
 
 
  1853              	.LVL161:
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1900 0010 03B0     		add	sp, sp, #12
  1901              	.LCFI125:
  1902              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 39
 
 
  1903              		@ sp needed
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  1951 0020 5DF804FB 		ldr	pc, [sp], #4
  1952              		.cfi_endproc
  1953              	.LFE275:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 40
 
 
  1955              		.section	.text.lv_obj_set_style_bg_image_recolor_opa,"ax",%progbits
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2003              		.thumb
  2004              		.thumb_func
  2006              	lv_obj_set_style_bg_image_tiled:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 41
 
 
  2007              	.LVL173:
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  374:Lib/lvgl/src/core/lv_obj_style_gen.c **** {
  2053              		.loc 1 374 1 is_stmt 1 view -0
  2054              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 42
 
 
  2055              		@ args = 0, pretend = 0, frame = 16
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2103              		@ frame_needed = 0, uses_anonymous_args = 0
  2104              		.loc 1 382 1 is_stmt 0 view .LVU399
  2105 0000 00B5     		push	{lr}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 43
 
 
  2106              	.LCFI138:
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2154              	.LCFI142:
  2155              		.cfi_def_cfa_offset 16
  2156 0004 1346     		mov	r3, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 44
 
 
  391:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2204 0006 0191     		str	r1, [sp, #4]
  400:Lib/lvgl/src/core/lv_obj_style_gen.c ****         .num = (int32_t)value
  401:Lib/lvgl/src/core/lv_obj_style_gen.c ****     };
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 45
 
 
  402:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_SIDE, v, selector);
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2252              		.loc 1 410 5 is_stmt 0 view .LVU428
  2253 000a 3521     		movs	r1, #53
  2254              	.LVL194:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 46
 
 
  2255              		.loc 1 410 5 view .LVU429
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2302              		.loc 1 419 1 view .LVU438
  2303 0010 03B0     		add	sp, sp, #12
  2304              	.LCFI152:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 47
 
 
  2305              		.cfi_def_cfa_offset 4
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2353              		.cfi_def_cfa_offset 4
  2354              		@ sp needed
  2355 0020 5DF804FB 		ldr	pc, [sp], #4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 48
 
 
  2356              		.cfi_endproc
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2405              		.global	lv_obj_set_style_outline_pad
  2406              		.syntax unified
  2407              		.thumb
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 49
 
 
  2408              		.thumb_func
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2457              	.LFB287:
  444:Lib/lvgl/src/core/lv_obj_style_gen.c **** 
  445:Lib/lvgl/src/core/lv_obj_style_gen.c **** void lv_obj_set_style_shadow_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 50
 
 
  446:Lib/lvgl/src/core/lv_obj_style_gen.c **** {
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2505              		@ args = 0, pretend = 0, frame = 8
  2506              		@ frame_needed = 0, uses_anonymous_args = 0
  2507              		.loc 1 454 1 is_stmt 0 view .LVU474
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 51
 
 
  2508 0000 00B5     		push	{lr}
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2556              		.cfi_offset 14, -4
  2557 0002 83B0     		sub	sp, sp, #12
  2558              	.LCFI169:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 52
 
 
  2559              		.cfi_def_cfa_offset 16
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2606              		.loc 1 471 5 is_stmt 1 view .LVU493
  2607              		.loc 1 471 22 is_stmt 0 view .LVU494
  2608 0006 0191     		str	r1, [sp, #4]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 53
 
 
  472:Lib/lvgl/src/core/lv_obj_style_gen.c ****         .num = (int32_t)value
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2657 000a 0392     		str	r2, [sp, #12]
  2658 000c ADF80C10 		strh	r1, [sp, #12]	@ movhi
  2659 0010 090C     		lsrs	r1, r1, #16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 54
 
 
  2660 0012 8DF80E10 		strb	r1, [sp, #14]
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2705 000a 3E21     		movs	r1, #62
  2706              	.LVL232:
  2707              		.loc 1 490 5 view .LVU513
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 55
 
 
  2708 000c FFF7FEFF 		bl	lv_obj_set_local_style_prop
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2755 0010 03B0     		add	sp, sp, #12
  2756              	.LCFI182:
  2757              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 56
 
 
  2758              		@ sp needed
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2806 0020 5DF804FB 		ldr	pc, [sp], #4
  2807              		.cfi_endproc
  2808              	.LFE294:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 57
 
 
  2810              		.section	.text.lv_obj_set_style_image_recolor_opa,"ax",%progbits
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2858              		.thumb
  2859              		.thumb_func
  2861              	lv_obj_set_style_line_width:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 58
 
 
  2862              	.LVL245:
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  525:Lib/lvgl/src/core/lv_obj_style_gen.c **** void lv_obj_set_style_line_dash_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
  526:Lib/lvgl/src/core/lv_obj_style_gen.c **** {
  2909              		.loc 1 526 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 59
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 59
 
 
  2910              		.cfi_startproc
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  2958              		.loc 1 534 1 is_stmt 0 view .LVU557
  2959 0000 00B5     		push	{lr}
  2960              	.LCFI195:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 60
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 60
 
 
  2961              		.cfi_def_cfa_offset 4
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3009              	.LCFI199:
  3010              		.cfi_def_cfa_offset 16
  3011 0004 1346     		mov	r3, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 61
 
 
  543:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3059 0008 0022     		movs	r2, #0
  3060              	.LVL262:
  3061              		.loc 1 551 22 view .LVU577
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 62
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 62
 
 
  3062 000a 0392     		str	r2, [sp, #12]
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3107 0008 0A46     		mov	r2, r1
  3108              	.LVL265:
  3109              		.loc 1 562 5 is_stmt 0 view .LVU585
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 63
 
 
  3110 000a 4D21     		movs	r1, #77
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3158              	.LVL271:
  571:Lib/lvgl/src/core/lv_obj_style_gen.c **** }
  3159              		.loc 1 571 1 view .LVU595
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 64
 
 
  3160 0010 03B0     		add	sp, sp, #12
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3208              		@ sp needed
  3209 0012 5DF804FB 		ldr	pc, [sp], #4
  3210              		.cfi_endproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 65
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 65
 
 
  3211              	.LFE303:
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3260              		.section	.text.lv_obj_set_style_arc_opa,"ax",%progbits
  3261              		.align	1
  3262              		.global	lv_obj_set_style_arc_opa
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 66
 
 
  3263              		.syntax unified
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3312              	.LVL283:
  3313              	.LFB306:
  596:Lib/lvgl/src/core/lv_obj_style_gen.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 67
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 67
 
 
  597:Lib/lvgl/src/core/lv_obj_style_gen.c **** void lv_obj_set_style_arc_image_src(lv_obj_t * obj, const void * value, lv_style_selector_t selecto
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3360              		.cfi_startproc
  3361              		@ args = 0, pretend = 0, frame = 16
  3362              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 68
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 68
 
 
  3363              		.loc 1 606 1 is_stmt 0 view .LVU630
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3411 0000 00B5     		push	{lr}
  3412              	.LCFI225:
  3413              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 69
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 69
 
 
  3414              		.cfi_offset 14, -4
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3462 0004 1346     		mov	r3, r2
  623:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
  3463              		.loc 1 623 5 is_stmt 1 view .LVU646
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 70
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 70
 
 
  3464              		.loc 1 623 22 is_stmt 0 view .LVU647
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  633:Lib/lvgl/src/core/lv_obj_style_gen.c ****     };
  634:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_LETTER_SPACE, v, selector);
  3511              		.loc 1 634 5 is_stmt 1 view .LVU657
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 71
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 71
 
 
  3512 0008 0A46     		mov	r2, r1
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3560 000a 5C21     		movs	r1, #92
  3561              	.LVL304:
  3562              		.loc 1 642 5 view .LVU668
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 72
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 72
 
 
  3563 000c FFF7FEFF 		bl	lv_obj_set_local_style_prop
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3610              		.loc 1 651 1 view .LVU678
  3611 0010 03B0     		add	sp, sp, #12
  3612              	.LCFI239:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 73
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 73
 
 
  3613              		.cfi_def_cfa_offset 4
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3661              	.LFE313:
  3663              		.section	.text.lv_obj_set_style_radius,"ax",%progbits
  3664              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 74
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 74
 
 
  3665              		.global	lv_obj_set_style_radius
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3713              		.thumb_func
  3715              	lv_obj_set_style_clip_corner:
  3716              	.LVL318:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 75
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 75
 
 
  3717              	.LFB315:
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3762              		.loc 1 678 1 is_stmt 1 view -0
  3763              		.cfi_startproc
  3764              		@ args = 0, pretend = 0, frame = 8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 76
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 76
 
 
  3765              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3813              		.cfi_def_cfa_offset 4
  3814              		.cfi_offset 14, -4
  3815 0002 83B0     		sub	sp, sp, #12
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 77
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 77
 
 
  3816              	.LCFI253:
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  696:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
  3863              		.loc 1 696 5 is_stmt 1 view .LVU722
  3864              		.loc 1 696 22 is_stmt 0 view .LVU723
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 78
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 78
 
 
  3865 0006 0191     		str	r1, [sp, #4]
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  707:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_COLOR_FILTER_OPA, v, selector);
  3911              		.loc 1 707 5 is_stmt 1 view .LVU733
  3912 0008 0A46     		mov	r2, r1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 79
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 79
 
 
  3913              	.LVL335:
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  3961              		.loc 1 715 5 view .LVU743
  3962 000c FFF7FEFF 		bl	lv_obj_set_local_style_prop
  3963              	.LVL341:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 80
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 80
 
 
  716:Lib/lvgl/src/core/lv_obj_style_gen.c **** }
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4011              	.LCFI266:
  4012              		.cfi_def_cfa_offset 4
  4013              		@ sp needed
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 81
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 81
 
 
  4014 0012 5DF804FB 		ldr	pc, [sp], #4
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4062              	.LFE322:
  4064              		.section	.text.lv_obj_set_style_blend_mode,"ax",%progbits
  4065              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 82
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 82
 
 
  4066              		.global	lv_obj_set_style_blend_mode
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4115              	lv_obj_set_style_layout:
  4116              	.LVL354:
  4117              	.LFB324:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 83
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 83
 
 
  741:Lib/lvgl/src/core/lv_obj_style_gen.c **** 
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4163              		.cfi_startproc
  4164              		@ args = 0, pretend = 0, frame = 8
  4165              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 84
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 84
 
 
  4166              		.loc 1 751 1 is_stmt 0 view .LVU781
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4212              	.LCFI279:
  4213              		.cfi_def_cfa_offset 4
  4214              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 85
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 85
 
 
  4215 0002 83B0     		sub	sp, sp, #12
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  770:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
  4263              		.loc 1 770 5 is_stmt 1 view .LVU798
  4264              		.loc 1 770 22 is_stmt 0 view .LVU799
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 86
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 86
 
 
  4265 0006 0191     		str	r1, [sp, #4]
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4310              		.loc 1 781 5 is_stmt 1 view .LVU808
  4311 0008 0A46     		mov	r2, r1
  4312              	.LVL371:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 87
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 87
 
 
  4313              		.loc 1 781 5 is_stmt 0 view .LVU809
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4361 000c FFF7FEFF 		bl	lv_obj_set_local_style_prop
  4362              	.LVL377:
  790:Lib/lvgl/src/core/lv_obj_style_gen.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 88
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 88
 
 
  4363              		.loc 1 790 1 view .LVU819
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4411              		@ sp needed
  4412 0012 5DF804FB 		ldr	pc, [sp], #4
  4413              		.cfi_endproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 89
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 89
 
 
  4414              	.LFE330:
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4458              		.cfi_endproc
  4459              	.LFE331:
  4461              		.section	.text.lv_obj_set_style_grid_column_align,"ax",%progbits
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 90
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 90
 
 
  4462              		.align	1
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4510              		.thumb_func
  4512              	lv_obj_set_style_grid_row_dsc_array:
  4513              	.LVL390:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 91
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 91
 
 
  4514              	.LFB333:
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  829:Lib/lvgl/src/core/lv_obj_style_gen.c **** {
  4560              		.loc 1 829 1 is_stmt 1 view -0
  4561              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 92
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 92
 
 
  4562              		@ args = 0, pretend = 0, frame = 8
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4610              	.LCFI306:
  4611              		.cfi_def_cfa_offset 4
  4612              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 93
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 93
 
 
  4613 0002 83B0     		sub	sp, sp, #12
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4661 0004 1346     		mov	r3, r2
  846:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_style_value_t v = {
  4662              		.loc 1 846 5 is_stmt 1 view .LVU873
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 94
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 94
 
 
  4663              		.loc 1 846 22 is_stmt 0 view .LVU874
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  857:Lib/lvgl/src/core/lv_obj_style_gen.c ****     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_COLUMN_SPAN, v, selector);
  4709              		.loc 1 857 5 is_stmt 1 view .LVU883
  4710 0008 0A46     		mov	r2, r1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 95
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 95
 
 
  4711              	.LVL407:
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4759              	.LVL412:
  4760              		.loc 1 865 5 view .LVU894
  4761 000c FFF7FEFF 		bl	lv_obj_set_local_style_prop
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 96
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 96
 
 
  4762              	.LVL413:
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4809 0010 03B0     		add	sp, sp, #12
  4810              	.LCFI320:
  4811              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 97
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 97
 
 
  4812              		@ sp needed
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4860              	.LFE340:
  4862              		.text
  4863              	.Letext0:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 98
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 98
 
 
  4864              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
@@ -5844,236 +5844,236 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 1
  4884              		.file 22 "Lib/lvgl/src/core/../misc/lv_style.h"
  4885              		.file 23 "Lib/lvgl/src/core/../display/../misc/lv_array.h"
  4886              		.file 24 "Lib/lvgl/src/core/lv_obj_style.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 99
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 99
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_obj_style_gen.c
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:21     .text.lv_obj_set_style_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:27     .text.lv_obj_set_style_width:00000000 lv_obj_set_style_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:66     .text.lv_obj_set_style_min_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:72     .text.lv_obj_set_style_min_width:00000000 lv_obj_set_style_min_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:111    .text.lv_obj_set_style_max_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:117    .text.lv_obj_set_style_max_width:00000000 lv_obj_set_style_max_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:156    .text.lv_obj_set_style_height:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:162    .text.lv_obj_set_style_height:00000000 lv_obj_set_style_height
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:201    .text.lv_obj_set_style_min_height:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:207    .text.lv_obj_set_style_min_height:00000000 lv_obj_set_style_min_height
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:246    .text.lv_obj_set_style_max_height:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:252    .text.lv_obj_set_style_max_height:00000000 lv_obj_set_style_max_height
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:291    .text.lv_obj_set_style_length:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:297    .text.lv_obj_set_style_length:00000000 lv_obj_set_style_length
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:336    .text.lv_obj_set_style_x:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:342    .text.lv_obj_set_style_x:00000000 lv_obj_set_style_x
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:381    .text.lv_obj_set_style_y:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:387    .text.lv_obj_set_style_y:00000000 lv_obj_set_style_y
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:426    .text.lv_obj_set_style_align:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:432    .text.lv_obj_set_style_align:00000000 lv_obj_set_style_align
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:470    .text.lv_obj_set_style_transform_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:476    .text.lv_obj_set_style_transform_width:00000000 lv_obj_set_style_transform_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:515    .text.lv_obj_set_style_transform_height:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:521    .text.lv_obj_set_style_transform_height:00000000 lv_obj_set_style_transform_height
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:560    .text.lv_obj_set_style_translate_x:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:566    .text.lv_obj_set_style_translate_x:00000000 lv_obj_set_style_translate_x
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:605    .text.lv_obj_set_style_translate_y:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:611    .text.lv_obj_set_style_translate_y:00000000 lv_obj_set_style_translate_y
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:650    .text.lv_obj_set_style_transform_scale_x:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:656    .text.lv_obj_set_style_transform_scale_x:00000000 lv_obj_set_style_transform_scale_x
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:695    .text.lv_obj_set_style_transform_scale_y:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:701    .text.lv_obj_set_style_transform_scale_y:00000000 lv_obj_set_style_transform_scale_y
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:740    .text.lv_obj_set_style_transform_rotation:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:746    .text.lv_obj_set_style_transform_rotation:00000000 lv_obj_set_style_transform_rotation
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:785    .text.lv_obj_set_style_transform_pivot_x:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:791    .text.lv_obj_set_style_transform_pivot_x:00000000 lv_obj_set_style_transform_pivot_x
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:830    .text.lv_obj_set_style_transform_pivot_y:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:836    .text.lv_obj_set_style_transform_pivot_y:00000000 lv_obj_set_style_transform_pivot_y
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:875    .text.lv_obj_set_style_transform_skew_x:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:881    .text.lv_obj_set_style_transform_skew_x:00000000 lv_obj_set_style_transform_skew_x
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:920    .text.lv_obj_set_style_transform_skew_y:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:926    .text.lv_obj_set_style_transform_skew_y:00000000 lv_obj_set_style_transform_skew_y
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:965    .text.lv_obj_set_style_pad_top:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:971    .text.lv_obj_set_style_pad_top:00000000 lv_obj_set_style_pad_top
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1010   .text.lv_obj_set_style_pad_bottom:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1016   .text.lv_obj_set_style_pad_bottom:00000000 lv_obj_set_style_pad_bottom
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1055   .text.lv_obj_set_style_pad_left:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1061   .text.lv_obj_set_style_pad_left:00000000 lv_obj_set_style_pad_left
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1100   .text.lv_obj_set_style_pad_right:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1106   .text.lv_obj_set_style_pad_right:00000000 lv_obj_set_style_pad_right
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1145   .text.lv_obj_set_style_pad_row:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1151   .text.lv_obj_set_style_pad_row:00000000 lv_obj_set_style_pad_row
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1190   .text.lv_obj_set_style_pad_column:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1196   .text.lv_obj_set_style_pad_column:00000000 lv_obj_set_style_pad_column
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1235   .text.lv_obj_set_style_margin_top:00000000 $t
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 100
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:21     .text.lv_obj_set_style_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:27     .text.lv_obj_set_style_width:00000000 lv_obj_set_style_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:66     .text.lv_obj_set_style_min_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:72     .text.lv_obj_set_style_min_width:00000000 lv_obj_set_style_min_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:111    .text.lv_obj_set_style_max_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:117    .text.lv_obj_set_style_max_width:00000000 lv_obj_set_style_max_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:156    .text.lv_obj_set_style_height:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:162    .text.lv_obj_set_style_height:00000000 lv_obj_set_style_height
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:201    .text.lv_obj_set_style_min_height:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:207    .text.lv_obj_set_style_min_height:00000000 lv_obj_set_style_min_height
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:246    .text.lv_obj_set_style_max_height:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:252    .text.lv_obj_set_style_max_height:00000000 lv_obj_set_style_max_height
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:291    .text.lv_obj_set_style_length:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:297    .text.lv_obj_set_style_length:00000000 lv_obj_set_style_length
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:336    .text.lv_obj_set_style_x:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:342    .text.lv_obj_set_style_x:00000000 lv_obj_set_style_x
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:381    .text.lv_obj_set_style_y:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:387    .text.lv_obj_set_style_y:00000000 lv_obj_set_style_y
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:426    .text.lv_obj_set_style_align:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:432    .text.lv_obj_set_style_align:00000000 lv_obj_set_style_align
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:470    .text.lv_obj_set_style_transform_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:476    .text.lv_obj_set_style_transform_width:00000000 lv_obj_set_style_transform_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:515    .text.lv_obj_set_style_transform_height:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:521    .text.lv_obj_set_style_transform_height:00000000 lv_obj_set_style_transform_height
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:560    .text.lv_obj_set_style_translate_x:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:566    .text.lv_obj_set_style_translate_x:00000000 lv_obj_set_style_translate_x
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:605    .text.lv_obj_set_style_translate_y:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:611    .text.lv_obj_set_style_translate_y:00000000 lv_obj_set_style_translate_y
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:650    .text.lv_obj_set_style_transform_scale_x:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:656    .text.lv_obj_set_style_transform_scale_x:00000000 lv_obj_set_style_transform_scale_x
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:695    .text.lv_obj_set_style_transform_scale_y:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:701    .text.lv_obj_set_style_transform_scale_y:00000000 lv_obj_set_style_transform_scale_y
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:740    .text.lv_obj_set_style_transform_rotation:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:746    .text.lv_obj_set_style_transform_rotation:00000000 lv_obj_set_style_transform_rotation
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:785    .text.lv_obj_set_style_transform_pivot_x:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:791    .text.lv_obj_set_style_transform_pivot_x:00000000 lv_obj_set_style_transform_pivot_x
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:830    .text.lv_obj_set_style_transform_pivot_y:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:836    .text.lv_obj_set_style_transform_pivot_y:00000000 lv_obj_set_style_transform_pivot_y
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:875    .text.lv_obj_set_style_transform_skew_x:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:881    .text.lv_obj_set_style_transform_skew_x:00000000 lv_obj_set_style_transform_skew_x
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:920    .text.lv_obj_set_style_transform_skew_y:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:926    .text.lv_obj_set_style_transform_skew_y:00000000 lv_obj_set_style_transform_skew_y
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:965    .text.lv_obj_set_style_pad_top:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:971    .text.lv_obj_set_style_pad_top:00000000 lv_obj_set_style_pad_top
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1010   .text.lv_obj_set_style_pad_bottom:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1016   .text.lv_obj_set_style_pad_bottom:00000000 lv_obj_set_style_pad_bottom
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1055   .text.lv_obj_set_style_pad_left:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1061   .text.lv_obj_set_style_pad_left:00000000 lv_obj_set_style_pad_left
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1100   .text.lv_obj_set_style_pad_right:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1106   .text.lv_obj_set_style_pad_right:00000000 lv_obj_set_style_pad_right
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1145   .text.lv_obj_set_style_pad_row:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1151   .text.lv_obj_set_style_pad_row:00000000 lv_obj_set_style_pad_row
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1190   .text.lv_obj_set_style_pad_column:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1196   .text.lv_obj_set_style_pad_column:00000000 lv_obj_set_style_pad_column
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1235   .text.lv_obj_set_style_margin_top:00000000 $t
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 100
 
 
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1241   .text.lv_obj_set_style_margin_top:00000000 lv_obj_set_style_margin_top
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1280   .text.lv_obj_set_style_margin_bottom:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1286   .text.lv_obj_set_style_margin_bottom:00000000 lv_obj_set_style_margin_bottom
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1325   .text.lv_obj_set_style_margin_left:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1331   .text.lv_obj_set_style_margin_left:00000000 lv_obj_set_style_margin_left
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1370   .text.lv_obj_set_style_margin_right:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1376   .text.lv_obj_set_style_margin_right:00000000 lv_obj_set_style_margin_right
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1415   .text.lv_obj_set_style_bg_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1421   .text.lv_obj_set_style_bg_color:00000000 lv_obj_set_style_bg_color
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1462   .text.lv_obj_set_style_bg_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1468   .text.lv_obj_set_style_bg_opa:00000000 lv_obj_set_style_bg_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1506   .text.lv_obj_set_style_bg_grad_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1512   .text.lv_obj_set_style_bg_grad_color:00000000 lv_obj_set_style_bg_grad_color
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1553   .text.lv_obj_set_style_bg_grad_dir:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1559   .text.lv_obj_set_style_bg_grad_dir:00000000 lv_obj_set_style_bg_grad_dir
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1597   .text.lv_obj_set_style_bg_main_stop:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1603   .text.lv_obj_set_style_bg_main_stop:00000000 lv_obj_set_style_bg_main_stop
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1642   .text.lv_obj_set_style_bg_grad_stop:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1648   .text.lv_obj_set_style_bg_grad_stop:00000000 lv_obj_set_style_bg_grad_stop
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1687   .text.lv_obj_set_style_bg_main_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1693   .text.lv_obj_set_style_bg_main_opa:00000000 lv_obj_set_style_bg_main_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1731   .text.lv_obj_set_style_bg_grad_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1737   .text.lv_obj_set_style_bg_grad_opa:00000000 lv_obj_set_style_bg_grad_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1775   .text.lv_obj_set_style_bg_grad:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1781   .text.lv_obj_set_style_bg_grad:00000000 lv_obj_set_style_bg_grad
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1820   .text.lv_obj_set_style_bg_image_src:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1826   .text.lv_obj_set_style_bg_image_src:00000000 lv_obj_set_style_bg_image_src
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1865   .text.lv_obj_set_style_bg_image_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1871   .text.lv_obj_set_style_bg_image_opa:00000000 lv_obj_set_style_bg_image_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1909   .text.lv_obj_set_style_bg_image_recolor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1915   .text.lv_obj_set_style_bg_image_recolor:00000000 lv_obj_set_style_bg_image_recolor
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1956   .text.lv_obj_set_style_bg_image_recolor_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:1962   .text.lv_obj_set_style_bg_image_recolor_opa:00000000 lv_obj_set_style_bg_image_recolor_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2000   .text.lv_obj_set_style_bg_image_tiled:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2006   .text.lv_obj_set_style_bg_image_tiled:00000000 lv_obj_set_style_bg_image_tiled
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2044   .text.lv_obj_set_style_border_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2050   .text.lv_obj_set_style_border_color:00000000 lv_obj_set_style_border_color
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2091   .text.lv_obj_set_style_border_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2097   .text.lv_obj_set_style_border_opa:00000000 lv_obj_set_style_border_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2135   .text.lv_obj_set_style_border_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2141   .text.lv_obj_set_style_border_width:00000000 lv_obj_set_style_border_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2180   .text.lv_obj_set_style_border_side:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2186   .text.lv_obj_set_style_border_side:00000000 lv_obj_set_style_border_side
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2224   .text.lv_obj_set_style_border_post:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2230   .text.lv_obj_set_style_border_post:00000000 lv_obj_set_style_border_post
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2268   .text.lv_obj_set_style_outline_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2274   .text.lv_obj_set_style_outline_width:00000000 lv_obj_set_style_outline_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2313   .text.lv_obj_set_style_outline_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2319   .text.lv_obj_set_style_outline_color:00000000 lv_obj_set_style_outline_color
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2360   .text.lv_obj_set_style_outline_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2366   .text.lv_obj_set_style_outline_opa:00000000 lv_obj_set_style_outline_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2404   .text.lv_obj_set_style_outline_pad:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2410   .text.lv_obj_set_style_outline_pad:00000000 lv_obj_set_style_outline_pad
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2449   .text.lv_obj_set_style_shadow_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2455   .text.lv_obj_set_style_shadow_width:00000000 lv_obj_set_style_shadow_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2494   .text.lv_obj_set_style_shadow_offset_x:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2500   .text.lv_obj_set_style_shadow_offset_x:00000000 lv_obj_set_style_shadow_offset_x
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 101
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1241   .text.lv_obj_set_style_margin_top:00000000 lv_obj_set_style_margin_top
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1280   .text.lv_obj_set_style_margin_bottom:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1286   .text.lv_obj_set_style_margin_bottom:00000000 lv_obj_set_style_margin_bottom
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1325   .text.lv_obj_set_style_margin_left:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1331   .text.lv_obj_set_style_margin_left:00000000 lv_obj_set_style_margin_left
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1370   .text.lv_obj_set_style_margin_right:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1376   .text.lv_obj_set_style_margin_right:00000000 lv_obj_set_style_margin_right
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1415   .text.lv_obj_set_style_bg_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1421   .text.lv_obj_set_style_bg_color:00000000 lv_obj_set_style_bg_color
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1462   .text.lv_obj_set_style_bg_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1468   .text.lv_obj_set_style_bg_opa:00000000 lv_obj_set_style_bg_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1506   .text.lv_obj_set_style_bg_grad_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1512   .text.lv_obj_set_style_bg_grad_color:00000000 lv_obj_set_style_bg_grad_color
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1553   .text.lv_obj_set_style_bg_grad_dir:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1559   .text.lv_obj_set_style_bg_grad_dir:00000000 lv_obj_set_style_bg_grad_dir
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1597   .text.lv_obj_set_style_bg_main_stop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1603   .text.lv_obj_set_style_bg_main_stop:00000000 lv_obj_set_style_bg_main_stop
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1642   .text.lv_obj_set_style_bg_grad_stop:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1648   .text.lv_obj_set_style_bg_grad_stop:00000000 lv_obj_set_style_bg_grad_stop
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1687   .text.lv_obj_set_style_bg_main_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1693   .text.lv_obj_set_style_bg_main_opa:00000000 lv_obj_set_style_bg_main_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1731   .text.lv_obj_set_style_bg_grad_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1737   .text.lv_obj_set_style_bg_grad_opa:00000000 lv_obj_set_style_bg_grad_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1775   .text.lv_obj_set_style_bg_grad:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1781   .text.lv_obj_set_style_bg_grad:00000000 lv_obj_set_style_bg_grad
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1820   .text.lv_obj_set_style_bg_image_src:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1826   .text.lv_obj_set_style_bg_image_src:00000000 lv_obj_set_style_bg_image_src
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1865   .text.lv_obj_set_style_bg_image_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1871   .text.lv_obj_set_style_bg_image_opa:00000000 lv_obj_set_style_bg_image_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1909   .text.lv_obj_set_style_bg_image_recolor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1915   .text.lv_obj_set_style_bg_image_recolor:00000000 lv_obj_set_style_bg_image_recolor
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1956   .text.lv_obj_set_style_bg_image_recolor_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:1962   .text.lv_obj_set_style_bg_image_recolor_opa:00000000 lv_obj_set_style_bg_image_recolor_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2000   .text.lv_obj_set_style_bg_image_tiled:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2006   .text.lv_obj_set_style_bg_image_tiled:00000000 lv_obj_set_style_bg_image_tiled
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2044   .text.lv_obj_set_style_border_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2050   .text.lv_obj_set_style_border_color:00000000 lv_obj_set_style_border_color
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2091   .text.lv_obj_set_style_border_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2097   .text.lv_obj_set_style_border_opa:00000000 lv_obj_set_style_border_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2135   .text.lv_obj_set_style_border_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2141   .text.lv_obj_set_style_border_width:00000000 lv_obj_set_style_border_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2180   .text.lv_obj_set_style_border_side:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2186   .text.lv_obj_set_style_border_side:00000000 lv_obj_set_style_border_side
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2224   .text.lv_obj_set_style_border_post:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2230   .text.lv_obj_set_style_border_post:00000000 lv_obj_set_style_border_post
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2268   .text.lv_obj_set_style_outline_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2274   .text.lv_obj_set_style_outline_width:00000000 lv_obj_set_style_outline_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2313   .text.lv_obj_set_style_outline_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2319   .text.lv_obj_set_style_outline_color:00000000 lv_obj_set_style_outline_color
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2360   .text.lv_obj_set_style_outline_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2366   .text.lv_obj_set_style_outline_opa:00000000 lv_obj_set_style_outline_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2404   .text.lv_obj_set_style_outline_pad:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2410   .text.lv_obj_set_style_outline_pad:00000000 lv_obj_set_style_outline_pad
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2449   .text.lv_obj_set_style_shadow_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2455   .text.lv_obj_set_style_shadow_width:00000000 lv_obj_set_style_shadow_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2494   .text.lv_obj_set_style_shadow_offset_x:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2500   .text.lv_obj_set_style_shadow_offset_x:00000000 lv_obj_set_style_shadow_offset_x
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 101
 
 
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2539   .text.lv_obj_set_style_shadow_offset_y:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2545   .text.lv_obj_set_style_shadow_offset_y:00000000 lv_obj_set_style_shadow_offset_y
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2584   .text.lv_obj_set_style_shadow_spread:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2590   .text.lv_obj_set_style_shadow_spread:00000000 lv_obj_set_style_shadow_spread
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2629   .text.lv_obj_set_style_shadow_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2635   .text.lv_obj_set_style_shadow_color:00000000 lv_obj_set_style_shadow_color
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2676   .text.lv_obj_set_style_shadow_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2682   .text.lv_obj_set_style_shadow_opa:00000000 lv_obj_set_style_shadow_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2720   .text.lv_obj_set_style_image_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2726   .text.lv_obj_set_style_image_opa:00000000 lv_obj_set_style_image_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2764   .text.lv_obj_set_style_image_recolor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2770   .text.lv_obj_set_style_image_recolor:00000000 lv_obj_set_style_image_recolor
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2811   .text.lv_obj_set_style_image_recolor_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2817   .text.lv_obj_set_style_image_recolor_opa:00000000 lv_obj_set_style_image_recolor_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2855   .text.lv_obj_set_style_line_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2861   .text.lv_obj_set_style_line_width:00000000 lv_obj_set_style_line_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2900   .text.lv_obj_set_style_line_dash_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2906   .text.lv_obj_set_style_line_dash_width:00000000 lv_obj_set_style_line_dash_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2945   .text.lv_obj_set_style_line_dash_gap:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2951   .text.lv_obj_set_style_line_dash_gap:00000000 lv_obj_set_style_line_dash_gap
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2990   .text.lv_obj_set_style_line_rounded:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:2996   .text.lv_obj_set_style_line_rounded:00000000 lv_obj_set_style_line_rounded
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3034   .text.lv_obj_set_style_line_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3040   .text.lv_obj_set_style_line_color:00000000 lv_obj_set_style_line_color
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3081   .text.lv_obj_set_style_line_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3087   .text.lv_obj_set_style_line_opa:00000000 lv_obj_set_style_line_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3125   .text.lv_obj_set_style_arc_width:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3131   .text.lv_obj_set_style_arc_width:00000000 lv_obj_set_style_arc_width
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3170   .text.lv_obj_set_style_arc_rounded:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3176   .text.lv_obj_set_style_arc_rounded:00000000 lv_obj_set_style_arc_rounded
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3214   .text.lv_obj_set_style_arc_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3220   .text.lv_obj_set_style_arc_color:00000000 lv_obj_set_style_arc_color
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3261   .text.lv_obj_set_style_arc_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3267   .text.lv_obj_set_style_arc_opa:00000000 lv_obj_set_style_arc_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3305   .text.lv_obj_set_style_arc_image_src:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3311   .text.lv_obj_set_style_arc_image_src:00000000 lv_obj_set_style_arc_image_src
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3350   .text.lv_obj_set_style_text_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3356   .text.lv_obj_set_style_text_color:00000000 lv_obj_set_style_text_color
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3397   .text.lv_obj_set_style_text_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3403   .text.lv_obj_set_style_text_opa:00000000 lv_obj_set_style_text_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3441   .text.lv_obj_set_style_text_font:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3447   .text.lv_obj_set_style_text_font:00000000 lv_obj_set_style_text_font
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3486   .text.lv_obj_set_style_text_letter_space:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3492   .text.lv_obj_set_style_text_letter_space:00000000 lv_obj_set_style_text_letter_space
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3531   .text.lv_obj_set_style_text_line_space:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3537   .text.lv_obj_set_style_text_line_space:00000000 lv_obj_set_style_text_line_space
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3576   .text.lv_obj_set_style_text_decor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3582   .text.lv_obj_set_style_text_decor:00000000 lv_obj_set_style_text_decor
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3620   .text.lv_obj_set_style_text_align:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3626   .text.lv_obj_set_style_text_align:00000000 lv_obj_set_style_text_align
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3664   .text.lv_obj_set_style_radius:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3670   .text.lv_obj_set_style_radius:00000000 lv_obj_set_style_radius
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3709   .text.lv_obj_set_style_clip_corner:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3715   .text.lv_obj_set_style_clip_corner:00000000 lv_obj_set_style_clip_corner
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3753   .text.lv_obj_set_style_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3759   .text.lv_obj_set_style_opa:00000000 lv_obj_set_style_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3797   .text.lv_obj_set_style_opa_layered:00000000 $t
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s 			page 102
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2539   .text.lv_obj_set_style_shadow_offset_y:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2545   .text.lv_obj_set_style_shadow_offset_y:00000000 lv_obj_set_style_shadow_offset_y
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2584   .text.lv_obj_set_style_shadow_spread:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2590   .text.lv_obj_set_style_shadow_spread:00000000 lv_obj_set_style_shadow_spread
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2629   .text.lv_obj_set_style_shadow_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2635   .text.lv_obj_set_style_shadow_color:00000000 lv_obj_set_style_shadow_color
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2676   .text.lv_obj_set_style_shadow_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2682   .text.lv_obj_set_style_shadow_opa:00000000 lv_obj_set_style_shadow_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2720   .text.lv_obj_set_style_image_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2726   .text.lv_obj_set_style_image_opa:00000000 lv_obj_set_style_image_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2764   .text.lv_obj_set_style_image_recolor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2770   .text.lv_obj_set_style_image_recolor:00000000 lv_obj_set_style_image_recolor
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2811   .text.lv_obj_set_style_image_recolor_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2817   .text.lv_obj_set_style_image_recolor_opa:00000000 lv_obj_set_style_image_recolor_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2855   .text.lv_obj_set_style_line_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2861   .text.lv_obj_set_style_line_width:00000000 lv_obj_set_style_line_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2900   .text.lv_obj_set_style_line_dash_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2906   .text.lv_obj_set_style_line_dash_width:00000000 lv_obj_set_style_line_dash_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2945   .text.lv_obj_set_style_line_dash_gap:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2951   .text.lv_obj_set_style_line_dash_gap:00000000 lv_obj_set_style_line_dash_gap
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2990   .text.lv_obj_set_style_line_rounded:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:2996   .text.lv_obj_set_style_line_rounded:00000000 lv_obj_set_style_line_rounded
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3034   .text.lv_obj_set_style_line_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3040   .text.lv_obj_set_style_line_color:00000000 lv_obj_set_style_line_color
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3081   .text.lv_obj_set_style_line_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3087   .text.lv_obj_set_style_line_opa:00000000 lv_obj_set_style_line_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3125   .text.lv_obj_set_style_arc_width:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3131   .text.lv_obj_set_style_arc_width:00000000 lv_obj_set_style_arc_width
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3170   .text.lv_obj_set_style_arc_rounded:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3176   .text.lv_obj_set_style_arc_rounded:00000000 lv_obj_set_style_arc_rounded
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3214   .text.lv_obj_set_style_arc_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3220   .text.lv_obj_set_style_arc_color:00000000 lv_obj_set_style_arc_color
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3261   .text.lv_obj_set_style_arc_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3267   .text.lv_obj_set_style_arc_opa:00000000 lv_obj_set_style_arc_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3305   .text.lv_obj_set_style_arc_image_src:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3311   .text.lv_obj_set_style_arc_image_src:00000000 lv_obj_set_style_arc_image_src
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3350   .text.lv_obj_set_style_text_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3356   .text.lv_obj_set_style_text_color:00000000 lv_obj_set_style_text_color
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3397   .text.lv_obj_set_style_text_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3403   .text.lv_obj_set_style_text_opa:00000000 lv_obj_set_style_text_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3441   .text.lv_obj_set_style_text_font:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3447   .text.lv_obj_set_style_text_font:00000000 lv_obj_set_style_text_font
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3486   .text.lv_obj_set_style_text_letter_space:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3492   .text.lv_obj_set_style_text_letter_space:00000000 lv_obj_set_style_text_letter_space
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3531   .text.lv_obj_set_style_text_line_space:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3537   .text.lv_obj_set_style_text_line_space:00000000 lv_obj_set_style_text_line_space
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3576   .text.lv_obj_set_style_text_decor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3582   .text.lv_obj_set_style_text_decor:00000000 lv_obj_set_style_text_decor
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3620   .text.lv_obj_set_style_text_align:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3626   .text.lv_obj_set_style_text_align:00000000 lv_obj_set_style_text_align
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3664   .text.lv_obj_set_style_radius:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3670   .text.lv_obj_set_style_radius:00000000 lv_obj_set_style_radius
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3709   .text.lv_obj_set_style_clip_corner:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3715   .text.lv_obj_set_style_clip_corner:00000000 lv_obj_set_style_clip_corner
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3753   .text.lv_obj_set_style_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3759   .text.lv_obj_set_style_opa:00000000 lv_obj_set_style_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3797   .text.lv_obj_set_style_opa_layered:00000000 $t
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s 			page 102
 
 
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3803   .text.lv_obj_set_style_opa_layered:00000000 lv_obj_set_style_opa_layered
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3841   .text.lv_obj_set_style_color_filter_dsc:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3847   .text.lv_obj_set_style_color_filter_dsc:00000000 lv_obj_set_style_color_filter_dsc
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3886   .text.lv_obj_set_style_color_filter_opa:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3892   .text.lv_obj_set_style_color_filter_opa:00000000 lv_obj_set_style_color_filter_opa
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3930   .text.lv_obj_set_style_anim:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3936   .text.lv_obj_set_style_anim:00000000 lv_obj_set_style_anim
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3975   .text.lv_obj_set_style_anim_duration:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:3981   .text.lv_obj_set_style_anim_duration:00000000 lv_obj_set_style_anim_duration
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4020   .text.lv_obj_set_style_transition:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4026   .text.lv_obj_set_style_transition:00000000 lv_obj_set_style_transition
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4065   .text.lv_obj_set_style_blend_mode:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4071   .text.lv_obj_set_style_blend_mode:00000000 lv_obj_set_style_blend_mode
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4109   .text.lv_obj_set_style_layout:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4115   .text.lv_obj_set_style_layout:00000000 lv_obj_set_style_layout
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4153   .text.lv_obj_set_style_base_dir:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4159   .text.lv_obj_set_style_base_dir:00000000 lv_obj_set_style_base_dir
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4197   .text.lv_obj_set_style_flex_flow:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4203   .text.lv_obj_set_style_flex_flow:00000000 lv_obj_set_style_flex_flow
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4241   .text.lv_obj_set_style_flex_main_place:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4247   .text.lv_obj_set_style_flex_main_place:00000000 lv_obj_set_style_flex_main_place
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4285   .text.lv_obj_set_style_flex_cross_place:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4291   .text.lv_obj_set_style_flex_cross_place:00000000 lv_obj_set_style_flex_cross_place
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4329   .text.lv_obj_set_style_flex_track_place:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4335   .text.lv_obj_set_style_flex_track_place:00000000 lv_obj_set_style_flex_track_place
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4373   .text.lv_obj_set_style_flex_grow:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4379   .text.lv_obj_set_style_flex_grow:00000000 lv_obj_set_style_flex_grow
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4417   .text.lv_obj_set_style_grid_column_dsc_array:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4423   .text.lv_obj_set_style_grid_column_dsc_array:00000000 lv_obj_set_style_grid_column_dsc_array
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4462   .text.lv_obj_set_style_grid_column_align:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4468   .text.lv_obj_set_style_grid_column_align:00000000 lv_obj_set_style_grid_column_align
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4506   .text.lv_obj_set_style_grid_row_dsc_array:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4512   .text.lv_obj_set_style_grid_row_dsc_array:00000000 lv_obj_set_style_grid_row_dsc_array
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4551   .text.lv_obj_set_style_grid_row_align:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4557   .text.lv_obj_set_style_grid_row_align:00000000 lv_obj_set_style_grid_row_align
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4595   .text.lv_obj_set_style_grid_cell_column_pos:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4601   .text.lv_obj_set_style_grid_cell_column_pos:00000000 lv_obj_set_style_grid_cell_column_pos
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4640   .text.lv_obj_set_style_grid_cell_x_align:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4646   .text.lv_obj_set_style_grid_cell_x_align:00000000 lv_obj_set_style_grid_cell_x_align
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4684   .text.lv_obj_set_style_grid_cell_column_span:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4690   .text.lv_obj_set_style_grid_cell_column_span:00000000 lv_obj_set_style_grid_cell_column_span
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4729   .text.lv_obj_set_style_grid_cell_row_pos:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4735   .text.lv_obj_set_style_grid_cell_row_pos:00000000 lv_obj_set_style_grid_cell_row_pos
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4774   .text.lv_obj_set_style_grid_cell_y_align:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4780   .text.lv_obj_set_style_grid_cell_y_align:00000000 lv_obj_set_style_grid_cell_y_align
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4818   .text.lv_obj_set_style_grid_cell_row_span:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc6CnhIe.s:4824   .text.lv_obj_set_style_grid_cell_row_span:00000000 lv_obj_set_style_grid_cell_row_span
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3803   .text.lv_obj_set_style_opa_layered:00000000 lv_obj_set_style_opa_layered
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3841   .text.lv_obj_set_style_color_filter_dsc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3847   .text.lv_obj_set_style_color_filter_dsc:00000000 lv_obj_set_style_color_filter_dsc
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3886   .text.lv_obj_set_style_color_filter_opa:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3892   .text.lv_obj_set_style_color_filter_opa:00000000 lv_obj_set_style_color_filter_opa
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3930   .text.lv_obj_set_style_anim:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3936   .text.lv_obj_set_style_anim:00000000 lv_obj_set_style_anim
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3975   .text.lv_obj_set_style_anim_duration:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:3981   .text.lv_obj_set_style_anim_duration:00000000 lv_obj_set_style_anim_duration
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4020   .text.lv_obj_set_style_transition:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4026   .text.lv_obj_set_style_transition:00000000 lv_obj_set_style_transition
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4065   .text.lv_obj_set_style_blend_mode:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4071   .text.lv_obj_set_style_blend_mode:00000000 lv_obj_set_style_blend_mode
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4109   .text.lv_obj_set_style_layout:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4115   .text.lv_obj_set_style_layout:00000000 lv_obj_set_style_layout
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4153   .text.lv_obj_set_style_base_dir:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4159   .text.lv_obj_set_style_base_dir:00000000 lv_obj_set_style_base_dir
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4197   .text.lv_obj_set_style_flex_flow:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4203   .text.lv_obj_set_style_flex_flow:00000000 lv_obj_set_style_flex_flow
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4241   .text.lv_obj_set_style_flex_main_place:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4247   .text.lv_obj_set_style_flex_main_place:00000000 lv_obj_set_style_flex_main_place
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4285   .text.lv_obj_set_style_flex_cross_place:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4291   .text.lv_obj_set_style_flex_cross_place:00000000 lv_obj_set_style_flex_cross_place
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4329   .text.lv_obj_set_style_flex_track_place:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4335   .text.lv_obj_set_style_flex_track_place:00000000 lv_obj_set_style_flex_track_place
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4373   .text.lv_obj_set_style_flex_grow:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4379   .text.lv_obj_set_style_flex_grow:00000000 lv_obj_set_style_flex_grow
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4417   .text.lv_obj_set_style_grid_column_dsc_array:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4423   .text.lv_obj_set_style_grid_column_dsc_array:00000000 lv_obj_set_style_grid_column_dsc_array
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4462   .text.lv_obj_set_style_grid_column_align:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4468   .text.lv_obj_set_style_grid_column_align:00000000 lv_obj_set_style_grid_column_align
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4506   .text.lv_obj_set_style_grid_row_dsc_array:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4512   .text.lv_obj_set_style_grid_row_dsc_array:00000000 lv_obj_set_style_grid_row_dsc_array
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4551   .text.lv_obj_set_style_grid_row_align:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4557   .text.lv_obj_set_style_grid_row_align:00000000 lv_obj_set_style_grid_row_align
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4595   .text.lv_obj_set_style_grid_cell_column_pos:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4601   .text.lv_obj_set_style_grid_cell_column_pos:00000000 lv_obj_set_style_grid_cell_column_pos
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4640   .text.lv_obj_set_style_grid_cell_x_align:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4646   .text.lv_obj_set_style_grid_cell_x_align:00000000 lv_obj_set_style_grid_cell_x_align
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4684   .text.lv_obj_set_style_grid_cell_column_span:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4690   .text.lv_obj_set_style_grid_cell_column_span:00000000 lv_obj_set_style_grid_cell_column_span
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4729   .text.lv_obj_set_style_grid_cell_row_pos:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4735   .text.lv_obj_set_style_grid_cell_row_pos:00000000 lv_obj_set_style_grid_cell_row_pos
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4774   .text.lv_obj_set_style_grid_cell_y_align:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4780   .text.lv_obj_set_style_grid_cell_y_align:00000000 lv_obj_set_style_grid_cell_y_align
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4818   .text.lv_obj_set_style_grid_cell_row_span:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc1dfRJl.s:4824   .text.lv_obj_set_style_grid_cell_row_span:00000000 lv_obj_set_style_grid_cell_row_span
 
 UNDEFINED SYMBOLS
 lv_obj_set_local_style_prop

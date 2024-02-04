@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 1
   28:Lib/lvgl/src/osal/lv_os_none.c ****  *  STATIC VARIABLES
   29:Lib/lvgl/src/osal/lv_os_none.c ****  **********************/
   30:Lib/lvgl/src/osal/lv_os_none.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s 			page 2
 
 
   31:Lib/lvgl/src/osal/lv_os_none.c **** /**********************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 1
   53:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(thread);
   54:Lib/lvgl/src/osal/lv_os_none.c ****     LV_ASSERT(0);
   63              		.loc 1 54 5 discriminator 1 view .LVU7
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s 			page 3
 
 
   64              		.loc 1 54 5 discriminator 1 view .LVU8
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 1
  111              		@ link register save eliminated.
   66:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(mutex);
  112              		.loc 1 66 5 view .LVU18
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s 			page 4
 
 
   67:Lib/lvgl/src/osal/lv_os_none.c ****     return LV_RESULT_OK;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 1
  160              		@ frame_needed = 0, uses_anonymous_args = 0
  161              		@ link register save eliminated.
   78:Lib/lvgl/src/osal/lv_os_none.c ****     LV_UNUSED(mutex);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s 			page 5
 
 
  162              		.loc 1 78 5 view .LVU28
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 1
  209              		@ args = 0, pretend = 0, frame = 0
  210              		@ frame_needed = 0, uses_anonymous_args = 0
  211              		@ link register save eliminated.
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s 			page 6
 
 
  212              	.LVL12:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 1
  102:Lib/lvgl/src/osal/lv_os_none.c **** lv_result_t lv_thread_sync_signal(lv_thread_sync_t * sync)
  103:Lib/lvgl/src/osal/lv_os_none.c **** {
  258              		.loc 1 103 1 view -0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s 			page 7
 
 
  259              		.cfi_startproc
@@ -417,32 +417,32 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 1
  306              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  307              		.file 6 "Lib/lvgl/src/osal/lv_os_none.h"
  308              		.file 7 "Lib/lvgl/src/osal/lv_os.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s 			page 8
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_os_none.c
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:21     .text.lv_thread_init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:27     .text.lv_thread_init:00000000 lv_thread_init
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:47     .text.lv_thread_delete:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:53     .text.lv_thread_delete:00000000 lv_thread_delete
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:73     .text.lv_mutex_init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:79     .text.lv_mutex_init:00000000 lv_mutex_init
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:98     .text.lv_mutex_lock:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:104    .text.lv_mutex_lock:00000000 lv_mutex_lock
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:123    .text.lv_mutex_lock_isr:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:129    .text.lv_mutex_lock_isr:00000000 lv_mutex_lock_isr
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:148    .text.lv_mutex_unlock:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:154    .text.lv_mutex_unlock:00000000 lv_mutex_unlock
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:173    .text.lv_mutex_delete:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:179    .text.lv_mutex_delete:00000000 lv_mutex_delete
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:198    .text.lv_thread_sync_init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:204    .text.lv_thread_sync_init:00000000 lv_thread_sync_init
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:224    .text.lv_thread_sync_wait:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:230    .text.lv_thread_sync_wait:00000000 lv_thread_sync_wait
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:250    .text.lv_thread_sync_signal:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:256    .text.lv_thread_sync_signal:00000000 lv_thread_sync_signal
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:276    .text.lv_thread_sync_delete:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc9nAwYU.s:282    .text.lv_thread_sync_delete:00000000 lv_thread_sync_delete
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:21     .text.lv_thread_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:27     .text.lv_thread_init:00000000 lv_thread_init
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:47     .text.lv_thread_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:53     .text.lv_thread_delete:00000000 lv_thread_delete
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:73     .text.lv_mutex_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:79     .text.lv_mutex_init:00000000 lv_mutex_init
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:98     .text.lv_mutex_lock:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:104    .text.lv_mutex_lock:00000000 lv_mutex_lock
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:123    .text.lv_mutex_lock_isr:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:129    .text.lv_mutex_lock_isr:00000000 lv_mutex_lock_isr
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:148    .text.lv_mutex_unlock:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:154    .text.lv_mutex_unlock:00000000 lv_mutex_unlock
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:173    .text.lv_mutex_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:179    .text.lv_mutex_delete:00000000 lv_mutex_delete
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:198    .text.lv_thread_sync_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:204    .text.lv_thread_sync_init:00000000 lv_thread_sync_init
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:224    .text.lv_thread_sync_wait:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:230    .text.lv_thread_sync_wait:00000000 lv_thread_sync_wait
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:250    .text.lv_thread_sync_signal:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:256    .text.lv_thread_sync_signal:00000000 lv_thread_sync_signal
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:276    .text.lv_thread_sync_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccjyCGHA.s:282    .text.lv_thread_sync_delete:00000000 lv_thread_sync_delete
 
 NO UNDEFINED SYMBOLS

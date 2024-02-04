@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
   28:Lib/lvgl/src/draw/lv_image_decoder.c ****  **********************/
   29:Lib/lvgl/src/draw/lv_image_decoder.c **** 
   30:Lib/lvgl/src/draw/lv_image_decoder.c **** static uint32_t img_width_to_stride(lv_image_header_t * header);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 2
 
 
   31:Lib/lvgl/src/draw/lv_image_decoder.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
   85:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_image_src_t src_type = lv_image_src_get_type(src);
   86:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(src_type == LV_IMAGE_SRC_VARIABLE) {
   87:Lib/lvgl/src/draw/lv_image_decoder.c ****         const lv_image_dsc_t * img_dsc = src;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 3
 
 
   88:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(img_dsc->data == NULL) return LV_RESULT_INVALID;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  142:Lib/lvgl/src/draw/lv_image_decoder.c ****         .use_indexed = false,
  143:Lib/lvgl/src/draw/lv_image_decoder.c ****     };
  144:Lib/lvgl/src/draw/lv_image_decoder.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 4
 
 
  145:Lib/lvgl/src/draw/lv_image_decoder.c ****     /*Make a copy of args */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  199:Lib/lvgl/src/draw/lv_image_decoder.c **** {
  200:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder) {
  201:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->decoder->close_cb) dsc->decoder->close_cb(dsc->decoder, dsc);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 5
 
 
  202:Lib/lvgl/src/draw/lv_image_decoder.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  256:Lib/lvgl/src/draw/lv_image_decoder.c **** {
  257:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->close_cb = close_cb;
  258:Lib/lvgl/src/draw/lv_image_decoder.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 6
 
 
  259:Lib/lvgl/src/draw/lv_image_decoder.c **** 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  313:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_PREMULTIPLIED) /*Hasn't done yet*/
  314:Lib/lvgl/src/draw/lv_image_decoder.c ****       ) {
  315:Lib/lvgl/src/draw/lv_image_decoder.c ****         LV_LOG_TRACE("Alpha premultiply.");
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 7
 
 
  316:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_MODIFIABLE)) {
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
   55              		.cfi_offset 14, -4
  340:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
   56              		.loc 1 340 9 is_stmt 1 view .LVU10
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 8
 
 
  340:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  106              		.align	1
  107              		.global	_lv_image_decoder_deinit
  108              		.syntax unified
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 9
 
 
  109              		.thumb
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
   35:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h ****     lv_ll_node_t * tail;
   36:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** } lv_ll_t;
   37:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 10
 
 
   38:Lib/lvgl/src/draw/../draw/../misc/lv_ll.h **** /**********************
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  132 0004 0148     		ldr	r0, .L13
  133              	.LVL5:
  134              		.loc 2 87 5 is_stmt 0 view .LVU24
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 11
 
 
  135 0006 FFF7FEFF 		bl	_lv_ll_clear_custom
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
    8:Lib/lvgl/src/draw/../stdlib/lv_string.h **** 
    9:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #ifdef __cplusplus
   10:Lib/lvgl/src/draw/../stdlib/lv_string.h **** extern "C" {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 12
 
 
   11:Lib/lvgl/src/draw/../stdlib/lv_string.h **** #endif
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
   65:Lib/lvgl/src/draw/../stdlib/lv_string.h **** static inline void lv_memzero(void * dst, size_t len)
  180              		.loc 3 65 20 view .LVU30
  181              	.LBB24:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 13
 
 
   66:Lib/lvgl/src/draw/../stdlib/lv_string.h **** {
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
   93:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoder->info_cb) {
  221              		.loc 1 93 5 view .LVU48
  222 0020 0F48     		ldr	r0, .L23
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 14
 
 
  223              	.LVL15:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  263              		.loc 1 96 15 is_stmt 0 view .LVU62
  264 0048 0128     		cmp	r0, #1
  265 004a EFD1     		bne	.L19
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 15
 
 
   97:Lib/lvgl/src/draw/lv_image_decoder.c ****                 break;
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  311              		@ frame_needed = 0, uses_anonymous_args = 0
  107:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_memzero(dsc, sizeof(lv_image_decoder_dsc_t));
  312              		.loc 1 107 1 is_stmt 0 view .LVU74
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 16
 
 
  313 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  113:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(img_dsc->data == NULL) return LV_RESULT_INVALID;
  359              		.loc 1 113 9 is_stmt 1 view .LVU87
  360              	.LVL33:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 17
 
 
  114:Lib/lvgl/src/draw/lv_image_decoder.c ****     }
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  397 003c FFF7FEFF 		bl	_lv_ll_get_head
  398              	.LVL36:
  399 0040 0446     		mov	r4, r0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 18
 
 
  400              	.LVL37:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  438              		.loc 1 122 9 discriminator 1 view .LVU121
  122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
  439              		.loc 1 122 9 discriminator 1 view .LVU122
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 19
 
 
  122:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(dsc->src == NULL) {
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  480 007a 0021     		movs	r1, #0
  481 007c 4846     		mov	r0, r9
  482              	.LVL49:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 20
 
 
  483              		.loc 3 67 5 is_stmt 0 view .LVU138
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  522 009e F6D0     		beq	.L35
  150:Lib/lvgl/src/draw/lv_image_decoder.c **** 
  523              		.loc 1 150 47 discriminator 2 view .LVU155
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 21
 
 
  524 00a0 6268     		ldr	r2, [r4, #4]
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  181:Lib/lvgl/src/draw/lv_image_decoder.c ****         lv_free((void *)dsc->src);
  563              		.loc 1 181 11 is_stmt 0 view .LVU171
  564 00c8 337B     		ldrb	r3, [r6, #12]	@ zero_extendqisi2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 22
 
 
  181:Lib/lvgl/src/draw/lv_image_decoder.c ****         lv_free((void *)dsc->src);
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  614 0002 8446     		mov	ip, r0
  192:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder->get_area_cb) res = dsc->decoder->get_area_cb(dsc->decoder, dsc, full_area, dec
  615              		.loc 1 192 5 is_stmt 1 view .LVU179
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 23
 
 
  616              	.LVL65:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  660              		@ args = 0, pretend = 0, frame = 0
  661              		@ frame_needed = 0, uses_anonymous_args = 0
  199:Lib/lvgl/src/draw/lv_image_decoder.c ****     if(dsc->decoder) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 24
 
 
  662              		.loc 1 199 1 is_stmt 0 view .LVU192
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  702 001e 0023     		movs	r3, #0
  703 0020 A360     		str	r3, [r4, #8]
  208:Lib/lvgl/src/draw/lv_image_decoder.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 25
 
 
  704              		.loc 1 208 1 view .LVU207
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  749 0010 FFF7FEFF 		bl	lv_memset
  750              	.LVL78:
  751              		.loc 3 67 5 is_stmt 0 view .LVU220
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 26
 
 
  752              	.LBE34:
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  228:Lib/lvgl/src/draw/lv_image_decoder.c ****     lv_free(decoder);
  798              		.loc 1 228 5 is_stmt 0 view .LVU231
  799 0008 FFF7FEFF 		bl	_lv_ll_remove
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 27
 
 
  800              	.LVL82:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  846              	.LVL87:
  847              	.L64:
  238:Lib/lvgl/src/draw/lv_image_decoder.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 28
 
 
  848              		.loc 1 238 1 view .LVU242
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  899              	.LFB244:
  246:Lib/lvgl/src/draw/lv_image_decoder.c ****     decoder->open_cb = open_cb;
  900              		.loc 1 246 1 is_stmt 1 view -0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 29
 
 
  901              		.cfi_startproc
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  257:Lib/lvgl/src/draw/lv_image_decoder.c **** }
  951              		.loc 1 257 5 view .LVU259
  257:Lib/lvgl/src/draw/lv_image_decoder.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 30
 
 
  952              		.loc 1 257 23 is_stmt 0 view .LVU260
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  1003              		.cfi_offset 14, -4
  292:Lib/lvgl/src/draw/lv_image_decoder.c **** 
  1004              		.loc 1 292 5 is_stmt 1 view .LVU268
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 31
 
 
  292:Lib/lvgl/src/draw/lv_image_decoder.c **** 
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  296:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoded->header.stride != stride_expect) {
  1045              		.loc 1 296 9 is_stmt 1 view .LVU283
  296:Lib/lvgl/src/draw/lv_image_decoder.c ****         if(decoded->header.stride != stride_expect) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 32
 
 
  1046              		.loc 1 296 34 is_stmt 0 view .LVU284
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  1085              	.LVL108:
  312:Lib/lvgl/src/draw/lv_image_decoder.c ****        && !lv_draw_buf_has_flag(decoded, LV_IMAGE_FLAGS_PREMULTIPLIED) /*Hasn't done yet*/
  1086              		.loc 1 312 8 view .LVU300
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 33
 
 
  1087 0046 0028     		cmp	r0, #0
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
   49:Lib/lvgl/src/draw/lv_draw_buf.h ****     (_LV_DRAW_BUF_STRIDE(w, cf) * (h))
   50:Lib/lvgl/src/draw/lv_draw_buf.h **** 
   51:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 34
 
 
   52:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Define a static draw buffer with the given width, height, and color format.
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  106:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Align the address of a buffer. The buffer needs to be large enough for the real data after align
  107:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param buf           the data to align
  108:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param color_format  the color format of the buffer
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 35
 
 
  109:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @return              the aligned buffer
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  163:Lib/lvgl/src/draw/lv_draw_buf.h **** 
  164:Lib/lvgl/src/draw/lv_draw_buf.h **** /**
  165:Lib/lvgl/src/draw/lv_draw_buf.h ****  * Initialize a draw buf with the given buffer and parameters.
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 36
 
 
  166:Lib/lvgl/src/draw/lv_draw_buf.h ****  * @param draw_buf  the draw buf to initialize
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  220:Lib/lvgl/src/draw/lv_draw_buf.h **** lv_result_t lv_draw_buf_premultiply(lv_draw_buf_t * draw_buf);
  221:Lib/lvgl/src/draw/lv_draw_buf.h **** 
  222:Lib/lvgl/src/draw/lv_draw_buf.h **** static inline bool lv_draw_buf_has_flag(lv_draw_buf_t * draw_buf, lv_image_flags_t flag)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 37
 
 
  1093              		.loc 4 222 20 is_stmt 1 view .LVU301
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  1133              		.loc 1 322 15 is_stmt 0 view .LVU318
  1134 0066 0546     		mov	r5, r0
  1135 0068 0028     		cmp	r0, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 38
 
 
  1136 006a DAD0     		beq	.L77
@@ -2260,50 +2260,50 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 1
  1171              		.file 29 "Lib/lvgl/src/draw/../core/lv_global.h"
  1172              		.file 30 "Lib/lvgl/src/draw/../misc/../stdlib/lv_mem.h"
  1173              		.file 31 "Lib/lvgl/src/draw/../draw/lv_draw_image.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 39
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_image_decoder.c
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:21     .text.img_width_to_stride:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:26     .text.img_width_to_stride:00000000 img_width_to_stride
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:74     .text._lv_image_decoder_init:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:80     .text._lv_image_decoder_init:00000000 _lv_image_decoder_init
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:101    .text._lv_image_decoder_init:0000000c $d
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:106    .text._lv_image_decoder_deinit:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:112    .text._lv_image_decoder_deinit:00000000 _lv_image_decoder_deinit
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:145    .text._lv_image_decoder_deinit:0000000c $d
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:150    .text.lv_image_decoder_get_info:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:156    .text.lv_image_decoder_get_info:00000000 lv_image_decoder_get_info
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:294    .text.lv_image_decoder_get_info:00000060 $d
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:299    .text.lv_image_decoder_open:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:305    .text.lv_image_decoder_open:00000000 lv_image_decoder_open
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:590    .text.lv_image_decoder_open:000000e0 $d
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:595    .text.lv_image_decoder_get_area:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:601    .text.lv_image_decoder_get_area:00000000 lv_image_decoder_get_area
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:649    .text.lv_image_decoder_close:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:655    .text.lv_image_decoder_close:00000000 lv_image_decoder_close
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:710    .text.lv_image_decoder_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:716    .text.lv_image_decoder_create:00000000 lv_image_decoder_create
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:769    .text.lv_image_decoder_create:0000001c $d
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:774    .text.lv_image_decoder_delete:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:780    .text.lv_image_decoder_delete:00000000 lv_image_decoder_delete
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:812    .text.lv_image_decoder_delete:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:817    .text.lv_image_decoder_get_next:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:823    .text.lv_image_decoder_get_next:00000000 lv_image_decoder_get_next
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:863    .text.lv_image_decoder_get_next:00000018 $d
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:868    .text.lv_image_decoder_set_info_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:874    .text.lv_image_decoder_set_info_cb:00000000 lv_image_decoder_set_info_cb
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:891    .text.lv_image_decoder_set_open_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:897    .text.lv_image_decoder_set_open_cb:00000000 lv_image_decoder_set_open_cb
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:914    .text.lv_image_decoder_set_get_area_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:920    .text.lv_image_decoder_set_get_area_cb:00000000 lv_image_decoder_set_get_area_cb
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:937    .text.lv_image_decoder_set_close_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:943    .text.lv_image_decoder_set_close_cb:00000000 lv_image_decoder_set_close_cb
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:960    .text.lv_image_decoder_set_cache_free_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:966    .text.lv_image_decoder_set_cache_free_cb:00000000 lv_image_decoder_set_cache_free_cb
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:983    .text.lv_image_decoder_post_process:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s:989    .text.lv_image_decoder_post_process:00000000 lv_image_decoder_post_process
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:21     .text.img_width_to_stride:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:26     .text.img_width_to_stride:00000000 img_width_to_stride
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:74     .text._lv_image_decoder_init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:80     .text._lv_image_decoder_init:00000000 _lv_image_decoder_init
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:101    .text._lv_image_decoder_init:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:106    .text._lv_image_decoder_deinit:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:112    .text._lv_image_decoder_deinit:00000000 _lv_image_decoder_deinit
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:145    .text._lv_image_decoder_deinit:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:150    .text.lv_image_decoder_get_info:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:156    .text.lv_image_decoder_get_info:00000000 lv_image_decoder_get_info
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:294    .text.lv_image_decoder_get_info:00000060 $d
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:299    .text.lv_image_decoder_open:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:305    .text.lv_image_decoder_open:00000000 lv_image_decoder_open
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:590    .text.lv_image_decoder_open:000000e0 $d
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:595    .text.lv_image_decoder_get_area:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:601    .text.lv_image_decoder_get_area:00000000 lv_image_decoder_get_area
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:649    .text.lv_image_decoder_close:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:655    .text.lv_image_decoder_close:00000000 lv_image_decoder_close
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:710    .text.lv_image_decoder_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:716    .text.lv_image_decoder_create:00000000 lv_image_decoder_create
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:769    .text.lv_image_decoder_create:0000001c $d
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:774    .text.lv_image_decoder_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:780    .text.lv_image_decoder_delete:00000000 lv_image_decoder_delete
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:812    .text.lv_image_decoder_delete:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:817    .text.lv_image_decoder_get_next:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:823    .text.lv_image_decoder_get_next:00000000 lv_image_decoder_get_next
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:863    .text.lv_image_decoder_get_next:00000018 $d
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:868    .text.lv_image_decoder_set_info_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:874    .text.lv_image_decoder_set_info_cb:00000000 lv_image_decoder_set_info_cb
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:891    .text.lv_image_decoder_set_open_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:897    .text.lv_image_decoder_set_open_cb:00000000 lv_image_decoder_set_open_cb
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:914    .text.lv_image_decoder_set_get_area_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:920    .text.lv_image_decoder_set_get_area_cb:00000000 lv_image_decoder_set_get_area_cb
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:937    .text.lv_image_decoder_set_close_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:943    .text.lv_image_decoder_set_close_cb:00000000 lv_image_decoder_set_close_cb
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:960    .text.lv_image_decoder_set_cache_free_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:966    .text.lv_image_decoder_set_cache_free_cb:00000000 lv_image_decoder_set_cache_free_cb
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:983    .text.lv_image_decoder_post_process:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s:989    .text.lv_image_decoder_post_process:00000000 lv_image_decoder_post_process
 
 UNDEFINED SYMBOLS
 lv_color_format_get_bpp
@@ -2320,7 +2320,7 @@ lv_strcpy
 lv_free
 _lv_ll_ins_head
 _lv_ll_remove
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccYHUMPT.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccsUBGAt.s 			page 40
 
 
 lv_draw_buf_width_to_stride
