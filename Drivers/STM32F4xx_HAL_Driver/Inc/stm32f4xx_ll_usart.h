@@ -30,8 +30,9 @@ extern "C" {
 /** @addtogroup STM32F4xx_LL_Driver
   * @{
   */
+ #define USE_FULL_LL_DRIVER
 
-#if defined (USART1) || defined (USART2) || defined (USART3) || defined (USART6) || defined (UART4) || defined (UART5) || defined (UART7) || defined (UART8) || defined (UART9) || defined (UART10)
+//#if defined (USART1) || defined (USART2) || defined (USART3) || defined (USART6) || defined (UART4) || defined (UART5) || defined (UART7) || defined (UART8) || defined (UART9) || defined (UART10)
 
 /** @defgroup USART_LL USART
   * @{
@@ -2507,7 +2508,7 @@ void        LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitS
   * @}
   */
 
-#endif /* USART1 || USART2 || USART3 || USART6 || UART4 || UART5 || UART7 || UART8 || UART9 || UART10 */
+// #endif /* USART1 || USART2 || USART3 || USART6 || UART4 || UART5 || UART7 || UART8 || UART9 || UART10 */
 
 /**
   * @}

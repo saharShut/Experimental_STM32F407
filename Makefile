@@ -10,11 +10,16 @@
 #   2015-07-22 - first version
 # ------------------------------------------------
 
+#IS_BOOTLOADER = yes
+
 ######################################
 # target
 ######################################
-TARGET = Test
-
+ifneq ($(IS_BOOTLOADER),yes)
+	TARGET = Test
+else
+	TARGET = Test_boot
+endif
 
 ######################################
 # building variables
@@ -36,164 +41,223 @@ GCC_PATH = "E:/Programms/GNU_MCU_Eclipse/Toolchain/arm-gnu-toolchain-12.2.mpacbt
 # source
 ######################################
 # C sources
-C_SOURCES =  \
-Core/Src/main.c \
-Core/Src/stm32f4xx_it.c \
-Core/Src/stm32f4xx_hal_msp.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
-Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
-Core/Src/system_stm32f4xx.c \
-Lib/ili9341/fonts.c \
-Lib/ili9341/ili9341.c \
-Lib/lvgl/src/tick/lv_tick.c \
-Lib/lvgl/src/lv_init.c \
-Lib/lvgl/src/display/lv_display.c \
-Lib/lvgl/src/stdlib/lv_mem.c \
-Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c \
-Lib/lvgl/src/stdlib/builtin/lv_string_builtin.c \
-Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c \
-Lib/lvgl/src/stdlib/builtin/lv_tlsf.c \
-Lib/lvgl/src/misc/lv_ll.c \
-Lib/lvgl/src/misc/lv_event.c \
-Lib/lvgl/src/misc/lv_anim.c \
-Lib/lvgl/src/misc/lv_array.c \
-Lib/lvgl/src/misc/lv_area.c \
-Lib/lvgl/src/misc/lv_async.c \
-Lib/lvgl/src/misc/lv_style.c \
-Lib/lvgl/src/misc/lv_style_gen.c \
-Lib/lvgl/src/misc/lv_fs.c \
-Lib/lvgl/src/misc/lv_timer.c \
-Lib/lvgl/src/misc/lv_text.c \
-Lib/lvgl/src/misc/lv_color.c \
-Lib/lvgl/src/misc/lv_utils.c \
-Lib/lvgl/src/misc/lv_palette.c \
-Lib/lvgl/src/misc/lv_math.c \
-Lib/lvgl/src/misc/cache/lv_anim_timeline.c \
-Lib/lvgl/src/misc/cache/lv_cache.c \
-Lib/lvgl/src/misc/cache/lv_cache_entry.c \
-Lib/lvgl/src/core/lv_obj_scroll.c \
-Lib/lvgl/src/core/lv_obj_class.c \
-Lib/lvgl/src/core/lv_obj.c \
-Lib/lvgl/src/core/lv_group.c \
-Lib/lvgl/src/core/lv_obj_style.c \
-Lib/lvgl/src/core/lv_obj_style_gen.c \
-Lib/lvgl/src/core/lv_obj_tree.c \
-Lib/lvgl/src/core/lv_obj_draw.c \
-Lib/lvgl/src/core/lv_obj_event.c \
-Lib/lvgl/src/core/lv_obj_pos.c \
-Lib/lvgl/src/core/lv_refr.c \
-Lib/lvgl/src/indev/lv_indev.c \
-Lib/lvgl/src/layouts/lv_layout.c \
-Lib/lvgl/src/layouts/grid/lv_grid.c \
-Lib/lvgl/src/layouts/flex/lv_flex.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_img.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_vector.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_line.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_border.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_arc.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_box_shadow.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_mask.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_mask_rect.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw_transform.c \
-Lib/lvgl/src/draw/sw/lv_draw_sw.c \
-Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c \
-Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_argb8888.c \
-Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_rgb888.c \
-Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_rgb565.c \
-Lib/lvgl/src/draw/lv_image_buf.c \
-Lib/lvgl/src/draw/lv_image_decoder.c \
-Lib/lvgl/src/draw/lv_draw_arc.c \
-Lib/lvgl/src/draw/lv_draw_line.c \
-Lib/lvgl/src/draw/lv_draw_mask.c \
-Lib/lvgl/src/draw/lv_draw_image.c \
-Lib/lvgl/src/draw/lv_draw_buf.c \
-Lib/lvgl/src/draw/lv_draw_label.c \
-Lib/lvgl/src/draw/lv_draw_rect.c \
-Lib/lvgl/src/draw/lv_draw.c \
-Lib/lvgl/src/font/lv_font.c \
-Lib/lvgl/src/font/lv_binfont_loader.c \
-Lib/lvgl/src/font/lv_font_montserrat_8.c \
-Lib/lvgl/src/font/lv_font_montserrat_10.c \
-Lib/lvgl/src/font/lv_font_montserrat_12.c \
-Lib/lvgl/src/font/lv_font_montserrat_14.c \
-Lib/lvgl/src/font/lv_font_montserrat_16.c \
-Lib/lvgl/src/font/lv_font_montserrat_18.c \
-Lib/lvgl/src/font/lv_font_montserrat_20.c \
-Lib/lvgl/src/font/lv_font_montserrat_22.c \
-Lib/lvgl/src/font/lv_font_montserrat_24.c \
-Lib/lvgl/src/font/lv_font_montserrat_26.c \
-Lib/lvgl/src/font/lv_font_montserrat_28_compressed.c \
-Lib/lvgl/src/font/lv_font_montserrat_28.c \
-Lib/lvgl/src/font/lv_font_montserrat_30.c \
-Lib/lvgl/src/font/lv_font_montserrat_32.c \
-Lib/lvgl/src/font/lv_font_montserrat_34.c \
-Lib/lvgl/src/font/lv_font_montserrat_36.c \
-Lib/lvgl/src/font/lv_font_montserrat_38.c \
-Lib/lvgl/src/font/lv_font_montserrat_40.c \
-Lib/lvgl/src/font/lv_font_montserrat_42.c \
-Lib/lvgl/src/font/lv_font_montserrat_44.c \
-Lib/lvgl/src/font/lv_font_montserrat_46.c \
-Lib/lvgl/src/font/lv_font_montserrat_48.c \
-Lib/lvgl/src/font/lv_font_simsun_16_cjk.c \
-Lib/lvgl/src/font/lv_font_unscii_8.c \
-Lib/lvgl/src/font/lv_font_unscii_16.c \
-Lib/lvgl/src/font/lv_font_fmt_txt.c \
-Lib/lvgl/src/themes/lv_theme.c \
-Lib/lvgl/src/themes/default/lv_theme_default.c \
-Lib/lvgl/src/widgets/animimage/lv_animimage.c \
-Lib/lvgl/src/widgets/arc/lv_arc.c \
-Lib/lvgl/src/widgets/bar/lv_bar.c \
-Lib/lvgl/src/widgets/button/lv_button.c \
-Lib/lvgl/src/widgets/buttonmatrix/lv_buttonmatrix.c \
-Lib/lvgl/src/widgets/calendar/lv_calendar_header_arrow.c \
-Lib/lvgl/src/widgets/calendar/lv_calendar_header_dropdown.c \
-Lib/lvgl/src/widgets/calendar/lv_calendar.c \
-Lib/lvgl/src/widgets/canvas/lv_canvas.c \
-Lib/lvgl/src/widgets/chart/lv_chart.c \
-Lib/lvgl/src/widgets/checkbox/lv_checkbox.c \
-Lib/lvgl/src/widgets/dropdown/lv_dropdown.c \
-Lib/lvgl/src/widgets/image/lv_image.c \
-Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c \
-Lib/lvgl/src/widgets/keyboard/lv_keyboard.c \
-Lib/lvgl/src/widgets/label/lv_label.c \
-Lib/lvgl/src/widgets/led/lv_led.c \
-Lib/lvgl/src/widgets/line/lv_line.c \
-Lib/lvgl/src/widgets/list/lv_list.c \
-Lib/lvgl/src/widgets/menu/lv_menu.c \
-Lib/lvgl/src/widgets/msgbox/lv_msgbox.c \
-Lib/lvgl/src/widgets/objx_templ/lv_objx_templ.c \
-Lib/lvgl/src/widgets/roller/lv_roller.c \
-Lib/lvgl/src/widgets/scale/lv_scale.c \
-Lib/lvgl/src/widgets/slider/lv_slider.c \
-Lib/lvgl/src/widgets/span/lv_span.c \
-Lib/lvgl/src/widgets/spinbox/lv_spinbox.c \
-Lib/lvgl/src/widgets/spinner/lv_spinner.c \
-Lib/lvgl/src/widgets/switch/lv_switch.c \
-Lib/lvgl/src/widgets/table/lv_table.c \
-Lib/lvgl/src/widgets/tabview/lv_tabview.c \
-Lib/lvgl/src/widgets/textarea/lv_textarea.c \
-Lib/lvgl/src/widgets/tileview/lv_tileview.c \
-Lib/lvgl/src/widgets/win/lv_win.c \
-Lib/lvgl/src/libs/bin_decoder/lv_bin_decoder.c \
-Lib/lvgl/src/osal/lv_os_none.c \
+ifneq ($(IS_BOOTLOADER),yes)
+	C_SOURCES =  \
+	Core/Src/main.c \
+	Core/Src/stm32f4xx_it.c \
+	Core/Src/stm32f4xx_hal_msp.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c \
+	Core/Src/system_stm32f4xx.c \
+	Lib/ili9341/fonts.c \
+	Lib/ili9341/ili9341.c \
+	Lib/lvgl/src/tick/lv_tick.c \
+	Lib/lvgl/src/lv_init.c \
+	Lib/lvgl/src/display/lv_display.c \
+	Lib/lvgl/src/stdlib/lv_mem.c \
+	Lib/lvgl/src/stdlib/builtin/lv_mem_core_builtin.c \
+	Lib/lvgl/src/stdlib/builtin/lv_string_builtin.c \
+	Lib/lvgl/src/stdlib/builtin/lv_sprintf_builtin.c \
+	Lib/lvgl/src/stdlib/builtin/lv_tlsf.c \
+	Lib/lvgl/src/misc/lv_ll.c \
+	Lib/lvgl/src/misc/lv_event.c \
+	Lib/lvgl/src/misc/lv_anim.c \
+	Lib/lvgl/src/misc/lv_array.c \
+	Lib/lvgl/src/misc/lv_area.c \
+	Lib/lvgl/src/misc/lv_async.c \
+	Lib/lvgl/src/misc/lv_style.c \
+	Lib/lvgl/src/misc/lv_style_gen.c \
+	Lib/lvgl/src/misc/lv_fs.c \
+	Lib/lvgl/src/misc/lv_timer.c \
+	Lib/lvgl/src/misc/lv_text.c \
+	Lib/lvgl/src/misc/lv_color.c \
+	Lib/lvgl/src/misc/lv_utils.c \
+	Lib/lvgl/src/misc/lv_palette.c \
+	Lib/lvgl/src/misc/lv_math.c \
+	Lib/lvgl/src/misc/cache/lv_anim_timeline.c \
+	Lib/lvgl/src/misc/cache/lv_cache.c \
+	Lib/lvgl/src/misc/cache/lv_cache_entry.c \
+	Lib/lvgl/src/core/lv_obj_scroll.c \
+	Lib/lvgl/src/core/lv_obj_class.c \
+	Lib/lvgl/src/core/lv_obj.c \
+	Lib/lvgl/src/core/lv_group.c \
+	Lib/lvgl/src/core/lv_obj_style.c \
+	Lib/lvgl/src/core/lv_obj_style_gen.c \
+	Lib/lvgl/src/core/lv_obj_tree.c \
+	Lib/lvgl/src/core/lv_obj_draw.c \
+	Lib/lvgl/src/core/lv_obj_event.c \
+	Lib/lvgl/src/core/lv_obj_pos.c \
+	Lib/lvgl/src/core/lv_refr.c \
+	Lib/lvgl/src/indev/lv_indev.c \
+	Lib/lvgl/src/layouts/lv_layout.c \
+	Lib/lvgl/src/layouts/grid/lv_grid.c \
+	Lib/lvgl/src/layouts/flex/lv_flex.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_img.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_triangle.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_vector.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_line.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_border.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_arc.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_box_shadow.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_gradient.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_mask.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_mask_rect.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw_transform.c \
+	Lib/lvgl/src/draw/sw/lv_draw_sw.c \
+	Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.c \
+	Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_argb8888.c \
+	Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_rgb888.c \
+	Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_rgb565.c \
+	Lib/lvgl/src/draw/lv_image_buf.c \
+	Lib/lvgl/src/draw/lv_image_decoder.c \
+	Lib/lvgl/src/draw/lv_draw_arc.c \
+	Lib/lvgl/src/draw/lv_draw_line.c \
+	Lib/lvgl/src/draw/lv_draw_mask.c \
+	Lib/lvgl/src/draw/lv_draw_image.c \
+	Lib/lvgl/src/draw/lv_draw_buf.c \
+	Lib/lvgl/src/draw/lv_draw_label.c \
+	Lib/lvgl/src/draw/lv_draw_rect.c \
+	Lib/lvgl/src/draw/lv_draw.c \
+	Lib/lvgl/src/font/lv_font.c \
+	Lib/lvgl/src/font/lv_binfont_loader.c \
+	Lib/lvgl/src/font/lv_font_montserrat_8.c \
+	Lib/lvgl/src/font/lv_font_montserrat_10.c \
+	Lib/lvgl/src/font/lv_font_montserrat_12.c \
+	Lib/lvgl/src/font/lv_font_montserrat_14.c \
+	Lib/lvgl/src/font/lv_font_montserrat_16.c \
+	Lib/lvgl/src/font/lv_font_montserrat_18.c \
+	Lib/lvgl/src/font/lv_font_montserrat_20.c \
+	Lib/lvgl/src/font/lv_font_montserrat_22.c \
+	Lib/lvgl/src/font/lv_font_montserrat_24.c \
+	Lib/lvgl/src/font/lv_font_montserrat_26.c \
+	Lib/lvgl/src/font/lv_font_montserrat_28_compressed.c \
+	Lib/lvgl/src/font/lv_font_montserrat_28.c \
+	Lib/lvgl/src/font/lv_font_montserrat_30.c \
+	Lib/lvgl/src/font/lv_font_montserrat_32.c \
+	Lib/lvgl/src/font/lv_font_montserrat_34.c \
+	Lib/lvgl/src/font/lv_font_montserrat_36.c \
+	Lib/lvgl/src/font/lv_font_montserrat_38.c \
+	Lib/lvgl/src/font/lv_font_montserrat_40.c \
+	Lib/lvgl/src/font/lv_font_montserrat_42.c \
+	Lib/lvgl/src/font/lv_font_montserrat_44.c \
+	Lib/lvgl/src/font/lv_font_montserrat_46.c \
+	Lib/lvgl/src/font/lv_font_montserrat_48.c \
+	Lib/lvgl/src/font/lv_font_simsun_16_cjk.c \
+	Lib/lvgl/src/font/lv_font_unscii_8.c \
+	Lib/lvgl/src/font/lv_font_unscii_16.c \
+	Lib/lvgl/src/font/lv_font_fmt_txt.c \
+	Lib/lvgl/src/themes/lv_theme.c \
+	Lib/lvgl/src/themes/default/lv_theme_default.c \
+	Lib/lvgl/src/widgets/animimage/lv_animimage.c \
+	Lib/lvgl/src/widgets/arc/lv_arc.c \
+	Lib/lvgl/src/widgets/bar/lv_bar.c \
+	Lib/lvgl/src/widgets/button/lv_button.c \
+	Lib/lvgl/src/widgets/buttonmatrix/lv_buttonmatrix.c \
+	Lib/lvgl/src/widgets/calendar/lv_calendar_header_arrow.c \
+	Lib/lvgl/src/widgets/calendar/lv_calendar_header_dropdown.c \
+	Lib/lvgl/src/widgets/calendar/lv_calendar.c \
+	Lib/lvgl/src/widgets/canvas/lv_canvas.c \
+	Lib/lvgl/src/widgets/chart/lv_chart.c \
+	Lib/lvgl/src/widgets/checkbox/lv_checkbox.c \
+	Lib/lvgl/src/widgets/dropdown/lv_dropdown.c \
+	Lib/lvgl/src/widgets/image/lv_image.c \
+	Lib/lvgl/src/widgets/imagebutton/lv_imagebutton.c \
+	Lib/lvgl/src/widgets/keyboard/lv_keyboard.c \
+	Lib/lvgl/src/widgets/label/lv_label.c \
+	Lib/lvgl/src/widgets/led/lv_led.c \
+	Lib/lvgl/src/widgets/line/lv_line.c \
+	Lib/lvgl/src/widgets/list/lv_list.c \
+	Lib/lvgl/src/widgets/menu/lv_menu.c \
+	Lib/lvgl/src/widgets/msgbox/lv_msgbox.c \
+	Lib/lvgl/src/widgets/objx_templ/lv_objx_templ.c \
+	Lib/lvgl/src/widgets/roller/lv_roller.c \
+	Lib/lvgl/src/widgets/scale/lv_scale.c \
+	Lib/lvgl/src/widgets/slider/lv_slider.c \
+	Lib/lvgl/src/widgets/span/lv_span.c \
+	Lib/lvgl/src/widgets/spinbox/lv_spinbox.c \
+	Lib/lvgl/src/widgets/spinner/lv_spinner.c \
+	Lib/lvgl/src/widgets/switch/lv_switch.c \
+	Lib/lvgl/src/widgets/table/lv_table.c \
+	Lib/lvgl/src/widgets/tabview/lv_tabview.c \
+	Lib/lvgl/src/widgets/textarea/lv_textarea.c \
+	Lib/lvgl/src/widgets/tileview/lv_tileview.c \
+	Lib/lvgl/src/widgets/win/lv_win.c \
+	Lib/lvgl/src/libs/bin_decoder/lv_bin_decoder.c \
+	Lib/lvgl/src/osal/lv_os_none.c \
+	Lib/lm75a/lm75a.c \
+	Lib/sht3x/sht3x.c \
+
+else
+	C_SOURCES =  \
+	Core/Src/boot_main.c \
+	Core/Src/stm32f4xx_it.c \
+	Core/Src/stm32f4xx_hal_msp.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usart.c \
+	Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_rcc.c \
+	Core/Src/system_stm32f4xx.c \
+	Lib/ili9341/fonts.c \
+	Lib/ili9341/ili9341.c \
+	Lib/lm75a/lm75a.c \
+	Lib/sht3x/sht3x.c \
+	Lib/openblt/asserts.c \
+	Lib/openblt/backdoor.c \
+	Lib/openblt/boot.c \
+	Lib/openblt/com.c \
+	Lib/openblt/cop.c \
+	Lib/openblt/file.c \
+	Lib/openblt/mb.c \
+	Lib/openblt/xcp.c \
+	Lib/openblt/ARMCM4_STM32F4/GCC/cpu_comp.c \
+	Lib/openblt/ARMCM4_STM32F4/cpu.c \
+	Lib/openblt/ARMCM4_STM32F4/flash.c \
+	Lib/openblt/ARMCM4_STM32F4/mbrtu.c \
+	Lib/openblt/ARMCM4_STM32F4/nvm.c \
+	Lib/openblt/ARMCM4_STM32F4/rs232.c \
+	Lib/openblt/ARMCM4_STM32F4/timer.c \
+	Lib/openblt/ARMCM4_STM32F4/usb.c \
+	Lib/xprintf/xprintf.c \
+
+#	Drivers/STM32_USB_Device_Library/Core/Src/
+
+	
+endif
+
 
 
 
@@ -222,6 +286,7 @@ SZ = $(PREFIX)size
 endif
 HEX = $(CP) -O ihex
 BIN = $(CP) -O binary -S
+SREC = $(CP) -O srec 
  
 #######################################
 # CFLAGS
@@ -247,6 +312,13 @@ C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F407xx
 
+ifeq ($(IS_BOOTLOADER),yes)
+C_DEFS =  \
+-DUSE_HAL_DRIVER \
+-DSTM32F407xx \
+-DIS_BOOTLOADER
+endif
+
 
 # AS includes
 AS_INCLUDES = 
@@ -260,6 +332,12 @@ C_INCLUDES =  \
 -IDrivers/CMSIS/Include \
 -ILib/ili9341 \
 -ILib/lvgl \
+-ILib/lm75a \
+-ILib/sht3x \
+-ILib/openblt \
+-ILib/openblt/ARMCM4_STM32F4 \
+-IDrivers/STM32_USB_Device_Library/Core/Inc \
+-ILib/xprintf \
 
 
 # compile gcc flags
@@ -280,15 +358,18 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 # LDFLAGS
 #######################################
 # link script
+ifeq ($(IS_BOOTLOADER),yes)
+LDSCRIPT = boot.ld
+else
 LDSCRIPT = STM32F407VETx_FLASH.ld
-
+endif
 # libraries
 LIBS = -lc -lm -lnosys 
 LIBDIR = 
 LDFLAGS = $(MCU) -specs=nosys.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 # default action: build all
-all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
+all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin $(BUILD_DIR)/$(TARGET).srec
 
 
 #######################################
@@ -316,6 +397,9 @@ $(BUILD_DIR)/%.hex: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	
 $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	$(BIN) $< $@	
+
+$(BUILD_DIR)/%.srec: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
+	$(SREC) $< $@	
 	
 $(BUILD_DIR):
 	mkdir $@		
@@ -328,7 +412,11 @@ JLINK_PATH = E:/Programms/JLink_V792m
 flash_and_build: all flash
 
 flash: 
+ifneq ($(IS_BOOTLOADER),yes)
 	$(JLINK_PATH)/JLink.exe -Device STM32F407VE -If JTAG -Speed 4000 -commanderscript ./scripts/FlashMCU.jlink
+else
+	$(JLINK_PATH)/JLink.exe -Device STM32F407VE -If JTAG -Speed 4000 -commanderscript ./scripts/FlashMCU_bootloader.jlink
+endif
 
 #######################################
 # clean up

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
   28:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** 
   29:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** /**********************
   30:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  *  STATIC PROTOTYPES
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 2
 
 
   31:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****  **********************/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
   46              		.cfi_def_cfa_offset 96
   47 0006 0746     		mov	r7, r0
   48 0008 1446     		mov	r4, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 3
 
 
   49 000a 1D46     		mov	r5, r3
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
  105:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_image(draw_unit, &img_dsc, glyph_draw_dsc->letter_coords);
  106:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c **** #endif
  107:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****         }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 4
 
 
   66              		.loc 1 107 9 is_stmt 1 view .LVU9
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
  106 003a ADF83430 		strh	r3, [sp, #52]	@ movhi
  107 003e 1B0C     		lsrs	r3, r3, #16
  108 0040 8DF83630 		strb	r3, [sp, #54]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 5
 
 
   76:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             lv_draw_sw_border(draw_unit, &border_draw_dsc, glyph_draw_dsc->bg_coords);
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
   15:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *********************/
   16:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include "../lv_conf_internal.h"
   17:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include "lv_types.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 6
 
 
   18:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #include <stdbool.h>
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
   72:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_LEFT_BOTTOM,
   73:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_TOP,
   74:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_MID,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 7
 
 
   75:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_OUT_RIGHT_BOTTOM,
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
  129:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->y1 = src->y1;
  130:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->x2 = src->x2;
  131:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     dest->y2 = src->y2;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 8
 
 
  132:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
   13:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /*********************
   14:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *      INCLUDES
   15:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  *********************/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 9
 
 
   16:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** #include "../lv_conf_internal.h"
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
  168              		.loc 3 67 5 view .LVU43
  169 0074 2C22     		movs	r2, #44
  170 0076 0021     		movs	r1, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 10
 
 
  171 0078 05A8     		add	r0, sp, #20
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
   91:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
  209              		.loc 1 91 50 is_stmt 0 view .LVU62
  210 009e B368     		ldr	r3, [r6, #8]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 11
 
 
   91:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****             blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
  257              	.LVL21:
  258              	.L11:
   56:Lib/lvgl/src/draw/sw/lv_draw_sw_letter.c ****     lv_draw_label_iterate_characters(draw_unit, dsc, coords, draw_letter_cb);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 12
 
 
  259              		.loc 1 56 22 is_stmt 1 view .LVU73
@@ -703,16 +703,16 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 1
  297              		.file 26 "Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h"
  298              		.file 27 "Lib/lvgl/src/draw/sw/../../core/lv_obj_style.h"
  299              		.file 28 "Lib/lvgl/src/draw/sw/lv_draw_sw.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccB1508g.s 			page 13
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_draw_sw_letter.c
-C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s:21     .text.draw_letter_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s:26     .text.draw_letter_cb:00000000 draw_letter_cb
-C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s:228    .text.lv_draw_sw_label:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s:234    .text.lv_draw_sw_label:00000000 lv_draw_sw_label
-C:\Users\Alex\AppData\Local\Temp\ccLU0kHW.s:269    .text.lv_draw_sw_label:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccB1508g.s:21     .text.draw_letter_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccB1508g.s:26     .text.draw_letter_cb:00000000 draw_letter_cb
+C:\Users\Alex\AppData\Local\Temp\ccB1508g.s:228    .text.lv_draw_sw_label:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccB1508g.s:234    .text.lv_draw_sw_label:00000000 lv_draw_sw_label
+C:\Users\Alex\AppData\Local\Temp\ccB1508g.s:269    .text.lv_draw_sw_label:00000014 $d
 
 UNDEFINED SYMBOLS
 lv_draw_sw_fill

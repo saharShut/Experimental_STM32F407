@@ -20,6 +20,8 @@ build/main.o: Core/Src/main.c Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
@@ -354,7 +356,8 @@ build/main.o: Core/Src/main.c Core/Inc/main.h \
  Lib/lvgl/src/core/../stdlib/builtin/../../osal/lv_os.h \
  Lib/lvgl/src/core/../stdlib/builtin/../../misc/lv_ll.h \
  Lib/lvgl/src/core/../tick/lv_tick.h \
- Lib/lvgl/src/core/../layouts/lv_layout.h
+ Lib/lvgl/src/core/../layouts/lv_layout.h Lib/lm75a/lm75a.h \
+ Lib/sht3x/sht3x.h
 Core/Inc/main.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 Core/Inc/stm32f4xx_hal_conf.h:
@@ -379,6 +382,8 @@ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h:
+Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
@@ -755,3 +760,5 @@ Lib/lvgl/src/core/../stdlib/builtin/../../osal/lv_os.h:
 Lib/lvgl/src/core/../stdlib/builtin/../../misc/lv_ll.h:
 Lib/lvgl/src/core/../tick/lv_tick.h:
 Lib/lvgl/src/core/../layouts/lv_layout.h:
+Lib/lm75a/lm75a.h:
+Lib/sht3x/sht3x.h:

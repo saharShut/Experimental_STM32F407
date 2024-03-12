@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
   28:Core/Src/stm32f4xx_it.c **** /* Private typedef -----------------------------------------------------------*/
   29:Core/Src/stm32f4xx_it.c **** /* USER CODE BEGIN TD */
   30:Core/Src/stm32f4xx_it.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 2
 
 
   31:Core/Src/stm32f4xx_it.c **** /* USER CODE END TD */
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
   77:Core/Src/stm32f4xx_it.c ****   {
   78:Core/Src/stm32f4xx_it.c ****   }
   37              		.loc 1 78 3 discriminator 1 view .LVU2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 3
 
 
   76:Core/Src/stm32f4xx_it.c ****   {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
   98:Core/Src/stm32f4xx_it.c ****   * @brief This function handles Memory management fault.
   99:Core/Src/stm32f4xx_it.c ****   */
  100:Core/Src/stm32f4xx_it.c **** void MemManage_Handler(void)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 4
 
 
  101:Core/Src/stm32f4xx_it.c **** {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
  106              		.loc 1 124 3 discriminator 1 view .LVU14
  120:Core/Src/stm32f4xx_it.c ****   {
  107              		.loc 1 120 9 discriminator 1 view .LVU15
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 5
 
 
  108 0000 FEE7     		b	.L8
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
  146:Core/Src/stm32f4xx_it.c **** {
  144              		.loc 1 146 1 view -0
  145              		.cfi_startproc
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 6
 
 
  146              		@ args = 0, pretend = 0, frame = 0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
  169:Core/Src/stm32f4xx_it.c ****   * @brief This function handles Pendable request for system service.
  170:Core/Src/stm32f4xx_it.c ****   */
  171:Core/Src/stm32f4xx_it.c **** void PendSV_Handler(void)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 7
 
 
  172:Core/Src/stm32f4xx_it.c **** {
@@ -408,19 +408,22 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
  210              		.loc 1 189 3 view .LVU27
  211 0002 FFF7FEFF 		bl	HAL_IncTick
  212              	.LVL0:
- 190:Core/Src/stm32f4xx_it.c ****   lv_tick_inc(1);
- 213              		.loc 1 190 3 view .LVU28
+ 190:Core/Src/stm32f4xx_it.c ****   
+ 191:Core/Src/stm32f4xx_it.c **** #ifndef IS_BOOTLOADER
+ 192:Core/Src/stm32f4xx_it.c ****   lv_tick_inc(1);
+ 213              		.loc 1 192 3 view .LVU28
  214 0006 0120     		movs	r0, #1
  215 0008 FFF7FEFF 		bl	lv_tick_inc
  216              	.LVL1:
- 191:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN SysTick_IRQn 1 */
- 192:Core/Src/stm32f4xx_it.c **** 
- 193:Core/Src/stm32f4xx_it.c ****   /* USER CODE END SysTick_IRQn 1 */
- 194:Core/Src/stm32f4xx_it.c **** }
- 217              		.loc 1 194 1 is_stmt 0 view .LVU29
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 8
+ 193:Core/Src/stm32f4xx_it.c **** #endif
+ 194:Core/Src/stm32f4xx_it.c ****   /* USER CODE BEGIN SysTick_IRQn 1 */
+ 195:Core/Src/stm32f4xx_it.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 8
 
 
+ 196:Core/Src/stm32f4xx_it.c ****   /* USER CODE END SysTick_IRQn 1 */
+ 197:Core/Src/stm32f4xx_it.c **** }
+ 217              		.loc 1 197 1 is_stmt 0 view .LVU29
  218 000c 08BD     		pop	{r3, pc}
  219              		.cfi_endproc
  220              	.LFE394:
@@ -430,29 +433,29 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 1
  225              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  226              		.file 4 "Lib/lvgl/src/misc/../tick/lv_tick.h"
  227              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f4xx_it.c
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:21     .text.NMI_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:27     .text.NMI_Handler:00000000 NMI_Handler
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:44     .text.HardFault_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:50     .text.HardFault_Handler:00000000 HardFault_Handler
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:67     .text.MemManage_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:73     .text.MemManage_Handler:00000000 MemManage_Handler
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:90     .text.BusFault_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:96     .text.BusFault_Handler:00000000 BusFault_Handler
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:113    .text.UsageFault_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:119    .text.UsageFault_Handler:00000000 UsageFault_Handler
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:136    .text.SVC_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:142    .text.SVC_Handler:00000000 SVC_Handler
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:155    .text.DebugMon_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:161    .text.DebugMon_Handler:00000000 DebugMon_Handler
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:174    .text.PendSV_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:180    .text.PendSV_Handler:00000000 PendSV_Handler
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:193    .text.SysTick_Handler:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\cc5u4BKd.s:199    .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:21     .text.NMI_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:27     .text.NMI_Handler:00000000 NMI_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:44     .text.HardFault_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:50     .text.HardFault_Handler:00000000 HardFault_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:67     .text.MemManage_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:73     .text.MemManage_Handler:00000000 MemManage_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:90     .text.BusFault_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:96     .text.BusFault_Handler:00000000 BusFault_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:113    .text.UsageFault_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:119    .text.UsageFault_Handler:00000000 UsageFault_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:136    .text.SVC_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:142    .text.SVC_Handler:00000000 SVC_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:155    .text.DebugMon_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:161    .text.DebugMon_Handler:00000000 DebugMon_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:174    .text.PendSV_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:180    .text.PendSV_Handler:00000000 PendSV_Handler
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:193    .text.SysTick_Handler:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccHRYGQG.s:199    .text.SysTick_Handler:00000000 SysTick_Handler
 
 UNDEFINED SYMBOLS
 HAL_IncTick

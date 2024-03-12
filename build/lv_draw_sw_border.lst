@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
   28:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** 
   29:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** /**********************
   30:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****  *  STATIC PROTOTYPES
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 2
 
 
   31:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****  **********************/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
   85:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** 
   86:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** void draw_border_complex(lv_draw_unit_t * draw_unit, const lv_area_t * outer_area, const lv_area_t 
   87:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                          int32_t rout, int32_t rin, lv_color_t color, lv_opa_t opa)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 3
 
 
   88:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  142:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** 
  143:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_FULL_COVER;
  144:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     /*Draw the straight lines first if they are long enough*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 4
 
 
  145:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     if(top_side && split_hor) {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  199:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             if(top_y < draw_area.y1 && bottom_y > draw_area.y2) continue;   /*This line is clipped 
  200:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** 
  201:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             lv_memset(mask_buf, 0xff, draw_area_w);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 5
 
 
  202:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             blend_dsc.mask_res = lv_draw_sw_mask_apply(mask_list, mask_buf, blend_area.x1, top_y, d
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  256:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                     blend_area.y1 = h;
  257:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                     blend_area.y2 = h;
  258:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 6
 
 
  259:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                     lv_memset(mask_buf, 0xff, blend_w);
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  288:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     lv_draw_sw_blend_dsc_t blend_dsc;
   54              		.loc 1 288 5 view .LVU3
  289:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     lv_memzero(&blend_dsc, sizeof(lv_draw_sw_blend_dsc_t));
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 7
 
 
   55              		.loc 1 289 5 view .LVU4
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
   50:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** 
   51:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h **** /**
   52:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @brief Move a block of memory from source to destination
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 8
 
 
   53:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h ****  * @param dst Pointer to the destination array where the content is to be copied.
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
   94              		.loc 1 294 49 view .LVU19
   95 0036 6E68     		ldr	r6, [r5, #4]
   96              	.LVL6:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 9
 
 
  295:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     bool bottom_side = outer_area->y2 >= inner_area->y2;
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  306:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     }
  307:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c **** 
  308:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     /*Bottom*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 10
 
 
  309:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     a.y1 = inner_area->y2 + 1;
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  183 0086 EB68     		ldr	r3, [r5, #12]
  184              	.L7:
  185              		.loc 1 319 10 discriminator 4 view .LVU64
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 11
 
 
  186 0088 1393     		str	r3, [sp, #76]
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  228              	.LVL15:
  229 00ae D8E7     		b	.L2
  230              	.L12:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 12
 
 
  312:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     }
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  280              		.cfi_offset 4, -36
  281              		.cfi_offset 5, -32
  282              		.cfi_offset 6, -28
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 13
 
 
  283              		.cfi_offset 7, -24
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
    3:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  *
    4:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
    5:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 14
 
 
    6:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #ifndef LV_AREA_H
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
   60:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_LEFT_MID,
   61:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_RIGHT_MID,
   62:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****     LV_ALIGN_CENTER,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 15
 
 
   63:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  117:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  * @param y2 bottom coordinate of the area
  118:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h ****  */
  119:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** void lv_area_set(lv_area_t * area_p, int32_t x1, int32_t y1, int32_t x2, int32_t y2);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 16
 
 
  120:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  356              	.LBE27:
  357              	.LBE26:
   98:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     blend_dsc.mask_buf = mask_buf;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 17
 
 
  358              		.loc 1 98 5 is_stmt 1 view .LVU107
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  396              		.loc 1 117 5 view .LVU123
  117:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     blend_dsc.mask_area = &blend_area;
  397              		.loc 1 117 26 is_stmt 0 view .LVU124
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 18
 
 
  398 005e 12AB     		add	r3, sp, #72
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  439              		.loc 1 125 18 view .LVU137
  440 00a8 1091     		str	r1, [sp, #64]
  126:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     core_area.y2 = LV_MIN(outer_area->y2 - rout, inner_area->y2);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 19
 
 
  441              		.loc 1 126 5 is_stmt 1 view .LVU138
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  137:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     if(left_side && right_side && top_side && bottom_side &&
  484              		.loc 1 137 5 view .LVU153
  138:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****        core_w < SPLIT_LIMIT) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 20
 
 
  485              		.loc 1 138 5 view .LVU154
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  526 010a 089B     		ldr	r3, [sp, #32]
  527 010c 099A     		ldr	r2, [sp, #36]
  528 010e 9342     		cmp	r3, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 21
 
 
  529 0110 02DB     		blt	.L20
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  571              	.L24:
  178:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             blend_area.x1 = inner_area->x2 + 1;
  572              		.loc 1 178 9 is_stmt 1 view .LVU180
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 22
 
 
  178:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             blend_area.x1 = inner_area->x2 + 1;
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  611 016e 2346     		mov	r3, r4
  612 0170 5446     		mov	r4, r10
  613              	.LVL41:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 23
 
 
  196:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             int32_t top_y = outer_area->y1 + h;
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  653              		.loc 1 148 23 view .LVU211
  654 0196 1393     		str	r3, [sp, #76]
  149:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****         lv_draw_sw_blend(draw_unit, &blend_dsc);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 24
 
 
  655              		.loc 1 149 9 is_stmt 1 view .LVU212
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  693 01c0 B1E7     		b	.L21
  694              	.L54:
  163:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****         blend_area.x2 = outer_area->x2;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 25
 
 
  695              		.loc 1 163 9 view .LVU229
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  731              		.loc 1 173 13 is_stmt 1 view .LVU247
  173:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             blend_area.y2 = core_area.y2;
  732              		.loc 1 173 27 is_stmt 0 view .LVU248
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 26
 
 
  733 01e6 CDF84CB0 		str	fp, [sp, #76]
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  772              	.LBB33:
  773              	.LBB31:
  201:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             blend_dsc.mask_res = lv_draw_sw_mask_apply(mask_list, mask_buf, blend_area.x1, top_y, d
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 27
 
 
  774              		.loc 1 201 13 view .LVU264
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  815              		.loc 1 197 13 view .LVU277
  197:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****             int32_t bottom_y = outer_area->y2 - h;
  816              		.loc 1 197 39 is_stmt 0 view .LVU278
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 28
 
 
  817 0242 D8F80450 		ldr	r5, [r8, #4]
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  855 026a 1397     		str	r7, [sp, #76]
  212:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                 lv_draw_sw_blend(draw_unit, &blend_dsc);
  856              		.loc 1 212 17 is_stmt 1 view .LVU295
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 29
 
 
  212:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                 lv_draw_sw_blend(draw_unit, &blend_dsc);
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  898              		.loc 1 220 9 is_stmt 1 view .LVU308
  220:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****         blend_w = lv_area_get_width(&blend_area);
  899              		.loc 1 220 25 is_stmt 0 view .LVU309
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 30
 
 
  900 0298 013D     		subs	r5, r5, #1
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  943              	.LVL70:
  224:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                     blend_area.y1 = h;
  944              		.loc 1 224 17 view .LVU325
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 31
 
 
  945 02be 14E0     		b	.L35
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  986 02ee 079B     		ldr	r3, [sp, #28]
  987 02f0 049A     		ldr	r2, [sp, #16]
  988 02f2 9342     		cmp	r3, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 32
 
 
  989 02f4 03DA     		bge	.L37
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1030 0328 FFF7FEFF 		bl	lv_draw_sw_blend
  1031              	.LVL79:
  235:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                     blend_area.y1 = h;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 33
 
 
  1032              		.loc 1 235 63 discriminator 3 view .LVU352
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  139:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** {
  1073              		.loc 3 139 23 view .LVU366
  1074              	.LBB37:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 34
 
 
  1075              		.loc 3 141 5 view .LVU367
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1116 0376 2046     		mov	r0, r4
  1117 0378 FFF7FEFF 		bl	lv_memset
  1118              	.LVL86:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 35
 
 
  260:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                     lv_draw_sw_blend(draw_unit, &blend_dsc);
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1161              		.loc 1 266 17 view .LVU395
  1162 03b2 14E0     		b	.L45
  1163              	.L46:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 36
 
 
  267:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****                     blend_area.y2 = h;
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1204              	.LVL96:
  1205              	.L60:
  279:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     lv_free(mask_buf);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 37
 
 
  1206              		.loc 1 279 18 is_stmt 1 discriminator 1 view .LVU410
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
   53:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     if(dsc->side == LV_BORDER_SIDE_NONE) return;
  1255              		.loc 1 53 7 view .LVU418
  1256 0016 002A     		cmp	r2, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 38
 
 
  1257 0018 56D0     		beq	.L61
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1295              		.loc 3 151 12 view .LVU436
  1296 0038 0EF1010E 		add	lr, lr, #1
  1297              	.LVL103:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 39
 
 
  1298              		.loc 3 151 12 view .LVU437
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1335              		.loc 3 130 14 is_stmt 0 view .LVU454
  1336 0058 0696     		str	r6, [sp, #24]
  131:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 40
 
 
  1337              		.loc 3 131 5 is_stmt 1 view .LVU455
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
   67:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     area_inner.y2 -= ((dsc->side & LV_BORDER_SIDE_BOTTOM) ? dsc->width : - (dsc->width + rout));
  1376              		.loc 1 67 69 is_stmt 0 discriminator 4 view .LVU471
  1377 008c 1EF0020F 		tst	lr, #2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 41
 
 
  1378 0090 21D1     		bne	.L74
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1416              	.L69:
   77:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     }
  1417              		.loc 1 77 9 is_stmt 1 view .LVU488
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 42
 
 
  1418 00b0 0294     		str	r4, [sp, #8]
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1464              	.LVL122:
  1465              	.L79:
   74:Lib/lvgl/src/draw/sw/lv_draw_sw_border.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 43
 
 
  1466              		.loc 1 74 9 is_stmt 1 view .LVU497
@@ -2560,17 +2560,17 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 1
  1500              		.file 21 "Lib/lvgl/src/draw/sw/blend/lv_draw_sw_blend.h"
  1501              		.file 22 "Lib/lvgl/src/draw/sw/../../core/lv_obj_style.h"
  1502              		.file 23 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s 			page 44
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_draw_sw_border.c
-C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s:21     .text.draw_border_simple:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s:26     .text.draw_border_simple:00000000 draw_border_simple
-C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s:264    .text.draw_border_complex:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s:269    .text.draw_border_complex:00000000 draw_border_complex
-C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s:1215   .text.lv_draw_sw_border:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccV13bsk.s:1221   .text.lv_draw_sw_border:00000000 lv_draw_sw_border
+C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s:21     .text.draw_border_simple:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s:26     .text.draw_border_simple:00000000 draw_border_simple
+C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s:264    .text.draw_border_complex:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s:269    .text.draw_border_complex:00000000 draw_border_complex
+C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s:1215   .text.lv_draw_sw_border:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccqZxSDu.s:1221   .text.lv_draw_sw_border:00000000 lv_draw_sw_border
 
 UNDEFINED SYMBOLS
 lv_memset

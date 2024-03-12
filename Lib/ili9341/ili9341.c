@@ -56,6 +56,7 @@ void ILI9341_Init() {
     ILI9341_Select();
     ILI9341_Reset();
 
+
     // command list is based on https://github.com/martnak/STM32-ILI9341
 
     // SOFTWARE RESET
@@ -220,7 +221,7 @@ void ILI9341_DrawPixel(uint16_t x, uint16_t y, uint16_t color) {
     ILI9341_Unselect();
 }
 
-static void ILI9341_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor) {
+void ILI9341_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor) {
     uint32_t i, b, j;
 
     ILI9341_SetAddressWindow(x, y, x+font.width-1, y+font.height-1);

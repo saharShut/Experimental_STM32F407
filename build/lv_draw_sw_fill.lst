@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
   27:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****  **********************/
   28:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c **** 
   29:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c **** /**********************
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 2
 
 
   30:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****  *  STATIC PROTOTYPES
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
   55:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****     lv_grad_dir_t grad_dir = dsc->grad.dir;
   56:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****     lv_color_t bg_color    = grad_dir == LV_GRAD_DIR_NONE ? dsc->color : dsc->grad.stops[0].color;
   57:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 3
 
 
   58:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****     lv_draw_sw_blend_dsc_t blend_dsc = {0};
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  112:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****             if(dsc->grad.stops[s].opa != LV_OPA_COVER) {
  113:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                 transp = true;
  114:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                 break;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 4
 
 
  115:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****             }
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  169:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                         if(grad_opa_map[i] < LV_OPA_MAX) mask_buf[i] = (mask_buf[i] * grad_opa_map[
  170:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                     }
  171:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                     blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_CHANGED;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 5
 
 
  172:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                 }
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
   62              		.cfi_remember_state
   63              		.cfi_def_cfa_offset 36
   64              		@ sp needed
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 6
 
 
   65 0012 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
   40:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** } lv_point_precise_t;
   41:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
   42:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** /** Represents an area of the screen.*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 7
 
 
   43:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef struct {
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
   97:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #else
   98:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** typedef uint8_t lv_dir_t;
   99:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** #endif /*DOXYGEN*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 8
 
 
  100:Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../misc/lv_area.h **** 
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  100              	.LVL4:
  101              		.loc 2 131 14 view .LVU22
  102              	.LBE16:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 9
 
 
  103              	.LBE15:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  142 0056 16A8     		add	r0, sp, #88
  143 0058 FFF7FEFF 		bl	memset
  144              	.LVL11:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 10
 
 
   59:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c **** 
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  179 0086 269B     		ldr	r3, [sp, #152]
  180 0088 ED1A     		subs	r5, r5, r3
  181              		.loc 2 141 12 discriminator 4 view .LVU51
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 11
 
 
  182 008a 0135     		adds	r5, r5, #1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  219 00a2 1A46     		movge	r2, r3
  220 00a4 1746     		mov	r7, r2
  221              	.LVL18:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 12
 
 
   82:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****     lv_opa_t * mask_buf = NULL;
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  258              		.loc 1 95 35 is_stmt 0 view .LVU82
  259 00be 229B     		ldr	r3, [sp, #136]
   95:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****     blend_area.x2 = clipped_coords.x2;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 13
 
 
  260              		.loc 1 95 19 view .LVU83
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  105:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****     if(grad && grad_dir == LV_GRAD_DIR_HOR) {
  297              		.loc 1 105 16 view .LVU101
  298 00ee 0023     		movs	r3, #0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 14
 
 
  299 00f0 0493     		str	r3, [sp, #16]
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  340 011e 77E7     		b	.L1
  341              	.LVL30:
  342              	.L52:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 15
 
 
   87:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****         lv_draw_sw_mask_radius_init(&mask_rout_param, &bg_coords, rout, false);
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  110:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****         for(s = 0; s < dsc->grad.stops_count; s++) {
  384              		.loc 1 110 9 view .LVU128
  111:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****             if(dsc->grad.stops[s].opa != LV_OPA_COVER) {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 16
 
 
  385              		.loc 1 111 9 view .LVU129
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  424              		.loc 1 118 20 is_stmt 1 discriminator 1 view .LVU144
  118:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c **** 
  425              		.loc 1 118 39 is_stmt 0 discriminator 1 view .LVU145
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 17
 
 
  426 0176 DBF80430 		ldr	r3, [fp, #4]
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  141:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                 blend_dsc.opa = grad->opa_map[top_y - bg_coords.y1];
  468              		.loc 1 141 57 view .LVU158
  469 019e E31A     		subs	r3, r4, r3
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 18
 
 
  141:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                 blend_dsc.opa = grad->opa_map[top_y - bg_coords.y1];
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  509              		.loc 1 148 34 discriminator 1 view .LVU173
  510 01ca BB42     		cmp	r3, r7
  511 01cc 0DDA     		bge	.L56
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 19
 
 
  149:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                     }
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  551 01f4 0024     		movs	r4, #0
  552              	.LVL59:
  553              	.L17:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 20
 
 
  157:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****             blend_area.y1 = bottom_y;
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  590              		.loc 1 162 71 view .LVU206
  591 021c 279B     		ldr	r3, [sp, #156]
  162:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                 blend_dsc.opa = grad->opa_map[bottom_y - bg_coords.y1];
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 21
 
 
  592              		.loc 1 162 60 view .LVU207
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  632              		.loc 1 126 9 is_stmt 1 view .LVU221
  126:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****         if(top_y < clipped_coords.y1 && bottom_y > clipped_coords.y2) continue;   /*This line is cl
  633              		.loc 1 126 37 is_stmt 0 view .LVU222
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 22
 
 
  634 024e 299D     		ldr	r5, [sp, #164]
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  674              		.loc 1 136 9 view .LVU236
  136:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****             blend_area.y1 = top_y;
  675              		.loc 1 136 35 is_stmt 0 view .LVU237
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 23
 
 
  676 027e 239B     		ldr	r3, [sp, #140]
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  715              		.loc 1 169 40 is_stmt 0 view .LVU252
  716 02a6 C15C     		ldrb	r1, [r0, r3]	@ zero_extendqisi2
  169:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****                     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 24
 
 
  717              		.loc 1 169 27 view .LVU253
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  756              		.loc 1 191 9 is_stmt 1 view .LVU268
  191:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****             blend_dsc.mask_res = LV_DRAW_SW_MASK_RES_FULL_COVER;
  757              		.loc 1 191 11 is_stmt 0 view .LVU269
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 25
 
 
  758 02d2 B8F1010F 		cmp	r8, #1
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  795              		.loc 1 183 9 is_stmt 1 view .LVU286
  183:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c ****         blend_dsc.opa = opa;
  796              		.loc 1 183 34 is_stmt 0 view .LVU287
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 26
 
 
  797 02f2 299B     		ldr	r3, [sp, #164]
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  837 032a 71E6     		b	.L1
  838              	.LVL83:
  839              	.L64:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 27
 
 
  840              	.LBB30:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  880              		.loc 1 201 27 is_stmt 0 view .LVU315
  881 035e 0894     		str	r4, [sp, #32]
  202:Lib/lvgl/src/draw/sw/lv_draw_sw_fill.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 28
 
 
  882              		.loc 1 202 13 is_stmt 1 view .LVU316
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  922              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  923              		.file 4 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
  924              		.file 5 "Lib/lvgl/src/draw/sw/../../misc/lv_types.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 29
 
 
  925              		.file 6 "Lib/lvgl/src/draw/sw/../../core/lv_obj.h"
@@ -1701,13 +1701,13 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 1
  942              		.file 23 "c:\\users\\alex\\eclipse-workspace\\lvgs_test\\lib\\lvgl\\src\\stdlib\\lv_mem.h"
  943              		.file 24 "Lib/lvgl/src/draw/sw/../../misc/../font/../draw/../stdlib/lv_string.h"
  944              		.file 25 "<built-in>"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s 			page 30
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_draw_sw_fill.c
-C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s:21     .text.lv_draw_sw_fill:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccNqDz5R.s:27     .text.lv_draw_sw_fill:00000000 lv_draw_sw_fill
+C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s:21     .text.lv_draw_sw_fill:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccPXsAL7.s:27     .text.lv_draw_sw_fill:00000000 lv_draw_sw_fill
 
 UNDEFINED SYMBOLS
 _lv_area_intersect

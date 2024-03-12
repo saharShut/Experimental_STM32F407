@@ -1,0 +1,1052 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"sht3x.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/sht3x/sht3x.c"
+  20              		.section	.text.calculate_crc,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	calculate_crc:
+  27              	.LVL0:
+  28              	.LFB130:
+   1:Lib/sht3x/sht3x.c **** #include "sht3x.h"
+   2:Lib/sht3x/sht3x.c **** 
+   3:Lib/sht3x/sht3x.c **** 
+   4:Lib/sht3x/sht3x.c **** static I2C_HandleTypeDef* I2C_PORT;
+   5:Lib/sht3x/sht3x.c **** 
+   6:Lib/sht3x/sht3x.c **** // Its code for example initialization i2c port must be 
+   7:Lib/sht3x/sht3x.c **** // provide anyware alse
+   8:Lib/sht3x/sht3x.c **** //
+   9:Lib/sht3x/sht3x.c **** // void SHT3X_Init(I2C_HandleTypeDef* port)
+  10:Lib/sht3x/sht3x.c **** // {
+  11:Lib/sht3x/sht3x.c **** //     I2C_PORT = port;
+  12:Lib/sht3x/sht3x.c **** 
+  13:Lib/sht3x/sht3x.c **** //     if(I2C_PORT->Instance == I2C3)
+  14:Lib/sht3x/sht3x.c **** //     {
+  15:Lib/sht3x/sht3x.c **** //         return 1;
+  16:Lib/sht3x/sht3x.c **** //     }
+  17:Lib/sht3x/sht3x.c **** 
+  18:Lib/sht3x/sht3x.c **** //     GPIO_InitTypeDef GPIO_InitStruct = {0};
+  19:Lib/sht3x/sht3x.c **** 
+  20:Lib/sht3x/sht3x.c **** //     __HAL_RCC_GPIOC_CLK_ENABLE();
+  21:Lib/sht3x/sht3x.c **** //     __HAL_RCC_GPIOA_CLK_ENABLE();
+  22:Lib/sht3x/sht3x.c **** //     /**I2C3 GPIO Configuration
+  23:Lib/sht3x/sht3x.c **** //     PC9     ------> I2C3_SDA
+  24:Lib/sht3x/sht3x.c **** //     PA8     ------> I2C3_SCL
+  25:Lib/sht3x/sht3x.c **** //     */
+  26:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Pin = GPIO_PIN_9;
+  27:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+  28:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Pull = GPIO_PULLUP;
+  29:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  30:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 2
+
+
+  31:Lib/sht3x/sht3x.c **** //     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  32:Lib/sht3x/sht3x.c **** 
+  33:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Pin = GPIO_PIN_8;
+  34:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+  35:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Pull = GPIO_PULLUP;
+  36:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  37:Lib/sht3x/sht3x.c **** //     GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
+  38:Lib/sht3x/sht3x.c **** //     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  39:Lib/sht3x/sht3x.c **** 
+  40:Lib/sht3x/sht3x.c **** //     /* Peripheral clock enable */
+  41:Lib/sht3x/sht3x.c **** //     __HAL_RCC_I2C3_CLK_ENABLE();
+  42:Lib/sht3x/sht3x.c **** 
+  43:Lib/sht3x/sht3x.c **** //     I2C_PORT->Instance = I2C3;
+  44:Lib/sht3x/sht3x.c **** //     I2C_PORT->Init.ClockSpeed = 100000;
+  45:Lib/sht3x/sht3x.c **** //     I2C_PORT->Init.DutyCycle = I2C_DUTYCYCLE_2;
+  46:Lib/sht3x/sht3x.c **** //     I2C_PORT->Init.OwnAddress1 = 0;
+  47:Lib/sht3x/sht3x.c **** //     I2C_PORT->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  48:Lib/sht3x/sht3x.c **** //     I2C_PORT->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  49:Lib/sht3x/sht3x.c **** //     I2C_PORT->Init.OwnAddress2 = 0;
+  50:Lib/sht3x/sht3x.c **** //     I2C_PORT->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  51:Lib/sht3x/sht3x.c **** //     I2C_PORT->Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  52:Lib/sht3x/sht3x.c **** //     if(HAL_I2C_Init(I2C_PORT) == HAL_ERROR)
+  53:Lib/sht3x/sht3x.c **** //     {
+  54:Lib/sht3x/sht3x.c **** //         return 8;
+  55:Lib/sht3x/sht3x.c **** //     }
+  56:Lib/sht3x/sht3x.c **** // }
+  57:Lib/sht3x/sht3x.c **** 
+  58:Lib/sht3x/sht3x.c **** /**
+  59:Lib/sht3x/sht3x.c ****  * Registers addresses.
+  60:Lib/sht3x/sht3x.c ****  */
+  61:Lib/sht3x/sht3x.c **** typedef enum
+  62:Lib/sht3x/sht3x.c **** {
+  63:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_MEASURE_HIGHREP_STRETCH = 0x2c06,
+  64:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_CLEAR_STATUS = 0x3041,
+  65:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_SOFT_RESET = 0x30A2,
+  66:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_HEATER_ENABLE = 0x306d,
+  67:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_HEATER_DISABLE = 0x3066,
+  68:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_READ_STATUS = 0xf32d,
+  69:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_FETCH_DATA = 0xe000,
+  70:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_MEASURE_HIGHREP_10HZ = 0x2737,
+  71:Lib/sht3x/sht3x.c **** 	SHT3X_COMMAND_MEASURE_LOWREP_10HZ = 0x272a
+  72:Lib/sht3x/sht3x.c **** } sht3x_command_t;
+  73:Lib/sht3x/sht3x.c **** 
+  74:Lib/sht3x/sht3x.c **** 
+  75:Lib/sht3x/sht3x.c **** static uint8_t calculate_crc(const uint8_t *data, size_t length)
+  76:Lib/sht3x/sht3x.c **** {
+  29              		.loc 1 76 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34              		.loc 1 76 1 is_stmt 0 view .LVU1
+  35 0000 8446     		mov	ip, r0
+  77:Lib/sht3x/sht3x.c **** 	uint8_t crc = 0xff;
+  36              		.loc 1 77 2 is_stmt 1 view .LVU2
+  37              	.LVL1:
+  78:Lib/sht3x/sht3x.c **** 	for (size_t i = 0; i < length; i++) {
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 3
+
+
+  38              		.loc 1 78 2 view .LVU3
+  39              	.LBB2:
+  40              		.loc 1 78 7 view .LVU4
+  41              		.loc 1 78 14 is_stmt 0 view .LVU5
+  42 0002 0022     		movs	r2, #0
+  43              	.LBE2:
+  77:Lib/sht3x/sht3x.c **** 	uint8_t crc = 0xff;
+  44              		.loc 1 77 10 view .LVU6
+  45 0004 FF20     		movs	r0, #255
+  46              	.LVL2:
+  47              	.LBB5:
+  48              		.loc 1 78 2 view .LVU7
+  49 0006 0DE0     		b	.L2
+  50              	.LVL3:
+  51              	.L4:
+  52              	.LBB3:
+  79:Lib/sht3x/sht3x.c **** 		crc ^= data[i];
+  80:Lib/sht3x/sht3x.c **** 		for (size_t j = 0; j < 8; j++) {
+  81:Lib/sht3x/sht3x.c **** 			if ((crc & 0x80u) != 0) {
+  82:Lib/sht3x/sht3x.c **** 				crc = (uint8_t)((uint8_t)(crc << 1u) ^ 0x31u);
+  83:Lib/sht3x/sht3x.c **** 			} else {
+  84:Lib/sht3x/sht3x.c **** 				crc <<= 1u;
+  53              		.loc 1 84 5 is_stmt 1 view .LVU8
+  54              		.loc 1 84 9 is_stmt 0 view .LVU9
+  55 0008 4000     		lsls	r0, r0, #1
+  56              	.LVL4:
+  57              		.loc 1 84 9 view .LVU10
+  58 000a C0B2     		uxtb	r0, r0
+  59              	.LVL5:
+  60              	.L5:
+  80:Lib/sht3x/sht3x.c **** 			if ((crc & 0x80u) != 0) {
+  61              		.loc 1 80 30 is_stmt 1 discriminator 2 view .LVU11
+  62 000c 0133     		adds	r3, r3, #1
+  63              	.LVL6:
+  64              	.L3:
+  80:Lib/sht3x/sht3x.c **** 			if ((crc & 0x80u) != 0) {
+  65              		.loc 1 80 24 discriminator 1 view .LVU12
+  66 000e 072B     		cmp	r3, #7
+  67 0010 07D8     		bhi	.L8
+  81:Lib/sht3x/sht3x.c **** 				crc = (uint8_t)((uint8_t)(crc << 1u) ^ 0x31u);
+  68              		.loc 1 81 4 view .LVU13
+  81:Lib/sht3x/sht3x.c **** 				crc = (uint8_t)((uint8_t)(crc << 1u) ^ 0x31u);
+  69              		.loc 1 81 7 is_stmt 0 view .LVU14
+  70 0012 10F0800F 		tst	r0, #128
+  71 0016 F7D0     		beq	.L4
+  82:Lib/sht3x/sht3x.c **** 			} else {
+  72              		.loc 1 82 5 is_stmt 1 view .LVU15
+  82:Lib/sht3x/sht3x.c **** 			} else {
+  73              		.loc 1 82 21 is_stmt 0 view .LVU16
+  74 0018 4000     		lsls	r0, r0, #1
+  75              	.LVL7:
+  82:Lib/sht3x/sht3x.c **** 			} else {
+  76              		.loc 1 82 21 view .LVU17
+  77 001a C0B2     		uxtb	r0, r0
+  82:Lib/sht3x/sht3x.c **** 			} else {
+  78              		.loc 1 82 9 view .LVU18
+  79 001c 80F03100 		eor	r0, r0, #49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 4
+
+
+  80              	.LVL8:
+  82:Lib/sht3x/sht3x.c **** 			} else {
+  81              		.loc 1 82 9 view .LVU19
+  82 0020 F4E7     		b	.L5
+  83              	.L8:
+  82:Lib/sht3x/sht3x.c **** 			} else {
+  84              		.loc 1 82 9 view .LVU20
+  85              	.LBE3:
+  78:Lib/sht3x/sht3x.c **** 		crc ^= data[i];
+  86              		.loc 1 78 34 is_stmt 1 discriminator 2 view .LVU21
+  87 0022 0132     		adds	r2, r2, #1
+  88              	.LVL9:
+  89              	.L2:
+  78:Lib/sht3x/sht3x.c **** 		crc ^= data[i];
+  90              		.loc 1 78 23 discriminator 1 view .LVU22
+  91 0024 8A42     		cmp	r2, r1
+  92 0026 04D2     		bcs	.L9
+  79:Lib/sht3x/sht3x.c **** 		for (size_t j = 0; j < 8; j++) {
+  93              		.loc 1 79 3 view .LVU23
+  79:Lib/sht3x/sht3x.c **** 		for (size_t j = 0; j < 8; j++) {
+  94              		.loc 1 79 14 is_stmt 0 view .LVU24
+  95 0028 1CF80230 		ldrb	r3, [ip, r2]	@ zero_extendqisi2
+  79:Lib/sht3x/sht3x.c **** 		for (size_t j = 0; j < 8; j++) {
+  96              		.loc 1 79 7 view .LVU25
+  97 002c 5840     		eors	r0, r0, r3
+  98              	.LVL10:
+  80:Lib/sht3x/sht3x.c **** 			if ((crc & 0x80u) != 0) {
+  99              		.loc 1 80 3 is_stmt 1 view .LVU26
+ 100              	.LBB4:
+  80:Lib/sht3x/sht3x.c **** 			if ((crc & 0x80u) != 0) {
+ 101              		.loc 1 80 8 view .LVU27
+  80:Lib/sht3x/sht3x.c **** 			if ((crc & 0x80u) != 0) {
+ 102              		.loc 1 80 15 is_stmt 0 view .LVU28
+ 103 002e 0023     		movs	r3, #0
+  80:Lib/sht3x/sht3x.c **** 			if ((crc & 0x80u) != 0) {
+ 104              		.loc 1 80 3 view .LVU29
+ 105 0030 EDE7     		b	.L3
+ 106              	.LVL11:
+ 107              	.L9:
+  80:Lib/sht3x/sht3x.c **** 			if ((crc & 0x80u) != 0) {
+ 108              		.loc 1 80 3 view .LVU30
+ 109              	.LBE4:
+ 110              	.LBE5:
+  85:Lib/sht3x/sht3x.c **** 			}
+  86:Lib/sht3x/sht3x.c **** 		}
+  87:Lib/sht3x/sht3x.c **** 	}
+  88:Lib/sht3x/sht3x.c **** 	return crc;
+ 111              		.loc 1 88 2 is_stmt 1 view .LVU31
+  89:Lib/sht3x/sht3x.c **** }
+ 112              		.loc 1 89 1 is_stmt 0 view .LVU32
+ 113 0032 7047     		bx	lr
+ 114              		.cfi_endproc
+ 115              	.LFE130:
+ 117              		.section	.text.uint8_to_uint16,"ax",%progbits
+ 118              		.align	1
+ 119              		.syntax unified
+ 120              		.thumb
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 5
+
+
+ 121              		.thumb_func
+ 123              	uint8_to_uint16:
+ 124              	.LVL12:
+ 125              	.LFB132:
+  90:Lib/sht3x/sht3x.c **** 
+  91:Lib/sht3x/sht3x.c **** static uint8_t sht3x_send_command(sht3x_t *handle, sht3x_command_t command)
+  92:Lib/sht3x/sht3x.c **** {
+  93:Lib/sht3x/sht3x.c **** 	uint8_t command_buffer[2] = {(command & 0xff00u) >> 8u, command & 0xffu};
+  94:Lib/sht3x/sht3x.c **** 
+  95:Lib/sht3x/sht3x.c **** 	if (HAL_I2C_Master_Transmit(handle->i2c_port, SHT3X_ADDRESS << 1u, command_buffer, sizeof(command_
+  96:Lib/sht3x/sht3x.c **** 	                            SHT3X_I2C_TIMEOUT) != HAL_OK) {
+  97:Lib/sht3x/sht3x.c **** 		return 0;
+  98:Lib/sht3x/sht3x.c **** 	}
+  99:Lib/sht3x/sht3x.c **** 
+ 100:Lib/sht3x/sht3x.c **** 	return 1;
+ 101:Lib/sht3x/sht3x.c **** }
+ 102:Lib/sht3x/sht3x.c **** 
+ 103:Lib/sht3x/sht3x.c **** static uint16_t uint8_to_uint16(uint8_t msb, uint8_t lsb)
+ 104:Lib/sht3x/sht3x.c **** {
+ 126              		.loc 1 104 1 is_stmt 1 view -0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 105:Lib/sht3x/sht3x.c **** 	return (uint16_t)((uint16_t)msb << 8u) | lsb;
+ 131              		.loc 1 105 2 view .LVU34
+ 106:Lib/sht3x/sht3x.c **** }
+ 132              		.loc 1 106 1 is_stmt 0 view .LVU35
+ 133 0000 41EA0020 		orr	r0, r1, r0, lsl #8
+ 134              	.LVL13:
+ 135              		.loc 1 106 1 view .LVU36
+ 136 0004 7047     		bx	lr
+ 137              		.cfi_endproc
+ 138              	.LFE132:
+ 140              		.section	.text.sht3x_send_command,"ax",%progbits
+ 141              		.align	1
+ 142              		.syntax unified
+ 143              		.thumb
+ 144              		.thumb_func
+ 146              	sht3x_send_command:
+ 147              	.LVL14:
+ 148              	.LFB131:
+  92:Lib/sht3x/sht3x.c **** 	uint8_t command_buffer[2] = {(command & 0xff00u) >> 8u, command & 0xffu};
+ 149              		.loc 1 92 1 is_stmt 1 view -0
+ 150              		.cfi_startproc
+ 151              		@ args = 0, pretend = 0, frame = 8
+ 152              		@ frame_needed = 0, uses_anonymous_args = 0
+  92:Lib/sht3x/sht3x.c **** 	uint8_t command_buffer[2] = {(command & 0xff00u) >> 8u, command & 0xffu};
+ 153              		.loc 1 92 1 is_stmt 0 view .LVU38
+ 154 0000 00B5     		push	{lr}
+ 155              	.LCFI0:
+ 156              		.cfi_def_cfa_offset 4
+ 157              		.cfi_offset 14, -4
+ 158 0002 85B0     		sub	sp, sp, #20
+ 159              	.LCFI1:
+ 160              		.cfi_def_cfa_offset 24
+  93:Lib/sht3x/sht3x.c **** 
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 6
+
+
+ 161              		.loc 1 93 2 is_stmt 1 view .LVU39
+  93:Lib/sht3x/sht3x.c **** 
+ 162              		.loc 1 93 51 is_stmt 0 view .LVU40
+ 163 0004 0B0A     		lsrs	r3, r1, #8
+  93:Lib/sht3x/sht3x.c **** 
+ 164              		.loc 1 93 10 view .LVU41
+ 165 0006 8DF80C30 		strb	r3, [sp, #12]
+ 166 000a 8DF80D10 		strb	r1, [sp, #13]
+  95:Lib/sht3x/sht3x.c **** 	                            SHT3X_I2C_TIMEOUT) != HAL_OK) {
+ 167              		.loc 1 95 2 is_stmt 1 view .LVU42
+  95:Lib/sht3x/sht3x.c **** 	                            SHT3X_I2C_TIMEOUT) != HAL_OK) {
+ 168              		.loc 1 95 6 is_stmt 0 view .LVU43
+ 169 000e C068     		ldr	r0, [r0, #12]
+ 170              	.LVL15:
+  95:Lib/sht3x/sht3x.c **** 	                            SHT3X_I2C_TIMEOUT) != HAL_OK) {
+ 171              		.loc 1 95 6 view .LVU44
+ 172 0010 4FF49673 		mov	r3, #300
+ 173 0014 0093     		str	r3, [sp]
+ 174 0016 0223     		movs	r3, #2
+ 175 0018 03AA     		add	r2, sp, #12
+ 176 001a 8821     		movs	r1, #136
+ 177              	.LVL16:
+  95:Lib/sht3x/sht3x.c **** 	                            SHT3X_I2C_TIMEOUT) != HAL_OK) {
+ 178              		.loc 1 95 6 view .LVU45
+ 179 001c FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 180              	.LVL17:
+  95:Lib/sht3x/sht3x.c **** 	                            SHT3X_I2C_TIMEOUT) != HAL_OK) {
+ 181              		.loc 1 95 5 view .LVU46
+ 182 0020 18B9     		cbnz	r0, .L13
+ 100:Lib/sht3x/sht3x.c **** }
+ 183              		.loc 1 100 9 view .LVU47
+ 184 0022 0120     		movs	r0, #1
+ 185              	.L12:
+ 101:Lib/sht3x/sht3x.c **** 
+ 186              		.loc 1 101 1 view .LVU48
+ 187 0024 05B0     		add	sp, sp, #20
+ 188              	.LCFI2:
+ 189              		.cfi_remember_state
+ 190              		.cfi_def_cfa_offset 4
+ 191              		@ sp needed
+ 192 0026 5DF804FB 		ldr	pc, [sp], #4
+ 193              	.L13:
+ 194              	.LCFI3:
+ 195              		.cfi_restore_state
+  97:Lib/sht3x/sht3x.c **** 	}
+ 196              		.loc 1 97 10 view .LVU49
+ 197 002a 0020     		movs	r0, #0
+ 198 002c FAE7     		b	.L12
+ 199              		.cfi_endproc
+ 200              	.LFE131:
+ 202              		.section	.text.SHT3X_Init,"ax",%progbits
+ 203              		.align	1
+ 204              		.global	SHT3X_Init
+ 205              		.syntax unified
+ 206              		.thumb
+ 207              		.thumb_func
+ 209              	SHT3X_Init:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 7
+
+
+ 210              	.LVL18:
+ 211              	.LFB133:
+ 107:Lib/sht3x/sht3x.c **** 
+ 108:Lib/sht3x/sht3x.c **** // Initialize sht3x device
+ 109:Lib/sht3x/sht3x.c **** // void SHT3X_Init(sht3x_t* device)
+ 110:Lib/sht3x/sht3x.c **** // {
+ 111:Lib/sht3x/sht3x.c **** //     device->state = undefined;
+ 112:Lib/sht3x/sht3x.c **** // }
+ 113:Lib/sht3x/sht3x.c **** 
+ 114:Lib/sht3x/sht3x.c **** // Initialize sht3x device and connect it to corresponding i2c_port
+ 115:Lib/sht3x/sht3x.c **** uint8_t SHT3X_Init(sht3x_t* device, I2C_HandleTypeDef* port)
+ 116:Lib/sht3x/sht3x.c **** {
+ 212              		.loc 1 116 1 is_stmt 1 view -0
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 8
+ 215              		@ frame_needed = 0, uses_anonymous_args = 0
+ 216              		.loc 1 116 1 is_stmt 0 view .LVU51
+ 217 0000 00B5     		push	{lr}
+ 218              	.LCFI4:
+ 219              		.cfi_def_cfa_offset 4
+ 220              		.cfi_offset 14, -4
+ 221 0002 87B0     		sub	sp, sp, #28
+ 222              	.LCFI5:
+ 223              		.cfi_def_cfa_offset 32
+ 224 0004 0346     		mov	r3, r0
+ 225 0006 0846     		mov	r0, r1
+ 226              	.LVL19:
+ 117:Lib/sht3x/sht3x.c ****     device->i2c_port = port;
+ 227              		.loc 1 117 5 is_stmt 1 view .LVU52
+ 228              		.loc 1 117 22 is_stmt 0 view .LVU53
+ 229 0008 D960     		str	r1, [r3, #12]
+ 118:Lib/sht3x/sht3x.c ****     device->state = idle;
+ 230              		.loc 1 118 5 is_stmt 1 view .LVU54
+ 231              		.loc 1 118 19 is_stmt 0 view .LVU55
+ 232 000a 0122     		movs	r2, #1
+ 233 000c 1A72     		strb	r2, [r3, #8]
+ 119:Lib/sht3x/sht3x.c **** 
+ 120:Lib/sht3x/sht3x.c ****     uint8_t status_reg_and_checksum[3];
+ 234              		.loc 1 120 5 is_stmt 1 view .LVU56
+ 121:Lib/sht3x/sht3x.c **** 	if (HAL_I2C_Mem_Read(device->i2c_port, SHT3X_ADDRESS << 1u, SHT3X_COMMAND_READ_STATUS, 2, (uint8_t
+ 235              		.loc 1 121 2 view .LVU57
+ 236              		.loc 1 121 6 is_stmt 0 view .LVU58
+ 237 000e 4FF49673 		mov	r3, #300
+ 238              	.LVL20:
+ 239              		.loc 1 121 6 view .LVU59
+ 240 0012 0293     		str	r3, [sp, #8]
+ 241 0014 0323     		movs	r3, #3
+ 242 0016 0193     		str	r3, [sp, #4]
+ 243 0018 05AB     		add	r3, sp, #20
+ 244 001a 0093     		str	r3, [sp]
+ 245 001c 0223     		movs	r3, #2
+ 246 001e 4FF22D32 		movw	r2, #62253
+ 247 0022 8821     		movs	r1, #136
+ 248              	.LVL21:
+ 249              		.loc 1 121 6 view .LVU60
+ 250 0024 FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 251              	.LVL22:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 8
+
+
+ 252              		.loc 1 121 5 view .LVU61
+ 253 0028 58B9     		cbnz	r0, .L17
+ 122:Lib/sht3x/sht3x.c **** 					  sizeof(status_reg_and_checksum), SHT3X_I2C_TIMEOUT) != HAL_OK) {
+ 123:Lib/sht3x/sht3x.c **** 		return 0;
+ 124:Lib/sht3x/sht3x.c **** 	}
+ 125:Lib/sht3x/sht3x.c **** 
+ 126:Lib/sht3x/sht3x.c **** 	uint8_t calculated_crc = calculate_crc(status_reg_and_checksum, 2);
+ 254              		.loc 1 126 2 is_stmt 1 view .LVU62
+ 255              		.loc 1 126 27 is_stmt 0 view .LVU63
+ 256 002a 0221     		movs	r1, #2
+ 257 002c 05A8     		add	r0, sp, #20
+ 258 002e FFF7FEFF 		bl	calculate_crc
+ 259              	.LVL23:
+ 127:Lib/sht3x/sht3x.c **** 
+ 128:Lib/sht3x/sht3x.c **** 	if (calculated_crc != status_reg_and_checksum[2]) {
+ 260              		.loc 1 128 2 is_stmt 1 view .LVU64
+ 261              		.loc 1 128 47 is_stmt 0 view .LVU65
+ 262 0032 9DF81630 		ldrb	r3, [sp, #22]	@ zero_extendqisi2
+ 263              		.loc 1 128 5 view .LVU66
+ 264 0036 8342     		cmp	r3, r0
+ 265 0038 05D1     		bne	.L18
+ 129:Lib/sht3x/sht3x.c **** 		return 2;
+ 130:Lib/sht3x/sht3x.c **** 	}
+ 131:Lib/sht3x/sht3x.c **** 
+ 132:Lib/sht3x/sht3x.c **** 	return 1;
+ 266              		.loc 1 132 9 view .LVU67
+ 267 003a 0120     		movs	r0, #1
+ 268              	.LVL24:
+ 269              	.L16:
+ 133:Lib/sht3x/sht3x.c **** }
+ 270              		.loc 1 133 1 view .LVU68
+ 271 003c 07B0     		add	sp, sp, #28
+ 272              	.LCFI6:
+ 273              		.cfi_remember_state
+ 274              		.cfi_def_cfa_offset 4
+ 275              		@ sp needed
+ 276 003e 5DF804FB 		ldr	pc, [sp], #4
+ 277              	.L17:
+ 278              	.LCFI7:
+ 279              		.cfi_restore_state
+ 123:Lib/sht3x/sht3x.c **** 	}
+ 280              		.loc 1 123 10 view .LVU69
+ 281 0042 0020     		movs	r0, #0
+ 282 0044 FAE7     		b	.L16
+ 283              	.LVL25:
+ 284              	.L18:
+ 129:Lib/sht3x/sht3x.c **** 		return 2;
+ 285              		.loc 1 129 10 view .LVU70
+ 286 0046 0220     		movs	r0, #2
+ 287              	.LVL26:
+ 129:Lib/sht3x/sht3x.c **** 		return 2;
+ 288              		.loc 1 129 10 view .LVU71
+ 289 0048 F8E7     		b	.L16
+ 290              		.cfi_endproc
+ 291              	.LFE133:
+ 293              		.section	.text.reset,"ax",%progbits
+ 294              		.align	1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 9
+
+
+ 295              		.global	reset
+ 296              		.syntax unified
+ 297              		.thumb
+ 298              		.thumb_func
+ 300              	reset:
+ 301              	.LVL27:
+ 302              	.LFB134:
+ 134:Lib/sht3x/sht3x.c **** 
+ 135:Lib/sht3x/sht3x.c **** // Cause soft reset
+ 136:Lib/sht3x/sht3x.c **** result_state_t reset(sht3x_t* device)
+ 137:Lib/sht3x/sht3x.c **** {}
+ 303              		.loc 1 137 1 is_stmt 1 view -0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307              		@ link register save eliminated.
+ 308              		.loc 1 137 2 view .LVU73
+ 309              	.LVL28:
+ 310              		.loc 1 137 2 is_stmt 0 view .LVU74
+ 311 0000 7047     		bx	lr
+ 312              		.cfi_endproc
+ 313              	.LFE134:
+ 315              		.section	.text.get_measure,"ax",%progbits
+ 316              		.align	1
+ 317              		.global	get_measure
+ 318              		.syntax unified
+ 319              		.thumb
+ 320              		.thumb_func
+ 322              	get_measure:
+ 323              	.LVL29:
+ 324              	.LFB135:
+ 138:Lib/sht3x/sht3x.c **** 
+ 139:Lib/sht3x/sht3x.c **** // Proccess measument 
+ 140:Lib/sht3x/sht3x.c **** result_state_t get_measure(sht3x_t* device)
+ 141:Lib/sht3x/sht3x.c **** {}
+ 325              		.loc 1 141 1 is_stmt 1 view -0
+ 326              		.cfi_startproc
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 0, uses_anonymous_args = 0
+ 329              		@ link register save eliminated.
+ 330              		.loc 1 141 2 view .LVU76
+ 331              	.LVL30:
+ 332              		.loc 1 141 2 is_stmt 0 view .LVU77
+ 333 0000 7047     		bx	lr
+ 334              		.cfi_endproc
+ 335              	.LFE135:
+ 337              		.section	.text.set_mode,"ax",%progbits
+ 338              		.align	1
+ 339              		.global	set_mode
+ 340              		.syntax unified
+ 341              		.thumb
+ 342              		.thumb_func
+ 344              	set_mode:
+ 345              	.LVL31:
+ 346              	.LFB136:
+ 142:Lib/sht3x/sht3x.c **** 
+ 143:Lib/sht3x/sht3x.c **** // Set mode
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 10
+
+
+ 144:Lib/sht3x/sht3x.c **** result_state_t set_mode(sht3x_t* device, state_t* mode)
+ 145:Lib/sht3x/sht3x.c **** {}
+ 347              		.loc 1 145 1 is_stmt 1 view -0
+ 348              		.cfi_startproc
+ 349              		@ args = 0, pretend = 0, frame = 0
+ 350              		@ frame_needed = 0, uses_anonymous_args = 0
+ 351              		@ link register save eliminated.
+ 352              		.loc 1 145 2 view .LVU79
+ 353              	.LVL32:
+ 354              		.loc 1 145 2 is_stmt 0 view .LVU80
+ 355 0000 7047     		bx	lr
+ 356              		.cfi_endproc
+ 357              	.LFE136:
+ 359              		.section	.text.break_command,"ax",%progbits
+ 360              		.align	1
+ 361              		.global	break_command
+ 362              		.syntax unified
+ 363              		.thumb
+ 364              		.thumb_func
+ 366              	break_command:
+ 367              	.LVL33:
+ 368              	.LFB137:
+ 146:Lib/sht3x/sht3x.c **** 
+ 147:Lib/sht3x/sht3x.c **** // Issue break command
+ 148:Lib/sht3x/sht3x.c **** result_state_t break_command(sht3x_t* device)
+ 149:Lib/sht3x/sht3x.c **** {}
+ 369              		.loc 1 149 1 is_stmt 1 view -0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 0, uses_anonymous_args = 0
+ 373              		@ link register save eliminated.
+ 374              		.loc 1 149 2 view .LVU82
+ 375              	.LVL34:
+ 376              		.loc 1 149 2 is_stmt 0 view .LVU83
+ 377 0000 7047     		bx	lr
+ 378              		.cfi_endproc
+ 379              	.LFE137:
+ 381              		.section	.text.get_status,"ax",%progbits
+ 382              		.align	1
+ 383              		.global	get_status
+ 384              		.syntax unified
+ 385              		.thumb
+ 386              		.thumb_func
+ 388              	get_status:
+ 389              	.LVL35:
+ 390              	.LFB138:
+ 150:Lib/sht3x/sht3x.c **** 
+ 151:Lib/sht3x/sht3x.c **** // Get device status
+ 152:Lib/sht3x/sht3x.c **** result_state_t get_status(sht3x_t* device)
+ 153:Lib/sht3x/sht3x.c **** {}
+ 391              		.loc 1 153 1 is_stmt 1 view -0
+ 392              		.cfi_startproc
+ 393              		@ args = 0, pretend = 0, frame = 0
+ 394              		@ frame_needed = 0, uses_anonymous_args = 0
+ 395              		@ link register save eliminated.
+ 396              		.loc 1 153 2 view .LVU85
+ 397              	.LVL36:
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 11
+
+
+ 398              		.loc 1 153 2 is_stmt 0 view .LVU86
+ 399 0000 7047     		bx	lr
+ 400              		.cfi_endproc
+ 401              	.LFE138:
+ 403              		.section	.text.sht3x_read_temperature_and_humidity,"ax",%progbits
+ 404              		.align	1
+ 405              		.global	sht3x_read_temperature_and_humidity
+ 406              		.syntax unified
+ 407              		.thumb
+ 408              		.thumb_func
+ 410              	sht3x_read_temperature_and_humidity:
+ 411              	.LVL37:
+ 412              	.LFB139:
+ 154:Lib/sht3x/sht3x.c **** 
+ 155:Lib/sht3x/sht3x.c **** 
+ 156:Lib/sht3x/sht3x.c **** result_state_t sht3x_read_temperature_and_humidity(sht3x_t *handle, float *temperature, float *humi
+ 157:Lib/sht3x/sht3x.c **** {
+ 413              		.loc 1 157 1 is_stmt 1 view -0
+ 414              		.cfi_startproc
+ 415              		@ args = 0, pretend = 0, frame = 8
+ 416              		@ frame_needed = 0, uses_anonymous_args = 0
+ 417              		.loc 1 157 1 is_stmt 0 view .LVU88
+ 418 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 419              	.LCFI8:
+ 420              		.cfi_def_cfa_offset 20
+ 421              		.cfi_offset 4, -20
+ 422              		.cfi_offset 5, -16
+ 423              		.cfi_offset 6, -12
+ 424              		.cfi_offset 7, -8
+ 425              		.cfi_offset 14, -4
+ 426 0002 2DED028B 		vpush.64	{d8}
+ 427              	.LCFI9:
+ 428              		.cfi_def_cfa_offset 28
+ 429              		.cfi_offset 80, -28
+ 430              		.cfi_offset 81, -24
+ 431 0006 85B0     		sub	sp, sp, #20
+ 432              	.LCFI10:
+ 433              		.cfi_def_cfa_offset 48
+ 434 0008 0446     		mov	r4, r0
+ 435 000a 0E46     		mov	r6, r1
+ 436 000c 1546     		mov	r5, r2
+ 158:Lib/sht3x/sht3x.c **** 	sht3x_send_command(handle, SHT3X_COMMAND_MEASURE_HIGHREP_STRETCH);
+ 437              		.loc 1 158 2 is_stmt 1 view .LVU89
+ 438 000e 42F60641 		movw	r1, #11270
+ 439              	.LVL38:
+ 440              		.loc 1 158 2 is_stmt 0 view .LVU90
+ 441 0012 FFF7FEFF 		bl	sht3x_send_command
+ 442              	.LVL39:
+ 159:Lib/sht3x/sht3x.c **** 
+ 160:Lib/sht3x/sht3x.c **** 	HAL_Delay(1);
+ 443              		.loc 1 160 2 is_stmt 1 view .LVU91
+ 444 0016 0120     		movs	r0, #1
+ 445 0018 FFF7FEFF 		bl	HAL_Delay
+ 446              	.LVL40:
+ 161:Lib/sht3x/sht3x.c **** 
+ 162:Lib/sht3x/sht3x.c **** 	uint8_t buffer[6];
+ 447              		.loc 1 162 2 view .LVU92
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 12
+
+
+ 163:Lib/sht3x/sht3x.c **** 	if (HAL_I2C_Master_Receive(handle->i2c_port, SHT3X_ADDRESS << 1u, buffer, sizeof(buffer), SHT3X_I2
+ 448              		.loc 1 163 2 view .LVU93
+ 449              		.loc 1 163 6 is_stmt 0 view .LVU94
+ 450 001c 4FF49673 		mov	r3, #300
+ 451 0020 0093     		str	r3, [sp]
+ 452 0022 0623     		movs	r3, #6
+ 453 0024 02AA     		add	r2, sp, #8
+ 454 0026 8821     		movs	r1, #136
+ 455 0028 E068     		ldr	r0, [r4, #12]
+ 456 002a FFF7FEFF 		bl	HAL_I2C_Master_Receive
+ 457              	.LVL41:
+ 458              		.loc 1 163 5 view .LVU95
+ 459 002e E8BB     		cbnz	r0, .L27
+ 460 0030 0446     		mov	r4, r0
+ 461              	.LVL42:
+ 164:Lib/sht3x/sht3x.c **** 		return fault;
+ 165:Lib/sht3x/sht3x.c **** 	}
+ 166:Lib/sht3x/sht3x.c **** 
+ 167:Lib/sht3x/sht3x.c **** 	uint8_t temperature_crc = calculate_crc(buffer, 2);
+ 462              		.loc 1 167 2 is_stmt 1 view .LVU96
+ 463              		.loc 1 167 28 is_stmt 0 view .LVU97
+ 464 0032 0221     		movs	r1, #2
+ 465 0034 02A8     		add	r0, sp, #8
+ 466 0036 FFF7FEFF 		bl	calculate_crc
+ 467              	.LVL43:
+ 468 003a 0746     		mov	r7, r0
+ 469              	.LVL44:
+ 168:Lib/sht3x/sht3x.c **** 	uint8_t humidity_crc = calculate_crc(buffer + 3, 2);
+ 470              		.loc 1 168 2 is_stmt 1 view .LVU98
+ 471              		.loc 1 168 25 is_stmt 0 view .LVU99
+ 472 003c 0221     		movs	r1, #2
+ 473 003e 0DF10B00 		add	r0, sp, #11
+ 474 0042 FFF7FEFF 		bl	calculate_crc
+ 475              	.LVL45:
+ 169:Lib/sht3x/sht3x.c **** 	if (temperature_crc != buffer[2] || humidity_crc != buffer[5]) {
+ 476              		.loc 1 169 2 is_stmt 1 view .LVU100
+ 477              		.loc 1 169 31 is_stmt 0 view .LVU101
+ 478 0046 9DF80A30 		ldrb	r3, [sp, #10]	@ zero_extendqisi2
+ 479              		.loc 1 169 5 view .LVU102
+ 480 004a BB42     		cmp	r3, r7
+ 481 004c 34D1     		bne	.L28
+ 482              		.loc 1 169 60 discriminator 1 view .LVU103
+ 483 004e 9DF80D30 		ldrb	r3, [sp, #13]	@ zero_extendqisi2
+ 484              		.loc 1 169 35 discriminator 1 view .LVU104
+ 485 0052 8342     		cmp	r3, r0
+ 486 0054 32D1     		bne	.L29
+ 170:Lib/sht3x/sht3x.c **** 		return fault;
+ 171:Lib/sht3x/sht3x.c **** 	}
+ 172:Lib/sht3x/sht3x.c **** 
+ 173:Lib/sht3x/sht3x.c **** 	uint16_t temperature_raw = uint8_to_uint16(buffer[0], buffer[1]);
+ 487              		.loc 1 173 2 is_stmt 1 view .LVU105
+ 488              		.loc 1 173 29 is_stmt 0 view .LVU106
+ 489 0056 9DF80910 		ldrb	r1, [sp, #9]	@ zero_extendqisi2
+ 490 005a 9DF80800 		ldrb	r0, [sp, #8]	@ zero_extendqisi2
+ 491              	.LVL46:
+ 492              		.loc 1 173 29 view .LVU107
+ 493 005e FFF7FEFF 		bl	uint8_to_uint16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 13
+
+
+ 494              	.LVL47:
+ 495 0062 08EE100A 		vmov	s16, r0	@ int
+ 496              	.LVL48:
+ 174:Lib/sht3x/sht3x.c **** 	uint16_t humidity_raw = uint8_to_uint16(buffer[3], buffer[4]);
+ 497              		.loc 1 174 2 is_stmt 1 view .LVU108
+ 498              		.loc 1 174 26 is_stmt 0 view .LVU109
+ 499 0066 9DF80C10 		ldrb	r1, [sp, #12]	@ zero_extendqisi2
+ 500 006a 9DF80B00 		ldrb	r0, [sp, #11]	@ zero_extendqisi2
+ 501 006e FFF7FEFF 		bl	uint8_to_uint16
+ 502              	.LVL49:
+ 503 0072 07EE900A 		vmov	s15, r0	@ int
+ 504              	.LVL50:
+ 175:Lib/sht3x/sht3x.c **** 
+ 176:Lib/sht3x/sht3x.c **** 	*temperature = -45.0f + 175.0f * (float)temperature_raw / 65535.0f;
+ 505              		.loc 1 176 2 is_stmt 1 view .LVU110
+ 506              		.loc 1 176 35 is_stmt 0 view .LVU111
+ 507 0076 B8EE488A 		vcvt.f32.u32	s16, s16
+ 508              	.LVL51:
+ 509              		.loc 1 176 33 view .LVU112
+ 510 007a 9FED117A 		vldr.32	s14, .L31
+ 511 007e 28EE078A 		vmul.f32	s16, s16, s14
+ 512              		.loc 1 176 58 view .LVU113
+ 513 0082 DFED106A 		vldr.32	s13, .L31+4
+ 514 0086 88EE267A 		vdiv.f32	s14, s16, s13
+ 515              		.loc 1 176 24 view .LVU114
+ 516 008a 9FED0F6A 		vldr.32	s12, .L31+8
+ 517 008e 37EE467A 		vsub.f32	s14, s14, s12
+ 518              		.loc 1 176 15 view .LVU115
+ 519 0092 86ED007A 		vstr.32	s14, [r6]
+ 177:Lib/sht3x/sht3x.c **** 	*humidity = 100.0f * (float)humidity_raw / 65535.0f;
+ 520              		.loc 1 177 2 is_stmt 1 view .LVU116
+ 521              		.loc 1 177 23 is_stmt 0 view .LVU117
+ 522 0096 F8EE677A 		vcvt.f32.u32	s15, s15
+ 523              	.LVL52:
+ 524              		.loc 1 177 21 view .LVU118
+ 525 009a 9FED0C7A 		vldr.32	s14, .L31+12
+ 526 009e 67EE877A 		vmul.f32	s15, s15, s14
+ 527              		.loc 1 177 43 view .LVU119
+ 528 00a2 87EEA67A 		vdiv.f32	s14, s15, s13
+ 529              		.loc 1 177 12 view .LVU120
+ 530 00a6 85ED007A 		vstr.32	s14, [r5]
+ 178:Lib/sht3x/sht3x.c **** 
+ 179:Lib/sht3x/sht3x.c **** 	return success;
+ 531              		.loc 1 179 2 is_stmt 1 view .LVU121
+ 532              		.loc 1 179 9 is_stmt 0 view .LVU122
+ 533 00aa 00E0     		b	.L26
+ 534              	.LVL53:
+ 535              	.L27:
+ 164:Lib/sht3x/sht3x.c **** 	}
+ 536              		.loc 1 164 10 view .LVU123
+ 537 00ac 0124     		movs	r4, #1
+ 538              	.LVL54:
+ 539              	.L26:
+ 180:Lib/sht3x/sht3x.c **** }
+ 540              		.loc 1 180 1 view .LVU124
+ 541 00ae 2046     		mov	r0, r4
+ 542 00b0 05B0     		add	sp, sp, #20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 14
+
+
+ 543              	.LCFI11:
+ 544              		.cfi_remember_state
+ 545              		.cfi_def_cfa_offset 28
+ 546              		@ sp needed
+ 547 00b2 BDEC028B 		vldm	sp!, {d8}
+ 548              	.LCFI12:
+ 549              		.cfi_restore 80
+ 550              		.cfi_restore 81
+ 551              		.cfi_def_cfa_offset 20
+ 552 00b6 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 553              	.LVL55:
+ 554              	.L28:
+ 555              	.LCFI13:
+ 556              		.cfi_restore_state
+ 170:Lib/sht3x/sht3x.c **** 	}
+ 557              		.loc 1 170 10 view .LVU125
+ 558 00b8 0124     		movs	r4, #1
+ 559 00ba F8E7     		b	.L26
+ 560              	.L29:
+ 561 00bc 0124     		movs	r4, #1
+ 562 00be F6E7     		b	.L26
+ 563              	.L32:
+ 564              		.align	2
+ 565              	.L31:
+ 566 00c0 00002F43 		.word	1127153664
+ 567 00c4 00FF7F47 		.word	1199570688
+ 568 00c8 00003442 		.word	1110704128
+ 569 00cc 0000C842 		.word	1120403456
+ 570              		.cfi_endproc
+ 571              	.LFE139:
+ 573              		.global	__aeabi_i2d
+ 574              		.global	__aeabi_dmul
+ 575              		.global	__aeabi_dsub
+ 576              		.global	__aeabi_d2f
+ 577              		.section	.text.get_celsius_temperature,"ax",%progbits
+ 578              		.align	1
+ 579              		.global	get_celsius_temperature
+ 580              		.syntax unified
+ 581              		.thumb
+ 582              		.thumb_func
+ 584              	get_celsius_temperature:
+ 585              	.LVL56:
+ 586              	.LFB140:
+ 181:Lib/sht3x/sht3x.c **** 
+ 182:Lib/sht3x/sht3x.c **** // Convert uint16_t to float in celsius
+ 183:Lib/sht3x/sht3x.c **** float get_celsius_temperature(const uint16_t* temp)
+ 184:Lib/sht3x/sht3x.c **** {
+ 587              		.loc 1 184 1 is_stmt 1 view -0
+ 588              		.cfi_startproc
+ 589              		@ args = 0, pretend = 0, frame = 0
+ 590              		@ frame_needed = 0, uses_anonymous_args = 0
+ 591              		.loc 1 184 1 is_stmt 0 view .LVU127
+ 592 0000 08B5     		push	{r3, lr}
+ 593              	.LCFI14:
+ 594              		.cfi_def_cfa_offset 8
+ 595              		.cfi_offset 3, -8
+ 596              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 15
+
+
+ 185:Lib/sht3x/sht3x.c ****     return 175.0 * (*temp / 0xFFFF) - 45;
+ 597              		.loc 1 185 5 is_stmt 1 view .LVU128
+ 598              		.loc 1 185 21 is_stmt 0 view .LVU129
+ 599 0002 0088     		ldrh	r0, [r0]
+ 600              	.LVL57:
+ 601              		.loc 1 185 27 view .LVU130
+ 602 0004 0C4B     		ldr	r3, .L35+8
+ 603 0006 A3FB0030 		umull	r3, r0, r3, r0
+ 604              		.loc 1 185 18 view .LVU131
+ 605 000a C00B     		lsrs	r0, r0, #15
+ 606 000c FFF7FEFF 		bl	__aeabi_i2d
+ 607              	.LVL58:
+ 608 0010 07A3     		adr	r3, .L35
+ 609 0012 D3E90023 		ldrd	r2, [r3]
+ 610 0016 FFF7FEFF 		bl	__aeabi_dmul
+ 611              	.LVL59:
+ 612              		.loc 1 185 37 view .LVU132
+ 613 001a 0022     		movs	r2, #0
+ 614 001c 074B     		ldr	r3, .L35+12
+ 615 001e FFF7FEFF 		bl	__aeabi_dsub
+ 616              	.LVL60:
+ 617 0022 FFF7FEFF 		bl	__aeabi_d2f
+ 618              	.LVL61:
+ 186:Lib/sht3x/sht3x.c **** }
+ 619              		.loc 1 186 1 view .LVU133
+ 620 0026 00EE100A 		vmov	s0, r0
+ 621 002a 08BD     		pop	{r3, pc}
+ 622              	.L36:
+ 623 002c AFF30080 		.align	3
+ 624              	.L35:
+ 625 0030 00000000 		.word	0
+ 626 0034 00E06540 		.word	1080418304
+ 627 0038 01800080 		.word	-2147450879
+ 628 003c 00804640 		.word	1078362112
+ 629              		.cfi_endproc
+ 630              	.LFE140:
+ 632              		.section	.text.get_faringare_temperature,"ax",%progbits
+ 633              		.align	1
+ 634              		.global	get_faringare_temperature
+ 635              		.syntax unified
+ 636              		.thumb
+ 637              		.thumb_func
+ 639              	get_faringare_temperature:
+ 640              	.LVL62:
+ 641              	.LFB141:
+ 187:Lib/sht3x/sht3x.c **** 
+ 188:Lib/sht3x/sht3x.c **** // Convert uint16_t to float in faringate
+ 189:Lib/sht3x/sht3x.c **** float get_faringare_temperature(const uint16_t* temp)
+ 190:Lib/sht3x/sht3x.c **** {
+ 642              		.loc 1 190 1 is_stmt 1 view -0
+ 643              		.cfi_startproc
+ 644              		@ args = 0, pretend = 0, frame = 0
+ 645              		@ frame_needed = 0, uses_anonymous_args = 0
+ 646              		.loc 1 190 1 is_stmt 0 view .LVU135
+ 647 0000 08B5     		push	{r3, lr}
+ 648              	.LCFI15:
+ 649              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 16
+
+
+ 650              		.cfi_offset 3, -8
+ 651              		.cfi_offset 14, -4
+ 191:Lib/sht3x/sht3x.c ****     return 315.0 * (*temp / 0xFFFF) - 49;
+ 652              		.loc 1 191 5 is_stmt 1 view .LVU136
+ 653              		.loc 1 191 21 is_stmt 0 view .LVU137
+ 654 0002 0088     		ldrh	r0, [r0]
+ 655              	.LVL63:
+ 656              		.loc 1 191 27 view .LVU138
+ 657 0004 0C4B     		ldr	r3, .L39+8
+ 658 0006 A3FB0030 		umull	r3, r0, r3, r0
+ 659              		.loc 1 191 18 view .LVU139
+ 660 000a C00B     		lsrs	r0, r0, #15
+ 661 000c FFF7FEFF 		bl	__aeabi_i2d
+ 662              	.LVL64:
+ 663 0010 07A3     		adr	r3, .L39
+ 664 0012 D3E90023 		ldrd	r2, [r3]
+ 665 0016 FFF7FEFF 		bl	__aeabi_dmul
+ 666              	.LVL65:
+ 667              		.loc 1 191 37 view .LVU140
+ 668 001a 0022     		movs	r2, #0
+ 669 001c 074B     		ldr	r3, .L39+12
+ 670 001e FFF7FEFF 		bl	__aeabi_dsub
+ 671              	.LVL66:
+ 672 0022 FFF7FEFF 		bl	__aeabi_d2f
+ 673              	.LVL67:
+ 192:Lib/sht3x/sht3x.c **** }
+ 674              		.loc 1 192 1 view .LVU141
+ 675 0026 00EE100A 		vmov	s0, r0
+ 676 002a 08BD     		pop	{r3, pc}
+ 677              	.L40:
+ 678 002c AFF30080 		.align	3
+ 679              	.L39:
+ 680 0030 00000000 		.word	0
+ 681 0034 00B07340 		.word	1081323520
+ 682 0038 01800080 		.word	-2147450879
+ 683 003c 00804840 		.word	1078493184
+ 684              		.cfi_endproc
+ 685              	.LFE141:
+ 687              		.section	.text.get_humidity,"ax",%progbits
+ 688              		.align	1
+ 689              		.global	get_humidity
+ 690              		.syntax unified
+ 691              		.thumb
+ 692              		.thumb_func
+ 694              	get_humidity:
+ 695              	.LVL68:
+ 696              	.LFB142:
+ 193:Lib/sht3x/sht3x.c **** 
+ 194:Lib/sht3x/sht3x.c **** // Convert uint16_t to humidity
+ 195:Lib/sht3x/sht3x.c **** float get_humidity(const uint16_t* hum)
+ 196:Lib/sht3x/sht3x.c **** {
+ 697              		.loc 1 196 1 is_stmt 1 view -0
+ 698              		.cfi_startproc
+ 699              		@ args = 0, pretend = 0, frame = 0
+ 700              		@ frame_needed = 0, uses_anonymous_args = 0
+ 701              		.loc 1 196 1 is_stmt 0 view .LVU143
+ 702 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 17
+
+
+ 703              	.LCFI16:
+ 704              		.cfi_def_cfa_offset 8
+ 705              		.cfi_offset 3, -8
+ 706              		.cfi_offset 14, -4
+ 197:Lib/sht3x/sht3x.c ****     return 100.0 * (*(hum) / 0xFFFF);
+ 707              		.loc 1 197 5 is_stmt 1 view .LVU144
+ 708              		.loc 1 197 21 is_stmt 0 view .LVU145
+ 709 0002 0088     		ldrh	r0, [r0]
+ 710              	.LVL69:
+ 711              		.loc 1 197 28 view .LVU146
+ 712 0004 074B     		ldr	r3, .L43
+ 713 0006 A3FB0030 		umull	r3, r0, r3, r0
+ 714              		.loc 1 197 18 view .LVU147
+ 715 000a C00B     		lsrs	r0, r0, #15
+ 716 000c FFF7FEFF 		bl	__aeabi_i2d
+ 717              	.LVL70:
+ 718 0010 0022     		movs	r2, #0
+ 719 0012 054B     		ldr	r3, .L43+4
+ 720 0014 FFF7FEFF 		bl	__aeabi_dmul
+ 721              	.LVL71:
+ 722 0018 FFF7FEFF 		bl	__aeabi_d2f
+ 723              	.LVL72:
+ 198:Lib/sht3x/sht3x.c **** }...
+ 724              		.loc 1 198 1 view .LVU148
+ 725 001c 00EE100A 		vmov	s0, r0
+ 726 0020 08BD     		pop	{r3, pc}
+ 727              	.L44:
+ 728 0022 00BF     		.align	2
+ 729              	.L43:
+ 730 0024 01800080 		.word	-2147450879
+ 731 0028 00005940 		.word	1079574528
+ 732              		.cfi_endproc
+ 733              	.LFE142:
+ 735              		.text
+ 736              	.Letext0:
+ 737              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 738              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 739              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 740              		.file 5 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 741              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 742              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 743              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ 744              		.file 9 "Lib/sht3x/sht3x.h"
+ 745              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 sht3x.c
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:21     .text.calculate_crc:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:26     .text.calculate_crc:00000000 calculate_crc
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:118    .text.uint8_to_uint16:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:123    .text.uint8_to_uint16:00000000 uint8_to_uint16
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:141    .text.sht3x_send_command:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:146    .text.sht3x_send_command:00000000 sht3x_send_command
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:203    .text.SHT3X_Init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:209    .text.SHT3X_Init:00000000 SHT3X_Init
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:294    .text.reset:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:300    .text.reset:00000000 reset
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:316    .text.get_measure:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:322    .text.get_measure:00000000 get_measure
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:338    .text.set_mode:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:344    .text.set_mode:00000000 set_mode
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:360    .text.break_command:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:366    .text.break_command:00000000 break_command
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:382    .text.get_status:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:388    .text.get_status:00000000 get_status
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:404    .text.sht3x_read_temperature_and_humidity:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:410    .text.sht3x_read_temperature_and_humidity:00000000 sht3x_read_temperature_and_humidity
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:566    .text.sht3x_read_temperature_and_humidity:000000c0 $d
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:578    .text.get_celsius_temperature:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:584    .text.get_celsius_temperature:00000000 get_celsius_temperature
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:625    .text.get_celsius_temperature:00000030 $d
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:633    .text.get_faringare_temperature:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:639    .text.get_faringare_temperature:00000000 get_faringare_temperature
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:680    .text.get_faringare_temperature:00000030 $d
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:688    .text.get_humidity:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:694    .text.get_humidity:00000000 get_humidity
+C:\Users\Alex\AppData\Local\Temp\cc7yKAb7.s:730    .text.get_humidity:00000024 $d
+
+UNDEFINED SYMBOLS
+HAL_I2C_Master_Transmit
+HAL_I2C_Mem_Read
+HAL_Delay
+HAL_I2C_Master_Receive
+__aeabi_i2d
+__aeabi_dmul
+__aeabi_dsub
+__aeabi_d2f

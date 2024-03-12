@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
   27:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****  **********************/
   28:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
   29:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** struct _lv_color_filter_dsc_t;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 2
 
 
   30:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
   59 0034 00FB0211 		mla	r1, r0, r2, r1
   60 0038 01EB0120 		add	r0, r1, r1, lsl #8
   61 003c 01EBC011 		add	r1, r1, r0, lsl #7
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 3
 
 
   62 0040 C90D     		lsrs	r1, r1, #23
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
    7:Lib/lvgl/src/widgets/led/lv_led.c ****  *      INCLUDES
    8:Lib/lvgl/src/widgets/led/lv_led.c ****  *********************/
    9:Lib/lvgl/src/widgets/led/lv_led.c **** #include "lv_led.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 4
 
 
   10:Lib/lvgl/src/widgets/led/lv_led.c **** #if LV_USE_LED
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
   64:Lib/lvgl/src/widgets/led/lv_led.c **** 
   65:Lib/lvgl/src/widgets/led/lv_led.c **** void lv_led_set_color(lv_obj_t * obj, lv_color_t color)
   66:Lib/lvgl/src/widgets/led/lv_led.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 5
 
 
   67:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  121:Lib/lvgl/src/widgets/led/lv_led.c **** 
  122:Lib/lvgl/src/widgets/led/lv_led.c **** static void lv_led_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
  123:Lib/lvgl/src/widgets/led/lv_led.c **** {
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 6
 
 
  124:Lib/lvgl/src/widgets/led/lv_led.c ****     LV_UNUSED(class_p);
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  147              		.loc 1 139 15 is_stmt 0 view .LVU28
  148 001a 2146     		mov	r1, r4
  149 001c 0648     		ldr	r0, .L8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 7
 
 
  150              	.LVL6:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  171:Lib/lvgl/src/widgets/led/lv_led.c ****          * and LV_LED_BRIGHT_ON*/
  172:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.shadow_width = ((led->bright - LV_LED_BRIGHT_MIN) * rect_dsc.shadow_width) /
  173:Lib/lvgl/src/widgets/led/lv_led.c ****                                 (LV_LED_BRIGHT_MAX - LV_LED_BRIGHT_MIN);
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 8
 
 
  174:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.shadow_spread = ((led->bright - LV_LED_BRIGHT_MIN) * rect_dsc.shadow_spread) /
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
    5:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
    6:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #ifndef LV_COLOR_H
    7:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_H
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 9
 
 
    8:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
   62:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif /*DOXYGEN*/
   63:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
   64:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MIN 2    /*Opacities below this will be transparent*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 10
 
 
   65:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_OPA_MAX 253  /*Opacities above this will fully cover*/
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  119:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
  120:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     /*<=1 byte (+alpha) formats*/
  121:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_L8                = 0x06,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 11
 
 
  122:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     LV_COLOR_FORMAT_I1                = 0x07,
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  176:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** typedef uint8_t lv_color_format_t;
  177:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #endif /*DOXYGEN*/
  178:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 12
 
 
  179:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** #define LV_COLOR_FORMAT_IS_ALPHA_ONLY(cf) ((cf) >= LV_COLOR_FORMAT_A1 && (cf) <= LV_COLOR_FORMAT_A8
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  233:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * Convert an RGB888 color to an integer
  234:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @param c     an RGB888 color
  235:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  * @return      `c` as an integer
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 13
 
 
  236:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.green = g;
  291:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
  292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     return ret;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 14
 
 
  293:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  347:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** LV_ATTRIBUTE_FAST_MEM static inline uint16_t lv_color_16_16_mix(uint16_t c1, uint16_t c2, uint8_t m
  348:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** {
  349:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     if(mix == 255) return c1;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 15
 
 
  350:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     if(mix == 0) return c2;
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  404:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****  */
  405:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** lv_color_hsv_t lv_color_to_hsv(lv_color_t color);
  406:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 16
 
 
  407:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** /*Source: https://vuetifyjs.com/en/styles/colors/#material-colors*/
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  235 006e 8DF80631 		strb	r3, [sp, #262]
  236              	.LVL17:
  292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 17
 
 
  237              		.loc 3 292 12 view .LVU56
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  257 0092 02EB4202 		add	r2, r2, r2, lsl #1
  258              		.loc 2 91 63 view .LVU61
  259 0096 DBB2     		uxtb	r3, r3
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 18
 
 
  260              		.loc 2 91 55 view .LVU62
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
  302              		.loc 3 292 5 is_stmt 1 view .LVU79
  292:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 19
 
 
  303              		.loc 3 292 12 is_stmt 0 view .LVU80
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  347              		.loc 1 154 43 view .LVU92
  348 0112 C2F3C702 		ubfx	r2, r2, #3, #8
  349 0116 1F99     		ldr	r1, [sp, #124]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 20
 
 
  350 0118 F06A     		ldr	r0, [r6, #44]
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  391 0158 ADF88030 		strh	r3, [sp, #128]	@ movhi
  392 015c 1B0C     		lsrs	r3, r3, #16
  393 015e 8DF88230 		strb	r3, [sp, #130]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 21
 
 
  394 0162 BDF83120 		ldrh	r2, [sp, #49]	@ unaligned
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  437              		.loc 3 422 26 view .LVU119
  438              		.loc 3 424 5 view .LVU120
  439              	.LVL28:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 22
 
 
  440              	.LBB82:
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  481              		.loc 2 91 5 view .LVU133
   91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
  482              		.loc 2 91 40 is_stmt 0 view .LVU134
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 23
 
 
  483 01e6 9DF80420 		ldrb	r2, [sp, #4]	@ zero_extendqisi2
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  524              		.loc 3 290 5 is_stmt 1 view .LVU150
  290:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color.h ****     ret.blue = b;
  525              		.loc 3 290 15 is_stmt 0 view .LVU151
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 24
 
 
  526 021e 8DF80550 		strb	r5, [sp, #5]
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
   91:c:\users\alex\eclipse-workspace\lvgs_test\lib\lvgl\src\misc\lv_color_op.h ****     return (uint8_t)(bright >> 3);
  568              		.loc 2 91 14 view .LVU164
  569 026c 1A44     		add	r2, r2, r3
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 25
 
 
  570              	.LVL34:
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  611 02a2 8DF8DA30 		strb	r3, [sp, #218]
  612 02a6 369B     		ldr	r3, [sp, #216]
  613 02a8 ADF8DC30 		strh	r3, [sp, #220]	@ movhi
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 26
 
 
  614 02ac 1B0C     		lsrs	r3, r3, #16
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  658 02f2 C0F30723 		ubfx	r3, r0, #8, #8
  659 02f6 8DF85330 		strb	r3, [sp, #83]
  660 02fa C0F30740 		ubfx	r0, r0, #16, #8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 27
 
 
  661 02fe 8DF85400 		strb	r0, [sp, #84]
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  701              		.loc 1 163 29 view .LVU207
  702 0332 96F82F80 		ldrb	r8, [r6, #47]	@ zero_extendqisi2
  703 0336 9DF82930 		ldrb	r3, [sp, #41]	@ zero_extendqisi2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 28
 
 
  704 033a 9DF82A20 		ldrb	r2, [sp, #42]	@ zero_extendqisi2
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  164:Lib/lvgl/src/widgets/led/lv_led.c ****         rect_dsc.bg_grad.stops[1].color   = lv_color_mix(rect_dsc.bg_grad.stops[1].color, lv_color_
  748              		.loc 1 164 45 view .LVU219
  749 0386 4246     		mov	r2, r8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 29
 
 
  750 0388 2599     		ldr	r1, [sp, #148]
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  793 03cc 43EA0223 		orr	r3, r3, r2, lsl #8
  794 03d0 9DF83300 		ldrb	r0, [sp, #51]	@ zero_extendqisi2
  795 03d4 4246     		mov	r2, r8
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 30
 
 
  796 03d6 2699     		ldr	r1, [sp, #152]
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  839 041c 4246     		mov	r2, r8
  840 041e 2799     		ldr	r1, [sp, #156]
  841 0420 43EA0040 		orr	r0, r3, r0, lsl #16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 31
 
 
  842 0424 FFF7FEFF 		bl	lv_color_mix
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  885 046c 96F82F20 		ldrb	r2, [r6, #47]	@ zero_extendqisi2
  886 0470 2899     		ldr	r1, [sp, #160]
  887 0472 43EA0040 		orr	r0, r3, r0, lsl #16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 32
 
 
  888 0476 FFF7FEFF 		bl	lv_color_mix
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  931 04bc 43EA0040 		orr	r0, r3, r0, lsl #16
  932 04c0 FFF7FEFF 		bl	lv_color_mix
  933              	.LVL57:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 33
 
 
  934 04c4 8DF85200 		strb	r0, [sp, #82]
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  972 050a 2046     		mov	r0, r4
  973 050c FFF7FEFF 		bl	lv_event_get_layer
  974              	.LVL58:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 34
 
 
  179:Lib/lvgl/src/widgets/led/lv_led.c ****     }
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  1021 000a 84F82C00 		strb	r0, [r4, #44]
  1022 000e C0F30723 		ubfx	r3, r0, #8, #8
  1023 0012 84F82D30 		strb	r3, [r4, #45]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 35
 
 
  1024 0016 C0F30740 		ubfx	r0, r0, #16, #8
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  1067              		.loc 1 56 22 view .LVU306
  1068 000a 0446     		mov	r4, r0
  1069              	.LVL67:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 36
 
 
   57:Lib/lvgl/src/widgets/led/lv_led.c ****     return obj;
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
   70:Lib/lvgl/src/widgets/led/lv_led.c ****     lv_obj_invalidate(obj);
  1115              		.loc 1 70 16 is_stmt 0 view .LVU318
  1116 0006 8185     		strh	r1, [r0, #44]	@ movhi
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 37
 
 
  1117 0008 0A0C     		lsrs	r2, r1, #16
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
   81:Lib/lvgl/src/widgets/led/lv_led.c **** 
  1162              		.loc 1 81 5 is_stmt 1 view .LVU330
   81:Lib/lvgl/src/widgets/led/lv_led.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 38
 
 
  1163              		.loc 1 81 19 is_stmt 0 view .LVU331
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  1213              		.thumb_func
  1215              	lv_led_off:
  1216              	.LVL79:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 39
 
 
  1217              	.LFB237:
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  1261 0004 7047     		bx	lr
  1262              		.cfi_endproc
  1263              	.LFE239:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 40
 
 
  1265              		.section	.text.lv_led_toggle,"ax",%progbits
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  1309 0016 FFF7FEFF 		bl	lv_led_on
  1310              	.LVL89:
  104:Lib/lvgl/src/widgets/led/lv_led.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 41
 
 
  1311              		.loc 1 104 1 view .LVU362
@@ -2449,38 +2449,38 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 1
  1359              		.file 23 "Lib/lvgl/src/widgets/led/../../themes/lv_theme.h"
  1360              		.file 24 "Lib/lvgl/src/widgets/led/../../core/lv_obj_event.h"
  1361              		.file 25 "Lib/lvgl/src/widgets/led/../../core/lv_obj_draw.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s 			page 42
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_led.c
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:21     .text.lv_color_mix:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:26     .text.lv_color_mix:00000000 lv_color_mix
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:101    .text.lv_led_event:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:106    .text.lv_led_event:00000000 lv_led_event
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:185    .text.lv_led_event:00000038 $d
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1325   .rodata.lv_led_class:00000000 lv_led_class
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:194    .text.lv_led_event:0000003c $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:985    .text.lv_led_event:0000051c $d
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:991    .text.lv_led_constructor:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:996    .text.lv_led_constructor:00000000 lv_led_constructor
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1037   .text.lv_led_create:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1043   .text.lv_led_create:00000000 lv_led_create
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1082   .text.lv_led_create:00000014 $d
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1087   .text.lv_led_set_color:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1093   .text.lv_led_set_color:00000000 lv_led_set_color
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1132   .text.lv_led_set_brightness:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1138   .text.lv_led_set_brightness:00000000 lv_led_set_brightness
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1180   .text.lv_led_on:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1186   .text.lv_led_on:00000000 lv_led_on
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1209   .text.lv_led_off:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1215   .text.lv_led_off:00000000 lv_led_off
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1238   .text.lv_led_get_brightness:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1244   .text.lv_led_get_brightness:00000000 lv_led_get_brightness
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1266   .text.lv_led_toggle:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1272   .text.lv_led_toggle:00000000 lv_led_toggle
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1318   .rodata.str1.4:00000000 $d
-C:\Users\Alex\AppData\Local\Temp\ccL0QAnR.s:1322   .rodata.lv_led_class:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:21     .text.lv_color_mix:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:26     .text.lv_color_mix:00000000 lv_color_mix
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:101    .text.lv_led_event:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:106    .text.lv_led_event:00000000 lv_led_event
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:185    .text.lv_led_event:00000038 $d
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1325   .rodata.lv_led_class:00000000 lv_led_class
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:194    .text.lv_led_event:0000003c $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:985    .text.lv_led_event:0000051c $d
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:991    .text.lv_led_constructor:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:996    .text.lv_led_constructor:00000000 lv_led_constructor
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1037   .text.lv_led_create:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1043   .text.lv_led_create:00000000 lv_led_create
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1082   .text.lv_led_create:00000014 $d
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1087   .text.lv_led_set_color:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1093   .text.lv_led_set_color:00000000 lv_led_set_color
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1132   .text.lv_led_set_brightness:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1138   .text.lv_led_set_brightness:00000000 lv_led_set_brightness
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1180   .text.lv_led_on:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1186   .text.lv_led_on:00000000 lv_led_on
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1209   .text.lv_led_off:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1215   .text.lv_led_off:00000000 lv_led_off
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1238   .text.lv_led_get_brightness:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1244   .text.lv_led_get_brightness:00000000 lv_led_get_brightness
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1266   .text.lv_led_toggle:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1272   .text.lv_led_toggle:00000000 lv_led_toggle
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1318   .rodata.str1.4:00000000 $d
+C:\Users\Alex\AppData\Local\Temp\ccFMNAYP.s:1322   .rodata.lv_led_class:00000000 $d
 
 UNDEFINED SYMBOLS
 lv_event_get_code

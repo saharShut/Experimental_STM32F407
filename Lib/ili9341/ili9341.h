@@ -2,6 +2,7 @@
 #ifndef __ILI9341_H__
 #define __ILI9341_H__
 
+#include "stm32f4xx_hal.h"
 #include "fonts.h"
 #include <stdbool.h>
 
@@ -21,7 +22,7 @@ extern SPI_HandleTypeDef ILI9341_SPI_PORT;
 #define ILI9341_RES_GPIO_Port GPIOC
 #define ILI9341_CS_Pin        GPIO_PIN_6
 #define ILI9341_CS_GPIO_Port  GPIOB
-#define ILI9341_DC_Pin        GPIO_PIN_9
+#define ILI9341_DC_Pin        GPIO_PIN_11
 #define ILI9341_DC_GPIO_Port  GPIOA
 
 // default orientation
@@ -70,6 +71,7 @@ void ILI9341_Unselect();
 
 void ILI9341_Init(void);
 void ILI9341_DrawPixel(uint16_t x, uint16_t y, uint16_t color);
+void ILI9341_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor);
 void ILI9341_WriteString(uint16_t x, uint16_t y, const char* str, FontDef font, uint16_t color, uint16_t bgcolor);
 void ILI9341_FillRectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color);
 void ILI9341_FillScreen(uint16_t color);

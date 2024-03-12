@@ -24,6 +24,8 @@
 #include "fonts.h"
 #include "testimg.h"
 #include "lvgl.h"
+#include "lm75a.h"
+#include "sht3x.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -175,31 +177,6 @@ void my_disp_flush(lv_disp_t * disp, const lv_area_t * area, lv_color_t * color_
 }
 
 
-
-static void event_cb(lv_event_t * e)
-{
-  lv_event_code_t code = lv_event_get_code(e);
-  lv_obj_t * label = lv_event_get_user_data(e);
-  switch(code) {
-  case LV_EVENT_PRESSED:
-    lv_label_set_text(label, "The last button event:\nLV_EVENT_PRESSED");
-    break;
-  case LV_EVENT_CLICKED:
-    lv_label_set_text(label, "The last button event:\nLV_EVENT_CLICKED");
-    break;
-  case LV_EVENT_LONG_PRESSED:
-    lv_label_set_text(label, "The last button event:\nLV_EVENT_LONG_PRESSED");
-    break;
-  case LV_EVENT_LONG_PRESSED_REPEAT:
-    lv_label_set_text(label, "The last button event:\nLV_EVENT_LONG_PRESSED_REPEAT");
-    break;
-  default:
-    break;
-  }
-}
-
-
-
 /* USER CODE END 0 */
 
 /**
@@ -216,46 +193,154 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI1_Init();
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  init();
-  lv_init();
+  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
 
-  static lv_draw_buf_t draw_buf;
-  static lv_color_t buf1[240 * 320 / 10];                        /*Declare a buffer for 1/10 screen size*/
-  lv_draw_buf_init(&draw_buf, 320, 240, LV_COLOR_FORMAT_NATIVE, 20,
-                             buf1, sizeof(buf1));  /*Initialize the display buffer.*/
-  
-  lv_display_t* disp_drv = lv_display_create(320, 240);        /*Basic initialization*/
-  lv_display_set_flush_cb(disp_drv, my_disp_flush);    /*Set your driver function*/
-  lv_display_set_draw_buffers(disp_drv, &draw_buf, NULL);
-  //lv_disp_drv_register(&disp_drv);      /*Finally register the driver*/
-
-  lv_display_set_rotation(disp_drv, LV_DISPLAY_ROTATION_0); 
-
-  // Some example here
-
-  lv_obj_t * btn = lv_btn_create(lv_scr_act());
-  lv_obj_set_size(btn, 100, 50);
-  lv_obj_center(btn);
-  lv_obj_t * btn_label = lv_label_create(btn);
-  lv_label_set_text(btn_label, "Click me!");
-  lv_obj_center(btn_label);
-  lv_obj_t * info_label = lv_label_create(lv_scr_act());
-  lv_label_set_text(info_label, "The last button event:\nNone");
-  lv_obj_add_event(btn, event_cb, LV_EVENT_ALL, info_label);
-
-
-  while (1)
+  while(1)
   {
-    /* USER CODE END WHILE */
-	  //loop();
-    HAL_Delay(5);
-    lv_timer_handler();
-    /* USER CODE BEGIN 3 */
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+    HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_6);
+    for(int i = 5000; i > 0; i++)
+    {
+      ;
+    }
   }
+
+  // MX_SPI1_Init();
+  // /* Infinite loop */
+  // /* USER CODE BEGIN WHILE */
+  // init();
+  // lv_init();
+
+  // int8_t res = 0;
+
+  // I2C_HandleTypeDef* i2c_port = LM75A_Init();
+
+  // sht3x_t my_gauge;
+
+  // uint8_t sht_init_status = SHT3X_Init(&my_gauge, i2c_port);
+
+  // static lv_draw_buf_t draw_buf;
+  // static lv_color_t buf1[240 * 320 / 10];                        /*Declare a buffer for 1/10 screen size*/
+  // lv_draw_buf_init(&draw_buf, 320, 240, LV_COLOR_FORMAT_NATIVE, 20,
+  //                            buf1, sizeof(buf1));  /*Initialize the display buffer.*/
+  
+  // lv_display_t* disp_drv = lv_display_create(320, 240);        /*Basic initialization*/
+  // lv_display_set_flush_cb(disp_drv, my_disp_flush);    /*Set your driver function*/
+  // lv_display_set_draw_buffers(disp_drv, &draw_buf, NULL);
+  // //lv_disp_drv_register(&disp_drv);      /*Finally register the driver*/
+
+  // lv_display_set_rotation(disp_drv, LV_DISPLAY_ROTATION_0); 
+
+  // // Some example here
+
+  // static lv_style_t style_indic;
+
+  // // lv_style_init(&style_indic);
+  // // lv_style_set_bg_opa(&style_indic, LV_OPA_COVER);
+  // // lv_style_set_bg_color(&style_indic, lv_palette_main(LV_PALETTE_RED));
+  // // lv_style_set_bg_grad_color(&style_indic, lv_palette_main(LV_PALETTE_BLUE));
+  // // lv_style_set_bg_grad_dir(&style_indic, LV_GRAD_DIR_VER);
+
+  // // lv_obj_t * label_lm75 = lv_label_create(lv_screen_active());
+  // // lv_obj_add_style(label_lm75, &style_indic, LV_PART_INDICATOR);
+  // // lv_obj_set_pos(label_lm75, 10, 10);
+
+  // // lv_obj_t * label_sht3x_temp = lv_label_create(lv_screen_active());
+  // // lv_obj_add_style(label_sht3x_temp, &style_indic, LV_PART_INDICATOR);
+  // // lv_obj_set_pos(label_sht3x_temp, 10, 30);
+
+  // // lv_obj_t * label_sht3x_hum = lv_label_create(lv_screen_active());
+  // // lv_obj_add_style(label_sht3x_hum, &style_indic, LV_PART_INDICATOR);
+  // // lv_obj_set_pos(label_sht3x_hum, 10, 50);
+
+  // // lv_label_set_text_fmt(label_lm75, "Temperature LM75");
+
+  // lv_obj_t * label_lm75a_temp = lv_label_create(lv_screen_active());
+
+  // /*Create an Arc*/
+  // lv_obj_t * arc_lm75a_temp = lv_arc_create(lv_screen_active());
+  // lv_obj_set_size(arc_lm75a_temp, 150, 150);
+  // lv_arc_set_rotation(arc_lm75a_temp, 135);
+  // lv_arc_set_bg_angles(arc_lm75a_temp, 0, 270);
+  // lv_arc_set_value(arc_lm75a_temp, 10);
+  // lv_obj_center(arc_lm75a_temp);
+
+  // lv_obj_t * label_sht3x_temp = lv_label_create(lv_screen_active());
+
+  // /*Create an Arc*/
+  // lv_obj_t * arc_sht3x_temp = lv_arc_create(lv_screen_active());
+  // lv_obj_set_size(arc_sht3x_temp, 200, 200);
+  // lv_arc_set_rotation(arc_sht3x_temp, 135);
+  // lv_arc_set_bg_angles(arc_sht3x_temp, 0, 270);
+  // lv_arc_set_value(arc_sht3x_temp, 10);
+  // lv_obj_center(arc_sht3x_temp);
+
+  // lv_obj_t * label_sht3x_hum = lv_label_create(lv_screen_active());
+
+  // /*Create an Arc*/
+  // lv_obj_t * arc_sht3x_hum = lv_arc_create(lv_screen_active());
+  // lv_obj_set_size(arc_sht3x_hum, 250, 250);
+  // lv_arc_set_rotation(arc_sht3x_hum, 135);
+  // lv_arc_set_bg_angles(arc_sht3x_hum, 0, 270);
+  // lv_arc_set_value(arc_sht3x_hum, 10);
+  // lv_obj_center(arc_sht3x_hum);
+
+  // // switch(sht_init_status)
+  // // {
+  // //   case 0:
+  // //     lv_label_set_text_fmt(label_sht3x_hum, "Transfer fault.");
+  // //     break;
+  // //   case 1:
+  // //     lv_label_set_text_fmt(label_sht3x_hum, "Initialization successfull!");
+  // //     break;
+  // //   case 2:
+  // //     lv_label_set_text_fmt(label_sht3x_hum, "CRC not equvalent");
+  // //     break;
+  // // }
+  // // lv_anim_t a;
+  // // lv_anim_init(&a);
+  // // lv_anim_set_exec_cb(&a, set_temp);
+  // // lv_anim_set_duration(&a, 3000);
+  // // lv_anim_set_playback_duration(&a, 3000);
+  // // lv_anim_set_var(&a, bar);
+  // // lv_anim_set_values(&a, -20, 40);
+  // // lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
+  // // lv_anim_start(&a);
+
+  // uint16_t temp_data = 0;
+  // float temp;
+  // float sht3x_temp, sht3x_humidity;
+
+  // while (1)
+  // {
+  //   /* USER CODE END WHILE */
+	//   //loop();
+  //   if(LM75A_Read_Temp(&temp_data) == 0)
+  //   {
+  //     temp_data = (temp_data >> 8) & 0xFF | (temp_data << 8) & 0xFF00;
+  //     temp = ((temp_data >> 7) & 0x01FF) * 0.5;
+  //     int int_temp = (int)temp;
+  //     int ost = (int)(temp * 100) % 100;
+  //     lv_label_set_text_fmt(label_lm75a_temp, "%d C", int_temp);
+  //     lv_arc_set_value(arc_lm75a_temp, int_temp);
+  //     lv_arc_rotate_obj_to_angle(arc_lm75a_temp, label_lm75a_temp, 25);
+  //   }
+  //   if(sht3x_read_temperature_and_humidity(&my_gauge, &sht3x_temp, &sht3x_humidity) == success)
+  //   {
+  //     int int_temp_sht = (int)sht3x_temp;
+  //     int int_hum_sht = (int)sht3x_humidity;
+  //     lv_label_set_text_fmt(label_sht3x_temp, "%d C", int_temp_sht);
+  //     lv_label_set_text_fmt(label_sht3x_hum, "%d%%", int_hum_sht);
+  //     lv_arc_set_value(arc_sht3x_temp, int_temp_sht);
+  //     lv_arc_set_value(arc_sht3x_hum, int_hum_sht);
+  //     lv_arc_rotate_obj_to_angle(arc_sht3x_temp, label_sht3x_temp, 25);
+  //     lv_arc_rotate_obj_to_angle(arc_sht3x_hum, label_sht3x_hum, 25);
+  //   }
+  //   HAL_Delay(5);
+  //   lv_timer_handler();
+  //   /* USER CODE BEGIN 3 */
+  // }
   /* USER CODE END 3 */
 }
 
@@ -358,47 +443,47 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
+  // /*Configure GPIO pin Output Level */
+  // HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9|GPIO_PIN_10, GPIO_PIN_RESET);
+  // /*Configure GPIO pin Output Level */
+  // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9|GPIO_PIN_10, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+  // /*Configure GPIO pin Output Level */
+  // HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+  // /*Configure GPIO pin : B1_Pin */
+  // GPIO_InitStruct.Pin = B1_Pin;
+  // GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  // GPIO_InitStruct.Pull = GPIO_NOPULL;
+  // HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PC7 */
-  GPIO_InitStruct.Pin = GPIO_PIN_7;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  // /*Configure GPIO pin : PC7 */
+  // GPIO_InitStruct.Pin = GPIO_PIN_7;
+  // GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  // GPIO_InitStruct.Pull = GPIO_NOPULL;
+  // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  // HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PA9 PA10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
+  GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_9|GPIO_PIN_10;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB4 */
-  GPIO_InitStruct.Pin = GPIO_PIN_4;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  // /*Configure GPIO pin : PB4 */
+  // GPIO_InitStruct.Pin = GPIO_PIN_4;
+  // GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  // GPIO_InitStruct.Pull = GPIO_NOPULL;
+  // HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB6 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  // /*Configure GPIO pin : PB6 */
+  // GPIO_InitStruct.Pin = GPIO_PIN_6;
+  // GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  // GPIO_InitStruct.Pull = GPIO_NOPULL;
+  // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  // HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 

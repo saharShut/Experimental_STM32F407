@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
   28:Lib/lvgl/src/core/lv_obj_tree.c **** /**********************
   29:Lib/lvgl/src/core/lv_obj_tree.c ****  *      TYPEDEFS
   30:Lib/lvgl/src/core/lv_obj_tree.c ****  **********************/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 2
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 2
 
 
   31:Lib/lvgl/src/core/lv_obj_tree.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
   85:Lib/lvgl/src/core/lv_obj_tree.c ****     }
   86:Lib/lvgl/src/core/lv_obj_tree.c **** 
   87:Lib/lvgl/src/core/lv_obj_tree.c ****     LV_ASSERT_MEM_INTEGRITY();
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 3
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 3
 
 
   88:Lib/lvgl/src/core/lv_obj_tree.c ****     LV_LOG_TRACE("finished (delete %p)", (void *)obj);
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  142:Lib/lvgl/src/core/lv_obj_tree.c **** }
  143:Lib/lvgl/src/core/lv_obj_tree.c **** 
  144:Lib/lvgl/src/core/lv_obj_tree.c **** void lv_obj_set_parent(lv_obj_t * obj, lv_obj_t * parent)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 4
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 4
 
 
  145:Lib/lvgl/src/core/lv_obj_tree.c **** {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  199:Lib/lvgl/src/core/lv_obj_tree.c **** }
  200:Lib/lvgl/src/core/lv_obj_tree.c **** 
  201:Lib/lvgl/src/core/lv_obj_tree.c **** void lv_obj_move_to_index(lv_obj_t * obj, int32_t index)
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 5
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 5
 
 
  202:Lib/lvgl/src/core/lv_obj_tree.c **** {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  256:Lib/lvgl/src/core/lv_obj_tree.c ****     obj2->parent = parent;
  257:Lib/lvgl/src/core/lv_obj_tree.c **** 
  258:Lib/lvgl/src/core/lv_obj_tree.c ****     parent2->spec_attr->children[index2] = obj1;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 6
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 6
 
 
  259:Lib/lvgl/src/core/lv_obj_tree.c ****     obj1->parent = parent2;
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  313:Lib/lvgl/src/core/lv_obj_tree.c ****     if(obj == NULL) return NULL;
  314:Lib/lvgl/src/core/lv_obj_tree.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
  315:Lib/lvgl/src/core/lv_obj_tree.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 7
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 7
 
 
  316:Lib/lvgl/src/core/lv_obj_tree.c ****     return obj->parent;
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  370:Lib/lvgl/src/core/lv_obj_tree.c ****     int32_t sibling_idx = (int32_t)lv_obj_get_index(obj) + idx;
  371:Lib/lvgl/src/core/lv_obj_tree.c ****     if(sibling_idx < 0) return NULL;
  372:Lib/lvgl/src/core/lv_obj_tree.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 8
 
 
  373:Lib/lvgl/src/core/lv_obj_tree.c ****     return lv_obj_get_child(parent, sibling_idx);
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  427:Lib/lvgl/src/core/lv_obj_tree.c ****     if(parent == NULL) return 0xFFFFFFFF;
  428:Lib/lvgl/src/core/lv_obj_tree.c **** 
  429:Lib/lvgl/src/core/lv_obj_tree.c ****     uint32_t i = 0;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 9
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 9
 
 
  430:Lib/lvgl/src/core/lv_obj_tree.c ****     uint32_t idx = 0;
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  484:Lib/lvgl/src/core/lv_obj_tree.c ****     lv_result_t res = lv_obj_send_event(obj, LV_EVENT_DELETE, NULL);
  485:Lib/lvgl/src/core/lv_obj_tree.c ****     if(res == LV_RESULT_INVALID) {
  486:Lib/lvgl/src/core/lv_obj_tree.c ****         obj->is_deleting = false;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 10
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 10
 
 
  487:Lib/lvgl/src/core/lv_obj_tree.c ****         return;
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  541:Lib/lvgl/src/core/lv_obj_tree.c ****             disp->screens[i] = disp->screens[i + 1];
  542:Lib/lvgl/src/core/lv_obj_tree.c ****         }
  543:Lib/lvgl/src/core/lv_obj_tree.c ****         disp->screen_cnt--;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 11
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 11
 
 
  544:Lib/lvgl/src/core/lv_obj_tree.c ****         disp->screens = lv_realloc(disp->screens, disp->screen_cnt * sizeof(lv_obj_t *));
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  598:Lib/lvgl/src/core/lv_obj_tree.c **** 
  599:Lib/lvgl/src/core/lv_obj_tree.c **** #if LV_USE_OBJ_ID
  600:Lib/lvgl/src/core/lv_obj_tree.c ****     char buf[OBJ_DUMP_STRING_LEN];
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 12
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 12
 
 
  601:Lib/lvgl/src/core/lv_obj_tree.c ****     id = lv_obj_stringify_id(obj, buf, sizeof(buf));
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
   51              	.L3:
   52              		.loc 1 632 18 is_stmt 1 discriminator 1 view .LVU12
   53 000a 6345     		cmp	r3, ip
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 13
 
 
   54 000c 09DA     		bge	.L6
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  122:Lib/lvgl/src/core/lv_obj_tree.c ****     lv_anim_t a;
   99              		.loc 1 122 1 is_stmt 0 view .LVU24
  100 0000 30B5     		push	{r4, r5, lr}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 14
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 14
 
 
  101              	.LCFI0:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
   30:Lib/lvgl/src/core/../misc/lv_anim.h **** #define LV_ANIM_REPEAT_INFINITE      0xFFFF
   31:Lib/lvgl/src/core/../misc/lv_anim.h **** #define LV_ANIM_PLAYTIME_INFINITE    0xFFFFFFFF
   32:Lib/lvgl/src/core/../misc/lv_anim.h **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 15
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 15
 
 
   33:Lib/lvgl/src/core/../misc/lv_anim.h **** /*
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
   87:Lib/lvgl/src/core/../misc/lv_anim.h **** typedef enum {
   88:Lib/lvgl/src/core/../misc/lv_anim.h ****     LV_ANIM_OFF,
   89:Lib/lvgl/src/core/../misc/lv_anim.h ****     LV_ANIM_ON,
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 16
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 16
 
 
   90:Lib/lvgl/src/core/../misc/lv_anim.h **** } lv_anim_enable_t;
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  144:Lib/lvgl/src/core/../misc/lv_anim.h ****     lv_anim_path_cb_t path_cb;         /**< Describe the path (curve) of animations*/
  145:Lib/lvgl/src/core/../misc/lv_anim.h ****     int32_t start_value;               /**< Start value*/
  146:Lib/lvgl/src/core/../misc/lv_anim.h ****     int32_t current_value;             /**< Current value*/
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 17
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 17
 
 
  147:Lib/lvgl/src/core/../misc/lv_anim.h ****     int32_t end_value;                 /**< End value*/
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  199:Lib/lvgl/src/core/../misc/lv_anim.h ****     a->var = var;
  124              		.loc 2 199 5 view .LVU30
  125              		.loc 2 199 12 is_stmt 0 view .LVU31
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 18
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 18
 
 
  126 000e 0095     		str	r5, [sp]
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  156              	.LBE16:
  128:Lib/lvgl/src/core/lv_obj_tree.c ****     lv_anim_set_completed_cb(&a, lv_obj_delete_anim_completed_cb);
  157              		.loc 1 128 5 is_stmt 1 view .LVU43
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 19
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 19
 
 
  158              	.LBB18:
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  258:Lib/lvgl/src/core/../misc/lv_anim.h ****  * This function might be used when LVGL is bound to other languages because
  259:Lib/lvgl/src/core/../misc/lv_anim.h ****  * it's more consistent to have `lv_anim_t *` as first parameter.
  260:Lib/lvgl/src/core/../misc/lv_anim.h ****  * @param a         pointer to an initialized `lv_anim_t` variable
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 20
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 20
 
 
  261:Lib/lvgl/src/core/../misc/lv_anim.h ****  * @param exec_cb   a function to execute.
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  183              	.LBE21:
  184              	.LBE20:
  130:Lib/lvgl/src/core/lv_obj_tree.c **** }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 21
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 21
 
 
  185              		.loc 1 130 5 is_stmt 1 view .LVU54
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  232 0006 FFF7FEFF 		bl	lv_async_call
  233              	.LVL19:
  142:Lib/lvgl/src/core/lv_obj_tree.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 22
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 22
 
 
  234              		.loc 1 142 1 view .LVU64
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  281              		.thumb
  282              		.thumb_func
  284              	lv_obj_get_screen:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 23
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 23
 
 
  285              	.LFB242:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  329              		.cfi_startproc
  330              		@ args = 0, pretend = 0, frame = 0
  331              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 24
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 24
 
 
  290:Lib/lvgl/src/core/lv_obj_tree.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  369 0016 0023     		movs	r3, #0
  370 0018 00E0     		b	.L26
  371              	.LVL31:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 25
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 25
 
 
  372              	.L30:
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  413              	.LFE243:
  415              		.section	.text.lv_obj_get_child,"ax",%progbits
  416              		.align	1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 26
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 26
 
 
  417              		.global	lv_obj_get_child
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  336:Lib/lvgl/src/core/lv_obj_tree.c **** }
  456              		.loc 1 336 31 is_stmt 0 view .LVU133
  457 0010 0368     		ldr	r3, [r0]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 27
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 27
 
 
  336:Lib/lvgl/src/core/lv_obj_tree.c **** }
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  502              	.LVL47:
  503              	.LFB258:
  593:Lib/lvgl/src/core/lv_obj_tree.c ****     lv_obj_tree_walk_res_t res;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 28
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 28
 
 
  504              		.loc 1 593 1 is_stmt 1 view -0
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  546 0018 0134     		adds	r4, r4, #1
  547              	.LVL50:
  548              	.L42:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 29
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 29
 
 
  612:Lib/lvgl/src/core/lv_obj_tree.c ****             res = dump_tree_core(lv_obj_get_child(obj, i), depth + 1);
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  591              	.LBE25:
  620:Lib/lvgl/src/core/lv_obj_tree.c ****     }
  592              		.loc 1 620 16 view .LVU171
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 30
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 30
 
 
  593 003c 0220     		movs	r0, #2
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  639 0002 8468     		ldr	r4, [r0, #8]
  343:Lib/lvgl/src/core/lv_obj_tree.c **** 
  640              		.loc 1 343 7 view .LVU182
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 31
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 31
 
 
  641 0004 3CB3     		cbz	r4, .L64
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  351:Lib/lvgl/src/core/lv_obj_tree.c ****             }
  679              		.loc 1 351 25 view .LVU199
  680 0028 F3E7     		b	.L59
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 32
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 32
 
 
  681              	.L69:
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  722              		.loc 1 358 15 view .LVU212
  723 0044 0568     		ldr	r5, [r0]
  724 0046 9542     		cmp	r5, r2
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 33
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 33
 
 
  725 0048 F6D1     		bne	.L62
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  768              		.loc 1 390 5 view .LVU225
  390:Lib/lvgl/src/core/lv_obj_tree.c ****     return obj->spec_attr->child_cnt;
  769              		.loc 1 390 11 is_stmt 0 view .LVU226
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 34
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 34
 
 
  770 0000 8368     		ldr	r3, [r0, #8]
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  816              		.loc 1 566 5 view .LVU236
  566:Lib/lvgl/src/core/lv_obj_tree.c ****         lv_display_t * disp = lv_display_get_next(NULL);
  817              		.loc 1 566 7 is_stmt 0 view .LVU237
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 35
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 35
 
 
  818 0006 40B1     		cbz	r0, .L85
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  857              		.loc 1 571 17 is_stmt 1 discriminator 3 view .LVU252
  571:Lib/lvgl/src/core/lv_obj_tree.c ****             }
  858              		.loc 1 571 31 is_stmt 0 discriminator 3 view .LVU253
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 36
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 36
 
 
  859 0022 D7F8AC32 		ldr	r3, [r7, #684]
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  575:Lib/lvgl/src/core/lv_obj_tree.c ****     }
  901              		.loc 1 575 16 view .LVU266
  902              	.LBE27:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 37
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 37
 
 
  589:Lib/lvgl/src/core/lv_obj_tree.c **** }
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  944              		.loc 1 589 12 view .LVU279
  945 0074 0020     		movs	r0, #0
  946              	.LVL99:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 38
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 38
 
 
  947              	.L79:
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  395:Lib/lvgl/src/core/lv_obj_tree.c ****     LV_ASSERT_OBJ(obj, MY_CLASS);
  989              		.loc 1 395 1 view .LVU294
  990 0010 10B4     		push	{r4}
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 39
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 39
 
 
  991              	.LCFI13:
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1031              		.loc 1 397 39 view .LVU308
  1032 0030 7047     		bx	lr
  1033              	.LVL108:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 40
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 40
 
 
  1034              	.L103:
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  412:Lib/lvgl/src/core/lv_obj_tree.c **** 
  1080              		.loc 1 412 7 is_stmt 0 view .LVU319
  1081 0008 78B1     		cbz	r0, .L108
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 41
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 41
 
 
  1082 000a 0146     		mov	r1, r0
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1121 002e FBE7     		b	.L104
  1122              		.cfi_endproc
  1123              	.LFE251:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 42
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 42
 
 
  1125              		.section	.text.obj_delete_core,"ax",%progbits
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1168              		.loc 1 491 5 is_stmt 1 view .LVU346
  491:Lib/lvgl/src/core/lv_obj_tree.c **** 
  1169              		.loc 1 491 11 is_stmt 0 view .LVU347
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 43
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 43
 
 
  1170 0022 A868     		ldr	r0, [r5, #8]
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  500:Lib/lvgl/src/core/lv_obj_tree.c **** 
  1211              		.loc 1 500 5 view .LVU361
  500:Lib/lvgl/src/core/lv_obj_tree.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 44
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 44
 
 
  1212              		.loc 1 500 26 is_stmt 0 view .LVU362
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  515:Lib/lvgl/src/core/lv_obj_tree.c ****             lv_indev_reset(indev, obj);
  1253              		.loc 1 515 11 view .LVU376
  1254 0076 B342     		cmp	r3, r6
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 45
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 45
 
 
  1255 0078 18D0     		beq	.L143
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1294 009c E2D0     		beq	.L120
  507:Lib/lvgl/src/core/lv_obj_tree.c ****                 lv_indev_reset(indev, obj);
  1295              		.loc 1 507 97 discriminator 2 view .LVU392
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 46
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 46
 
 
  1296 009e E36E     		ldr	r3, [r4, #108]
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1338 00c6 FFF7FEFF 		bl	lv_async_call_cancel
  1339              	.LVL145:
  1340              	.L124:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 47
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 47
 
 
  523:Lib/lvgl/src/core/lv_obj_tree.c ****         async_cancel_res = lv_async_call_cancel(lv_obj_delete_async_cb, obj);
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  533:Lib/lvgl/src/core/lv_obj_tree.c ****         /*Find the screen in the list*/
  1380              		.loc 1 533 9 is_stmt 1 view .LVU420
  535:Lib/lvgl/src/core/lv_obj_tree.c ****             if(disp->screens[i] == obj) break;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 48
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 48
 
 
  1381              		.loc 1 535 9 view .LVU421
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1419              	.LVL157:
  1420              	.L130:
  540:Lib/lvgl/src/core/lv_obj_tree.c ****             disp->screens[i] = disp->screens[i + 1];
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 49
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 49
 
 
  1421              		.loc 1 540 23 is_stmt 1 discriminator 1 view .LVU438
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  550:Lib/lvgl/src/core/lv_obj_tree.c ****             obj->parent->spec_attr->children[i] = obj->parent->spec_attr->children[i + 1];
  1460              		.loc 1 550 36 discriminator 1 view .LVU454
  1461 0142 9B68     		ldr	r3, [r3, #8]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 50
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 50
 
 
  550:Lib/lvgl/src/core/lv_obj_tree.c ****             obj->parent->spec_attr->children[i] = obj->parent->spec_attr->children[i + 1];
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1501              	.L147:
  560:Lib/lvgl/src/core/lv_obj_tree.c **** 
  1502              		.loc 1 560 1 view .LVU470
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 51
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 51
 
 
  1503 0166 00BF     		.align	2
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1549              		.loc 1 58 5 view .LVU480
   59:Lib/lvgl/src/core/lv_obj_tree.c ****     lv_obj_invalidate(obj);
  1550              		.loc 1 59 5 view .LVU481
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 52
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 52
 
 
   59:Lib/lvgl/src/core/lv_obj_tree.c ****     lv_obj_invalidate(obj);
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1587              		.loc 1 82 7 is_stmt 0 view .LVU499
  1588 0034 002E     		cmp	r6, #0
  1589 0036 E9D0     		beq	.L148
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 53
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 53
 
 
   83:Lib/lvgl/src/core/lv_obj_tree.c ****         disp->act_scr = NULL;
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
   69:Lib/lvgl/src/core/lv_obj_tree.c ****     }
  1626              		.loc 1 69 49 view .LVU518
  1627 0058 0126     		movs	r6, #1
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 54
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 54
 
 
  1628 005a E2E7     		b	.L150
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1675              	.LVL182:
  474:Lib/lvgl/src/core/lv_obj_tree.c **** 
  1676              		.loc 1 474 1 is_stmt 0 view .LVU528
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 55
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 55
 
 
  1677 0006 08BD     		pop	{r3, pc}
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1728              	.LCFI22:
  1729              		.cfi_def_cfa_offset 16
  1730              		.cfi_offset 3, -16
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 56
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 56
 
 
  1731              		.cfi_offset 4, -12
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1768 001e FFF7FEFF 		bl	lv_obj_get_first_not_deleting_child
  1769              	.LVL193:
  1770              	.L163:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 57
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 57
 
 
  100:Lib/lvgl/src/core/lv_obj_tree.c ****         obj_delete_core(child);
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1810              	.L168:
  112:Lib/lvgl/src/core/lv_obj_tree.c ****         lv_obj_send_event(obj, LV_EVENT_CHILD_DELETED, NULL);
  1811              		.loc 1 112 9 is_stmt 1 view .LVU568
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 58
 
 
  1812 004a 0022     		movs	r2, #0
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  146:Lib/lvgl/src/core/lv_obj_tree.c ****     LV_ASSERT_OBJ(parent, MY_CLASS);
  1858              		.loc 1 146 5 view .LVU579
  147:Lib/lvgl/src/core/lv_obj_tree.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 59
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 59
 
 
  1859              		.loc 1 147 5 view .LVU580
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1897              		.loc 1 167 9 is_stmt 1 discriminator 3 view .LVU596
  167:Lib/lvgl/src/core/lv_obj_tree.c ****     }
  1898              		.loc 1 167 56 is_stmt 0 discriminator 3 view .LVU597
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 60
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 60
 
 
  1899 0026 AB68     		ldr	r3, [r5, #8]
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  1937              		.loc 1 171 9 is_stmt 1 view .LVU613
  171:Lib/lvgl/src/core/lv_obj_tree.c ****                                                      old_parent->spec_attr->child_cnt * (sizeof(lv_
  1938              		.loc 1 171 43 is_stmt 0 view .LVU614
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 61
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 61
 
 
  1939 0052 8900     		lsls	r1, r1, #2
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  183:Lib/lvgl/src/core/lv_obj_tree.c **** 
  1978              		.loc 1 183 69 view .LVU630
  1979 0082 44F82060 		str	r6, [r4, r0, lsl #2]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 62
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 62
 
 
  185:Lib/lvgl/src/core/lv_obj_tree.c **** 
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  175:Lib/lvgl/src/core/lv_obj_tree.c ****         old_parent->spec_attr->children = NULL;
  2024              		.loc 1 175 9 is_stmt 1 view .LVU641
  2025 00c4 2068     		ldr	r0, [r4]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 63
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 63
 
 
  2026 00c6 FFF7FEFF 		bl	lv_free
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2071              		.loc 1 207 5 is_stmt 1 view .LVU652
  207:Lib/lvgl/src/core/lv_obj_tree.c ****         LV_LOG_WARN("parent is NULL");
  2072              		.loc 1 207 7 is_stmt 0 view .LVU653
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 64
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 64
 
 
  2073 000a 68B3     		cbz	r0, .L176
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2112              	.LVL230:
  2113              	.L185:
  213:Lib/lvgl/src/core/lv_obj_tree.c ****     }
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 65
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 65
 
 
  2114              		.loc 1 213 9 is_stmt 1 view .LVU669
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2152              		.loc 1 237 5 is_stmt 1 view .LVU685
  2153 0058 0022     		movs	r2, #0
  2154 005a 2421     		movs	r1, #36
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 66
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 66
 
 
  2155 005c 3046     		mov	r0, r6
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2200              		.cfi_startproc
  2201              		@ args = 0, pretend = 0, frame = 0
  2202              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 67
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 67
 
 
  242:Lib/lvgl/src/core/lv_obj_tree.c ****     LV_ASSERT_OBJ(obj1, MY_CLASS);
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2242              	.LVL245:
  249:Lib/lvgl/src/core/lv_obj_tree.c ****     uint_fast32_t index2 = lv_obj_get_index(obj2);
  2243              		.loc 1 249 28 view .LVU712
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 68
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 68
 
 
  2244 0018 FFF7FEFF 		bl	lv_obj_get_index
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  258:Lib/lvgl/src/core/lv_obj_tree.c ****     obj1->parent = parent2;
  2284              		.loc 1 258 23 view .LVU727
  2285 0046 1B68     		ldr	r3, [r3]
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 69
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 69
 
 
  258:Lib/lvgl/src/core/lv_obj_tree.c ****     obj1->parent = parent2;
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2328              		.loc 1 271 5 view .LVU739
  2329 0086 2146     		mov	r1, r4
  2330 0088 2846     		mov	r0, r5
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 70
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 70
 
 
  2331 008a FFF7FEFF 		bl	lv_group_swap_obj
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  371:Lib/lvgl/src/core/lv_obj_tree.c **** 
  2377              		.loc 1 371 5 is_stmt 1 view .LVU750
  371:Lib/lvgl/src/core/lv_obj_tree.c **** 
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 71
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 71
 
 
  2378              		.loc 1 371 7 is_stmt 0 view .LVU751
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  424:Lib/lvgl/src/core/lv_obj_tree.c **** 
  2425              		.loc 1 424 5 view .LVU761
  426:Lib/lvgl/src/core/lv_obj_tree.c ****     if(parent == NULL) return 0xFFFFFFFF;
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 72
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 72
 
 
  2426              		.loc 1 426 5 view .LVU762
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2465 002a F3D1     		bne	.L196
  434:Lib/lvgl/src/core/lv_obj_tree.c ****             idx++;
  2466              		.loc 1 434 13 is_stmt 1 view .LVU778
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 73
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 73
 
 
  434:Lib/lvgl/src/core/lv_obj_tree.c ****             idx++;
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2512              	.LCFI28:
  2513              		.cfi_def_cfa_offset 24
  2514              		.cfi_offset 3, -24
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 74
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 74
 
 
  2515              		.cfi_offset 4, -20
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2554 0020 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
  2555              	.LVL287:
  2556              	.L204:
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 75
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 75
 
 
  382:Lib/lvgl/src/core/lv_obj_tree.c **** 
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2608              		.cfi_def_cfa_offset 16
  2609              		.cfi_offset 3, -16
  2610              		.cfi_offset 4, -12
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 76
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 76
 
 
  2611              		.cfi_offset 5, -8
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2651              		.loc 1 454 26 discriminator 1 view .LVU825
  454:Lib/lvgl/src/core/lv_obj_tree.c ****                 dump_tree_core(disp->screens[i], 0);
  2652              		.loc 1 454 32 is_stmt 0 discriminator 1 view .LVU826
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 77
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 77
 
 
  2653 0024 D5F8C832 		ldr	r3, [r5, #712]
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2702              		.file 24 "Lib/lvgl/src/core/../misc/lv_style.h"
  2703              		.file 25 "Lib/lvgl/src/core/../display/../misc/lv_array.h"
  2704              		.file 26 "Lib/lvgl/src/core/../display/lv_display.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 78
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 78
 
 
  2705              		.file 27 "Lib/lvgl/src/core/lv_obj_tree.h"
@@ -4632,70 +4632,70 @@ ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 1
  2713              		.file 35 "Lib/lvgl/src/core/lv_obj_scroll.h"
  2714              		.file 36 "Lib/lvgl/src/core/../misc/../font/../draw/../misc/../stdlib/lv_mem.h"
  2715              		.file 37 "Lib/lvgl/src/core/lv_obj_event.h"
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 79
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 79
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 lv_obj_tree.c
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:21     .text.lv_obj_get_first_not_deleting_child:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:26     .text.lv_obj_get_first_not_deleting_child:00000000 lv_obj_get_first_not_deleting_child
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:86     .text.lv_obj_delete_delayed:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:92     .text.lv_obj_delete_delayed:00000000 lv_obj_delete_delayed
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:200    .text.lv_obj_delete_delayed:0000002c $d
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1688   .text.lv_obj_delete_anim_completed_cb:00000000 lv_obj_delete_anim_completed_cb
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:205    .text.lv_obj_delete_async:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:211    .text.lv_obj_delete_async:00000000 lv_obj_delete_async
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:239    .text.lv_obj_delete_async:0000000c $d
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1657   .text.lv_obj_delete_async_cb:00000000 lv_obj_delete_async_cb
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:244    .text.lv_obj_get_parent:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:250    .text.lv_obj_get_parent:00000000 lv_obj_get_parent
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:278    .text.lv_obj_get_screen:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:284    .text.lv_obj_get_screen:00000000 lv_obj_get_screen
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:319    .text.lv_obj_get_display:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:325    .text.lv_obj_get_display:00000000 lv_obj_get_display
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:411    .text.lv_obj_get_display:0000003c $d
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:416    .text.lv_obj_get_child:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:422    .text.lv_obj_get_child:00000000 lv_obj_get_child
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:496    .text.dump_tree_core:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:501    .text.dump_tree_core:00000000 dump_tree_core
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:614    .text.lv_obj_get_child_by_type:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:620    .text.lv_obj_get_child_by_type:00000000 lv_obj_get_child_by_type
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:751    .text.lv_obj_get_child_count:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:757    .text.lv_obj_get_child_count:00000000 lv_obj_get_child_count
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:790    .text.walk_core:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:795    .text.walk_core:00000000 walk_core
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:955    .text.lv_obj_get_child_count_by_type:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:961    .text.lv_obj_get_child_count_by_type:00000000 lv_obj_get_child_count_by_type
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1052   .text.lv_obj_get_index:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1058   .text.lv_obj_get_index:00000000 lv_obj_get_index
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1126   .text.obj_delete_core:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1131   .text.obj_delete_core:00000000 obj_delete_core
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1505   .text.obj_delete_core:00000168 $d
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1510   .text.lv_obj_delete:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1516   .text.lv_obj_delete:00000000 lv_obj_delete
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1652   .text.lv_obj_delete_async_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1682   .text.lv_obj_delete_anim_completed_cb:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1713   .text.lv_obj_clean:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1719   .text.lv_obj_clean:00000000 lv_obj_clean
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1833   .text.lv_obj_set_parent:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:1839   .text.lv_obj_set_parent:00000000 lv_obj_set_parent
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2039   .text.lv_obj_move_to_index:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2045   .text.lv_obj_move_to_index:00000000 lv_obj_move_to_index
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2190   .text.lv_obj_swap:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2196   .text.lv_obj_swap:00000000 lv_obj_swap
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2340   .text.lv_obj_get_sibling:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2346   .text.lv_obj_get_sibling:00000000 lv_obj_get_sibling
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2400   .text.lv_obj_get_index_by_type:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2406   .text.lv_obj_get_index_by_type:00000000 lv_obj_get_index_by_type
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2497   .text.lv_obj_get_sibling_by_type:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2503   .text.lv_obj_get_sibling_by_type:00000000 lv_obj_get_sibling_by_type
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2564   .text.lv_obj_tree_walk:00000000 $t
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2570   .text.lv_obj_tree_walk:00000000 lv_obj_tree_walk
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2592   .text.lv_obj_dump_tree:00000000 $t
-ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s 			page 80
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:21     .text.lv_obj_get_first_not_deleting_child:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:26     .text.lv_obj_get_first_not_deleting_child:00000000 lv_obj_get_first_not_deleting_child
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:86     .text.lv_obj_delete_delayed:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:92     .text.lv_obj_delete_delayed:00000000 lv_obj_delete_delayed
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:200    .text.lv_obj_delete_delayed:0000002c $d
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1688   .text.lv_obj_delete_anim_completed_cb:00000000 lv_obj_delete_anim_completed_cb
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:205    .text.lv_obj_delete_async:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:211    .text.lv_obj_delete_async:00000000 lv_obj_delete_async
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:239    .text.lv_obj_delete_async:0000000c $d
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1657   .text.lv_obj_delete_async_cb:00000000 lv_obj_delete_async_cb
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:244    .text.lv_obj_get_parent:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:250    .text.lv_obj_get_parent:00000000 lv_obj_get_parent
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:278    .text.lv_obj_get_screen:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:284    .text.lv_obj_get_screen:00000000 lv_obj_get_screen
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:319    .text.lv_obj_get_display:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:325    .text.lv_obj_get_display:00000000 lv_obj_get_display
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:411    .text.lv_obj_get_display:0000003c $d
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:416    .text.lv_obj_get_child:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:422    .text.lv_obj_get_child:00000000 lv_obj_get_child
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:496    .text.dump_tree_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:501    .text.dump_tree_core:00000000 dump_tree_core
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:614    .text.lv_obj_get_child_by_type:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:620    .text.lv_obj_get_child_by_type:00000000 lv_obj_get_child_by_type
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:751    .text.lv_obj_get_child_count:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:757    .text.lv_obj_get_child_count:00000000 lv_obj_get_child_count
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:790    .text.walk_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:795    .text.walk_core:00000000 walk_core
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:955    .text.lv_obj_get_child_count_by_type:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:961    .text.lv_obj_get_child_count_by_type:00000000 lv_obj_get_child_count_by_type
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1052   .text.lv_obj_get_index:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1058   .text.lv_obj_get_index:00000000 lv_obj_get_index
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1126   .text.obj_delete_core:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1131   .text.obj_delete_core:00000000 obj_delete_core
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1505   .text.obj_delete_core:00000168 $d
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1510   .text.lv_obj_delete:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1516   .text.lv_obj_delete:00000000 lv_obj_delete
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1652   .text.lv_obj_delete_async_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1682   .text.lv_obj_delete_anim_completed_cb:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1713   .text.lv_obj_clean:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1719   .text.lv_obj_clean:00000000 lv_obj_clean
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1833   .text.lv_obj_set_parent:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:1839   .text.lv_obj_set_parent:00000000 lv_obj_set_parent
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2039   .text.lv_obj_move_to_index:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2045   .text.lv_obj_move_to_index:00000000 lv_obj_move_to_index
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2190   .text.lv_obj_swap:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2196   .text.lv_obj_swap:00000000 lv_obj_swap
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2340   .text.lv_obj_get_sibling:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2346   .text.lv_obj_get_sibling:00000000 lv_obj_get_sibling
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2400   .text.lv_obj_get_index_by_type:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2406   .text.lv_obj_get_index_by_type:00000000 lv_obj_get_index_by_type
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2497   .text.lv_obj_get_sibling_by_type:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2503   .text.lv_obj_get_sibling_by_type:00000000 lv_obj_get_sibling_by_type
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2564   .text.lv_obj_tree_walk:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2570   .text.lv_obj_tree_walk:00000000 lv_obj_tree_walk
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2592   .text.lv_obj_dump_tree:00000000 $t
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s 			page 80
 
 
-C:\Users\Alex\AppData\Local\Temp\ccH3JXYY.s:2598   .text.lv_obj_dump_tree:00000000 lv_obj_dump_tree
+C:\Users\Alex\AppData\Local\Temp\ccJhMWOp.s:2598   .text.lv_obj_dump_tree:00000000 lv_obj_dump_tree
 
 UNDEFINED SYMBOLS
 lv_anim_init

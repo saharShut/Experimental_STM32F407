@@ -1,0 +1,431 @@
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"lm75a.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Lib/lm75a/lm75a.c"
+  20              		.section	.text.LM75A_Init,"ax",%progbits
+  21              		.align	1
+  22              		.global	LM75A_Init
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	LM75A_Init:
+  28              	.LFB130:
+   1:Lib/lm75a/lm75a.c **** 
+   2:Lib/lm75a/lm75a.c **** 
+   3:Lib/lm75a/lm75a.c **** #include "lm75a.h"
+   4:Lib/lm75a/lm75a.c **** 
+   5:Lib/lm75a/lm75a.c **** static I2C_HandleTypeDef I2C_PORT;
+   6:Lib/lm75a/lm75a.c **** 
+   7:Lib/lm75a/lm75a.c **** I2C_HandleTypeDef* LM75A_Init(void)
+   8:Lib/lm75a/lm75a.c **** {
+  29              		.loc 1 8 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 40
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 28
+  36              		.cfi_offset 4, -28
+  37              		.cfi_offset 5, -24
+  38              		.cfi_offset 6, -20
+  39              		.cfi_offset 7, -16
+  40              		.cfi_offset 8, -12
+  41              		.cfi_offset 9, -8
+  42              		.cfi_offset 14, -4
+  43 0004 8FB0     		sub	sp, sp, #60
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 88
+   9:Lib/lm75a/lm75a.c ****     // I2C_PORT = port;
+  10:Lib/lm75a/lm75a.c **** 
+  11:Lib/lm75a/lm75a.c ****     // if(I2C_PORT->Instance == I2C3)
+  12:Lib/lm75a/lm75a.c ****     // {
+  13:Lib/lm75a/lm75a.c ****     //     uint8_t reg = TEMP;
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s 			page 2
+
+
+  14:Lib/lm75a/lm75a.c ****     //     // Preset temp pointer
+  15:Lib/lm75a/lm75a.c ****     //     if(HAL_I2C_Mem_Write(I2C_PORT,(uint16_t) LM75A_ADDRESS, (uint16_t)TEMP, I2C_MEMADD_SIZE_
+  16:Lib/lm75a/lm75a.c ****     //     {
+  17:Lib/lm75a/lm75a.c ****     //         return 16;
+  18:Lib/lm75a/lm75a.c ****     //     }
+  19:Lib/lm75a/lm75a.c ****     //     return 1;
+  20:Lib/lm75a/lm75a.c ****     // }
+  21:Lib/lm75a/lm75a.c **** 
+  22:Lib/lm75a/lm75a.c ****     GPIO_InitTypeDef GPIO_InitStruct = {0};
+  46              		.loc 1 22 5 view .LVU1
+  47              		.loc 1 22 22 is_stmt 0 view .LVU2
+  48 0006 0024     		movs	r4, #0
+  49 0008 0994     		str	r4, [sp, #36]
+  50 000a 0A94     		str	r4, [sp, #40]
+  51 000c 0B94     		str	r4, [sp, #44]
+  52 000e 0C94     		str	r4, [sp, #48]
+  53 0010 0D94     		str	r4, [sp, #52]
+  23:Lib/lm75a/lm75a.c **** 
+  24:Lib/lm75a/lm75a.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+  54              		.loc 1 24 5 is_stmt 1 view .LVU3
+  55              	.LBB2:
+  56              		.loc 1 24 5 view .LVU4
+  57 0012 0594     		str	r4, [sp, #20]
+  58              		.loc 1 24 5 view .LVU5
+  59 0014 334D     		ldr	r5, .L6
+  60 0016 2B6B     		ldr	r3, [r5, #48]
+  61 0018 43F00403 		orr	r3, r3, #4
+  62 001c 2B63     		str	r3, [r5, #48]
+  63              		.loc 1 24 5 view .LVU6
+  64 001e 2B6B     		ldr	r3, [r5, #48]
+  65 0020 03F00403 		and	r3, r3, #4
+  66 0024 0593     		str	r3, [sp, #20]
+  67              		.loc 1 24 5 view .LVU7
+  68 0026 059B     		ldr	r3, [sp, #20]
+  69              	.LBE2:
+  70              		.loc 1 24 5 view .LVU8
+  25:Lib/lm75a/lm75a.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+  71              		.loc 1 25 5 view .LVU9
+  72              	.LBB3:
+  73              		.loc 1 25 5 view .LVU10
+  74 0028 0694     		str	r4, [sp, #24]
+  75              		.loc 1 25 5 view .LVU11
+  76 002a 2B6B     		ldr	r3, [r5, #48]
+  77 002c 43F00103 		orr	r3, r3, #1
+  78 0030 2B63     		str	r3, [r5, #48]
+  79              		.loc 1 25 5 view .LVU12
+  80 0032 2B6B     		ldr	r3, [r5, #48]
+  81 0034 03F00103 		and	r3, r3, #1
+  82 0038 0693     		str	r3, [sp, #24]
+  83              		.loc 1 25 5 view .LVU13
+  84 003a 069B     		ldr	r3, [sp, #24]
+  85              	.LBE3:
+  86              		.loc 1 25 5 view .LVU14
+  26:Lib/lm75a/lm75a.c ****     /**I2C3 GPIO Configuration
+  27:Lib/lm75a/lm75a.c ****     PC9     ------> I2C3_SDA
+  28:Lib/lm75a/lm75a.c ****     PA8     ------> I2C3_SCL
+  29:Lib/lm75a/lm75a.c ****     */
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s 			page 3
+
+
+  30:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Pin = GPIO_PIN_9;
+  87              		.loc 1 30 5 view .LVU15
+  88              		.loc 1 30 25 is_stmt 0 view .LVU16
+  89 003c 4FF40073 		mov	r3, #512
+  90 0040 0993     		str	r3, [sp, #36]
+  31:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+  91              		.loc 1 31 5 is_stmt 1 view .LVU17
+  92              		.loc 1 31 26 is_stmt 0 view .LVU18
+  93 0042 4FF01209 		mov	r9, #18
+  94 0046 CDF82890 		str	r9, [sp, #40]
+  32:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Pull = GPIO_PULLUP;
+  95              		.loc 1 32 5 is_stmt 1 view .LVU19
+  96              		.loc 1 32 26 is_stmt 0 view .LVU20
+  97 004a 4FF00108 		mov	r8, #1
+  98 004e CDF82C80 		str	r8, [sp, #44]
+  33:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  99              		.loc 1 33 5 is_stmt 1 view .LVU21
+ 100              		.loc 1 33 27 is_stmt 0 view .LVU22
+ 101 0052 0327     		movs	r7, #3
+ 102 0054 0C97     		str	r7, [sp, #48]
+  34:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
+ 103              		.loc 1 34 5 is_stmt 1 view .LVU23
+ 104              		.loc 1 34 31 is_stmt 0 view .LVU24
+ 105 0056 0426     		movs	r6, #4
+ 106 0058 0D96     		str	r6, [sp, #52]
+  35:Lib/lm75a/lm75a.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 107              		.loc 1 35 5 is_stmt 1 view .LVU25
+ 108 005a 09A9     		add	r1, sp, #36
+ 109 005c 2248     		ldr	r0, .L6+4
+ 110 005e FFF7FEFF 		bl	HAL_GPIO_Init
+ 111              	.LVL0:
+  36:Lib/lm75a/lm75a.c **** 
+  37:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Pin = GPIO_PIN_8;
+ 112              		.loc 1 37 5 view .LVU26
+ 113              		.loc 1 37 25 is_stmt 0 view .LVU27
+ 114 0062 4FF48073 		mov	r3, #256
+ 115 0066 0993     		str	r3, [sp, #36]
+  38:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+ 116              		.loc 1 38 5 is_stmt 1 view .LVU28
+ 117              		.loc 1 38 26 is_stmt 0 view .LVU29
+ 118 0068 CDF82890 		str	r9, [sp, #40]
+  39:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Pull = GPIO_PULLUP;
+ 119              		.loc 1 39 5 is_stmt 1 view .LVU30
+ 120              		.loc 1 39 26 is_stmt 0 view .LVU31
+ 121 006c CDF82C80 		str	r8, [sp, #44]
+  40:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 122              		.loc 1 40 5 is_stmt 1 view .LVU32
+ 123              		.loc 1 40 27 is_stmt 0 view .LVU33
+ 124 0070 0C97     		str	r7, [sp, #48]
+  41:Lib/lm75a/lm75a.c ****     GPIO_InitStruct.Alternate = GPIO_AF4_I2C3;
+ 125              		.loc 1 41 5 is_stmt 1 view .LVU34
+ 126              		.loc 1 41 31 is_stmt 0 view .LVU35
+ 127 0072 0D96     		str	r6, [sp, #52]
+  42:Lib/lm75a/lm75a.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 128              		.loc 1 42 5 is_stmt 1 view .LVU36
+ 129 0074 09A9     		add	r1, sp, #36
+ 130 0076 1D48     		ldr	r0, .L6+8
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s 			page 4
+
+
+ 131 0078 FFF7FEFF 		bl	HAL_GPIO_Init
+ 132              	.LVL1:
+  43:Lib/lm75a/lm75a.c **** 
+  44:Lib/lm75a/lm75a.c ****     /* Peripheral clock enable */
+  45:Lib/lm75a/lm75a.c ****     __HAL_RCC_I2C3_CLK_ENABLE();
+ 133              		.loc 1 45 5 view .LVU37
+ 134              	.LBB4:
+ 135              		.loc 1 45 5 view .LVU38
+ 136 007c 0794     		str	r4, [sp, #28]
+ 137              		.loc 1 45 5 view .LVU39
+ 138 007e 2B6C     		ldr	r3, [r5, #64]
+ 139 0080 43F40003 		orr	r3, r3, #8388608
+ 140 0084 2B64     		str	r3, [r5, #64]
+ 141              		.loc 1 45 5 view .LVU40
+ 142 0086 2B6C     		ldr	r3, [r5, #64]
+ 143 0088 03F40003 		and	r3, r3, #8388608
+ 144 008c 0793     		str	r3, [sp, #28]
+ 145              		.loc 1 45 5 view .LVU41
+ 146 008e 079B     		ldr	r3, [sp, #28]
+ 147              	.LBE4:
+ 148              		.loc 1 45 5 view .LVU42
+  46:Lib/lm75a/lm75a.c **** 
+  47:Lib/lm75a/lm75a.c ****     I2C_PORT.Instance = I2C3;
+ 149              		.loc 1 47 5 view .LVU43
+ 150              		.loc 1 47 23 is_stmt 0 view .LVU44
+ 151 0090 1748     		ldr	r0, .L6+12
+ 152 0092 184B     		ldr	r3, .L6+16
+ 153 0094 0360     		str	r3, [r0]
+  48:Lib/lm75a/lm75a.c ****     I2C_PORT.Init.ClockSpeed = 100000;
+ 154              		.loc 1 48 5 is_stmt 1 view .LVU45
+ 155              		.loc 1 48 30 is_stmt 0 view .LVU46
+ 156 0096 184B     		ldr	r3, .L6+20
+ 157 0098 4360     		str	r3, [r0, #4]
+  49:Lib/lm75a/lm75a.c ****     I2C_PORT.Init.DutyCycle = I2C_DUTYCYCLE_2;
+ 158              		.loc 1 49 5 is_stmt 1 view .LVU47
+ 159              		.loc 1 49 29 is_stmt 0 view .LVU48
+ 160 009a 8460     		str	r4, [r0, #8]
+  50:Lib/lm75a/lm75a.c ****     I2C_PORT.Init.OwnAddress1 = 0;
+ 161              		.loc 1 50 5 is_stmt 1 view .LVU49
+ 162              		.loc 1 50 31 is_stmt 0 view .LVU50
+ 163 009c C460     		str	r4, [r0, #12]
+  51:Lib/lm75a/lm75a.c ****     I2C_PORT.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+ 164              		.loc 1 51 5 is_stmt 1 view .LVU51
+ 165              		.loc 1 51 34 is_stmt 0 view .LVU52
+ 166 009e 4FF48043 		mov	r3, #16384
+ 167 00a2 0361     		str	r3, [r0, #16]
+  52:Lib/lm75a/lm75a.c ****     I2C_PORT.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+ 168              		.loc 1 52 5 is_stmt 1 view .LVU53
+ 169              		.loc 1 52 35 is_stmt 0 view .LVU54
+ 170 00a4 4461     		str	r4, [r0, #20]
+  53:Lib/lm75a/lm75a.c ****     I2C_PORT.Init.OwnAddress2 = 0;
+ 171              		.loc 1 53 5 is_stmt 1 view .LVU55
+ 172              		.loc 1 53 31 is_stmt 0 view .LVU56
+ 173 00a6 8461     		str	r4, [r0, #24]
+  54:Lib/lm75a/lm75a.c ****     I2C_PORT.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+ 174              		.loc 1 54 5 is_stmt 1 view .LVU57
+ 175              		.loc 1 54 35 is_stmt 0 view .LVU58
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s 			page 5
+
+
+ 176 00a8 C461     		str	r4, [r0, #28]
+  55:Lib/lm75a/lm75a.c ****     I2C_PORT.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+ 177              		.loc 1 55 5 is_stmt 1 view .LVU59
+ 178              		.loc 1 55 33 is_stmt 0 view .LVU60
+ 179 00aa 0462     		str	r4, [r0, #32]
+  56:Lib/lm75a/lm75a.c ****     if(HAL_I2C_Init(&I2C_PORT) == HAL_ERROR)
+ 180              		.loc 1 56 5 is_stmt 1 view .LVU61
+ 181              		.loc 1 56 8 is_stmt 0 view .LVU62
+ 182 00ac FFF7FEFF 		bl	HAL_I2C_Init
+ 183              	.LVL2:
+ 184              		.loc 1 56 7 view .LVU63
+ 185 00b0 4045     		cmp	r0, r8
+ 186 00b2 13D0     		beq	.L3
+  57:Lib/lm75a/lm75a.c ****     {
+  58:Lib/lm75a/lm75a.c ****         return NULL;
+  59:Lib/lm75a/lm75a.c ****     }
+  60:Lib/lm75a/lm75a.c **** 
+  61:Lib/lm75a/lm75a.c ****     uint8_t reg = TEMP;
+ 187              		.loc 1 61 5 is_stmt 1 view .LVU64
+ 188              		.loc 1 61 13 is_stmt 0 view .LVU65
+ 189 00b4 2246     		mov	r2, r4
+ 190 00b6 8DF82340 		strb	r4, [sp, #35]
+  62:Lib/lm75a/lm75a.c ****     // Preset temp pointer
+  63:Lib/lm75a/lm75a.c ****     if(HAL_I2C_Mem_Write(&I2C_PORT,(uint16_t) LM75A_ADDRESS, (uint16_t)TEMP, I2C_MEMADD_SIZE_8BIT, 
+ 191              		.loc 1 63 5 is_stmt 1 view .LVU66
+ 192              		.loc 1 63 8 is_stmt 0 view .LVU67
+ 193 00ba 0A23     		movs	r3, #10
+ 194 00bc 0293     		str	r3, [sp, #8]
+ 195 00be 4346     		mov	r3, r8
+ 196 00c0 CDF80480 		str	r8, [sp, #4]
+ 197 00c4 0DF12301 		add	r1, sp, #35
+ 198 00c8 0091     		str	r1, [sp]
+ 199 00ca 9021     		movs	r1, #144
+ 200 00cc 0848     		ldr	r0, .L6+12
+ 201 00ce FFF7FEFF 		bl	HAL_I2C_Mem_Write
+ 202              	.LVL3:
+ 203              		.loc 1 63 7 view .LVU68
+ 204 00d2 28B9     		cbnz	r0, .L4
+  64:Lib/lm75a/lm75a.c ****     {
+  65:Lib/lm75a/lm75a.c ****         return NULL;
+  66:Lib/lm75a/lm75a.c ****     }
+  67:Lib/lm75a/lm75a.c **** 
+  68:Lib/lm75a/lm75a.c ****     return &I2C_PORT;
+ 205              		.loc 1 68 12 view .LVU69
+ 206 00d4 0648     		ldr	r0, .L6+12
+ 207              	.L1:
+  69:Lib/lm75a/lm75a.c **** }
+ 208              		.loc 1 69 1 view .LVU70
+ 209 00d6 0FB0     		add	sp, sp, #60
+ 210              	.LCFI2:
+ 211              		.cfi_remember_state
+ 212              		.cfi_def_cfa_offset 28
+ 213              		@ sp needed
+ 214 00d8 BDE8F083 		pop	{r4, r5, r6, r7, r8, r9, pc}
+ 215              	.L3:
+ 216              	.LCFI3:
+ 217              		.cfi_restore_state
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s 			page 6
+
+
+  58:Lib/lm75a/lm75a.c ****     }
+ 218              		.loc 1 58 16 view .LVU71
+ 219 00dc 0020     		movs	r0, #0
+ 220 00de FAE7     		b	.L1
+ 221              	.L4:
+  65:Lib/lm75a/lm75a.c ****     }
+ 222              		.loc 1 65 16 view .LVU72
+ 223 00e0 0020     		movs	r0, #0
+ 224 00e2 F8E7     		b	.L1
+ 225              	.L7:
+ 226              		.align	2
+ 227              	.L6:
+ 228 00e4 00380240 		.word	1073887232
+ 229 00e8 00080240 		.word	1073874944
+ 230 00ec 00000240 		.word	1073872896
+ 231 00f0 00000000 		.word	I2C_PORT
+ 232 00f4 005C0040 		.word	1073765376
+ 233 00f8 A0860100 		.word	100000
+ 234              		.cfi_endproc
+ 235              	.LFE130:
+ 237              		.section	.text.LM75A_Read_Temp,"ax",%progbits
+ 238              		.align	1
+ 239              		.global	LM75A_Read_Temp
+ 240              		.syntax unified
+ 241              		.thumb
+ 242              		.thumb_func
+ 244              	LM75A_Read_Temp:
+ 245              	.LVL4:
+ 246              	.LFB131:
+  70:Lib/lm75a/lm75a.c **** 
+  71:Lib/lm75a/lm75a.c **** 
+  72:Lib/lm75a/lm75a.c **** int8_t LM75A_Read_Temp(const uint16_t* data)
+  73:Lib/lm75a/lm75a.c **** {
+ 247              		.loc 1 73 1 is_stmt 1 view -0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 0
+ 250              		@ frame_needed = 0, uses_anonymous_args = 0
+ 251              		.loc 1 73 1 is_stmt 0 view .LVU74
+ 252 0000 00B5     		push	{lr}
+ 253              	.LCFI4:
+ 254              		.cfi_def_cfa_offset 4
+ 255              		.cfi_offset 14, -4
+ 256 0002 85B0     		sub	sp, sp, #20
+ 257              	.LCFI5:
+ 258              		.cfi_def_cfa_offset 24
+  74:Lib/lm75a/lm75a.c ****     if(HAL_I2C_Mem_Read(&I2C_PORT, (uint16_t) LM75A_ADDRESS, (uint16_t)TEMP, I2C_MEMADD_SIZE_8BIT, 
+ 259              		.loc 1 74 5 is_stmt 1 view .LVU75
+ 260              		.loc 1 74 8 is_stmt 0 view .LVU76
+ 261 0004 0A23     		movs	r3, #10
+ 262 0006 0293     		str	r3, [sp, #8]
+ 263 0008 0223     		movs	r3, #2
+ 264 000a 0193     		str	r3, [sp, #4]
+ 265 000c 0090     		str	r0, [sp]
+ 266 000e 0123     		movs	r3, #1
+ 267 0010 0022     		movs	r2, #0
+ 268 0012 9021     		movs	r1, #144
+ 269 0014 0448     		ldr	r0, .L13
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s 			page 7
+
+
+ 270              	.LVL5:
+ 271              		.loc 1 74 8 view .LVU77
+ 272 0016 FFF7FEFF 		bl	HAL_I2C_Mem_Read
+ 273              	.LVL6:
+ 274              		.loc 1 74 7 view .LVU78
+ 275 001a 10B9     		cbnz	r0, .L12
+ 276              	.L9:
+  75:Lib/lm75a/lm75a.c ****     {
+  76:Lib/lm75a/lm75a.c ****         return -1;
+  77:Lib/lm75a/lm75a.c ****     }
+  78:Lib/lm75a/lm75a.c ****     return 0;
+  79:Lib/lm75a/lm75a.c **** }
+ 277              		.loc 1 79 1 view .LVU79
+ 278 001c 05B0     		add	sp, sp, #20
+ 279              	.LCFI6:
+ 280              		.cfi_remember_state
+ 281              		.cfi_def_cfa_offset 4
+ 282              		@ sp needed
+ 283 001e 5DF804FB 		ldr	pc, [sp], #4
+ 284              	.L12:
+ 285              	.LCFI7:
+ 286              		.cfi_restore_state
+  76:Lib/lm75a/lm75a.c ****     }
+ 287              		.loc 1 76 16 view .LVU80
+ 288 0022 4FF0FF30 		mov	r0, #-1
+ 289 0026 F9E7     		b	.L9
+ 290              	.L14:
+ 291              		.align	2
+ 292              	.L13:
+ 293 0028 00000000 		.word	I2C_PORT
+ 294              		.cfi_endproc
+ 295              	.LFE131:
+ 297              		.section	.bss.I2C_PORT,"aw",%nobits
+ 298              		.align	2
+ 301              	I2C_PORT:
+ 302 0000 00000000 		.space	84
+ 302      00000000 
+ 302      00000000 
+ 302      00000000 
+ 302      00000000 
+ 303              		.text
+ 304              	.Letext0:
+ 305              		.file 2 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 306              		.file 3 "e:\\programms\\gnu_mcu_eclipse\\toolchain\\arm-gnu-toolchain-12.2.mpacbti-bet1-mingw-w64-
+ 307              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 308              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 309              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 310              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 311              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h"
+ARM GAS  C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lm75a.c
+C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s:21     .text.LM75A_Init:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s:27     .text.LM75A_Init:00000000 LM75A_Init
+C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s:228    .text.LM75A_Init:000000e4 $d
+C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s:301    .bss.I2C_PORT:00000000 I2C_PORT
+C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s:238    .text.LM75A_Read_Temp:00000000 $t
+C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s:244    .text.LM75A_Read_Temp:00000000 LM75A_Read_Temp
+C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s:293    .text.LM75A_Read_Temp:00000028 $d
+C:\Users\Alex\AppData\Local\Temp\ccF8jpYO.s:298    .bss.I2C_PORT:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_I2C_Init
+HAL_I2C_Mem_Write
+HAL_I2C_Mem_Read

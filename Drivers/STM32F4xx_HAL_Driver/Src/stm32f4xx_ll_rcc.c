@@ -14,6 +14,7 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
+ #define USE_FULL_LL_DRIVER
 #if defined(USE_FULL_LL_DRIVER)
 
 /* Includes ------------------------------------------------------------------*/
